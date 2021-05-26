@@ -9,6 +9,19 @@ public class PuntoCinco {
         System.out.println("=" + "=".repeat(titulo.length()) + "=");
     }
 
+    public static int vecesRepetido(String numeros, char numeroRepetido) {
+        int numeroVeces = 0;
+        char[] letras = numeros.toCharArray();
+        //System.out.println("letras[0] = " + letras[0]);
+        for ( char numero: letras) {
+            if ( numero == numeroRepetido) {
+                numeroRepetido++;
+            }
+        }
+
+        return numeroVeces;
+    }
+
     public static void primerosNumerosNaturales() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Por favor, ingrese la cantidad de numeros que desea visualizar: ");
@@ -20,10 +33,12 @@ public class PuntoCinco {
         System.out.print("Por favor, ingresa el número que desea que se repita: ");
         int numero = scanner.nextInt();
 
-        String palabra = "303";
-
-        if(palabra.contains("3")){
-            System.out.println("HOla Mundo");
+        for (int i = 0; i < cantidad; i++) {
+            String numeroARevisar = Integer.toString(i);
+            int veces = vecesRepetido(numeroARevisar, (char)numero);
+            if( veces == cantidadVeces) {
+                System.out.println(i);
+            }
         }
     }
 
