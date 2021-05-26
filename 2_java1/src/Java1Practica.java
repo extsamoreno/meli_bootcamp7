@@ -8,6 +8,10 @@ public class Java1Practica {
 
     }
 
+    /**
+     * Method that print the first n-pair numbers adding 2 to each
+     * iteration
+     */
     public static void ejercicio1(){
         System.out.print("Enter the value of n: ");
         int n= input.nextInt();
@@ -17,6 +21,9 @@ public class Java1Practica {
         }
     }
 
+    /**
+     * Method that print the first n-multiple numbers of a number m
+     */
     public static void ejercicio2(){
         System.out.print("Enter the value of n: ");
         int n=input.nextInt();
@@ -27,12 +34,18 @@ public class Java1Practica {
         }
     }
 
+    /**
+     * Method that print if the n number is prime or not
+     */
     public static void ejercicio3(){
         System.out.print("Enter the value of n: ");
         int n=input.nextInt();
         System.out.println(n+" is prime? "+isPrime(n));
     }
 
+    /**
+     * Method that print the first n-prime numbers
+     */
     public static void ejercicio4(){
         System.out.print("Enter the value of n: ");
         int n=input.nextInt();
@@ -41,6 +54,10 @@ public class Java1Practica {
         }
     }
 
+    /**
+     * Method that print the first n-natural numbers which
+     * have at least m digits d
+     */
     public static void ejercicio5(){
         System.out.print("Enter the value of n: ");
         int n=input.nextInt();
@@ -48,24 +65,24 @@ public class Java1Practica {
         int m=input.nextInt();
         System.out.print("Enter the value of d: ");
         int d=input.nextInt();
-        int counter=1;
+        int counter=1; // Controls that the corresponding n numbers are printed
         String tempInitialNumber="", tempActualNumber;
         for (int i=0; i<m; i++){
-            tempInitialNumber+=d+"";
+            tempInitialNumber+=d+""; // Always the first number is gonna be the number with all his digits with d
         }
         int actualNumber=Integer.parseInt(tempInitialNumber);
         while (counter<=n){
-            tempActualNumber= actualNumber+"";
+            tempActualNumber= actualNumber+""; // Force integer to string
             for (int i=0; i<m; i++){
-                if(tempActualNumber.indexOf(d+"")==-1){
-                    actualNumber++;
+                if(tempActualNumber.indexOf(d+"")==-1){ // If the d digit is not contained in the String that means the number is not valid
+                    actualNumber++; // Proceed with the next number
                     break;
                 } else {
-                    tempActualNumber=tempActualNumber.replaceFirst(d+"","");
-                    if (i==m-1) {
-                        System.out.print(actualNumber+" ");
-                        counter++;
-                        actualNumber++;
+                    tempActualNumber=tempActualNumber.replaceFirst(d+"",""); // Replace the d digit for an empty character
+                    if (i==m-1) { // If is the last iteration and the previous conditions are true
+                        System.out.print(actualNumber+" "); // Print the number
+                        counter++; // Increase the counter
+                        actualNumber++; // Proceed with the next number
                     }
                 }
             }
