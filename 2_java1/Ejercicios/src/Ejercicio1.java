@@ -7,10 +7,11 @@ public class Ejercicio1 {
         int numIngresado;
         numIngresado = ingresarNumero();
 
-        recorrerNumeros(numIngresado);
+        mostrarNumerosPar(numIngresado);
 
     }
 
+    // Scanner de ingreso de datos
     public static int ingresarNumero(){
 
         Scanner entrada = new Scanner(System.in);
@@ -20,22 +21,25 @@ public class Ejercicio1 {
         System.out.println("Ingrese un numero. Se mostrara segun la cantidad ingresada, los primeros numeros pares");
         numIngresado = entrada.nextInt();
 
+        entrada.close();
+
         return numIngresado;
     }
 
-    public static void recorrerNumeros(int numIngresado){
+    // Funcion que muestra los numeros pares, limitado por la cantidad ingresada por el usuario
+    public static void mostrarNumerosPar(int numIngresado){
 
         int count = 0;
-        int numero = 0;
+        int i= 0;
 
         while(numIngresado > count){
 
-            if(esPar(numero)){
-                System.out.println(numero);
+            if(esPar(i)){
+                System.out.println(i);
                 count++;
             }
 
-            numero++;
+            i++;
         }
 
     }
