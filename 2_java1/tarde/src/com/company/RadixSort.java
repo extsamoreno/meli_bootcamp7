@@ -41,29 +41,30 @@ public class RadixSort
 				char char_aux = aux.get(i).charAt(largo);
 
 				if (char_aux == '0') {
-					L0.add(arrayStrings[i]);
+					L0.add(aux.get(i));
 				} else if (char_aux == '1') {
-					L1.add(arrayStrings[i]);
+					L1.add(aux.get(i));
 				} else if (char_aux == '2') {
-					L2.add(arrayStrings[i]);
+					L2.add(aux.get(i));
 				} else if (char_aux == '3') {
-					L3.add(arrayStrings[i]);
+					L3.add(aux.get(i));
 				} else if (char_aux == '4') {
-					L4.add(arrayStrings[i]);
+					L4.add(aux.get(i));
 				} else if (char_aux == '5') {
-					L5.add(arrayStrings[i]);
+					L5.add(aux.get(i));
 				} else if (char_aux == '6') {
-					L6.add(arrayStrings[i]);
+					L6.add(aux.get(i));
 				} else if (char_aux == '7') {
-					L7.add(arrayStrings[i]);
+					L7.add(aux.get(i));
 				} else if (char_aux == '8') {
-					L8.add(arrayStrings[i]);
+					L8.add(aux.get(i));
 				} else if (char_aux == '9') {
-					L9.add(arrayStrings[i]);
+					L9.add(aux.get(i));
 				}
 			}
 
 			aux.clear();
+
 			aux.addAll(L0);
 			aux.addAll(L1);
 			aux.addAll(L2);
@@ -75,10 +76,16 @@ public class RadixSort
 			aux.addAll(L8);
 			aux.addAll(L9);
 
-			for(int i=0; i<aux.size();i++)
-			{
-				System.out.print(aux.get(i)+(i<aux.size()-1?",":"\n"));
-			}
+			L0.clear();
+			L1.clear();
+			L2.clear();
+			L3.clear();
+			L4.clear();
+			L5.clear();
+			L6.clear();
+			L7.clear();
+			L8.clear();
+			L9.clear();
 
 		}
 
@@ -86,13 +93,13 @@ public class RadixSort
 			arrayStrings[i] = aux.get(i);
 		}
 
-		arr = StringUtil.toIntArray(arrayStrings);
+		int resultado[] = StringUtil.toIntArray(arrayStrings);
 
 		for(int i=0; i<arr.length;i++)
 		{
-			System.out.print(arr[i]+(i<arr.length-1?",":"\n"));
+			arr[i] = resultado[i];
 		}
-		System.out.println("");
+
 	}
 
 
