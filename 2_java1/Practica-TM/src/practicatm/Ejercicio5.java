@@ -15,11 +15,11 @@ public class Ejercicio5 {
         int contador = 0;
         for (int i=0; i<logitud ; i++) {
 
-            if ((Character.getNumericValue(digitos[i]))==m){
+            if ((Character.getNumericValue(digitos[i]))==d){
                 contador++;
             }
         }
-        if (contador==d){
+        if (contador==m){
             return true;
         }
         return false;
@@ -34,7 +34,7 @@ public class Ejercicio5 {
         int m= input.nextInt();
         System.out.print("Ingrese d: ");
         int d= input.nextInt();
-        int cantidad = 0;
+        int cantidad = 1;
         int numero = 0;
 
         while (cantidad<=n){
