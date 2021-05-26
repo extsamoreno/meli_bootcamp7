@@ -24,10 +24,7 @@ public class EjercicioTres {
                 numeroDivisores++;
             }
         }
-        if (numeroDivisores == 2 ) {
-            return true;
-        }
-        return false;
+        return numeroDivisores == 2;
 
     }
 }

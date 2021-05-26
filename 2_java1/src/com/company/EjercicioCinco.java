@@ -18,8 +18,8 @@ public class EjercicioCinco {
             String numeroTexto = String.valueOf(i);
             String[] cadenaDigitos = numeroTexto.split("");
             int digitosMatch = 0;
-            for (int j = 0; j < cadenaDigitos.length; j++) {
-                if (cadenaDigitos[j].compareTo(digitoComparar)== 0) {
+            for (String cadenaDigito : cadenaDigitos) {
+                if (cadenaDigito.compareTo(digitoComparar) == 0) {
                     digitosMatch++;
                 }
             }
@@ -27,7 +27,6 @@ public class EjercicioCinco {
                 cantidadNumerosObtenidos++;
                 System.out.print(i + " ");
             }
-            digitosMatch = 0;
         }
     }
 }
