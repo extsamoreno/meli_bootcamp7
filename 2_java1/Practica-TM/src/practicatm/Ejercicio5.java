@@ -25,7 +25,6 @@ public class Ejercicio5 {
         return false;
     }
 
-
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.print("Ingrese n: ");
@@ -34,13 +33,14 @@ public class Ejercicio5 {
         int m= input.nextInt();
         System.out.print("Ingrese d: ");
         int d= input.nextInt();
+
         int cantidad = 1;
         int numero = 0;
 
         System.out.println("La secuencia es: ");
         while (cantidad<=n){
             if (verificador(spliter(numero),m,d)){
-                System.out.print(numero + ", ");
+                System.out.print(numero + " ");
                 cantidad++;
             }
             numero ++;
