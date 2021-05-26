@@ -28,8 +28,13 @@ public class Functions {
     }
 
     public static boolean isPrimeNumber(int num){
-        for (int i = 1; i <= Math.sqrt(num); i++){
-            
+        boolean output = true;
+        for (int i = 2; i < Math.sqrt(num); i++){
+            if (num%i == 0) {
+                output = false;
+                break;
+            }
         }
+        return output;
     }
 }
