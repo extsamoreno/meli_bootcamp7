@@ -27,5 +27,27 @@ public class Operations {
 
     }
 
+    public static int isContained(int container, int number){
+        int counter = 0;
+        Integer integer = new Integer(container);
+        String containerString = integer.toString();
+
+        for (int i = 0; i < containerString.length(); i++) {
+
+            if(Character.getNumericValue(containerString.charAt(i)) == number){
+                counter++;
+            }
+            
+        }
+        
+        return counter;
+    }
+
+    public static boolean isContainedManyTimes(int container,int number, int times){
+
+        return (isContained(container, number) == times);
+
+    }
+
 
 }
