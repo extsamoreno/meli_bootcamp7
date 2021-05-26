@@ -49,5 +49,24 @@ public class Operations {
 
     }
 
+    public static String[] concat(String arr[], String arr2[])
+	{
+
+        String[] output = new String[arr.length+arr2.length];
+
+        for (int i = 0; i < arr.length; i++) {
+
+            output[i] = arr[i];
+            
+        }
+        for (int i = 0; i < arr2.length; i++) {
+            output[i+arr.length] = arr2[i];
+        }
+
+        return output;
+    }
+ 
+    
+
 
 }
