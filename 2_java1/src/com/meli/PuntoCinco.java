@@ -3,6 +3,7 @@ package com.meli;
 import java.util.Scanner;
 
 public class PuntoCinco {
+
     public static void titulo (String titulo){
         System.out.println("=" + "=".repeat(titulo.length()) + "=");
         System.out.println("#" + titulo + "#");
@@ -44,6 +45,8 @@ public class PuntoCinco {
 
     public static void main(String[] args) {
         titulo("Punto 5");
+        System.out.println(vecesRepetido("303", (char)3));
+
         primerosNumerosNaturales();
     }
 }
