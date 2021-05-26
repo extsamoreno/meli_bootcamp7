@@ -1,6 +1,6 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        
-        Ejercicio3.resolve();
+
+        Ejercicio4.resolve();
     }
 }

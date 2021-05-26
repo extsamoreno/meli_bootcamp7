@@ -6,7 +6,7 @@ public class Operations {
         int multiplos = 0;
         for (int i = 1; i < number; i++) {
 
-            if(number%i == 0){
+            if(isMultiplier(number,i)){
                 multiplos++;
             }
             
@@ -24,5 +24,8 @@ public class Operations {
     public static boolean isPair(int number){
 
         return isMultiplier(number, 2);
+
     }
+
+
 }
