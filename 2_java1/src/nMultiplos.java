@@ -9,11 +9,10 @@ public class nMultiplos {
         int n = sc.nextInt();
         System.out.print("Ingrese m: ");
         int m = sc.nextInt();
-        for (int i = 1; i <= m * n; ) {
+        for (int i = 1; i <= m * n; i++) {
             if (i % m == 0) {
                 System.out.println(i);
             }
-            i++;
         }
     }
 }
