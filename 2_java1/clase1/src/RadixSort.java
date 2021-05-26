@@ -11,33 +11,44 @@ public class RadixSort
         StringUtil.lNormalize(sArr, '0');
         for (int i = maxLength-1; i >= 0; i--) {
 
-            List<String>[] myList = new List[10]; 
- 
-            for (int j = 0; j < sArr.length; j++) {
-
-				int digit = Character.getNumericValue(sArr[j].charAt(i));
-				if(myList[digit] == null){
-					myList[digit] = new ArrayList<>();
-				}
-                myList[digit].add(sArr[j]);
-            }
-			sArr = new String[0];
-			for (int x = 0; x < myList.length; x++) {
-				if(myList[x] != null){
-
-					sArr = Operations.concat(sArr, myList[x].toArray(new String[myList[x].toArray().length]));
-				}
-
-				
-            }
+            List<String>[] lists = groupByDigitPosition(sArr, i);
+			sArr = extractFromLists(lists);
+			
 		}
-
 		int [] t = StringUtil.toIntArray(sArr);
+
 		for (int i = 0; i < sArr.length; i++) {
 			arr[i]= t[i];
 		}
 		
 
+	}
+	private static String[] extractFromLists(List<String>[] lists){
+		String[] output = new String[0];
+
+		for (int x = 0; x < lists.length; x++) {
+			if(lists[x] != null){
+
+				output = Operations.concat(output, lists[x].toArray(new String[lists[x].toArray().length]));
+			}
+		}
+		return output;
+	}
+
+	private static List<String>[] groupByDigitPosition(String[] array, int pos){
+
+		List<String>[] lists = new List[10];
+
+		for (int j = 0; j < array.length; j++) {
+
+			int digit = Character.getNumericValue(array[j].charAt(pos));
+			if(lists[digit] == null){
+				lists[digit] = new ArrayList<>();
+			}
+			lists[digit].add(array[j]);
+		}
+
+		return lists;
 	}
             
 	public static void main(String[] args)
