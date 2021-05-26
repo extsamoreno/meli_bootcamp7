@@ -1,4 +1,4 @@
-package com.company;
+package com.company.CM;
 
 public class Main {
 
@@ -18,5 +18,6 @@ public class Main {
         System.out.println("Ejercicio numero 5");
         Ejercicio_5 eje_5= new Ejercicio_5();
         eje_5.Ejercicio();
+
     }
 }
