@@ -37,9 +37,10 @@ public class Ejercicio5 {
         int cantidad = 1;
         int numero = 0;
 
+        System.out.println("La secuencia es: ");
         while (cantidad<=n){
             if (verificador(spliter(numero),m,d)){
-                System.out.println(numero);
+                System.out.print(numero + ", ");
                 cantidad++;
             }
             numero ++;
