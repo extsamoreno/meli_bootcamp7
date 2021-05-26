@@ -20,7 +20,6 @@ public class StringUtil {
             if (x.length() > length) {
                 length = x.length();
             }
-
         }
         return length;
 
@@ -63,17 +62,15 @@ public class StringUtil {
     }
 
 
-
-/*
-    // Retorna un String[] conteniendo los elementos de arr
-    // representados como cadenas de caracteres
+    // Retorna un int[] conteniendo los elementos de arr
+    // representados como int
     public static int[] toIntArray(String arr[]) {
-        //Implementación
+        int[] listInt = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            listInt[i] = Integer.parseInt(arr[i]);
+        }
+        return listInt;
     }
 
 
-
-
-
- */
 }
