@@ -17,4 +17,13 @@ public class Java1Practica {
         }
     }
 
+    public static void ejercicio2(){
+        System.out.print("Enter the value of n: ");
+        int n=input.nextInt();
+        System.out.print("Enter the value of m: ");
+        int m=input.nextInt();
+        for (int i=1; i<=n; i++){
+            System.out.print((m*i)+" ");
+        }
+    }
 }
