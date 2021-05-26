@@ -13,6 +13,7 @@ public class EjercicioCinco {
         System.out.print("Ingrese el numero de digitos minimos que debe tener: ");
         int cantidadDigitos = scanner.nextInt();
         int cantidadNumerosObtenidos = 0;
+        System.out.println("Los numeros encontrados son : ");
         for (int i = 0; cantidadNumerosObtenidos < numeroLimite; i++) {
             String numeroTexto = String.valueOf(i);
             String[] cadenaDigitos = numeroTexto.split("");

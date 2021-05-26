@@ -14,6 +14,7 @@ public class EjercicioCuatro {
 
     private static void obtenerPrimos(int limite) {
         int primosTotales = 0;
+        System.out.println("Los " + limite + " primeros primos son: ");
         for (int i = 1; primosTotales < limite; i++) {
             if (EjercicioTres.esPrimo(i)) {
                 System.out.print(i + " ");

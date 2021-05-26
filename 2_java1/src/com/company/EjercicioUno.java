@@ -15,6 +15,7 @@ public class EjercicioUno {
 
     public static void numerosPares(int numeroLimite) {
         int numerosParesTotales = 0;
+        System.out.println("Los numeros pares son : ");
         for (int numero = 1; numerosParesTotales < numeroLimite; numero++) {
             if (numero % 2 == 0) {
                 System.out.print(numero + " ");

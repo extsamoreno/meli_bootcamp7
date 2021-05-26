@@ -17,10 +17,11 @@ public class EjercicioDos {
 
     public static void obtenerMultiplos(int numeroEvaluar, int numeroMultiplos) {
         int multiplosObtenidosTotales = 0;
+        System.out.println("Los primeros " + numeroMultiplos + " multiplos de " + numeroEvaluar + " son :");
         for (int i = 1; multiplosObtenidosTotales < numeroMultiplos; i++) {
-            if (numeroEvaluar % i == 0) {
+            if (i % numeroEvaluar == 0) {
                 multiplosObtenidosTotales++;
-                System.out.print(i + "");
+                System.out.print(i + " ");
             }
         }
     }
