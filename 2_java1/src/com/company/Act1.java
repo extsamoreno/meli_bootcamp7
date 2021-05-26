@@ -1,7 +1,7 @@
 package com.company;
 import java.util.Scanner;
 
-public class Main {
+public class Act1 {
 
     public static boolean isPar(int data){
         return data%2==0;
