@@ -11,3 +11,6 @@
 
 ## 4 - Desde un nro N, listar cuales son primos o no
 ### Class - N_PrimesNumbers
+
+## 5 - Ejercicio 5
+### Class - Exercise_5
