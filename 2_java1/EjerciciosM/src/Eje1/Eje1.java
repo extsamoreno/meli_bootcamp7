@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Eje1 {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-
+        
         System.out.print("Hola! Por favor ingrese la cantidad de numeros: ");
         var n = s.nextInt();
 
