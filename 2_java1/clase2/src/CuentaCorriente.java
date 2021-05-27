@@ -1,10 +1,13 @@
 
 public class CuentaCorriente {
 
-    private double balance = 0;
-    private String  accountNumber= "";
+    private double balance;
+    private String  accountNumber;
 
     public CuentaCorriente(){
+
+        this.balance = 0;
+        this.accountNumber = "";
 
     }
 
