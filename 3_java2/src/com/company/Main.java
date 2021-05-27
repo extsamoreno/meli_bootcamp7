@@ -1,5 +1,14 @@
 package com.company;
 
+import password.Password;
+import password.PasswordFuerte;
+import password.PasswordIntermedia;
+import password.PasswordSimple;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.regex.Pattern;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -13,5 +22,14 @@ public class Main {
         System.out.println(rtdo1.getNumerador() + "/" + rtdo1.getDenominador());
         System.out.println(rtdo3.getNumerador() + "/" + rtdo3.getDenominador());
         System.out.println(rtdo4.getNumerador() + "/" + rtdo4.getDenominador());
+
+        Password password = new PasswordFuerte();
+
+        try {
+            password.setPassword("2423adasdQasdq.comsdQ");
+            System.out.println(password.getPassword());
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Invalido");
+        }
     }
 }
