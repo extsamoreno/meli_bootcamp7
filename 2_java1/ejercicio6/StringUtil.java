@@ -1,3 +1,5 @@
+package ejercicio6;
+
 public class StringUtil {
 	// Retorna una cadena compuesta por n caracteres c
 	public static String replicate(char c,int n) {
