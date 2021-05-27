@@ -1,4 +1,3 @@
-
 public class CuentaCorriente {
 
     private double balance;
@@ -43,5 +42,33 @@ public class CuentaCorriente {
     public void setBalance(String accountNumber) {
         this.accountNumber = accountNumber;
     }
+
+
+    public void deposit(double amount){
+
+        this.balance += amount;
+
+    }
+    public boolean withdrawal(double amount){
+
+        if(amount <= this.balance ){
+            this.balance -= amount;
+            return true;
+        }
+
+        return false;
+        
+
+    }
+
+    public void transfer(double amount, CuentaCorriente cuenta){
+
+        if(this.withdrawal(amount)){
+            cuenta.deposit(amount);
+        }
+
+    }
+
+
 
 }
