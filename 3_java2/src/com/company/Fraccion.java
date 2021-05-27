@@ -2,67 +2,98 @@ package com.company;
 
 public class Fraccion {
 
-    public float numerador;
-    public float denominador;
+    private int num;
+    private int den;
 
-    public Fraccion(float numerador, float denominador) {
-        this.numerador = numerador;
-        this.denominador = denominador;
+    public Fraccion() {
+        this.num = 0;
+        this.den = 1;
     }
 
-    public void setNumerador(float numerador) {
-        this.numerador = numerador;
-    }
-
-    public void setDenominador(int denominador) {
-        this.denominador = denominador;
-    }
-
-    public int getNumerador() {
-        return numerador;
-    }
-
-    public int getDenominador() {
-        return denominador;
-    }
-
-    public  static Fraccion sumar(Fraccion a, Fraccion b){
-        return (a.getNumerador()/a.denominador) + (b.getNumerador()/b.denominador);
-    }
-
-    public  static double restar(double a, double b){
-        return a - b;
-    }
-
-    public  static double multiplicar(double a, double b){
-        return a * b;
-    }
-
-    public  static double dividir(double a, double b){
-        if (b>0){
-            return a / b;
+    public Fraccion(int num, int den) {
+        this.num = num;
+        if(den==0){
+            den = 1;
         }
-        return 0;
+        this.den = den;
+        simplificar();
     }
 
-    public  static double sumar(int a, double b){
-        return (double)a + b;
+    public Fraccion(int num) {
+        this.num = num;
+        this.den = 1;
     }
 
-    public  static double restar(int a, double b){
-        return a - b;
+    public int getDen() {
+        return den;
     }
 
-    public  static double multiplicar(int a, double b){
-        return (double)a * b;
+    public void setDen(int den) {
+        this.den = den;
     }
 
-    public  static double dividir(int a, double b){
-        if (b>0){
-            return (double) a / b;
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    //sumar fracciones
+    public Fraccion sumar(Fraccion f) {
+        Fraccion aux = new Fraccion();
+        aux.num = this.num * f.den + this.den * f.num;
+        aux.den = this.den * f.den;
+        aux.simplificar();  //se simplifica antes de devolverla
+        return aux;
+    }
+
+    //restar fracciones
+    public Fraccion restar(Fraccion f) {
+        Fraccion aux = new Fraccion();
+        aux.num = this.num * f.den - this.den * f.num;
+        aux.den = this.den * f.den;
+        aux.simplificar();  //se simplifica antes de devolverla
+        return aux;
+    }
+
+    //multiplicar fracciones
+    public Fraccion multiplicar(Fraccion f) {
+        Fraccion aux = new Fraccion();
+        aux.num = this.num * f.num;
+        aux.den = this.den * f.den;
+        aux.simplificar();  //se simplifica antes de devolverla
+        return aux;
+    }
+
+    //Cálculo del máximo común divisor por el algoritmo de Euclides
+    private int mcd() {
+        int u = Math.abs(num); //valor absoluto del numerador
+        int v = Math.abs(den); //valor absoluto del denominador
+        if (v == 0) {
+            return u;
         }
-        return 0;
+        int r;
+        while (v != 0) {
+            r = u % v;
+            u = v;
+            v = r;
+        }
+        return u;
+    }
 
+    //método para simplificar fracciones
+    private void simplificar() {
+        int n = mcd(); //se calcula el mcd de la fracción
+        num = num / n;
+        den = den / n;
+    }
+
+    @Override
+    public String toString() {
+        simplificar();
+        return num + "/" + den;
     }
 
 }
