@@ -9,16 +9,18 @@ public class Eje4 {
 
         int n = s.nextInt();
 
-        for (int i = 1; i <= n; i++) {
-            if (EsPrimo(i)){
-                System.out.println(i);
-            }
-        }
+        MostrarPrimos(n);
     }
 
     public static void MostrarPrimos(int n){
-        for (int i = 1; i < n; i++) {
-
+        int primosMostrados = 0;
+        int base = 1;
+        while (primosMostrados < n){
+            if (EsPrimo(base)){
+                primosMostrados++;
+                System.out.println(base);
+            }
+            base++;
         }
     }
 
