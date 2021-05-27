@@ -22,7 +22,6 @@ public class StringUtil {
             }
         }
         return length;
-
     }
 
     // Completa los elemento del arr agregando caracteres c
@@ -52,13 +51,9 @@ public class StringUtil {
     public static String replicate(char c, int n) {
         String zeroString = "";
 
-        for (int i = 0; i < n; i++) {
-            zeroString += c;
-        }
+        for (int i = 0; i < n; i++) zeroString += c;
 
         return zeroString;
-
-
     }
 
 
