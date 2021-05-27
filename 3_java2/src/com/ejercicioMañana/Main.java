@@ -11,5 +11,9 @@ public class Main {
 
         var contador1 = new Contador();
 
+        var libro1 = new Libro("la casa", "456465","pedro","jose","jose");
+        libro1.prestamo("agustin");
+        System.out.println(libro1.toString());
+
     }
 }
