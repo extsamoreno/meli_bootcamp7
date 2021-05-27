@@ -28,9 +28,9 @@ public class ejercicio5 {
             String nro = Integer.toString(i);
 
             for (int j = 0; j < nro.length() ; j++) {
-                char charActually = nro.charAt(j);
+                char charCurrent = nro.charAt(j);
 
-                if(charActually == charToCompare)
+                if(charCurrent == charToCompare)
                     auxCantRepeticiones++;
 
                 if(auxCantRepeticiones >= cantRepeticion) {

@@ -3,10 +3,11 @@ package meli.ejerc;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class RadixSort
 {
-	static Hashtable<Integer, ArrayList<String>> mapLists = new Hashtable<Integer, ArrayList<String>>();
+	static HashMap<Integer, ArrayList<String>> mapLists = new HashMap<Integer, ArrayList<String>>();
 
 	public static void main(String[] args)
 	{
@@ -28,17 +29,63 @@ public class RadixSort
 		meli.ejerc.StringUtil.lNormalize(arrString, '0');
 
 		for (int i = 0; i < arrString.length; i++) {
-			int lengthElemrnt = arrString[i].length();
+			int lengthElement = arrString[i].length();
 		}
 
 		//paso3
+		loadMap();
+
+		int maxLength = meli.ejerc.StringUtil.maxLength(arrString);
+
+		//paso 4 y paso5
+		for (int i = maxLength-1 ; i >= 0 ; i--) {
+
+			for (int j = 0; j < arrString.length; j++) {
+
+				String value = arrString[j];
+				char charCurrent = value.charAt(i);
+
+				ArrayList<String> temp = mapLists.get(Integer.parseInt(Character.toString(charCurrent)));
+				temp.add(arrString[j]);
+				arrString[j] = "";
+			}
+
+			mapToArray(arrString);
+
+		}
+
+		//vuelvo a trasformar rellenar el int[]
+		for (int i = 0; i < arr.length; i++)
+			arr[i] = Integer.parseInt(arrString[i]);
+
 
 
 	}
 
 	public static void loadMap(){
 		for (int i = 0; i <= 9; i++) {
-			mapLists.put(0, new ArrayList<String>());
+			mapLists.put(i, new ArrayList<String>());
+		}
+	}
+
+
+
+
+
+	public static void mapToArray(String[] arr){
+		//contador para ir agregando elementos al array :(
+		int count=0;
+
+
+		for (Map.Entry<Integer, ArrayList<String>> entry : mapLists.entrySet() ) {
+
+			ArrayList<String> arrCurrent = entry.getValue();
+
+			for (int i = 0; i < arrCurrent.stream().count(); i++) {
+				arr[count] = arrCurrent.get(i);
+				count++;
+			}
+			arrCurrent.clear();
 		}
 	}
 
