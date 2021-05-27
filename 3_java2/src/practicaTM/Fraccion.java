@@ -49,8 +49,6 @@ public class Fraccion {
     public Fraccion sumar(Fraccion fraccion) {
 
         int denominadorNuevo = Utils.mcm(this.denominador, fraccion.getDenominador());
-        int n1 = this.numerador * (denominadorNuevo / this.denominador);
-        int n2 = fraccion.getNumerador() * denominadorNuevo / fraccion.getDenominador();
 
         int numeradorNuevo = this.numerador * (denominadorNuevo / this.denominador) + fraccion.getNumerador() * denominadorNuevo / fraccion.getDenominador();
 
@@ -68,6 +66,25 @@ public class Fraccion {
 
     public Fraccion restar(int entero) {
         return sumar(new Fraccion(-entero));
+    }
+
+    public Fraccion multiplicar(Fraccion fraccion) {
+        int denominadorNuevo = this.denominador * fraccion.getDenominador();
+        int numeradorNuevo = this.numerador * fraccion.getNumerador();
+
+        return simplificar(new Fraccion(numeradorNuevo, denominadorNuevo));
+    }
+
+    public Fraccion multiplicar(int entero) {
+        return multiplicar(new Fraccion(entero));
+    }
+
+    public Fraccion dividir(Fraccion fraccion) {
+        return multiplicar(new Fraccion(fraccion.getDenominador(), fraccion.getNumerador()));
+    }
+
+    public Fraccion dividir(int entero) {
+        return dividir(new Fraccion(entero));
     }
 
 
