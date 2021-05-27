@@ -9,7 +9,7 @@ public class Main {
         //primerosMultiplos();
         //esPrimo();
         //primerosPrimos();
-        System.out.println(primerasCombinaciones(232,2,2));
+        primerasCombinaciones(5,3,3);
     }
 
     public static void primerosPares(){
@@ -69,8 +69,20 @@ public class Main {
         scanner.close();
     }
 
-    public static boolean  primerasCombinaciones(int n, int m, int d){
-        String numero=String.valueOf(n);
+    public static void primerasCombinaciones(int n, int m, int d){
+        int count=0;
+        int num=d;
+        while(count<n){
+            if(sirve(num,m,d)){
+                System.out.println(num);
+                count++;
+            }
+            num++;
+        }
+    }
+
+    public static boolean  sirve(int num, int m, int d){
+        String numero=String.valueOf(num);
         boolean sirve=false;
         int rep=0;
         for(int i=0 ; i<numero.length() && !sirve ; i++){
