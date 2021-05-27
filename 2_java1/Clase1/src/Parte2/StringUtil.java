@@ -28,12 +28,10 @@ public class StringUtil
     // a la izquierda, dejando a todos con la longitud del mayor
     public static void lNormalize(String arr[], char c)
     {
-        int longitud = Integer.valueOf(c);
+        int longitud = maxLength(arr);
         for (int i = 0; i < arr.length; i++) {
             if ( arr[i].length() < longitud){
-                String s = "0";
-                char ch = s.charAt(0);
-                arr[i] = lpad(arr[i], longitud, ch);
+                arr[i] = lpad(arr[i], longitud, c);
             }
         }
     }

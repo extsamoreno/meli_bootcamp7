@@ -13,8 +13,10 @@ public class RadixSort {
             String[] newArray = new String[arr.length];
             newArray = StringUtil.toStringArray(arr);
             int n = StringUtil.maxLength(newArray);
-            char vChar= (char) n;
-            StringUtil.lNormalize(newArray, vChar);
+
+            String s = "0";
+            char ch = s.charAt(0);
+            StringUtil.lNormalize(newArray, ch);
 
             for (int i = n; i != 0 ; i--) {
                 AddList(newArray, i);
