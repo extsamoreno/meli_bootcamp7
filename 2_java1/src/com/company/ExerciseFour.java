@@ -7,14 +7,15 @@ public class ExerciseFour {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el numero a mostrar los n primos: ");
         int n = scanner.nextInt();
-        int i = 1;
+        int i = 0;
         int number = 1;
         while(i != n){
             if(isPrimeNumber(number)){
                 System.out.println(number);
                 i++;
-                number++;
+
             }
+            number++;
         }
     }
 
