@@ -1,5 +1,3 @@
-import javax.crypto.Cipher;
-
 public class Circulo extends FiguraGeometrica{
 
     private double radio;
