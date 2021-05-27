@@ -1,3 +1,6 @@
+//Desarrollar un programa para informar si un número n es primo o no, siendo n un valor que el usuario ingresará por consola.
+//Recordá que un número es primo cuando sólo es divisible por sí mismo y por 1.
+
 package com.company;
 
 import java.util.Scanner;
