@@ -1,5 +1,7 @@
 package Eje4;
 
+import java.util.zip.DataFormatException;
+
 public class Fraccion {
     private int numerador;
     private int denominador;
@@ -19,6 +21,8 @@ public class Fraccion {
     public void setNumerador(int numerador) {
         this.numerador = numerador;
     }
+
+    throw new IllegalArgumentException
 
     public Fraccion sumar(Fraccion f1, Fraccion f2){
 
