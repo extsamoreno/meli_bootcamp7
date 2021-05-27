@@ -8,7 +8,6 @@ import java.util.Map;
 public class RadixSort
 {
 
-
     public static void radixSort(int[] arr) {
         String[] sArr = StringUtil.toStringArray(arr);
         StringUtil.lNormalize(sArr, '0');
@@ -43,12 +42,12 @@ public class RadixSort
             }
         }
 
+        //convierto el array a int
         int[] iArr = StringUtil.toIntArray(sArr);
         for (int i = 0; i < iArr.length; i++) {
             arr[i] = iArr[i];
         }
     }
-
 
     public static void main(String[] args) {
         int arr[]={16223,898,13,906,235,23,9,1532,6388,2511,8};
