@@ -35,11 +35,12 @@ public abstract class Password {
     }
 
     public void setValue(String value) {
-        
+
         try {
             if(this.validate(value)) {
                 this.value = value;
-            } 
+            }
+
         } catch (Exception e) {
             throw e;
         }
