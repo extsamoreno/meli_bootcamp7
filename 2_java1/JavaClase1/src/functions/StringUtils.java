@@ -1,5 +1,7 @@
 package functions;
 
+import java.util.ArrayList;
+
 public class StringUtils
 {
     // Retorna una cadena compuesta por n caracteres c
@@ -30,11 +32,11 @@ public class StringUtils
     public static String[] toStringArray(int[] arr)
     {
         //Implementación
-        String[] myStr = new String[arr.length];
+        String[] myStrArr = new String[arr.length];
         for (int i=0; i<arr.length; i++){
-            myStr[i] = Integer.toString(arr[i]);
+            myStrArr[i] = Integer.toString(arr[i]);
         }
-        return myStr;
+        return myStrArr;
     }
 
     // Retorna un String[] conteniendo los elementos de arr

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import functions.StringUtils;
+
 
 public class RadixSort
 {
@@ -11,14 +13,31 @@ public class RadixSort
         StringUtils.lNormalize(strArray, '0');
         HashMap<Integer, ArrayList<String>> myHash = new HashMap<>();
 
+        //create a HashMap with empty ArrayList
         for (int i = 0; i < 10; i++) {
             myHash.put(i, new ArrayList<>());
         }
 
+        int maxLen = StringUtils.maxLength(StringUtils.toStringArray(arr));
 
+        for (int i = maxLen-1; i >= 0; i--) {
+            for (String str: strArray) {
+                int k = str.charAt(i) - '0';
 
+                myHash.get(k).add(str);
+            }
 
+            strArray = new String[arr.length];
 
+            for (int k = 0; k < 10; k++) {
+                int ind = 0;
+                for (String numStr: myHash.get(k)) {
+                    strArray[ind] = numStr;
+                    ind++;
+                }
+                myHash.get(k).clear();
+            }
+        }
     }
 
 
