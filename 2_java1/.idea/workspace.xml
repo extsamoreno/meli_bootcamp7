@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c3d7e7b2-2ae1-4a78-a666-ea1f411b5c5b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/EjerciciosM/src/Eje5/Eje5.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/Ejercicios/src/Eje1/CuentaCorriente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="c3d7e7b2-2ae1-4a78-a666-ea1f411b5c5b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,7 +150,7 @@
       <workItem from="1622043338186" duration="57000" />
       <workItem from="1622043413160" duration="16615000" />
       <workItem from="1622119182864" duration="8316000" />
-      <workItem from="1622128526252" duration="341000" />
+      <workItem from="1622128526252" duration="377000" />
     </task>
     <servers />
   </component>
