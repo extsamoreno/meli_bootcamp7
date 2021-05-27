@@ -1,11 +1,5 @@
 package com.meli;
 
-
-//Crea una clase Fraccion con métodos necesarios para sumar, restar, multiplicar y dividir fracciones.
-//Todos los métodos deben estar sobrecargados de modo que también puedan usarse para operar entre fracciones y
-//números enteros (por ejemplo: ⅗+2 o ⅝*4).
-
-
 public class Fraccion {
     private int denominador, numerador;
 
@@ -21,9 +15,7 @@ public class Fraccion {
         int a = Math.max(num1, num2);
         int b = Math.min(num1, num2);
 
-        int resultado = (a / mcd(num1, num2)) * b;
-
-        return resultado;
+        return (a / mcd(num1, num2)) * b;
     }
 
     public static int mcd(int num1, int num2) {
@@ -115,5 +107,10 @@ public class Fraccion {
 
     public void setNumerador(int numerador) {
         this.numerador = numerador;
+    }
+
+    @Override
+    public String toString() {
+        return "Fraccion{" + denominador + "/" + numerador + '}';
     }
 }

@@ -42,10 +42,6 @@ public class Libro {
         return prestado;
     }
 
-//    public void setPrestado(boolean prestado) {
-//        this.prestado = prestado;
-//    }
-
     public void prestamo() {
         if(!isPrestado()) {
             this.prestado = true;
