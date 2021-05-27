@@ -18,11 +18,10 @@ public class StringUtil {
         return mayorLongitud;
     }
 
-    public static String lpad(String string, int longitud, char caracter){
-        while (string.length() < longitud){
-            string = String.valueOf(caracter).concat(string);
-        }
-        return string;
+    public static String lpad(String cadena, int longitud, char caracter){
+        String caracteres = replicate(caracter, longitud - cadena.length());
+        cadena = caracteres.concat(cadena);
+        return cadena;
     }
 
     public static void normalizarElementosStringArray(String[] stringArray, char caracter){
@@ -37,7 +36,7 @@ public class StringUtil {
     {
         String caracter = String.valueOf(c);
         String salida = "";
-        for (int i = 0; i < n; i++) salida.concat(caracter);
+        for (int i = 0; i < n; i++) salida = salida.concat(caracter);
         return salida;
     }
 
@@ -46,7 +45,10 @@ public class StringUtil {
     public static int[] toIntArray(String arr[])
     {
         int[] salida = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) salida[i] = Integer.valueOf(arr[i]);
+        for (int i = 0; i < arr.length; i++){
+            salida[i] = Integer.parseInt(arr[i]);
+            System.out.println(salida[i]);
+        }
         return salida;
     }
 
