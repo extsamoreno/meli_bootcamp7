@@ -22,11 +22,7 @@ public class Fraccion {
         this.numerador = numerador;
     }
 
-    throw new IllegalArgumentException
 
-    public Fraccion sumar(Fraccion f1, Fraccion f2){
-
-    }
 
     private int maximoDivisor(int a, int b){
         if (a == 0){
