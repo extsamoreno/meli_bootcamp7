@@ -29,11 +29,14 @@ public class RadixSort {
             hm.get(digito).add(casilla);
         }
 
-        // Recorrer las listas en el map y reordenar el temporal
+        // Recorrer las listas en el map y reconstruir el temporal
         for (Map.Entry<Integer, ArrayList<String>> entry: hm.entrySet()){
             for (String x : entry.getValue()){
                 temporal.add(x);
             }
+
+            // Limpiar las listas en el map
+            entry.getValue().clear();
         }
 
         // Actualizar newArray
