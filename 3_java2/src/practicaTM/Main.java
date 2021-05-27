@@ -25,7 +25,6 @@ public class Main {
         System.out.println(multE.getNumerador() + "/" + multE.getDenominador());
         System.out.println(divF.getNumerador() + "/" + divF.getDenominador());
         System.out.println(divE.getNumerador() + "/" + divE.getDenominador());
-//        System.out.println(rtdo1.getNumerador() + "/" + rtdo1.getDenominador());
 
 
     }
