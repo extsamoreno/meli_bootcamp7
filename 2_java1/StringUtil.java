@@ -60,4 +60,62 @@ public class StringUtil {
         }
 
     }
+
+//***************************************************************************
+    //ejercicio 6 practica clase 2 mañana
+
+    public static String rpad(String s,char c,int n){ //agregar caracteres a la izq
+        int longitudIni = s.length();
+        String prefix = replicate(c, n - longitudIni);
+
+        return s + prefix;
+    }
+
+    //Retorna una cadena idéntica a s pero sin espacios a la izquierda.
+    public static String rtrim(String s) {
+        int i = s.length()-1;
+        while (i >= 0 && Character.isWhitespace(s.charAt(i))) {
+            i--;
+        }
+        return s.substring(0,i+1);
+    }
+    //Retorna una cadena idéntica a s pero sin espacios a derecha ni izquierda.
+    public static String ltrim(String s) {
+        int i = 0;
+        while (i < s.length() && Character.isWhitespace(s.charAt(i))) {
+            System.out.println("s.charAt(i)  "+s.charAt(i));
+            i++;
+        }
+        return s.substring(i);
+    }
+
+
+    //Retorna la posición de la n-ésima
+    //ocurrencia del carácter c dentro de s, o -1 si s no contiene a c. Por ejemplo,
+    //si s = “John|Paul|George|Ringo”, c = ‘|’ y n=2, la función debe retornar la posicióon de la
+    //segunda ocurrencia del carácter ‘|’ (pipe) dentro de la cadena s. Que, en este caso, es: 9.
+    public static int indexOfN(String s,char c,int n){
+        int i=0;
+        int cont=0;
+        while( i<s.length() ) {
+            if( s.charAt(i)==c) {
+                cont++;
+                if(cont == n){
+                    return i;
+                }
+            }
+            i++;
+        }
+        return -1;
+
+    }
+
+
+
+
+
+
+
+
+
 }
