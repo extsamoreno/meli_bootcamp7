@@ -16,6 +16,7 @@ public class RadixSort
 
         //realizo la iteracion para cada digito del array
         for (int digito = longitud - 1; digito >= 0; digito--) {
+            //genero haspmap con los 10 arraylist
             HashMap<Integer, ArrayList<String>> map = new HashMap<>();
             for (int i = 0; i < 10; i++) {
                 map.put(i, new ArrayList<>());
