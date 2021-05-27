@@ -8,7 +8,17 @@ public class MainClass {
         pruebaEj6();
 
         pruebaPasswords();
-        
+        pruebaFiguras();
+    }
+
+    private static void pruebaFiguras() {
+        FiguraGeometrica[] arr= new FiguraGeometrica[3];
+        arr[0]= new Circulo(20);
+        arr[1]= new Rectangulo(5,3);
+        arr[2]= new Triangulo(4,6);
+
+        double ap= FiguraUtil.areaPromedio(arr);
+        System.out.println(ap);
     }
 
     private static void pruebaPasswords() {
