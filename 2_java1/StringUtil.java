@@ -18,7 +18,7 @@ public class StringUtil
     // para completar la longitud mencionada
     public static String lpad(String s,int n,char c)
     {
-        return s+replicate(c,n);
+        return replicate(c,n)+s;
     }
 
     // Retorna un String[] conteniendo los elementos de arr
@@ -37,8 +37,11 @@ public class StringUtil
     // representados como cadenas de caracteres
     public static int[] toIntArray(String arr[])
     {
-        //Implementación
-        return null;
+        int[] intArr = new int[arr.length];
+        for (int i =0; i< arr.length; i++){
+            intArr[i] = Integer.parseInt(arr[i]);
+        }
+        return intArr;
     }
 
 
