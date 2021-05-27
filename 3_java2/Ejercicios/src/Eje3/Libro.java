@@ -7,7 +7,9 @@ public class Libro {
     private boolean disponible;
 
     public Libro prestamo(){
-        this.disponible = false;
+        if (this.disponible){
+            this.disponible = false;
+        }
         return this;
     }
 
