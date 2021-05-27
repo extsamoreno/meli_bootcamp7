@@ -77,6 +77,30 @@ public class Fraccion {
         return sumar(nuevaFraccion);
     }
 
+    public Fraccion multiplicar(Fraccion f2) {
+        Fraccion resultado = new Fraccion();
+        resultado.setNumerador(this.getNumerador() * f2.getNumerador());
+        resultado.setDenominador(this.getDenominador() * f2.getDenominador());
+
+        resultado.simplificar();
+        return resultado;
+    }
+
+    public Fraccion multiplicar(int entero) {
+        Fraccion nuevaFraccion = new Fraccion(entero,1);
+        return multiplicar(nuevaFraccion);
+    }
+
+    public Fraccion dividir(Fraccion f2) {
+        Fraccion aux = new Fraccion(f2.getDenominador(),f2.getNumerador());
+        return multiplicar(aux);
+    }
+
+    public Fraccion dividir(int entero) {
+        Fraccion nuevaFraccion = new Fraccion(entero,1);
+        return dividir(nuevaFraccion);
+    }
+
     public int getDenominador() {
         return denominador;
     }
