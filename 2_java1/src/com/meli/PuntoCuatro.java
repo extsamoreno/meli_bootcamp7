@@ -2,18 +2,11 @@ package com.meli;
 
 import java.util.Scanner;
 
+import static com.meli.Titulo.titulo;
+
 public class PuntoCuatro {
-    public static void titulo (String titulo){
-
-        System.out.println("=" + "=".repeat(titulo.length()) + "=");
-        System.out.println("#" + titulo + "#");
-        System.out.println("=" + "=".repeat(titulo.length()) + "=");
-    }
-
     public static boolean esNumeroPrimo(int numero) {
-
         boolean esPrimo = false;
-
         if (numero == 2) {
             esPrimo = true;
         } else {
@@ -26,14 +19,12 @@ public class PuntoCuatro {
                 }
             }
         }
-
         if (esPrimo) {
             return true;
         } else {
             return false;
         }
     }
-
     public static void listaNumerosPrimos() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Por favor, ingrese un número: ");

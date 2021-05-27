@@ -2,16 +2,10 @@ package com.meli;
 
 import java.util.Scanner;
 
+import static com.meli.Titulo.titulo;
+
 public class PuntoUno {
-    public static void titulo (String titulo){
-
-        System.out.println("=" + "=".repeat(titulo.length()) + "=");
-        System.out.println("#" + titulo + "#");
-        System.out.println("=" + "=".repeat(titulo.length()) + "=");
-    }
-
     public static void mostrarNumerosPares (){
-
         Scanner scanner = new Scanner(System.in);
         System.out.print("Por favor, ingrese un número: ");
         int numero = scanner.nextInt();

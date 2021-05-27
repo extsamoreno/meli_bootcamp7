@@ -2,20 +2,14 @@ package com.meli;
 
 import java.util.Scanner;
 
+import static com.meli.Titulo.titulo;
+
 public class PuntoTres {
-    public static void titulo (String titulo) {
-
-        System.out.println("=" + "=".repeat(titulo.length()) + "=");
-        System.out.println("#" + titulo + "#");
-        System.out.println("=" + "=".repeat(titulo.length()) + "=");
-    }
-
     public static void esNumeroPrimo() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Por favor, ingrese un número: ");
         int numero = scanner.nextInt();
         boolean esPrimo = false;
-
         if (numero == 2) {
             esPrimo = true;
         } else {
@@ -28,13 +22,11 @@ public class PuntoTres {
                 }
             }
         }
-
         if (esPrimo) {
             System.out.println(numero + " es Primo!!");
         } else {
             System.out.println(numero + " no es Primo!!");
         }
-
     }
 
     public static void main(String[] args) {
