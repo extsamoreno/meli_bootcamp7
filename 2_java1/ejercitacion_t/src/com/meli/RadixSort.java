@@ -33,9 +33,7 @@ public class RadixSort  {
 		}
 
 		int[] intArray = StringUtil.toIntArray(stringArray);
-		for(int i = 0; i < intArray.length; i++)  {
-			arr[i] = intArray[i];
-		}
+		System.arraycopy(intArray, 0, arr, 0, intArray.length);
 	}
 
 	public static void main(String[] args) {
