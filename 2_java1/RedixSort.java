@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+//import java.util.HashMap;
+//import java.util.HashMap;
 
 public class RadixSort {
     public static void radixSort(int []arr) {
@@ -18,7 +20,7 @@ public class RadixSort {
         while(max >0) {
             for (int i = 0; i < arr.length; i++) {
                 char aux = resultado[i].charAt(max);
-                listas.put();
+                //listas.put();
 
             }
         }
