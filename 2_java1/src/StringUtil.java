@@ -45,6 +45,6 @@ public class StringUtil {
     // Completa los elemento del arr agregando caracteres c
     // a la izquierda, dejando a todos con la longitud del mayor
     public static void lNormalize(String arr[], char c) {
-        //Implementación
+
     }
 }

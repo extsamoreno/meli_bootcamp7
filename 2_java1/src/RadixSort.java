@@ -4,10 +4,20 @@ import java.util.List;
 public class RadixSort {
     public static void main(String[] args) {
         int arr[] = {16223, 898, 13, 906, 235, 23, 9, 1532, 6388, 2511, 8};
-        radixSort(arr);
+        String ars[]=radixSort(arr);
+        for(int i=0; i<arr.length;i++)
+        {
+            System.out.print(arr[i]+(i<arr.length-1?",":""));
+        }
+        System.out.println();
+        for(int i=0; i<ars.length;i++)
+        {
+            System.out.print(Integer.parseInt(ars[i])+(i<ars.length-1?",":""));
+        }
+        System.out.println();
     }
 
-    public static void radixSort(int[] arr) {
+    public static String[]  radixSort(int[] arr) {
         StringUtil stringUtil = new StringUtil();
         String[] str = stringUtil.toStringArray(arr);
         int lon = stringUtil.maxLength(str);
@@ -65,8 +75,6 @@ public class RadixSort {
             temp.addAll(L5);temp.addAll(L6);temp.addAll(L7);temp.addAll(L8);temp.addAll(L9);
             str = temp.toArray(str);
         }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(str[i]);
-        }
+        return str;
     }
 }
