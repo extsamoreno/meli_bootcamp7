@@ -21,38 +21,31 @@ public class RadixSort {
         // Creacion de un ArrayList temporal
         ArrayList<String> temporal = new ArrayList<>();
 
-
-        // Leer el ultimo digito y agregarlo a su lista correspondiente
-        int indice = StringUtil.maxLength(newArr) -1;
-        for (String casilla : newArr){
-            int digito = Integer.parseInt(String.valueOf(casilla.charAt(indice)));
-            hm.get(digito).add(casilla);
-        }
-
-        // Recorrer las listas en el map y reconstruir el temporal
-        for (Map.Entry<Integer, ArrayList<String>> entry: hm.entrySet()){
-            for (String x : entry.getValue()){
-                temporal.add(x);
+        for (int indice=StringUtil.maxLength(newArr) -1; indice>=0; indice--){
+            // Leer el digito y agregarlo a su lista correspondiente
+            for (String casilla : newArr){
+                int digito = Integer.parseInt(String.valueOf(casilla.charAt(indice)));
+                hm.get(digito).add(casilla);
             }
 
-            // Limpiar las listas en el map
-            entry.getValue().clear();
+            // Recorrer las listas en el map y reconstruir el temporal
+            for (Map.Entry<Integer, ArrayList<String>> entry: hm.entrySet()){
+                for (String x : entry.getValue()){
+                    temporal.add(x);
+                }
+
+                // Limpiar las listas en el map
+                entry.getValue().clear();
+            }
+
+            // Actualizar newArray
+            for (int i=0; i< newArr.length; i++){
+                newArr[i] = temporal.get(i);
+            }
+
+            // Limpiar temporal
+            temporal.clear();
         }
-
-        // Actualizar newArray
-        for (int i=0; i< newArr.length; i++){
-            newArr[i] = temporal.get(i);
-        }
-
-        // Limpiar temporal
-        temporal.clear();
-
-
-        /**
-        for(String i:newArr){
-            System.out.print(i+" ");
-        }
-         **/
 
         // Convertir el array ordenado, de String[] a int[]
         int newArr2[] = StringUtil.toIntArray(newArr);
@@ -62,7 +55,6 @@ public class RadixSort {
             arr[i] = newArr2[i];
         }
     }
-
 
     public static void main(String[] args)
     {
