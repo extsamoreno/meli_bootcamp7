@@ -14,10 +14,9 @@ public class RadixSort
 			sArr = extractFromLists(lists);
 			
 		}
-		int [] t = StringUtil.toIntArray(sArr);
-
+		int [] iArr = StringUtil.toIntArray(sArr);
 		for (int i = 0; i < sArr.length; i++) {
-			arr[i]= t[i];
+			arr[i]= iArr[i];
 		}
 		
 
@@ -59,5 +58,7 @@ public class RadixSort
 		{
 			System.out.print(arr[i]+(i<arr.length-1?",":""));
 		}
+		System.out.println("");
+
 	}
 }
