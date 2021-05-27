@@ -22,16 +22,12 @@ public class RadixSort
 			ArrayList<String> listMap = lists.get(key);
 			listMap.add(stringArray[i]);
 		}
-		stringArray = new String[stringArray.length];
 
-		ArrayList<String> newArray = new ArrayList<String>();
 		for (int i = 0; i < 10; i++) {
-			for (String num:
-				 lists.get(i)) {
+			for (String num: lists.get(i)) {
 				stringArray[i] = num;
 			}
 		}
-
 		for (String c:
 			 stringArray) {
 			System.out.println(c);
