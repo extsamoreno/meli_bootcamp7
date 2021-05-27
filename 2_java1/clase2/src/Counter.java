@@ -8,6 +8,9 @@ public class Counter {
     public Counter (int value){
         this.value= value;
     }
+    public Counter (Counter counter){
+        this.value= counter.getValue();
+    }
 
 
     
