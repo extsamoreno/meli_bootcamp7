@@ -1,3 +1,5 @@
+package Parte1;
+
 public class Contador {
     int valor;
 

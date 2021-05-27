@@ -1,4 +1,4 @@
-import javax.xml.stream.FactoryConfigurationError;
+package Parte1;
 
 public class Fraccion {
     private int numerador;

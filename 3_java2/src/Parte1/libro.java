@@ -1,3 +1,5 @@
+package Parte1;
+
 public class libro {
 
     private String titulo;
@@ -42,7 +44,7 @@ public class libro {
 
     @Override
     public String toString() {
-        return "libro{" +
+        return "Parte1.libro{" +
                 "titulo='" + titulo + '\'' +
                 ", isbn=" + isbn +
                 ", autor='" + autor + '\'' +
