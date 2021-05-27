@@ -5,9 +5,11 @@ public class StringUtil
 	// Retorna una cadena compuesta por n caracteres c
 	public static String replicate(char c,int n)
 	{
-		
-		//Implementación
-		return "Hola";
+		String string = "";
+		for (int i = 0; i < n; i++) {
+			string += c;
+		}
+		return string;
 	}
 	
 	// Retorna una cadena de longitud n, compuesta por s
@@ -15,17 +17,15 @@ public class StringUtil
 	// para completar la longitud mencionada
 	public static String lpad(String s,int n,char c)
 	{
-		int cantCharacters = s.length();
-		int missingCharacters = n - cantCharacters;
-		String newString = Character.toString(c).repeat(missingCharacters) + s;
-		return newString;
+		String string = replicate(c, n - s.length()) + s;
+		return string;
 	}
 	
 	// Retorna un String[] conteniendo los elementos de arr
     // representados como cadenas de caracteres
 	public static String[] toStringArray(int arr[])
 	{
-		String[] newArrString = new String[arr.length];
+		String newArrString[] = new String[arr.length];
 		for (int i = 0; i < arr.length; i++) {
 			newArrString[i] = String.valueOf(arr[i]);
 		}
@@ -36,7 +36,7 @@ public class StringUtil
     // representados como cadenas de caracteres
 	public static int[] toIntArray(String arr[])
 	{
-		int[] newArrInt = new int[arr.length];
+		int newArrInt[] = new int[arr.length];
 		for ( int i = 0; i < arr.length; i++ ) {
 			newArrInt[i] = Integer.parseInt(arr[i]);
 		}
