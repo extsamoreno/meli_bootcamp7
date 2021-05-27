@@ -10,13 +10,12 @@ public class PuntoCinco {
         System.out.println("=" + "=".repeat(titulo.length()) + "=");
     }
 
-    public static int vecesRepetido(String numeros, char numeroRepetido) {
+    public static int vecesRepetido(String numeros, int numeroRepetido) {
         int numeroVeces = 0;
-        char[] letras = numeros.toCharArray();
-        //System.out.println("letras[0] = " + letras[0]);
-        for ( char numero: letras) {
-            if ( numero == numeroRepetido) {
-                numeroRepetido++;
+        for (int i = 0; i < numeros.length(); i++) {
+            char numero = numeros.charAt(i);
+            if( Character.getNumericValue(numero) == numeroRepetido) {
+                numeroVeces++;
             }
         }
 
@@ -34,19 +33,24 @@ public class PuntoCinco {
         System.out.print("Por favor, ingresa el número que desea que se repita: ");
         int numero = scanner.nextInt();
 
-        for (int i = 0; i < cantidad; i++) {
-            String numeroARevisar = Integer.toString(i);
-            int veces = vecesRepetido(numeroARevisar, (char)numero);
-            if( veces == cantidadVeces) {
-                System.out.println(i);
+        int contador = 0;
+
+        System.out.println("Los primeros " + cantidad + "números donde se repite " + numero + " " +
+                cantidadVeces + " veces son:");
+        for (int i = 0; i <= cantidad; ) {
+            if(vecesRepetido(String.valueOf(contador), numero) == cantidadVeces) {
+                System.out.println(contador);
+                contador ++;
+                i++;
+            } else {
+                contador ++;
             }
         }
     }
 
     public static void main(String[] args) {
         titulo("Punto 5");
-        System.out.println(vecesRepetido("303", (char)3));
-
         primerosNumerosNaturales();
+
     }
 }
