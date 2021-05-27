@@ -1,6 +1,11 @@
 package com.company;
 
 import com.company.ej1.CuentaCorriente;
+import com.company.ej1Tarde.Password;
+import com.company.ej1Tarde.PasswordFuerte;
+import com.company.ej1Tarde.PasswordIntermedia;
+import com.company.ej1Tarde.PasswordSimple;
+import com.company.ej2Tarde.*;
 import com.company.ej4.Fraccion;
 import com.company.ej5.Fecha;
 import com.company.ej6.StringUtil;
@@ -49,5 +54,25 @@ public class Main {
         System.out.println("ltrim'" + StringUtil.ltrim(s1) + "'");
         System.out.println("rtrim'" + StringUtil.rtrim(s1) + "'");
         System.out.println(StringUtil.indexOfN(s2, '3', 1));
+
+        PasswordFuerte pf = new PasswordFuerte();
+        PasswordIntermedia pi = new PasswordIntermedia();
+        PasswordSimple ps = new PasswordSimple();
+
+        try {
+            pf.setValue("Ll123/OO0");
+            pi.setValue("00000aaaa");
+            ps.setValue("a");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        FiguraGeometrica c = new Circulo(3);
+        FiguraGeometrica t = new Triangulo(2,3);
+        FiguraGeometrica r = new Rectangulo(2, 3);
+        System.out.println(c.area() + " " + t.area() + " " + r.area());
+
+        FiguraGeometrica[] array = {c,t,r};
+        System.out.println(FiguraUtils.areaPromedio(array));
     }
 }
