@@ -1,4 +1,4 @@
-package com.ejercitacion;
+package com.ejercitacion.mañana;
 
 public class Contador {
 

@@ -1,4 +1,4 @@
-package com.ejercitacion;
+package com.ejercitacion.mañana;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -30,7 +30,7 @@ public class Fecha {
                     this.fecha = new GregorianCalendar(year, month, day);
                 }
             } else if (month == 2) {
-                    if (day < 1 || day > 28) {
+                    if (day < 1 || day > 29) {
                         throw new Exception("Invalid date");
                     } else {
                         this.fecha = new GregorianCalendar(year, month, day);
