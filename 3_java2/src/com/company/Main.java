@@ -3,6 +3,7 @@ package com.company;
 import com.company.ej1.CuentaCorriente;
 import com.company.ej4.Fraccion;
 import com.company.ej5.Fecha;
+import com.company.ej6.StringUtil;
 
 public class Main {
 
@@ -38,5 +39,15 @@ public class Main {
 
         fe1.addDays(1);
         System.out.println(fe1);
+
+        String s1 = "   1   ";
+        String s2 = "111222333";
+
+        System.out.println(StringUtil.rpad("111", '0', 5));
+        System.out.println("     '" + s1 + "'");
+        System.out.println(" trim'" + StringUtil.trim(s1) + "'");
+        System.out.println("ltrim'" + StringUtil.ltrim(s1) + "'");
+        System.out.println("rtrim'" + StringUtil.rtrim(s1) + "'");
+        System.out.println(StringUtil.indexOfN(s2, '3', 1));
     }
 }

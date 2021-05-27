@@ -1,4 +1,4 @@
-package radix;
+package com.company.ej6;
 
 import java.util.ArrayList;
 import java.util.HashMap;
