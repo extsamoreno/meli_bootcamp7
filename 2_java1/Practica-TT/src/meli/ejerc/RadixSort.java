@@ -22,6 +22,7 @@ public class RadixSort
                 map.put(i, new ArrayList<>());
             }
 
+            //asigno la cadena del arr a la arraylist correspondiente
             for (int i = 0; i < sArr.length; i++) {
                 int key = Character.getNumericValue(sArr[i].charAt(digito));
                 map.get(key).add(sArr[i]);
