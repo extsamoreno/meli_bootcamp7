@@ -19,6 +19,33 @@ public class StringUtil
 	{
 		return replicate(c,n)+s;
 	}
+
+	public static String rpad(String s,int n,char c)
+	{
+		return s+replicate(c,n);
+	}
+
+	public static String lTrim(String s)
+	{
+		while(s.charAt(0)==' '){
+			s=s.substring(1);
+		}
+		return s;
+	}
+
+	public static String rTrim(String s)
+	{
+		while(s.charAt(s.length()-1)==' '){
+			s=s.substring(0,s.length()-2);
+		}
+		return s;
+	}
+
+	public static String trim(String s){
+		s=lTrim(s);
+		s=rTrim(s);
+		return s;
+	}
 	
 	// Retorna un String[] conteniendo los elementos de arr
     // representados como cadenas de caracteres
@@ -66,5 +93,19 @@ public class StringUtil
 				arr[i]=lpad(arr[i],max-arr[i].length(), c);
 			}
 		}
+	}
+
+	public static int indexOfN(String s,char c,int n){
+		int index=-1;
+		int count=0;
+		for (int i = 0; i < s.length(); i++) {
+			if(s.charAt(i)==c){
+				count++;
+				if (count == n) {
+					index = i;
+				}
+			}
+		}
+		return index;
 	}
 }
