@@ -6,6 +6,20 @@ public class MainClass {
         pruebaEj4();
         pruebaEj5();
         pruebaEj6();
+
+        pruebaPasswords();
+        
+    }
+
+    private static void pruebaPasswords() {
+        PasswordSimple x = new PasswordSimple();
+        x.setValue("password1"); // Requisitos minimos: minimo 8 de length, letras y numeros
+
+        PasswordIntermedia y = new PasswordIntermedia();
+        y.setValue("Password12342"); // Requisitos minimos: minimo 13 de length, letras, numeros y minimo 1 mayuscula
+
+        PasswordFuerte z = new PasswordFuerte();
+        z.setValue("Password12342@1X"); // Requisitos minimos: minimo 15 de length, letras, numeros, minimo 1 mayuscula y minimo 1 simbolo especial
     }
 
     private static void pruebaEj6() {
@@ -17,7 +31,7 @@ public class MainClass {
 
     private static void pruebaEj5() {
         Fecha f1= new Fecha(2000,11,15);
-        Fecha f2= new Fecha(2001, 2, 29);
+        Fecha f2= new Fecha(2001    , 2, 29);
         System.out.println("Fecha obtenida: "+f1.getFecha().getTime());
         System.out.println("La fecha es correcta? "+f1.esValida());
         System.out.println("Fecha antes de sumar un dia: "+f1.getFecha().getTime());
