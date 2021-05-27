@@ -26,6 +26,5 @@ public class Password {
             this.value = pwd;
         else
             throw new IllegalArgumentException("Password not valid");
-
     }
 }

@@ -3,7 +3,7 @@ package com.meli;
 public class Main {
 
     public static void main(String[] args) {
-	    Password pswd = new Password("aa");
+	    Password pswd = new Password("hola");
 
 	    try {
             pswd.setValue("hola");
@@ -39,5 +39,12 @@ public class Main {
             System.out.println("error " + ex.getMessage());
         }
 
+        FiguraGeometrica arr[] = new FiguraGeometrica[3];
+        arr[0] = new Circulo(5);
+        arr[1] = new Triangulo(8,2);
+        arr[2] = new Rectangulo(3,7);
+
+        double areaPromedio = FGUtil.areaPromedio(arr);
+        System.out.println(areaPromedio);
     }
 }
