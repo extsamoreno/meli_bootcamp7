@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void obtenerNum(int n, int m, int d){
+    public static void obtener(int n, int m, int d){
         int totalNum =0, countm=0,i=1,num=1;
         while(totalNum!=n){
             num=i;
@@ -25,12 +25,12 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Ingrese n");
+        System.out.println("Ingrese un valor para N");
         int n = sc.nextInt();
-        System.out.println("Ingrese m");
+        System.out.println("Ingrese un valor para M");
         int m = sc.nextInt();
-        System.out.println("Ingrese d");
+        System.out.println("Ingrese un valor para D");
         int d = sc.nextInt();
-        obtenerNum(n,m,d);
+        obtener(n,m,d);
     }
 }
