@@ -9,7 +9,7 @@ public class StringUtil {
         {
             String data = new String("");
             for(int i=0;i<n;i++){
-                data = data+c;
+                data += c;
             }
             return data;
         }
@@ -19,10 +19,8 @@ public class StringUtil {
         // para completar la longitud mencionada
         public static String lpad(String s,int n,char c)
         {
-            String data = new String(s);
-            int dataSize = data.length();
             String newData = new String("");
-            for(int i=0;i<n-dataSize;i++){
+            for(int i=0;i<n-s.length();i++){
                 newData.concat("0");
             }
             return newData.concat(s);
@@ -68,13 +66,10 @@ public class StringUtil {
         // a la izquierda, dejando a todos con la longitud del mayor
         public static void lNormalize(String arr[],char c)
         {
-            int max = maxLength(arr);
-            int index = 0;
-
-            for(String s : arr) {
-                s = lpad(s, max, c);
-                arr[index] = s;
-                index++;
+            int max=maxLength(arr);
+            for(int i=0; i<arr.length;i++)
+            {
+                arr[i]=lpad(arr[i],max,c);
             }
         }
 

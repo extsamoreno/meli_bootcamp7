@@ -7,36 +7,58 @@ import java.util.Scanner;
 public class RadixSort {
 
     public static void radixSort(int []arr) {
-        String[] stringArray = StringUtil.toStringArray(arr);
+        // convierto
+        String sArr[] = StringUtil.toStringArray(arr);
 
-        StringUtil.lNormalize(stringArray,'0');
+        // normaizo
+        StringUtil.lNormalize(sArr,'0');
 
-        HashMap<Integer,ArrayList<String>> maps = new HashMap<>();
+        HashMap<Integer,ArrayList<String>> ed = new HashMap<>();
 
-        // Inicializo el HashMap en array vacios
-        for(int i = 0; i < stringArray.length; i++) {
-            maps.put(i, new ArrayList<>());
-        }
 
-        for(int j = stringArray[0].length() - 1; j >= 0; j--) {
-            for (String s : stringArray) {
-                int values = Integer.parseInt(String.valueOf(s.charAt(j)));
-                maps.get(values).add(s);
+        int cantDig = sArr[0].length();
+        for(int i=0; i<cantDig; i++)
+        {
+            // agrega 10 entradas, de 0 a 9, con arraylists vacios
+            inicializarED(ed);
+
+            int digPos = cantDig-1-i;
+            for(int j=0; j<sArr.length; j++)
+            {
+                int d = sArr[j].charAt(digPos)-'0';
+                ed.get(d).add(sArr[j]);
             }
 
-            int index = 0;
-
-            for(Map.Entry<Integer,ArrayList<String>> entry : maps.entrySet()) {
-                for(String s : entry.getValue()) {
-                    stringArray[index] = s;
-                    index++;
-                }
-                entry.getValue().clear();
-            }
+            rearmarArray(sArr,ed);
         }
 
-        int[] intArray = StringUtil.toIntArray(stringArray);
-        System.arraycopy(intArray, 0, arr, 0, intArray.length);
+        int iArr[]=StringUtil.toIntArray(sArr);
+        for(int x=0; x<iArr.length;x++)
+        {
+            arr[x]=iArr[x];
+        }
+    }
+
+    private static void rearmarArray(String[] sArr, HashMap<Integer,ArrayList<String>> ed)
+    {
+        int k=0;
+        for(int i=0; i<10; i++)
+        {
+            ArrayList<String> x = ed.get(i);
+            for(int j=0; j<x.size(); j++)
+            {
+                sArr[k++]=x.get(j);
+            }
+        }
+    }
+
+    private static void inicializarED(HashMap<Integer,ArrayList<String>> ed)
+    {
+        ed.clear();
+        for(int i=0; i<10; i++)
+        {
+            ed.put(i,new ArrayList<>());
+        }
     }
 
     public static void main(String[] args) {
