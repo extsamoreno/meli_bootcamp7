@@ -11,7 +11,7 @@ public class Main {
         System.out.println("Seleccione el ejercicio:");
         System.out.println("1. Cuenta Corriente.");
         System.out.println("2. Contador.");
-        System.out.println("3. Número primo.");
+        System.out.println("3. Libro.");
         System.out.println("4. Números primos menores a n.");
         System.out.println("5. .");
         System.out.println(" ");
@@ -80,14 +80,25 @@ public class Main {
                 break;
 
             case 3:
-                /**
-                System.out.println("n ES NÚMERO PRIMO?:");
-                System.out.println("Ingresa el valor de n:");
-                n = scanner.nextInt();
-                boolean primo = Ejercicio3.es_primo(n);
-                System.out.print(primo?"Es primo":"NO es primo");
+                System.out.println("LIBRO:");
+                System.out.println("Libro 1:");
+                Libro l1 = new Libro();
+                System.out.println(l1.toString());
                 System.out.println(" ");
-                 **/
+
+                System.out.println("Libro 2:");
+                Libro l2 = new Libro("Harry Potter","isbn002","J. K. Rowly");
+                System.out.println(l2.toString());
+                System.out.println(" ");
+
+                System.out.println("Prestamo:");
+                System.out.println(l1.prestamo());
+                System.out.println(" ");
+
+                System.out.println("Devolucion:");
+                System.out.println(l1.devolucion());
+                System.out.println(" ");
+
                 break;
 
             case 4:
