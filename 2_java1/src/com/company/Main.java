@@ -1,7 +1,5 @@
 package com.company;
 
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +8,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        int arr[]={16223,898,13,906,235,23,9,1532,6388,2511,8};
+        int[] arr ={16223,898,13,906,235,23,9,1532,6388,2511,8};
         radixSort(arr);
 
         for(int i=0; i<arr.length;i++)
@@ -19,87 +17,73 @@ public class Main {
         }
     }
 
-    public static void Exercice1() {
+    public static void Exercise1() {
         System.out.print("Input number: ");
         Scanner sc = new Scanner(System.in);
-        int inputNumber = 0;
-        int count = 0;
 
-        inputNumber = sc.nextInt();
+        int inputNumber = sc.nextInt();
 
-        while (count < inputNumber) {
-            System.out.println(count * 2);
-            count++;
+        for (int i = 0; i < inputNumber; i++) {
+            System.out.println(i * 2);
         }
     }
 
-    public static void Exercice2() {
-        //Console N sequence y M number
+    public static void Exercise2() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Input sequence: ");
         int inputSequence = sc.nextInt();
         System.out.print("Input number: ");
         int inputNumber = sc.nextInt();
 
-        int count = 0;
-
-        while (count < inputSequence) {
-            System.out.println(count * inputNumber);
-            count++;
+        for (int i = 0; i < inputSequence; i++) {
+            System.out.println(i * inputNumber);
         }
     }
 
-    public static void Exercice3() {
+    public static void Exercise3() {
         //Validate prime number
         System.out.print("Input number to validate: ");
         Scanner sc = new Scanner(System.in);
 
         int inputNumber = sc.nextInt();
-        boolean isPrime = true;
 
-        for (int i = 1; i <= (inputNumber / 2); i++) {
-            if (inputNumber % i == 0 && i != 1) {
-                System.out.println("Es multipo de " + i);
-                isPrime = false;
-                break;
-            }
-        }
-        if (isPrime) {
+        if (isPrime(inputNumber)) {
             System.out.println("Es primo");
+        } else {
+            System.out.println("NO es primo");
         }
     }
 
     public static boolean isPrime(int number) {
-        for (int i = 1; i <= (number / 2); i++)
+        //if (number == 0) throw new Exception("0 no es par ni compuesto");
+
+        for (int i = 1; i <= (number / 2); i++) {
             if (number % i == 0 && i != 1) return false;
+        }
+
         return true;
     }
 
-    //Bugfix
-    public static void Exercice4() {
+    public static void Exercise4() {
         System.out.println("Input sequence");
         Scanner sc = new Scanner(System.in);
 
         int sequence = sc.nextInt();
         int prime = 1;
-        boolean existPrime = false;
         String primes = "";
 
         while (sequence > 0) {
-            while (!existPrime) {
-                if (isPrime(prime)) {
-                    existPrime = true;
-                    primes += prime;
-                }
+            while (!isPrime(prime)) {
                 prime++;
             }
-            existPrime = false;
+            primes += " " + prime;
+            prime++;
             sequence--;
         }
         System.out.println(primes);
     }
 
-    public static void Exercice5() {
+    public static void Exercise5() {
         System.out.print("Input sequence: ");
         Scanner sc = new Scanner(System.in);
         int sequence = sc.nextInt();
@@ -116,44 +100,45 @@ public class Main {
         }
     }
 
-
+    //region Exercise 6 RadixSort
     public static void radixSort(int []arr)
     {
-        //Implementación
         String[] results = toStringArray(arr);
+        HashMap<String,ArrayList<String>> mapLists = new HashMap<>();
+
         lNormalize(results,'0');
-        HashMap<String,ArrayList<String>> mapListas = new HashMap<>();
+        int maxLength = maxLength(results);
 
         for (int i = 0; i < 10; i++){
-            mapListas.put("L"+i, new ArrayList<String>());
+            mapLists.put("L"+i, new ArrayList<String>());
         }
-
-        int maxLength = maxLength(results);
 
         while (maxLength > 0) {
             for (int i = 0; i < results.length; i++){
                 char charValue = results[i].charAt(maxLength-1);
 
-                ArrayList<String> values = mapListas.get("L"+charValue);
+                ArrayList<String> values = mapLists.get("L"+charValue);
                 values.add(results[i]);
-                mapListas.put("L"+charValue, values);
+                mapLists.put("L"+charValue, values);
             }
-            //Chequear listas y volver a crear lista base
+
             ArrayList<String> temp = new ArrayList<String>();
-            for (Map.Entry<String, ArrayList<String>> entry:mapListas.entrySet()){
+
+            for (Map.Entry<String, ArrayList<String>> entry:mapLists.entrySet()){
                 String key = entry.getKey();
                 ArrayList<String> value = entry.getValue();
 
                 temp.addAll(value);
-                mapListas.put(key, new ArrayList<String>());
+                mapLists.put(key, new ArrayList<String>());
             }
             results = temp.toArray(String[]::new);
 
             maxLength--;
         }
+
+        System.arraycopy(toIntArray(results), 0, arr, 0, results.length);
     }
 
-    // Retorna una cadena compuesta por n caracteres c
     public static String replicate(char c,int n)
     {
         String result = "";
@@ -163,19 +148,15 @@ public class Main {
         return result;
     }
 
-    // Retorna una cadena de longitud n, compuesta por s
-    // y precedida de tantos caracteres c como sea necesario
-    // para completar la longitud mencionada
     public static String lpad(String s,int n,char c)
     {
         int length = s.length();
 
         String prefix = replicate(c,  n - length);
+
         return prefix + s;
     }
 
-    // Retorna un String[] conteniendo los elementos de arr
-    // representados como cadenas de caracteres
     public static String[] toStringArray(int arr[])
     {
         String[] aNumbers = new String[arr.length];
@@ -183,11 +164,10 @@ public class Main {
         for (int i = 0; i < arr.length; i++) {
             aNumbers[i] = Integer.toString(arr[i]);
         }
+
         return aNumbers;
     }
 
-    // Retorna un String[] conteniendo los elementos de arr
-    // representados como cadenas de caracteres
     public static int[] toIntArray(String arr[])
     {
         int[] aNumbers = new int[arr.length];
@@ -199,9 +179,6 @@ public class Main {
         return aNumbers;
     }
 
-
-    // Retorna la longitud del elemento con mayor cantidad
-    // de caracteres del array arr
     public static int maxLength(String arr[])
     {
         int maxLength = 0;
@@ -214,8 +191,6 @@ public class Main {
         return maxLength;
     }
 
-    // Completa los elemento del arr agregando caracteres c
-    // a la izquierda, dejando a todos con la longitud del mayor
     public static void lNormalize(String arr[],char c)
     {
         int length = maxLength(arr);
@@ -224,4 +199,5 @@ public class Main {
             arr[i] = lpad(arr[i], length, c);
         }
     }
+    //endregion
 }
