@@ -29,7 +29,6 @@ public class StringUtil {
         }
 
         return s;
-
     }
 
     // Retorna un String[] conteniendo los elementos de arr
@@ -64,26 +63,26 @@ public class StringUtil {
     // de caracteres del array arr
     public static int maxLength(String arr[])
     {
-        int lengthItem = 0;
+        int maxLengthItem = 0;
 
         for(String s : arr){
 
-            if(lengthItem < s.length()){
-                lengthItem = s.length();
+            if(maxLengthItem < s.length()){
+                maxLengthItem = s.length();
             }
         }
 
-        return lengthItem;
+        return maxLengthItem;
     }
 
     // Completa los elemento del arr agregando caracteres c
     // a la izquierda, dejando a todos con la longitud del mayor (usa lpad)
     public static void lNormalize(String arr[],char c)
     {
-        int lenghtItem = maxLength(arr);
+        int maxlenghtItem = maxLength(arr);
 
         for(int i = 0 ; i < arr.length ; i++){
-            arr[i] = lpad(arr[i], lenghtItem, c);
+            arr[i] = lpad(arr[i], maxlenghtItem, c);
         }
     }
 }
