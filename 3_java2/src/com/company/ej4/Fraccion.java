@@ -8,6 +8,11 @@ public class Fraccion {
     public Fraccion() {
     }
 
+    public Fraccion(int numerador) {
+        this.numerador = numerador;
+        this.denominador = 1;
+    }
+
     public Fraccion(int numerador, int denominador) {
         this.numerador = numerador;
         this.denominador = denominador;
@@ -21,19 +26,13 @@ public class Fraccion {
         retorno.numerador = ( retorno.denominador / this.denominador * this.numerador ) +
                 ( retorno.denominador / fraccion.denominador * fraccion.numerador );
 
-        return retorno;
+        return retorno.simplificar();
 
     }
 
     public Fraccion sumar(int nro) {
 
-        Fraccion retorno = new Fraccion();
-
-        retorno.denominador = this.denominador;
-        retorno.numerador = ( retorno.denominador / this.denominador * this.numerador ) +
-                ( retorno.denominador * nro );
-
-        return retorno;
+        return this.sumar(new Fraccion(nro));
 
     }
 
@@ -45,19 +44,13 @@ public class Fraccion {
         retorno.numerador = ( retorno.denominador / this.denominador * this.numerador ) -
                 ( retorno.denominador / fraccion.denominador * fraccion.numerador );
 
-        return retorno;
+        return retorno.simplificar();
 
     }
 
     public Fraccion restar(int nro) {
 
-        Fraccion retorno = new Fraccion();
-
-        retorno.denominador = this.denominador;
-        retorno.numerador = ( retorno.denominador / this.denominador * this.numerador ) -
-                ( retorno.denominador * nro );
-
-        return retorno;
+        return this.restar(new Fraccion(nro));
 
     }
 
@@ -68,18 +61,13 @@ public class Fraccion {
         retorno.denominador = this.denominador * fraccion.denominador;
         retorno.numerador = this.numerador * fraccion.numerador;
 
-        return retorno;
+        return retorno.simplificar();
 
     }
 
     public Fraccion multiplicar(int nro) {
 
-        Fraccion retorno = new Fraccion();
-
-        retorno.denominador = this.denominador;
-        retorno.numerador = this.numerador * nro;
-
-        return retorno;
+        return this.multiplicar(new Fraccion(nro));
 
     }
 
@@ -90,18 +78,37 @@ public class Fraccion {
         retorno.denominador = this.denominador * fraccion.numerador;
         retorno.numerador = this.numerador * fraccion.denominador;
 
-        return retorno;
+        return retorno.simplificar();
 
     }
 
     public Fraccion dividir(int nro) {
 
-        Fraccion retorno = new Fraccion();
+        return this.dividir(new Fraccion(nro));
 
-        retorno.denominador = this.denominador * nro;
-        retorno.numerador = this.numerador;
+    }
 
-        return retorno;
+    private int mcdRecursivo(int a, int b) {
+
+        if(b == 0) {
+            return a;
+        }
+        return mcdRecursivo(b, a % b);
+
+    }
+
+    private Fraccion simplificar() {
+
+        int mcd = mcdRecursivo(this.numerador,this.denominador);
+
+        if(mcd == 1) {
+            return this;
+        }
+
+        this.numerador /= mcd;
+        this.denominador /= mcd;
+
+        return this;
 
     }
 
@@ -121,4 +128,8 @@ public class Fraccion {
         this.denominador = denominador;
     }
 
+    @Override
+    public String toString() {
+        return numerador + "/" + denominador;
+    }
 }

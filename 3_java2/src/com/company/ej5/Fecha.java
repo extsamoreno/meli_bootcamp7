@@ -12,20 +12,20 @@ public class Fecha {
     public Fecha() {
         GregorianCalendar gc = new GregorianCalendar();
         this.dia = gc.get(Calendar.DAY_OF_MONTH);
-        this.mes = gc.get(Calendar.MONTH);
+        this.mes = gc.get(Calendar.MONTH) + 1;
         this.anio = gc.get(Calendar.YEAR);
     }
 
     public Fecha(int dia, int mes, int anio) {
-        GregorianCalendar gc = new GregorianCalendar(anio, mes, dia);
+        GregorianCalendar gc = new GregorianCalendar(anio, mes-1, dia);
         this.dia = gc.get(Calendar.DAY_OF_MONTH);
-        this.mes = gc.get(Calendar.MONTH);
+        this.mes = gc.get(Calendar.MONTH) +1;
         this.anio = gc.get(Calendar.YEAR);
     }
 
     public static boolean isCorrectDate(int dia, int mes, int anio) {
 
-        GregorianCalendar gc = new GregorianCalendar(anio, mes, 1);
+        GregorianCalendar gc = new GregorianCalendar(anio, mes-1, 1);
         int maxDay = 0;
 
         if(anio < 1) {
@@ -37,14 +37,21 @@ public class Fecha {
         }
 
         maxDay = gc.getActualMaximum(Calendar.DAY_OF_MONTH);
-        System.out.println(maxDay);
-        
+
         if(dia > maxDay) {
             return false;
         }
 
         return true;
 
+    }
+
+    public void addDays(int days) {
+        GregorianCalendar gc = new GregorianCalendar(this.anio, this.mes-1, this.dia);
+        gc.add(Calendar.DAY_OF_MONTH, days);
+        this.dia = gc.get(Calendar.DAY_OF_MONTH);
+        this.mes = gc.get(Calendar.MONTH) +1;
+        this.anio = gc.get(Calendar.YEAR);
     }
 
     @Override
