@@ -16,7 +16,7 @@ public class StringUtil {
     {
         String cadena = s;
         int len = s.length();
-        for(int i=len;i<=n;i++){
+        for(int i=len;i<n;i++){
             cadena = c + cadena;
         }
         return cadena;
@@ -64,8 +64,11 @@ public class StringUtil {
     public static void lNormalize(String arr[],char c)
     {
         int len = maxLength(arr);
-        for(String i: arr) {
-            i = lpad(i, len, c);
+        String temp[] = new String[arr.length];
+        for(int i=0; i< arr.length; i++) {
+           temp[i]  = lpad(arr[i], len, c);
+           arr[i] = temp[i];
         }
+
     }
 }

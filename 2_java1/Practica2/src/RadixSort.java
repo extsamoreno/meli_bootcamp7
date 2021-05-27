@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class RadixSort {
     public static void radixSort(int []arr)
     {
@@ -7,6 +11,45 @@ public class RadixSort {
 
         // Normalizar el array
         StringUtil.lNormalize(newArr,'0');
+
+        // Generar las 10 listas vacias dentro de un HashMap
+        HashMap<Integer, ArrayList<String>> hm = new HashMap<>();
+        for(int i=0; i<=9; i++){
+            hm.put(i,new ArrayList<>());
+        }
+
+        // Creacion de un ArrayList temporal
+        ArrayList<String> temporal = new ArrayList<>();
+
+
+        // Leer el ultimo digito y agregarlo a su lista correspondiente
+        int indice = StringUtil.maxLength(newArr) -1;
+        for (String casilla : newArr){
+            int digito = Integer.parseInt(String.valueOf(casilla.charAt(indice)));
+            hm.get(digito).add(casilla);
+        }
+
+        // Recorrer las listas en el map y reordenar el temporal
+        for (Map.Entry<Integer, ArrayList<String>> entry: hm.entrySet()){
+            for (String x : entry.getValue()){
+                temporal.add(x);
+            }
+        }
+
+        // Actualizar newArray
+        for (int i=0; i< newArr.length; i++){
+            newArr[i] = temporal.get(i);
+        }
+
+        // Limpiar temporal
+        temporal.clear();
+
+
+        /**
+        for(String i:newArr){
+            System.out.print(i+" ");
+        }
+         **/
 
         // Convertir el array ordenado, de String[] a int[]
         int newArr2[] = StringUtil.toIntArray(newArr);
