@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -26,6 +27,7 @@ public class Excercise_5 {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        List<String>[] listDeArrays = new List[10];
         int counter = 1;
 
 
