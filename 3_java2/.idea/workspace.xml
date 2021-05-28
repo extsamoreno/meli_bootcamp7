@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0394c1c9-fb3d-4e39-805a-00c2950b2e14" name="Default Changelist" comment="practica en desarrollo">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ejercicios/Ciruclo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ejercicios/FiguraGeometrica.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ejercicios/PasswordFuerte.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ejercicios/PasswordIntermedia.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ejercicios/PasswordSimple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ejercicios/Rectangulo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ejercicios/Triangulo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ejercicios/UtilClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../2_java1/Practica-TT/out/production/Practica-TT/meli/ejerc/RadixSort.class" beforeDir="false" afterPath="$PROJECT_DIR$/../2_java1/Practica-TT/out/production/Practica-TT/meli/ejerc/RadixSort.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ejercicios/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ejercicios/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Password.java" afterDir="false" />
-    </list>
+    <list default="true" id="0394c1c9-fb3d-4e39-805a-00c2950b2e14" name="Default Changelist" comment="Merge remote-tracking branch 'origin/razetto_mariano' into razetto_mariano" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +84,35 @@
       <option name="project" value="LOCAL" />
       <updated>1622160359385</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="finalizado">
+      <created>1622177926597</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622177926597</updated>
+    </task>
+    <task id="LOCAL-00003" summary="finalizado">
+      <created>1622177997036</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622177997036</updated>
+    </task>
+    <task id="LOCAL-00004" summary="finalizado">
+      <created>1622178045029</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1622178045029</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Merge remote-tracking branch 'origin/razetto_mariano' into razetto_mariano">
+      <created>1622178078370</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1622178078370</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -115,6 +130,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="practica en desarrollo" />
-    <option name="LAST_COMMIT_MESSAGE" value="practica en desarrollo" />
+    <MESSAGE value="finalizado" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/razetto_mariano' into razetto_mariano" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/razetto_mariano' into razetto_mariano" />
   </component>
 </project>
