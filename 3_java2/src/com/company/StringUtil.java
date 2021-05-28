@@ -96,13 +96,24 @@ public class StringUtil
 		return s.substring(0,i+1);
 	}
 	public static String trim(String s){
+
 		return s.trim();
 	}
 	public static int indexOfN(String s,char c,int n){
-	return 1;
+		int count = 0;
+		for (int i = 0; i < s.length(); i++) {
+			if(s.charAt(i) == c){
+				count ++;
+			}
+			if(count == n){
+				return i;
+			}
+		}
+
+		return -1;
 	}
 
 	public static void main(String[] args){
-		System.out.println(	StringUtil.rtrim("hola mundo"));
+		System.out.println(	StringUtil.indexOfN("John|Paul|George|Ringo", '|', 2));
 	}
 }
