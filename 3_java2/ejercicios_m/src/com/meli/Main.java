@@ -1,7 +1,7 @@
 package com.meli;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         //Cuenta corriente
         CuentaCorriente cuenta = new CuentaCorriente(3000);
         CuentaCorriente cuentaReceptora = new CuentaCorriente(150.39);
@@ -41,13 +41,39 @@ public class Main {
         System.out.println(fr1.dividir(fr2));
         System.out.println(fr1.multiplicar(3));
 
+        System.out.println();
+
         //Fecha
+        try {
+            Fecha fecha = new Fecha(5,5,2021);
+            fecha.addDay();
+            System.out.println(fecha);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
 
-
+        System.out.println();
+        
         //StringUtil
         String str = "123";
-        StringUtil.lpad(str, 5, '0');
-        StringUtil.rpad(str,'0', 5);
+        str = StringUtil.rpad(str,'0', 5);
+
+        String str1 = "    Hola";
+        str1 = StringUtil.ltrim(str1);
+
+        String str2 = "Hola    ";
+        str2 = StringUtil.rtrim(str2);
+
+        String str3 = "    Chau    ";
+        str3 = StringUtil.trim(str3);
+
+        String str4 = "John|Paul|George|Ringo";
+        int index = StringUtil.indexOfN(str4,'|',2);
+
         System.out.println(str);
+        System.out.println(str1);
+        System.out.println(str2);
+        System.out.println(str3);
+        System.out.println(index);
     }
 }

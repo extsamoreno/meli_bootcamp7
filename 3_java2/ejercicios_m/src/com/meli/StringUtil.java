@@ -82,23 +82,48 @@ public class StringUtil
 		if(lengthDiff > 0) {
 			s = s+replicate(c,lengthDiff);
 		}
-
 		return s;
 	}
 
 	public static String ltrim(String s) {
-		return "a";
+		int i = 0;
+		while(i < s.length() && Character.isWhitespace(s.charAt(i))) {
+			i++;
+		}
+		return s.substring(i);
 	}
 
 	public static String rtrim(String s) {
-		return "a";
+		int i = s.length() - 1;
+		while(i >= 0 && Character.isWhitespace(s.charAt(i))) {
+			i--;
+		}
+		return s.substring(0,i+1);
 	}
 
 	public static String trim(String s) {
-		return "a";
+		s = ltrim(s);
+		s = rtrim(s);
+		return s;
 	}
 
 	public static int indexOfN(String s, char c, int n) {
-		return 1;
+//		int index = 0, ocurrencia = 0;
+		int index = -1, i = 0, ocurrencia = 0;
+
+		while (i < s.length() && ocurrencia != n) {
+			if(s.charAt(i) == c) {
+				index = i;
+				ocurrencia++;
+			}
+			i++;
+		}
+//		for (int i = 0; i < s.length(); i++) {
+//			if(s.charAt(i) == c) {
+//				index = i;
+//				ocurrencia++;
+//			}
+//		}
+		return index;
 	}
 }
