@@ -16,11 +16,6 @@ public abstract class Figure {
         return 0.0;
     }
 
-    /*public int area(int base, int altura){
-        return (base * altura);
-    }*/
-
-
     public int getBase() {
         return base;
     }
