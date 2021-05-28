@@ -6,26 +6,34 @@ public class ejercicio5 {
      */
 
     public static void main(String[] args) {
-        int cantMinNum,cantNumMostrar, numero;
+        int n,m, d;
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingresar cantidad numeros a mostrar: "); //n
-        cantNumMostrar = scanner.nextInt();
+        n = scanner.nextInt();
 
         System.out.println("Ingresar cant minimo de numeros: "); //m
-        cantMinNum = scanner.nextInt();
+        m = scanner.nextInt();
 
         System.out.println("Ingresar numero requerido: "); //d
-        numero = scanner.nextInt();
+        d = scanner.nextInt();
+
+        mostrarNumerosEnteros(n,m,d);
     }
 
- /*   public static void mostrarNumerosEnteros(int cantMinNum, int cantNumMostrar,int numero){
-        int cont = 0;
-        int i = 0;
-        while(cont != cantNumMostrar){
-            contieneNumero(numero,cantMinNum);
-            cont++;
-            i++;
-        }
-    }*/
-
+   public static void mostrarNumerosEnteros( int n,int m,int d) {
+       int totalNum = 0, countm = 0, i = 1, num = 1;
+       while (totalNum != n) {
+           num = i;
+           while (num != 0) {
+               if (num % 10 == d) countm++;
+               num = num / 10;
+           }
+           if (countm >= m) {
+               System.out.println(i);
+               totalNum++;
+           }
+           countm = 0;
+           i++;
+       }
+   }
 }
