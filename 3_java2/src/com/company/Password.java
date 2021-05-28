@@ -15,9 +15,13 @@ public abstract class Password {
     }
 
     public void testRegex(String regex) throws InstantiationException {
+        //Definimos el regex
         Pattern pattern = Pattern.compile(regex);
+        //Creamos un matcher para nuestro regex
         Matcher matcher = pattern.matcher(this.value);
+        //Si coincide con el regex, es true, si no, es porque no cumplio
         boolean matchFound = matcher.find();
+        //Si no cumplio,
         if(!matchFound) throw new InstantiationException();
 
         return;
