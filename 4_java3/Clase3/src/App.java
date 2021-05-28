@@ -13,7 +13,7 @@ public class App {
 
         for( Celular x: arr){
 
-            System.out.println("x.getEdad() = " + x.getAño());
+            System.out.println("año = " + x.getAño());
         }
     }
 }
