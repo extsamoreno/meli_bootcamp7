@@ -1,0 +1,14 @@
+Discusión: si quisiéramos cambiar el criterio de precedencia entre dos personas o dos celulares,
+¿qué deberíamos hacer?
+
+Deberiamos hacer un cambio en el metodo añadiendo los campos que se van a comparar del objeto anterior con el nuevo, esto para que se pueda realizar la comparaciòn entre todos
+los parametros
+
+¿Cuán extensible y/mantenible resulta la solución de ordenamiento que desarrollamos en el ejercicio anterior?
+
+Implementamos el metodo burbuja el cual nos permite ordenar intercambiando las posiciones, si se quiere hacer mas extensible se deberia implementar un merge sort o quick sort,
+que nos mejore el rendimiento.
+
+¿Cómo se podría mejorar?
+
+El programa en si se podria mejorar implementando el envio de parametros generics desde el factory y poder acceder a los atributos del objeto de forma eficiente
