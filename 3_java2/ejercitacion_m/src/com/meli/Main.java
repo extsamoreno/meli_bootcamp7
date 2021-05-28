@@ -53,7 +53,7 @@ public class Main {
         }
 
         System.out.println();
-        
+
         //StringUtil
         String str = "123";
         str = StringUtil.rpad(str,'0', 5);
