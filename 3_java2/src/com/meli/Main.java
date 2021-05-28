@@ -6,10 +6,9 @@ import java.util.GregorianCalendar;
 public class Main {
 
     public static void main(String[] args) {
-        Fecha fecha = new Fecha();
-        System.out.println("fecha = " + fecha);
+        String string = "ola Hola Hola";
+        int posicion = StringUtil.indexOfN(string, 'o', 4);
 
-        fecha.sumarDia(20);
-        System.out.println("fecha = " + fecha);
+        System.out.println("posicion = " + posicion);
     }
 }
