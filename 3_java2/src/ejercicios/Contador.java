@@ -1,7 +1,9 @@
+package ejercicios;
 public class Contador {
-//    Crea una clase Contador (sí, contador de programación) con métodos que permitan incrementar y decrementar su valor.
-//    a clase contendrá un constructor por defecto, un constructor con parámetros,un constructor copia y
-//    los setters y getters (métodos de acceso) que corresponda.
+//    Crea una clase Contador (sí, contador de programación) con métodos que permitan
+//    incrementar y decrementar su valor.
+//    la clase contendrá un constructor por defecto, un constructor con parámetros,
+//    un constructor copia y los setters y getters (métodos de acceso) que corresponda.
 
     private int counter;
 

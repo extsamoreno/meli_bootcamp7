@@ -1,6 +1,12 @@
-//Crea una clase Libro con los métodos: préstamo, devolución y toString, cuyo prototipo debe ser: public String toString(). Este método debe retornar una cadena que represente al objeto. Por ejemplo: si la clase tiene los atributos: título, isbn y autor, una cadena que represente a un libro podría ser: “Harry Potter, 9780545582889, Rowling, J. K.”. La clase contendrá un constructor por defecto, un constructor con parámetros y los métodos de acceso.
-//        ● Agregar la línea @Override justo arriba del encabezado del método toString. Luego, cambiar el nombre del método por: tostring (todo en minúscula). ¿Qué sucede?
+//Crea una clase Libro con los métodos: préstamo, devolución y toString, cuyo
+// prototipo debe ser: public String toString(). Este método debe retornar una
+// cadena que represente al objeto. Por ejemplo: si la clase tiene los atributos: título,
+// isbn y autor, una cadena que represente a un libro podría ser: “Harry Potter, 9780545582889
+// , Rowling, J. K.”. La clase contendrá un constructor por defecto, un constructor con
+// parámetros y los métodos de acceso.
 
+
+package ejercicios;
 public class Libro {
 
     private String titulo, isbn, author;
@@ -26,12 +32,8 @@ public class Libro {
 
     @Override
     public String toString() {
-        return "Libro{" +
-                "titulo='" + titulo + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", author='" + author + '\'' +
-                ", onStock=" + onStock +
-                '}';
+        return ("Libro{" + "titulo='" + titulo + '\'' + ", isbn='" + isbn + '\'' +
+                ", author='" + author + '\'' + ", onStock=" + onStock + '}');
     }
 
     public void setTitulo(String titulo) {
