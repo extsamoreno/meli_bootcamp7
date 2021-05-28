@@ -1,8 +1,8 @@
-package Ejercicio1;
+package TM;
 
 public class Main {
     public static void main(String[] args) {
-        Precedeable<Persona>[] arrPersonas = new Precedeable[5]; //dudas sobre como generar el arreglo
+        Precedeable<Persona>[] arrPersonas = new Persona[5]; //dudas sobre como generar el arreglo
         arrPersonas[0] = new Persona("Juan", 33457383);
         arrPersonas[1] = new Persona("Ana", 33456459);
         arrPersonas[2] = new Persona("Daniel", 33456467);
@@ -10,12 +10,12 @@ public class Main {
         arrPersonas[4] = new Persona("Marta", 33456636);
 
         SortUtil.ordenar(arrPersonas);
-        for (Precedeable<Persona> p : //se llama precedeable o persona???
+        for (Precedeable<Persona> p :
                 arrPersonas) {
             System.out.println(p);
         }
 
-        Precedeable<Celular>[] arrCelulares = new Precedeable[5]; //dudas sobre como generar el arreglo
+        Precedeable<Celular>[] arrCelulares = new Celular[5]; //dudas sobre como generar el arreglo
         arrCelulares[0] = new Celular("Juan", 33457383);
         arrCelulares[1] = new Celular("Ana", 33456459);
         arrCelulares[2] = new Celular("Daniel", 33456467);

@@ -1,4 +1,4 @@
-package Ejercicio1;
+package TM;
 
 public class SortUtil {
     public static <T> void ordenar(Precedeable<T>[] arr) //por qué <T> antes de void???

@@ -1,4 +1,4 @@
-package Ejercicio1;
+package TM;
 
 public class Celular implements Precedeable<Celular>{
 

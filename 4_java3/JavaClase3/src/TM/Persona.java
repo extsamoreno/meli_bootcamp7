@@ -1,4 +1,4 @@
-package Ejercicio1;
+package TM;
 
 public class Persona implements Precedeable<Persona>{
     private String name;
