@@ -65,12 +65,12 @@ public class Fecha {
 
     public boolean validarFecha(int dia, int mes, int anio){
         try {
-            LocalDate ld = LocalDate.of( year , month , day) ;
+            LocalDate ld = LocalDate.of( anio , mes , dia);
             return true ;  // true = Valid data entered for a date.
         } catch ( DateTimeException e ) {
             return false;  // Exception caught, meaning invalid data-entry.
         } finally {
-            System.out.println( "escribi bien gil!");
+            System.out.println( "Fecha inválida :(");
         }
 
     }
