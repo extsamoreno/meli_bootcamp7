@@ -14,6 +14,8 @@ public class Fecha {
         if(esCorrecta(dia, mes, anio)){
             Calendar fechaN = new GregorianCalendar(anio, mes, dia);
             this.fecha = fechaN; //Caso de exito
+        } else {
+            System.out.println("Whoops! Hubo un error al generar la fecha");
         }
     }
 
@@ -23,7 +25,7 @@ public class Fecha {
         fechaN.set(anio,mes,dia);
 
         if (fechaN.get(Calendar.DATE) == dia &&
-                fechaN.get(Calendar.MONTH)+1 == mes &&
+                fechaN.get(Calendar.MONTH) == mes &&
                 fechaN.get(Calendar.YEAR) == anio
         ) {
             return true;
@@ -43,7 +45,7 @@ public class Fecha {
         return this.fecha.get(Calendar.MONTH);
     }
 
-    public void setMes() {
+    public void setMes(int mes) {
         this.fecha.set(Calendar.MONTH, mes);
     }
 
@@ -61,7 +63,7 @@ public class Fecha {
 
     @Override
     public String toString() {
-        return this.dia + "/" + this.mes + "/" + this.anio;
+        return this.getDia() + "/" + this.getMes() + "/" + this.getAnio();
     }
 
 }
