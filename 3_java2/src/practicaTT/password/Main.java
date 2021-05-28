@@ -1,4 +1,4 @@
-package practicaTT;
+package practicaTT.password;
 
 public class Main {
 

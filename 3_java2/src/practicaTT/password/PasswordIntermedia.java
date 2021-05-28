@@ -1,4 +1,4 @@
-package practicaTT;
+package practicaTT.password;
 
 public class PasswordIntermedia extends Password {
     //Minimum eight characters, at least one letter, one number and one special character

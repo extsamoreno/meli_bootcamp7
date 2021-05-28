@@ -1,4 +1,4 @@
-package practicaTT;
+package practicaTT.password;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

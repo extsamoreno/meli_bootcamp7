@@ -1,4 +1,4 @@
-package practicaTT;
+package practicaTT.password;
 
 public class PasswordSimple extends Password {
     //Minimum eight characters, at least one letter and one number

@@ -1,6 +1,6 @@
 package practicaTM;
 
-public class MainFecha {
+public class Main2 {
     public static void main(String[] args) {
         Fecha fecha1=new Fecha();
         Fecha fecha2=new Fecha(4,1,2022);
@@ -12,11 +12,13 @@ public class MainFecha {
         String s1="hola";
         String s2="      1213hola";
         String s3="hola1        ";
-        String s4="l234l678l0l";
+        String s4="0l234l678l0l";
 
         System.out.println(StringUtil.lTrim(s1));
         System.out.println(StringUtil.lTrim(s2));
         System.out.println(StringUtil.rTrim(s3));
+        System.out.println(StringUtil.indexOfN(s4,'l',1));
+        System.out.println(StringUtil.indexOfN(s4,'l',2));
         System.out.println(StringUtil.indexOfN(s4,'l',4));
 
     }

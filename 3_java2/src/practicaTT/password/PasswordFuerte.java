@@ -1,4 +1,4 @@
-package practicaTT;
+package practicaTT.password;
 
 public class PasswordFuerte extends Password {
     //Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
