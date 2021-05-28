@@ -1,99 +1,116 @@
 package com.company;
 
 public class Fraccion {
-
-    private int num;
-    private int den;
+    private int denominador, numerador;
 
     public Fraccion() {
-        this.num = 0;
-        this.den = 1;
     }
 
-    public Fraccion(int num, int den) {
-        this.num = num;
-        if(den==0){
-            den = 1;
-        }
-        this.den = den;
-        simplificar();
+    public Fraccion(int numerador, int denominador) {
+        this.numerador = numerador;
+        this.denominador = denominador;
     }
 
-    public Fraccion(int num) {
-        this.num = num;
-        this.den = 1;
+    public static int mcm(int num1, int num2) {
+        int a = Math.max(num1, num2);
+        int b = Math.min(num1, num2);
+
+        return (a / mcd(num1, num2)) * b;
     }
 
-    public int getDen() {
-        return den;
+    public static int mcd(int num1, int num2) {
+
+        int a = Math.max(num1, num2);
+        int b = Math.min(num1, num2);
+
+        int resultado = 0;
+        do {
+            resultado = b;
+            b = a % b;
+            a = resultado;
+
+        } while (b != 0);
+
+        return resultado;
     }
 
-    public void setDen(int den) {
-        this.den = den;
+    public void simplificar() {
+        int mcd = Math.abs(mcd(this.getNumerador(),this.getDenominador()));
+        this.setNumerador(this.getNumerador()/mcd);
+        this.setDenominador(this.getDenominador()/mcd);
     }
 
-    public int getNum() {
-        return num;
+    public Fraccion sumar(Fraccion f2) {
+        Fraccion resultado = new Fraccion();
+
+        int nuevoDenominador = mcm(this.denominador, f2.getDenominador());
+        resultado.setDenominador(nuevoDenominador);
+
+        int nuevoNumerador1 = nuevoDenominador / this.denominador * this.numerador;
+        int nuevoNumerador2 = nuevoDenominador / f2.getDenominador() * f2.getNumerador();
+        resultado.setNumerador(nuevoNumerador1 + nuevoNumerador2);
+
+        resultado.simplificar();
+        return resultado;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public Fraccion sumar(int entero) {
+        Fraccion nuevaFraccion = new Fraccion(entero,1);
+        return sumar(nuevaFraccion);
     }
 
-    //sumar fracciones
-    public Fraccion sumar(Fraccion f) {
-        Fraccion aux = new Fraccion();
-        aux.num = this.num * f.den + this.den * f.num;
-        aux.den = this.den * f.den;
-        aux.simplificar();  //se simplifica antes de devolverla
-        return aux;
+    public Fraccion restar(Fraccion f2) {
+        Fraccion fr = new Fraccion(-f2.getNumerador(),f2.getDenominador());
+        return sumar(fr);
     }
 
-    //restar fracciones
-    public Fraccion restar(Fraccion f) {
-        Fraccion aux = new Fraccion();
-        aux.num = this.num * f.den - this.den * f.num;
-        aux.den = this.den * f.den;
-        aux.simplificar();  //se simplifica antes de devolverla
-        return aux;
+    public Fraccion restar(int entero) {
+        Fraccion nuevaFraccion = new Fraccion(-entero,1);
+        return sumar(nuevaFraccion);
     }
 
-    //multiplicar fracciones
-    public Fraccion multiplicar(Fraccion f) {
-        Fraccion aux = new Fraccion();
-        aux.num = this.num * f.num;
-        aux.den = this.den * f.den;
-        aux.simplificar();  //se simplifica antes de devolverla
-        return aux;
+    public Fraccion multiplicar(Fraccion f2) {
+        Fraccion resultado = new Fraccion();
+        resultado.setNumerador(this.getNumerador() * f2.getNumerador());
+        resultado.setDenominador(this.getDenominador() * f2.getDenominador());
+
+        resultado.simplificar();
+        return resultado;
     }
 
-    //Cálculo del máximo común divisor por el algoritmo de Euclides
-    private int mcd() {
-        int u = Math.abs(num); //valor absoluto del numerador
-        int v = Math.abs(den); //valor absoluto del denominador
-        if (v == 0) {
-            return u;
-        }
-        int r;
-        while (v != 0) {
-            r = u % v;
-            u = v;
-            v = r;
-        }
-        return u;
+    public Fraccion multiplicar(int entero) {
+        Fraccion nuevaFraccion = new Fraccion(entero,1);
+        return multiplicar(nuevaFraccion);
     }
 
-    //método para simplificar fracciones
-    private void simplificar() {
-        int n = mcd(); //se calcula el mcd de la fracción
-        num = num / n;
-        den = den / n;
+    public Fraccion dividir(Fraccion f2) {
+        Fraccion aux = new Fraccion(f2.getDenominador(),f2.getNumerador());
+        return multiplicar(aux);
+    }
+
+    public Fraccion dividir(int entero) {
+        Fraccion nuevaFraccion = new Fraccion(entero,1);
+        return dividir(nuevaFraccion);
+    }
+
+    public int getDenominador() {
+        return denominador;
+    }
+
+    public void setDenominador(int denominador) {
+        this.denominador = denominador;
+    }
+
+    public int getNumerador() {
+        return numerador;
+    }
+
+    public void setNumerador(int numerador) {
+        this.numerador = numerador;
     }
 
     @Override
     public String toString() {
-        simplificar();
-        return num + "/" + den;
+        return "Fraccion{" + denominador + "/" + numerador + '}';
     }
-
 }
