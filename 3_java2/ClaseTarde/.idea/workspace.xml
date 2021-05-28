@@ -2,26 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da4dd3cf-17d5-4c53-84a6-9aeaa7501e60" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/description.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/project-template.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ClaseTarde.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Circulo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Ejercicio_2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/FiguraGeometrica.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Password.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/PasswordFuerte.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/PasswordIntermedio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/PasswordSimple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Rectangulo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/company/Triangulo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ClseMañana/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ClseMañana/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/Clasemañana/src/com/company/Celular.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/Clasemañana/src/com/company/Persona.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/Clasemañana/src/com/company/Precedeable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/Clasemañana/src/com/company/SortUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,8 +120,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1622156196906</updated>
-      <workItem from="1622156198134" duration="653000" />
+      <workItem from="1622156198134" duration="1821000" />
     </task>
+    <task id="LOCAL-00001" summary="ejercicios tarde">
+      <created>1622156887344</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1622156887344</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,5 +145,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ejercicios tarde" />
+    <option name="LAST_COMMIT_MESSAGE" value="ejercicios tarde" />
   </component>
 </project>
