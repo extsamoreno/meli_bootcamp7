@@ -1,6 +1,4 @@
-package Password;
-
-import java.util.regex.Pattern;
+package password;
 
 public class PasswordFuerte extends Password{
 
