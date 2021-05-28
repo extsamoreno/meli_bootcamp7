@@ -8,7 +8,8 @@ public class PasswordFuerte extends Password {
     * */
 
     String securepassword;
-    public static final String regex = "^(?=.*\\d)(?=.*[\\u0021-\\u002b\\u003c-\\u0040])(?=.*[A-Z])(?=.*[a-z])\\S{10,16}$";
+
+    public static final String regex = "^(?=.*\\d)(?=.*[\\u0021-\\u002b\\u003c-\\u0040])(?=.*[a-zA-Z])\\S{10,16}$";
     PasswordFuerte(String password) throws Exception {
         super(password, regex);
         this.securepassword = super.setValue();

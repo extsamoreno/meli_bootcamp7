@@ -6,7 +6,7 @@ public class PasswordMedio extends Password{
     *Mínimo 10 caracteres, al menos una letra y un número
      */
 
-    public static final String regex = "^(?=.*\\d)(?=.)(?=.*[A-Z])(?=.*[a-z])\\S{10,16}$";
+    public static final String regex = "^(?=.*\\d)(?=.)(?=.*[a-zA-Z])\\S{10,16}$";
     String securepassword;
 
     PasswordMedio(String password) throws Exception {
