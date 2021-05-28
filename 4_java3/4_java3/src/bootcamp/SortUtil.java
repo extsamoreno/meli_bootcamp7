@@ -18,9 +18,8 @@ public class SortUtil {
     public static <T> void swap( Precedable<T> arr[], int i, int j){
 
         // cambio elemento posicion i por elemento posiicon j
-        Precedable aux;
 
-        aux = arr[i];
+        Precedable<T> aux = arr[i];
         arr[i] = arr[j];
         arr[j] = aux;
 
