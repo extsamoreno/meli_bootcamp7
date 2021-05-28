@@ -3,20 +3,16 @@ package com.meli;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-public abstract class Password {
+public class PasswordSimple extends Password {
     private String password;
 
-    public Password(String password){
+    public PasswordSimple(String password){
         setValue(password);
     }
 
-    public Password() {
-
-    }
-
+    @Override
     public void setValue(String pwd) {
-        Pattern pat = Pattern.compile("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[–_.]).{8,20}");
+        Pattern pat = Pattern.compile("(?=.*[0-9])(?=.*[a-z]).{4,10}");
         Matcher mat = pat.matcher(pwd);
         if(mat.matches()) {
             this.password = pwd;
@@ -26,5 +22,4 @@ public abstract class Password {
             exe.printStackTrace();
         }
     }
-
 }
