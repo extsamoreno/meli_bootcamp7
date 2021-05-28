@@ -1,0 +1,3 @@
+Se deberia modificar cada clase el criterio de precedencia
+Bastamte mantenible aunque existen soluciones ya implementadas que son mas faciles de mantener
+
