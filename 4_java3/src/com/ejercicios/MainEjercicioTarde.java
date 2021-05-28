@@ -1,0 +1,29 @@
+package com.ejercicios;
+
+import java.util.Comparator;
+
+public class MainEjercicioTarde {
+
+    public static void main(String[] args) {
+
+
+        Sorter quickSort = new QuickSortSorterImple();
+        Integer[] arr = {5, 6, 19, 8, 8,89};
+        Comparator<Integer> c1 = (a, b)->a - b;
+        quickSort.sort(arr, c1);
+
+        mostrarArreglo(arr);
+
+        Sorter heapSort = new HeapSortSorterSimple();
+        Integer[] arr2 = {5, 6, 19, 8, 8,89};
+        heapSort.sort(arr2, c1);
+
+        mostrarArreglo(arr2);
+    }
+
+    private static <T>void mostrarArreglo(T[] arr) {
+        System.out.println("");
+        for(T num: arr)
+            System.out.print(num+" ");
+    }
+}
