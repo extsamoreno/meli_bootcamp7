@@ -1,0 +1,6 @@
+Discusión: si quisiéramos cambiar el criterio de precedencia entre dos personas o dos celulares, ¿qué deberíamos hacer?
+¿Cuán extensible y/mantenible resulta la solución de ordenamiento que desarrollamos en el ejercicio anterior? ¿Cómo se podría mejorar?
+
+Si quisieramos cambiar los criterios de precedencia deberiamos modificar los métodos precedeA dependiendo como quisieramos modificarlo,
+Podemos decir que la solución es escalable ya que estamos utilizando interfaces y métodos genéricos que permiten que modifiquemos pocos archivos para cambiar el
+rumbo de nuestro código,
