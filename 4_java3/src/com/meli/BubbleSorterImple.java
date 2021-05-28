@@ -2,8 +2,6 @@ package com.meli;
 
 import java.util.Comparator;
 
-//Ahora funciona con genericos, pero de alguna manera rompì la logica y solo los desordena màs Q-Q
-
 public class BubbleSorterImple<T> implements Sorter<T>{
     @Override
     public void sort(T arr[] ,Comparator<T> c) {
