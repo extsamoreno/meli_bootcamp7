@@ -3,6 +3,7 @@ package meli.ejerc;
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println(StringUtil.rtrim("         trim                "));
         Fecha fch = new Fecha(5,7,2021);
         System.out.println(fch.toString());
         FiguraGeometrica[] fg = new FiguraGeometrica[3];

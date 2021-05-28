@@ -23,23 +23,11 @@ public class Fraccion {
         this.numerador = numerador;
     }
 
-    public Fraccion suma(Fraccion frac1, Fraccion frac2) {
+    public Fraccion sumar(Fraccion frac1, Fraccion frac2) {
         Fraccion resultado = new Fraccion();
 
         resultado.setNumerador(frac1.getNumerador() * frac2.getNumerador() + frac2.getNumerador() * frac1.getDenominador());
         resultado.setDenominador(frac1.getDenominador() * frac2.getDenominador());
-
-        return resultado;
-    }
-
-    public Fraccion suma(Fraccion frac1, int num) {
-        Fraccion resultado = new Fraccion();
-        Fraccion fracAux = new Fraccion();
-        fracAux.setNumerador(num);
-        fracAux.setDenominador(1);
-
-        resultado.setNumerador(frac1.getNumerador() * fracAux.getNumerador() + fracAux.getNumerador() * frac1.getDenominador());
-        resultado.setDenominador(frac1.getDenominador() * fracAux.getDenominador());
 
         return resultado;
     }
@@ -52,7 +40,7 @@ public class Fraccion {
         return resultado;
     }
 
-    public Fraccion resta(Fraccion frac1, Fraccion frac2) {
+    public Fraccion restar(Fraccion frac1, Fraccion frac2) {
         Fraccion resultado = new Fraccion();
 
         resultado.setNumerador(frac1.getNumerador() * frac2.getNumerador() - frac2.getNumerador() * frac1.getDenominador());
@@ -61,7 +49,7 @@ public class Fraccion {
         return resultado;
     }
 
-    public Fraccion resta(Fraccion frac1, int num) {
+    public Fraccion restar(Fraccion frac1, int num) {
         Fraccion resultado = new Fraccion();
         Fraccion fracAux = new Fraccion();
         fracAux.setNumerador(num);

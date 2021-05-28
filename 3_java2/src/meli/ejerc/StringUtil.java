@@ -100,7 +100,6 @@ public class StringUtil {
     public static String ltrim(String s) {
         int i = 0;
         while (i < s.length() && Character.isWhitespace(s.charAt(i))) {
-            System.out.println("s.charAt(i)  "+s.charAt(i));
             i++;
         }
         return s.substring(i);

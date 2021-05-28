@@ -23,7 +23,7 @@ public class Libro {
 
     @Override
     public String toString() {
-        return titulo;
+        return titulo + ", " + isbn + ", " + autor;
     }
 
     public String getTitulo() {
