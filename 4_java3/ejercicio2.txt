@@ -1,0 +1,9 @@
+
+
+DISCUSION:
+
+Si quisieramos cambiar el criterio de precedencia entre dos personas o dos celulares, simplemente se deberia modificar el metodo precedeA en la clase en particular.
+La solucion se puede extender a distintas clases con distintos atributos, teniendo en cuenta que en cada clase nueva se deberia sobrescribir el metodo
+precedeA deacuerdo al critero que se requiera utilizar.
+Como mejora planteo utilizar un algoritmo de ordenamiento mas eficiente que el de burbuja (por ejemplo quicksort), ya que no es rapido a la hora de trabajar 
+con arreglos de muchos elementos.
