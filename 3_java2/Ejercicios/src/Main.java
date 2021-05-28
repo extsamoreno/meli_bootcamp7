@@ -12,5 +12,12 @@ public class Main {
         System.out.println(fr1.multiplicar(6));
         System.out.println(fr1.dividir(fr2));
         System.out.println(fr1.multiplicar(5));
+
+        Fecha f = new Fecha(32, 1 ,2000);
+        System.out.println(f);
+        f.sumarDia();
+        System.out.println(f);
+
+        System.out.println(f.validarFecha() ? "Fecha Valida" : "");
     }
 }
