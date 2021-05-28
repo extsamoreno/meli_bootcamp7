@@ -12,7 +12,7 @@ public class Main {
         System.out.println("1. Cuenta Corriente.");
         System.out.println("2. Contador.");
         System.out.println("3. Libro.");
-        System.out.println("4. Números primos menores a n.");
+        System.out.println("4. Fracciones");
         System.out.println("5. .");
         System.out.println(" ");
         int menu = scanner.nextInt();
@@ -102,13 +102,56 @@ public class Main {
                 break;
 
             case 4:
-                /**
-                System.out.println("NÚMEROS PRIMOS MENORES A n:");
-                System.out.println("Ingresa el valor de n:");
-                n = scanner.nextInt();
-                Ejercicio4.primosMenores(n);
+                System.out.println("FRACCIONES:");
+                System.out.println("Fraccion 1:");
+                Fraccion f1 = new Fraccion(2,3);
+                System.out.println(f1.imprimirFraccion());
                 System.out.println(" ");
-                 **/
+
+                System.out.println("Fraccion 2:");
+                Fraccion f2 = new Fraccion(3,5);
+                System.out.println(f2.imprimirFraccion());
+                System.out.println(" ");
+
+                System.out.println("Suma fracciones:");
+                Fraccion f3 = f1.suma(f2);
+                System.out.println(f3.imprimirFraccion());
+                System.out.println(" ");
+
+                System.out.println("Suma con entero:");
+                Fraccion f4 = f1.suma(5);
+                System.out.println(f4.imprimirFraccion());
+                System.out.println(" ");
+
+                System.out.println("Resta fracciones:");
+                Fraccion f5 = f1.resta(f2);
+                System.out.println(f5.imprimirFraccion());
+                System.out.println(" ");
+
+                System.out.println("Resta con entero:");
+                Fraccion f6 = f1.resta(5);
+                System.out.println(f6.imprimirFraccion());
+                System.out.println(" ");
+
+                System.out.println("Multiplicacion fracciones:");
+                Fraccion f7 = f1.multiplicacion(f2);
+                System.out.println(f7.imprimirFraccion());
+                System.out.println(" ");
+
+                System.out.println("Multiplicacion con entero:");
+                Fraccion f8 = f1.multiplicacion(5);
+                System.out.println(f8.imprimirFraccion());
+                System.out.println(" ");
+
+                System.out.println("Division fracciones:");
+                Fraccion f9 = f1.division(f2);
+                System.out.println(f9.imprimirFraccion());
+                System.out.println(" ");
+
+                System.out.println("Division con entero:");
+                Fraccion f10 = f1.division(5);
+                System.out.println(f10.imprimirFraccion());
+                System.out.println(" ");
                 break;
 
             case 5:
