@@ -7,8 +7,7 @@ public class Main {
         Precedable<Persona> arrayPersonas[] = new Precedable[10];
 
         for(int i = 0; i < 10; i++) {
-
-
+            //Llenamos el array
             arrayPersonas[i] = new Persona("Genaro " + i, i + getRandomNumber());
         }
 
@@ -29,10 +28,10 @@ public class Main {
         }
     }
 
+    //Generamos un random number para ponerle al dni
     public static int getRandomNumber() {
-        Random rand = new Random(); //instance of random class
+        Random rand = new Random();
         int upperbound = 100;
-        //generate random values from 0-24
         return rand.nextInt(upperbound);
     }
 }
