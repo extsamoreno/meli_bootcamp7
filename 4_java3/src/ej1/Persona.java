@@ -29,4 +29,9 @@ public class Persona implements Precedable <Persona> { // le paso a la interfaz 
   public int precedeA(Persona t) {
     return this.dni - t.dni; // con nombre compareTo
   }
+
+  @Override
+  public String toString(){
+    return "Nombre: " + this.getNombre() + ", DNI: " + this.getDni();
+  }
 }
