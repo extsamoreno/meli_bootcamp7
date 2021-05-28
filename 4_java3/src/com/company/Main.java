@@ -1,9 +1,17 @@
 package com.company;
 
+import com.company.exercises2.*;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Properties;
+
 public class Main {
 
-    public static void main(String[] args) {
-	// write your code here
+    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+	/*
         Persona person3 = new Persona("Pers3", 333);
         Persona person2 = new Persona("Pers2", 122);
         Persona persona1 = new Persona("Pers1", 123);
@@ -25,6 +33,24 @@ public class Main {
         for (int i = 0; i < aCelulares.length; i++) {
             System.out.println(aCelulares[i].getCelular());
         }
+	 */
+        Integer[] arr = { 10, 7, 8, 9, 1, 5 };
+
+        FileReader reader = new FileReader("src/com/company/MiFactory.properties");
+
+        Properties p = new Properties();
+
+        p.load(reader);
+
+        String nameObject = p.getProperty("sorter");
+        Class<?> result =(Class) MiFactory.getInstance(nameObject);
+
+        Sorter<Integer> algo = (Sorter<Integer>) result.getConstructor().newInstance();
+
+        algo.sort(arr, (a, b) -> b-a);
+
+        System.out.println("Sorted array: ");
+        BubbleSortSorterImple.printArray(arr);
     }
 }
 
