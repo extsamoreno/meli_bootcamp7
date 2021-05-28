@@ -1,16 +1,13 @@
 public class CuentaCorriente {
 
     private double saldo;
-    private int numeroCuenta;
 
     public CuentaCorriente(double saldo) {
         this.saldo = saldo;
-//        this.numeroCuenta = numeroCuenta;
     }
 
     public CuentaCorriente() {
         this.saldo = 0.0;
-//        this.numeroCuenta = Math.random();
     }
 
     public double getSaldo(){
@@ -33,5 +30,10 @@ public class CuentaCorriente {
 
         this.saldo = this.saldo - monto;
         cuenta2.ingreso(monto);
+    }
+
+    public void reintegro(double monto, CuentaCorriente cuenta2){
+
+        this.transferencia(monto*-1, cuenta2);
     }
 }

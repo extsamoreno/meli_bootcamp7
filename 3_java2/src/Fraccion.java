@@ -11,7 +11,7 @@ public class Fraccion {
     public Fraccion() {
     }
 
-    public static Fraccion sumar(Fraccion a, Fraccion b){
+    public static Fraccion suma(Fraccion a, Fraccion b){
         Fraccion resultado = new Fraccion();
         resultado.denominador = a.denominador * b.denominador;
         resultado.numerador = a.numerador*b.denominador + b.numerador*a.denominador;
@@ -19,10 +19,10 @@ public class Fraccion {
         return resultado;
     }
 
-    public static Fraccion sumar(int a, Fraccion b){
+    public static Fraccion suma(int a, Fraccion b){
         Fraccion resultado = new Fraccion();
         Fraccion na = new Fraccion(a, 1);
-        resultado = Fraccion.sumar(na, b);
+        resultado = Fraccion.suma(na, b);
 
         return resultado;
     }
@@ -33,5 +33,51 @@ public class Fraccion {
         resultado.numerador = a.numerador*b.denominador - b.numerador*a.denominador;
 
         return resultado;
+    }
+
+    public static Fraccion resta(int a, Fraccion b){
+        Fraccion resultado = new Fraccion();
+        Fraccion na = new Fraccion(a, 1);
+        resultado = Fraccion.resta(na, b);
+
+        return resultado;
+    }
+
+    public static Fraccion multiplicacion(Fraccion a, Fraccion b){
+        Fraccion resultado = new Fraccion();
+        resultado.numerador = a.numerador * b.numerador;
+        resultado.denominador = a.denominador * b.denominador;
+
+        return resultado;
+    }
+
+    public static Fraccion multiplicacion(int a, Fraccion b){
+        Fraccion resultado = new Fraccion();
+        Fraccion na = new Fraccion(a, 1);
+        resultado = Fraccion.multiplicacion(na, b);
+
+        return resultado;
+    }
+
+    public static Fraccion divicion(Fraccion a, Fraccion b){
+        Fraccion resultado = new Fraccion();
+        resultado.numerador = b.denominador * a.numerador;
+        resultado.denominador = b.numerador * a.denominador;
+
+        return resultado;
+    }
+
+    public static Fraccion divicion(int a, Fraccion b){
+        Fraccion resultado = new Fraccion();
+        Fraccion na = new Fraccion(a, 1);
+        resultado = Fraccion.divicion(na, b);
+
+        return resultado;
+    }
+
+    @Override
+    public String toString() {
+        return  numerador + "/" +  denominador;
+
     }
 }
