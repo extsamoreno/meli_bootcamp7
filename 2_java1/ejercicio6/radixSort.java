@@ -34,7 +34,7 @@ public class radixSort {
             }
         }
 
-        int intArr[]=ejercicio6.StringUtil.toIntArray(stringArray);
+        int intArr[]= ejercicio6.StringUtil.toIntArray(stringArray);
         for(int o=0; o<intArr.length;o++){
             arr[o]=intArr[o];
         }

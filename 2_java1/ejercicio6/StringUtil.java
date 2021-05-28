@@ -18,7 +18,7 @@ public class StringUtil {
 	public static String lpad(String s,int n,char c) {
 		String cadena = "";
 
-		for(int i = 0; i < n-1; i++){
+		for(int i = 0; i < n-s.length(); i++){
 			cadena = cadena + c;
 		}
 		cadena = cadena + s;
