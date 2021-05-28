@@ -1,0 +1,10 @@
+Discusión: si quisiéramos cambiar el criterio de precedencia entre dos personas o dos celulares, ¿qué deberíamos hacer?
+ ¿Cuán extensible y/mantenible resulta la solución de ordenamiento que desarrollamos en el ejercicio anterior?
+ ¿Cómo se podría mejorar?
+
+Si quisiéramos comparar de una forma distinta los objetos, habríamos que cambiar el tipo de dato que se ingresa en el método precedeA(T t).
+Otra forma para utilizarlo, es pasar el dato que queremos comparar a string y usar un método compareToIgnoreCase que ignorará todas las mayúsculas.
+Consideramos que el código mantiene altos niveles de confiabilidad, fiabilidad y legibilidad porque es un código simple y fácil de comprender.
+Mejoraríamos el orden de tiempo de la función. Actualmente, nuestro método en el mejor de los casos es n elevado a la 2 (O(n^2)),
+por eso lo mejor seria agregar una flag la cual compara todos los pares de la matriz. En caso de que todos los pares se encuentren ordenados, no habría
+que verificar ningún valor y nuestro orden de tiempo en el mejor de los casos sería: n.
