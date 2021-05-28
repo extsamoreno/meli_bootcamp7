@@ -9,14 +9,10 @@ public class SortUtil {
                 }
             }
         }
-        
-
-        
     }
 
 
     private static <T> void swap(Precedable<T> arr[], int index1, int index2){
-
 
         Precedable<T> aux;
 

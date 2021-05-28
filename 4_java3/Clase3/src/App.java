@@ -2,15 +2,12 @@ public class App {
 
     public static void main(String[] args) {
 	// write your code here
-        Celular pa = new Celular(7,"111111","modelo 1");
-        Celular pb = new Celular(34, "111111","modelo 1");
-        Celular pc = new Celular(17, "111111","modelo 1");
-        Celular pd = new Celular(24, "111111","modelo 1");
+        Celular c1 = new Celular(7,"111111","modelo 1");
+        Celular c2 = new Celular(34, "111111","modelo 1");
+        Celular c4 = new Celular(17, "111111","modelo 1");
+        Celular c3 = new Celular(24, "111111","modelo 1");
             
-        Celular[] arr = {pa, pb, pc, pd};
-        
-        int a = pb.precedeA(pa);
-        System.out.println("a = " + a);
+        Celular[] arr = {c1, c2, c3, c4};
         
         SortUtil.ordenar(arr);
 
