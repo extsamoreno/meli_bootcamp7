@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public abstract class Password {
+public class Password {
     private String password;
 
     public Password(String password){
