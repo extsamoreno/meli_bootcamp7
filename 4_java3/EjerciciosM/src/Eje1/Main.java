@@ -21,7 +21,7 @@ public class Main {
         System.out.println("");
 
         Celular[] arrCelulares = new Celular[]{
-                new Celular(123, "juana"),
+                new Celular(123, "juanita"),
                 new Celular(444, "pedro"),
                 new Celular(999, "maria"),
                 new Celular(543, "pepe")
