@@ -1,11 +1,15 @@
 package com.company;
 
 import com.company.ej1.*;
+import com.company.ejTarde.QuickSortSorterImple;
+import com.company.ejTarde.Sorter;
+
+import java.util.Comparator;
 
 public class Main {
 
     public static void main(String[] args) {
-
+        /*
         Precedable<Persona> p1 = FactoryPrecedable.generarPrecedable("pepe", 11222333);
         Precedable<Persona> p2 = FactoryPrecedable.generarPrecedable("juan", 11222334);
         Precedable<Persona> p3 = FactoryPrecedable.generarPrecedable("walter", 33222334);
@@ -33,7 +37,23 @@ public class Main {
         for(Precedable c : arrCelular) {
             System.out.println(c.toString());
         }
+        */
 
+        // Ej tarde
+
+        Sorter sorter = new QuickSortSorterImple();
+        Integer[] arr = {5, 6, 19, 8, 9,89};
+        Comparator<Integer> c1 = (a, b)->a-b;
+        sorter.sort(arr, c1);
+
+        mostrarArreglo(arr);
+
+    }
+
+    private static <T>void mostrarArreglo(T[] arr) {
+        System.out.println("");
+        for(T num: arr)
+            System.out.print(num+" ");
     }
 
 }
