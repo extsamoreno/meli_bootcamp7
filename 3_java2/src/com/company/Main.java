@@ -6,8 +6,9 @@ import java.util.GregorianCalendar;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        //String password = new PasswordFuerte("asdasd","^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$");
+        PasswordFuerte password = new PasswordFuerte("SantiA23@.","^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$");
 
+        PasswordSimple pass = new PasswordSimple("assdas2", )
 
     }
 }
