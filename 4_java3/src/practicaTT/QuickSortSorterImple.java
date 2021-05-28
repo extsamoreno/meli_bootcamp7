@@ -2,10 +2,10 @@ package practicaTT;
 
 import java.util.Comparator;
 
-public class QuickSortSorterImple implements Sorter {
+public class QuickSortSorterImple<T> implements Sorter<T> {
 
     @Override
-    public void sort(Object[] arr, Comparator c) {
+    public void sort(T[] arr, Comparator<T> c) {
         quickSort(arr, 0, arr.length - 1, c);
     }
 
@@ -66,4 +66,6 @@ public class QuickSortSorterImple implements Sorter {
             quickSort(arr, pi + 1, high, c);
         }
     }
+
+
 }
