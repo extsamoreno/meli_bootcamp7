@@ -10,4 +10,5 @@ public class Main {
         double ap = UtilClass.areaPromedio(arr);
         System.out.println(ap);
     }
+
 }

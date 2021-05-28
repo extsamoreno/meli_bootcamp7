@@ -9,4 +9,5 @@ public class Triangulo extends FiguraGeometrica
     {
         return base*altura/2;
     }
+
 }

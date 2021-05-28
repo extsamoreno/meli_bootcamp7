@@ -8,5 +8,6 @@ public class UtilClass {
         }
         return sum / arr.length;
     }
+
 }
 

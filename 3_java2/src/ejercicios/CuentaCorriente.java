@@ -53,4 +53,5 @@ public class CuentaCorriente {
         this.saldo = this.saldo - monto;
         cuenta2.ingreso(monto);
     }
+
 }

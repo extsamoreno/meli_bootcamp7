@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0394c1c9-fb3d-4e39-805a-00c2950b2e14" name="Default Changelist" comment="Merge remote-tracking branch 'origin/razetto_mariano' into razetto_mariano" />
+    <list default="true" id="0394c1c9-fb3d-4e39-805a-00c2950b2e14" name="Default Changelist" comment="&quot;finalizado&quot;">
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/Circulo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Ciruclo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Contador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Contador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/CuentaCorriente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/CuentaCorriente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Fecha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Fecha.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/FiguraGeometrica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/FiguraGeometrica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Fraccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Fraccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Libro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Libro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Password.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/PasswordFuerte.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/PasswordFuerte.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/PasswordIntermedia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/PasswordIntermedia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/PasswordSimple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/PasswordSimple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Rectangulo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Rectangulo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/StringUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/StringUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Triangulo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Triangulo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/UtilClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/UtilClass.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622178078370</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="&quot;finalizado&quot;">
+      <created>1622178531113</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1622178531113</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -130,8 +155,9 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="practica en desarrollo" />
-    <MESSAGE value="finalizado" />
     <MESSAGE value="Merge remote-tracking branch 'origin/razetto_mariano' into razetto_mariano" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/razetto_mariano' into razetto_mariano" />
+    <MESSAGE value="finalizado" />
+    <MESSAGE value="&quot;finalizado&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;finalizado&quot;" />
   </component>
 </project>

@@ -35,4 +35,5 @@ class Password {
         throw new SecurityException("La contraseña no es segura");
         }
     }
+
 }

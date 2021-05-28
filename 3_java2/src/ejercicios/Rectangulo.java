@@ -8,4 +8,5 @@ public class Rectangulo extends FiguraGeometrica
     {
         return base*altura;
     }
+
 }

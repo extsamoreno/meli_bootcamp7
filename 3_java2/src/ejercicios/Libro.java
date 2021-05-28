@@ -67,4 +67,5 @@ public class Libro {
     public boolean isOnStock() {
         return onStock;
     }
+
 }

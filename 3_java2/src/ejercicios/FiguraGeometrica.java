@@ -8,4 +8,5 @@ public abstract class FiguraGeometrica
     {
         return Double.toString(area());
     }
+
 }

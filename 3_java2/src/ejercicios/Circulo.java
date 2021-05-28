@@ -9,4 +9,5 @@ class Circulo extends FiguraGeometrica
     {
         return Math.PI*Math.pow(radio,2); // PI*radio al cuadrado
     }
+
 }

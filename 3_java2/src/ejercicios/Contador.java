@@ -34,4 +34,5 @@ public class Contador {
     public int getContador() {
         return this.counter;
     }
+
 }

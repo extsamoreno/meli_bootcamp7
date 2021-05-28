@@ -3,6 +3,7 @@
 //puedan usarse para operar entre fracciones y números enteros (por ejemplo: ⅗+2 o ⅝*4).
 
 package ejercicios;
+
 public class Fraccion {
 
     private int numerador;
