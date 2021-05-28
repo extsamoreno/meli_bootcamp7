@@ -2,21 +2,21 @@ public class App {
 
     public static void main(String[] args) {
 	// write your code here
-        Persona pa = new Persona("matias", 33654878, 17);
-        Persona pb = new Persona("Leandro", 35644878, 34);
-        Persona pc = new Persona("Alexis", 35644878, 17);
-        Persona pd = new Persona("Matias2", 35644878, 24);
-        
-        Persona[] arr = {pa, pb, pc, pd};
+        Celular pa = new Celular(7,"111111","modelo 1");
+        Celular pb = new Celular(34, "111111","modelo 1");
+        Celular pc = new Celular(17, "111111","modelo 1");
+        Celular pd = new Celular(24, "111111","modelo 1");
+            
+        Celular[] arr = {pa, pb, pc, pd};
         
         int a = pb.precedeA(pa);
         System.out.println("a = " + a);
         
         SortUtil.ordenar(arr);
 
-        for( Persona x: arr){
-            System.out.println("x.getnombre() = " + x.getNombre());
-            System.out.println("x.getEdad() = " + x.getEdad());
+        for( Celular x: arr){
+
+            System.out.println("x.getEdad() = " + x.getAño());
         }
     }
 }
