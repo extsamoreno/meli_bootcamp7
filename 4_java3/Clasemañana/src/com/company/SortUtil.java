@@ -1,5 +1,4 @@
 package com.company;
-
 public class SortUtil {
     public static <T> void ordenar(Precedeable<T> arr[]) {
         int n = arr.length;
@@ -13,4 +12,5 @@ public class SortUtil {
             }
         }
     }
+
 }

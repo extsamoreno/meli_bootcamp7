@@ -1,5 +1,4 @@
 package com.company;
-
 public class Celular implements Precedeable <Celular> {
     public int getNumero() {
         return numero;
@@ -8,7 +7,6 @@ public class Celular implements Precedeable <Celular> {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-
     private int numero;
 
     public String getTitular() {
