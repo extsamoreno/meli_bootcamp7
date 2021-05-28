@@ -1,37 +1,47 @@
 package com.company;
-import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
+       testPersonas();
+       testCelular();
+    }
+
+    public static void testPersonas() {
         Precedable<Persona> arrayPersonas[] = new Precedable[10];
 
         for(int i = 0; i < 10; i++) {
             //Llenamos el array
-            arrayPersonas[i] = new Persona("Genaro " + i, i + getRandomNumber());
+            arrayPersonas[i] = new Persona("Genaro " + i, i + Utils.getRandomNumber());
         }
 
         System.out.println("Array sin ordenar");
-        printArray(arrayPersonas);
+        Utils.printArrayPersonas(arrayPersonas);
 
         System.out.println("------");
 
         SortUtil.ordenar(arrayPersonas);
 
         System.out.println("Array ordenado");
-        printArray(arrayPersonas);
+        Utils.printArrayPersonas(arrayPersonas);
     }
 
-    public static void printArray(Precedable<Persona> arr[]) {
-        for(int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
+    public static void testCelular() {
+        Precedable<Celular> arrayCelular[] = new Precedable[10];
+
+        for(int i = 0; i < 10; i++) {
+            //Llenamos el array
+            arrayCelular[i] = new Celular(i + Utils.getRandomNumber(), "Genaro " + i);
         }
-    }
 
-    //Generamos un random number para ponerle al dni
-    public static int getRandomNumber() {
-        Random rand = new Random();
-        int upperbound = 100;
-        return rand.nextInt(upperbound);
+        System.out.println("Array sin ordenar");
+        Utils.printArrayCelulares(arrayCelular);
+
+        System.out.println("------");
+
+        SortUtil.ordenar(arrayCelular);
+
+        System.out.println("Array ordenado");
+        Utils.printArrayCelulares(arrayCelular);
     }
 }
