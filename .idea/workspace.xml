@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1e89f9d-84f0-437b-a123-5ef6b17cbe09" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/3_java2/vacio.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/meli_bootcamp7.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/meli_bootcamp7.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3_java2/java2/bootcamp.java.dos.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3_java2/java2/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/3_java2/java2/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_java3/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_java3/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_java3/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_java3/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_java3/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_java3/meli.estudio.java.tres.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_java3/vacio.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +35,53 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RunManager" selected="Application.Main (2)">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="2_java1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="meli_bootcamp7" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="java2.src.Main" />
+      <module name="meli_bootcamp7" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="java2.src.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main (2)" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main (1)" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -34,6 +92,8 @@
       <updated>1622153320562</updated>
       <workItem from="1622153323595" duration="56000" />
       <workItem from="1622154127837" duration="13000" />
+      <workItem from="1622209641087" duration="141000" />
+      <workItem from="1622219275424" duration="229000" />
     </task>
     <servers />
   </component>
