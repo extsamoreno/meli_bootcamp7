@@ -30,7 +30,7 @@ public class Persona implements Precedable<Persona> {
 
     @Override
     public int precedeA(Persona persona) {
-        return this.dni - persona.dni;
+        return this.dni - persona.getDni();
         //para ordenar string usar compareTo
     }
 

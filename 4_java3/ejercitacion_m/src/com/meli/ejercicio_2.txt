@@ -1,0 +1,8 @@
+Discusión: si quisiéramos cambiar el criterio de precedencia entre dos personas o dos celulares,
+¿qué deberíamos hacer? ¿Cuán extensible y/mantenible resulta la solución de ordenamiento que desarrollamos en el ejercicio anterior?
+¿Cómo se podría mejorar?
+
+Deberiamos modificar el metodo precedeA en la clase donde quisieramos cambiar el criterio.
+Es muy extensible y mantenible ya que al ser genérico podemos ordenar cualquier clase que implemente la interfaz Precedable,
+pero el método burbuja no es muy eficiente cuando se tienen arreglos muy grandes y desordenados por lo que podríamos mejorarlo
+implementando otro algortimo de ordenamiento como por ejemplo mergeSort.
