@@ -13,7 +13,7 @@ public class Main {
         System.out.println("2. Contador.");
         System.out.println("3. Libro.");
         System.out.println("4. Fracciones");
-        System.out.println("5. .");
+        System.out.println("5. Fecha");
         System.out.println(" ");
         int menu = scanner.nextInt();
         System.out.println(" ");
@@ -155,7 +155,19 @@ public class Main {
                 break;
 
             case 5:
+                System.out.println("FECHA:");
+                System.out.println(" ");
+                System.out.println("Fecha 1:");
+                Fecha date1 = new Fecha();
+                System.out.println(date1);
+                System.out.println(" ");
 
+                System.out.println("Fecha 2:");
+                Fecha date2 = new Fecha(27,2,1990);
+                System.out.println(date2);
+                System.out.println(" ");
+
+                break;
         }
     }
 
