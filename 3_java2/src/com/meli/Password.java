@@ -8,14 +8,18 @@ public class Password {
     private String password;
 
     public Password(String password){
+        setValue(password);
+    }
+
+    public void setValue(String pwd) {
         Pattern pat = Pattern.compile("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[–_.]).{8,20}");
-        Matcher mat = pat.matcher(password);
+        Matcher mat = pat.matcher(pwd);
         if(mat.matches()) {
-            this.password = password;
-            System.out.println("Pasword Valida");
+            this.password = pwd;
         }
         else {
-            System.out.println("Password NO Valido");
+            Exception exe = new IllegalArgumentException("Contraseña Introducida No Valida");
+            exe.printStackTrace();
         }
     }
 
