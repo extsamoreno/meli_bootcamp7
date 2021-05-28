@@ -1,0 +1,5 @@
+Ejercicio 2
+
+Para cambiar la precedencia solo deberiamos cambiar el metodo precedeA de la clase en cuestion
+Es bastante mantenible y extencible.
+Con sobrecarga para aceptar nuevos tipo de listas.
