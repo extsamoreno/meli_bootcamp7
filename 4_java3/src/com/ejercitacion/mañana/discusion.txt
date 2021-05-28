@@ -1,0 +1,4 @@
+Deberiamos modificar el método precedeA en la clase donde quisieramos cambiar el criterio.
+Es muy extensible y mantenible ya que al ser genérico podemos ordenar cualquier clase que implemente la interfaz Precedable,
+pero el bubble sort no es eficiente cuando se tienen arreglos muy grandes y desordenadas por lo que podriamos mejorarlo implementando
+otro algoritmo de ordenamiento como por ejemplo mergeSort.
