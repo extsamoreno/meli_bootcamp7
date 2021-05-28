@@ -1,12 +1,15 @@
 package ejercicio1;
 
 public class Password {
+
     public String value;
     public String regex;
 
-    public Password(String value) {
-        this.value = value;
-        //this.regex = regex;
+    public Password() {
+    }
+
+    public Password(String regex) {
+        this.regex = regex;
     }
 
     public String getValue() {
@@ -14,9 +17,11 @@ public class Password {
     }
 
     public void setValue(String value) throws Exception {
-        String msg = "Password do not match";
-
-        this.value = value;
+        if(value.matches(this.regex)) {
+            this.value = value;
+        } else {
+            throw new Exception("Password no concuerda con regex.");
+        }
     }
 
     public String getRegex() {
@@ -26,7 +31,6 @@ public class Password {
     public void setRegex(String regex) {
         this.regex = regex;
     }
-
 }
 
 

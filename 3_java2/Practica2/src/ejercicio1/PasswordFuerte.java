@@ -2,10 +2,10 @@ package ejercicio1;
 
 public class PasswordFuerte extends Password {
 
-    public static final String REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+    private final String REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
 
-    public PasswordFuerte(String value) {
+    public PasswordFuerte() {
         super();
-        this.setRegex(REGEX);
+        this.setRegex(this.REGEX);
     }
 }

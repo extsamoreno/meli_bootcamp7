@@ -2,10 +2,10 @@ package ejercicio1;
 
 public class PasswordSimple extends Password{
 
-    public static final String REGEX = "^{8,20}$";
+    private final String REGEX = "^(?=.*[a-z]).{1,20}$";
 
-    public PasswordSimple(String value) {
+    public PasswordSimple() {
         super();
-        this.setRegex(value);
+        this.setRegex(this.REGEX);
     }
 }
