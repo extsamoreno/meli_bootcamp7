@@ -74,11 +74,35 @@ public class StringUtil
             }
         }
 	}
-	//public static String rpad(String s,char c,int n){}
+	public static String rpad(String s,char c,int n){
+		int difference = n - s.length();
+		String replicated = replicate(c, difference);
+		return s.concat(replicated);
+	}
 
-	//public static String ltrim(String s)
+	public static String ltrim(String s){
+		int i = 0;
+		while (i < s.length() && s.charAt(i) == ' ') {
+			i++;
+		}
+		return s.substring(i);
+	}
 
-	//public static String rtrim(String s){}
-	//public static String trim(String s){}
-	//public static int indexOfN(String s,char c,int n);
+	public static String rtrim(String s){
+		int i = s.length()-1;
+		while (i >= 0 && s.charAt(i) == ' ') {
+			i--;
+		}
+		return s.substring(0,i+1);
+	}
+	public static String trim(String s){
+		return s.trim();
+	}
+	public static int indexOfN(String s,char c,int n){
+	return 1;
+	}
+
+	public static void main(String[] args){
+		System.out.println(	StringUtil.rtrim("hola mundo"));
+	}
 }

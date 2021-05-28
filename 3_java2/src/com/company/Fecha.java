@@ -38,8 +38,18 @@ public class Fecha {
         this.año = año;
     }
 
-    public boolean esCorrecta(){
-     return true;
+    public String esCorrecta(){
+
+        GregorianCalendar calendar = new GregorianCalendar(this.año, this.mes, this.dia);
+        int date = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        if( date == this.dia && month == this.mes &&  year== this.año){
+            return "La fecha es correcta";
+        }
+        else{
+            return "La fecha no es correcta";
+        }
     }
 
     public String sumarDia(){
@@ -54,5 +64,12 @@ public class Fecha {
     @Override
     public String toString(){
         return this.dia + "/" + this.mes + "/" + this.año;
+    }
+
+    public static void main(String[] args){
+        Fecha fecha = new Fecha(-1, 13 , 2021);
+        Fecha fecha2 = new Fecha(1, 6, 2022);
+        System.out.println(fecha.esCorrecta());
+        System.out.println(fecha2.sumarDia());
     }
 }
