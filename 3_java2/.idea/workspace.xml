@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0394c1c9-fb3d-4e39-805a-00c2950b2e14" name="Default Changelist" comment="practica en desarrollo">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/Ciruclo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/FiguraGeometrica.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/PasswordFuerte.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/PasswordIntermedia.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/PasswordSimple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/Rectangulo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/Triangulo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ejercicios/UtilClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2_java1/Practica-TT/out/production/Practica-TT/meli/ejerc/RadixSort.class" beforeDir="false" afterPath="$PROJECT_DIR$/../2_java1/Practica-TT/out/production/Practica-TT/meli/ejerc/RadixSort.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ejercicios/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ejercicios/Password.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
+  <component name="ProjectId" id="1t8IW43nKx6rqe0H0IW6q4F73FF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ejercicios.Main" />
+      <module name="3_java2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ejercicios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Pass" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ejercicios.Pass" />
+      <module name="3_java2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ejercicios.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Pass" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0394c1c9-fb3d-4e39-805a-00c2950b2e14" name="Default Changelist" comment="" />
+      <created>1622144317549</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1622144317549</updated>
+    </task>
+    <task id="LOCAL-00001" summary="practica en desarrollo">
+      <created>1622160359385</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1622160359385</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="practica en desarrollo" />
+    <option name="LAST_COMMIT_MESSAGE" value="practica en desarrollo" />
+  </component>
+</project>
