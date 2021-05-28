@@ -1,3 +1,4 @@
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -16,24 +17,54 @@ public class Fecha {
 
     }
     public Fecha(int dia, int mes, int anio){
-        this.dia=dia;
-        this.mes=mes;
-        this.anio=anio;
+        GregorianCalendar c = new GregorianCalendar();
+        c.set(anio, mes, dia);
+        c.setLenient(false);
+        try{
+            c.getTime();
+            this.dia=dia;
+            this.mes=mes;
+            this.anio=anio;
+            System.out.println("Fecha valida");
+        }catch(Exception e){
+            System.out.println("Fecha invalida");
+            e.printStackTrace();
+        }
+
+
+
+
     }
 
-    public boolean fechaEsCorrecta(Date fecha){
+    public static void main(String[] args) {
+        int dia = 9, mes = 3, anio=1990;
 
-        //implementacion
-
-        return true;
+        Fecha f = new Fecha(dia,mes,anio);
+        System.out.println(f.toString());
+        GregorianCalendar g = f.sumarDia(111);
+        f.anio= g.get(Calendar.YEAR);
+        f.mes= g.get(Calendar.MONTH);
+        f.dia= g.get(Calendar.DAY_OF_MONTH);
+        System.out.println(f.toString());
     }
 
-    public Date sumarDia(Date fecha, int cantDias){
-        Date d = new Date();
 
-        //implementacion con gregoriancalendar
 
-        return d;
+    public GregorianCalendar sumarDia(int cantDias){
+
+        GregorianCalendar g = new GregorianCalendar();
+        g.set(anio, mes, dia);
+        g.setLenient(false);
+        g.add(Calendar.DAY_OF_MONTH, cantDias);
+        try{
+             g.getTime();
+             return g;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public int getDia() {
@@ -46,6 +77,6 @@ public class Fecha {
 
     @Override
     public String toString(){
-        return "";
+        return "DIA: "+dia+" MES: "+mes+" ANIO: "+anio;
     }
 }
