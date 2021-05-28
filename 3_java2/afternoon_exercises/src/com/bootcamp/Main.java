@@ -47,4 +47,6 @@ public class Main {
         double areaPromedio = FiguraGeometricaUtil.areaPromedio(arr);
         System.out.println(areaPromedio);
     }
+
+
 }

@@ -1,0 +1,15 @@
+Discusión: si quisiéramos cambiar el criterio de precedencia entre dos personas o dos celulares,
+¿qué deberíamos hacer?
+    Para cambiar el criterio de precedencia, deberíamos modificar el método "public int precedeA(T t)" en
+    la clase que deseamos cambiar ese criterio, y esta clase ya debe implementar la interfaz Precedable.
+
+¿Cuán extensible y/mantenible resulta la solución de ordenamiento que desarrollamos en el ejercicio anterior?
+    Es mantenible ya que el código es legible y de fácil entendimiento. Además es extensible porque aunque cambie
+    el criterio de ordenamiento, el método sort funciona de la misma manera.
+
+¿Cómo se podría mejorar?
+    Podemos mejorar el algoritmo de Bubble Sort agregando un variable de control para detectar si en el recorrido
+    del arreglo se han realiazado modificaciones. En el caso de que en una iteración ya no se hayan realizado
+    iteraciones, el algoritmo deberá cortar. Esto lo vuelve mas eficiente para casos en donde el arreglo ya
+    venga ordenado, y permite tener más puntos de corte para reducir el número de iteraciones. A este algoritmo
+    se lo conoce como Improved Bubble Sort
