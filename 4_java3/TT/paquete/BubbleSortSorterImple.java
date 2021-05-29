@@ -1,6 +1,8 @@
+package paquete;
+
 import java.util.Comparator;
 
-public class BubbleSortSorterImple <T> implements Sorter<T> {
+public class BubbleSortSorterImple<T> implements Sorter<T> {
 
     @Override
     public void sort(T[] arr, Comparator<T> c) {
@@ -22,7 +24,7 @@ public class BubbleSortSorterImple <T> implements Sorter<T> {
         }
     }
 
-    void printArray(int arr[])
+    void printArray(Integer arr[])
     {
         int n = arr.length;
         for (int i=0; i<n; ++i)

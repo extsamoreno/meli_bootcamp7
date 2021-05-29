@@ -1,3 +1,5 @@
+package paquete;
+
 import java.util.Comparator;
 
 public class QuickSortSorterImple <T> implements Sorter<T> {
