@@ -1,5 +1,7 @@
 package com.company;
 
+import static com.company.RadixSort.radixSort;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,18 +11,20 @@ public class Main {
         Ej4 ej4 = new Ej4();
         Ej5 ej5 = new Ej5();
 
+        /*
         ej1.pares();
         ej2.divisible();
         ej3.ej3();
         ej4.mostrarPrimos();
         ej5.mostrarNaturales();
+        */
 
-        /*int arr[]={16223,898,13,906,235,23,9,1532,6388,2511,8};
+        int arr[]={16223,898,13,906,235,23,9,1532,6388,2511,8};
         radixSort(arr);
 
         for(int i=0; i<arr.length;i++)
         {
             System.out.print(arr[i]+(i<arr.length-1?",":""));
-        }*/
+        }
     }
 }

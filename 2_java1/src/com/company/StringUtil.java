@@ -1,6 +1,10 @@
 package com.company;
 
-public class StringUtil {/*
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class StringUtil {
 	// Retorna una cadena compuesta por n caracteres c
 	public static String replicate(char c,int n)
 	{
@@ -17,8 +21,8 @@ public class StringUtil {/*
 	// para completar la longitud mencionada
 	public static String lpad(String s,int n,char c)
 	{
-		String myString = "";
-		while(s.length() < n){
+		String myString = s;
+		while(myString.length() < n){
 				myString = c+myString;
 		}
 		return myString;
@@ -30,7 +34,7 @@ public class StringUtil {/*
 	{
 		String myString[] = new String[arr.length];
 		for(int i =0; i< arr.length; i++){
-			myString[i] = arr[i].toStringArray();
+			myString[i] = String.valueOf(arr[i]);
 		}
 		return myString;
 
@@ -42,7 +46,7 @@ public class StringUtil {/*
 	{
 		int myInt[] = new int[arr.length];
 		for(int i =0; i< arr.length; i++){
-			myInt[i] = Integer.parceInt(arr[i]);
+			myInt[i] = Integer.parseInt(arr[i]);
 		}
 		return myInt;
 	}
@@ -54,11 +58,12 @@ public class StringUtil {/*
 	{
 		int maxLength = 0;
 
-		for(int i =0; i< arr.length; i++){
-			if(arr[1].length > maxLength){
-				maxLength = arr[1].length;
+		for (String s : arr) {
+			if (s.length() > maxLength) {
+				maxLength = s.length();
 			}
 		}
+
 		return maxLength;
 	}
 	
@@ -66,10 +71,15 @@ public class StringUtil {/*
 	// a la izquierda, dejando a todos con la longitud del mayor
 	public static void lNormalize(String arr[],char c)
 	{
-		int maxLength = maxLength(arr);
+		int max = maxLength(arr);
+		int index = 0;
 
-		for(int i =0; i< arr.length; i++){
-			lpad(arr[i],maxLength,c);
+		for(String s : arr) {
+			s = lpad(s, max, c);
+			arr[index] = s;
+			index++;
 		}
-	}*/
+	}
+
+
 }

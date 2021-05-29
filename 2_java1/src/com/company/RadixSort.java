@@ -1,57 +1,43 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RadixSort {
-    public static void radixSort(int[] arr) {/*
+	public static void radixSort(int[] arr) {
 		String[] aux = StringUtil.toStringArray(arr);
-		int maxLength = StringUtil.maxLength(aux);
-		aux = StringUtil.lpad(aux,maxLength,c);
 
-		ArrayList<String[]> L0 = new ArrayList<>();
-		ArrayList<String[]> L1 = new ArrayList<>();
-		ArrayList<String[]> L2 = new ArrayList<>();
-		ArrayList<String[]> L3 = new ArrayList<>();
-		ArrayList<String[]> L4 = new ArrayList<>();
-		ArrayList<String[]> L5 = new ArrayList<>();
-		ArrayList<String[]> L6 = new ArrayList<>();
-		ArrayList<String[]> L7 = new ArrayList<>();
-		ArrayList<String[]> L8 = new ArrayList<>();
-		ArrayList<String[]> L9 = new ArrayList<>();
+		StringUtil.lNormalize(aux, '0');
 
-		for(int i=0; i< arr.length; i++){
-			String[] currentString = StringUtil.toStringArray(arr);
+		HashMap<Integer, ArrayList<String>> maps = new HashMap<>();
+		for (int i = 0; i < aux.length; i++) {
+			maps.put(i, new ArrayList<>());
+		}
 
-			switch (currentString[maxLength-1])
-			{
-				case 0:
-					L0.add(currentString);
+		for (int j = aux[0].length() - 1; j >= 0; j--) {
+			for (String s : aux) {
+				int key = Integer.parseInt(String.valueOf(s.charAt(j)));
+				maps.get(key).add(s);
+			}
 
-					break;
-				case 1:  dayString = "Lunes";
-					break;
-				case 2:  dayString = "Martes";
-					break;
-				case 3:  dayString = "Miercoles";
-					break;
-				case 4:  dayString = "Jueves";
-					break;
-				case 5:  dayString = "Viernes";
-					break;
-				case 6:  dayString = "Sabado";
-					break;
-				case 7:  dayString = "Domingo";
-					break;
-				default: dayString = "Dia inválido";
-					break;
+			int index = 0;
+
+			for (Map.Entry<Integer, ArrayList<String>> entry : maps.entrySet()) {
+				for (String s : entry.getValue()) {
+					aux[index] = s;
+					index++;
+				}
+				entry.getValue().clear();
 			}
 		}
 
+		int[] intArray = StringUtil.toIntArray(aux);
+		for (int i = 0; i < intArray.length; i++) {
+			arr[i] = intArray[i];
+		}
+	}
 
-
-*/
-
-    }
 }
 
 
