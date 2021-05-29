@@ -4,20 +4,27 @@ import java.util.regex.Pattern;
 
 public class Password {
     private String password;
+    private String regExp;
 
-    public Password(String password){
-        //Pattern pat = Pattern.compile("(?=.*[a-z])");
-        //Pattern pat = Pattern.compile("^[\\w-]+(\\.[\\w-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        // Pattern pat = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$\"");
-        Pattern pat = Pattern.compile("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[–_.]).{8,20}");
+    public Password(String regExp){
+        this.regExp = regExp;
+    }
+
+    public void setPassword(String password) throws IllegalArgumentException{
+        Pattern pat = Pattern.compile(this.regExp);
         Matcher mat = pat.matcher(password);
 
-        if(mat.matches()){
+        if (mat.matches()) {
             this.password = password;
-            System.out.println("valido");
-
-        }else{
-            System.out.println("invalido");
+        }else {
+            throw new IllegalArgumentException("Password not valid");
         }
     }
-}
+
+    public String getPassword(){
+        return password;
+    }
+
+
+    }
+
