@@ -39,12 +39,15 @@ public class HeapSortImple<T> implements Sorter <T>{
         // If left child is larger than root
         if (l < n && c.compare(arr[l] ,arr[largest])>0){
             largest = l;
+
         }
 
 
         // If right child is larger than largest so far
-        if (r < n && c.compare(arr[l] ,arr[largest])>0){
+        if (r < n && c.compare(arr[r] ,arr[largest])>0){
+
             largest = r;
+
 
         }
 
