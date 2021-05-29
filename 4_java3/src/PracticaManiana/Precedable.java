@@ -1,3 +1,4 @@
+package PracticaManiana;
 
 // Esta interfaz va a poder comparar distinto tipo de datos
 public interface Precedable <T> {

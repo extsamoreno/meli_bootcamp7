@@ -1,6 +1,8 @@
+package PracticaManiana;
+
 public class Main {
     public static void main(String[] args) {
-        Persona personasLindas[] = new Persona [3];
+        Persona personasLindas[] = new Persona[3];
         personasLindas[0] = new Persona("Jhader", 2819210);
         personasLindas[1] = new Persona("Luz", 238149102);
         personasLindas[2] = new Persona("Marcos", 3728191);
@@ -18,7 +20,7 @@ public class Main {
         System.out.println("-------------------------------------");
 
         // Celulares
-        Celular []celulares = new Celular [3];
+        Celular[]celulares = new Celular [3];
         celulares[0] = new Celular("Luz", 2819210);
         celulares[1] = new Celular("Jhader", 238149102);
         celulares[2] = new Celular("Marcos", 3728191);

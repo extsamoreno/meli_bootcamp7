@@ -1,4 +1,6 @@
-public class Persona implements Precedable <Persona> { // le paso a la interfaz la clase
+package PracticaManiana;
+
+public class Persona implements Precedable<Persona> { // le paso a la interfaz la clase
     private String nombre;
     private int dni;
 
