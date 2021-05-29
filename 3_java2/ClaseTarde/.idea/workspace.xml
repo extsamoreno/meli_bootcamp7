@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da4dd3cf-17d5-4c53-84a6-9aeaa7501e60" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../4_java3/Clasemañana/src/com/company/Celular.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../4_java3/Clasemañana/src/com/company/Persona.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../4_java3/Clasemañana/src/com/company/Precedeable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../4_java3/Clasemañana/src/com/company/SortUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/ClaseTarde/src/com/company/BubbleSortSorterImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/ClaseTarde/src/com/company/HeapSortSorterImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/ClaseTarde/src/com/company/MiFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/ClaseTarde/src/com/company/MiFactory/properties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/ClaseTarde/src/com/company/QuickSortSorterImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/ClaseTarde/src/com/company/Sorter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../4_java3/ClaseTarde/src/com/company/Timer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,17 +103,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -121,6 +113,7 @@
       <option name="presentableId" value="Default" />
       <updated>1622156196906</updated>
       <workItem from="1622156198134" duration="1821000" />
+      <workItem from="1622309250160" duration="491000" />
     </task>
     <task id="LOCAL-00001" summary="ejercicios tarde">
       <created>1622156887344</created>
@@ -145,6 +138,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ejercicios tarde" />
