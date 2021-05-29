@@ -1,4 +1,4 @@
-import functions.Functions;
+import func.Funcs;
 
 public class Ejercicio1 {
     //  Desarrollar un programa para mostrar los primeros n números pares,
@@ -6,9 +6,9 @@ public class Ejercicio1 {
     //  Recordá que un número es par cuando es divisible por 2.
 
     public static void main(String[] args) {
-        int userNumber = Functions.askNumber("Ingresa la cantidad de número pares que deseas ver:");
+        int userNumber = Funcs.askNumber("Ingresa la cantidad de número pares que deseas ver:");
 
-        Functions.printArray(Functions.getNNumbers(userNumber, 2));
+        Funcs.printArray(Funcs.getNNumbers(userNumber, 2));
     }
 
 }

@@ -1,4 +1,4 @@
-import functions.Functions;
+import func.Funcs;
 
 public class Ejercicio4 {
 
@@ -9,8 +9,8 @@ public class Ejercicio4 {
 
     public static void main(String[] args) {
 
-        int userNumber = Functions.askNumber("Ingresa la cantidad de números primos a mostrar:");
-        Functions.printArray(Functions.getNPrimeNums(userNumber));
+        int userNumber = Funcs.askNumber("Ingresa la cantidad de números primos a mostrar:");
+        Funcs.printArray(Funcs.getNPrimeNums(userNumber));
     }
 
 }

@@ -1,4 +1,4 @@
-import functions.Functions;
+import static func.Funcs.*;
 
 public class Ejercicio5 {
 
@@ -11,12 +11,23 @@ public class Ejercicio5 {
     utilizar recursos que aún no hemos estudiado. El desafío consiste en googlear cómo utilizar dichos recursos
     y ¡utilizarlos!*/
 
-    // n cant num, m cant digitos, d digito que debe repetirse m veces.
-
-    int n = Functions.askNumber("Ingrese la cantidad de números a mostrar: ");
-    int m = Functions.askNumber("Ingrese el dígito que busca: ");
-    int d = Functions.askNumber("Ingrese la cantidad de repeticiones del dígito: ");
+    public static void main(String[] args) {
 
 
+        int n = askNumber("Ingrese la cantidad de números a mostrar:\n>>>");
+        int m = askNumber("Ingrese la cantidad de repeticiones del dígito que busca:\n>>>");
+        int d = askNumber("Ingrese el dígito buscado:\n>>>");
+
+        int i = 0;
+        int cont = 0;
+        while (cont < n) {
+            if (cumpleCondicion(i, m, d)) {
+                cont++;
+                System.out.println(i);
+            }
+
+            i++;
+        }
+    }
 
 }

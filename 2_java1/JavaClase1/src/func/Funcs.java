@@ -1,10 +1,15 @@
-package functions;
+package func;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
-import java.util.function.Function;
 
-public class Functions {
+public class Funcs {
+
+    public static <T> void printArray (T[] t){
+        for (T n:
+                t) {
+            System.out.println(n);
+        }
+    }
 
     public static int askNumber(String message){
         Scanner userInput = new Scanner(System.in);
@@ -12,15 +17,6 @@ public class Functions {
         return userInput.nextInt();
     }
 
-    public static Integer[] getNNumbers(int n) {
-        Integer[] numbers = new Integer[n];
-        int number = 0;
-        for (int i = 0; i < n; i++) {
-            numbers[i] = number;
-            number += 1;
-        }
-       return numbers;
-    }
     public static Integer[] getNNumbers(int n, int m) {
         Integer[] numbers = new Integer[n];
         int number = 0;
@@ -78,18 +74,32 @@ public class Functions {
         Integer[] nums = new Integer[n];
         for (int i = 0; i < n; i++) {
             if (i == 0) {
-                nums[i] = Functions.getPrimeNum();
+                nums[i] = Funcs.getPrimeNum();
             } else {
-                nums[i] = Functions.getPrimeNum(nums[i - 1] + 1);
+                nums[i] = Funcs.getPrimeNum(nums[i - 1] + 1);
             }
         }
         return nums;
     }
 
-    public static <T> void printArray (T t[]){
-        for (T n:
-                t) {
-            System.out.println(n);
+    public static int charCount(String s,char c)
+    {
+        int index=0;
+        int cont=0;
+        while( index < s.length() ) {
+            if (s.charAt(index) == c) {
+                cont++;
+            }
+
+            index++;
         }
+        return cont;
     }
+
+    public static boolean cumpleCondicion(int i,int m,int d)
+    {
+        return charCount(Integer.toString(i),(char)(d+'0'))==m;
+    }
+
+
 }

@@ -1,9 +1,9 @@
-import functions.Functions;
+import func.Funcs;
 
 public class Ejercicio3 {
 
     public static void main(String[] args) {
-        int userNumber = Functions.askNumber("Ingrese un entero:");
-        Functions.printIsPrimeNumber(userNumber);
+        int userNumber = Funcs.askNumber("Ingrese un entero:");
+        Funcs.printIsPrimeNumber(userNumber);
     }
 }

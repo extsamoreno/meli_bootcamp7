@@ -1,4 +1,4 @@
-import functions.Functions;
+import func.Funcs;
 
 public class Ejercicio2 {
     /*
@@ -8,10 +8,10 @@ public class Ejercicio2 {
     */
 
     public static void main(String[] args) {
-        int userNumber = Functions.askNumber("Ingresa la cantidad de números a mostrar:");
-        int userMult = Functions.askNumber("Ingresa el divisor de dichos números:");
-        Integer[] arr = Functions.getNNumbers(userNumber, userMult);
-        Functions.printArray(arr);
+        int userNumber = Funcs.askNumber("Ingresa la cantidad de números a mostrar:");
+        int userMult = Funcs.askNumber("Ingresa el divisor de dichos números:");
+        Integer[] arr = Funcs.getNNumbers(userNumber, userMult);
+        Funcs.printArray(arr);
     }
 
 }
