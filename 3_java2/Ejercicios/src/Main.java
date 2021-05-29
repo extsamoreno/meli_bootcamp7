@@ -19,5 +19,14 @@ public class Main {
         System.out.println(f);
 
         System.out.println(f.validarFecha() ? "Fecha Valida" : "");
+
+        // Ejercicio 6
+        String str = "probando ejercicio asd";
+        //str = StringUtil.rpad(str, '0', 7);
+        //str = StringUtil.rtrim(str);
+
+        System.out.println("Posicion de la letra: " + StringUtil.indexOfN(str, 'a', 3));
+        System.out.println(str);
+
     }
 }

@@ -16,11 +16,11 @@ public class Fecha {
     }
 
     // Metodos
-    public boolean validarFecha(){
+    public boolean validarFecha() {
 
-        try{
+        try {
             LocalDate today = LocalDate.of(year, month, day);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("La fecha no es valida");
             return false;
         }
@@ -28,13 +28,13 @@ public class Fecha {
         return true;
     }
 
-    public void sumarDia(){
+    public void sumarDia() {
         day++;
     }
 
     @Override
     public String toString() {
-        return "Fecha: " + day+ "/" + month + "/" + year;
+        return "Fecha: " + day + "/" + month + "/" + year;
     }
 
     // Getters y Setters
