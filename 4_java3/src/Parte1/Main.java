@@ -74,5 +74,8 @@ public class Main {
                 tArr) {
             System.out.println(t.getTitular());
         }
+
+
+
     }
 }
