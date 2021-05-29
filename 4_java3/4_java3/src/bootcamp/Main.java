@@ -6,13 +6,15 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Sorter sorter = new QuickSortSorterImple();
-        Integer[] arr = {5, 6, 19, 8, 9,89};
-        Comparator<Integer> c1 = (a, b)->a-b;
-        sorter.sort(arr, c1);
-
-        mostrarArreglo(arr);
-
+        Sorter sorterQS = new QuickSortSorterImple();
+        Sorter sorterHS = new HeapSort();
+        Double[] arr = {5.0, 9.1, 6.0, 8.0, 9.0,89.0, 1.0};
+        Comparator<Double> c1 = (a, b)-> (int) (a*100-b*100);
+//        Comparator<ouble> c1 = Comparator.comparingDouble(a -> a);
+//        sorterQS.sort(arr, c1);
+        sorterHS.sort(arr, c1);
+        printArray(arr);
+//
 //        System.out.println("arr = " + arr.toString());
         
         
@@ -49,10 +51,14 @@ public class Main {
 //        
     }
 
-    private static <T>void mostrarArreglo(T[] arr) {
-        System.out.println("");
+
+    /* A utility function to print array of size n */
+    public static <T> void printArray(T[] arr)
+    {
+        int n = arr.length;
         for(T num: arr)
-            System.out.print(num+" ");
+            System.out.print(num+",  ");
+        System.out.println();
     }
 }
 

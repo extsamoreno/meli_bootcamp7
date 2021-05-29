@@ -12,8 +12,8 @@ public class QuickSortSorterImple <T> implements Sorter<T>{
             T aux;
 
             while(i < j){                          // mientras no se crucen las búsquedas
-                while(c.compare(A[i], pivote) <=0 && i < j) i++; // busca elemento mayor que pivote
-                while(c.compare(A[j], pivote) >0 ) j--;           // busca elemento menor que pivote
+                while((int) c.compare(A[i], pivote) <=0 && i < j) i++; // busca elemento mayor que pivote
+                while((int) c.compare(A[j], pivote) >0.0 ) j--;           // busca elemento menor que pivote
                 if (i < j) {                        // si no se han cruzado
                     aux= A[i];                      // los intercambia
                     A[i]=A[j];
