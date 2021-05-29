@@ -1,4 +1,4 @@
-package com.company;
+package mañana;
 
 public interface Precedable<T> {
     public int precedeA(T t);

@@ -1,4 +1,4 @@
-package com.company;
+package mañana;
 
 public class SortUtil {
 
@@ -11,7 +11,6 @@ public class SortUtil {
                 }
             }
         }
-
     }
 
 
@@ -19,10 +18,8 @@ public class SortUtil {
 
         // cambio elemento posicion i por elemento posiicon j
         Precedable aux;
-
         aux = arr[i];
         arr[i] = arr[j];
         arr[j] = aux;
-
     }
 }

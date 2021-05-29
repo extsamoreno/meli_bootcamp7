@@ -1,4 +1,4 @@
-package com.company;
+package mañana;
 
 public class Persona implements Precedable<Persona>{
     private String nombre;

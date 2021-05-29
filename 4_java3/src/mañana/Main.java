@@ -1,4 +1,4 @@
-package com.company;
+package mañana;
 
 public class Main {
 

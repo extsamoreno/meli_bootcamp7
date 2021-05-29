@@ -1,4 +1,4 @@
-package com.company;
+package mañana;
 
 public class Celular implements Precedable<Celular> {
     private int numero;
