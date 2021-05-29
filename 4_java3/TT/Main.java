@@ -5,13 +5,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        //Persona arr[] = new Persona[100000];
+    public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        Integer[] arr = new Integer[100000];
 
-        Integer arr[] = {64, 34, 25, 12, 22, 11, 90};
-        Comparator<Integer> c = (a,b)-> a-b;
-
+        Comparator<Integer> c = (a, b)-> a-b;
         Sorter s = (Sorter) MiFactory.getInstance("sorter");
+
+        for (int x=0;x<arr.length;x++)
+            arr[x] = (int) (Math.random()*100000);
 
         s.sort(arr,c);
 
@@ -23,6 +24,5 @@ public class Main {
         int n = arr.length;
         for (int i=0; i<n; ++i)
             System.out.print(arr[i] + " ");
-        System.out.println();
     }
 }
