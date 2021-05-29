@@ -4,7 +4,6 @@ import java.util.Comparator;
 
 public class QuickSortSorterImple <T> implements Sorter<T>{
 
-
         public static <T> void quicksort(T A[], Comparator<T> c, int izq, int der) {
 
             T pivote = A[izq];  // tomamos indice de primer elemento como pivote
