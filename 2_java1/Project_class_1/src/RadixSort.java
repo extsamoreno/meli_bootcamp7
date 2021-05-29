@@ -8,7 +8,7 @@ public class RadixSort
     {
         int dur = 2;
         int repet = 1;
-        while (repet!=dur) {
+        while (repet<=dur) {
             //Adaptación del array
             String arr_str[] = StringUtil.toStringArray(arr);
             dur = StringUtil.maxLength(arr_str);
@@ -35,8 +35,9 @@ public class RadixSort
             }
             String[] ag_arrayst = new String[ag_array.size()];
             ag_arrayst = ag_array.toArray(ag_arrayst);
+            int[] ag_arrayInt = StringUtil.toIntArray(ag_arrayst);
             for (int i = 0; i < arr.length; i++) {
-                arr[i] = Integer.parseInt(ag_arrayst[i]);
+                arr[i] = ag_arrayInt[i];
             }
 
 
