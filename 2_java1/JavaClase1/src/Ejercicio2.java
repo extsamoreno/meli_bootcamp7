@@ -10,8 +10,8 @@ public class Ejercicio2 {
     public static void main(String[] args) {
         int userNumber = Functions.askNumber("Ingresa la cantidad de números a mostrar:");
         int userMult = Functions.askNumber("Ingresa el divisor de dichos números:");
-
-        Functions.printNNumbers(userNumber, userMult);
+        Integer[] arr = Functions.getNNumbers(userNumber, userMult);
+        Functions.printArray(arr);
     }
 
 }

@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import functions.StringUtils;
-
+package RadixExercise;
 
 public class RadixSort
 {
@@ -11,6 +7,7 @@ public class RadixSort
         //Implementación
         for (int i = StringUtils.maxIntLength(arr)-1; i >0; i--) {
             int[] nArr = StringUtils.myRadixSort(arr, i);
+            //Array copy
             for (int j = 0; j < nArr.length; j++) {
                 arr[j] = nArr[j];
             }

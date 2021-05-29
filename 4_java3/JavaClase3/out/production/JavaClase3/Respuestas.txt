@@ -1,0 +1,13 @@
+El método sort puede ordenar cualquier tipo de dato siempre que éste implemente a interfaz Precedeable.
+
+2-
+Discusión: si quisiéramos cambiar el criterio de precedencia entre dos personas o dos celulares, ¿qué deberíamos hacer? 
+¿Cuán extensible y/mantenible resulta la solución de ordenamiento que desarrollamos en el ejercicio anterior? 
+¿Cómo se podría mejorar?
+
+Los criterios de precedencia los modificaría en cada clase para que cada una tenga definido supropio criterio.o
+
+El ordenamiento es altamente extensible y de fácil mantenimiento ya que recibe podríamos pasarle cualquier genérico que
+necesitemos.
+
+Se podría mejorar implementando en SortUtil otros algoritmos de ordenamiento.

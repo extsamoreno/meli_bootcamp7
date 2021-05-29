@@ -2,7 +2,7 @@ package TT;
 
 import java.util.Comparator;
 
-public class QuickSort implements Sorter{
+public class QuickSort<T> implements Sorter<T>{
 
     @Override
     public <T> void sort(T[] arr, Comparator<T> c) {

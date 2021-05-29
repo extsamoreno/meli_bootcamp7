@@ -8,7 +8,7 @@ public class Ejercicio1 {
     public static void main(String[] args) {
         int userNumber = Functions.askNumber("Ingresa la cantidad de número pares que deseas ver:");
 
-        Functions.printNNumbers(userNumber, 2);
+        Functions.printArray(Functions.getNNumbers(userNumber, 2));
     }
 
 }
