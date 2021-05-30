@@ -6,8 +6,10 @@ public class Ejcio1 {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Por favor ingrese un número: ");
+        System.out.println("Ingrese un número para obtener esa cantidad de números pares: ");
         int number = scanner.nextInt();
+
+        System.out.println("Los primeros " + number + " números pares son:");
 
         int thisNumber = 0;
 
