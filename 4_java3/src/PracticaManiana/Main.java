@@ -1,6 +1,7 @@
 package PracticaManiana;
 
 public class Main {
+
     public static void main(String[] args) {
         Persona personasLindas[] = new Persona[3];
         personasLindas[0] = new Persona("Jhader", 2819210);
@@ -36,4 +37,5 @@ public class Main {
             System.out.println(c);
         System.out.println("-------------------------------------");
     }
+
 }
