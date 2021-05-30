@@ -1,47 +1,80 @@
 package practicaTT;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 
 public class Main {
-    public static void main(String[] args) {
+    // preguntar si es buena practica
+    // colocar todos los throws o usar try catch
+    // si van las excepciones especificas o se coloca una mas general
+    public static void main(String[] args) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
 
         Comparator<Integer> compAscInt = (a, b) -> b - a;
-        Integer arr[] = {1, 2, 5, 7, 3, 4};
-
         Comparator<String> compAscStr = (a, b) -> b.compareTo(a);
-        String arr2[] = {"a", "n", "f", "b"};
 
-        System.out.println("Original");
-        printArr(arr);
-        System.out.println("QuickSort");
-        new QuickSortSorterImple().sort(arr, compAscInt);
-        printArr(arr);
-        System.out.println("HeapSort");
-        new HeapSortSorterImple().sort(arr, compAscInt);
-        printArr(arr);
-        System.out.println("BubbleSort");
-        new BubbleSortSorterImple().sort(arr, compAscInt);
-        printArr(arr);
+        Sorter quick = new QuickSortSorterImple();
+        Sorter heap = new HeapSortSorterImple();
+        Sorter bubble = new BubbleSortSorterImple();
 
+        System.out.println("Implementacion directa de los SORTERS:");
+        System.out.print("QuickSort:\t");
+        sortAndPrintIntArray(compAscInt, quick);
+        System.out.print("HeapSort:\t");
+        sortAndPrintIntArray(compAscInt, heap);
+        System.out.print("BubbleSort:\t");
+        sortAndPrintIntArray(compAscInt, bubble);
+
+        System.out.println("--------");
+
+        System.out.print("QuickSort:\t");
+        sortAndPrintStringArray(compAscStr, quick);
+        System.out.print("HeapSort:\t");
+        sortAndPrintStringArray(compAscStr, heap);
+        System.out.print("BubbleSort:\t");
+        sortAndPrintStringArray(compAscStr, bubble);
+
+        System.out.println("\nImplementacion Usando MiFactory:");
+        // received as Object class
+        Object s1 = MiFactory.getInstance("sorter");
+        System.out.println("Created:\t" + s1.getClass() + "\n");
+        // casted to Sorter Class
+        Sorter s2 = (Sorter) MiFactory.getInstance("sorter");
+        System.out.println("Created:\t" + s2.getClass() + "\n");
+
+    }
+
+    private static void sortAndPrintStringArray(Comparator<String> criteria, Sorter sorter) {
+        String[] arr = getStringsArray();
+        sortAndPrintArray(criteria, sorter, arr);
+    }
+
+    private static void sortAndPrintIntArray(Comparator<Integer> criteria, Sorter sorter) {
+        Integer[] arr = getIntegersArray();
+        sortAndPrintArray(criteria, sorter, arr);
+    }
+
+    private static <T> void sortAndPrintArray(Comparator<T> criteria, Sorter sorter, T[] arr) {
+        printArr(arr);
+        System.out.print("\t->\t");
+        sorter.sort(arr, criteria);
+        printArr(arr);
         System.out.println("");
+    }
 
-        System.out.println("Original");
-        printArr(arr2);
-        System.out.println("QuickSort");
-        new QuickSortSorterImple().sort(arr2, compAscStr);
-        printArr(arr2);
-        System.out.println("HeapSort");
-        new HeapSortSorterImple().sort(arr2, compAscStr);
-        printArr(arr2);
-        System.out.println("BubbleSort");
-        new BubbleSortSorterImple().sort(arr2, compAscStr);
-        printArr(arr2);
+    private static Integer[] getIntegersArray() {
+        Integer arr[] = {8, 2, 1, 5, 7, 3, 4};
+        return arr;
+    }
+
+    private static String[] getStringsArray() {
+        String arr2[] = {"k", "a", "z", "n", "f", "b"};
+        return arr2;
     }
 
     public static <T> void printArr(T[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i].toString());
+        for (T t : arr) {
+            System.out.print(t.toString());
         }
-        System.out.println("");
     }
 }
