@@ -13,7 +13,7 @@ public class MiFactory {
 
         String myClassName = myProperties().getProperty(objName);
 
-        System.out.println("Received:\t\"" + objName + "\"\t->\t\"" + myClassName + "\"");
+        System.out.print("Received:\t\"" + objName + "\"\t->\t\"" + myClassName + "\"");
 
         Class<?> myClass = Class.forName(myClassName);
         return myClass.getDeclaredConstructor().newInstance();
