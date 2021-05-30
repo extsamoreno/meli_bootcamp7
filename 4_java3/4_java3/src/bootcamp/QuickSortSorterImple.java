@@ -6,6 +6,8 @@ public class QuickSortSorterImple <T> implements Sorter<T>{
 
         public static <T> void quicksort(T A[], Comparator<T> c, int izq, int der) {
 
+            System.out.println("Ordenando con Quick Sort");
+
             T pivote = A[izq];  // tomamos indice de primer elemento como pivote
             int i=izq;         // i realiza la búsqueda de izquierda a derecha
             int j=der;         // j realiza la búsqueda de derecha a izquierda

@@ -9,6 +9,8 @@ public class HeapSort  <T> implements  Sorter<T> {
     public void sort(T arr[], Comparator<T> c) {
         int n = arr.length;
 
+        System.out.println("Ordenando con HeapSort");
+
         // Build heap (rearrange array)
         for (int i = n / 2 - 1; i >= 0; i--)
             heapify(arr, n, i, c);
