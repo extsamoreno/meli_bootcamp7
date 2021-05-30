@@ -5,16 +5,13 @@ import java.util.Comparator;
 public class QuickSortSorterImple<T> implements Sorter<T> {
 
     @Override
-    public void sort(T[] arr, Comparator<T> c) {
-        quickSort(arr, 0, arr.length - 1, c);
+    public String toString() {
+        return "QuickSort";
     }
 
-
-    // A utility function to swap two elements
-    static <T> void swap(T[] arr, int i, int j) {
-        T temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
+    @Override
+    public void sort(T[] arr, Comparator<T> c) {
+        quickSort(arr, 0, arr.length - 1, c);
     }
 
     /* This function takes last element as pivot, places
@@ -41,10 +38,10 @@ public class QuickSortSorterImple<T> implements Sorter<T> {
                 // Increment index of
                 // smaller element
                 i++;
-                swap(arr, i, j);
+                Sorter.swap(arr, i, j);
             }
         }
-        swap(arr, i + 1, high);
+        Sorter.swap(arr, i + 1, high);
         return (i + 1);
     }
 
