@@ -18,43 +18,56 @@ public class Main {
         Sorter bubble = new BubbleSortSorterImple();
 
         System.out.println("Implementacion directa de los SORTERS:");
-        sortAndPrintIntArray(compAscInt, quick);
-        sortAndPrintIntArray(compAscInt, heap);
-        sortAndPrintIntArray(compAscInt, bubble);
+        sortAndPrintArray(compAscInt, quick, getIntegersArray());
+        sortAndPrintArray(compAscInt, heap, getIntegersArray());
+        sortAndPrintArray(compAscInt, bubble, getIntegersArray());
         System.out.println("--------");
-        sortAndPrintStringArray(compAscStr, quick);
-        sortAndPrintStringArray(compAscStr, heap);
-        sortAndPrintStringArray(compAscStr, bubble);
+        sortAndPrintArray(compAscStr, quick, getStringsArray());
+        sortAndPrintArray(compAscStr, heap, getStringsArray());
+        sortAndPrintArray(compAscStr, bubble, getStringsArray());
 
         System.out.println("\n--------\n");
 
 
         System.out.println("Implementacion Usando MiFactory:");
         // received as Object class
-//        Object s1 = MiFactory.getInstance("sorter");
-//        System.out.print("\t->\tCreated: " + s1.toString() + "\n");
+        Object s1 = MiFactory.getInstance("sorter");
+        System.out.print("\t->\tCreated: " + s1.toString() + "\n");
         // casted to Sorter Class
-        Sorter quickFactory = (Sorter) MiFactory.getInstance("sorter");
+        Sorter quickFactory = (Sorter) MiFactory.getInstance("quick");
         System.out.print("\t->\tCreated: " + quickFactory.toString() + "\n");
-        sortAndPrintIntArray(compAscInt, quickFactory);
-        sortAndPrintStringArray(compAscStr, quickFactory);
 
+        Sorter heapFactory = (Sorter) MiFactory.getInstance("heap");
+        System.out.print("\t->\tCreated: " + heapFactory.toString() + "\n");
+
+        Sorter bubbleFactory = (Sorter) MiFactory.getInstance("bubble");
+        System.out.print("\t->\tCreated: " + bubbleFactory.toString() + "\n");
+        System.out.println("");
+        sortAndPrintArray(compAscInt, quickFactory, getIntegersArray());
+        sortAndPrintArray(compAscInt, heapFactory, getIntegersArray());
+        sortAndPrintArray(compAscInt, bubbleFactory, getIntegersArray());
+        System.out.println("--------");
+        sortAndPrintArray(compAscStr, quickFactory, getStringsArray());
+        sortAndPrintArray(compAscStr, heapFactory, getStringsArray());
+        sortAndPrintArray(compAscStr, bubbleFactory, getStringsArray());
+
+        System.out.println("\n--------\n");
 
 
     }
 
-    private static void sortAndPrintStringArray(Comparator<String> criteria, Sorter sorter) {
-        String[] arr = getStringsArray();
-        sortAndPrintArray(criteria, sorter, arr);
-    }
-
-    private static void sortAndPrintIntArray(Comparator<Integer> criteria, Sorter sorter) {
-        Integer[] arr = getIntegersArray();
-        sortAndPrintArray(criteria, sorter, arr);
-    }
+//    private static void sortAndPrintStringArray(Comparator<String> criteria, Sorter sorter) {
+//        String[] arr = getStringsArray();
+//        sortAndPrintArray(criteria, sorter, arr);
+//    }
+//
+//    private static void sortAndPrintIntArray(Comparator<Integer> criteria, Sorter sorter) {
+//        Integer[] arr = getIntegersArray();
+//        sortAndPrintArray(criteria, sorter, arr);
+//    }
 
     private static <T> void sortAndPrintArray(Comparator<T> criteria, Sorter sorter, T[] arr) {
-        System.out.print(sorter.toString()+":\t");
+        System.out.print(sorter.toString() + ":\t");
         printArr(arr);
         System.out.print("\t->\t");
         sorter.sort(arr, criteria);
