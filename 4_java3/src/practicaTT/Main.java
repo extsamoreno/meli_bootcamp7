@@ -19,39 +19,24 @@ public class Main {
         Sorter bubble = new BubbleSortSorterImple();
 
         System.out.println("Using SORTERS:");
-        sortAndPrintArray(compAscInt, quick, getIntegersArray(), true);
-        sortAndPrintArray(compAscInt, heap, getIntegersArray(), true);
-        sortAndPrintArray(compAscInt, bubble, getIntegersArray(), true);
-        System.out.println("--------");
-        sortAndPrintArray(compAscStr, quick, getStringsArray(), true);
-        sortAndPrintArray(compAscStr, heap, getStringsArray(), true);
-        sortAndPrintArray(compAscStr, bubble, getStringsArray(), true);
-
+        printSortWithArray(compAscInt, compAscStr, quick, heap, bubble);
         System.out.println("\n");
 
         System.out.println("Using MiFactory:");
         // received as Object class
         Object s1 = MiFactory.getInstance("sorter");
-        System.out.print("\t->\tCreated: " + s1.toString() + "\n");
+        System.out.print("\t->\tCreated: " + s1 + "\n");
         // casted to Sorter Class
         Sorter quickFactory = (Sorter) MiFactory.getInstance("quick");
-        System.out.print("\t->\tCreated: " + quickFactory.toString() + "\n");
-
+        System.out.print("\t->\tCreated: " + quickFactory + "\n");
         Sorter heapFactory = (Sorter) MiFactory.getInstance("heap");
-        System.out.print("\t->\tCreated: " + heapFactory.toString() + "\n");
-
+        System.out.print("\t->\tCreated: " + heapFactory + "\n");
         Sorter bubbleFactory = (Sorter) MiFactory.getInstance("bubble");
-        System.out.print("\t->\tCreated: " + bubbleFactory.toString() + "\n");
+        System.out.print("\t->\tCreated: " + bubbleFactory+ "\n");
 
         System.out.println("--------");
 
-        sortAndPrintArray(compAscInt, quickFactory, getIntegersArray(), true);
-        sortAndPrintArray(compAscInt, heapFactory, getIntegersArray(), true);
-        sortAndPrintArray(compAscInt, bubbleFactory, getIntegersArray(), true);
-        System.out.println("--------");
-        sortAndPrintArray(compAscStr, quickFactory, getStringsArray(), true);
-        sortAndPrintArray(compAscStr, heapFactory, getStringsArray(), true);
-        sortAndPrintArray(compAscStr, bubbleFactory, getStringsArray(), true);
+        printSortWithArray(compAscInt, compAscStr, quickFactory, heapFactory, bubbleFactory);
 
         System.out.println("--------");
 
@@ -59,6 +44,16 @@ public class Main {
         sortAndPrintArray(compAscInt, heapFactory, getRandomIntegersArray(100000), false);
         sortAndPrintArray(compAscInt, bubbleFactory, getRandomIntegersArray(100000), false);
 
+    }
+
+    private static void printSortWithArray(Comparator<Integer> intCriteria, Comparator<String> stringCriteria, Sorter quick, Sorter heap, Sorter bubble) {
+        sortAndPrintArray(intCriteria, quick, getIntegersArray(), true);
+        sortAndPrintArray(intCriteria, heap, getIntegersArray(), true);
+        sortAndPrintArray(intCriteria, bubble, getIntegersArray(), true);
+        System.out.println("--------");
+        sortAndPrintArray(stringCriteria, quick, getStringsArray(), true);
+        sortAndPrintArray(stringCriteria, heap, getStringsArray(), true);
+        sortAndPrintArray(stringCriteria, bubble, getStringsArray(), true);
     }
 
     private static <T> void sortAndPrintArray(Comparator<T> criteria, Sorter sorter, T[] arr, boolean mustPrint) {
@@ -73,8 +68,7 @@ public class Main {
     }
 
     private static Integer[] getIntegersArray() {
-        Integer arr[] = {8, 2, 1, 5, 7, 3, 4};
-        return arr;
+        return new Integer[]{8, 2, 1, 5, 7, 3, 4};
     }
 
     private static Integer[] getRandomIntegersArray(int cant) {
@@ -87,8 +81,7 @@ public class Main {
     }
 
     private static String[] getStringsArray() {
-        String arr2[] = {"k", "a", "z", "n", "f", "b"};
-        return arr2;
+        return new String[]{"k", "a", "z", "n", "f", "b"};
     }
 
     public static <T> void printArr(T[] arr) {
