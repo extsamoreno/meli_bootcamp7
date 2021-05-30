@@ -1,12 +1,15 @@
 public class Contador {
     private int valor;
 
-    public Contador(){}
+    public Contador(){
+    }
+
     public Contador(int valor){
         this.valor = valor;
     }
+
     public Contador(Contador copia){
-        this.valor = copia.getValor();
+        this.setValor(copia.getValor());
     }
 
     public int getValor(){
@@ -18,10 +21,10 @@ public class Contador {
     }
 
     public void incrementar(int paso){
-        this.valor += paso;
+        this.setValor(this.getValor() + paso);
     }
 
     public void decrementar(int paso){
-        this.valor -= paso;
+        this.setValor(this.getValor() - paso);
     }
 }
