@@ -3,6 +3,7 @@ package practicaTT;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
+import java.util.Random;
 
 public class Main {
     // preguntar si es buena practica
@@ -17,19 +18,18 @@ public class Main {
         Sorter heap = new HeapSortSorterImple();
         Sorter bubble = new BubbleSortSorterImple();
 
-        System.out.println("Implementacion directa de los SORTERS:");
-        sortAndPrintArray(compAscInt, quick, getIntegersArray());
-        sortAndPrintArray(compAscInt, heap, getIntegersArray());
-        sortAndPrintArray(compAscInt, bubble, getIntegersArray());
+        System.out.println("Using SORTERS:");
+        sortAndPrintArray(compAscInt, quick, getIntegersArray(), true);
+        sortAndPrintArray(compAscInt, heap, getIntegersArray(), true);
+        sortAndPrintArray(compAscInt, bubble, getIntegersArray(), true);
         System.out.println("--------");
-        sortAndPrintArray(compAscStr, quick, getStringsArray());
-        sortAndPrintArray(compAscStr, heap, getStringsArray());
-        sortAndPrintArray(compAscStr, bubble, getStringsArray());
+        sortAndPrintArray(compAscStr, quick, getStringsArray(), true);
+        sortAndPrintArray(compAscStr, heap, getStringsArray(), true);
+        sortAndPrintArray(compAscStr, bubble, getStringsArray(), true);
 
-        System.out.println("\n--------\n");
+        System.out.println("\n");
 
-
-        System.out.println("Implementacion Usando MiFactory:");
+        System.out.println("Using MiFactory:");
         // received as Object class
         Object s1 = MiFactory.getInstance("sorter");
         System.out.print("\t->\tCreated: " + s1.toString() + "\n");
@@ -42,41 +42,47 @@ public class Main {
 
         Sorter bubbleFactory = (Sorter) MiFactory.getInstance("bubble");
         System.out.print("\t->\tCreated: " + bubbleFactory.toString() + "\n");
-        System.out.println("");
-        sortAndPrintArray(compAscInt, quickFactory, getIntegersArray());
-        sortAndPrintArray(compAscInt, heapFactory, getIntegersArray());
-        sortAndPrintArray(compAscInt, bubbleFactory, getIntegersArray());
+
         System.out.println("--------");
-        sortAndPrintArray(compAscStr, quickFactory, getStringsArray());
-        sortAndPrintArray(compAscStr, heapFactory, getStringsArray());
-        sortAndPrintArray(compAscStr, bubbleFactory, getStringsArray());
 
-        System.out.println("\n--------\n");
+        sortAndPrintArray(compAscInt, quickFactory, getIntegersArray(), true);
+        sortAndPrintArray(compAscInt, heapFactory, getIntegersArray(), true);
+        sortAndPrintArray(compAscInt, bubbleFactory, getIntegersArray(), true);
+        System.out.println("--------");
+        sortAndPrintArray(compAscStr, quickFactory, getStringsArray(), true);
+        sortAndPrintArray(compAscStr, heapFactory, getStringsArray(), true);
+        sortAndPrintArray(compAscStr, bubbleFactory, getStringsArray(), true);
 
+        System.out.println("--------");
+
+        sortAndPrintArray(compAscInt, quickFactory, getRandomIntegersArray(100000), false);
+        sortAndPrintArray(compAscInt, heapFactory, getRandomIntegersArray(100000), false);
+        sortAndPrintArray(compAscInt, bubbleFactory, getRandomIntegersArray(100000), false);
 
     }
 
-//    private static void sortAndPrintStringArray(Comparator<String> criteria, Sorter sorter) {
-//        String[] arr = getStringsArray();
-//        sortAndPrintArray(criteria, sorter, arr);
-//    }
-//
-//    private static void sortAndPrintIntArray(Comparator<Integer> criteria, Sorter sorter) {
-//        Integer[] arr = getIntegersArray();
-//        sortAndPrintArray(criteria, sorter, arr);
-//    }
-
-    private static <T> void sortAndPrintArray(Comparator<T> criteria, Sorter sorter, T[] arr) {
+    private static <T> void sortAndPrintArray(Comparator<T> criteria, Sorter sorter, T[] arr, boolean mustPrint) {
+        Time time = new Time();
         System.out.print(sorter.toString() + ":\t");
-        printArr(arr);
-        System.out.print("\t->\t");
+        if (mustPrint) printArr(arr);
+        time.start();
         sorter.sort(arr, criteria);
-        printArr(arr);
-        System.out.println("");
+        time.stop();
+        if (mustPrint) printArr(arr);
+        System.out.println("Array Size: " + arr.length + "\t->\tElapsed Time (ms): " + time.elapsedTime());
     }
 
     private static Integer[] getIntegersArray() {
         Integer arr[] = {8, 2, 1, 5, 7, 3, 4};
+        return arr;
+    }
+
+    private static Integer[] getRandomIntegersArray(int cant) {
+        Integer arr[] = new Integer[cant];
+        Random random = new Random();
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(cant);
+        }
         return arr;
     }
 
@@ -87,7 +93,9 @@ public class Main {
 
     public static <T> void printArr(T[] arr) {
         for (T t : arr) {
-            System.out.print(t.toString());
+//            System.out.print(arr[i] + (i < arr.length - 1 ? "," : ""))
+            System.out.print(t.toString() + " ");
         }
+        System.out.print("\t->\t");
     }
 }
