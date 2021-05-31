@@ -6,14 +6,16 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class MiFactory {
-    public static Object getInstance(String objName) throws IOException, ClassNotFoundException {
-        FileReader reader = new FileReader("/Users/fgmoreno/Documents/it-bootcamp/codes/meli_bootcamp7/4_java3/ejercitacion_t/src/com/meli/MiFactory.properties");
-        Properties p = new Properties();
-        p.load(reader);
-        System.out.println(p.getProperty("sorter"));
+    public static Object getInstance(String objName) {
+        try {
+            FileReader reader = new FileReader("/Users/fgmoreno/Documents/it-bootcamp/codes/meli_bootcamp7/4_java3/ejercitacion_t/src/com/meli/MiFactory.properties");
+            Properties p = new Properties();
+            p.load(reader);
+            String className = p.getProperty(objName);
 
-//        Class o = p.getProperty(objName).getClass();
-        Class<?> o = Class.forName(p.getProperty("sorter"));
-        return o;
+            return Class.forName(className).newInstance();
+        } catch (Exception ex) {
+            throw new RuntimeException();
+        }
     }
 }
