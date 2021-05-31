@@ -1,6 +1,6 @@
-package com.meli;
+package com.meli.tm.ex1;
 
-import com.meli.tm.*;
+import com.meli.tm.ex1.*;
 
 import java.util.ArrayList;
 import java.util.List;

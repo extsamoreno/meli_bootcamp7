@@ -1,4 +1,4 @@
-package com.meli.tm;
+package com.meli.tm.ex1;
 
 import java.util.HashMap;
 import java.util.List;
