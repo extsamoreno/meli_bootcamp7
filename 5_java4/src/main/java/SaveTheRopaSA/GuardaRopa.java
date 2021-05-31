@@ -12,14 +12,14 @@ public class GuardaRopa {
     private int identificador;
 
     public GuardaRopa() {
-        this.identificador = 1;
+        this.identificador = 0;
         this.diccionario = new HashMap<>();
     }
 
     public Integer guardarPrendas(List<Prenda> listaDePrenda) {
-        diccionario.put(identificador, listaDePrenda);
         identificador++;
-        return (identificador-1);
+        diccionario.put(identificador, listaDePrenda);
+        return identificador;
     }
 
     public void mostrarPrendas() {
