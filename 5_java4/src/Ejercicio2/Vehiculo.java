@@ -24,13 +24,6 @@ public class Vehiculo {
     }
 
 
-    public Vehiculo(double velocidad, double aceleracion, double anguloDeGiro, String patente) {
-        this.velocidad = velocidad;
-        this.anguloDeGiro = anguloDeGiro;
-        this.patente  = patente;
-    }
-
-
     public double performace() {
         return this.velocidad * (0.5*this.aceleración) / (anguloDeGiro*(this.peso- (this.ruedas *100)));
     }
@@ -81,5 +74,17 @@ public class Vehiculo {
 
     public void setPeso(double peso) {
         this.peso = peso;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                "velocidad=" + velocidad +
+                ", aceleración=" + aceleración +
+                ", anguloDeGiro=" + anguloDeGiro +
+                ", patente='" + patente + '\'' +
+                ", ruedas=" + ruedas +
+                ", peso=" + peso +
+                '}';
     }
 }

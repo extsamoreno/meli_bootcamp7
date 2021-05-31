@@ -6,16 +6,32 @@ public class Carrera {
     private double premioEnDolares;
     private String nombre;
     private int cantidadDeVehiculosPermitidos;
-    private ArrayList<Vehiculo> listadoVehiculos;
+    private ArrayList<Vehiculo> listadoVehiculos = new ArrayList<>();
 
+    public Carrera(double distancia, double premioEnDolares, String nombre, int cantidadDeVehiculosPermitidos) {
+        this.distancia = distancia;
+        this.premioEnDolares = premioEnDolares;
+        this.nombre = nombre;
+        this.cantidadDeVehiculosPermitidos = cantidadDeVehiculosPermitidos;
+    }
 
     public void darDeAltaAuto(double velocidad, double aceleracion, double AnguloDeGiro, String patente){
-        if(listadoVehiculos.size() < cantidadDeVehiculosPermitidos){
+        if(cantidadDeVehiculosPermitidos > listadoVehiculos.size()){
 
             this.listadoVehiculos.add(new Auto(velocidad, aceleracion, AnguloDeGiro, patente));
         }else {
-            System.out.println("Ya se supero la cantidad de vehiculos permitidos");
+            System.out.printf("Ya se supero la cantidad de vehiculos permitidos \nno se pudo agregar a %s \n", patente);
         }}
+
+
+    public void darDeAlta(Vehiculo vehiculo){
+        if(listadoVehiculos.size() < cantidadDeVehiculosPermitidos){
+
+            this.listadoVehiculos.add(vehiculo);
+        }else {
+            System.out.printf("Ya se supero la cantidad de vehiculos permitidos \nno se pudo agregar a %s \n", vehiculo.getPatente());
+        }
+    }
 
 
     public void darDeAltaMoto(double velocidad, double aceleracion, double AnguloDeGiro, String patente){
@@ -23,7 +39,7 @@ public class Carrera {
 
             this.listadoVehiculos.add(new Moto(velocidad, aceleracion, AnguloDeGiro, patente));
         }else {
-            System.out.println("Ya se supero la cantidad de vehiculos permitidos");
+            System.out.printf("Ya se supero la cantidad de vehiculos permitidos \nno se pudo agregar a %s \n", patente);
         }
     }
 
@@ -32,11 +48,8 @@ public class Carrera {
     }
 
     public void eliminarVehiculoConPatente(String unaPatente){
-        for (int i = 0; i < listadoVehiculos.size(); i++) {
-            if(listadoVehiculos.get(i).equals(unaPatente)){
-                listadoVehiculos.remove(listadoVehiculos.get(i));
-            }
-        }
+        listadoVehiculos.removeIf(vehiculo -> vehiculo.getPatente() == unaPatente );
+        System.out.println("Se eliminó "+  unaPatente);
     }
 
     public Vehiculo ganador(){
