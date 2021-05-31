@@ -8,33 +8,62 @@ public class QuickSortSorterImple<T> implements Sorter<T> {
         quickSort(arr, 0, arr.length - 1, comparator);
     }
 
-    public void quickSort(T arr[], int begin, int end, Comparator<T> comparator) {
-        if (begin < end) {
-            int partitionIndex = partition(arr, begin, end, comparator);
-
-            quickSort(arr, begin, partitionIndex - 1, comparator);
-            quickSort(arr, partitionIndex + 1, end, comparator);
-        }
+    // A utility function to swap two elements
+    public void swap(T[] arr, int i, int j) {
+        T temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
-    public int partition(T arr[], int begin, int end, Comparator<T> comparator) {
-        T pivot = arr[end];
-        int i = (begin >0 ) ? (begin - 1) : 0;
+    /* This function takes last element as pivot, places
+       the pivot element at its correct position in sorted
+       array, and places all smaller (smaller than pivot)
+       to left of pivot and all greater elements to right
+       of pivot */
+    public int partition(T[] arr, int low, int high, Comparator<T> comparator) {
 
-        for (int j = begin; j < end; j++) {
-            if (comparator.compare(arr[j], pivot) <= 0) {
+        // pivot
+        T pivot = arr[high];
+
+        // Index of smaller element and
+        // indicates the right position
+        // of pivot found so far
+        int i = (low - 1);
+
+        for (int j = low; j <= high - 1; j++) {
+
+            // If current element is smaller
+            // than the pivot
+            if (comparator.compare(pivot, arr[j]) > 0) {
+
+                // Increment index of
+                // smaller element
                 i++;
-
-                T swapTemp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = swapTemp;
+                swap(arr, i, j);
             }
         }
-
-        T swapTemp = arr[i + 1];
-        arr[i + 1] = arr[end];
-        arr[end] = swapTemp;
-
-        return i + 1;
+        swap(arr, i + 1, high);
+        return (i + 1);
     }
+
+    /* The main function that implements QuickSort
+              arr[] --> Array to be sorted,
+              low --> Starting index,
+              high --> Ending index
+     */
+    public void quickSort(T[] arr, int begin, int end, Comparator<T> comparator) {
+        if (begin < end) {
+
+            // pi is partitioning index, arr[p]
+            // is now at right place
+            int pi = partition(arr, begin, end, comparator);
+
+            // Separately sort elements before
+            // partition and after partition
+            quickSort(arr, begin, pi - 1, comparator);
+            quickSort(arr, pi + 1, end, comparator);
+        }
+    }
+
+
 }

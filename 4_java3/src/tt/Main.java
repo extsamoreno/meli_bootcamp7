@@ -1,6 +1,7 @@
 package tt;
 
 import java.util.Comparator;
+import java.util.Random;
 
 public class Main {
 
@@ -18,8 +19,9 @@ public class Main {
         Time tiempo = new Time();
 
         Integer[] arregloCienMil = new Integer[100000];
-        for (int i = 1; i <= 100000; i++) {
-            arregloCienMil[i-1] = 200000 - i ;
+        Random random = new Random(100000);
+        for (int i = 0; i < 100000; i++) {
+            arregloCienMil[i] = random.nextInt() ;
         }
         tiempo.start();
         sorter.sort(arregloCienMil, comparatorNumeros );
