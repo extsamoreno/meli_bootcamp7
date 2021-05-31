@@ -72,4 +72,55 @@ public class StringUtil
 		}
 
 	}
+
+	//	public static String rpad(String s,char c,int n); idem lpad, pero agregando caracteres a la derecha.
+	public static String rpad(String s,int n,char c)
+	{
+		StringBuilder sBuilder = new StringBuilder(s);
+		sBuilder.insert(s.length(), replicate(c,n-s.length()));
+		s = sBuilder.toString();
+		return s;
+
+	}
+
+	//● Retorna una cadena idéntica a s pero sin espacios a la izquierda.
+	public static String ltrim(String s){
+		int pos = 0;
+		while (s.charAt(pos) == ' '){
+			pos++;
+		}
+		StringBuilder sBuilder = new StringBuilder(s);
+		sBuilder.replace(0,pos,"");
+		return sBuilder.toString();
+	}
+
+	//idem ltrim, pero sin espacios a la derecha.
+	public static String rtrim(String s){
+		int pos = s.length()-1;
+		while (s.charAt(pos) == ' '){
+			pos--;
+		}
+		StringBuilder sBuilder = new StringBuilder(s);
+		sBuilder.replace(pos +1,s.length(),"");
+		return sBuilder.toString();
+	}
+	//● public static String trim(String s); idem lpad, pero sin espacios a derecha ni izquierda.
+	public static String trim(String s){
+		return rtrim(ltrim(s));
+	}
+//		● public static int indexOfN(String s,char c,int n); Retorna la posición de la n-ésima
+//	ocurrencia del carácter c dentro de s, o -1 si s no contiene a c. Por ejemplo, si s = “John|Paul|George|Ringo”, c = ‘|’ y n=2, la función debe retornar la posicióon de la
+//	segunda ocurrencia del carácter ‘|’ (pipe) dentro de la cadena s. Que, en este caso, es: 9.
+	public static int indexOfN(String s,char c,int n){
+		var times = 0;
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == c){
+				times++;
+				if (times ==n){
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
 }
