@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.chiquiFest.*;
 import com.company.exercises2.*;
 import com.company.saveTheRopa.*;
 
@@ -14,26 +15,62 @@ import java.util.Properties;
 public class Main {
 
     public static void main(String[] args) {
-        //testExercises();
-        //Reflection();
+
+        List<Invitado> invitados = new ArrayList<>();
+        invitados.add(new InvitadoMeli(1, "Jorge"));
+        invitados.add(new InvitadoMeli(2, "Fabian"));
+        invitados.add(new InvitadoMeli(3, "Edu"));
+        invitados.add(new InvitadoStandard("Flor"));
+        invitados.add(new InvitadoMeli(4, "Fran"));
+        invitados.add(new InvitadoStandard("Bren"));
+        invitados.add(new InvitadoStandard("Santiago"));
+        invitados.add(new InvitadoMeli(5, "Sol"));
+
+        List<Object> fuegosArticiales = new ArrayList<>();
+        fuegosArticiales.add(new FuegoArtificial());
+
+        List<Object> pack1 = new ArrayList<>();
+        pack1.add(new FuegoArtificial());
+        pack1.add(new FuegoArtificial());
+        fuegosArticiales.add(pack1);
+
+        List<Object> pack2 = new ArrayList<>();
+        pack2.add(pack1);
+        pack2.add(new FuegoArtificial());
+        fuegosArticiales.add(pack2);
+
+        Evento evento = new Evento(invitados, fuegosArticiales);
+
+        evento.distribuirPorcionesDeTorta();
+        evento.explotarFuegosArticiales();
+    }
+
+    public static void mainForSaveTheRopa() {
         GuardaRopa guardaRopa = new GuardaRopa();
-        List<Prenda> prendas = new ArrayList<>();
+        List<Prenda> prendas1 = new ArrayList<Prenda>();
 
-        prendas.add(new Camisa("Adidas", "L"));
-        prendas.add(new Campera("Nike", "M"));
-        prendas.add(new Remera("Gucci", "S"));
+        prendas1.add(new Camisa("Adidas", "L"));
+        prendas1.add(new Campera("Nike", "M"));
+        prendas1.add(new Remera("Gucci", "S"));
 
-        int nroGuardaRopa = guardaRopa.guardarPrendas(prendas);
+        List<Prenda> prendas2 = new ArrayList<Prenda>();
+        prendas2.add(new Campera("Puma", "XL"));
+
+        int nroGuardaRopa = guardaRopa.guardarPrendas(prendas1);
+
         System.out.println("Ropa guardada en casillero nro " + nroGuardaRopa);
+        System.out.println("Ropa guardada en casillero nro " + guardaRopa.guardarPrendas(prendas2));
+
         guardaRopa.mostrarPrendas();
 
         List<Prenda> prendasDevueltas = guardaRopa.devolverPrendas(nroGuardaRopa);
+
         System.out.println("Prendas devueltas: ");
         guardaRopa.printArray(prendasDevueltas);
     }
 
     public static void Reflection() throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Integer[] arrNumbers = { 10, 7, 8, 9, 1, 5 };
+        Integer[] arrNumbers = {10, 7, 8, 9, 1, 5};
         String[] arrNames = {"Jorge", "Fabian", "Eduardo", "Florencia", "Sofia"};
 
         FileReader reader = new FileReader("src/com/company/MiFactory.properties");
@@ -42,10 +79,10 @@ public class Main {
 
         String nameObject = p.getProperty("sorter");
 
-        Class<?> objectResult =(Class) MiFactory.getInstance(nameObject);
+        Class<?> objectResult = (Class) MiFactory.getInstance(nameObject);
 
         Sorter<Integer> instanceIntResult = (Sorter<Integer>) objectResult.getConstructor().newInstance();
-        instanceIntResult.sort(arrNumbers, (a, b) -> b-a);
+        instanceIntResult.sort(arrNumbers, (a, b) -> b - a);
 
         Sorter<String> instanceStringResult = (Sorter<String>) objectResult.getConstructor().newInstance();
         instanceStringResult.sort(arrNames, (a, b) -> a.compareTo(b));
@@ -55,10 +92,9 @@ public class Main {
         printArray(arrNames);
     }
 
-    public static <T> void printArray(T arr[])
-    {
+    public static <T> void printArray(T arr[]) {
         int n = arr.length;
-        for (int i=0; i<n; ++i)
+        for (int i = 0; i < n; ++i)
             System.out.print(arr[i] + " ");
         System.out.println();
     }

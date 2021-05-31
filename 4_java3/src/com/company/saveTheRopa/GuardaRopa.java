@@ -13,8 +13,23 @@ public class GuardaRopa {
         prendas = new HashMap<Integer, List<Prenda>>();
     }
 
-    //TODO: Check guardaropa que no se esten usando
+    private Integer guardarPrendas(Integer ubicacion, List<Prenda> lstPrendas) {
+        int guardaRopa = ubicacion;
+
+        prendas.put(ubicacion, lstPrendas);
+        contador++;
+
+        return guardaRopa;
+    }
+
     public Integer guardarPrendas(List<Prenda> lstPrendas) {
+        if (contador > 0) {
+            for (int i = 0; i < lstPrendas.size(); i++)
+                if (!prendas.containsKey(i)) {
+                    prendas.put(i, lstPrendas);
+                    return i;
+                }
+        }
         int guardaRopa = contador;
 
         prendas.put(guardaRopa, lstPrendas);
@@ -24,14 +39,16 @@ public class GuardaRopa {
     }
 
     public void mostrarPrendas() {
+        System.out.println("######### Estado casilleros ###########");
+
         for(Map.Entry<Integer, List<Prenda>> entry : prendas.entrySet()) {
             Integer key = entry.getKey();
             List<Prenda> value = entry.getValue();
 
-            System.out.println("##############################");
             System.out.println("Guarda ropa nro " + key + ": ");
             printArray(value);
         }
+        System.out.println("#######################################");
     }
 
     public List<Prenda> devolverPrendas(Integer numero) {
@@ -49,7 +66,7 @@ public class GuardaRopa {
     {
         int n = arr.size();
         for (int i=0; i<n; ++i){
-            System.out.print(arr.get(i).toString() + " - ");
+            System.out.print(arr.get(i) + " ");
         }
         System.out.println();
     }
