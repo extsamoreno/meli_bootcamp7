@@ -1,3 +1,5 @@
+package tm;
+
 import java.util.Scanner;
 
 public class Ejcio1 {
