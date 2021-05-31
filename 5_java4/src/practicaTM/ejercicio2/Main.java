@@ -11,10 +11,11 @@ public class Main {
             carrera.darDeAltaAuto(80, 10, 4, "autoabc");
             carrera.darDeAltaAuto(90, 9, 5, "autodef");
             carrera.darDeAltaMoto(30, 10, 6, "motoabc");
-//            carrera.darDeAltaMoto(100, 12, 2, "motodef");
-            System.out.println( carrera.ganadorDeCarrera());
+            System.out.println(carrera.ganadorDeCarrera());
             carrera.socorrerAuto("autoabc");
+            carrera.socorrerAuto("motoabc");
             carrera.socorrerMoto("motoabc");
+
         } catch (DakarException ex) {
             System.out.println("rompio " + ex.getMessage());
         }

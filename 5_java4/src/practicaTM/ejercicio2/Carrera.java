@@ -65,12 +65,10 @@ public class Carrera {
     }
 
     public void socorrerAuto(String patente) throws DakarException {
-        Auto auto = (Auto) findByPatente(patente);
-        socoAuto.socorrer(auto);
+        socoAuto.socorrer(findByPatente(patente));
     }
 
     public void socorrerMoto(String patente) throws DakarException {
-        Moto moto = (Moto) findByPatente(patente);
-        socoMoto.socorrer(moto);
+        socoMoto.socorrer(findByPatente(patente));
     }
 }

@@ -14,6 +14,6 @@ public class Moto extends Vehiculo {
 
     @Override
     public String toString() {
-        return "Moto{Patente: "+getPatente()+"}";
+        return "Moto { Patente: "+getPatente()+"}";
     }
 }

@@ -14,7 +14,7 @@ public class Auto extends Vehiculo {
 
     @Override
     public String toString() {
-        return "Auto{Patente: " + getPatente() + "}";
+        return "Auto { Patente: " + getPatente() + "}";
 
     }
 }
