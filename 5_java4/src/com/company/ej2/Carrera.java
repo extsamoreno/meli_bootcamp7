@@ -9,6 +9,8 @@ public class Carrera {
     private String nombre;
     private int cantidadDeVehiculosPermitidos;
     private ArrayList<Vehiculo> listaDeVehiculos;
+    private AutoSocorrista autoSocorrista;
+    private MotoSocorrista motoSocorrista;
 
     public Carrera(int distancia, double premioEnDolares, String nombre, int cantidadDeVehiculosPermitidos) {
         this.distancia = distancia;
@@ -18,9 +20,20 @@ public class Carrera {
         this.listaDeVehiculos = new ArrayList<Vehiculo>();
     }
 
-    public void darDeAltaAuto(double velocidad, double aceleracion, double anguloDeGiro, String patente){
+    @Override
+    public String toString() {
+        return "Carrera{" +
+                "distancia=" + distancia +
+                ", premioEnDolares=" + premioEnDolares +
+                ", nombre='" + nombre + '\'' +
+                ", cantidadDeVehiculosPermitidos=" + cantidadDeVehiculosPermitidos +
+                ", listaDeVehiculos=" + listaDeVehiculos +
+                '}';
+    }
 
-        if(this.listaDeVehiculos.size() < this.cantidadDeVehiculosPermitidos){
+    public void darDeAltaAuto(double velocidad, double aceleracion, double anguloDeGiro, String patente) {
+
+        if (this.listaDeVehiculos.size() < this.cantidadDeVehiculosPermitidos) {
             this.listaDeVehiculos.add(new Auto(velocidad, aceleracion, anguloDeGiro, patente));
         } else {
             System.out.println("Cupo lleno.");
@@ -28,9 +41,9 @@ public class Carrera {
 
     }
 
-    public void darDeAltaMoto(double velocidad, double aceleracion, double anguloDeGiro, String patente){
+    public void darDeAltaMoto(double velocidad, double aceleracion, double anguloDeGiro, String patente) {
 
-        if(this.listaDeVehiculos.size() < this.cantidadDeVehiculosPermitidos){
+        if (this.listaDeVehiculos.size() < this.cantidadDeVehiculosPermitidos) {
             this.listaDeVehiculos.add(new Moto(velocidad, aceleracion, anguloDeGiro, patente));
         } else {
             System.out.println("Cupo lleno.");
@@ -38,51 +51,102 @@ public class Carrera {
 
     }
 
-    public void eliminarVehiculo(Vehiculo vehículo){
-        if(!this.listaDeVehiculos.contains(vehículo)){
+    public void eliminarVehiculo(Vehiculo vehiculo) {
+        if (!listaDeVehiculos.contains(vehiculo)) {
             System.out.println("Vehiculo no encontrado.");
         } else {
-            listaDeVehiculos.remove(vehículo);
+            this.listaDeVehiculos.remove(vehiculo);
         }
     }
 
-    public int getDistancia() {
-        return distancia;
+    private Vehiculo getVehiculo(String patente){
+
+        for (int i = 0; i < listaDeVehiculos.size(); i++) {
+            if (listaDeVehiculos.get(i).patente.equals(patente)) {
+                return listaDeVehiculos.get(i);
+            }
+        }
+        return null;
     }
 
-    public void setDistancia(int distancia) {
-        this.distancia = distancia;
+    public void socorrerAuto(String patente){
+
+        this.autoSocorrista.socorrer((Auto) this.getVehiculo(patente));
     }
 
-    public double getPremioEnDolares() {
-        return premioEnDolares;
+    public void socorrerMoto(String patente){
+
+        this.motoSocorrista.socorrer((Moto) this.getVehiculo(patente));
     }
 
-    public void setPremioEnDolares(double premioEnDolares) {
-        this.premioEnDolares = premioEnDolares;
+    public void eliminarVehiculoConPatente(String unaPatente) {
+
+        for (int i = 0; i < listaDeVehiculos.size(); i++) {
+            if (listaDeVehiculos.get(i).patente.equals(unaPatente)) {
+                listaDeVehiculos.remove(i);
+                break;
+            }
+        }
+
     }
 
-    public String getNombre() {
-        return nombre;
+    public Vehiculo definirGanador() {
+        double maxValor = 0;
+        Vehiculo ganador = null;
+        if (listaDeVehiculos.size() != 0) {
+            for (int i = 0; i < listaDeVehiculos.size(); i++) {
+                Vehiculo v = listaDeVehiculos.get(i);
+                double auxValor = v.velocidad * (v.aceleracion / 2) / (v.anguloDeGiro * (v.peso - v.ruedas * 100));
+                if (auxValor > maxValor) {
+                    maxValor = auxValor;
+                    ganador = v;
+                }
+
+            }
+        }
+
+        return ganador;
+
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
-    public int getCantidadDeVehiculosPermitidos() {
-        return cantidadDeVehiculosPermitidos;
-    }
+        public int getDistancia () {
+            return distancia;
+        }
 
-    public void setCantidadDeVehiculosPermitidos(int cantidadDeVehiculosPermitidos) {
-        this.cantidadDeVehiculosPermitidos = cantidadDeVehiculosPermitidos;
-    }
+        public void setDistancia ( int distancia){
+            this.distancia = distancia;
+        }
 
-    public ArrayList<Vehiculo> getListaDeVehiculos() {
-        return listaDeVehiculos;
-    }
+        public double getPremioEnDolares () {
+            return premioEnDolares;
+        }
 
-    public void setListaDeVehiculos(ArrayList<Vehiculo> listaDeVehiculos) {
-        this.listaDeVehiculos = listaDeVehiculos;
+        public void setPremioEnDolares ( double premioEnDolares){
+            this.premioEnDolares = premioEnDolares;
+        }
+
+        public String getNombre () {
+            return nombre;
+        }
+
+        public void setNombre (String nombre){
+            this.nombre = nombre;
+        }
+
+        public int getCantidadDeVehiculosPermitidos () {
+            return cantidadDeVehiculosPermitidos;
+        }
+
+        public void setCantidadDeVehiculosPermitidos ( int cantidadDeVehiculosPermitidos){
+            this.cantidadDeVehiculosPermitidos = cantidadDeVehiculosPermitidos;
+        }
+
+        public ArrayList<Vehiculo> getListaDeVehiculos () {
+            return listaDeVehiculos;
+        }
+
+        public void setListaDeVehiculos (ArrayList < Vehiculo > listaDeVehiculos) {
+            this.listaDeVehiculos = listaDeVehiculos;
+        }
     }
-}

@@ -1,5 +1,7 @@
 package com.company.ej2;
 
+import java.util.Objects;
+
 public abstract class Vehiculo {
 
     protected double velocidad;
@@ -8,6 +10,26 @@ public abstract class Vehiculo {
     protected String patente;
     protected double peso;
     protected int ruedas;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehiculo vehiculo = (Vehiculo) o;
+        return patente.equals(vehiculo.patente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(patente);
+    }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                ", patente='" + patente + '\''+
+                '}';
+    }
 
     public double getVelocidad() {
         return velocidad;
