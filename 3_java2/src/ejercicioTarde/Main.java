@@ -13,6 +13,10 @@ public class Main {
         var pass2 = new PasswordIntermedia("passQQ");
         var pass3 = new PasswordSimple("passQQ");
 
+        var figGeo = new FiguraGeometrica[]{new Circulo(2),new Rectangulo(2,1),new Triangulo(2,1)};
+        System.out.println(FiguraGeometricaUtils.areaPromedio(figGeo));
+
+
 
     }
 }
