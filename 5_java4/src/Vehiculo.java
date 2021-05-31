@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Vehiculo {
     private double velocidad, aceleracion, anguloDeGiro, peso;
     private int ruedas;
@@ -20,7 +22,7 @@ public class Vehiculo {
     }
 
     public double maximoValor(){
-        return velocidad*(((1/2)*aceleracion)/(anguloDeGiro*(peso-ruedas*100)));
+        return velocidad*(((1.0/2)*aceleracion)/(anguloDeGiro*(peso-ruedas*100)));
     }
 
     public double getVelocidad() {
@@ -70,4 +72,25 @@ public class Vehiculo {
     public void setPatente(String patente) {
         this.patente = patente;
     }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                "velocidad=" + velocidad +
+                ", aceleracion=" + aceleracion +
+                ", anguloDeGiro=" + anguloDeGiro +
+                ", peso=" + peso +
+                ", ruedas=" + ruedas +
+                ", patente='" + patente + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehiculo vehiculo = (Vehiculo) o;
+        return Double.compare(vehiculo.velocidad, velocidad) == 0 && Double.compare(vehiculo.aceleracion, aceleracion) == 0 && Double.compare(vehiculo.anguloDeGiro, anguloDeGiro) == 0 && Double.compare(vehiculo.peso, peso) == 0 && ruedas == vehiculo.ruedas && Objects.equals(patente, vehiculo.patente);
+    }
+
 }

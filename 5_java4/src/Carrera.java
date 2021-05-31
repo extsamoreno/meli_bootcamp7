@@ -9,10 +9,12 @@ public class Carrera {
     private SocorristaAuto socAuto;
     private SocorristaMoto socMoto;
 
+
     public void darDeAltaAuto(double velocidad, double aceleracion, double anguloDeGiro, String patente){
         Auto x= new Auto(velocidad,aceleracion,anguloDeGiro,patente);
         if(listaDeVehiculos.size()<cantidadDeVehiculosPermitidos){
             listaDeVehiculos.add(x);
+            System.out.println("Vehiculo agregado exitosamente");
         } else {
             System.out.println("Ya se llenó el cupo máximo de vehiculos disponibles");
         }
@@ -22,16 +24,20 @@ public class Carrera {
         Moto x= new Moto(velocidad,aceleracion,anguloDeGiro,patente);
         if(listaDeVehiculos.size()<cantidadDeVehiculosPermitidos){
             listaDeVehiculos.add(x);
+            System.out.println("Vehiculo agregado exitosamente");
         } else {
             System.out.println("Ya se llenó el cupo máximo de vehiculos disponibles");
         }
     }
 
     public void eliminarVehiculo(Vehiculo x){
-        if(listaDeVehiculos.contains(x)){
-            listaDeVehiculos.remove(listaDeVehiculos.indexOf(x));
-        } else {
-            System.out.println("El vehiculo no se encuentra registrado para esta carrera");
+        for (int i = 0; i < listaDeVehiculos.size(); i++) {
+            if(listaDeVehiculos.get(i).equals(x)){
+                listaDeVehiculos.remove(i);
+                System.out.println("Vehiculo eliminado exitosamente");
+                break;
+            }
+            if (i==listaDeVehiculos.size()-1) System.out.println("El vehiculo no fue encontrado");
         }
     }
 
@@ -39,9 +45,30 @@ public class Carrera {
         for (int i = 0; i < listaDeVehiculos.size(); i++) {
             if(listaDeVehiculos.get(i).getPatente().equals(unaPatente)){
                 listaDeVehiculos.remove(i);
+                System.out.println("Vehiculo eliminado exitosamente");
                 break;
             }
-            if (i==listaDeVehiculos.size()-1) System.out.println("El vehiculo no fue encontrado");
+            if (i==listaDeVehiculos.size()-1) System.out.println("El vehiculo no fue encontrado con la patente mencionada");
+        }
+    }
+
+    public void socorrerAuto(String patente){
+        for (int i = 0; i < listaDeVehiculos.size(); i++) {
+            if(listaDeVehiculos.get(i).getPatente().equals(patente)){
+                socAuto.socorrer((Auto) listaDeVehiculos.get(i));
+                break;
+            }
+            if (i==listaDeVehiculos.size()-1) System.out.println("El vehiculo no fue encontrado con la patente mencionada");
+        }
+    }
+
+    public void socorrerMoto(String patente){
+        for (int i = 0; i < listaDeVehiculos.size(); i++) {
+            if(listaDeVehiculos.get(i).getPatente().equals(patente)){
+                socMoto.socorrer((Moto) listaDeVehiculos.get(i));
+                break;
+            }
+            if (i==listaDeVehiculos.size()-1) System.out.println("El vehiculo no fue encontrado con la patente mencionada");
         }
     }
 
