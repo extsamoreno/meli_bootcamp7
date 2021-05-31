@@ -28,18 +28,14 @@ public class GuardaRopa {
 
     public void mostrarPrendas() {
         for (Map.Entry<Integer, ArrayList<savetheropa.Prenda>> entry : this.diccionario.entrySet()) {
-            System.out.println("ID: " + entry.getKey() + " Prendas: " + entry.getValue().toString());
+            System.out.println("ID: " + entry.getKey());
+            System.out.println("Prendas: " + entry.getValue().toString());
         }
     }
 
-    public List<savetheropa.Prenda> devolverPrendas(Integer numero){
-        List<savetheropa.Prenda> listaPrendas = new ArrayList<>();
-
-        for (Map.Entry<Integer, ArrayList<savetheropa.Prenda>> entry : this.diccionario.entrySet()) {
-            if (entry.getKey() == numero) {
-                listaPrendas = entry.getValue();
-            }
-        }
+    public List<savetheropa.Prenda> devolverPrendas(Integer key){
+        List<savetheropa.Prenda> listaPrendas = diccionario.get(key);
+        diccionario.remove(key);
 
         return listaPrendas;
     }

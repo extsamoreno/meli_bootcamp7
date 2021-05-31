@@ -12,7 +12,7 @@ public class Main {
 
         System.out.println("Hola! Este programa le permitirá crear un guardarropas con 2 prendas y luego reclamarlas \n");
 
-        System.out.println("Comencemos con la primera prenda\n");
+        System.out.println("Comencemos con la primera prenda");
         System.out.println("¿Qué tipo de prenda es? Ingrese el número correspondiente: 1 Remera 2 Buzo 3 Jean");
         int tipoPrenda1 = scanner.nextInt();
         System.out.println("Ingrese la marca de la prenda: ");
@@ -31,7 +31,7 @@ public class Main {
             listaPrendas.add(jean);
         }
 
-        System.out.println("Sigamos con la segunda prenda\n");
+        System.out.println("\nSigamos con la segunda prenda");
         System.out.println("¿Qué tipo de prenda es? Ingrese el número correspondiente: 1 Remera 2 Buzo 3 Jean");
         int tipoPrenda2 = scanner.nextInt();
         System.out.println("Ingrese la marca de la prenda: ");
@@ -52,15 +52,17 @@ public class Main {
 
         savetheropa.GuardaRopa guardaRopa = new savetheropa.GuardaRopa();
         int idGuardaRopa = guardaRopa.guardarPrendas((listaPrendas));
-        System.out.println("Se guardaron las prendas en el guardarropas con ID " + idGuardaRopa + "\n");
+        System.out.println("\nSe guardaron las prendas en el guardarropas con ID " + idGuardaRopa + "\n");
 
         System.out.println("Las prendas disponibles en el guardarropas son: ");
         guardaRopa.mostrarPrendas();
 
-        System.out.println("Ingrese el ID de su guardarropas: ");
+        System.out.println("\nIngrese el ID de su guardarropas: ");
         int idGuardaRopaIngresado = scanner.nextInt();
 
+        System.out.println("\nLe devolvemos las prendas de su guardarropas: ");
         System.out.println(guardaRopa.devolverPrendas(idGuardaRopaIngresado));
+        System.out.println("Ya no se encuentran prendas en el guardarropas");
 
         scanner.close();
     }
