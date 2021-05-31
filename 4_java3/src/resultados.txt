@@ -1,0 +1,3 @@
+Tiempo que se tardo el algoritmo de burbuja: 41450-41921 ms (Moda de 41450)
+Tiempo que se tardo el algoritmo de heap: 62-103 ms (Moda de 65)
+Tiempo que se tardo el algoritmo quick: 36-108 ms (Moda de 35)
