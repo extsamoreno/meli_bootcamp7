@@ -1,27 +1,33 @@
 package com.company.CT;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
 public class MiFactory {
 
-    public static Object getInstance(String objName) throws IOException {
+    public static Object getInstance(String objName)
+    {
+        FileInputStream fis = null;
+        try
+        {
+            fis = new FileInputStream("MiFactory.properties");
+            Properties p = new Properties();
+            p.load(fis);
+            String className = p.getProperty(objName);
 
-        Properties properties = new Properties();
-        Object obj=null;
-        properties.load(new BufferedReader(new FileReader(objName)));
-
-        String object = String.valueOf(properties.getProperty("sorter"));
-        String ruta="/Users/lurrea/Documents/Bootcamp/meli_bootcamp7/4_java3/Clase_3/src/com/company/CT/"+object;
-        System.out.println(ruta);
-        try {
-            obj = (Object) Class.forName(ruta);
-        } catch (Exception ex) {
-            System.out.println("Ingreso"+ex);
+            return Class.forName(className).newInstance();
         }
-        return obj;
-    }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        finally
+        {
 
+        }
+    }
 }

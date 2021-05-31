@@ -12,7 +12,7 @@ public class Main {
     public static <integer> void main(String[] args) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, InterruptedException {
 
         Comparator<Integer> c1 = (a,b)->a-b;
-        Sorter sorter = new QuickSortImple();
+       /* Sorter sorter = new QuickSortImple();
         Integer [] quick={1,4,2,6,7,9,3};
         mostrarArreglo(quick);
         sorter.sort(quick,c1);
@@ -34,7 +34,7 @@ public class Main {
         sorterB.sort(Bubble,c1);
         mostrarArreglo(Bubble);
 
-
+*/
 
 
         Integer[] numeros = new Integer[100000];
@@ -47,17 +47,12 @@ public class Main {
         }
 
 
-        Sorter test = (Sorter) MiFactory.getInstance("/Users/lurrea/Documents/Bootcamp/meli_bootcamp7/4_java3/Clase_3/src/com/company/CT/MiFactory.properties");
-        test.sort(Bubble,c1);
-
         Time time = new Time();
         time.Iniciar();
-        Thread.sleep(20000);
+        Sorter<Integer> sorter = (Sorter)MiFactory.getInstance("sorter");
+        sorter.sort(numeros,c1);
         time.Detener();
         System.out.println("Tiempo transcurrido "+time.elapsedTime()+" Segundos");
-
-
-
 
 
     }
