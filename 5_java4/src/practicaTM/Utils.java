@@ -1,5 +1,6 @@
 package practicaTM;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
@@ -9,6 +10,14 @@ public class Utils {
             System.out.print(t.toString() + " ");
         }
         System.out.println(" ");
+    }
+
+    public static <T> List<T> listof(T arr[]) {
+        List<T> lista = new ArrayList<>();
+        for (T elem : arr) {
+            lista.add(elem);
+        }
+        return lista;
 
     }
 }
