@@ -1,9 +1,7 @@
-package com.meli;
+package com.meli1;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GuardarRopa {
     private static int contador = 0;

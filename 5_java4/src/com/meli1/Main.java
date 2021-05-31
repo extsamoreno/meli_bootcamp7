@@ -1,7 +1,6 @@
-package com.meli;
+package com.meli1;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package com.meli;
+package com.meli1;
 
 public class Prenda {
     private String marca;
