@@ -1,12 +1,14 @@
 package meli.ejerc;
 
-public class FactoryPrecedable<T> {
-    public static Precedable<Persona> generarPrecedable(String nombre, int dni){
-        return new Persona(nombre, dni);
-    }
+import java.util.ArrayList;
 
-    public static Precedable<Celular> generarPrecedable(int numero, String titular){
-        return new Celular(titular, numero);
-    }
+public class FactoryPrecedable {
+    public static Precedable generarPrecedeable(String nombre, int edad){
+        return new Persona(nombre,edad);
 
+    }
+    public static Precedable generarPrecedeable( int numero,String titular){
+        return new Celular(titular,numero);
+
+    }
 }

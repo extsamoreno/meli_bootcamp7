@@ -2,7 +2,7 @@ package meli.ejerc;
 
 public class Main {
     public static void main(String[] args) {
-        Precedable<Persona> perJoven = FactoryPrecedable.generarPrecedable("Pablo", 45763283);
+        /*Precedable<Persona> perJoven = FactoryPrecedable.generarPrecedable("Pablo", 45763283);
         Precedable<Persona> perVieja = FactoryPrecedable.generarPrecedable("Anastacio", 20473658);
         Precedable<Persona> perAdulta = FactoryPrecedable.generarPrecedable("Javier", 35637827);
 
