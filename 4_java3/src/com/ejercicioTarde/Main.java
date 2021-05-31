@@ -16,11 +16,17 @@ public class Main {
         s.sort(iArr, c1);
         mostrarArr(iArr);
 
-//        String[] sArr = {"z", "l", "q", "a", "m"};
-//        Comparator<String> c2 = (s1,s2) -> s1.compareTo(s2);
-//        mostrarArr(sArr);
-//
-//        mostrarArr(sArr);
+        Integer[] iArr1000 = new Integer[1000];
+        for (int i = 0; i < 1000; i++) {
+            iArr1000[999-i] = i;
+        }
+        mostrarArr(iArr1000);
+        Timer.start();
+        s.sort(iArr1000, c1);
+        Timer.stop();
+        var time = Timer.elapsedTime();
+        mostrarArr(iArr1000);
+        System.out.println("Time:"+time);System.out.println("Time:"+time);
     }
 
     public static <T> void mostrarArr(T[] arr) {
