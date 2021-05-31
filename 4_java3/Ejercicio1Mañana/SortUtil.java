@@ -1,3 +1,7 @@
+package Ejercicio1Mañana;
+
+import Ejercicio1Mañana.Precedable;
+
 public class SortUtil{
 
     public static <T> void ordenar(Precedable<T> arr[]){

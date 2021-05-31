@@ -1,5 +1,6 @@
+package Ejercicio1Mañana;
 
-public class Celular implements Precedable<Celular>{
+public class Celular implements Precedable<Celular> {
     private int numero;
     private String titular;
 

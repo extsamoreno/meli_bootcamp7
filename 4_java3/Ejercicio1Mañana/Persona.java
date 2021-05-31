@@ -1,5 +1,6 @@
+package Ejercicio1Mañana;
 
-public class Persona implements  Precedable<Persona>{
+public class Persona implements Precedable<Persona> {
     private String nombre;
     private long dni;
 
