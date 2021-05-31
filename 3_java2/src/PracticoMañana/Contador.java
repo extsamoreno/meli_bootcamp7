@@ -1,3 +1,5 @@
+package PracticoMañana;
+
 public class Contador {
     int nro;
 

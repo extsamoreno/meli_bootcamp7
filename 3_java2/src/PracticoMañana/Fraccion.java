@@ -1,67 +1,74 @@
+package PracticoMañana;
+
+import java.util.DuplicateFormatFlagsException;
+
 public class Fraccion {
 
-    int sumar(int n, int m){
-        return n + m;
+
+    private int numerador;
+    private int denominador;
+
+    public Fraccion(){
+        this.denominador = 0;
+        this.numerador = 0;
     }
 
-    double sumar(float n, float m){
-        return n + m;
+    public Fraccion(int numerador, int denominador) {
+        this.numerador = numerador;
+        this.denominador = denominador;
     }
 
-    double sumar(float n, int m){
-        return n + m;
+    public Fraccion(Fraccion f){
+        this.numerador = f.getNumerador();
+        this.denominador = f.getDenominador();
     }
 
-    double sumar(int n, float m){
-        return n + m;
+    public Fraccion sumar(Fraccion f1, Fraccion f2){
+        Fraccion result;
+
+        if(f1.denominador != f2.denominador){
+            this.numerador = f1.getNumerador() * f2.getDenominador() + f2.getNumerador() * f1.getDenominador();
+            this.denominador = f1.getDenominador() * f2.getDenominador();
+        }else{
+            this.numerador = f1.getNumerador() + f2.getNumerador();
+            this.denominador = f1.getDenominador();
+        }
+
+        result = new Fraccion(this.numerador, this.denominador);
+
+        return result;
     }
 
-    int restar(int n, int m){
-        return n - m;
+    public Fraccion sumar(Fraccion f1, int n2){
+        Fraccion result;
+
+        this.numerador = f1.getNumerador() + ( n2 * f1.getDenominador() );
+        this. denominador = f1.getDenominador();
+
+        result = new Fraccion(this.numerador, this.denominador);
+
+        return result;
     }
 
-    double restar(float n, float m){
-        return n - m;
+    public Fraccion restar(Fraccion f1, Fraccion f2){
+        Fraccion result;
+
+
     }
 
-    double restar(float n, int m){
-        return n - m;
+    public int getNumerador() {
+        return numerador;
     }
 
-    double restar(int n, float m){
-        return n - m;
+    public void setNumerador(int numerador) {
+        this.numerador = numerador;
     }
 
-    int multiplicar(int n, int m){
-        return n * m;
+    public int getDenominador() {
+        return denominador;
     }
 
-    double multiplicar(float n, float m){
-        return n * m;
+    public void setDenominador(int denominador) {
+        this.denominador = denominador;
     }
-
-    double multiplicar(float n, int m){
-        return n * m;
-    }
-
-    double multiplicar(int n, float m){
-        return n * m;
-    }
-
-    int dividir(int n, int m){
-        return n / m;
-    }
-
-    double dividir(float n, float m){
-        return n / m;
-    }
-
-    double dividir(float n, int m){
-        return n / m;
-    }
-
-    double dividir(int n, float m){
-        return n / m;
-    }
-
 }
