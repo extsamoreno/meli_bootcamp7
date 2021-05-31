@@ -1,3 +1,5 @@
+package Practice.SaveTheRopa;
+
 public abstract class Prenda {
     private String marca, modelo;
 

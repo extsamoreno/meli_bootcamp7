@@ -1,3 +1,7 @@
+package Practice.SaveTheRopa;
+
+import Practice.Utils;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -27,6 +31,6 @@ public class Main {
         ArrayList<Prenda> listaDev=ropero.devolverPrendas(posix);
 
         System.out.println("prendas del lugar " + posix + ": ");
-        PrendaUtils.printArrayList(listaDev);
+        Utils.printArrayList(listaDev);
     }
 }

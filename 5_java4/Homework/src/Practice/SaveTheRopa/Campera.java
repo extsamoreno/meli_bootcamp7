@@ -1,3 +1,5 @@
+package Practice.SaveTheRopa;
+
 public class Campera extends Prenda{
     public Campera() {
     }
@@ -8,6 +10,6 @@ public class Campera extends Prenda{
 
     @Override
     public String toString() {
-        return "Campera " + super.toString();
+        return "Practice.SaveTheRopa.Campera " + super.toString();
     }
 }
