@@ -2,34 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1e89f9d-84f0-437b-a123-5ef6b17cbe09" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4_java3/src/parte2/clases/BubbleSortSorterImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4_java3/src/parte2/clases/HeapSortSorterImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4_java3/src/parte2/clases/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4_java3/src/parte2/clases/MiFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4_java3/src/parte2/clases/MiFactory.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4_java3/src/parte2/clases/QuickSortSorterImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4_java3/src/parte2/clases/Sorter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4_java3/src/parte2/clases/Time.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3_java2/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/3_java2/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/3_java2/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/3_java2/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/4_java3/src/Clases/Celular.java" beforeDir="false" afterPath="$PROJECT_DIR$/4_java3/src/parte1/Clases/Celular.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4_java3/src/Clases/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/4_java3/src/parte1/Clases/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4_java3/src/Interface/Precedable.java" beforeDir="false" afterPath="$PROJECT_DIR$/4_java3/src/parte1/Interface/Precedable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4_java3/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/4_java3/src/parte1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4_java3/src/utils/SortUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/4_java3/src/parte1/utils/SortUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/Clases/Celular.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/Clases/Persona.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/Interface/Precedable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/meli_bootcamp7/utils/SortUtil.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +144,7 @@
       <workItem from="1622154127837" duration="13000" />
       <workItem from="1622209641087" duration="141000" />
       <workItem from="1622219275424" duration="1565000" />
-      <workItem from="1622310593722" duration="1596000" />
+      <workItem from="1622310593722" duration="2571000" />
     </task>
     <servers />
   </component>
