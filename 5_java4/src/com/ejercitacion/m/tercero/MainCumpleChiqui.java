@@ -12,8 +12,6 @@ public class MainCumpleChiqui {
         Invitado invitadoMeli = new InvitadoMeli("Roberto");
         invitados.add(invitadoStandard);
         invitados.add(invitadoMeli);
-        List<List<FuegoArtificial>> fuegosArtificiales = new ArrayList<>();
-        FuegoArtificial fuego = new FuegoArtificial("chasquibum");
         FuegoArtificial fuego2 = new FuegoArtificial("cañita");
         FuegoArtificial fuego3 = new FuegoArtificial("estrellita");
 
