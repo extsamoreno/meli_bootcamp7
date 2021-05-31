@@ -9,7 +9,8 @@ public class Main {
                 new Persona(1),
                 new Persona(5),
                 new Persona(3),
-                new Persona(2)
+                new Persona(2),
+                new Persona(0)
         };
 
 
