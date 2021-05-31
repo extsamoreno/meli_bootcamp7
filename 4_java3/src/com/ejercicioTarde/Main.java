@@ -8,25 +8,42 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException, InvocationTargetException {
-        Sorter s = (Sorter<Integer>)  MiFactory.getInstance("sorter");
+        Sorter sQuick = (Sorter<Integer>)  MiFactory.getInstance("QuickSortSorterImple");
+        Sorter sBubble = (Sorter<Integer>)  MiFactory.getInstance("BubbleSortSorterImple");
+        Sorter sHeap = (Sorter<Integer>)  MiFactory.getInstance("HeapSortSorterImple");
 
-        Integer[] iArr = {5, 3, 0, 2, 6, 9, 2};
-        mostrarArr(iArr);
         Comparator<Integer> c1 = (a, b) -> a - b;
-        s.sort(iArr, c1);
-        mostrarArr(iArr);
 
+        var Arr1 = createArr1000();
+        var Arr2 = createArr1000();
+        var Arr3 = createArr1000();
+
+        timeSortAndPrint(Arr1, c1, sQuick);
+        System.out.println("Time sQuick:"+Timer.elapsedTime());
+
+        timeSortAndPrint(Arr2, c1, sBubble);
+        System.out.println("Time sBubble:"+Timer.elapsedTime());
+
+        timeSortAndPrint(Arr3, c1, sHeap);
+        System.out.println("Time sHeap:"+Timer.elapsedTime());
+
+
+    }
+
+    public static void timeSortAndPrint(Integer[] arr, Comparator<Integer> c, Sorter<Integer> s){
+        mostrarArr(arr);
+        Timer.start();
+        s.sort(arr, c);
+        Timer.stop();
+        mostrarArr(arr);
+    }
+
+    public static Integer[] createArr1000() {
         Integer[] iArr1000 = new Integer[1000];
         for (int i = 0; i < 1000; i++) {
             iArr1000[999-i] = i;
         }
-        mostrarArr(iArr1000);
-        Timer.start();
-        s.sort(iArr1000, c1);
-        Timer.stop();
-        var time = Timer.elapsedTime();
-        mostrarArr(iArr1000);
-        System.out.println("Time:"+time);System.out.println("Time:"+time);
+        return  iArr1000;
     }
 
     public static <T> void mostrarArr(T[] arr) {
@@ -34,6 +51,7 @@ public class Main {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(" " + arr[i]);
         }
+        System.out.println("//");
     }
 
 
