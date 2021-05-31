@@ -24,11 +24,11 @@ public class Main {
         centenario.agregarListaInvitado(in6);
 
         // Crear Fuegos
-        Fuego f1 = new Fuego("Booooom");
-        Fuego f2 = new Fuego("Paaaaaz");
-        Fuego f3 = new Fuego("Zaaaaaz");
-        Fuego f4 = new Fuego("Puuuuum");
-        Fuego f5 = new Fuego("Aaaaaaa");
+        Fuego f1 = new Fuego("PAM");
+        Fuego f2 = new Fuego("PEM");
+        Fuego f3 = new Fuego("PIM");
+        Fuego f4 = new Fuego("POM");
+        Fuego f5 = new Fuego("PUM");
 
         // Crear packs de Fuegos
         // PACK1
@@ -55,6 +55,7 @@ public class Main {
         centenario.agregarListaFuegos(f1);
         centenario.agregarListaFuegos(null);
         centenario.agregarListaFuegos(pack1);
+        centenario.agregarListaFuegos(pack3);
 
         System.out.println("Centenario de “La Chiqui” Legrand");
         System.out.println(" ");
