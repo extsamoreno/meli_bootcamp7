@@ -8,7 +8,7 @@ public class MiFactory {
     public static Object getInstance(String objName){
         Properties propiedades = new Properties();
         Object result = null;
-        
+
         try {
             propiedades.load(new FileReader("MiFactory.properties"));
             result = propiedades.get("sorter");
