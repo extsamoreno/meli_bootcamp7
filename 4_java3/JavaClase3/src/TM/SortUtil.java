@@ -1,7 +1,7 @@
 package TM;
 
 public class SortUtil {
-    public static <T> void ordenar(Precedeable<T>[] arr) //por qué <T> antes de void???
+    public static <T> void ordenar(Precedeable<T>[] arr) //por qué <T> antes de void??? --> es el tipo de lo que recibe
     {
         int n = arr.length;
         for (int i = 0; i < n-1; i++)
