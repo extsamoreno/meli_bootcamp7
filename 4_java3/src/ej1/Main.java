@@ -21,20 +21,23 @@ public class Main {
     System.out.println("-------------------------------------");
 
     // Celulares
-    Celular []celulares = new Celular [3];
-    celulares[0] = new Celular("Luz", 2819210);
-    celulares[1] = new Celular("Jhader", 238149102);
-    celulares[2] = new Celular("Marcos", 3728191);
+    Celular []celulares = {
+      new Celular("Luz", 2819210),
+      new Celular("Jhader", 238149102),
+      new Celular("Marcos", 3728191)};
 
     System.out.println("Arreglo desordenado de celulares: ");
-    for (Celular c : celulares)
-      System.out.println(c);
+    muestraArray(celulares);
     System.out.println("-------------------------------------");
 
     SortUtil.ordenar(celulares);
     System.out.println("Arreglo ordenado por titular: ");
-    for (Celular c : celulares)
-      System.out.println(c);
+    muestraArray(celulares);
     System.out.println("-------------------------------------");
+  }
+  private static void muestraArray(Precedable arr[]) {
+    for (int i = 0; i < arr.length; i++) {
+      System.out.println(arr[i]);
+    }
   }
 }
