@@ -10,7 +10,7 @@ public class Circulo extends FiguraGeometrica{
 
     @Override
     public double area() {
-        return Math.PI*this.radio;
+        return Math.PI*(MATH.pow(this.radio, this.radio));
     }
 
     public double getRadio() {
