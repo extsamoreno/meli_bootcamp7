@@ -11,4 +11,9 @@ public class Moto extends Vehiculo {
     public Moto(double velocidad, double aceleracion, double angulo, String patente) {
         super(velocidad, aceleracion, angulo, patente, 300, 2);
     }
+
+    @Override
+    public String toString() {
+        return "Moto{Patente: "+getPatente()+"}";
+    }
 }

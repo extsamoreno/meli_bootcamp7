@@ -11,8 +11,13 @@ public class Carrera {
     private String nombre;
     private Integer cantVehiculosPermitidos;
     private List<Vehiculo> vehiculos = new ArrayList<>();
+    private SocorristaAuto socoAuto = new SocorristaAuto();
+    private SocorristaMoto socoMoto = new SocorristaMoto();
 
-    public Carrera(Integer cantVehiculosPermitidos) {
+    public Carrera(double distancia, double premioEnDolares, String nombre, Integer cantVehiculosPermitidos) {
+        this.distancia = distancia;
+        this.premioEnDolares = premioEnDolares;
+        this.nombre = nombre;
         this.cantVehiculosPermitidos = cantVehiculosPermitidos;
     }
 
@@ -34,10 +39,15 @@ public class Carrera {
     }
 
     public void eliminarVehiculoConPatente(String unaPatente) throws DakarException {
+        Vehiculo v = findByPatente(unaPatente);
+        eliminarVehiculo(v);
+    }
+
+    private Vehiculo findByPatente(String unaPatente) throws DakarException {
         Vehiculo v = vehiculos.stream().filter(elem -> elem.getPatente() == unaPatente)
                 .findFirst()
                 .orElseThrow(() -> new DakarException("No se encontro vehiculo"));
-        eliminarVehiculo(v);
+        return v;
     }
 
     public double calcularValor(Vehiculo vehiculo) {
@@ -54,4 +64,13 @@ public class Carrera {
         ).orElseThrow(() -> new DakarException("No hay ganador"));
     }
 
+    public void socorrerAuto(String patente) throws DakarException {
+        Auto auto = (Auto) findByPatente(patente);
+        socoAuto.socorrer(auto);
+    }
+
+    public void socorrerMoto(String patente) throws DakarException {
+        Moto moto = (Moto) findByPatente(patente);
+        socoMoto.socorrer(moto);
+    }
 }
