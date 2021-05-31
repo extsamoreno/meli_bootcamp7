@@ -1,4 +1,4 @@
-package practicaTM;
+package practicaTM.ejercicio1;
 
 public class Campera extends Prenda{
 

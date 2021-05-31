@@ -1,4 +1,4 @@
-package practicaTM;
+package practicaTM.ejercicio1;
 
 public abstract class Prenda {
     private String modelo;

@@ -1,7 +1,7 @@
-package practicaTM;
+package practicaTM.ejercicio1;
 
-import java.sql.Array;
-import java.util.ArrayList;
+import practicaTM.Utils;
+
 import java.util.List;
 
 public class Main {
