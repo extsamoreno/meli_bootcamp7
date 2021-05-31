@@ -13,7 +13,7 @@ public class Main {
     }
 
     public static void agregarInvitados(MarteGroupSA marte) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             marte.agregarInvitado(new InvitadoEstandar());
             marte.agregarInvitado(new InvitadoMeli());
         }
@@ -24,6 +24,11 @@ public class Main {
             marte.agregarFuegoArtificial(new FuegoArtificial("PA"));
         }
         marte.agregarFuegoArtificial(coheteCompuesto());
+
+        FuegoArtificial cohete= coheteCompuesto();
+        cohete.agregarCohete(coheteCompuesto());
+
+        marte.agregarFuegoArtificial(cohete);
     }
 
     public static FuegoArtificial coheteCompuesto() {

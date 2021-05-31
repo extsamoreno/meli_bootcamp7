@@ -40,6 +40,7 @@ public class MarteGroupSA {
         this.cohetes = cohetes;
     }
 
+
     public void agregarInvitado(Invitado invitado) {
         invitados.add(invitado);
     }
@@ -47,6 +48,8 @@ public class MarteGroupSA {
     public void agregarFuegoArtificial(FuegoArtificial cohete) {
         getCohetes().add(cohete);
     }
+
+
 
     public void reventarFuegosArtificiales() {
         cohetes.forEach(elem -> elem.explotar());
