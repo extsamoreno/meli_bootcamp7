@@ -1,6 +1,6 @@
 package Ejercicio2;
 
-public class SocorristaMoto implements Socorista{
+public class SocorristaMoto implements ISocorista {
 
     public SocorristaMoto() {
     }

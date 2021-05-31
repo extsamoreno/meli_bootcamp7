@@ -1,6 +1,6 @@
 package Ejercicio2;
 
-public interface Socorista {
+public interface ISocorista {
 
     public void socorrer(Vehiculo vehiculo);
 }

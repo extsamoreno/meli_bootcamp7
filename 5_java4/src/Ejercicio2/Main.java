@@ -18,5 +18,7 @@ public class Main {
         carrera.darDeAltaMoto(300,25, 2,"MOT233");
 
         System.out.println("Vehiculo ganador \n" + carrera.ganador());
+
+        carrera.socorrerAuto("XCO254");
     }
 }

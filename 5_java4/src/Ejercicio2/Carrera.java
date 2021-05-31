@@ -48,7 +48,7 @@ public class Carrera {
     }
 
     public void eliminarVehiculoConPatente(String unaPatente){
-        listadoVehiculos.removeIf(vehiculo -> vehiculo.getPatente() == unaPatente );
+        listadoVehiculos.removeIf(vehiculo -> vehiculo.getPatente().equals(unaPatente));
         System.out.println("Se eliminó "+  unaPatente);
     }
 
@@ -67,5 +67,26 @@ public class Carrera {
 
         return better;
     }
+
+    public Vehiculo getCompetidor(String patente){
+        for (int i = 0; i < listadoVehiculos.size(); i++) {
+            if(listadoVehiculos.get(i).getPatente().equals(patente)){
+                return listadoVehiculos.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void socorrerAuto(String patente){
+        ISocorista sc = new SocorristaAuto();
+        Vehiculo vehiculo = getCompetidor(patente);
+        sc.socorrer(vehiculo);
+    }
+    public void socorrerMoto(String patente){
+        ISocorista sc = new SocorristaMoto();
+        Vehiculo vehiculo = getCompetidor(patente);
+        sc.socorrer(vehiculo);
+    }
+
 
 }
