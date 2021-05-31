@@ -1,0 +1,7 @@
+package ejercicios.dakar;
+
+public class SocorristaAuto {
+    public void socorrer(Auto unAuto){
+        System.out.println("Socorriendo al auto patente: "+ unAuto.getPatente());
+    }
+}
