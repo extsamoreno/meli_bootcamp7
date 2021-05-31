@@ -34,13 +34,26 @@ public class Fraccion {
     }
 
     private Fraccion sumaDistintoDenominador(Fraccion fraccionSumaUna, Fraccion fraccionSumaDos) {
+        return null;
+    }
+
+    private Fraccion sumaIgualDenominador(Fraccion fraccionSumaUna, Fraccion fraccionSumaDos) {
         double nuevoNumerador = fraccionSumaUna.getNumerador() + fraccionSumaDos.getNumerador();
 
         return new Fraccion(nuevoNumerador, fraccionSumaUna.getDenominador());
     }
 
-    private Fraccion sumaIgualDenominador(Fraccion fraccionSumaUna, Fraccion fraccionSumaDos) {
-        return null;
+    private double getMCM(double numUno, double numDos) {
+        int i = 2, mcm = 1;
+        while (i <= numUno || i <= numDos) {
+            if (numUno % i == 0 || numDos % i == 0) {
+                mcm = mcm * i;
+                if (numUno % i == 0) numUno = numUno / i;
+                if (numDos % i == 0) numDos = numDos / i;
+            } else
+                i++;
+        }
+        return mcm;
     }
 
     public Fraccion suma(Fraccion fraccionSumaUna, Fraccion fraccionSumaDos) {
@@ -54,17 +67,8 @@ public class Fraccion {
         return suma(fraccionSumaUna, new Fraccion(enteroSuma, 1));
     }
 
+
     /*
-    while(i <= num1 || i <= num2)
-        {
-            if(num1%i==0 || num2%i==0)
-            {
-            mcm=mcm*i;
-            if(num1%i==0) num1=num1/i;
-            if(num2%i==0) num2=num2/i;
-            }
-            else
-                i=i+1;
-        }
+
      */
 }
