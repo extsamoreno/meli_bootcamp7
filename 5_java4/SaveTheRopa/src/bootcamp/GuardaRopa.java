@@ -3,6 +3,7 @@ package bootcamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GuardaRopa {
 
@@ -20,11 +21,20 @@ public class GuardaRopa {
     }
 
     public List<Prenda>  devolverPrendas(Integer num){
-        this.count++;
-        items.put(count, listaDePrenda);
-        return count;
+        return items.remove(num);
     }
 
+    public void mostrarPrendas(){
+
+        for(Map.Entry<Integer,List<Prenda>> entry:items.entrySet())
+        {
+            Integer key = entry.getKey();
+            List<Prenda> value = entry.getValue();
+            System.out.println("Key="+key+", value="+value);
+        }
+
+
+    }
 
     public HashMap<Integer, List<Prenda>> getItems() {
         return items;
@@ -37,4 +47,6 @@ public class GuardaRopa {
     public void setCount(int count) {
         this.count = count;
     }
+
+
 }
