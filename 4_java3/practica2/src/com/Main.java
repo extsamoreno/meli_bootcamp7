@@ -1,6 +1,7 @@
-package com.company;
+package com;
 
 import java.util.Comparator;
+import java.io.*;
 
 public class Main {
 
@@ -14,7 +15,12 @@ public class Main {
         arr[4]=5;
 
         Sorter<Integer> sorter = (Sorter<Integer>) MiFactory.getInstance("MiFactory.properties");
+
+        Timer.start();
         Comparator<Integer> compa = (a, b) -> a-b;
         sorter.sort(arr, compa);
+        Timer.stop();
+
+        System.out.println(Timer.elapsedTime());
     }
 }
