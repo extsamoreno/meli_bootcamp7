@@ -3,7 +3,7 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        List<Prenda> prendas = new ArrayList<Prenda>();
+/*         List<Prenda> prendas = new ArrayList<Prenda>();
         List<Prenda> prendas2 = new ArrayList<Prenda>();
         List<Prenda> prendas3 = new ArrayList<Prenda>();
         GuardaRopa guardaRopa = new GuardaRopa();
@@ -27,6 +27,9 @@ public class App {
 
         ropaDevuelta.forEach(
             (prenda) -> System.out.println("prenda : " + prenda.toString())
-            );
+            ); */
+
+
+            
     }
 }
