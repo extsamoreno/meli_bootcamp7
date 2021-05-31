@@ -20,5 +20,6 @@ public class Main {
         System.out.println("Vehiculo ganador \n" + carrera.ganador());
 
         carrera.socorrerAuto("XCO254");
+        System.out.println(carrera.ganador());
     }
 }

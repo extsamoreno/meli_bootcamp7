@@ -50,6 +50,12 @@ public class Carrera {
     public void eliminarVehiculoConPatente(String unaPatente){
         listadoVehiculos.removeIf(vehiculo -> vehiculo.getPatente().equals(unaPatente));
         System.out.println("Se eliminó "+  unaPatente);
+        for (int i = 0; i < listadoVehiculos.size(); i++) {
+            if(listadoVehiculos.get(i).getPatente().equals(unaPatente)){
+                listadoVehiculos.remove(listadoVehiculos.get(i));
+                System.out.println("Se eliminó "+  unaPatente);
+            }
+        }
     }
 
     public Vehiculo ganador(){
