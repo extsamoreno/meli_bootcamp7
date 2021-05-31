@@ -12,8 +12,8 @@ public class MainCumpleChiqui {
         Invitado invitadoMeli = new InvitadoMeli("Roberto");
         invitados.add(invitadoStandard);
         invitados.add(invitadoMeli);
-        FuegoArtificial fuego2 = new FuegoArtificial("cañita");
-        FuegoArtificial fuego3 = new FuegoArtificial("estrellita");
+        FuegoArtificial fuego2 = new FuegoArtificial("booom");
+        FuegoArtificial fuego3 = new FuegoArtificial("puuum");
 
         List<FuegoArtificial> fuegosIndividuales = new ArrayList<>();
         fuegosIndividuales.add(fuego2);
@@ -30,12 +30,9 @@ public class MainCumpleChiqui {
         List<PackFuegosArtificiales> packs = new ArrayList<>();
         packs.add(packFuegosArtificiales2);
         List<FuegoArtificial> listaTotal = getListaFuegos(fuegosIndividuales, packs);
-        for (FuegoArtificial fuegoArtificial : listaTotal) {
-            fuegoArtificial.explotar();
-        }
-        for (Invitado invitado : invitados) {
-           invitado.comerTorta();
-        }
+        System.out.println("La Chiqui apaga las velas");
+        listaTotal.forEach(f -> f.explotar());
+        invitados.forEach(i -> i.comerTorta());
     }
 
     public static List<FuegoArtificial> getListaFuegos(List<FuegoArtificial> fuegosIndividuales, List<PackFuegosArtificiales> listaPacks) {

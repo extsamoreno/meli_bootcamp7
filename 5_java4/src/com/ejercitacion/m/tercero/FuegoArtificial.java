@@ -2,24 +2,24 @@ package com.ejercitacion.m.tercero;
 
 public class FuegoArtificial {
 
-    public String nombre;
+    public String ruido;
 
-    public FuegoArtificial(String nombre) {
-        this.nombre = nombre;
+    public FuegoArtificial(String ruido) {
+        this.ruido = ruido;
     }
 
     public FuegoArtificial() {
     }
 
     public void explotar() {
-        System.out.println("BOOOM!!");
+        System.out.println(ruido);
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getRuido() {
+        return ruido;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setRuido(String ruido) {
+        this.ruido = ruido;
     }
 }
