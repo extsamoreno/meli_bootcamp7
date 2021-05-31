@@ -6,6 +6,8 @@ public class Carrera {
     int distancia,premioEnDolares,cantidadVehiculos;
     String nombre;
     List<Vehiculo> vehiculos;
+    Socorrista<Auto> socorristaAuto;
+    Socorrista<Moto> socorristaMoto;
 
     public Carrera(int distancia, int premioEnDolares, int cantidadVehiculos, String nombre) {
         this.distancia = distancia;
@@ -13,6 +15,8 @@ public class Carrera {
         this.cantidadVehiculos = cantidadVehiculos;
         this.nombre = nombre;
         this.vehiculos = new ArrayList<Vehiculo>(cantidadVehiculos);
+        this.socorristaMoto = new SocorristaMoto();
+        this.socorristaAuto = new SocorristaAuto();
     }
 
     public void darDeAltaAuto(String patente, double velocidad, double aceleracion, double anguloDeGiro){
@@ -38,17 +42,63 @@ public class Carrera {
     }
 
     public void eliminarVehiculoConPatente(String unaPatente){
+            try{
+            eliminarVehiculo(
+                    findVehiculoPatente(unaPatente)
+            );
+            }catch (Exception e){
+                System.out.println("No se pudo eliminar");
+            }
+    }
+
+    public Vehiculo findVehiculoPatente(String patente){
         List<Vehiculo> listVehiculos = this.vehiculos.stream().filter(vehiculo ->
-                vehiculo.patente.equals(unaPatente)).collect(Collectors.toList());
-        //if(listVehiculos.size() > 0){
-          //  eliminarVehiculo(listVehiculos.get(0));
-        //}else {
-          //  System.out.println("No se encontro el vehiculo");
-        //}
+                vehiculo.patente.equals(patente)).collect(Collectors.toList());
         try{
-            eliminarVehiculo(listVehiculos.get(0));
+            return listVehiculos.get(0);
         }catch (Exception e){
             System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public Vehiculo ganador(){
+        double max = 0;
+        double actual= 0;
+        int winner = 0;
+        Vehiculo aux;
+
+        for ( int i = 0; i < vehiculos.size(); i++){
+            aux = vehiculos.get(i);
+            actual =  aux.velocidad * 0.5 * aux.aceleracion / (aux.anguloDeGiro * (aux.peso) - aux.ruedas * 100);
+
+            if( actual > max){
+                max = actual;
+                winner = i;
+            }
+
+        }
+
+        return vehiculos.get(winner);
+    }
+
+    public void socorrerAuto(String patente){
+        try{
+            this.socorristaAuto.socorrer(
+                    (Auto) findVehiculoPatente(patente)
+            );
+        }catch(Exception e){
+            System.out.println("No se encontro auto");
+        }
+    }
+
+    public void socorrerMoto(String patente){
+        try{
+        this.socorristaMoto.socorrer(
+                (Moto) findVehiculoPatente(patente)
+        );
+        }catch (Exception e){
+            System.out.println("No se encontro moto");
         }
     }
 
