@@ -1,19 +1,38 @@
 package com.company;
 
 import com.company.exercises2.*;
+import com.company.saveTheRopa.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-
+    public static void main(String[] args) {
         //testExercises();
+        //Reflection();
+        GuardaRopa guardaRopa = new GuardaRopa();
+        List<Prenda> prendas = new ArrayList<>();
 
+        prendas.add(new Camisa("Adidas", "L"));
+        prendas.add(new Campera("Nike", "M"));
+        prendas.add(new Remera("Gucci", "S"));
+
+        int nroGuardaRopa = guardaRopa.guardarPrendas(prendas);
+        System.out.println("Ropa guardada en casillero nro " + nroGuardaRopa);
+        guardaRopa.mostrarPrendas();
+
+        List<Prenda> prendasDevueltas = guardaRopa.devolverPrendas(nroGuardaRopa);
+        System.out.println("Prendas devueltas: ");
+        guardaRopa.printArray(prendasDevueltas);
+    }
+
+    public static void Reflection() throws IOException, ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Integer[] arrNumbers = { 10, 7, 8, 9, 1, 5 };
         String[] arrNames = {"Jorge", "Fabian", "Eduardo", "Florencia", "Sofia"};
 
