@@ -1,4 +1,4 @@
-package com.company.CT;
+package com.company;
 
 public class Test {
 
