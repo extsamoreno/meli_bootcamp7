@@ -16,7 +16,7 @@ public class MiFactory {
       try {
         return Class.forName(value).newInstance();
 
-      } catch (ClassNotFoundException e) {
+      } catch (ClassNotFoundException e)
         throw e;
       }
   }}
