@@ -24,6 +24,5 @@ public abstract class Password {
         //Si no cumplio,
         if(!matchFound) throw new InstantiationException();
 
-        return;
     }
 }

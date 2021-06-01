@@ -34,7 +34,10 @@ public class Fraccion {
     }
 
     private Fraccion sumaDistintoDenominador(Fraccion fraccionSumaUna, Fraccion fraccionSumaDos) {
-        return null;
+        double nuevoNumerador = (fraccionSumaUna.getNumerador() * fraccionSumaDos.getDenominador()) + (fraccionSumaDos.getNumerador() * fraccionSumaUna.getDenominador());
+        double mcmDenominador = getMCM(fraccionSumaUna.getDenominador(), fraccionSumaDos.getDenominador());
+
+        return new Fraccion(nuevoNumerador, mcmDenominador);
     }
 
     private Fraccion sumaIgualDenominador(Fraccion fraccionSumaUna, Fraccion fraccionSumaDos) {
