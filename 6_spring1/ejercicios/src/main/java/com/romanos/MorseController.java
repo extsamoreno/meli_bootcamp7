@@ -62,7 +62,7 @@ public class MorseController {
         equivalencias.put("@", ".--.-.");
         equivalencias.put("=", "-...-");
         equivalencias.put("!", "−.−.−−");
-        equivalencias.put("%C2%A20", "  ");
+        equivalencias.put(" ", "  ");
 
         return equivalencias;
     }
