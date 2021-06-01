@@ -2,3 +2,7 @@
 *out/
 *.idea/
 .DS_Store
+*.mvn
+target/
+mvnw*
+

@@ -5,7 +5,7 @@ import com.meli.tm.ex1.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class MainGuardaRopa {
 
     public static void main(String[] args) {
 
