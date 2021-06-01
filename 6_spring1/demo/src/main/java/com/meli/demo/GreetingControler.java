@@ -16,8 +16,6 @@ public class GreetingControler {
 
     @GetMapping("/toroman/{number}")
     public String getHello(@PathVariable() int number){
-//  public String getHello(@PathVariable(name) String ahoraPuedoUsarOtroName){
-
 
         String roman = ToRoman.convert(number);
 
@@ -25,4 +23,14 @@ public class GreetingControler {
 
     }
 
+    @GetMapping("/morsecode/{codigo}")
+    public String getMorse(@PathVariable("codigo") String morsecode){
+
+        String text = Morse.toText(morsecode);
+
+        return "Decodificacion: " + text;
+    }
+
 }
+
+
