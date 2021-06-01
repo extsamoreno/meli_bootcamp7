@@ -11,14 +11,13 @@ public class Morse {
         String result = "";
         String[] diccionario = { ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..",
                 ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-",
-                ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", ".......",
-                };
+                ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", "......."};
 
         BidiMap<String, String> equivalencias = new TreeBidiMap<>();
         String[] words = code.split("   ");
 
         for (int i = 0; i<diccionario.length; i++)
-            equivalencias.put(String.valueOf((char)(i+97)), diccionario[i]);
+            equivalencias.put(String.valueOf((char)(i+65)), diccionario[i]);
 
         for (String word: words) {
             String[] letters = word.split(" ");
