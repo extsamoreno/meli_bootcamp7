@@ -15,4 +15,10 @@ public class GreetingController {
         return "Numero entero ingresado  "+ num+ "    Correspondente romano :  "+roman;
     }
 
+    @GetMapping("/gettext/{morse}")//rutaaa
+    public String getText(@PathVariable() String morse){
+        String text = Functions.toText(morse);
+        return "La traduccion de  "+ morse+ "    Correspondente a :  "+text;
+    }
+
 }
