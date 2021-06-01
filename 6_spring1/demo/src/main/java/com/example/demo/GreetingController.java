@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Hashtable;
+import java.util.Set;
+
 @RestController
 @RequestMapping("api/v1")
 public class GreetingController {
@@ -21,4 +24,15 @@ public class GreetingController {
             }
         return romanNumber.toString();
     }
+    @GetMapping("/morse/{frase}")
+    public  String converMorsetoString(@PathVariable String frase){
+        Morse morseFrase = new Morse(frase);
+        return morseFrase.decodificacion();
+    }
+    @GetMapping("/abecedario/{frase}")
+    public  String converAbecedariotoString(@PathVariable String frase){
+        Abecedario abecedario = new Abecedario(frase);
+        return abecedario.decodificacion();
+    }
+
 }
