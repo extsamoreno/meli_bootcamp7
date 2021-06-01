@@ -28,12 +28,12 @@ public class Main {
         iSorter.sort(arr,c1);
         timer.stop();
 
-        long elapsedTime = timer.elapsedTime()/100;
-        System.out.println("\n" + Long.toString(elapsedTime) + " segundos");
+        long elapsedTime = timer.elapsedTime();
+        System.out.println("\n" + elapsedTime + " milisegundos");
 
         //Tiempo BubleSort: 367 segundos
         //Tiempo HeapSort: 50 milisegundos
-        //Tiempo QuickSort:
+        //Tiempo QuickSort: 20 milisegundos
     }
 
     public static Integer[] crearArregloEnteros(int cantidad) {
@@ -45,6 +45,7 @@ public class Main {
 
         return arr;
     }
+
     public static <T> void mostrarArr(T[] arr) {
         System.out.println();
         for (T t : arr) {
