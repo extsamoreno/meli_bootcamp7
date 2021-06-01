@@ -17,7 +17,7 @@ public class Evento {
 
     public void apagarVela() throws InterruptedException {
 
-        System.out.println("La Chiqui soplo la vela");
+        System.out.println("La Chiqui apago la vela");
         vela = false;
         accionarFuegosArtificiales();
         repartirTorta();
