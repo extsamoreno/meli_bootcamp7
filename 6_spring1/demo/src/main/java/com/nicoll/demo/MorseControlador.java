@@ -8,10 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/morse")
-public class MorsaControlador {
+public class MorseControlador {
 
     @GetMapping("{word}")
-    public String StringMorse(@PathVariable String word){
+    public String MorseString(@PathVariable String word){
         return MorseUtil.morseString(word);
+    }
+
+    @GetMapping("/String/{word}")
+    public String StringMorse(@PathVariable String word){
+        return MorseUtil.StringMorse(word);
     }
 }

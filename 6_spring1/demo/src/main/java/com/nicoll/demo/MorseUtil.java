@@ -1,5 +1,6 @@
 package com.nicoll.demo;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 public class MorseUtil {
@@ -19,27 +20,52 @@ public class MorseUtil {
             "..-", "...-", ".--", "-..-", "-.--",
             "--..", "|"};
 
+
     public static String morseString(String string) {
-        return replace(string, code);
+        return replace(string);
     }
 
+    public static String StringMorse(String string) {
+        String s = replaceString(string.toLowerCase(Locale.ROOT));
+        return s;
+    }
 
-    public static String replace(String morseCode, String[] code) {
+    static String replaceString(String text){
+
+        String result = " ";
+        String[] arraySplit = text.split(" ");
+
+        for (String s: arraySplit) {
+            char[] ch = s.toCharArray();
+            for (int i = 0; i < ch.length; i++) {
+
+            for (int j = 0; j < letter.length; j++) {
+                    if (String.valueOf(ch[i]).compareTo(letter[j]) == 0) {
+                        result += code[j] + " ";
+                        break;
+                    }
+                }
+            }
+
+            result  += "  ";
+        }
+        System.out.println(result);
+        return result;
+    }
+
+    static String replace(String morseCode) {
 
         String result = " ";
         String[] arraySplit = morseCode.split("   ");
-        for (String s:
-             arraySplit) {
-            System.out.println(s);
-        }
 
         for (String s: arraySplit) {
             String[] array = s.split(" ");
 
+
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < code.length; j++) {
                 if (array[i].compareTo(code[j]) == 0) {
-                    result += (char) (j + 'a');
+                    result += letter[j];
                     break;
                 }
             }
