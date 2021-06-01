@@ -50,9 +50,7 @@ public class MorseController {
         map.put("", ' ');
 
         for(String c: morse.split(" ")){
-            System.out.println(c + " " + c.length());
             palabra += map.get(c);
-
         }
 
         return palabra;
