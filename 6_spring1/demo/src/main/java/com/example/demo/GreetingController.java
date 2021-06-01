@@ -2,12 +2,17 @@ package com.example.demo;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/greetings")
 public class GreetingController {
 
-        @GetMapping("/toRomanNumber/{numero}")
-    public String getHello(@PathVariable Integer numero){
+    @GetMapping("/toRomanNumber/{numero}")
+    public String getHello(@PathVariable Integer numero) {
         int i, miles, centenas, decenas, unidades;
         String romano = "";
         miles = numero / 1000;
@@ -71,4 +76,135 @@ public class GreetingController {
 
     }
 
+    @GetMapping("/text/{code}")
+    public String getText(@PathVariable String code) {
+        String res = "";
+        String[] palabras = code.split("   ");
+        HashMap<String, String> morse = morseToString();
+        for (String p : palabras) {
+            String[] letras = p.split(" ");
+            for (String l : letras) {
+                if (morse.containsKey(l))
+                    res = res + morse.get(l);
+                else
+                    return res = "Hubo un error en decodificar";
+            }
+            res = res + " ";
+        }
+        return res;
+
+    }
+
+    public HashMap<String, String> stringToMorse() {
+        HashMap<String, String> res = new HashMap<>();
+        res.put("A", ".-");
+        res.put("B", "-...");
+        res.put("C", "-.-.");
+        res.put("CH", "----");
+        res.put("D", "-..");
+        res.put("E", ".");
+        res.put("F", "..-.");
+        res.put("G", "--.");
+        res.put("H", "....");
+        res.put("I", "..");
+        res.put("J", ".---");
+        res.put("K", "-.-");
+        res.put("L", ".-..");
+        res.put("M", "--");
+        res.put("N", "-.");
+        res.put("Ñ", "--.--");
+        res.put("O", "---");
+        res.put("P", ".--.");
+        res.put("Q", "--.-");
+        res.put("R", ".-.");
+        res.put("S", "...");
+        res.put("T", "-");
+        res.put("U", "..-");
+        res.put("V", "...-");
+        res.put("W", ".--");
+        res.put("X", "-..-");
+        res.put("Y", "-.--");
+        res.put("Z", "--..");
+        res.put("0", "-----");
+        res.put("1", ".----");
+        res.put("2", "..---");
+        res.put("3", "...--");
+        res.put("4", "....-");
+        res.put("5", ".....");
+        res.put("6", "-....");
+        res.put("7", "--...");
+        res.put("8", "---..");
+        res.put("9", "----.");
+        res.put(".", ".-.-.-");
+        res.put(",", "--..--");
+        res.put(":", "---...");
+        res.put("?", "..--..");
+        res.put("'", ".----.");
+        res.put("-", "-....-");
+        res.put("/", "-..-.");
+        res.put("\"", ".-..-.");
+        res.put("@", ".--.-.");
+        res.put("=", "-...-");
+        res.put("!", "−.−.−−");
+        return res;
+
+    }
+
+    public HashMap<String, String> morseToString() {
+        HashMap<String, String> res = new HashMap<>();
+        res.put(".-", "A");
+        res.put("-...", "B");
+        res.put("-.-.", "C");
+        res.put("----", "CH");
+        res.put("-..", "D");
+        res.put(".", "E");
+        res.put("..-.", "F");
+        res.put("--.", "G");
+        res.put("....", "H");
+        res.put("..", "I");
+        res.put(".---", "J");
+        res.put("-.-", "K");
+        res.put(".-..", "L");
+        res.put("--", "M");
+        res.put("-.", "N");
+        res.put("--.--", "Ñ");
+        res.put("---", "O");
+        res.put(".--.", "P");
+        res.put("--.-", "Q");
+        res.put(".-.", "R");
+        res.put("...", "S");
+        res.put("-", "T");
+        res.put("..-", "U");
+        res.put("...-", "V");
+        res.put(".--", "W");
+        res.put("-..-", "X");
+        res.put("-.--", "Y");
+        res.put("--..", "Z");
+        res.put("-----", "0");
+        res.put(".----", "1");
+        res.put("..---", "2");
+        res.put("...--", "3");
+        res.put("....-", "4");
+        res.put(".....", "5");
+        res.put("-....", "6");
+        res.put("--...", "7");
+        res.put("---..", "8");
+        res.put("----.", "9");
+        res.put(".-.-.-", ".");
+        res.put("--..--", ",");
+        res.put("---...", ":");
+        res.put("..--..", "?");
+        res.put(".----.", "'");
+        res.put("-....-", "-");
+        res.put("-..-.", "/");
+        res.put(".-..-.", "\"");
+        res.put(".--.-.", "@");
+        res.put("-...-", "=");
+        res.put("−.−.−−", "!");
+        return res;
+
+    }
+
 }
+
+
