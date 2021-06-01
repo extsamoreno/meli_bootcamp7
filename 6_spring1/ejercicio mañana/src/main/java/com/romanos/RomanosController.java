@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 
 @RestController
-@RequestMapping("/convert")
+@RequestMapping("/romanosconvert")
 public class RomanosController {
 
     private final static TreeMap<Integer, String> map = new TreeMap<Integer, String>();
