@@ -39,9 +39,7 @@ public class FuegoArtificial {
 
     public void explotar() {
         System.out.println(ruido);
-        cohetes.forEach(
-                elem -> elem.explotar()
-        );
+        cohetes.forEach(elem -> elem.explotar());
     }
 
     public void agregarCohete(FuegoArtificial cohete) {
