@@ -1,10 +1,9 @@
 package practicaTM.ejercicio1;
 
-import practicaTM.Utils;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import practicaTM.*;
 
 public class GuardaRopa {
 

@@ -1,8 +1,7 @@
 package practicaTM.ejercicio1;
 
-import practicaTM.Utils;
-
 import java.util.List;
+import practicaTM.*;
 
 public class Main {
 
