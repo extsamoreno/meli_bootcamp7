@@ -24,6 +24,5 @@ public class main2 {
 
         carrera.ganadorDeCarrera();
 
-
     }
 }
