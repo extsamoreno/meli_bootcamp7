@@ -1,36 +1,41 @@
 package ejtt;
+
 import java.util.Comparator;
 
-public class QuickSortSorterImple <T> implements Sorter<T> {
+public class QuickSortSorterImple<T> implements Sorter<T> {
   @Override
-  public void sort( T arr[], Comparator<T> c) {
-    quicksort(arr, 0, arr.length, c);
+  public void sort(T[] arr, Comparator<T> c) {
+    int n = arr.length - 1;
+
+    quickSort(arr,0, n, c);
   }
 
-  private void quicksort (T arr[], int izq, int der, Comparator<T> c) {
-    T pivote = arr[izq];
-    int i = izq;
-    int j = der;
-    T aux;
+  private void quickSort(T[] arr, int low, int high, Comparator<T> c) {
+    if (low < high) {
+      int pi = partition(arr, low, high, c);
 
-    while (i < j) {
-      while (c.compare(arr[i], pivote) < 0  && i < j) i++;
-      while (c.compare(arr[j], pivote) > 0) j--;
-      if (i < j) {
-        aux = arr[i];
-        arr[i] = arr[j];
-        arr[j] = aux;
+      quickSort(arr, low, pi - 1, c);
+      quickSort(arr, pi + 1, high, c);
+    }
+  }
+
+  private int partition(T[] arr, int low, int high, Comparator<T> c) {
+    T pivot = arr[high];
+    int i = (low - 1);
+
+    for(int j = low; j <= high - 1; j++) {
+      if (c.compare(arr[j],pivot) < 0) {
+        i++;
+        swap(arr, i, j);
       }
     }
+    swap(arr, i + 1, high);
+    return (i + 1);
+  }
 
-    arr[izq] = arr[j];
-    arr[j] = pivote;
-
-    if(izq < j-1)
-      quicksort(arr, izq, j-1, c);
-    if (j+1 < der)
-      quicksort(arr, j+1, der, c);
-
+  private void swap(T[] arr, int i, int j) {
+    T temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
   }
 }
-
