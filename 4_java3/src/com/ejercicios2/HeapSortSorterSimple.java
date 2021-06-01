@@ -1,4 +1,4 @@
-package com.ejercicios;
+package com.ejercicios2;
 
 import java.util.Comparator;
 
@@ -29,10 +29,10 @@ public class HeapSortSorterSimple<T> implements Sorter<T> {
         int l = 2 * i + 1;
         int r = 2 * i + 2;
 
-        if (l < n && c.compare(arr[l], arr[largest]) > 0) // arr[l] > arr[largest])
+        if (l < n && c.compare(arr[l], arr[largest]) > 0)
             largest = l;
 
-        if (r < n && c.compare(arr[r], arr[largest]) > 0) // arr[r] > arr[largest])
+        if (r < n && c.compare(arr[r], arr[largest]) > 0)
             largest = r;
 
         if (largest != i) {
