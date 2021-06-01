@@ -15,11 +15,6 @@ public class Conversor {
             roman = "Hasta aca llego nuestro conocimiento";
         }
 
-        if( miles < 4){
-            for(int i= 0; i< miles; i++ ){
-                roman = roman + "M";
-            }
-        }
         roman += subRoman(centenas, "M", "D", "C");
         roman += subRoman(decenas, "C", "L", "X");
         roman += subRoman(unidades, "X", "V", "I");
@@ -31,27 +26,21 @@ public class Conversor {
     public static String  subRoman(int number, String big, String medium, String small){
 
         String roman = "";
-        if(number < 4){
+        if(number < 4)
+            for(int i= 0; i < number; i++ )
+                roman += small;
 
-            for(int i= 0; i < number; i++ ){
-                roman = roman + small;
-            }
-        }
-
-        if(number == 4){
-            roman = roman + small + medium;
-        }
+        if(number == 4)
+            roman += (small + medium);
 
         if(number >= 5 && number < 9){
-            roman = roman + medium;
-            for(int i= 0; i < number-5; i++ ){
-                roman = roman + small;
-            }
+            roman += medium;
+            for(int i= 0; i < number-5; i++ )
+                roman += small;
         }
 
-        if(number == 9){
-            roman = roman + small+ big;
-        }
+        if(number == 9)
+            roman += (small+ big);
 
         return roman;
     }

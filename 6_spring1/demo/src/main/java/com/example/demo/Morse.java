@@ -20,7 +20,6 @@ public class Morse {
             result+= " ";
         }
 
-
         return result;
     }
 
