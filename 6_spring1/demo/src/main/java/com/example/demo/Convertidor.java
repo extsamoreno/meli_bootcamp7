@@ -2,6 +2,14 @@ package com.example.demo;
 
 public class Convertidor {
 
+    private static String[] code
+            = { ".-",   "-...", "-.-.", "-..",  ".",
+            "..-.", "--.",  "....", "..",   ".---",
+            "-.-",  ".-..", "--",   "-.",   "---",
+            ".--.", "--.-", ".-.",  "...",  "-",
+            "..-",  "...-", ".--",  "-..-", "-.--",
+            "--..", "|", "—.—" };
+
     //método para pasar a números romanos
     public static String convertirANumerosRomanos(int numero) {
         int i, miles, centenas, decenas, unidades;
@@ -67,4 +75,39 @@ public class Convertidor {
         }
         return romano;
     }
+
+
+    public static String morseATexto(String codigoMorse) {
+        System.out.print("Codigo morse es : " + codigoMorse
+                + " Y traducido es : ");
+
+        String[] separadorPalabras = codigoMorse.split("   ");
+        String codigoTexto = "";
+
+        for (int i = 0; i < separadorPalabras.length ; i++) {
+            String[] array = separadorPalabras[i].split(" ");
+
+
+            for (int k = 0; k < array.length; k++) {
+
+                if(array[k].compareTo("--.--") == 0){
+                    codigoTexto += "ñ";
+                }
+
+                for (int j = 0; j < code.length; j++) {
+                    if (array[k].compareTo(code[j]) == 0) {
+                        System.out.print((char)(j + 'a') + " ");
+                        codigoTexto = codigoTexto + ((char)(j + 'a'));
+                        break;
+                    }
+                }
+            }
+            if (!(i == separadorPalabras.length-1))
+                codigoTexto += " ";
+        }
+
+        return codigoTexto;
+    }
+
+
 }

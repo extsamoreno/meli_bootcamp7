@@ -13,4 +13,9 @@ public class GreetingController {
     public String getHello(@PathVariable Integer numero){
         return Convertidor.convertirANumerosRomanos(numero);
     }
+
+    @GetMapping("/morseATexto/{codigoMorse}")
+    public String morseATexto (@PathVariable String codigoMorse){
+        return Convertidor.morseATexto(codigoMorse).toUpperCase();
+    }
 }
