@@ -62,44 +62,39 @@ public class MorseController {
         equivalencias.put("@", ".--.-.");
         equivalencias.put("=", "-...-");
         equivalencias.put("!", "−.−.−−");
-        equivalencias.put("%20","  ");
+        equivalencias.put("%C2%A20", "  ");
 
         return equivalencias;
     }
 
-    public static String asciiAMorse(String ascii) {
-        Hashtable<String, String> equivalencias = obtenerEquivalencias();
-        return equivalencias.getOrDefault(ascii, "");
-    }
-
-    public static String morseAAscii(String morseBuscado) {
+    public static String morseAAscii(String original) {
         Hashtable<String, String> equivalencias = obtenerEquivalencias();
         Set<String> claves = equivalencias.keySet();
         // La clave es la letra ASCII
         for (String clave : claves) {
             String morse = equivalencias.get(clave);
-            if (morse.equals(morseBuscado)) {
+            if (morse.equals(original)) {
                 return clave;
             }
         }
         return "";
     }
 
-    public static String codificarMorse(String original) {
-        StringBuilder codificado = new StringBuilder();
-        for (int i = 0; i < original.length(); i++) {
-            String charComoCadenaYEnMayusculas = String.valueOf(original.charAt(i)).toUpperCase();
-            String equivalencia = asciiAMorse(charComoCadenaYEnMayusculas);
-            codificado
-                    .append(equivalencia)
-                    .append(" ");
+    public static String decodificarMorse(String codificado) {
+        StringBuilder decodificado = new StringBuilder();
+        // Necesitamos separarlo por espacios
+        String[] morse = codificado.split(" ");
+        for (String morseActual : morse) {
+            String equivalencia = morseAAscii(morseActual);
+            decodificado.append(equivalencia);
         }
-        return codificado.toString();
+        return decodificado.toString();
     }
 
-    @GetMapping("/toMorse/{original}")
+
+    @GetMapping("/toString/{original}")
     public String convert(@PathVariable String original) {
-        return codificarMorse(original);
+        return decodificarMorse(original);
     }
 
 }
