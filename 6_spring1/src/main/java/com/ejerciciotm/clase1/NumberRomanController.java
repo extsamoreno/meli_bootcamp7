@@ -40,7 +40,6 @@ public class NumberRomanController {
 
         while(number > 0){
             for (Map.Entry<Integer, String> entry : map.entrySet()) {
-                System.out.println("clave=" + entry.getKey() + ", valor=" + entry.getValue());
                 Integer resto = number / entry.getKey();
                 if(resto > 0){
                     valor += entry.getValue().repeat(resto);
