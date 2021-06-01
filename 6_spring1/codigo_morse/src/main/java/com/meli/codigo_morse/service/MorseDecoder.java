@@ -2,9 +2,6 @@ package com.meli.codigo_morse.service;
 
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class MorseDecoder {
     static String[] alpha = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
