@@ -10,6 +10,7 @@ public class Evento {
     private ArrayList<Invitados> listaInvitados;
 
     public Evento() {
+        anfitrion = "La Chiqui";
         listaInvitados = new ArrayList<>();
         listaFuegosArtificiales = new ArrayList<>();
         vela = true;
@@ -17,7 +18,7 @@ public class Evento {
 
     public void apagarVela() throws InterruptedException {
 
-        System.out.println("La Chiqui soplo la vela");
+        System.out.println("La " + anfitrion  + " soplo la vela");
         vela = false;
         accionarFuegosArtificiales();
         repartirTorta();

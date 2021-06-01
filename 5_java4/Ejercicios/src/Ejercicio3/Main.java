@@ -11,35 +11,35 @@ public class Main {
         Invitados inv1 = new Invitados("Carlos", "MeLi");
         Invitados inv2 = new Invitados("Juan", "Standard");
         Invitados inv3 = new Invitados("Mario", "MeLi");
-
         evento.addInvitado(inv1);
         evento.addInvitado(inv2);
         evento.addInvitado(inv3);
+
+        // Lista del evento con packs y fuegos individuales
+        ArrayList<FuegoArtificial> listaFuegosEvento = new ArrayList<>();
 
         FuegoArtificialIndividual fuego1 = new FuegoArtificialIndividual();
         FuegoArtificialIndividual fuego2 = new FuegoArtificialIndividual();
         FuegoArtificialIndividual fuego3 = new FuegoArtificialIndividual();
 
-        /*ArrayList<FuegoArtificial> listaFuegos = new ArrayList<>();
-        listaFuegos.add(fuego1);
-        listaFuegos.add(fuego2);
-        listaFuegos.add(fuego3);*/
+        // Añadir fuegos individuales al evento
+        listaFuegosEvento.add(fuego1);
+        listaFuegosEvento.add(fuego2);
+        listaFuegosEvento.add(fuego3);
 
         // Pack
+        ArrayList<FuegoArtificial> pack = new ArrayList<>();
         FuegoArtificialIndividual fuego4 = new FuegoArtificialIndividual();
         FuegoArtificialIndividual fuego5 = new FuegoArtificialIndividual();
         FuegoArtificialIndividual fuego6 = new FuegoArtificialIndividual();
-        ArrayList<FuegoArtificial> listaFuegos2 = new ArrayList<>();
 
-        listaFuegos2.add(fuego4);
-        listaFuegos2.add(fuego5);
-        listaFuegos2.add(fuego6);
+        pack.add(fuego4);
+        pack.add(fuego5);
+        pack.add(fuego6);
+        PackFuegosArtificiales pack2 = new PackFuegosArtificiales(pack);
+        listaFuegosEvento.add(pack2);
 
-        PackFuegosArtificiales pack1 = new PackFuegosArtificiales(listaFuegos2);
-        listaFuegos2.add(fuego1);
-        listaFuegos2.add(pack1);
-
-        evento.setListaFuegosArtificiales(listaFuegos2);
+        evento.setListaFuegosArtificiales(listaFuegosEvento);
         evento.apagarVela();
     }
 }

@@ -1,6 +1,6 @@
 package Ejercicio3;
 
-public abstract class FuegoArtificial {
+public interface FuegoArtificial {
 
-    public abstract void accionar();
+    public void accionar();
 }

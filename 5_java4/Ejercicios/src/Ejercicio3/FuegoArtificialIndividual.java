@@ -1,6 +1,6 @@
 package Ejercicio3;
 
-public class FuegoArtificialIndividual extends FuegoArtificial {
+public class FuegoArtificialIndividual implements FuegoArtificial {
 
     private String tipoRuido;
     private static int contador = 1;

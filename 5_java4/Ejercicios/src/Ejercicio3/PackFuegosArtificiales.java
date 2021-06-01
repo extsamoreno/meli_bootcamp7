@@ -2,7 +2,7 @@ package Ejercicio3;
 
 import java.util.ArrayList;
 
-public class PackFuegosArtificiales extends FuegoArtificial{
+public class PackFuegosArtificiales implements FuegoArtificial{
 
     ArrayList<FuegoArtificial> listaFuegosArtificiales;
 
@@ -13,9 +13,10 @@ public class PackFuegosArtificiales extends FuegoArtificial{
     @Override
     public void accionar() {
 
+        System.out.println("Accionando packs de fuegos");
         for (FuegoArtificial f : listaFuegosArtificiales) {
             if(f instanceof FuegoArtificialIndividual){
-                ((FuegoArtificialIndividual) f).getTipoRuido();
+                System.out.println(((FuegoArtificialIndividual) f).getTipoRuido());
             }
         }
     }
