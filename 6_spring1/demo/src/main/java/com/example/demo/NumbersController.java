@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/Number")
-public class GreetingController {
+@RequestMapping("/Numbers/Convert")
+public class NumbersController {
 
-    @GetMapping("/Convert/{number}")
+    @GetMapping("/Roman/{number}")
     public String getHello(@PathVariable Integer number){
         return convertirANumerosRomanos(number);
     }
