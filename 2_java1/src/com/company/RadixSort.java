@@ -3,6 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class RadixSort
 {
@@ -16,21 +17,29 @@ public class RadixSort
 			lists.put(i, new ArrayList<>());
 		};
 
-		for (int i = 0; i < stringArray.length; i++) {
-			char last = stringArray[i].charAt(stringArray[i].length() - 1);
-			int key = Character.getNumericValue(last);
-			ArrayList<String> listMap = lists.get(key);
-			listMap.add(stringArray[i]);
+		for (int i = stringArray[0].length() - 1; i >= 0; i--) {
+			for (String str : stringArray) {
+				char last = str.charAt(i);
+				int key = Character.getNumericValue(last);
+				ArrayList<String> listMap = lists.get(key);
+				listMap.add(str);
+			}
+
+			int j = 0;
+
+			for(Map.Entry<Integer,ArrayList<String>> entry : lists.entrySet()) {
+				for(String s : entry.getValue()) {
+					stringArray[j] = s;
+					j++;
+				}
+				entry.getValue().clear();
+			}
+
 		}
 
-		for (int i = 0; i < 10; i++) {
-			for (String num: lists.get(i)) {
-				stringArray[i] = num;
-			}
-		}
-		for (String c:
-			 stringArray) {
-			System.out.println(c);
+		int[] intArray = StringUtil.toIntArray(stringArray);
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = intArray[i];
 		}
 	}
 
