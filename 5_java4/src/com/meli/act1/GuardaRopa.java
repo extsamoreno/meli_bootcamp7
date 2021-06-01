@@ -1,4 +1,4 @@
-package com.meli;
+package com.meli.act1;
 
 import java.util.HashMap;
 import java.util.List;
