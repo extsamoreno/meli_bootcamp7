@@ -16,6 +16,6 @@ public class DiplomaController {
 
     @PostMapping("/generateDiploma")
     public ResponseEntity<?> generateDiploma(@RequestBody Student student) {
-        return new ResponseEntity<>(service.getDiploma(student),HttpStatus.OK);
+        return new ResponseEntity<>(service.getDiploma(student), HttpStatus.OK);
     }
 }

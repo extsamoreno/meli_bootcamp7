@@ -1,9 +1,11 @@
 package com.meli.diploma.domain;
 
 import java.util.List;
+
 import lombok.*;
 
-@Setter @Getter
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student {
@@ -16,6 +18,6 @@ public class Student {
             totalGrades += s.getGrade();
         }
 
-        return  totalGrades/subjects.size();
+        return totalGrades / subjects.size();
     }
 }
