@@ -1,7 +1,7 @@
 package ejtt;
+
 import java.util.Properties;
 import java.io.FileReader;
-import java.lang.*;
 
 public class MiFactory {
   public static Object getInstance(String objName) throws Exception{
@@ -14,9 +14,9 @@ public class MiFactory {
         // access properties data
         String value = p.getProperty(objName);
       try {
-        return Class.forName(value).newInstance();
+        return Class.forName(value).getDeclaredConstructor().newInstance();
 
-      } catch (ClassNotFoundException e)
+      } catch (ClassNotFoundException e) {
         throw e;
       }
   }}
