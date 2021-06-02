@@ -1,18 +1,23 @@
 package com.example.demo;
 
 import org.apache.coyote.Response;
+import org.apache.tomcat.jni.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/Casa")
+@RequestMapping("/Calculador")
 public class CasaControlador {
 
-    @PostMapping("/Data")
+    @PostMapping("/Casa")
     public ResponseEntity<CasaRespuesta> procesarDatosCasa(@RequestBody Casa casa){
         CasaRespuesta objRespuesta = new CasaRespuesta();
 
@@ -53,5 +58,13 @@ public class CasaControlador {
         for (Habitacion hab : casa.getListHabitaciones()) {
             casaResp.getHm().put(hab.getNombre(),getMetrosCuadradosHab(hab));
         }
+    }
+
+    //EJERCICIO 2
+    @GetMapping("/Edad/{dia}/{mes}/{anio}")
+    public ResponseEntity<String> getEdad(@PathVariable String dia, @PathVariable String mes, @PathVariable String anio){
+        int edad = Period.between(LocalDate.parse(anio + "-" + mes + "-" + dia), LocalDate.now()).getYears();
+
+        return new ResponseEntity<>(String.valueOf(edad), HttpStatus.OK);
     }
 }
