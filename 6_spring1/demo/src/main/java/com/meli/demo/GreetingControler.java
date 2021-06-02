@@ -18,16 +18,13 @@ public class GreetingControler {
     public String getHello(@PathVariable() int number){
 
         String roman = ToRoman.convert(number);
-
         return "For number #" + number + " the correspondand roman number is: " + roman;
-
     }
 
     @GetMapping("/morsecode/{codigo}")
     public String getMorse(@PathVariable("codigo") String morsecode){
 
         String text = Morse.toText(morsecode);
-
         return "Decodificacion: " + text;
     }
 
