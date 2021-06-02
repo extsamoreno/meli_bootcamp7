@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HouseService {
@@ -15,11 +16,28 @@ public class HouseService {
 
     public HouseDTO getHouseDTO(House house) {
         HouseDTO houseDTO = new HouseDTO();
-        houseDTO.setTotalMeters(house.calculateTotalSquareMeters());
-        houseDTO.setHouseValue(house.getHouseValue(price));
-        houseDTO.setLargestRoom(house.findLargestRoom());
+        houseDTO.setTotalMeters(calculateTotalSquareMeters(house.getRooms()));
+        houseDTO.setHouseValue(getHouseValue(price, house.getRooms()));
+        houseDTO.setLargestRoom(findLargestRoom(house.getRooms()));
         houseDTO.setRooms(this.getRoomsDTO(house.getRooms()));
         return houseDTO;
+    }
+
+    public double calculateTotalSquareMeters(List<Room> rooms) {
+        return rooms.stream().mapToDouble(f -> calculateSquareMeters(f)).sum();
+    }
+
+    public double getHouseValue(double price, List<Room> rooms) {
+        return calculateTotalSquareMeters(rooms) * price;
+    }
+
+    public Room findLargestRoom(List<Room> rooms) {
+        final Optional<Room> max = rooms.stream().max((elem1, elem2) -> (int) (calculateSquareMeters(elem1) - calculateSquareMeters(elem2)));
+        return max.get();
+    }
+
+    public double calculateSquareMeters(Room room) {
+        return room.getWidth() * room.getLength();
     }
 
     public List<RoomDTO> getRoomsDTO(List<Room> rooms) {
@@ -31,7 +49,7 @@ public class HouseService {
     }
 
     private RoomDTO createRoomDTO(Room room) {
-        return new RoomDTO(room.getName(), room.calculateSquareMeters());
+        return new RoomDTO(room.getName(), calculateSquareMeters(room));
     }
 
 }
