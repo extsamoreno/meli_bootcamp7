@@ -16,10 +16,7 @@ public class House {
     private List<Room> rooms;
 
     public double calculateTotalSquareMeters() {
-        int total = 0;
-        for (Room room : rooms)
-            total += room.calculateSquareMeters();
-        return total;
+        return rooms.stream().mapToDouble(f -> f.calculateSquareMeters()).sum();
     }
 
     public double getHouseValue(double price) {
@@ -29,17 +26,5 @@ public class House {
     public Room findLargestRoom() {
         final Optional<Room> max = rooms.stream().max((elem1, elem2) -> (int) (elem1.calculateSquareMeters() - elem2.calculateSquareMeters()));
         return max.get();
-    }
-
-    public List<RoomDTO> getRoomDTO() {
-        List<RoomDTO> roomsDTO = new ArrayList<>();
-        for (Room r : rooms) {
-            roomsDTO.add(createRoomDTO(r));
-        }
-        return roomsDTO;
-    }
-
-    private RoomDTO createRoomDTO(Room room) {
-        return new RoomDTO(room.getName(),room.calculateSquareMeters());
     }
 }
