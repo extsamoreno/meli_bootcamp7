@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6027fe48-e685-4155-9435-0f64d0a0cf54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/4_java3.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/Exercise2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/HeapSort.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/MiFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/MiFactory.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/Precedable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/QuickSortSorterImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/SortUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/Sorter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/src/Exercise2/Timer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/src/Exercise1.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Exercise1/Persona.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Exercise1/Precedable.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +75,7 @@
       <option name="presentableId" value="Default" />
       <updated>1622210004161</updated>
       <workItem from="1622210005303" duration="475000" />
-      <workItem from="1622494752020" duration="2038000" />
+      <workItem from="1622494752020" duration="2300000" />
     </task>
     <servers />
   </component>
