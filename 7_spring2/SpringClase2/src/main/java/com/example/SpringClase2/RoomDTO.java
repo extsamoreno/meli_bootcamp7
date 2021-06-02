@@ -11,7 +11,7 @@ public class RoomDTO {
     private float   width;
 
     public float area(){
-        return getHeight() * this.width;
+        return this.height * this.width;
     }
 
 }

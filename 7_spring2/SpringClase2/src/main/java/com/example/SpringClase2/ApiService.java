@@ -6,21 +6,20 @@ import java.util.HashMap;
 
 public class ApiService {
 
-    public static HomeDTO getHouse(Home home) {
+    public static HomeDTO getHouse(House house) {
 
         HomeDTO homeDTO = new HomeDTO();
 
-        float totalArea = home.totalArea();
+        float totalArea = house.totalArea();
         homeDTO.setTotalArea(totalArea);
 
-        double totalPrice = home.totalPrice();
+        double totalPrice = house.totalPrice();
         homeDTO.setPrice(totalPrice);
 
-        RoomDTO mainRoom = home.mainRoom();
+        RoomDTO mainRoom = house.mainRoom();
         homeDTO.setMainRoom(mainRoom);
 
-        HashMap<String, Float> metersPerRoom = home.metersPerRoom();
-        homeDTO.setMetersPerRoom(metersPerRoom);
+        homeDTO.setMetersPerRoom(house.meterPerRoom());
         return homeDTO;
     }
 

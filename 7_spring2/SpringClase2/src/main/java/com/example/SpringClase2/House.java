@@ -7,18 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class Home {
+public class House {
 
     private String name;
     private String address;
     private ArrayList<RoomDTO> roomList;
 
     public float totalArea() {
-        float area = 0;
-        for (RoomDTO room : roomList) {
-            area += room.area();
-        }
-        return area;
+        return (float) roomList.stream().mapToDouble(room -> room.area()).sum();
     }
 
     public double totalPrice() {
@@ -37,12 +33,10 @@ public class Home {
         return mainRoom;
     }
 
-    public HashMap<String, Float> metersPerRoom() {
-        HashMap<String, Float> mapsRooms = new HashMap<>();
-
-        for (RoomDTO room : roomList) {
-            mapsRooms.put(room.getName(), room.area());
-        }
-        return mapsRooms;
+    public ArrayList<RoomDTOArea> meterPerRoom(){
+        ArrayList<RoomDTOArea> rooms = new ArrayList<>();
+        roomList.forEach(room ->
+                            rooms.add(new RoomDTOArea(room.getName(), room.area())));
+        return rooms;
     }
 }

@@ -12,8 +12,9 @@ public class HomeControler {
     }
 
     @PostMapping("/getHouse")
-    public HomeDTO area(@RequestBody Home home) {
-        return ApiService.getHouse(home);
+    public HomeDTO area(@RequestBody House house) {
+
+        return ApiService.getHouse(house);
     }
 
     @GetMapping("/{year}/{month}/{day}")

@@ -11,6 +11,6 @@ public class HomeDTO {
     private float totalArea;
     private double price;
     private RoomDTO mainRoom;
-    private HashMap<String, Float> metersPerRoom;
+    private ArrayList<RoomDTOArea> metersPerRoom;
 
 }
