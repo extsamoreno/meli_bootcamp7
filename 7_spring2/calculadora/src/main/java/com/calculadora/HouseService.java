@@ -1,9 +1,6 @@
 package com.calculadora;
 
-import com.models.Casa;
-import com.models.Habitacion;
-import com.models.ResponseCasaDTO;
-import com.models.ResponseHabitacionDTO;
+import com.models.*;
 
 import java.util.ArrayList;
 
@@ -51,10 +48,10 @@ public class HouseService {
     }
 
     public static ResponseHabitacionDTO calcularM2Habitacion (Casa casa){
-        ArrayList<Double> m2Habitaciones = new ArrayList<>();
+        ArrayList<HabitacionM2> m2Habitaciones = new ArrayList<>();
 
         for (Habitacion habitacion: casa.getHabitaciones())
-            m2Habitaciones.add(calcularMetros(habitacion));
+            m2Habitaciones.add(new HabitacionM2(habitacion.getNombre(), calcularMetros(habitacion)));
 
         return new ResponseHabitacionDTO(casa, m2Habitaciones);
     }

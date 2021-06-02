@@ -4,13 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseHabitacionDTO {
+public class HabitacionM2 {
 
-    private Casa casa;
-    private ArrayList<HabitacionM2> resultado;
+    private String nombre;
+    private double m2;
 }
