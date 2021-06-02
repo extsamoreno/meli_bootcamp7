@@ -4,6 +4,9 @@ import com.meli.spring_day_2.Clases.Casa;
 import com.meli.spring_day_2.Clases.Habitacion;
 import com.meli.spring_day_2.Dto.CasaDto;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class CalculadoraService {
     private final float PRECIO_MTS2 = 800;
 
@@ -39,4 +42,13 @@ public class CalculadoraService {
         return result;
     }
 
+    public int calcularEdad(int dia, int mes, int año){
+        Calendar fechaNacimiento = new GregorianCalendar(año, mes, dia);
+        Calendar ahora = Calendar.getInstance();
+
+        long edadEnDias = (ahora.getTimeInMillis() - fechaNacimiento.getTimeInMillis()) / 1000 / 60 / 60 / 24;
+        int años = Double.valueOf(edadEnDias / 365.25d).intValue();
+
+        return años;
+    }
 }
