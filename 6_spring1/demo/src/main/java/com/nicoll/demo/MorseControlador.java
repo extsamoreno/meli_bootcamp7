@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/morse")
 public class MorseControlador {
 
-    @GetMapping("{word}")
-    public String MorseString(@PathVariable String word){
-        return MorseUtil.morseString(word);
+    @GetMapping("{morse}")
+    public String MorseString(@PathVariable String morse){
+        return MorseUtil.morseString(morse);
     }
 
     @GetMapping("/String/{word}")
