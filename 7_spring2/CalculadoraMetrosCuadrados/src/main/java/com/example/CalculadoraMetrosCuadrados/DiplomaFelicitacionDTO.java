@@ -7,6 +7,7 @@ public class DiplomaFelicitacionDTO extends DiplomaDTO {
         return mensaje;
     }
 
+
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }

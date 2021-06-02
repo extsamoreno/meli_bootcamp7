@@ -14,6 +14,7 @@ public class Alumno {
         this.nombre = nombre;
     }
 
+
     public ArrayList<Asignatura> getAsignaturas() {
         return asignaturas;
     }

@@ -12,6 +12,7 @@ public class Asignatura {
         this.nombre = nombre;
     }
 
+
     public double getNota() {
         return nota;
     }

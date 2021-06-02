@@ -12,6 +12,7 @@ public abstract class DiplomaDTO {
         this.promedio = promedio;
     }
 
+
     public String getNombreAlumno() {
         return nombreAlumno;
     }
