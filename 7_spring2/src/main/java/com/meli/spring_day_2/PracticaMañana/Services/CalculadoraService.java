@@ -1,8 +1,8 @@
-package com.meli.spring_day_2.Services;
+package com.meli.spring_day_2.PracticaMañana.Services;
 
-import com.meli.spring_day_2.Clases.Casa;
-import com.meli.spring_day_2.Clases.Habitacion;
-import com.meli.spring_day_2.Dto.CasaDto;
+import com.meli.spring_day_2.PracticaMañana.Clases.Casa;
+import com.meli.spring_day_2.PracticaMañana.Clases.Habitacion;
+import com.meli.spring_day_2.PracticaMañana.Dto.CasaDto;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

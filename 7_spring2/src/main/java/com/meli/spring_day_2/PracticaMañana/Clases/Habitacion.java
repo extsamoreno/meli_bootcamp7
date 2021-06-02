@@ -1,4 +1,4 @@
-package com.meli.spring_day_2.Clases;
+package com.meli.spring_day_2.PracticaMañana.Clases;
 
 public class Habitacion {
     private String nombre;

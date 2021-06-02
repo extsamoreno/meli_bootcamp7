@@ -1,8 +1,8 @@
-package com.meli.spring_day_2.Controllers;
+package com.meli.spring_day_2.PracticaMañana.Controllers;
 
-import com.meli.spring_day_2.Clases.Casa;
-import com.meli.spring_day_2.Dto.CasaDto;
-import com.meli.spring_day_2.Services.CalculadoraService;
+import com.meli.spring_day_2.PracticaMañana.Clases.Casa;
+import com.meli.spring_day_2.PracticaMañana.Dto.CasaDto;
+import com.meli.spring_day_2.PracticaMañana.Services.CalculadoraService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

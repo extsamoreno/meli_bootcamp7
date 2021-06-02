@@ -1,6 +1,6 @@
-package com.meli.spring_day_2.Dto;
+package com.meli.spring_day_2.PracticaMañana.Dto;
 
-import com.meli.spring_day_2.Clases.Habitacion;
+import com.meli.spring_day_2.PracticaMañana.Clases.Habitacion;
 
 import java.util.HashMap;
 
