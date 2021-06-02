@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Calendar;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 @RequestMapping("/Calculador")
 public class CasaControlador {
 
+    //EJERCICIO 1
     @PostMapping("/Casa")
     public ResponseEntity<CasaRespuesta> procesarDatosCasa(@RequestBody Casa casa){
         CasaRespuesta objRespuesta = new CasaRespuesta();
@@ -63,8 +65,40 @@ public class CasaControlador {
     //EJERCICIO 2
     @GetMapping("/Edad/{dia}/{mes}/{anio}")
     public ResponseEntity<String> getEdad(@PathVariable String dia, @PathVariable String mes, @PathVariable String anio){
-        int edad = Period.between(LocalDate.parse(anio + "-" + mes + "-" + dia), LocalDate.now()).getYears();
+        int edad = Period.between(LocalDate.parse(anio + "-" + llenarCero(mes) + "-" + llenarCero(dia)), LocalDate.now()).getYears();
 
         return new ResponseEntity<>(String.valueOf(edad), HttpStatus.OK);
+    }
+
+    private String llenarCero(String valor){
+        if (valor.length() == 1) {
+            valor = "0".concat(valor);
+        }
+        return valor;
+    }
+
+    //EJERCICIO 3
+    @PostMapping("/Alumno")
+    public ResponseEntity<DiplomaDTO> generarDiploma(@RequestBody Alumno alumno){
+        DiplomaDTO dip = new DiplomaDTO();
+
+        double prom = calcularPromedio(alumno);
+        dip.setPromedio(prom);
+        dip.setAlumno(alumno.toString());
+        if(prom > 9)
+        dip.setMensaje("¡Felicitaciones!");
+
+        return new ResponseEntity<>(dip,HttpStatus.OK);
+    }
+
+    private double calcularPromedio(Alumno alum){
+        int totNotas = 0;
+        for (Materia mat : alum.getListMateria()) {
+            totNotas += mat.getNota();
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        double prom = (double)totNotas/alum.getListMateria().size();
+        return Double.parseDouble(df.format(prom));
     }
 }
