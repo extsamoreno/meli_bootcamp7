@@ -89,8 +89,8 @@ public class CalculadoraController {
 
         edad = now.getYear() - birthdate.getYear();
 
-        if(birthdate.getMonthValue() > now.getMonthValue()){
-            if(birthdate.getDayOfMonth() > now.getDayOfMonth()){
+        if(birthdate.getMonthValue() >= now.getMonthValue()){
+            if(birthdate.getDayOfMonth() >= now.getDayOfMonth()){
                 edad = edad -1;
             }
         }
