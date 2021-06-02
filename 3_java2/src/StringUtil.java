@@ -1,11 +1,35 @@
 public class StringUtil
 {
-
-/*
-    static String rpad(String s,char c,int n){
-
+    // Retorna una cadena de longitud n, compuesta por s
+    // y antecedido de tantos caracteres c como sea necesario
+    // para completar la longitud mencionada
+    public static String rpad(String s,int n,char c)
+    {
+        return s+replicate(c,n-s.length());
     }
-*/
+    //Elimina espacios vacios a la izquierda
+    public static String ltrim(String s)
+    {
+        return s.replaceAll("^\\s*","");
+    }
+    //Elimina espacios vacios a la derecha
+    public static String rtrim(String s)
+    {
+        return s.replaceAll("\\s*$","");
+    }
+    //Elimina espacios vacios tanto a la derecha como a la izquierda
+    public static String trim(String s)
+    {
+        return s.trim();
+    }
+    public static int indexOfN(String s, char c, int n) {
+        int index = -1;
+        for (int i = 0; i < n; i++) {
+            index = s.indexOf(c, index + 1);
+        }
+
+        return index;
+    }
 
     // Retorna una cadena compuesta por n caracteres c
     public static String replicate(char c,int n)

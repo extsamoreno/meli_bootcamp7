@@ -1,6 +1,38 @@
 public class CuentaCorriente {
     private double saldo;
-    private long numeroCuenta;
+    private String numeroCuenta = "";
+
+    public void CuentaCorriente() {
+    }
+
+    public void CuentaCorriente(String cuenta, double saldo) {
+        this.saldo = saldo;
+        this.numeroCuenta = cuenta;
+    }
+
+
+    public void CuentaCorriente(CuentaCorriente cuenta) {
+        this.CuentaCorriente(cuenta.numeroCuenta, cuenta.getSaldo());
+    }
+
+
+    public void ingreso(double valor) {
+        this.saldo += valor;
+    }
+
+    public void egreso(double valor) {
+        this.saldo -= valor;
+    }
+
+    public void reintegro(double valor) {
+        this.saldo += valor;
+    }
+
+    public void transferencia(CuentaCorriente destino, double monto) {
+        this.saldo -= monto;
+        destino.saldo += monto;
+    }
+
 
     public double getSaldo() {
         return saldo;
@@ -10,42 +42,11 @@ public class CuentaCorriente {
         this.saldo = saldo;
     }
 
-    public long getNumeroCuenta() {
+    public String getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public void setNumeroCuenta(long numeroCuenta) {
+    public void setNumeroCuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
-
-    public void CuentaCorriente() {
-
-    }
-
-    public void CuentaCorriente(double saldo) {
-        this.setSaldo(saldo);
-    }
-
-    public void CuentaCorriente(CuentaCorriente cuenta) {
-        this.setSaldo(cuenta.getSaldo());
-    }
-
-
-    public void ingreso(double valor) {
-
-    }
-
-    public void egreso(double valor) {
-
-    }
-
-    public void reintegro(double valor) {
-
-    }
-
-    public void transferencia(CuentaCorriente origen, double monto) {
-
-    }
-
-
 }

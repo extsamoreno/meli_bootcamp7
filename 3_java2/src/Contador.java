@@ -1,30 +1,23 @@
 public class Contador {
-    private int valor;
+    private int valor = 0;
 
     public Contador() {
+        this(0);
     }
 
-    public Contador(int valor) {
-        this.valor = valor;
+    public Contador(Contador cont) {
+        this(cont.valor);
     }
 
-    public Contador(Contador contador) {
-        this.valor = contador.valor;
+    public Contador(int ini) {
+        this.valor = ini;
     }
 
-    public void incrementar(int cuanto) {
-        this.valor += cuanto;
+    public void incre() {
+        this.valor++;
     }
 
-    public void decremento(int cuanto) {
-        this.valor -= cuanto;
-    }
-
-    public int getValor() {
-        return valor;
-    }
-
-    public void setValor(int valor) {
-        this.valor = valor;
+    public void decre() {
+        this.valor--;
     }
 }

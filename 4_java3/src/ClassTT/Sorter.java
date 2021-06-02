@@ -1,5 +1,9 @@
 package ClassTT;
 
-public interface Sorter <T>{
-    public void sort(T arr[], Comparator<T> c);
+import java.util.Comparator;
+
+public interface Sorter<T>
+{
+    public void ordenar(T[] arr, Comparator<T> c);
 }
+
