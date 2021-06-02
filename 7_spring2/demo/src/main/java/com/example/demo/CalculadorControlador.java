@@ -16,7 +16,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/Calculador")
-public class CasaControlador {
+public class CalculadorControlador {
 
     //EJERCICIO 1
     @PostMapping("/Casa")
