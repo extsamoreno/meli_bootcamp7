@@ -6,23 +6,20 @@ public class Password {
     private String password;
     private String regex;
 
-    public Password(String password, String regex) throws Exception {
+    public Password(String regex) {
         this.regex = regex;
-        setValue(password);
     }
 
-    public void setValue(String password) throws Exception {
-        if (testRegex(password)){
-            this.password = password;
-        } else {
-            throw new Exception("Password doesn't comply with requirements");
-        }
-    }
-
-    private boolean testRegex(String password){
+    public void setValue(String password) throws Exception{
         Pattern pattern = Pattern.compile(this.regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(password);
-        return matcher.find();
+        if(matcher.matches()){
+            this.password = password;
+            System.out.println("Contraseña generada correctamente");
+        }
+        else{
+            throw new Exception("La contraseña no cumple los requerimientos.");
+        }
     }
 
 
