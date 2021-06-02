@@ -1,4 +1,4 @@
-package primerejercicio.metrocuadrado;
+package primerejercicio.metrocuadrado.web.DTO;
 
 import lombok.*;
 

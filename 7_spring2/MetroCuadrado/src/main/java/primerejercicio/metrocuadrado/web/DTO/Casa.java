@@ -1,8 +1,7 @@
-package primerejercicio.metrocuadrado;
+package primerejercicio.metrocuadrado.web.DTO;
 
 import lombok.*;
 
-import java.awt.image.ComponentSampleModel;
 import java.util.ArrayList;
 
 @Data //get, set
