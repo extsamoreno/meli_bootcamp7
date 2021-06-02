@@ -73,18 +73,42 @@ public class StringUtil
 	// Retorna una cadena de longitud n, compuesta por s
 	// y le concatena al final tantos caracteres c como sea necesario
 	// para completar la longitud mencionada
-	public static String rpad(String s,int n,char c)
+	public static String rpad(String string, int n, char c)
 	{
-		int cant_agregar = n - s.length();
+		int cant_agregar = n - string.length();
 		String pad = replicate(c,cant_agregar);
 
-		return s + pad;
+		return string + pad;
 	}
 
-	public static String rTrim(String s) {
-		int stringLength = s.length();
+	public static String lTrim(String string) {
+		int stringLength = string.length();
+		StringBuilder stringNuevo = new StringBuilder();
 
-		return "";
+		for(int i = 0; i < stringLength; i++) {
+			if(string.charAt(i) != ' ') {
+				stringNuevo.append(string.charAt(i));
+			}
+		}
+
+		return stringNuevo.toString();
+	}
+
+	public static String rTrim(String string) {
+		int stringLength = string.length();
+		StringBuilder stringNuevo = new StringBuilder();
+
+		for(int i = (stringLength - 1); i >= 0; i--) {
+			if(string.charAt(i) != ' ') {
+				stringNuevo.insert(0, string.charAt(i)); //es como un prepend, pero con el strign builder
+			}
+		}
+
+		return stringNuevo.toString();
+	}
+
+	public static String trim(String string) {
+		return lTrim(rTrim(string));
 	}
 
 }
