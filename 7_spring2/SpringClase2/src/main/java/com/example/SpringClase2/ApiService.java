@@ -30,4 +30,8 @@ public class ApiService {
         Period diff = Period.between(bornday, today);
         return diff.getYears();
     }
+
+    public static Degreed degreed(Student student){
+        return student.degreed();
+    }
 }

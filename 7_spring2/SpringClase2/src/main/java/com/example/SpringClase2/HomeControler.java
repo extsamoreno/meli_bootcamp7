@@ -23,4 +23,9 @@ public class HomeControler {
 
         return ApiService.getAge(year,month,day);
     }
+
+    @PostMapping("/getAverage")
+    public Degreed degreed(@RequestBody Student student){
+        return ApiService.degreed(student);
+    }
 }
