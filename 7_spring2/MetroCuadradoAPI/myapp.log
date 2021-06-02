@@ -1,0 +1,18 @@
+2021-06-02 11:39:11.612  INFO 13098 --- [restartedMain] c.m.m.MetrocuadradoApplication           : Starting MetrocuadradoApplication using Java 11.0.11 on CO0C02F77DDMD6M with PID 13098 (/Users/mirivera/Documents/meli_bootcamp7/7_spring2/MetroCuadradoAPI/target/classes started by mirivera in /Users/mirivera/Documents/meli_bootcamp7/7_spring2/MetroCuadradoAPI)
+2021-06-02 11:39:11.614  INFO 13098 --- [restartedMain] c.m.m.MetrocuadradoApplication           : No active profile set, falling back to default profiles: default
+2021-06-02 11:39:11.663  INFO 13098 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-06-02 11:39:11.663  INFO 13098 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-06-02 11:39:12.493  INFO 13098 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-06-02 11:39:12.503  INFO 13098 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-06-02 11:39:12.503  INFO 13098 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.46]
+2021-06-02 11:39:12.557  INFO 13098 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-06-02 11:39:12.557  INFO 13098 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 893 ms
+2021-06-02 11:39:12.886  INFO 13098 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-06-02 11:39:12.919  INFO 13098 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-06-02 11:39:12.932  INFO 13098 --- [restartedMain] c.m.m.MetrocuadradoApplication           : Started MetrocuadradoApplication in 1.63 seconds (JVM running for 2.295)
+2021-06-02 11:39:12.933  INFO 13098 --- [restartedMain] o.s.b.a.ApplicationAvailabilityBean      : Application availability state LivenessState changed to CORRECT
+2021-06-02 11:39:12.935  INFO 13098 --- [restartedMain] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed to ACCEPTING_TRAFFIC
+2021-06-02 11:39:15.495  INFO 13098 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-06-02 11:39:15.496  INFO 13098 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-06-02 11:39:15.497  INFO 13098 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-06-02 11:39:15.532  WARN 13098 --- [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'text/plain;charset=UTF-8' not supported]
