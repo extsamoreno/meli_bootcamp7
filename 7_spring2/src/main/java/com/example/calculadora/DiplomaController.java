@@ -15,7 +15,7 @@ import java.util.List;
 public class DiplomaController {
 
     @PostMapping("/obtenerDiploma")
-    public ResponseEntity<DiplomaDTO> devolverMetrosCuadradosPorHabitacion(@RequestBody Alumno alumno){
+    public ResponseEntity<DiplomaDTO> obtenerDiploma(@RequestBody Alumno alumno){
         double promedio = 0;
         double sumaNotas = 0;
         int cantAsignturas = alumno.getAsignaturas().size();
