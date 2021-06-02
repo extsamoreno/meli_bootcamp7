@@ -12,7 +12,7 @@ import java.time.Period;
 
 @RestController
 @RequestMapping("")
-public class AgeCalculator {
+public class AgeCalculatorController {
     @GetMapping("/{day}/{month}/{year}")
     public ResponseEntity<String> getAge(@PathVariable int day, @PathVariable int month, @PathVariable int year){
         try{
