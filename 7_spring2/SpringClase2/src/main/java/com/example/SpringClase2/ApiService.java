@@ -1,5 +1,7 @@
 package com.example.SpringClase2;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
 
 public class ApiService {
@@ -20,5 +22,12 @@ public class ApiService {
         HashMap<String, Float> metersPerRoom = home.metersPerRoom();
         homeDTO.setMetersPerRoom(metersPerRoom);
         return homeDTO;
+    }
+
+    public static int getAge(int year, int month, int day){
+        LocalDate today = LocalDate.now();
+        LocalDate bornday = LocalDate.of(year, month,day);
+        Period diff = Period.between(bornday, today);
+        return diff.getYears();
     }
 }

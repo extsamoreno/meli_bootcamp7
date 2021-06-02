@@ -15,4 +15,12 @@ public class HomeControler {
     public HomeDTO area(@RequestBody Home home) {
         return ApiService.getHouse(home);
     }
+
+    @GetMapping("/{year}/{month}/{day}")
+    public int age(@PathVariable int year,
+                    @PathVariable int month,
+                    @PathVariable int day){
+
+        return ApiService.getAge(year,month,day);
+    }
 }
