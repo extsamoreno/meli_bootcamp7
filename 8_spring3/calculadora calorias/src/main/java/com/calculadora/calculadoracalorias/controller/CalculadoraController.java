@@ -1,7 +1,6 @@
 package com.calculadora.calculadoracalorias.controller;
 
 import com.calculadora.calculadoracalorias.dto.IngredienteResponseDTO;
-import com.calculadora.calculadoracalorias.dto.IngredientesRequestDTO;
 import com.calculadora.calculadoracalorias.services.PlatoService;
 import com.calculadora.calculadoracalorias.dto.PlatoResponseDTO;
 import com.calculadora.calculadoracalorias.dto.PlatoRequestDTO;
