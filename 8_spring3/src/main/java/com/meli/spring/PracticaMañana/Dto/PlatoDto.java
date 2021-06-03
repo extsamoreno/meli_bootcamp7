@@ -1,6 +1,5 @@
-package com.meli.spring.Dto;
+package com.meli.spring.PracticaMañana.Dto;
 
-import com.meli.spring.Classes.Ingrediente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -1,7 +1,7 @@
-package com.meli.spring.Services;
+package com.meli.spring.PracticaMañana.Services;
 
-import com.meli.spring.Classes.Plato;
-import com.meli.spring.Dto.PlatoDto;
+import com.meli.spring.PracticaMañana.Classes.Plato;
+import com.meli.spring.PracticaMañana.Dto.PlatoDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.meli.spring.Classes;
+package com.meli.spring.PracticaMañana.Classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

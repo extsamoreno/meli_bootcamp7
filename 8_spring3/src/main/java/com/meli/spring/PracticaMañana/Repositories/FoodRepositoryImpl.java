@@ -1,9 +1,9 @@
-package com.meli.spring.Repositories;
+package com.meli.spring.PracticaMañana.Repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.spring.Classes.Ingrediente;
-import com.meli.spring.Dto.IngredienteDto;
+import com.meli.spring.PracticaMañana.Classes.Ingrediente;
+import com.meli.spring.PracticaMañana.Dto.IngredienteDto;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
