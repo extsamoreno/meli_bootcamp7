@@ -5,86 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="972f438e-ea6e-4d73-bc0b-395476f798b5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../2_java1/ejercicio1/esPar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../2_java1/ejercicio2/sonMultiplos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../2_java1/ejercicio3/esPrimo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../2_java1/ejercicio4/sonPrimos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../2_java1/ejercicio5/sonNaturales.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../2_java1/ejercicio6/StringUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../2_java1/ejercicio6/radixSort.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio1/CuentaCorriente.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio2/Contador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio3/Libro.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio4/Fraccion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio5/Fecha.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio6/StringUtilExtra.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio7/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio7/Password.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio7/PasswordFuerte.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio7/PasswordIntermedia.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio7/PasswordSimple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio8/Circulo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio8/FiguraGeometrica.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio8/FiguraGeometricaUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio8/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio8/Rectangulo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../3_java2/ejercicio8/Triangulo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio1/Celular.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio1/FactoryPrecedable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio1/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio1/Persona.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio1/Precedable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio1/SortUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio2/Respuesta.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio3/BubbleSortSorterImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio3/HeapSortSorterImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio3/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio3/MiFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio3/MiFactory.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio3/QuickSortSorterImple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio3/Sorter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4_java3/ejercicio3/Timer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/dakar/Auto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/dakar/Carrera.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/dakar/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/dakar/Moto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/dakar/SocorristaAuto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/dakar/SocorristaMoto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/dakar/Vehiculo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/martegroupsa/Evento.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/martegroupsa/FuegoArtificial.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/martegroupsa/FuegoArtificialIndividual.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/martegroupsa/FuegoArtificialPack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/martegroupsa/Invitado.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/martegroupsa/InvitadoMeli.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/martegroupsa/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/savetheropa/Buzo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/savetheropa/GuardaRopa.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/savetheropa/Jean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/savetheropa/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/savetheropa/Prenda.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../5_java4/savetheropa/Remera.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../6_spring1/src/main/java/com/example/conversor/ConversorApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../6_spring1/src/main/java/com/example/conversor/ConversorController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../6_spring1/src/test/java/com/example/conversor/ConversorApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/Alumno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/Asignatura.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/CalculadoraApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/CalculadoraController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/Casa.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/CasaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/DiplomaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/DiplomaDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/DiplomaFelicitacionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/DiplomaStandarDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/Habitacion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/calculadora/HabitacionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/calculadora/CalculadoraApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +30,17 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager" selected="Spring Boot.CalculadoraApplication">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CalculadoraApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="calculadora" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.calculadora.CalculadoraApplication" />
@@ -133,11 +65,24 @@
       <option name="presentableId" value="Default" />
       <updated>1622658030377</updated>
       <workItem from="1622658031495" duration="1168000" />
-      <workItem from="1622677030671" duration="1384000" />
+      <workItem from="1622677030671" duration="1762000" />
+      <workItem from="1622679098183" duration="206000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
