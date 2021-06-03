@@ -1,4 +1,4 @@
-package com.meli.spring.PracticaTarde.Repositories;
+package com.meli.spring.PracticaTarde.Repository;
 
 import com.meli.spring.PracticaTarde.Classes.CharacterSW;
 

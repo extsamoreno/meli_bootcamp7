@@ -2,7 +2,7 @@ package com.meli.spring.PracticaTarde.Services;
 
 import com.meli.spring.PracticaTarde.Classes.CharacterSW;
 import com.meli.spring.PracticaTarde.Dto.CharacterDto;
-import com.meli.spring.PracticaTarde.Repositories.CharacterRepository;
+import com.meli.spring.PracticaTarde.Repository.CharacterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

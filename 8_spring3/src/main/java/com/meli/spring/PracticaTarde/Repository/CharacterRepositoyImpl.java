@@ -1,4 +1,4 @@
-package com.meli.spring.PracticaTarde.Repositories;
+package com.meli.spring.PracticaTarde.Repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

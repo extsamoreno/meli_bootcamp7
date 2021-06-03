@@ -4,7 +4,7 @@ import com.meli.spring.PracticaMañana.Classes.Ingrediente;
 import com.meli.spring.PracticaMañana.Classes.Plato;
 import com.meli.spring.PracticaMañana.Dto.IngredienteDto;
 import com.meli.spring.PracticaMañana.Dto.PlatoDto;
-import com.meli.spring.PracticaMañana.Repositories.FoodRepository;
+import com.meli.spring.PracticaMañana.Repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
