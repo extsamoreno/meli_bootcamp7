@@ -1,4 +1,4 @@
-package com.calculadora.calculadoracalorias.services.dto;
+package com.calculadora.calculadoracalorias.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

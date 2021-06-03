@@ -1,8 +1,6 @@
-package com.calculadora.calculadoracalorias.services.dto;
+package com.calculadora.calculadoracalorias.dto;
 
 import lombok.*;
-
-import java.util.ArrayList;
 
 
 @AllArgsConstructor@NoArgsConstructor
