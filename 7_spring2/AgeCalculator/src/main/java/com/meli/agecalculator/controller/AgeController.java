@@ -14,7 +14,7 @@ public class AgeController {
     @Autowired
     private IAgeService ageService;
 
-    @GetMapping("/{day}/{moth}/{year}")
+    @GetMapping("/{day}/{month}/{year}")
     public ResponseEntity<Integer> calculateAge(@PathVariable int day, @PathVariable int month, @PathVariable int year) {
         return new ResponseEntity<Integer>(ageService.calculateAge(day, month, year), HttpStatus.OK);
     }
