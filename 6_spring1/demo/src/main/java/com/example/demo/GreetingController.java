@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Hashtable;
 import java.util.Set;
@@ -34,5 +31,12 @@ public class GreetingController {
         Abecedario abecedario = new Abecedario(frase);
         return abecedario.decodificacion();
     }
+    /*
+    @GetMapping("/abecedario/{frase}")
+    public  String converAbecedariotoString(@PathVariable String frase, @RequestParam(required = false, defaultValue = "") String color){
+        Abecedario abecedario = new Abecedario(frase);
+        return abecedario.decodificacion();
+    }
+     */
 
 }
