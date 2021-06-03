@@ -18,14 +18,7 @@ public class CaloriesRepositoryImp implements iCaloriesRepository{
     @Override
     public CaloriesDTO findCaloriesByFood(String food) {
         List<CaloriesDTO> caloriesDTOS = loadDatase();
-        CaloriesDTO result = null;
-        if (caloriesDTOS != null){
-            Optional<CaloriesDTO> item = caloriesDTOS.stream()
-                    .filter(caloryDTO -> caloryDTO.getName().equals(food)).findFirst();
-            if(item.isPresent())
-                result = item.get();
-        }
-        return result;
+        return caloriesDTOS.stream().filter(caloryDTO -> caloryDTO.getName().equals(food)).findFirst().get();
     }
 
     private List<CaloriesDTO> loadDatase() {
