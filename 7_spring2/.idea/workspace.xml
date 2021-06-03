@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="972f438e-ea6e-4d73-bc0b-395476f798b5" name="Default Changelist" comment="">
+    <list default="true" id="33d4dd39-8869-4302-94df-b4d06b02651c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/7_spring2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -12,11 +15,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1tP5kxMNSu6XXZAUmoKKKHTEQKk" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1tPoKC0DXAhz8ILd4s7MpUelTB7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,10 +38,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RunManager" selected="Spring Boot.CalculadoraApplication">
+  <component name="RunManager">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -41,15 +51,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CalculadoraApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="calculadora" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.calculadora.CalculadoraApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CalculadoraApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="7_spring2" />
+      <module name="calculadora" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.calculadora.CalculadoraApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -59,30 +62,16 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="972f438e-ea6e-4d73-bc0b-395476f798b5" name="Default Changelist" comment="" />
-      <created>1622658030377</created>
+      <changelist id="33d4dd39-8869-4302-94df-b4d06b02651c" name="Default Changelist" comment="" />
+      <created>1622680020506</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1622658030377</updated>
-      <workItem from="1622658031495" duration="1168000" />
-      <workItem from="1622677030671" duration="1762000" />
-      <workItem from="1622679098183" duration="206000" />
+      <updated>1622680020506</updated>
+      <workItem from="1622680022428" duration="838000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
