@@ -1,47 +1,45 @@
 package primerejercicio.metrocuadrado.web.controller;
 
-import org.springframework.boot.autoconfigure.hazelcast.HazelcastJpaDependencyAutoConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import primerejercicio.metrocuadrado.web.DTO.Casa;
 import primerejercicio.metrocuadrado.web.DTO.Habitacion;
 import primerejercicio.metrocuadrado.web.DTO.ResponseDTOcasa;
-import primerejercicio.metrocuadrado.web.service.CasaService;
+import primerejercicio.metrocuadrado.web.service.ServiceCasa;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/metrosCuadrados")
-public class MetrosCuadradosController {
-
-    CasaService casaService = new CasaService();
+public class Controller {
+    @Autowired
+    private  ServiceCasa serviceCasa;
 
     @PostMapping("/save")
     public ResponseEntity<Casa> save(@RequestBody Casa casa){
-        return new ResponseEntity<>(casaService.guardarCasa(casa), HttpStatus.CREATED);
+        return new ResponseEntity<>(serviceCasa.guardarCasa(casa), HttpStatus.CREATED);
     }
 
     @GetMapping("/metros/{casa}")
     public ResponseEntity<ResponseDTOcasa> getMetrosCuadrados(@PathVariable ("casa") String nombre){
-        return new ResponseEntity<>(casaService.devolverCasa(nombre), HttpStatus.OK);
+        return new ResponseEntity<>(serviceCasa.devolverCasa(nombre), HttpStatus.OK);
     }
 
     @GetMapping("/precio/{casa}")
     public ResponseEntity<ResponseDTOcasa> getPrecio(@PathVariable ("casa") String nombre){
-        return new ResponseEntity<>(casaService.getPrecio(nombre), HttpStatus.OK);
+        return new ResponseEntity<>(serviceCasa.getPrecio(nombre), HttpStatus.OK);
     }
 
     @GetMapping("/casaHabitacionMasGrande")
     public ResponseEntity<Casa> getCasaHabitacionMasGrande(){
-        return new ResponseEntity<>(casaService.obtenerCasaHabitacionGrande(),HttpStatus.OK);
+        return new ResponseEntity<>(serviceCasa.obtenerCasaHabitacionGrande(),HttpStatus.OK);
     }
 
-    @GetMapping("/metrosHabitacion")
+    @GetMapping("/metrosHabitacion/{casa}")
     public ResponseEntity<HashMap<Double, Habitacion>> getMetrosPorHabitacion(Casa casa){
-        return new ResponseEntity<>(casaService.obtenerListaHabitacionesMetros(casa), HttpStatus.OK);
+        return new ResponseEntity<>(serviceCasa.obtenerListaHabitacionesMetros(casa), HttpStatus.OK);
     }
 
 }

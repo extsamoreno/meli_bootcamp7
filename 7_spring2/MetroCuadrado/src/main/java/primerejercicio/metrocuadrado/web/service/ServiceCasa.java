@@ -1,12 +1,14 @@
 package primerejercicio.metrocuadrado.web.service;
 
+import org.springframework.stereotype.Service;
 import primerejercicio.metrocuadrado.web.DTO.Casa;
 import primerejercicio.metrocuadrado.web.DTO.Habitacion;
 import primerejercicio.metrocuadrado.web.DTO.ResponseDTOcasa;
 
 import java.util.*;
 
-public class CasaService {
+@Service
+public class ServiceCasa {
     ArrayList<Casa> listaCasas = new ArrayList<>();
 
     //Se pide, retornar un objeto que diga la cantidad totales de metros cuadrados de la casa.
@@ -100,4 +102,6 @@ public class CasaService {
         return hashMapHab;
 
     }
+
+
 }
