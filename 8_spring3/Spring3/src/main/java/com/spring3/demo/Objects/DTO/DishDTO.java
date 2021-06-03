@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DishDTO {
-    private float totalCaloris;
+    private float totalCalories;
     private ArrayList<IngredientDTO> listIngredients;
     private IngredientDTO mostCaloriesIngredient;
 }

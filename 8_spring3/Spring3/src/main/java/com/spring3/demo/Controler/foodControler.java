@@ -23,14 +23,14 @@ public class foodControler {
         return new ResponseEntity<>(ifoodService.getfood(dish), HttpStatus.OK);
     }
 
-    @GetMapping("/hello2")
+    @GetMapping("/hello3")
     public String hello(){
         return "hello";
     }
-    /*
+
     @PostMapping("/getListDish")
     public ResponseEntity<ArrayList<DishDTO>> getListDish(@RequestBody ArrayList<Dish> listDish) throws IOException {
-        return new ResponseEntity<>(ifoodService.getfood(dish), HttpStatus.OK);
-    }*/
+        return new ResponseEntity<>(ifoodService.getListFood(listDish), HttpStatus.OK);
+    }
 
 }

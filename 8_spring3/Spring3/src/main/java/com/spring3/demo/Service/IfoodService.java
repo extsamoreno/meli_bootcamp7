@@ -10,4 +10,6 @@ import java.util.ArrayList;
 public interface IfoodService {
 
       DishDTO getfood(Dish dish) throws IOException;
+
+      ArrayList<DishDTO> getListFood(ArrayList<Dish> listDish) throws IOException;
 }

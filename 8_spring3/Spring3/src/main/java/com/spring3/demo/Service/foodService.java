@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @Service
 public class foodService implements IfoodService {
@@ -38,11 +39,21 @@ public class foodService implements IfoodService {
         dishDTO.setMostCaloriesIngredient(mostCalories);
 
         float totalCalories = totalCalories(listIngredient);
-        dishDTO.setTotalCaloris(totalCalories);
+        dishDTO.setTotalCalories(totalCalories);
 
         // Ingredientes to DTO
         dishDTO.setListIngredients(toDTO(listIngredient));
         return dishDTO;
+    }
+
+    @Override
+    public ArrayList<DishDTO> getListFood(ArrayList<Dish> listDish) throws IOException {
+        ArrayList<DishDTO> listDTO = new ArrayList<>();
+
+        for (Dish dish: listDish) {
+            listDTO.add(getfood(dish));
+        }
+        return listDTO;
     }
 
     public ArrayList<IngredientDTO> toDTO(ArrayList<Ingredient> ingredients){
@@ -52,24 +63,11 @@ public class foodService implements IfoodService {
     }
 
     public float totalCalories(ArrayList<Ingredient> ingredients){
-        float total = 0;
-        for (Ingredient ingredient: ingredients) {
-            total += ingredient.getCalories();
-        }
-        return total;
+        return (float) ingredients.stream().mapToDouble(Ingredient::getCalories).sum();
     }
 
     public Ingredient mostCaloriesIngredient(ArrayList<Ingredient> ingredients){
-
-        Ingredient mostCalories = new Ingredient();
-
-        for (Ingredient ingredient: ingredients) {
-
-            if(ingredient.getCalories() > mostCalories.getCalories()){
-                mostCalories = ingredient;
-            }
-        }
-        return mostCalories;
+        return ingredients.stream().max(Comparator.comparing(Ingredient::getCalories)).get();
     }
 
 }
