@@ -3,7 +3,6 @@ package com.meli.caloria.controller;
 import com.meli.caloria.repository.Dish;
 import com.meli.caloria.repository.Ingredient;
 import com.meli.caloria.service.IDishService;
-import com.meli.caloria.service.IIngredientService;
 import com.meli.caloria.service.dto.DishDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
