@@ -1,0 +1,18 @@
+package com.calculator.calculator.dtos;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class PlateDTO {
+    private String name;
+    private List<IngredientDTO> ingredientDTOList;
+    private int calories;
+}
