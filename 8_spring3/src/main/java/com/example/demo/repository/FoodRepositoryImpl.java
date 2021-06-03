@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.dtos.DishDTO;
-import com.example.demo.dtos.Ingredient;
+import com.example.demo.model.Ingredient;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class FoodRepositoryImpl implements FoodRepository {
+public class FoodRepositoryImpl implements IFoodRepository {
 
     @Override
     public Ingredient getIngredientByName(String name) {
@@ -36,7 +35,7 @@ public class FoodRepositoryImpl implements FoodRepository {
         File file = null;
 
         try {
-            file = ResourceUtils.getFile("classpath:food.json");
+            file = ResourceUtils.getFile("/Users/dbanfi/IdeaProjects/banfi_diego/meli_bootcamp7/8_spring3/src/main/resources/food.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
