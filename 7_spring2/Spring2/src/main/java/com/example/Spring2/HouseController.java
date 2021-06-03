@@ -13,8 +13,23 @@ public class HouseController {
     @Autowired
     private HouseService hService;
 
-    @PostMapping("/calcular")
-    public ResponseEntity<ResponseHouseDTO> calculateHouseM2(@RequestBody House h){
+    @PostMapping("/calcM2")
+    public ResponseEntity<ResponseHouseDTO> calculateHouseM2(@RequestBody House h) {
         return new ResponseEntity<>(hService.calculateM2House(h), HttpStatus.OK);
+    }
+
+    @PostMapping("/calcValue")
+    public ResponseEntity<ResponseHouseDTO> calculateHouseValue(@RequestBody House h) {
+        return new ResponseEntity<>(hService.calculateValue(h), HttpStatus.OK);
+    }
+
+    @PostMapping("/calcBiggestRoom")
+    public ResponseEntity<ResponseHouseDTO> calculateBiggestRoom(@RequestBody House h){
+        return new ResponseEntity<>(hService.getBiggestRoom(h), HttpStatus.OK);
+    }
+
+    @PostMapping("/calcRoomsM2")
+    public ResponseEntity<ResponseHouseDTO> getRoomsM2(@RequestBody House h){
+        return new ResponseEntity<>(hService.getRoomsM2(h), HttpStatus.OK);
     }
 }
