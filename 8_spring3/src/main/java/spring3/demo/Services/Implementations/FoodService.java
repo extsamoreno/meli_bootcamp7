@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class FoodService implements IFoodService {
     IFoodRepository iFoodRepository;
 
-    @Autowired
+
     public FoodService(IFoodRepository iFoodRepository) {
         this.iFoodRepository = iFoodRepository;
     }
