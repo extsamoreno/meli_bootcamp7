@@ -3,14 +3,13 @@ package com.example.SpringClase2;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping()
 public class HomeControler {
 
     @GetMapping("/hello")
-    public String hello() {
-        return "hola";
+    public String hello(){
+        return "Hello";
     }
-
     @PostMapping("/getHouse")
     public HomeDTO area(@RequestBody House house) {
 
