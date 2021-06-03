@@ -21,7 +21,8 @@ public class CharacterRepositoryImpl implements CharacterRepository {
         List<StarWarsCharacter> characters = loadDatabase();
         List<StarWarsCharacter> result = new ArrayList<>();
         if (characters != null) {
-           result = characters.stream().filter(c -> c.getName().toUpperCase().trim().contains(name.toUpperCase())).collect(Collectors.toList());
+           result = characters.stream().filter(c -> c.getName().toUpperCase().replaceAll("\\s", "")
+                               .contains(name.toUpperCase().replaceAll("\\s", ""))).collect(Collectors.toList());
         }
         return result;
     }
