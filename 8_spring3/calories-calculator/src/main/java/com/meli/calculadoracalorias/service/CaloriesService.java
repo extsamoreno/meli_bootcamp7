@@ -8,6 +8,7 @@ import com.meli.calculadoracalorias.service.dto.IngredientDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,13 @@ public class CaloriesService implements ICaloriesService {
         double totalCalories = getTotalCalories(ingredients);
         IngredientDTO maxCalories = getMaxCaloriesIngredient(ingredients);
         return new DishDTO(dish.getName(), totalCalories, ingredients, maxCalories);
+    }
+
+    @Override
+    public List<DishDTO> getDishesData(List<Dish> dishes) {
+        return dishes.stream()
+                .map(elem -> getDishData(elem))
+                .collect(Collectors.toList());
     }
 
 

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/calculate-calories")
 public class CaloriesController {
@@ -23,5 +25,9 @@ public class CaloriesController {
         return new ResponseEntity<>(caloriesService.getDishData(dish), HttpStatus.OK);
     }
 
+    @PostMapping("/dishes")
+    public ResponseEntity<List<DishDTO>> dishesData(@RequestBody List<Dish> dishes) {
+        return new ResponseEntity<>(caloriesService.getDishesData(dishes), HttpStatus.OK);
+    }
 
 }
