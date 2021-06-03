@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.service.dto.DishDTO;
-import com.example.demo.service.dto.FoodCaloriesDTO;
+import com.example.demo.dto.DishDTO;
+import com.example.demo.dto.FoodCaloriesDTO;
+import org.springframework.stereotype.Service;
 
+//@Service
 public interface IDishService {
-
-    public FoodCaloriesDTO getCalories(DishDTO dish);
+    FoodCaloriesDTO getCalories(DishDTO dish);
 }

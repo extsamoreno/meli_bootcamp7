@@ -1,28 +1,31 @@
 package com.example.demo.controlers;
 
 import com.example.demo.service.DishService;
-import com.example.demo.service.dto.DishDTO;
-import com.example.demo.service.dto.FoodCaloriesDTO;
+import com.example.demo.dto.DishDTO;
+import com.example.demo.dto.FoodCaloriesDTO;
+import com.example.demo.service.IDishService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/food")
 public class FoodControler {
 
+    @GetMapping("/ping")
+    public String status(){
+        final String pong = "pong";
+        return pong;
+    }
 
     @Autowired
-    private IDishService IDishService;
+    private IDishService dishService;
+//    private DishService dishService;
 
-    @PostMapping
-    public FoodCaloriesDTO getCalories(@RequestBody DishDTO dish){
-
-        FoodCaloriesDTO response = IDishService.getCalories(dish);
-
-        return  response;
+    @PostMapping("/calories")
+    public ResponseEntity<FoodCaloriesDTO> getCalories(@RequestBody DishDTO dish){
+        return  new ResponseEntity<>(dishService.getCalories(dish), HttpStatus.OK);
     }
 
 }

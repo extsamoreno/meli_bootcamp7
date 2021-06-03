@@ -1,4 +1,4 @@
-package com.example.demo.service.dto;
+package com.example.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class IngredientReqDTO {
+public class IngredientRespDTO {
 
     private String name;
-    private double weight;
+    private double calories;
 
 }
