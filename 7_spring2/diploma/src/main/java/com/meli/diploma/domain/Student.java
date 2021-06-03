@@ -18,6 +18,9 @@ public class Student {
             totalGrades += s.getGrade();
         }
 
-        return totalGrades / subjects.size();
+        double average = totalGrades / subjects.size();
+        double roundedAverage =  Math.floor(average * 100) / 100;
+
+        return roundedAverage;
     }
 }
