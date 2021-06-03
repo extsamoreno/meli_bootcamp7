@@ -14,6 +14,10 @@ public class Habitacion {
         this.largo = largo;
     }
 
+    public float calcularMts2(){
+        return this.ancho * this.largo;
+    }
+
     public String getNombre() {
         return nombre;
     }

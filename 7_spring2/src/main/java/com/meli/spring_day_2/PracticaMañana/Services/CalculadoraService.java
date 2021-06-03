@@ -21,17 +21,17 @@ public class CalculadoraService {
 
             if(masGrande == null){
                 masGrande = habitacion;
-                mtsMax = habitacion.getAncho() * habitacion.getLargo();
+                mtsMax = habitacion.calcularMts2();
                 totalMts2 += mtsMax;
             }else{
-                if(mtsMax < habitacion.getAncho() * habitacion.getLargo()){
+                if(mtsMax < habitacion.calcularMts2()){
                     masGrande = habitacion;
-                    mtsMax = habitacion.getAncho() * habitacion.getLargo();
+                    mtsMax = habitacion.calcularMts2();
                 }
-                totalMts2 += habitacion.getAncho() * habitacion.getLargo();
+                totalMts2 += habitacion.calcularMts2();
             }
 
-            result.getMtrsHabitaciones().put(habitacion, habitacion.getAncho() * habitacion.getLargo());
+            result.getMtrsHabitaciones().put(habitacion, habitacion.calcularMts2());
         }
 
         result.setNombre(casa.getNombre());
