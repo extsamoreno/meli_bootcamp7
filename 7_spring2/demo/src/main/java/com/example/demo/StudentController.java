@@ -13,7 +13,10 @@ public class StudentController {
     @PostMapping("/student")
     public ResponseEntity<StudentDTO> getDegree(@RequestBody Student student){
         double average = student.average();
-        StudentDTO studentDTO =  new StudentDTO("Se le otroga el titulo",average,student.getName());
+        String message = "Se le otroga el titulo. ";
+        if (average>9.0)
+            message += "Felicitaciones obtuvo promedio mayor a 9.0";
+        StudentDTO studentDTO =  new StudentDTO(message,average,student.getName());
         ResponseEntity<StudentDTO> responseEntity = new ResponseEntity(studentDTO, HttpStatus.OK);
         return responseEntity;
     }
