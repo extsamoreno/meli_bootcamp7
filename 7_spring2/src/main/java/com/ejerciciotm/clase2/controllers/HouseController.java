@@ -15,27 +15,9 @@ public class HouseController {
     @Autowired
     private HouseService houseService;
 
-    @PostMapping("/square-metters")
+    @PostMapping("/calculate")
     public ResponseEntity <HouseDTO> getSquareMettersByHouse(@RequestBody House house){
 
-        return new ResponseEntity<HouseDTO>(houseService.calculateSquareMettersByHouse(house), HttpStatus.OK);
-    }
-
-    @PostMapping("/amount")
-    public ResponseEntity <HouseDTO> getAmountByHouse(@RequestBody House house){
-
-        return new ResponseEntity<HouseDTO>(houseService.calculateAmountByHouse(house), HttpStatus.OK);
-    }
-
-    @PostMapping("/biggest-room")
-    public ResponseEntity <HouseDTO> getBiggestRoomByHouse(@RequestBody House house){
-
-        return new ResponseEntity<HouseDTO>(houseService.calculateBiggestRoom(house), HttpStatus.OK);
-    }
-
-    @PostMapping("/square-metters-room")
-    public ResponseEntity <HouseDTO> getSquareMettersRoomByHouse(@RequestBody House house){
-
-        return new ResponseEntity<HouseDTO>(houseService.calculateSquareMettersByRoom(house), HttpStatus.OK);
+        return new ResponseEntity<HouseDTO>(houseService.calculate(house), HttpStatus.OK);
     }
 }

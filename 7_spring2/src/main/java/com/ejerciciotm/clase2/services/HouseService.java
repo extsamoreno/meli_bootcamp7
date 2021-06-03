@@ -12,49 +12,46 @@ import java.util.Arrays;
 @Service
 public class HouseService {
 
-    public HouseDTO calculateSquareMettersByHouse(House house){
+    public HouseDTO calculate(House house){
         HouseDTO response = new HouseDTO();
         double squareMetters = squareMetterByHouse(house);
+        double amount = calculateAmountByHouse(house);
         response.setHouse(house);
         response.setSquareMetters(squareMetters);
-        return response;
-    }
-
-    public HouseDTO calculateAmountByHouse(House house){
-        HouseDTO response = new HouseDTO();
-        double amount = squareMetterByHouse(house) * 800;
-        response.setHouse(house);
         response.setAmount(amount);
+        response.setBiggestRoom(calculateBiggestRoom(house));
+        response.setRooms(calculateSquareMettersByRoom(house));
         return response;
     }
 
+    public double calculateAmountByHouse(House house){
+        return squareMetterByHouse(house) * 800;
+    }
 
-    public HouseDTO calculateBiggestRoom(House house){
-        HouseDTO response = new HouseDTO();
+
+    public Room calculateBiggestRoom(House house){
         ArrayList<Room> arrayRooms = house.getRooms();
         double aux = squareMetterByRoom(house.getRooms().get(0));
-        Room biggestRoom = new Room(house.getRooms().get(0).getWidth(), house.getRooms().get(0).getHeight());
+        Room biggestRoom = new Room(house.getRooms().get(0).getName(),house.getRooms().get(0).getWidth(), house.getRooms().get(0).getHeight());
         for (int i = 1; i < arrayRooms.size(); i++){
             double squareMetter = squareMetterByRoom(arrayRooms.get(i));
             if(squareMetter > aux){
                 aux = squareMetter;
+                biggestRoom.setName(arrayRooms.get(i).getName());
                 biggestRoom.setHeight(arrayRooms.get(i).getHeight());
                 biggestRoom.setWidth(arrayRooms.get(i).getWidth());
             }
         }
-        response.setBiggestRoom(biggestRoom);
-        response.setHouse(house);
-        return response;
+
+        return biggestRoom;
     }
 
-    public HouseDTO calculateSquareMettersByRoom(House house){
-        HouseDTO response = new HouseDTO();
+    public ArrayList<RoomDTO>  calculateSquareMettersByRoom(House house){
         ArrayList<RoomDTO> roomsDTO = new ArrayList<RoomDTO>();
         for (Room room: house.getRooms()) {
             roomsDTO.add(new RoomDTO(room, squareMetterByRoom(room)));
         }
-        response.setRooms(roomsDTO);
-        return response;
+        return roomsDTO;
     }
 
     private double squareMetterByHouse(House house){

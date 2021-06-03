@@ -5,6 +5,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Room {
+    private String name;
     private double width;
     private double height;
 }
