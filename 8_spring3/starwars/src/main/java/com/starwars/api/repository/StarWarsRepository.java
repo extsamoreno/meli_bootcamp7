@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.starwars.api.dto.CaracterResponseDTO;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
