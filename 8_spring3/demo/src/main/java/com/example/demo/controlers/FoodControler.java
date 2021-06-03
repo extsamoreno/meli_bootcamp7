@@ -21,7 +21,7 @@ public class FoodControler {
 
     @Autowired
     private IDishService dishService;
-//    private DishService dishService;
+
 
     @PostMapping("/calories")
     public ResponseEntity<FoodCaloriesDTO> getCalories(@RequestBody DishDTO dish){

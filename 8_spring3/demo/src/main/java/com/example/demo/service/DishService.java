@@ -4,6 +4,8 @@ import com.example.demo.dto.DishDTO;
 import com.example.demo.dto.FoodCaloriesDTO;
 import com.example.demo.dto.IngredientReqDTO;
 import com.example.demo.dto.IngredientRespDTO;
+import com.example.demo.repository.IFoodRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Service
 public class DishService implements IDishService {
+    @Autowired
+    private IFoodRepository foodRepository;
     @Override
     public FoodCaloriesDTO getCalories(DishDTO dish){
 
@@ -20,9 +24,11 @@ public class DishService implements IDishService {
         double totalCalories = 0.0;
         IngredientRespDTO max = new IngredientRespDTO( "", 0.0);
 
-        for(IngredientReqDTO ing: dish.getIngridients()){
+        for(IngredientReqDTO ing: dish.getIngredients()){
 
-            double caloriesIng = ing.getWeight() * 1;
+            double caloriesIng = ing.getWeight() * foodRepository.findIngredientByName(ing.getName()).getCalories() / 100;
+            System.out.println("foodRepository.findIngredienteByName(ing.getName()) = "
+                    + foodRepository.findIngredientByName(ing.getName()).toString());
             totalCalories += caloriesIng;
 
             IngredientRespDTO ingResp = new IngredientRespDTO( ing.getName(), caloriesIng);

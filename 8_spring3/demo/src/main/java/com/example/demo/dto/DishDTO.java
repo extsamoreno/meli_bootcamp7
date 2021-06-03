@@ -8,6 +8,6 @@ import java.util.List;
 public class DishDTO {
 
     private String name;
-    private List<IngredientReqDTO> ingridients;
+    private List<IngredientReqDTO> ingredients;
 
 }
