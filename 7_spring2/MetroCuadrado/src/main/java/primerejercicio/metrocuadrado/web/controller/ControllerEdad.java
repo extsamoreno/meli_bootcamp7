@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import primerejercicio.metrocuadrado.web.service.ServiceEdad;
 
 @RestController
-public class EdadController {
+public class ControllerEdad {
 
     @Autowired
     private ServiceEdad serviceEdad;

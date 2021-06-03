@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data //get, set
 @AllArgsConstructor //constructor automatico
 @NoArgsConstructor //constructor vacio
-public class ResponseDTOcasa {
-    private Casa casa;
-    private double metrosTotales;
-    private double precio;
+public class DiplomaDTO {
+    private double promedio;
+    private Alumno alumno = new Alumno();
+    private String mensaje = " ";
 
 }

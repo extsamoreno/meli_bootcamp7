@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/metrosCuadrados")
-public class Controller {
+public class ControllerCasa {
     @Autowired
     private  ServiceCasa serviceCasa;
 
