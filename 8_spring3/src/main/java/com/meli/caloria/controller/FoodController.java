@@ -22,9 +22,6 @@ public class FoodController {
     @Autowired
     public IDishService iDishService;
 
-    @Autowired
-    public IIngredientService iIngredientService;
-
     @PostMapping("/total_calories")
     public ResponseEntity<DishDTO> getResults(@RequestBody Dish dish){
         return new ResponseEntity<>(iDishService.calcularCaloriasTotales(dish), HttpStatus.OK);
