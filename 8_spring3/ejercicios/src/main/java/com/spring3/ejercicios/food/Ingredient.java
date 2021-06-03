@@ -1,0 +1,14 @@
+package com.spring3.ejercicios.food;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Ingredient {
+
+    private String name;
+    private int calories;
+}
