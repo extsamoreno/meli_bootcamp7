@@ -35,5 +35,5 @@ public class CalculadoraController {
     public ResponseEntity<IngredienteResponseDTO> ingredienteConMasCalorias (@RequestBody PlatoRequestDTO plato){
         return new ResponseEntity<> (platoService.ingredienteConMasCalorias(plato), HttpStatus.OK);
     }
-
+    
 }
