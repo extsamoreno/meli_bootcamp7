@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.DishDTO;
+import com.example.demo.dto.MealDTO;
 import com.example.demo.dto.FoodCaloriesDTO;
 import com.example.demo.dto.IngredientReqDTO;
 import com.example.demo.dto.IngredientRespDTO;
@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class DishService implements IDishService {
+public class MealService implements IMealService {
     @Autowired
     private IFoodRepository foodRepository;
+
     @Override
-    public FoodCaloriesDTO getCalories(DishDTO dish){
+    public FoodCaloriesDTO getCalories(MealDTO dish){
 
         FoodCaloriesDTO foodResponse = new FoodCaloriesDTO();
         List<IngredientRespDTO> ingredientResp = new ArrayList<>();

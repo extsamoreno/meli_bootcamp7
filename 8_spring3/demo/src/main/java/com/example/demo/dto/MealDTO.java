@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class DishDTO {
+public class MealDTO {
 
     private String name;
     private List<IngredientReqDTO> ingredients;
