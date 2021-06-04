@@ -1,19 +1,11 @@
 package com.meli.API_calorie_calculator.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.API_calorie_calculator.repositories.RepositoryImpl;
 import com.meli.API_calorie_calculator.service.dto.*;
 import com.meli.API_calorie_calculator.service.mapper.IngredientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @org.springframework.stereotype.Service
 public class ServiceImpl implements Service{
@@ -44,5 +36,14 @@ public class ServiceImpl implements Service{
         }
         foodResReturn.setTotalCalories(totalCalories);
         return foodResReturn;
+    }
+
+    public SeveralFoodsResDTO returnSeveralResFood(SeveralFoodsDTO severalFoodsDTO) {
+        SeveralFoodsResDTO severalFoodsResDTO = new SeveralFoodsResDTO();
+        severalFoodsResDTO.setSeveralFoods(new ArrayList<>());
+        for (FoodDTO foodDTO: severalFoodsDTO.getSeveralFoods()) {
+            severalFoodsResDTO.getSeveralFoods().add(returnFoodResDTO(foodDTO));
+        }
+        return severalFoodsResDTO;
     }
 }
