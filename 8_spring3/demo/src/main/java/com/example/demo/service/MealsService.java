@@ -17,7 +17,6 @@ public class MealsService implements IMealsService{
     public List<FoodCaloriesDTO> getMealsCalories(List<MealDTO> meals) {
         List<FoodCaloriesDTO> mealsCalories = new ArrayList<>();
 
-
         for( MealDTO meal: meals){
             mealsCalories.add(mealService.getCalories(meal));
         }

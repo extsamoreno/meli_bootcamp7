@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.models.Ingredient;
+import com.example.demo.domains.Ingredient;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;

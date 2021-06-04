@@ -1,15 +1,16 @@
-package com.example.demo.models;
+package com.example.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Ingredient {
+public class CharactersDTO {
 
-    private String name;
-    private double calories;
+     private List<String> characters;
 
 }
