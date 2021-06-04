@@ -28,9 +28,8 @@ public class CharacterRepository implements ICharacterRepository{
             List<Character> item = character.stream()
                     .filter(ch -> ch.getName().toLowerCase().contains(name.toLowerCase()))
                     .collect(Collectors.toList());
-            if(!item.isEmpty()){
-                result = item;
-            }
+
+            result = item;
         }
 
         return result;
