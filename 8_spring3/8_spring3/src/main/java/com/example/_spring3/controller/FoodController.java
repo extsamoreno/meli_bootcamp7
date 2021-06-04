@@ -42,6 +42,7 @@ public class FoodController {
 
         return responseDTO;
     }
+
 }
 /*
 * PREGUNTAS
@@ -49,4 +50,5 @@ public class FoodController {
 * Retornar las calorias de cada ingrediente - calorias totales en el plato? o calorias por unidad segun JSON?
 * Mostrar el ingrediente con mayor calorias - mayor calorias en el plato o mayor calorias por unidad segun el JSON?
 * Donde poner el metodo processFood?
+* Hasta donde llegan los DTO? Es decir, en donde separa el mapper entre DTO y entidades
 * */
