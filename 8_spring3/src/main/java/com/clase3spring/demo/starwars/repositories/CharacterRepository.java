@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,10 +23,10 @@ public class CharacterRepository implements ICharacterRepository{
     public List<Character> findByName(String name) {
         List<Character> character = null;
         character = loadDatabase();
-        List<Character> result = null;
+        List<Character> result = new ArrayList<Character>(){};
         if(character != null){
             List<Character> item = character.stream()
-                    .filter(ch -> ch.getName().contains(name))
+                    .filter(ch -> ch.getName().toLowerCase().contains(name.toLowerCase()))
                     .collect(Collectors.toList());
             if(!item.isEmpty()){
                 result = item;

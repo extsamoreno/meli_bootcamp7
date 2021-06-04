@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("star-wars")
+@RequestMapping("characters")
 public class CharacterController {
 
     @Autowired
     private ICharacterService characterService;
 
-    @GetMapping("character")
+    @GetMapping
     public ResponseEntity<ArrayList<CharacterDTO>> getByName(@RequestParam String name){
         return new ResponseEntity<ArrayList<CharacterDTO>>(characterService.findByName(name), HttpStatus.OK);
     }
