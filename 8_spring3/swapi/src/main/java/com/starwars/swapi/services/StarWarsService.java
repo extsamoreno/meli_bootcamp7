@@ -19,16 +19,8 @@ public class StarWarsService implements IStarWarsService {
 
     @Override
     public List<CharacterDTO> getCharacters(String name) {
-        List<Character> characterList = starWarsRepository.loadDatabase();
+        List<Character> characterList = starWarsRepository.getCharactersByName(name);
 
-        List<CharacterDTO> results = new ArrayList<>();
-
-        for (Character character :
-                characterList) {
-            if (character.getName().contains(name))
-                results.add(CharacterMapper.mapToDTO(character));
-        }
-
-        return results;
+        return CharacterMapper.mapListToDTOs(characterList);
     }
 }

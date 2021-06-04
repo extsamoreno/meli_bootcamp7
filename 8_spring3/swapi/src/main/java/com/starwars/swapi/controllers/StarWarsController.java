@@ -25,7 +25,7 @@ public class StarWarsController {
         List<CharacterDTO> characters = starWarsService.getCharacters(name);
 
         HttpStatus statusCode = characters.size() > 0 ? HttpStatus.OK : HttpStatus.NO_CONTENT;
-
+        
         return new ResponseEntity<>(characters, statusCode);
     }
 }
