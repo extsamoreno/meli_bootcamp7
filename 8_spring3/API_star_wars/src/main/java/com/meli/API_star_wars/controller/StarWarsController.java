@@ -1,6 +1,6 @@
 package com.meli.API_star_wars.controller;
 
-import com.meli.API_star_wars.service.ServiceImpl;
+import com.meli.API_star_wars.service.Service;
 import com.meli.API_star_wars.service.dto.CharacterResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @RequestMapping("/sw")
 public class StarWarsController {
     @Autowired
-    private ServiceImpl service;
+    private Service service;
 
     @GetMapping("/")
         public ResponseEntity<String> getMain() {
