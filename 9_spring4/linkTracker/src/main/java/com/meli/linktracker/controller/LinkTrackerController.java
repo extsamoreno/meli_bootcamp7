@@ -24,11 +24,11 @@ public class LinkTrackerController {
 
     @PostMapping("/create")
     public LinkResponseDTO createLink(@RequestBody LinkRequestDTO body) throws InvalidURLException {
-        return linkTrackerService.createLink(body.getUrl());
+        return linkTrackerService.createLink(body);
     }
 
     @GetMapping("/link/{linkId}")
-    public ResponseEntity<Void> redirectByLinkID(@PathVariable Integer linkId) throws IdNotFoundException {
+    public ResponseEntity<Void> redirectByLinkID(@PathVariable Integer linkId) throws IdNotFoundException, InvalidURLException {
         URI uri = linkTrackerService.findURIByLinkId(linkId);
         return ResponseEntity.status(HttpStatus.FOUND).location(uri).build();
     }
@@ -51,4 +51,5 @@ public class LinkTrackerController {
     public List<LinkResponseDTO> createLinkMultiple(@RequestBody List<LinkRequestDTO> list) {
         return linkTrackerService.createLinkMultiple(list);
     }
+
 }

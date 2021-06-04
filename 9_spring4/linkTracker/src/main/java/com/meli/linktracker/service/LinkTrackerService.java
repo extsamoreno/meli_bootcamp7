@@ -21,8 +21,9 @@ public class LinkTrackerService implements ILinkTrackerService {
     ILinkTrackerRepository linkTrackerRepository;
 
     @Override
-    public LinkResponseDTO createLink(String url) throws InvalidURLException {
-        Integer id = linkTrackerRepository.save(createURI(url));
+    public LinkResponseDTO createLink(LinkRequestDTO body) throws InvalidURLException {
+        Link link = new Link(createURI(body.getUrl()), body.getPassword());
+        Integer id = linkTrackerRepository.save(link);
         return new LinkResponseDTO(id);
     }
 
@@ -35,10 +36,31 @@ public class LinkTrackerService implements ILinkTrackerService {
     }
 
     @Override
-    public URI findURIByLinkId(Integer linkId) throws IdNotFoundException {
+    public URI findURIByLinkId(Integer linkId) throws IdNotFoundException, InvalidURLException {
         Link link = linkTrackerRepository.getLinkByID(linkId);
         addARedirect(linkId);
-        return link.getUri();
+        if (link.getPassword() != null) return addQueryParamPassword(link);
+        else return link.getUri();
+    }
+
+    private URI addQueryParamPassword(Link link) throws InvalidURLException {
+        String appendQuery = "password=" + link.getPassword();
+        return addQueryParam(link.getUri(), appendQuery);
+    }
+
+    private URI addQueryParam(URI baseUri, String appendQuery) throws InvalidURLException {
+        try {
+            String newQuery = baseUri.getQuery();
+            if (newQuery == null) {
+                newQuery = appendQuery;
+            } else {
+                newQuery += "&" + appendQuery;
+            }
+            return new URI(baseUri.getScheme(), baseUri.getAuthority(),
+                    baseUri.getPath(), newQuery, baseUri.getFragment());
+        } catch (Exception e) {
+            throw new InvalidURLException(baseUri.getRawPath());
+        }
     }
 
     private void addARedirect(Integer linkId) throws IdNotFoundException {
@@ -60,13 +82,13 @@ public class LinkTrackerService implements ILinkTrackerService {
     public List<LinkResponseDTO> createLinkMultiple(List<LinkRequestDTO> list) {
         return list.stream().map(
                 l -> {
-                    LinkResponseDTO link;
+                    LinkResponseDTO linkDTO;
                     try {
-                        link = createLink(l.getUrl());
+                        linkDTO = createLink(l);
                     } catch (InvalidURLException e) {
-                        link = new LinkResponseDTO(-1);
+                        linkDTO = new LinkResponseDTO(-1);
                     }
-                    return link;
+                    return linkDTO;
                 })
                 .collect(Collectors.toList());
     }

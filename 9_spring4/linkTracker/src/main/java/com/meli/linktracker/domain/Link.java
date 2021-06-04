@@ -9,19 +9,13 @@ import java.net.URL;
 @Setter
 @NoArgsConstructor
 public class Link {
-    private Integer id;
+    private Integer id = null;
     private URI uri;
     private boolean isValid = true;
-    private String password = null;
+    private String password;
     private Integer redirects = 0;
 
-    public Link(Integer id, URI uri) {
-        this.id = id;
-        this.uri = uri;
-    }
-
-    public Link(Integer id, URI uri, String password) {
-        this.id = id;
+    public Link(URI uri, String password) {
         this.uri = uri;
         this.password = password;
     }

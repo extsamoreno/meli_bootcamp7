@@ -10,9 +10,10 @@ import java.net.URI;
 import java.util.List;
 
 public interface ILinkTrackerService {
-    LinkResponseDTO createLink(String url) throws InvalidURLException;
 
-    URI findURIByLinkId(Integer linkId) throws IdNotFoundException;
+    LinkResponseDTO createLink(LinkRequestDTO body) throws InvalidURLException;
+
+    URI findURIByLinkId(Integer linkId) throws IdNotFoundException, InvalidURLException;
 
     LinkMetricRequestDTO findMetricsByLinkId(Integer linkId) throws IdNotFoundException;
 

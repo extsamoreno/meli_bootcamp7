@@ -9,4 +9,5 @@ import lombok.*;
 @NoArgsConstructor
 public class LinkRequestDTO {
     private String url;
+    private String password;
 }

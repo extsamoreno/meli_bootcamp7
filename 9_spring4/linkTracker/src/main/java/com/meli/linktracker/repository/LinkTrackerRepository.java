@@ -4,7 +4,6 @@ import com.meli.linktracker.domain.Link;
 import com.meli.linktracker.exception.IdNotFoundException;
 import org.springframework.stereotype.Repository;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +13,11 @@ public class LinkTrackerRepository implements ILinkTrackerRepository {
     private Integer cont = 0;
 
     @Override
-    public Integer save(URI newURI) {
-        Link link = new Link(cont, newURI);
-        list.add(link);
+    public Integer save(Link newLink) {
+        newLink.setId(cont);
+        list.add(newLink);
         cont++;
-        return link.getId();
+        return newLink.getId();
     }
 
     @Override
