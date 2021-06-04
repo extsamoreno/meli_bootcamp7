@@ -14,8 +14,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class MovieCharacter {
     private String name;
-    private int height;
-    private int mass;
+    private String height;
+    private String mass;
     private String hair_color;
     private String skin_color;
     private String eye_color;

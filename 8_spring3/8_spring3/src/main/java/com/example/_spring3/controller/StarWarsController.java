@@ -1,8 +1,9 @@
 package com.example._spring3.controller;
 
-import com.example._spring3.dto.CharacterDTO;
+import com.example._spring3.dto.MovieCharacterDTO;
 import com.example._spring3.entity.MovieCharacter;
 import com.example._spring3.service.IStarWarsService;
+import com.example._spring3.service.mapper.MovieCharacterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class StarWarsController {
     IStarWarsService iStarWarsService;
 
     @GetMapping("/Find/{name}")
-    public ResponseEntity<List<MovieCharacter>> findCharacter(@PathVariable String name){
-        return new ResponseEntity(iStarWarsService.getCharacterByName(name), HttpStatus.OK);
+    public ResponseEntity<List<MovieCharacterDTO>> findCharacter(@PathVariable String name){
+        return new ResponseEntity(MovieCharacterMapper.toDTOList(iStarWarsService.getCharacterByName(name)), HttpStatus.OK);
     }
 }

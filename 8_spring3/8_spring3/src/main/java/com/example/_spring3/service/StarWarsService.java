@@ -1,6 +1,5 @@
 package com.example._spring3.service;
 
-import com.example._spring3.dto.CharacterDTO;
 import com.example._spring3.entity.MovieCharacter;
 import com.example._spring3.repository.IStarWarsRepository;
 import org.springframework.beans.factory.annotation.Autowired;

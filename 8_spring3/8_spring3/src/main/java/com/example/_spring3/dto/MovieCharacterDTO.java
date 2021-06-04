@@ -9,6 +9,6 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CharacterDTO {
+public class MovieCharacterDTO {
     private String name;
 }
