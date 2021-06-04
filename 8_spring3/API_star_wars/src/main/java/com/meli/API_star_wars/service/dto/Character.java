@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CharacterDTO {
+public class Character {
     private String name;
     private String height;
     private String mass;

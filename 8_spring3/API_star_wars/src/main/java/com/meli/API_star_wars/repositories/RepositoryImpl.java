@@ -2,7 +2,7 @@ package com.meli.API_star_wars.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.API_star_wars.service.dto.CharacterDTO;
+import com.meli.API_star_wars.service.dto.Character;
 import com.meli.API_star_wars.service.dto.CharacterResDTO;
 import org.springframework.util.ResourceUtils;
 
@@ -18,10 +18,10 @@ public class RepositoryImpl implements Repository{
 
     @Override
     public ArrayList<CharacterResDTO> returnCharacters(String name) {
-        List<CharacterDTO> characterDTOList = null;
+        List<Character> characterDTOList = null;
         characterDTOList = loadDataBase();
         ArrayList<CharacterResDTO> characterResDTOArrayList = new ArrayList<>();
-        for (CharacterDTO character: characterDTOList) {
+        for (Character character: characterDTOList) {
             if (character.getName().toUpperCase(Locale.ROOT).indexOf(name.toUpperCase()) != -1) {
                 characterResDTOArrayList.add(new CharacterResDTO(character.getName()));
             }
@@ -29,7 +29,7 @@ public class RepositoryImpl implements Repository{
         return characterResDTOArrayList;
     }
 
-    private List<CharacterDTO> loadDataBase() {
+    private List<Character> loadDataBase() {
         File file = null;
         try {
             file = ResourceUtils.getFile("classpath:starwars.json");
@@ -37,8 +37,8 @@ public class RepositoryImpl implements Repository{
             e.printStackTrace();
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<CharacterDTO>> typeRef = new TypeReference<>() {};
-        List<CharacterDTO> characterDTOList = null;
+        TypeReference<List<Character>> typeRef = new TypeReference<>() {};
+        List<Character> characterDTOList = null;
         try {
             characterDTOList = objectMapper.readValue(file, typeRef);
         } catch (IOException e) {
