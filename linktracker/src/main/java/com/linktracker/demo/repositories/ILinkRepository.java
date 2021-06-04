@@ -7,4 +7,5 @@ import java.util.ArrayList;
 
 public interface ILinkRepository {
     Link addLink(Link link);
+    Link findLinkByUrl(String url);
 }

@@ -2,6 +2,7 @@ package com.linktracker.demo.controllers;
 
 import com.linktracker.demo.dtos.LinkRequestDTO;
 import com.linktracker.demo.dtos.LinkResponseDTO;
+import com.linktracker.demo.exceptions.LinkAlreadyExistException;
 import com.linktracker.demo.exceptions.LinkInvalidException;
 import com.linktracker.demo.services.ILinkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class LinkController {
     ILinkService linkService;
 
     @PostMapping
-    public ResponseEntity<LinkResponseDTO> createLink(@RequestBody LinkRequestDTO linkRequestDTO) throws LinkInvalidException {
+    public ResponseEntity<LinkResponseDTO> createLink(@RequestBody LinkRequestDTO linkRequestDTO) throws LinkInvalidException, LinkAlreadyExistException {
         return new ResponseEntity<>(linkService.createLink(linkRequestDTO), HttpStatus.CREATED);
     }
 }

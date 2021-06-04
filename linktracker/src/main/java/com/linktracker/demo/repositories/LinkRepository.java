@@ -5,17 +5,32 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class LinkRepository implements ILinkRepository{
 
-    private HashMap<Integer,String> linkHM = new HashMap<>();
+    private HashMap<Integer,String> linkHashMap = new HashMap<>();
 
     @Override
     public Link addLink(Link link) {
 
-        linkHM.put(linkHM.size() + 1, link.getUrl());
-        link.setId(linkHM.size());
+        linkHashMap.put(linkHashMap.size() + 1, link.getUrl());
+        link.setId(linkHashMap.size());
+
+        return link;
+    }
+
+    @Override
+    public Link findLinkByUrl(String url) {
+        Link link = null;
+        for (Map.Entry<Integer, String> entry: linkHashMap.entrySet()) {
+            String entryUrl = entry.getValue();
+
+            if(entryUrl.equals(url)){
+                link = new Link(entry.getKey(), entry.getValue());
+            }
+        }
 
         return link;
     }

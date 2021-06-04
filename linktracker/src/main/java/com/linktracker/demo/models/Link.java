@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Link {
-    private String url;
     private int id;
+    private String url;
 
     public Link(String url){
         this.url = url;
