@@ -13,7 +13,7 @@ public class StarwarsController {
     @Autowired
     SearchService searchService;
 
-    @PostMapping("/{nombre}")
+    @GetMapping("/{nombre}")
     public List<Personaje> getPersonajes(@PathVariable String nombre){
         return searchService.buscar(nombre);
     }
