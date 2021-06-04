@@ -20,9 +20,20 @@ public class ServiceLinkTrackerImpl implements ServiceLinkTracker{
         return linkRespond;
     }
 
-    public String getLinkRedired(int id) {
-        Link link = repositoryLinkTracker.getLinkOfDataBaseAt(id);
+    public String getLinkRedired(int linkId) {
+        Link link = repositoryLinkTracker.getLinkOfDataBaseAt(linkId);
         link.increaseTimesUsed();
         return link.getLink();
+    }
+
+    public int getMetricsOfLink(int linkId) {
+        Link link = repositoryLinkTracker.getLinkOfDataBaseAt(linkId);
+        return link.getTimeUsed();
+    }
+
+    public boolean invalidateLink(int linkId) {
+        Link link = repositoryLinkTracker.getLinkOfDataBaseAt(linkId);
+        link.setValid(false);
+        return true;
     }
 }
