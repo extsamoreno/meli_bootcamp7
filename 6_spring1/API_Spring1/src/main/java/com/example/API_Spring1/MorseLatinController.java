@@ -10,7 +10,7 @@ import javax.sql.rowset.serial.SerialStruct;
 @RestController
 @RequestMapping("/morseLatinDecoder")
 public class MorseLatinController {
-    private static MorseLatinEqTable decoder = new MorseLatinEqTable();
+    private static final MorseLatinEqTable decoder = new MorseLatinEqTable();
 
     @GetMapping("/toLatin/{morse}")
     public static String convertMorseToLatin(@PathVariable String morse)
