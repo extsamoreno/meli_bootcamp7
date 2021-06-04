@@ -3,12 +3,17 @@ package com.example.APIProduct.repository;
 import lombok.*;
 
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ingredient {
     private String name;
-    private int calories;
+    private int peso, calories;
+
+    public Ingredient(String name, int peso) {
+        this.name = name;
+        this.peso = peso;
+    }
+
 
 }

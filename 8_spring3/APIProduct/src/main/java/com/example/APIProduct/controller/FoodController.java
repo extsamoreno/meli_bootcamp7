@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/food/")
+@RequestMapping("/food")
 public class FoodController {
 
     @Autowired
     IFoodService iFoodService;
 
-    @PostMapping("/{food}")
+    @PostMapping("/info")
     public FoodResponseDTO getByFood(@RequestBody Food food){
         return iFoodService.getTotalCalories(food);
     }

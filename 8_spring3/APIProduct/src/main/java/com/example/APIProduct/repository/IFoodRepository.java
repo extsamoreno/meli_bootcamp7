@@ -1,8 +1,9 @@
 package com.example.APIProduct.repository;
 
+import com.example.APIProduct.services.dto.IngredientDTO;
 import org.springframework.stereotype.Repository;
 
-@Repository
+
 public interface IFoodRepository {
-    Ingredient getById(Integer id);
+    Ingredient getByName(String name);
 }
