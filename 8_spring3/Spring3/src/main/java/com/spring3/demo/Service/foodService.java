@@ -29,10 +29,10 @@ public class foodService implements IfoodService {
 
         ArrayList<Ingredient> listIngredient = new ArrayList<>();
 
-        for (IngredientInput ing: dish.getIngredientInputs()) {
+        for (IngredientInput ing : dish.getIngredientInputs()) {
             Ingredient ingredient = iRepository.getIngredientByName(ing.getName());
             float calorias = ingredient.getCalories() * (ing.getWeight() / 100);
-            listIngredient.add(new Ingredient(ingredient.getName(),calorias));
+            listIngredient.add(new Ingredient(ingredient.getName(), calorias));
         }
 
         IngredientDTO mostCalories = IngredientMapper.toIngredientDTO(mostCaloriesIngredient(listIngredient));
@@ -50,23 +50,23 @@ public class foodService implements IfoodService {
     public ArrayList<DishDTO> getListFood(ArrayList<Dish> listDish) throws IOException {
         ArrayList<DishDTO> listDTO = new ArrayList<>();
 
-        for (Dish dish: listDish) {
+        for (Dish dish : listDish) {
             listDTO.add(getfood(dish));
         }
         return listDTO;
     }
 
-    public ArrayList<IngredientDTO> toDTO(ArrayList<Ingredient> ingredients){
+    public ArrayList<IngredientDTO> toDTO(ArrayList<Ingredient> ingredients) {
         ArrayList<IngredientDTO> listDTO = new ArrayList<>();
         ingredients.forEach(ingredient -> listDTO.add(IngredientMapper.toIngredientDTO(ingredient)));
         return listDTO;
     }
 
-    public float totalCalories(ArrayList<Ingredient> ingredients){
+    public float totalCalories(ArrayList<Ingredient> ingredients) {
         return (float) ingredients.stream().mapToDouble(Ingredient::getCalories).sum();
     }
 
-    public Ingredient mostCaloriesIngredient(ArrayList<Ingredient> ingredients){
+    public Ingredient mostCaloriesIngredient(ArrayList<Ingredient> ingredients) {
         return ingredients.stream().max(Comparator.comparing(Ingredient::getCalories)).get();
     }
 

@@ -24,7 +24,7 @@ public class foodControler {
     }
 
     @GetMapping("/hello3")
-    public String hello(){
+    public String hello() {
         return "hello";
     }
 

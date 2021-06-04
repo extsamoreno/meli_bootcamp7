@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 @org.springframework.stereotype.Repository
-public class Repository implements IRepository{
+public class Repository implements IRepository {
 
     static ArrayList<Ingredient> foodData;
 
@@ -29,12 +29,12 @@ public class Repository implements IRepository{
     @Override
     public Ingredient getIngredientByName(String name) throws IOException {
         Ingredient ingredient = null;
-        if(foodData != null){
+        if (foodData != null) {
             Optional<Ingredient> item =
                     foodData.stream().filter(
                             ingredient1 -> ingredient1.getName().equals(name)).findFirst();
 
-            if(item.isPresent())
+            if (item.isPresent())
                 ingredient = item.get();
         }
         return ingredient;
@@ -47,14 +47,15 @@ public class Repository implements IRepository{
 
     static ArrayList<Ingredient> loadData() throws IOException {
         File file = null;
-        try{
+        try {
             file = ResourceUtils.getFile("src/main/resources/food.json");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        ArrayList<Ingredient> listIngredient = objectMapper.readValue(file, new TypeReference<ArrayList<Ingredient>>() {});
+        ArrayList<Ingredient> listIngredient = objectMapper.readValue(file, new TypeReference<ArrayList<Ingredient>>() {
+        });
         return listIngredient;
     }
 
