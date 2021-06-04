@@ -3,7 +3,7 @@
 
 import java.util.Scanner;
 
-public class mostrarMultiplos {
+public class MostrarMultiplos {
 
     public static void mostrarMultiplos (int n, int m) {
         int c = 0;

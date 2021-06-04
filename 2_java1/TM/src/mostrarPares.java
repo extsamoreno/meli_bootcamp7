@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-public class mostrarPares {
+public class MostrarPares {
 
     public static void mostrarPares (int n) {
         for (int i = 0; i < n * 2; i += 2) {
