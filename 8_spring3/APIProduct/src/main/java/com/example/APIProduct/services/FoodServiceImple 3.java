@@ -21,20 +21,24 @@ public class FoodServiceImple implements  IFoodService{
     IFoodRepository iFoodRepository;
 
 
+
     @Override
     public FoodResponseDTO getTotalCalories(Food food) {
 
         System.out.println(food.getListIngredient());
         List<Ingredient> listIngredients = food.getListIngredient();
-        List<IngredientDTO> listIngredientDTO = new ArrayList<>();
+        List<IngredientDTO> listIngredientDTO = null;
 
         for(Ingredient ing: listIngredients){
+            System.out.println(iFoodRepository.getByName(ing.getName()).getCalories());
+            System.out.println(IngredientMapper.toDTO(ing, iFoodRepository.getByName(ing.getName()).getCalories()));
             IngredientDTO aux = IngredientMapper.toDTO(ing, iFoodRepository.getByName(ing.getName()).getCalories());
             listIngredientDTO.add(aux);
         }
+        System.out.println(listIngredientDTO);
 
-        FoodResponseDTO foodResult = new FoodResponseDTO(food.getName(),TotalCalories(listIngredientDTO),listIngredientDTO,maxCalories(listIngredientDTO));
-
+        //FoodResponseDTO foodResult = new FoodResponseDTO(food.getName(),TotalCalories(listIngredientDTO),listIngredientDTO,maxCalories(listIngredientDTO));
+        FoodResponseDTO foodResult = new FoodResponseDTO();
         return foodResult;
     }
     public IngredientDTO maxCalories(List<IngredientDTO> list){

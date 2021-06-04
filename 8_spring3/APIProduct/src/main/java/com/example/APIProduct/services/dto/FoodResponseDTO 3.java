@@ -4,15 +4,15 @@ import com.example.APIProduct.repository.Ingredient;
 import lombok.*;
 
 import java.util.HashMap;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class FoodResponseDTO {
     private String name;
     private int totalCalories;
-    private HashMap<String, Integer> mapCaloriesIng;
-    private Ingredient maxCaloriesIngredient;
+    private List<IngredientDTO> listCaloriesIng;
+    private IngredientDTO maxCaloriesIngredient;
 
 }
