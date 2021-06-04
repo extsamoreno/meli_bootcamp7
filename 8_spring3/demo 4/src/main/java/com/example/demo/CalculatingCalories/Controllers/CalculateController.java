@@ -1,7 +1,8 @@
-package com.example.demo.Controllers;
+package com.example.demo.CalculatingCalories.Controllers;
 
-import com.example.demo.Repository.Plato;
-import com.example.demo.Services.DTO.ResponseDTO;
+import com.example.demo.CalculatingCalories.Repository.Plato;
+import com.example.demo.CalculatingCalories.Services.DTO.ResponseDTO;
+import com.example.demo.CalculatingCalories.Services.CalculateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ public class CalculateController {
 
 
     @Autowired
-    com.example.demo.ServiceDTO.CalculateService calculateService;
+    CalculateService calculateService;
 
     @PostMapping("/plato")
     public ResponseDTO getInfoPlato(@RequestBody Plato plato){

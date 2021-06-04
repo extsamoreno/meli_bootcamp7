@@ -1,4 +1,4 @@
-package com.example.demo.Repository;
+package com.example.demo.CalculatingCalories.Repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

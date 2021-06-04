@@ -1,4 +1,4 @@
-package com.example.demo.Repository;
+package com.example.demo.CalculatingCalories.Repository;
 
 public interface IngredienteRepository {
     Ingrediente findIngredienteByName(String name);

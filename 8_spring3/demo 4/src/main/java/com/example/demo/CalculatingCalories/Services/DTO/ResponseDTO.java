@@ -1,6 +1,6 @@
-package com.example.demo.Services.DTO;
+package com.example.demo.CalculatingCalories.Services.DTO;
 
-import com.example.demo.Repository.Ingrediente;
+import com.example.demo.CalculatingCalories.Repository.Ingrediente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

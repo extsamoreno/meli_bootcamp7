@@ -1,8 +1,9 @@
-package com.example.demo.Services.DTO;
+package com.example.demo.CalculatingCalories.Services;
 
-import com.example.demo.Repository.Ingrediente;
-import com.example.demo.Repository.IngredienteRepository;
-import com.example.demo.Repository.Plato;
+import com.example.demo.CalculatingCalories.Repository.Ingrediente;
+import com.example.demo.CalculatingCalories.Repository.IngredienteRepository;
+import com.example.demo.CalculatingCalories.Repository.Plato;
+import com.example.demo.CalculatingCalories.Services.DTO.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CalculateServiceImpl implements com.example.demo.ServiceDTO.CalculateService {
+public class CalculateServiceImpl implements CalculateService {
 
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.example.demo.Repository;
+package com.example.demo.CalculatingCalories.Repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
