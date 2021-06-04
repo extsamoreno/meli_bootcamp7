@@ -13,15 +13,6 @@ public class CharacterMapper {
         for (Character ch: chList) {
             CharacterDTO chDTo = new CharacterDTO();
             chDTo.setName(ch.getName());
-            chDTo.setBirthYear(ch.getBirth_year());
-            chDTo.setEyeColor(ch.getEye_color());
-            chDTo.setGender(ch.getGender());
-            chDTo.setHeight(ch.getHeight());
-            chDTo.setHomeworld(ch.getHomeworld());
-            chDTo.setMass(ch.getMass());
-            chDTo.setHairColor(ch.getHair_color());
-            chDTo.setSpecies(ch.getSpecies());
-            chDTo.setSkinColor(ch.getSkin_color());
             charactersDTO.add(chDTo);
         }
 
