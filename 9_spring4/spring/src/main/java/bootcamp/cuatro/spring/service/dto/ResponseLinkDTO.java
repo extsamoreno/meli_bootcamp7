@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ResponseLinkDTO {
-
     private Integer linkId;
-
+    private String url;
+    private Boolean active;
+    private int consultTimes;
+    private String password;
 }

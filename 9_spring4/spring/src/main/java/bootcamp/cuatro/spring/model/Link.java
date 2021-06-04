@@ -14,4 +14,5 @@ public class Link {
     private String url;
     private String password;
     private boolean active;
+    private int consultTimes;
 }

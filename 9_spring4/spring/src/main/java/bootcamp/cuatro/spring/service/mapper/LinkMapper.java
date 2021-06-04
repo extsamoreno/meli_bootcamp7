@@ -12,7 +12,7 @@ public class LinkMapper {
     }
 
     public static Link toLink(LinkDto linkDto){
-        return new Link(null,linkDto.getUrl(),linkDto.getPassword(),true);
+        return new Link(null,linkDto.getUrl(),linkDto.getPassword(),true,0);
     }
 
 }

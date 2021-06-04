@@ -17,8 +17,12 @@ public class LinkRepository implements ILinkRepository{
 
     @Override
     public Link save(Link link) {
-        link.setId(links.size()+1);
-        links.put(links.size()+1,link);
+        if(link.getId()==null){
+            link.setId(links.size()+1);
+            links.put(links.size()+1,link);
+        }else{
+            links.put(link.getId(),link);
+        }
         return link;
     }
 

@@ -1,5 +1,9 @@
 package bootcamp.cuatro.spring.controller;
 
+import bootcamp.cuatro.spring.exception.LinkException;
+import bootcamp.cuatro.spring.exception.LinkNotFoundException;
+import bootcamp.cuatro.spring.service.dto.ErrorDTO;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -7,6 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionController {
 
 
-    //@ExceptionHandler(Exception.class)
-
+    @ExceptionHandler(LinkException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(LinkException e){
+        return new ResponseEntity<ErrorDTO>(e.getError(),e.getStatus());
+    }
 }
