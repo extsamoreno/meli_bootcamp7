@@ -11,46 +11,33 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-/*
+
 @Repository
 public class CalorieRepository implements ICalorieRepository{
 
     @Override
     public CalorieDTO findCaloriesByFood(String food) {
-        List<CalorieDTO> caloriesDTO = null;
-        caloriesDTO = loadDatabase();
-        CalorieDTO result = null;
-        if(caloriesDTO != null){
-            Optional<CalorieDTO> item = caloriesDTO.stream()
-                    .filter(calorie -> calorie.g().equals(food))
-                    .findFirst();
-            if(item.isPresent()){
-                result = item.get();
-            }
-        }
-
-        return result;
+        List<CalorieDTO> caloriesDTOS = loadDatase();
+        return caloriesDTOS.stream().filter(caloryDTO -> caloryDTO.getName().equals(food)).findFirst().get();
     }
 
-    private List<CalorieDTO> loadDatabase(){
+    private List<CalorieDTO> loadDatase() {
         File file = null;
         try {
             file = ResourceUtils.getFile("classpath:food.json");
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<CalorieDTO>> typeRef = new TypeReference<>(){};
-        List<CalorieDTO> caloriesDTO = null;
+        TypeReference<List<CalorieDTO>> typeRef = new TypeReference<>() {};
+        List<CalorieDTO> caloriesDTOS = null;
 
-        try{
-            caloriesDTO = objectMapper.readValue(file, typeRef);
-        }catch (IOException e){
+        try {
+            caloriesDTOS = objectMapper.readValue(file, typeRef);
+        } catch(IOException e) {
             e.printStackTrace();
         }
-
-        return caloriesDTO;
+        return caloriesDTOS;
     }
 }
-
- */

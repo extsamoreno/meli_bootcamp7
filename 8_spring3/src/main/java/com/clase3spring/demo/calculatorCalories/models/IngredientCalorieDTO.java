@@ -1,5 +1,6 @@
 package com.clase3spring.demo.calculatorCalories.models;
 
+import java.util.ArrayList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ingredient {
-    private String name;
-    private Integer weight;
+public class IngredientCalorieDTO {
+    private Meal meal;
+    private ArrayList<CalorieDTO> listCaloriesIngredients;
 }

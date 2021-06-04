@@ -1,21 +1,21 @@
-package com.clase3spring.demo.starwars.models;
+package com.clase3spring.demo.starwars.repositories.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CharacterDTO {
+@NoArgsConstructor
+public class Character {
 
     private String name;
     private String height;
     private String mass;
-    private String hairColor;
-    private String skinColor;
-    private String eyeColor;
-    private String birthYear;
+    private String hair_color;
+    private String skin_color;
+    private String eye_color;
+    private String birth_year;
     private String gender;
     private String homeworld;
     private String species;
