@@ -34,4 +34,9 @@ public class LinkTrackerRepository implements ILinkTrackerRepository {
         Link link = getLinkByID(linkId);
         link.setRedirects(link.getRedirects() + 1);
     }
+
+    @Override
+    public void invalidateByLinkId(Integer linkId) throws IdNotFoundException {
+        getLinkByID(linkId).setValid(false);
+    }
 }

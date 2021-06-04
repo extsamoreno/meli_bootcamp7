@@ -12,4 +12,6 @@ public interface ILinkTrackerRepository {
     Link getLinkByID(Integer linkId) throws IdNotFoundException;
 
     void addRedirect(Integer linkId) throws IdNotFoundException;
+
+    void invalidateByLinkId(Integer linkId) throws IdNotFoundException;
 }
