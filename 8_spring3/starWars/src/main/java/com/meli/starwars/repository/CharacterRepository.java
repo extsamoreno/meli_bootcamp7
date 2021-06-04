@@ -24,7 +24,7 @@ public class CharacterRepository implements ICharacterRepository {
         List<Character> filteredChar = null;
         if (characters != null) {
             filteredChar = characters.stream().filter(c -> nameContaining(c,name)).collect(Collectors.toList());
-
+            List<String> nombres = characters.stream().map(c->c.getName()).collect(Collectors.toList());
         }
         return filteredChar;
     }

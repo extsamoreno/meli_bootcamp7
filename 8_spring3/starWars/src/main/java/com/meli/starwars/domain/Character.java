@@ -7,7 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Character {
-
     private String name;
     private String height;
     private String mass;
