@@ -2,8 +2,11 @@ package com.meli.API_link_tracker.controller;
 
 import com.meli.API_link_tracker.model.dto.LinkRequest;
 import com.meli.API_link_tracker.model.dto.LinkRespond;
+import com.meli.API_link_tracker.model.exception.*;
 import com.meli.API_link_tracker.model.service.ServiceLinkTracker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,39 +16,33 @@ public class LinkTrackerController {
     @Autowired
     private ServiceLinkTracker serviceLinkTracker;
 
+    @GetMapping("/")
+    public ResponseEntity<String> getMain() {
+        String message = "Welcome to the API Link Tracker";
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @PostMapping("/create")
-    public LinkRespond createLink(@RequestBody LinkRequest linkRequest, @RequestParam String password) {
-        return serviceLinkTracker.createLinktoDataBase(linkRequest, password); // pendiente implementar el error
+    public ResponseEntity<LinkRespond> createLink(@RequestBody LinkRequest linkRequest, @RequestParam String password)
+            throws FormatLinkNotValidateException, PasswordNotEnteredException, LinkAlreadyCreatedException {
+        return new ResponseEntity<>(serviceLinkTracker.createLinktoDataBase(linkRequest, password), HttpStatus.CREATED);
     }
 
     @GetMapping("/link/{linkId}")
-    public ModelAndView redirecLink(@PathVariable int linkId) {
-        return new ModelAndView("redirect:" + serviceLinkTracker.getLinkRedired(linkId)); // Falta implementar los errores
+    public ResponseEntity<ModelAndView> redirecLink(@PathVariable int linkId) throws LinkAlreadyInvalidatedException,
+            IDNotFoundException {
+        return new ResponseEntity<>(new ModelAndView("redirect:" + serviceLinkTracker.getLinkRedired(linkId)),
+                HttpStatus.SEE_OTHER) ;
     }
-    /*Crear un EndPoint tipo Get (/link/{linkId})
-    * debe ir a la base de datos y sumarle una unidad a vecesUsado y responder con la redirección del link
-    * tener en cuenta que el link debe tener true en esValido, sino, retornar 404
-    * return "redirect:/linkARedireccionar";
-     */
 
     @GetMapping("/metrics/{linkId}")
-    public int getMetrics(@PathVariable int linkId) {
-        return serviceLinkTracker.getMetricsOfLink(linkId);
+    public ResponseEntity<Integer> getMetrics(@PathVariable int linkId) throws IDNotFoundException {
+        return new ResponseEntity<>(serviceLinkTracker.getMetricsOfLink(linkId), HttpStatus.OK);
     }
-    /* Crear un EndPoint tipo Get (/metrics/{linkId})
-    * debe ir a buscar a la base de datos con el id y retornar vecesUsado
-     */
 
     @PostMapping("/invalidate/{linkId}")
-    public String createLink(@PathVariable int linkId) {
-        if (serviceLinkTracker.invalidateLink(linkId)) {
-            return "Link invalidated";
-        } else {
-            return "Link not invalidated";
-        }
+    public ResponseEntity<String> invalidateLink(@PathVariable int linkId) throws LinkAlreadyInvalidatedException, IDNotFoundException {
+        serviceLinkTracker.invalidateLink(linkId);
+        return new ResponseEntity<>("Link Invalidate", HttpStatus.OK);
     }
-    /* Crear un EndPoint tipo Post (/invalidate/{linkID})
-    * debe solicitar el password como query param, ir a la base de datos, si existe revisar que el password sea correcto
-    * si todo esta ok debe que cambiar esValido a false
-     */
 }

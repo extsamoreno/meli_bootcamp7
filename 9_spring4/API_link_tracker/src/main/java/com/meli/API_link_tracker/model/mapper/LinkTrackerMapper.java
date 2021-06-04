@@ -1,8 +1,7 @@
 package com.meli.API_link_tracker.model.mapper;
 
 import com.meli.API_link_tracker.model.dao.model.Link;
-import com.meli.API_link_tracker.model.dto.LinkRequest;
-import com.meli.API_link_tracker.model.dto.LinkRespond;
+import com.meli.API_link_tracker.model.dto.*;
 import org.springframework.stereotype.Component;
 
 @Component

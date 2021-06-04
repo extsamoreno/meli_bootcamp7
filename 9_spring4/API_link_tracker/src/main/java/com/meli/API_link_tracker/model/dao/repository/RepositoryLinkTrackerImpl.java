@@ -4,6 +4,7 @@ import com.meli.API_link_tracker.database.DataBaseLinkTracker;
 import com.meli.API_link_tracker.model.dao.model.Link;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -33,7 +34,13 @@ public class RepositoryLinkTrackerImpl implements RepositoryLinkTracker{
         return size;
     }
 
-    public int sizeDataBase() {
-        return getDataBase().size();
+    public boolean verificateExistOfValue(String linkToVerify) {
+        Collection<Link> links = getDataBase().values();
+        for (Link link: links) {
+            if(link.getLink().equals(linkToVerify)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

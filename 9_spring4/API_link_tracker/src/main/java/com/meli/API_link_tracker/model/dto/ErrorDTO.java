@@ -1,4 +1,4 @@
-package com.meli.API_link_tracker.model.dao.model;
+package com.meli.API_link_tracker.model.dto;
 
 import lombok.*;
 
