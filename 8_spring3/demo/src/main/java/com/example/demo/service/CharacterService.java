@@ -20,12 +20,10 @@ public class CharacterService implements ICharacterService{
 
         List<String> list = new ArrayList<>();
         List<Character> characters = charactersRepository.getByName(name);
-        System.out.println("characters = " + characters.toString());
+
         for (Character c : characters){
             list.add(c.getName());
         }
-
-        System.out.println("list = " +list.toString());
 
         return new CharactersDTO(list);
     }

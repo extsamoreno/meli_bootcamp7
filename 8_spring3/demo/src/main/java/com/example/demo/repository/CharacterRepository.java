@@ -24,12 +24,9 @@ public class CharacterRepository implements ICharactersRepository{
         List<Character> result = new ArrayList<Character>();
 
         if (characters != null){
-            List<Character> item = characters.stream()
+            result = characters.stream()
                     .filter(character -> character.getName().contains(name))
                     .collect(Collectors.toList());
-            if (item.size()>0)
-                System.out.println("item = " + item);
-                result.addAll(item);
         }
 
         return result;
@@ -38,7 +35,7 @@ public class CharacterRepository implements ICharactersRepository{
     private List<Character> loadDataBase() {
         File file = null;
         try{
-            file = ResourceUtils.getFile("/Users/mstefanutti/workplace/meli_bootcamp7/8_spring3/demo/src/main/resources/starwars.json");
+            file = ResourceUtils.getFile("classpath:starwars.json");
         } catch (FileNotFoundException e){
             e.printStackTrace();
         }
