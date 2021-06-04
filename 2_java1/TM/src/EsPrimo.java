@@ -21,7 +21,7 @@ public class EsPrimo {
     public static void main(String[] args) {
         int n;
         Scanner entrada = new Scanner(System.in);
-        
+
         System.out.println("Por favor, ingrese un número");
         n = entrada.nextInt();
 
