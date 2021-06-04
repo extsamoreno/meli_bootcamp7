@@ -11,18 +11,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @org.springframework.stereotype.Repository
 public class RepositoryImpl implements Repository{
 
     @Override
     public ArrayList<CharacterResDTO> returnCharacters(String name) {
-        List<Character> characterDTOList = null;
+        List<Character> characterDTOList;
         characterDTOList = loadDataBase();
         ArrayList<CharacterResDTO> characterResDTOArrayList = new ArrayList<>();
         for (Character character: characterDTOList) {
-            if (character.getName().toUpperCase().indexOf(name.toUpperCase()) != -1) {
+            if (character.getName().toUpperCase().contains(name.toUpperCase())) {
                 characterResDTOArrayList.add(new CharacterResDTO(character.getName()));
             }
         }
