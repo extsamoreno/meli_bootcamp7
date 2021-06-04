@@ -6,19 +6,29 @@ import java.util.Scanner;
 public class mostrarMultiplos {
 
     public static void mostrarMultiplos (int n, int m) {
-        for (int i = 0; i < n * m; i += m) {
-            System.out.println(i);
+        int c = 0;
+        for (int i = 2; i < m; i++) {
+            if (m % i == 0) {
+                System.out.print(i + "\t ");
+                c++;
+            }
+            if (c == n) {
+                break;
+            }
         }
     }
 
     public static void main(String[] args) {
-        int numeros, multiplos;
         Scanner entrada = new Scanner(System.in);
+        int n, m;
 
-        System.out.println("¿Cuántos múltiplos quiere ver?");
-        numeros = entrada.nextInt();
+        System.out.println("¿De cuál número quiere conocer sus múltiplos?");
+        m = entrada.nextInt();
 
-        System.out.println("¿Cuál es el número del cual quiere ver los múltiplos?");
-        multiplos = entrada.nextInt();
+        System.out.println("¿Cuántos de sus múltiplos quisiera ver, comenzando por el menor?");
+        n = entrada.nextInt();
+        System.out.println();
+
+        mostrarMultiplos(n, m);
     }
 }
