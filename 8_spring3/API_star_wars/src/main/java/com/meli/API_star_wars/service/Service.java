@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public interface Service {
 
-    public ArrayList<CharacterResDTO> returnCharaterResDTO(String name);
+    ArrayList<CharacterResDTO> returnCharaterResDTO(String name);
 
 }
