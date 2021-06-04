@@ -1,5 +1,4 @@
 package starwars.repositories;
-import com.calorias.calorias.repositories.Ingrediente;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -8,9 +7,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.*;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -24,11 +21,9 @@ public class PersonajeRepositoryImpl implements PersonajeRepository{
         personajesDTOS = loadDataBase();
         List<Personaje> result = null;
 
-        List<Personaje> filters = new ArrayList<>();
-
         if(personajesDTOS != null){
             List<Personaje> item = personajesDTOS.stream()
-                    .filter(personaje -> personaje.getName().contains(name))
+                    .filter(personaje -> personaje.getName().toLowerCase().contains(name.toLowerCase()))
                     .collect(Collectors.toList());
             result = item;
         }
@@ -39,7 +34,7 @@ public class PersonajeRepositoryImpl implements PersonajeRepository{
     public List<Personaje> loadDataBase(){
         File file = null;
         try{
-            file = ResourceUtils.getFile("/Users/gcaiti/Downloads/calorias/src/main/java/starwars/repositories/starwars.json");
+            file = ResourceUtils.getFile("/Users/gcaiti/Documents/Bootcamp/meli_bootcamp7/8_spring3/calorias/src/main/java/starwars/repositories/starwars.json");
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }
