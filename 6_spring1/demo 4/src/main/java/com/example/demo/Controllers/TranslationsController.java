@@ -1,12 +1,10 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Services.DTO.TranslationDTO;
+import com.example.demo.Services.MorseUtil;
 import com.example.demo.Services.RomanUtil;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/translations")
@@ -22,5 +20,13 @@ public class TranslationsController {
         return result;
     }
 
+    @PostMapping("/morse")
+    public TranslationDTO getMorseText(@RequestBody String text){
+        String output = MorseUtil.textToMorse(text);
+        TranslationDTO result = new TranslationDTO();
+        result.setInput(text);
+        result.setOutput(output);
+        return result;
+    }
 
 }
