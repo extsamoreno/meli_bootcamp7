@@ -1,5 +1,6 @@
 package com.meli.linktracker.controller;
 
+import com.meli.linktracker.dto.LinkMetricRequestDTO;
 import com.meli.linktracker.dto.LinkRequestDTO;
 import com.meli.linktracker.dto.LinkResponseDTO;
 import com.meli.linktracker.exception.IdNotFoundException;
@@ -34,5 +35,11 @@ public class LinkTrackerController {
         URI uri = linkTrackerService.findURIByLinkId(linkId);
         return ResponseEntity.status(HttpStatus.FOUND).location(uri).build();
 
+    }
+
+    @GetMapping("/metrics/{linkId}")
+    public ResponseEntity<LinkMetricRequestDTO> metricsByLinkId(@PathVariable Integer linkId) throws IdNotFoundException {
+        LinkMetricRequestDTO metrics = linkTrackerService.findMetricsByLinkId(linkId);
+        return new ResponseEntity<>(metrics, HttpStatus.OK);
     }
 }

@@ -1,13 +1,12 @@
 package com.meli.linktracker.repository;
 
 import com.meli.linktracker.domain.Link;
+import com.meli.linktracker.exception.IdNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @Repository
 public class LinkTrackerRepository implements ILinkTrackerRepository {
@@ -15,7 +14,7 @@ public class LinkTrackerRepository implements ILinkTrackerRepository {
     private Integer cont = 0;
 
     @Override
-    public Integer create(URI newURI) {
+    public Integer save(URI newURI) {
         Link link = new Link(cont, newURI);
         list.add(link);
         cont++;
@@ -23,15 +22,16 @@ public class LinkTrackerRepository implements ILinkTrackerRepository {
     }
 
     @Override
-    public URI getURIByID(Integer linkId) {
+    public Link getLinkByID(Integer linkId) throws IdNotFoundException {
+        return list.stream()
+                .filter(l -> l.getId() == linkId && l.isValid())
+                .findFirst()
+                .orElseThrow(() -> new IdNotFoundException(linkId));
+    }
 
-        Optional<Link> link = list.stream().filter(l -> l.getId() == linkId && l.isValid()).findFirst();
-
-        if (link.isPresent()) {
-            return link.get().getUri();
-        } else {
-            return null;
-        }
-
+    @Override
+    public void addRedirect(Integer linkId) throws IdNotFoundException {
+        Link link = getLinkByID(linkId);
+        link.setRedirects(link.getRedirects() + 1);
     }
 }

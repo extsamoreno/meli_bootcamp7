@@ -1,6 +1,7 @@
 package com.meli.linktracker.service;
 
 import com.meli.linktracker.domain.Link;
+import com.meli.linktracker.dto.LinkMetricRequestDTO;
 import com.meli.linktracker.dto.LinkResponseDTO;
 import com.meli.linktracker.exception.IdNotFoundException;
 import com.meli.linktracker.exception.InvalidURLException;
@@ -18,23 +19,34 @@ public class LinkTrackerService implements ILinkTrackerService {
 
     @Override
     public LinkResponseDTO createLink(String url) throws InvalidURLException {
-        URI newURI = null;
+        Integer id = linkTrackerRepository.save(createURI(url));
+        return new LinkResponseDTO(id);
+    }
+
+    private URI createURI(String url) throws InvalidURLException {
         try {
-            newURI = new URL(url).toURI();
+            return new URL(url).toURI();
         } catch (Exception e) {
             throw new InvalidURLException(url);
         }
-
-        Integer id = linkTrackerRepository.create(newURI);
-
-        return new LinkResponseDTO(id);
     }
 
     @Override
     public URI findURIByLinkId(Integer linkId) throws IdNotFoundException {
-
-        URI uri = linkTrackerRepository.getURIByID(linkId);
-        if (uri == null) throw new IdNotFoundException(linkId);
-        return uri;
+        Link link = linkTrackerRepository.getLinkByID(linkId);
+        addARedirect(linkId);
+        return link.getUri();
     }
+
+    private void addARedirect(Integer linkId) throws IdNotFoundException {
+        linkTrackerRepository.addRedirect(linkId);
+    }
+
+    @Override
+    public LinkMetricRequestDTO findMetricsByLinkId(Integer linkId) throws IdNotFoundException {
+        Link link = linkTrackerRepository.getLinkByID(linkId);
+        return new LinkMetricRequestDTO(linkId, link.getRedirects());
+    }
+
+
 }

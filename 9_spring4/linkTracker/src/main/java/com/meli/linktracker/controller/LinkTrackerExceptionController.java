@@ -18,13 +18,11 @@ public class LinkTrackerExceptionController {
 
     @ExceptionHandler(InvalidURLException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(InvalidURLException e) {
-
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(IdNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(IdNotFoundException e) {
-
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }

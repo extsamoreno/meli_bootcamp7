@@ -1,10 +1,15 @@
 package com.meli.linktracker.repository;
 
+import com.meli.linktracker.domain.Link;
+import com.meli.linktracker.exception.IdNotFoundException;
+
 import java.net.URI;
 
 public interface ILinkTrackerRepository {
-    Integer create(URI newURI);
 
-    URI getURIByID(Integer linkId);
+    Integer save(URI newURI);
 
+    Link getLinkByID(Integer linkId) throws IdNotFoundException;
+
+    void addRedirect(Integer linkId) throws IdNotFoundException;
 }

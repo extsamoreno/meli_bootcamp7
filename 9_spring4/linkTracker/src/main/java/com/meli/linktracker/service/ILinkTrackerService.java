@@ -1,5 +1,6 @@
 package com.meli.linktracker.service;
 
+import com.meli.linktracker.dto.LinkMetricRequestDTO;
 import com.meli.linktracker.dto.LinkResponseDTO;
 import com.meli.linktracker.exception.IdNotFoundException;
 import com.meli.linktracker.exception.InvalidURLException;
@@ -11,4 +12,5 @@ public interface ILinkTrackerService {
 
     URI findURIByLinkId(Integer linkId) throws IdNotFoundException;
 
+    LinkMetricRequestDTO findMetricsByLinkId(Integer linkId) throws IdNotFoundException;
 }
