@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Character {
+public class MovieCharacter {
     private String name;
     private String height;
     private String mass;

@@ -6,6 +6,6 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CharacterDTO {
+public class MovieCharacterDTO {
     public String name;
 }

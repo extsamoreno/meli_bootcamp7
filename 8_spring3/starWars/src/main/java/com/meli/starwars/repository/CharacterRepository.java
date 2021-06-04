@@ -2,7 +2,7 @@ package com.meli.starwars.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.starwars.domain.Character;
+import com.meli.starwars.domain.MovieCharacter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -16,25 +16,25 @@ import java.util.stream.Collectors;
 public class CharacterRepository implements ICharacterRepository {
 
     @Override
-    public List<Character> findCharactersByNameContaining(String name) {
+    public List<MovieCharacter> findCharactersByNameContaining(String name) {
 
-        List<Character> characters = null;
-        characters = loadDatabase();
+        List<MovieCharacter> movieCharacters = null;
+        movieCharacters = loadDatabase();
 
-        List<Character> filteredChar = null;
-        if (characters != null) {
-            filteredChar = characters.stream().filter(c -> nameContaining(c,name)).collect(Collectors.toList());
-            List<String> nombres = characters.stream().map(c->c.getName()).collect(Collectors.toList());
+        List<MovieCharacter> filteredChar = null;
+        if (movieCharacters != null) {
+            filteredChar = movieCharacters.stream().filter(c -> nameContaining(c,name)).collect(Collectors.toList());
+            List<String> nombres = movieCharacters.stream().map(c->c.getName()).collect(Collectors.toList());
         }
         return filteredChar;
     }
 
-    private boolean nameContaining(Character c, String name) {
+    private boolean nameContaining(MovieCharacter c, String name) {
         return c.getName().toLowerCase().contains(name.toLowerCase());
     }
 
 
-    private List<Character> loadDatabase() {
+    private List<MovieCharacter> loadDatabase() {
         File file = null;
         try {
             file = ResourceUtils.getFile("classpath:starwars.json");
@@ -42,15 +42,15 @@ public class CharacterRepository implements ICharacterRepository {
             e.printStackTrace();
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<Character>> typeRef = new TypeReference<>() {
+        TypeReference<List<MovieCharacter>> typeRef = new TypeReference<>() {
         };
-        List<Character> characters = null;
+        List<MovieCharacter> movieCharacters = null;
         try {
-            characters = objectMapper.readValue(file, typeRef);
+            movieCharacters = objectMapper.readValue(file, typeRef);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return characters;
+        return movieCharacters;
     }
 
 
