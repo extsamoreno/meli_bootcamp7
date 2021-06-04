@@ -22,7 +22,7 @@ public class RepositoryImpl implements Repository{
         characterDTOList = loadDataBase();
         ArrayList<CharacterResDTO> characterResDTOArrayList = new ArrayList<>();
         for (Character character: characterDTOList) {
-            if (character.getName().toUpperCase(Locale.ROOT).indexOf(name.toUpperCase()) != -1) {
+            if (character.getName().toUpperCase().indexOf(name.toUpperCase()) != -1) {
                 characterResDTOArrayList.add(new CharacterResDTO(character.getName()));
             }
         }
