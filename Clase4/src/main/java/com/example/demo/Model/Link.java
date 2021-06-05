@@ -10,6 +10,11 @@ import lombok.NoArgsConstructor;
 public class Link {
     int id;
     String link;
-    int count;
+    String password;
+    int count = 0;
     boolean status;
+
+    public void increaseCount(){
+        this.count++;
+    }
 }
