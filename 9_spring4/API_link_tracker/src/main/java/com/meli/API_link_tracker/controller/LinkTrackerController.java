@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/")
@@ -23,16 +25,17 @@ public class LinkTrackerController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<LinkRespond> createLink(@RequestBody LinkRequest linkRequest, @RequestParam String password)
+    public ResponseEntity<LinkRespond> createLink(@RequestBody LinkRequest linkRequest, @RequestParam String password,
+                                                  HttpServletRequest request)
             throws FormatLinkNotValidateException, PasswordNotEnteredException, LinkAlreadyCreatedException {
-        return new ResponseEntity<>(serviceLinkTracker.createLinktoDataBase(linkRequest, password), HttpStatus.CREATED);
+        return new ResponseEntity<>(serviceLinkTracker.createLinktoDataBase(linkRequest, password, request.
+                getRequestURL().toString()), HttpStatus.CREATED);
     }
 
     @GetMapping("/link/{linkId}")
-    public ResponseEntity<ModelAndView> redirecLink(@PathVariable int linkId) throws LinkAlreadyInvalidatedException,
-            IDNotFoundException {
-        return new ResponseEntity<>(new ModelAndView("redirect:" + serviceLinkTracker.getLinkRedired(linkId)),
-                HttpStatus.SEE_OTHER) ;
+    public ResponseEntity<Object> redirecLink(@PathVariable int linkId) throws LinkAlreadyInvalidatedException,
+            IDNotFoundException, URISyntaxException {
+        return new ResponseEntity<>(serviceLinkTracker.changeToHttpHeader(linkId), HttpStatus.SEE_OTHER) ;
     }
 
     @GetMapping("/metrics/{linkId}")
@@ -41,7 +44,8 @@ public class LinkTrackerController {
     }
 
     @PostMapping("/invalidate/{linkId}")
-    public ResponseEntity<String> invalidateLink(@PathVariable int linkId) throws LinkAlreadyInvalidatedException, IDNotFoundException {
+    public ResponseEntity<String> invalidateLink(@PathVariable int linkId) throws LinkAlreadyInvalidatedException,
+            IDNotFoundException {
         serviceLinkTracker.invalidateLink(linkId);
         return new ResponseEntity<>("Link Invalidate", HttpStatus.OK);
     }

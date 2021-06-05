@@ -6,8 +6,11 @@ import com.meli.API_link_tracker.model.dto.*;
 import com.meli.API_link_tracker.model.exception.*;
 import com.meli.API_link_tracker.model.mapper.LinkTrackerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +19,7 @@ public class ServiceLinkTrackerImpl implements ServiceLinkTracker{
     @Autowired
     private RepositoryLinkTracker repositoryLinkTracker;
 
-    public LinkRespond createLinktoDataBase(LinkRequest linkRequest, String password) throws
+    public LinkRespond createLinktoDataBase(LinkRequest linkRequest, String password, String link) throws
             FormatLinkNotValidateException, PasswordNotEnteredException, LinkAlreadyCreatedException {
         if (password.equals("")) {
             throw new PasswordNotEnteredException();
@@ -28,7 +31,7 @@ public class ServiceLinkTrackerImpl implements ServiceLinkTracker{
         validateFormat(linkRequest.getLink());
         Link newLink = LinkTrackerMapper.convertToDomain(linkRequest, password);
         int idLink = repositoryLinkTracker.addLinkToDataBase(newLink);
-        return LinkTrackerMapper.convertToLinkRespond(idLink);
+        return LinkTrackerMapper.convertToLinkRespond(idLink, link);
     }
 
     public String getLinkRedired(int linkId) throws LinkAlreadyInvalidatedException, IDNotFoundException {
@@ -68,5 +71,12 @@ public class ServiceLinkTrackerImpl implements ServiceLinkTracker{
         if (!matcher.find()) {
             throw new FormatLinkNotValidateException();
         }
+    }
+
+    public HttpHeaders changeToHttpHeader(int linkId) throws IDNotFoundException, LinkAlreadyInvalidatedException, URISyntaxException {
+        URI link = new URI(getLinkRedired(linkId));
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(link);
+        return httpHeaders;
     }
 }

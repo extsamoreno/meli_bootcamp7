@@ -13,9 +13,10 @@ public class LinkTrackerMapper {
         return newLink;
     }
 
-    public static LinkRespond convertToLinkRespond (int idLink) {
+    public static LinkRespond convertToLinkRespond (int idLink, String link) {
         LinkRespond linkRespond = new LinkRespond();
-        String linkTracked = "http://localhost:8087/meli/api/link_tracker/v1/link/" + idLink;
+        String newLink = link.replaceAll("create", "link");
+        String linkTracked = newLink + idLink;
         linkRespond.setLinkTracked(linkTracked);
         return linkRespond;
     }
