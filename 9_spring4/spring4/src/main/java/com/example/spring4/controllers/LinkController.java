@@ -22,13 +22,17 @@ public class LinkController {
     ILinkService iLinkService;
 
     @PostMapping("/getId")
-    public ResponseEntity<LinkIdDTO> getLinkId(@RequestBody LinkStringDTO linkStringDTO) throws InvalidURLException {
-        return new ResponseEntity(iLinkService.getLinkId(linkStringDTO), HttpStatus.CREATED);
+    public ResponseEntity<LinkIdDTO> getLinkId(
+            @RequestBody LinkStringDTO linkStringDTO,
+            @RequestParam(required = false, defaultValue = "") String password) throws InvalidURLException {
+        return new ResponseEntity(iLinkService.getLinkId(linkStringDTO, password), HttpStatus.CREATED);
     }
 
     @GetMapping("/link/{linkId}")
-    public RedirectView getUrlById(@PathVariable Integer linkId) throws LinkException {
-        return new RedirectView(iLinkService.getUrlById(linkId).getLinkUrl());
+    public RedirectView getUrlById(@PathVariable Integer linkId,
+                                   @RequestParam(required = false, defaultValue = "") String password
+                                    ) throws LinkException {
+        return new RedirectView(iLinkService.getUrlById(linkId, password).getLinkUrl());
     }
 
     @GetMapping("/metrics/link/{linkId}")

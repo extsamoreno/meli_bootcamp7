@@ -1,6 +1,7 @@
 package com.example.spring4.controllers;
 
 import com.example.spring4.dtos.ErrorDTO;
+import com.example.spring4.exceptions.InvalidPasswordException;
 import com.example.spring4.exceptions.InvalidURLException;
 import com.example.spring4.exceptions.URLNotFoundException;
 import com.example.spring4.exceptions.UnreachableURLException;
@@ -17,12 +18,17 @@ public class LinkExceptionController {
     }
 
     @ExceptionHandler(URLNotFoundException.class)
-    public ResponseEntity<ErrorDTO> handlerInvalidURL(URLNotFoundException e) {
+    public ResponseEntity<ErrorDTO> handlerURLNotFound(URLNotFoundException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(UnreachableURLException.class)
-    public ResponseEntity<ErrorDTO> handlerInvalidURL(UnreachableURLException e) {
+    public ResponseEntity<ErrorDTO> handlerUnreachableURL(UnreachableURLException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<ErrorDTO> handlerInvalidPassword(InvalidPasswordException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }

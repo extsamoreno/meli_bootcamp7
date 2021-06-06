@@ -3,6 +3,7 @@ package com.example.spring4.repositories;
 import com.example.spring4.dtos.LinkCountDTO;
 import com.example.spring4.dtos.LinkIdDTO;
 import com.example.spring4.dtos.LinkStringDTO;
+import com.example.spring4.exceptions.InvalidPasswordException;
 import com.example.spring4.exceptions.LinkException;
 import com.example.spring4.exceptions.URLNotFoundException;
 import com.example.spring4.exceptions.UnreachableURLException;
@@ -17,9 +18,12 @@ public class LinkRepository implements ILinkRepository {
     private int key = 0;
 
     @Override
-    public LinkIdDTO getLinkId(Link link) {
+    public LinkIdDTO getLinkId(Link link, String password) {
         LinkIdDTO linkIdDTO = new LinkIdDTO();
         link.setLinkId(key);
+        if(!password.equals("")) {
+            link.setPassword(password);
+        }
         linkMap.put(key, link);
         linkIdDTO.setLinkId(key);
         key++;
@@ -28,13 +32,16 @@ public class LinkRepository implements ILinkRepository {
     }
 
     @Override
-    public LinkStringDTO getUrlById(Integer linkId) throws LinkException {
+    public LinkStringDTO getUrlById(Integer linkId, String password) throws LinkException {
         Link link = linkMap.get(linkId);
         if(link == null) {
             throw new URLNotFoundException(linkId);
         }
         if(!link.isReachable()) {
             throw new UnreachableURLException(linkId);
+        }
+        if(!link.getPassword().equals("") && !link.getPassword().equals(password)) {
+            throw new InvalidPasswordException(linkId);
         }
         String url = link.getLinkUrl();
         linkMap.get(linkId).countRedirection();

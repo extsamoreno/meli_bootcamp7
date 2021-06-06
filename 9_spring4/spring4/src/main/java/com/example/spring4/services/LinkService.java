@@ -21,18 +21,18 @@ public class LinkService implements ILinkService {
     ILinkRepository iLinkRepository;
 
     @Override
-    public LinkIdDTO getLinkId(LinkStringDTO linkStringDTO) throws InvalidURLException {
+    public LinkIdDTO getLinkId(LinkStringDTO linkStringDTO, String password) throws InvalidURLException {
         try {
             new URL(linkStringDTO.getLinkUrl()).toURI();
         } catch (Exception e) {
             throw new InvalidURLException(linkStringDTO.getLinkUrl());
         }
-        return iLinkRepository.getLinkId(LinkMapper.toObject(linkStringDTO));
+        return iLinkRepository.getLinkId(LinkMapper.toObject(linkStringDTO), password);
     }
 
     @Override
-    public LinkStringDTO getUrlById(Integer linkId) throws LinkException {
-        return iLinkRepository.getUrlById(linkId);
+    public LinkStringDTO getUrlById(Integer linkId, String password) throws LinkException {
+        return iLinkRepository.getUrlById(linkId, password);
     }
 
     @Override

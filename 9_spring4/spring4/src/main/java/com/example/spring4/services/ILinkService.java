@@ -8,8 +8,8 @@ import com.example.spring4.exceptions.LinkException;
 import com.example.spring4.exceptions.URLNotFoundException;
 
 public interface ILinkService {
-    LinkIdDTO getLinkId(LinkStringDTO linkStringDTO) throws InvalidURLException;
-    LinkStringDTO getUrlById(Integer linkId) throws LinkException;
+    LinkIdDTO getLinkId(LinkStringDTO linkStringDTO, String password) throws InvalidURLException;
+    LinkStringDTO getUrlById(Integer linkId, String password) throws LinkException;
     LinkCountDTO getMetricsById(Integer linkId) throws URLNotFoundException;
     LinkIdDTO invalidUrlById(Integer linkId) throws URLNotFoundException;
 }

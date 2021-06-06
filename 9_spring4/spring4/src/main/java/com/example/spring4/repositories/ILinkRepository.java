@@ -9,8 +9,8 @@ import com.example.spring4.exceptions.UnreachableURLException;
 import com.example.spring4.models.Link;
 
 public interface ILinkRepository {
-    LinkIdDTO getLinkId(Link link);
-    LinkStringDTO getUrlById(Integer linkId) throws LinkException;
+    LinkIdDTO getLinkId(Link link, String password);
+    LinkStringDTO getUrlById(Integer linkId, String password) throws LinkException;
     LinkCountDTO getMetricsById(Integer linkId) throws URLNotFoundException;
     LinkIdDTO invalidUrlById(Integer linkId) throws URLNotFoundException;
 }

@@ -9,7 +9,7 @@ import lombok.*;
 public class Link {
     private int linkId;
     private String linkUrl;
-    private String password;
+    private String password = "";
     private int redirectedTimes;
     private boolean isReachable = true;
 
