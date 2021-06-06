@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 
 @Service
 public interface LinkTrackerService {
-    NewLinkResponseDTO addLink(NewLinkResquestDTO newLinkResquestDTO);
+    NewLinkResponseDTO addLink(NewLinkResquestDTO newLinkResquestDTO) throws LinkTrackerDuplicateUrlException, LinkTrackerException;
     HttpHeaders redirectToUrl(int id, String password) throws URISyntaxException, LinkTrackerException;
     MetricsDTO metricsByID (int id) throws LinkTrackerBadIdException;
     InvalidateDTO invalidateById (int id) throws LinkTrackerBadIdException;

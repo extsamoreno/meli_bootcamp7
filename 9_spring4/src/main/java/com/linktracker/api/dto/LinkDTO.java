@@ -10,6 +10,6 @@ import lombok.Setter;
 public class LinkDTO {
     private String url;
     private int redirectCounter;
-    private boolean enable;
+    private boolean valid;
     private String password;
 }

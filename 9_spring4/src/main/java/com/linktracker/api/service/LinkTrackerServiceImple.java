@@ -5,8 +5,6 @@ import com.linktracker.api.repository.LinkTrackerRepositoryImple;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,56 +18,43 @@ public class LinkTrackerServiceImple implements LinkTrackerService{
 
 
     @Override
-    public NewLinkResponseDTO addLink (NewLinkResquestDTO newLinkResquestDTO){
+    public NewLinkResponseDTO addLink (NewLinkResquestDTO newLinkResquestDTO) throws LinkTrackerException {
 
-        UrlValidator validator = new UrlValidator();
-        boolean noDuplicateUrl=true;
-        //check for valid URL
-        if (validator.isValid(newLinkResquestDTO.getUrl())) {
-
-            //check for duplicated URL
-            for (int i = 1; i <= linkTrackerRepositoryImple.getId(); i++) {
-                if (newLinkResquestDTO.getUrl().equals(linkTrackerRepositoryImple.getLinkRepository().get(i).getUrl())){
-                    noDuplicateUrl=false;
-                }
+        //check for duplicated URL
+        for (int i = 1; i <= linkTrackerRepositoryImple.getId(); i++) {
+            if (newLinkResquestDTO.getUrl().equals(linkTrackerRepositoryImple.getLinkRepository().get(i).getUrl())){
+                throw new LinkTrackerDuplicateUrlException();
             }
-
-            if (noDuplicateUrl){
-                LinkDTO linkDTO = new LinkDTO (newLinkResquestDTO.getUrl(), 0, true, newLinkResquestDTO.getPassword());
-                linkTrackerRepositoryImple.setId(linkTrackerRepositoryImple.getId() + 1);
-                linkTrackerRepositoryImple.getLinkRepository().put(linkTrackerRepositoryImple.getId(),linkDTO);
-                return new NewLinkResponseDTO(linkTrackerRepositoryImple.getId(), newLinkResquestDTO.getUrl());
-            } else{
-                return new NewLinkResponseDTO(-1, "Duplicated URL");
-            }
-
-        }else{
-            return new NewLinkResponseDTO(-1, "No valid URL");
         }
+
+        //Check for valid URL
+        UrlValidator validator = new UrlValidator();
+        if (!validator.isValid(newLinkResquestDTO.getUrl())){
+            throw new LinkTrackerNoValidException();
+        }
+
+        LinkDTO linkDTO = new LinkDTO (newLinkResquestDTO.getUrl(), 0, true, newLinkResquestDTO.getPassword());
+        linkTrackerRepositoryImple.setId(linkTrackerRepositoryImple.getId() + 1);
+        linkTrackerRepositoryImple.getLinkRepository().put(linkTrackerRepositoryImple.getId(),linkDTO);
+        return new NewLinkResponseDTO(linkTrackerRepositoryImple.getId(), newLinkResquestDTO.getUrl());
+
     }
 
 
     @Override
-    public HttpHeaders redirectToUrl(int id, String password) throws LinkTrackerBadIdException, URISyntaxException, LinkTrackerBadPasswordException, LinkTrackerNoValidException {
+    public HttpHeaders redirectToUrl(int id, String password) throws LinkTrackerException, URISyntaxException{
         if (linkTrackerRepositoryImple.getLinkRepository().get(id)==null){
             throw new LinkTrackerBadIdException(id);
         }
 
-        if (!linkTrackerRepositoryImple.getLinkRepository().get(id).isEnable()){
+        if (!linkTrackerRepositoryImple.getLinkRepository().get(id).isValid()){
             throw new LinkTrackerNoValidException();
         }
-
-
 
         String url = linkTrackerRepositoryImple.getLinkRepository().get(id).getUrl();
 
         if (linkTrackerRepositoryImple.getLinkRepository().get(id).getPassword()==null){
-            int redirectCounter = linkTrackerRepositoryImple.getLinkRepository().get(id).getRedirectCounter();
-            linkTrackerRepositoryImple.getLinkRepository().get(id).setRedirectCounter(redirectCounter+1);
-            URI site = new URI(url);
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setLocation(site);
-            return httpHeaders;
+            return headderMaker(id, url);
         }
 
         if (password==null){
@@ -77,12 +62,7 @@ public class LinkTrackerServiceImple implements LinkTrackerService{
         }
 
         if (password.equals(linkTrackerRepositoryImple.getLinkRepository().get(id).getPassword())){
-            int redirectCounter = linkTrackerRepositoryImple.getLinkRepository().get(id).getRedirectCounter();
-            linkTrackerRepositoryImple.getLinkRepository().get(id).setRedirectCounter(redirectCounter+1);
-            URI site = new URI(url);
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setLocation(site);
-            return httpHeaders;
+            return headderMaker(id, url);
         } else{
             throw new LinkTrackerBadPasswordException();
         }
@@ -106,8 +86,17 @@ public class LinkTrackerServiceImple implements LinkTrackerService{
             throw new LinkTrackerBadIdException(id);
         }
         String url = linkTrackerRepositoryImple.getLinkRepository().get(id).getUrl();
-        linkTrackerRepositoryImple.getLinkRepository().get(id).setEnable(false);
+        linkTrackerRepositoryImple.getLinkRepository().get(id).setValid(false);
         return new InvalidateDTO(url, id, "No valid");
+    }
+
+    public HttpHeaders headderMaker(int id, String url) throws URISyntaxException {
+        int redirectCounter = linkTrackerRepositoryImple.getLinkRepository().get(id).getRedirectCounter();
+        linkTrackerRepositoryImple.getLinkRepository().get(id).setRedirectCounter(redirectCounter+1);
+        URI site = new URI(url);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(site);
+        return httpHeaders;
     }
 
 }
