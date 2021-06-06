@@ -90,7 +90,7 @@ public class LinkTrackerServiceImple implements LinkTrackerService{
         return new InvalidateDTO(url, id, "No valid");
     }
 
-    public HttpHeaders headerMaker(int id, String url) throws URISyntaxException {
+    private HttpHeaders headerMaker(int id, String url) throws URISyntaxException {
         int redirectCounter = linkTrackerRepositoryImple.getLinkRepository().get(id).getRedirectCounter();
         linkTrackerRepositoryImple.getLinkRepository().get(id).setRedirectCounter(redirectCounter+1);
         URI site = new URI(url);
