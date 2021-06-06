@@ -54,7 +54,7 @@ public class LinkTrackerServiceImple implements LinkTrackerService{
         String url = linkTrackerRepositoryImple.getLinkRepository().get(id).getUrl();
 
         if (linkTrackerRepositoryImple.getLinkRepository().get(id).getPassword()==null){
-            return headderMaker(id, url);
+            return headerMaker(id, url);
         }
 
         if (password==null){
@@ -62,7 +62,7 @@ public class LinkTrackerServiceImple implements LinkTrackerService{
         }
 
         if (password.equals(linkTrackerRepositoryImple.getLinkRepository().get(id).getPassword())){
-            return headderMaker(id, url);
+            return headerMaker(id, url);
         } else{
             throw new LinkTrackerBadPasswordException();
         }
@@ -90,7 +90,7 @@ public class LinkTrackerServiceImple implements LinkTrackerService{
         return new InvalidateDTO(url, id, "No valid");
     }
 
-    public HttpHeaders headderMaker(int id, String url) throws URISyntaxException {
+    public HttpHeaders headerMaker(int id, String url) throws URISyntaxException {
         int redirectCounter = linkTrackerRepositoryImple.getLinkRepository().get(id).getRedirectCounter();
         linkTrackerRepositoryImple.getLinkRepository().get(id).setRedirectCounter(redirectCounter+1);
         URI site = new URI(url);
