@@ -4,6 +4,7 @@ import com.linktracker.demo.dtos.ErrorDTO;
 import com.linktracker.demo.exceptions.LinkAlreadyExistException;
 import com.linktracker.demo.exceptions.LinkIDNotValidException;
 import com.linktracker.demo.exceptions.LinkURLNotValidException;
+import com.linktracker.demo.exceptions.PasswordAuthenticationFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,6 +25,11 @@ public class LinkExceptionController {
 
     @ExceptionHandler(LinkIDNotValidException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(LinkIDNotValidException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(PasswordAuthenticationFailedException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(PasswordAuthenticationFailedException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 }

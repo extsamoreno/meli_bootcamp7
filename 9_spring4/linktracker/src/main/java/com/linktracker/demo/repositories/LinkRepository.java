@@ -64,7 +64,7 @@ public class LinkRepository implements ILinkRepository{
     }
 
     @Override
-    public boolean isLinkValid(int id){
+    public boolean isLinkActive(int id){
         return linksHm.get(id).isActive();
     }
 

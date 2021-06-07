@@ -13,6 +13,6 @@ public interface ILinkRepository {
     int getLinkReport(int id);
     void incrementLinkReport(int id);
     boolean invalidateLink(int id);
-    boolean isLinkValid(int id);
+    boolean isLinkActive(int id);
     void log();
 }

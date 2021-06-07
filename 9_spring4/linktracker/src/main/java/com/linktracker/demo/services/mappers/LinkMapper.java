@@ -13,6 +13,6 @@ public class LinkMapper {
     }
 
     public static Link toModel(LinkRequestDTO link){
-        return new Link(link.getUrl());
+        return new Link(link.getUrl(), link.getPassword());
     }
 }

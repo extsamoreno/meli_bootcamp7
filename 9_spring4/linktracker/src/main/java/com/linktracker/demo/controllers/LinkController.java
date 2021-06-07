@@ -3,10 +3,7 @@ package com.linktracker.demo.controllers;
 import com.linktracker.demo.dtos.LinkReportDTO;
 import com.linktracker.demo.dtos.LinkRequestDTO;
 import com.linktracker.demo.dtos.LinkResponseDTO;
-import com.linktracker.demo.exceptions.LinkAlreadyExistException;
-import com.linktracker.demo.exceptions.LinkIDNotValidException;
-import com.linktracker.demo.exceptions.LinkURLNotValidException;
-import com.linktracker.demo.exceptions.ResponseException;
+import com.linktracker.demo.exceptions.*;
 import com.linktracker.demo.services.ILinkService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +26,8 @@ public class LinkController {
     }
 
     @GetMapping("/get/{linkID}")
-    public ResponseEntity<Void> useLink(@PathVariable int linkID) throws LinkIDNotValidException {
-        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(linkService.getLink(linkID))).build();
+    public ResponseEntity<Void> useLink(@PathVariable int linkID, @RequestParam(required = false) String pass) throws LinkIDNotValidException, PasswordAuthenticationFailedException {
+        return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(linkService.getLink(linkID, pass))).build();
     }
 
     @GetMapping("/reports/{linkID}")
