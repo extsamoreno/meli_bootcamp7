@@ -28,6 +28,7 @@ public class LinkRepository implements ILinkRepository{
     public Link getLinkById(int id) {
 
         Link link = new Link();
+        link.setID(-1);
 
         for(Link l:links){
             if( l.getID() == id){
@@ -35,6 +36,7 @@ public class LinkRepository implements ILinkRepository{
                 break;
             }
         }
+
         return link ;
     }
 

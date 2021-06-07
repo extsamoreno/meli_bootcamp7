@@ -7,9 +7,11 @@ import com.example.demo.exceptions.NotAuthorizedException;
 import com.example.demo.exceptions.UrlNotValidException;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
+
 public interface ILinkService {
 
-    String add(UrlDTO req) throws UrlNotValidException;
+    String add(UrlDTO req) throws UrlNotValidException, IOException;
 
     RedirectView redirect(int id, String psw) throws LinkDeactivetedException, NotAuthorizedException;
 

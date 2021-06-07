@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 //@RequestMapping("/link")
@@ -28,13 +29,13 @@ public class LinkController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addUri(@RequestBody UrlDTO req) throws UrlNotValidException {
+    public ResponseEntity<String> addUri(@RequestBody UrlDTO req) throws UrlNotValidException, IOException {
         return new ResponseEntity(linkService.add(req), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/link/{linkId}")
-    public RedirectView redirectTo(@PathVariable int linkId, @RequestParam("password") String psw) throws LinkDeactivetedException, NotAuthorizedException {
-        return linkService.redirect(linkId, psw);
+    public RedirectView redirectTo(@PathVariable int linkId, @RequestParam(defaultValue = "") String password) throws LinkDeactivetedException, NotAuthorizedException {
+        return linkService.redirect(linkId, password);
     }
 
     @GetMapping("/metrics/{linkId}")
