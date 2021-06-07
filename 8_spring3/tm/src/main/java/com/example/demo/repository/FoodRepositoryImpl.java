@@ -35,7 +35,7 @@ public class FoodRepositoryImpl implements IFoodRepository {
         File file = null;
 
         try {
-            file = ResourceUtils.getFile("/Users/dbanfi/IdeaProjects/banfi_diego/meli_bootcamp7/8_spring3/src/main/resources/food.json");
+            file = ResourceUtils.getFile("classpath:food.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
