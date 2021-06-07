@@ -15,7 +15,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Autowired
     CharacterRepository characterRepository;
-
+    
     @Override
     public List<CharacterDto> findMatches(String chunk) {
         List<CharacterSW> characterList = characterRepository.findAll();
