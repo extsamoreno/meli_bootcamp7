@@ -12,4 +12,12 @@ import lombok.Setter;
 public class Link {
     private String link;
     private String password;
+    private Integer cant = 0;
+    public void visita(){
+        cant++;
+    }
+    public Link(String link, String password){
+        this.link = link;
+        this.password = password;
+    }
 }
