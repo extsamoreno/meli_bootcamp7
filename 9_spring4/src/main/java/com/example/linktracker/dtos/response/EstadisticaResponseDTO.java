@@ -1,12 +1,11 @@
-package com.example.linktracker.dtos;
+package com.example.linktracker.dtos.response;
 
 import lombok.*;
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
-public class LinkDTO {
-    private int linkId;
+public class EstadisticaResponseDTO {
     private String link;
-    private boolean estado;
+    private int idLink;
     private int cantidadRedirecciones;
 }

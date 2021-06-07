@@ -1,9 +1,13 @@
 package com.example.linktracker.services;
 
+import com.example.linktracker.dtos.LinkDTO;
 import com.example.linktracker.dtos.request.LinkRequestDTO;
+import com.example.linktracker.dtos.response.EstadisticaResponseDTO;
+import com.example.linktracker.dtos.response.InvalidateLinkResponseDTO;
 import com.example.linktracker.dtos.response.LinkResponseDTO;
 import com.example.linktracker.exceptions.ExistentLinkException;
 import com.example.linktracker.exceptions.InvalidLinkException;
+import com.example.linktracker.exceptions.UnexistentLinkException;
 import com.example.linktracker.repositories.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,23 +20,6 @@ public class LinkServiceImple implements LinkService{
     @Autowired
     LinkRepository linkRepository;
 
-    private static final String URL_REGEX =
-            "^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))" +
-                    "(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)" +
-                    "([).!';/?:,][[:blank:]])?$";
-
-    private static final Pattern URL_PATTERN = Pattern.compile(URL_REGEX);
-
-    public static boolean urlValidator(String url) {
-
-        if (url == null) {
-            return false;
-        }
-
-        Matcher matcher = URL_PATTERN.matcher(url);
-        return matcher.matches();
-    }
-
     @Override
     public LinkResponseDTO crearLink(LinkRequestDTO linkRequestDTO) throws ExistentLinkException, InvalidLinkException {
         if(!urlValidator(linkRequestDTO.getLink())){
@@ -42,30 +29,39 @@ public class LinkServiceImple implements LinkService{
         return linkRepository.agregarLink(linkRequestDTO);
     }
 
-    /*@Override
-    public UrlResponseDTO validarLink(UrlRequestDTO urlDTO) {
-        UrlResponseDTO urlResponseDTO = new UrlResponseDTO();
+    @Override
+    public EstadisticaResponseDTO obtenerEstadisticas(int idLink) throws UnexistentLinkException {
+        LinkDTO link = linkRepository.buscarLink(idLink);
+        EstadisticaResponseDTO estadisticasLink = new EstadisticaResponseDTO();
 
-        //crear el link y agregarlo a la urlresponsedto
+        estadisticasLink.setLink(link.getLink());
+        estadisticasLink.setIdLink(link.getLinkId());
+        estadisticasLink.setCantidadRedirecciones(link.getCantidadRedirecciones());
 
-        return urlResponseDTO;
+        return estadisticasLink;
     }
 
     @Override
-    public EstadisticaResponseDTO obtenerEstadisticas(String idLink) {
-        EstadisticaResponseDTO estadisticaResponseDTO = new EstadisticaResponseDTO();
+    public InvalidateLinkResponseDTO invalidarLink(int idLink) throws UnexistentLinkException{
+        InvalidateLinkResponseDTO linkInvalido = linkRepository.invalidarLink(idLink);
 
-        //logica para obtener la cantidad de veces que se redirecciono y agregarlo a estadisticaresponsedto
-
-        return estadisticaResponseDTO;
+        return linkInvalido;
     }
 
-    @Override
-    public UrlResponseDTO invalidarLink(String idLink) {
-        UrlResponseDTO urlResponseDTO = new UrlResponseDTO();
+    private static final String URL_REGEX =
+            "^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))" +
+                    "(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)" +
+                    "([).!';/?:,][[:blank:]])?$";
 
-        //crear el link y agregarlo a la urlresponsedto
+    private static final Pattern URL_PATTERN = Pattern.compile(URL_REGEX);
 
-        return urlResponseDTO;
-    }*/
+    private static boolean urlValidator(String url) {
+
+        if (url == null) {
+            return false;
+        }
+
+        Matcher matcher = URL_PATTERN.matcher(url);
+        return matcher.matches();
+    }
 }
