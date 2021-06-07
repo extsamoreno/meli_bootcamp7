@@ -14,6 +14,8 @@ import org.apache.commons.validator.routines.UrlValidator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class LinkService implements ILinkService{
@@ -22,7 +24,7 @@ public class LinkService implements ILinkService{
     ILinkRepository linkRepository;
 
     @Override
-    public LinkResponseDTO createLink(LinkRequestDTO linkRequestDTO) throws LinkInvalidException, LinkAlreadyExistException {
+    public LinkResponseDTO createLink(LinkRequestDTO linkRequestDTO) throws LinkInvalidException, LinkAlreadyExistException, LinkPasswordInvalidException {
         LinkResponseDTO linkResponse = null;
 
         UrlValidator defaultValidator = new UrlValidator();
@@ -30,10 +32,15 @@ public class LinkService implements ILinkService{
 
         Link linkExist = linkRepository.findLinkByUrl(linkRequestDTO.getUrl());
 
+        if(!validatePassword(linkRequestDTO.getPassword())){
+            throw new LinkPasswordInvalidException();
+        }
+
         if(!isUrlValid){
             throw new LinkInvalidException(linkRequestDTO.getUrl());
         }
-        else if(linkExist != null){
+
+        if(linkExist != null){
             throw new LinkAlreadyExistException(linkRequestDTO.getUrl());
         }
 
@@ -84,6 +91,13 @@ public class LinkService implements ILinkService{
 
         linkResponse = LinkMapper.toDTO(linkRepository.invalidateLinkByUrl(id));
         return linkResponse;
+    }
+
+    private boolean validatePassword(String password){
+        final String regex = "^.*(?=.*[0-9])(?=.*[.@#$%^&+=])(?=.*[a-z]).*$";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
 
 }

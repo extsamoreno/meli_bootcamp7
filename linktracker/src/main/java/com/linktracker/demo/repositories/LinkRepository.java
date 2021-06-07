@@ -5,7 +5,6 @@ import com.linktracker.demo.exceptions.LinkNotFoundException;
 import com.linktracker.demo.models.Link;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -19,7 +19,7 @@ public class LinkController {
     ILinkService linkService;
 
     @PostMapping
-    public ResponseEntity<LinkResponseDTO> createLink(@RequestBody LinkRequestDTO linkRequestDTO) throws LinkInvalidException, LinkAlreadyExistException {
+    public ResponseEntity<LinkResponseDTO> createLink(@RequestBody LinkRequestDTO linkRequestDTO) throws LinkInvalidException, LinkAlreadyExistException, LinkPasswordInvalidException {
         return new ResponseEntity<>(linkService.createLink(linkRequestDTO), HttpStatus.CREATED);
     }
 

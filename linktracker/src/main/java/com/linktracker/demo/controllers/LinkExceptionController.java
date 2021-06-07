@@ -38,5 +38,11 @@ public class LinkExceptionController {
 
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
+
+    @ExceptionHandler(LinkPasswordInvalidException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(LinkPasswordInvalidException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
 }
 
