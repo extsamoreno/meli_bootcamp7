@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 
 
 public interface ICaloriesService {
-    public DishDTO getDishData(Dish dish);
+    DishDTO getDishData(Dish dish);
 }

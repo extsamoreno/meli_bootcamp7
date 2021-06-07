@@ -34,7 +34,7 @@ public class CaloriesService implements ICaloriesService {
     }
 
     private double getIngredientTotalCalories(Ingredient i) {
-        return i.getWeight() * getCaloriesByName(i.getName());
+        return 0;//i.getWeight() * getCaloriesByName(i.getName());
     }
 
     private double getCaloriesByName(String name) {

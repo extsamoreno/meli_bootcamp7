@@ -17,7 +17,7 @@ public class FoodRepository implements IFoodRepository {
     @Override
     public IngredientDTO findIngredientByName(String name) {
         List<IngredientDTO> ingredientsDto = null;
-        ingredientsDto = ingredientService.getAll();
+        ingredientsDto = ingredientService.getAllInDto();
         IngredientDTO ingredient = null;
         if (ingredientsDto != null) {
             Optional<IngredientDTO> item = ingredientsDto.stream().filter(i -> i.getName().equals(name)).findFirst();

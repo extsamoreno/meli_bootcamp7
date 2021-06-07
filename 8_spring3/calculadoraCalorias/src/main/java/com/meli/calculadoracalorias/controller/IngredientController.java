@@ -19,6 +19,6 @@ public class IngredientController {
 
     @GetMapping("")
     public ResponseEntity<List<IngredientDTO>> getAll() {
-        return new ResponseEntity<List<IngredientDTO>>(ingredientService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<List<IngredientDTO>>(ingredientService.getAllInDto(), HttpStatus.OK);
     }
 }

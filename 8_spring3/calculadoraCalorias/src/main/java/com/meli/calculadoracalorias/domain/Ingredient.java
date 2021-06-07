@@ -1,6 +1,6 @@
 package com.meli.calculadoracalorias.domain;
 
-import com.fasterxml.jackson.annotation.JsonKey;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.*;
 
 @Getter
@@ -10,4 +10,5 @@ import lombok.*;
 public class Ingredient {
     private String name;
     private double weight;
+    private double calories;
 }
