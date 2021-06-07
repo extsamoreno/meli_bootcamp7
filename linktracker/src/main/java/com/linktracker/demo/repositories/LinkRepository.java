@@ -1,5 +1,6 @@
 package com.linktracker.demo.repositories;
 
+import com.linktracker.demo.exceptions.LinkInvalidPasswordOrIdException;
 import com.linktracker.demo.exceptions.LinkNotFoundException;
 import com.linktracker.demo.models.Link;
 import org.springframework.stereotype.Repository;
@@ -41,7 +42,7 @@ public class LinkRepository implements ILinkRepository{
     }
 
     @Override
-    public Link findLinkById(Integer id, String password) {
+    public Link findLinkById(Integer id, String password) throws LinkInvalidPasswordOrIdException {
         Link link = null;
         for (Map.Entry<Integer, Link> entry: linkHashMap.entrySet()) {
             int entryId = entry.getKey();
@@ -50,29 +51,45 @@ public class LinkRepository implements ILinkRepository{
                 link = new Link(entry.getKey(), entry.getValue().getUrl(), entry.getValue().isValid());
             }
         }
-
+        if(link == null){
+            throw new LinkInvalidPasswordOrIdException();
+        }
         return link;
     }
 
     @Override
-    public void addLinkCounter(Integer id){
-        Integer count = countLinksRedirect.get(id) + 1;
-        countLinksRedirect.put(id, count++);
+    public void addLinkCounter(Integer id) throws LinkNotFoundException {
+        try{
+            Integer count = countLinksRedirect.get(id) + 1;
+            countLinksRedirect.put(id, count++);
+        }
+        catch(NullPointerException ex){
+            throw new LinkNotFoundException(id);
+        }
     }
 
     @Override
     public Integer getLinkCounter(Integer id) throws LinkNotFoundException {
-        Integer counter = null;
+        Integer counter;
         counter = countLinksRedirect.get(id);
+        if(counter == null){
+            throw new LinkNotFoundException(id);
+        }
+
         return counter;
     }
 
     @Override
     public Link invalidateLinkByUrl(Integer id) throws LinkNotFoundException {
         Link link = null;
-        link = linkHashMap.get(id);
-        link.setValid(false);
-        linkHashMap.put(id, link);
+        try{
+            link = linkHashMap.get(id);
+            link.setId(id);
+            link.setValid(false);
+            linkHashMap.put(id, link);
+        }catch (NullPointerException ex){
+            throw new LinkNotFoundException(id);
+        }
 
         return link;
     }

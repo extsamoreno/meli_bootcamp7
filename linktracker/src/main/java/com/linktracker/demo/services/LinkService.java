@@ -3,10 +3,7 @@ package com.linktracker.demo.services;
 import com.linktracker.demo.dtos.LinkMetricDTO;
 import com.linktracker.demo.dtos.LinkRequestDTO;
 import com.linktracker.demo.dtos.LinkResponseDTO;
-import com.linktracker.demo.exceptions.LinkAlreadyExistException;
-import com.linktracker.demo.exceptions.LinkIdRequiredException;
-import com.linktracker.demo.exceptions.LinkInvalidException;
-import com.linktracker.demo.exceptions.LinkNotFoundException;
+import com.linktracker.demo.exceptions.*;
 import com.linktracker.demo.models.Link;
 import com.linktracker.demo.repositories.ILinkRepository;
 import com.linktracker.demo.services.mappers.LinkMapper;
@@ -47,7 +44,7 @@ public class LinkService implements ILinkService{
     }
 
     @Override
-    public LinkResponseDTO findLinkById(Integer id, String password) throws LinkIdRequiredException, LinkInvalidException, LinkNotFoundException {
+    public LinkResponseDTO findLinkById(Integer id, String password) throws LinkIdRequiredException, LinkInvalidException,LinkNotFoundException, LinkInvalidPasswordOrIdException {
         LinkResponseDTO linkResponse = null;
 
         if(id <= 0){

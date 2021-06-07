@@ -3,10 +3,7 @@ package com.linktracker.demo.controllers;
 import com.linktracker.demo.dtos.LinkMetricDTO;
 import com.linktracker.demo.dtos.LinkRequestDTO;
 import com.linktracker.demo.dtos.LinkResponseDTO;
-import com.linktracker.demo.exceptions.LinkAlreadyExistException;
-import com.linktracker.demo.exceptions.LinkIdRequiredException;
-import com.linktracker.demo.exceptions.LinkInvalidException;
-import com.linktracker.demo.exceptions.LinkNotFoundException;
+import com.linktracker.demo.exceptions.*;
 import com.linktracker.demo.services.ILinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +24,7 @@ public class LinkController {
     }
 
     @GetMapping("{id}")
-    public RedirectView redirectById(@PathVariable Integer id, @RequestParam String password) throws LinkIdRequiredException, LinkInvalidException, LinkNotFoundException {
+    public RedirectView redirectById(@PathVariable Integer id, @RequestParam String password) throws LinkIdRequiredException, LinkInvalidException, LinkNotFoundException, LinkInvalidPasswordOrIdException {
         return new RedirectView(linkService.findLinkById(id, password).getUrl());
     }
 
