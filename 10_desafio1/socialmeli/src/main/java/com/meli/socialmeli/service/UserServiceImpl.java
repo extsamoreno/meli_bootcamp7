@@ -42,21 +42,21 @@ public class UserServiceImpl implements IUserService {
     public int getFollowersAmountByUserId(Optional<Integer> userId, Optional<String> userName) throws SocialExceptionUserNotExists {
         if(userId.isPresent()){
             userExists(userId.get());
-            return userRepository.getFollowersAmountByUserId(userId);
+            return userRepository.getFollowersAmountByUserId(userId.get());
         }
         if (userName.isPresent()){
             userExists(userName.get());
             User user = userRepository.findByName(userName.get());
             return userRepository.getFollowersAmountByUserId(user.getUserId());
         }
-
+        return 0;
     }
 
     @Override
     public SellerDTO getFollowersByUserId(Optional<Integer> userId, Optional<String> userName) throws SocialExceptionUserNotExists {
-        userExists(userId);
-        List<UserBaseDTO> followers = userRepository.getFollowersByUserId(userId).stream().map(UserMapper::modelToDBaseDTO).collect(Collectors.toList());
-        return UserMapper.modelToSellerDTO(getUserById(userId), followers);
+        userExists(userId.get());
+        List<UserBaseDTO> followers = userRepository.getFollowersByUserId(userId.get()).stream().map(UserMapper::modelToDBaseDTO).collect(Collectors.toList());
+        return UserMapper.modelToSellerDTO(getUserById(userId.get()), followers);
     }
 
     @Override
