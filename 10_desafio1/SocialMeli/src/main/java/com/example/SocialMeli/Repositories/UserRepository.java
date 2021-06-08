@@ -2,6 +2,7 @@ package com.example.SocialMeli.Repositories;
 
 import com.example.SocialMeli.Exceptions.UserNotFoundException;
 import com.example.SocialMeli.Models.User;
+import com.example.SocialMeli.Services.DTOs.FollowCountDTO;
 import com.example.SocialMeli.Services.DTOs.FollowDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,14 @@ public class UserRepository implements iUserRepository{
         return new FollowDTO(followedID,followerID, "Follow");
     }
 
+    @Override
+    public FollowCountDTO getFollowersCount(String userId) throws UserNotFoundException {
+
+        User user = this.findUserByID(userId);
+
+        return new FollowCountDTO(user.getId(), user.getName(), user.getFollowers().size());
+    }
+
     private int findUserIndexByID(String userId) throws UserNotFoundException{
 
         for (int i = 0; i < users.size(); i++) {
@@ -49,7 +58,7 @@ public class UserRepository implements iUserRepository{
 
         return this.users;
     }
-    public List<User> loadDataBase(){
+    private List<User> loadDataBase(){
 
         File file = null;
         try{
