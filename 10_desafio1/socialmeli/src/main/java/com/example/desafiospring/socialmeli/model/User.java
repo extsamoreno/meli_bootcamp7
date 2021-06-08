@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class User {
-    int userId;
+    int userId;     //filtrar los parametros, como identificamos a cada usuario
     String userName;
     List<Integer> followers;
     List<Integer> follows;

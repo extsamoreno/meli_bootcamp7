@@ -39,7 +39,7 @@ public class UserServiceImpl implements IUserService {
         User user = userRepository.getUserById(userId);
         List<UserFollowDTO> userFollowersDTOS = new ArrayList<>();
 
-        for (User user1 : user.getFollowers()
+        for (User user1 : user.getFollowed() //revisar porque sale en rojo
         ) {
             userFollowersDTOS.add(UserMapper.getUserFollowDTO(user1));
         }

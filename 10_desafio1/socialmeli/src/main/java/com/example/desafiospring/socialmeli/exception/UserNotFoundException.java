@@ -6,4 +6,5 @@ public class UserNotFoundException extends UserException{
     public UserNotFoundException(String message) {
         super(message, HttpStatus.NOT_FOUND);
     }
+    //exception: cuando no funciona, 404
 }

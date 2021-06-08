@@ -11,7 +11,6 @@ public class UserExceptionController {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(UserNotFoundException e){
-        return new ResponseEntity<>(e.getError(),e.getStatus());
+        return new ResponseEntity<>(e.getError(),e.getStatus()); //EL HANDLER EXCEPTION ARROJA ESTO
     }
-
 }

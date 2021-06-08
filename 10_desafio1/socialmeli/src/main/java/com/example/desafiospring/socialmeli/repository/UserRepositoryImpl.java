@@ -12,8 +12,7 @@ public class UserRepositoryImpl implements IUserRepository{
     HashMap<Integer, User> users = new HashMap<>();
 
     public UserRepositoryImpl(){
-        users.put(1235,new User(1235,"Jose",new ArrayList<>(),new ArrayList<>()));
-        users.put(1569,new User(1569,"Joaquin",new ArrayList<>(),new ArrayList<>()));
+        users.put(1569,new User(1569,"Pablo",new ArrayList<>(),new ArrayList<>())); //agrego user
     }
 
     @Override
@@ -25,7 +24,7 @@ public class UserRepositoryImpl implements IUserRepository{
     @Override
     public User getUserById(int userId) throws UserNotFoundException {
         if(users.get(userId) == null){
-            throw new UserNotFoundException("El usuario no existe");
+            throw new UserNotFoundException("El user no existe"); //exception para cdo el user no existe
         }
         return users.get(userId);
     }
