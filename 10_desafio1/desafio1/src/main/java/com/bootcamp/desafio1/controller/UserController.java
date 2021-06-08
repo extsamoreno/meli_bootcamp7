@@ -2,6 +2,7 @@ package com.bootcamp.desafio1.controller;
 
 
 import com.bootcamp.desafio1.dto.CountFollowersDTO;
+import com.bootcamp.desafio1.dto.FollowersListDTO;
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,16 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<CountFollowersDTO> countFollowers(@PathVariable int userId) throws UserNotFoundException {
         CountFollowersDTO countFollowersDTO = userServiceImpl.countFollowers(userId);
         return new ResponseEntity(countFollowersDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<FollowersListDTO> ListFollowers(@PathVariable int userId) throws UserNotFoundException {
+        FollowersListDTO followersListDTO = userServiceImpl.listFollowers(userId) ;
+        return new ResponseEntity(followersListDTO, HttpStatus.OK);
     }
 
 

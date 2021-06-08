@@ -1,6 +1,8 @@
 package com.bootcamp.desafio1.service;
 
 import com.bootcamp.desafio1.dto.CountFollowersDTO;
+import com.bootcamp.desafio1.dto.FollowersListDTO;
+import com.bootcamp.desafio1.dto.UserDTO;
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.model.User;
 import com.bootcamp.desafio1.repository.IUserRepository;
@@ -45,7 +47,16 @@ public class UserServiceImpl implements  IUserService {
         return Mapper.toCountFollowersDTO(currentUser, followers_count);
     }
 
-
+    @Override
+    public FollowersListDTO listFollowers(int id) throws UserNotFoundException {
+        User currentUser = userRepository.getUserById(id);
+        ArrayList<User> completeFollowersList = currentUser.getFollowers();
+        ArrayList<UserDTO> followers = new ArrayList<>();
+        for (User x : completeFollowersList) {
+            followers.add(Mapper.toUserDTO(x));
+        }
+        return Mapper.toFollowersListDTO(currentUser, followers);
+    }
 
 
 }

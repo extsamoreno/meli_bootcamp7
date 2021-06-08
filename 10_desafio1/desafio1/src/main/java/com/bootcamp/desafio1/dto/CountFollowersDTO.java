@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter
 public class CountFollowersDTO extends UserDTO{
 
-    private int followers_count;
+    private int followersCount;
 
-    public CountFollowersDTO(int userId, String userName, int followers_count) {
+    public CountFollowersDTO(int userId, String userName, int followersCount) {
         super(userId, userName);
-        this.followers_count = followers_count;
+        this.followersCount = followersCount;
     }
 }
