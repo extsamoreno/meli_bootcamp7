@@ -1,6 +1,6 @@
-package com.example.SocialMeli.Models;
+package com.example.SocialMeli.Services.DTOs;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.SocialMeli.Models.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,28 +9,27 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 
-@Getter @Setter  @NoArgsConstructor
-public class Post {
+@Getter @Setter @NoArgsConstructor
+public class PostDTO {
 
-    private int id;
     private int userId;
+    private int postId;
     private String date;
-    private int productId;
+    private ProductDTO detail;
     private String category;
     private double price;
 
-    public Post(int id, int userId, String date, int productId, String category, double price) throws DateTimeParseException {
 
-        this.id = id;
+
+    public PostDTO(int userId, int postId, String date, ProductDTO detail, String category, double price) throws DateTimeParseException {
+
         this.userId = userId;
+        this.postId = postId;
         this.date = LocalDate.parse(date).toString();
-        this.productId = productId;
+        this.detail = detail;
         this.category = category;
         this.price = price;
 
     }
-
-
 }

@@ -1,6 +1,6 @@
 package com.example.SocialMeli.Repositories;
 
-import com.example.SocialMeli.Exceptions.UserNotFoundException;
+import com.example.SocialMeli.Exceptions.*;
 import com.example.SocialMeli.Models.Post;
 import com.example.SocialMeli.Models.Product;
 import com.example.SocialMeli.Models.User;
@@ -65,19 +65,57 @@ public class UserRepository implements iUserRepository{
     }
 
     @Override
-    public void makePost(PostDTO postDTO) throws UserNotFoundException {
+    public void makePost(PostDTO postDTO) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException {
 
-        Post post = PostMapper.toPost(postDTO);
-        Product product = ProductMapper.toProduct(postDTO.getDetail());
-        User user = this.findUserByID(post.getUserId());
+            Post post = PostMapper.toPost(postDTO);
+            Product product = ProductMapper.toProduct(postDTO.getDetail());
+            User user = this.findUserByID(post.getUserId());
 
-        this.products.add(product);
-        this.posts.add(post);
-        user.addPost(post.getId());
+            this.savePost(post);
+            this.saveProduct(product);
+            user.addPost(post.getId());
+
 
 
     }
+    private void saveProduct(Product product) throws ProductIdInUseException {
 
+        if(!this.isProductIdUsed(product.getId())){
+            this.products.add(product);
+        }
+        else{
+            throw new ProductIdInUseException(product.getId());
+        }
+
+    }
+    private void savePost(Post post) throws PostIdInUseException {
+
+        if(!this.isPostIdUsed(post.getId())){
+            this.posts.add(post);
+        }
+        else{
+            throw new PostIdInUseException(post.getId());
+        }
+
+    }
+    private Boolean isPostIdUsed(int postId){
+        try{
+            Post post = this.findPostByID(postId);
+            return true;
+        }
+        catch (PostNotFoundException e){
+            return false;
+        }
+    }
+    private Boolean isProductIdUsed(int productId){
+        try{
+            Product product = this.findProductByID(productId);
+            return true;
+        }
+        catch (ProductNotFoundException e){
+            return false;
+        }
+    }
     private List<UserDTO> getUserDTOListByIds(List<Integer> UserIds) throws UserNotFoundException {
 
         List<UserDTO> userDTOS = new ArrayList<>();
@@ -88,7 +126,32 @@ public class UserRepository implements iUserRepository{
         return userDTOS;
 
     }
+    private int findPostIndexByID(int postId) throws PostNotFoundException {
 
+        for (int i = 0; i < posts.size(); i++) {
+            if (posts.get(i).getId() == postId ){
+                return i;
+            }
+        }
+        throw new PostNotFoundException(postId);
+    }
+    private Post findPostByID(int postId) throws PostNotFoundException {
+
+        return posts.get(this.findPostIndexByID(postId));
+    }
+    private int findProductIndexByID(int productId) throws ProductNotFoundException{
+
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == productId ){
+                return i;
+            }
+        }
+        throw new ProductNotFoundException(productId);
+    }
+    private Product findProductByID(int productId) throws ProductNotFoundException {
+
+        return products.get(this.findProductIndexByID(productId));
+    }
     private int findUserIndexByID(int userId) throws UserNotFoundException{
 
         for (int i = 0; i < users.size(); i++) {
