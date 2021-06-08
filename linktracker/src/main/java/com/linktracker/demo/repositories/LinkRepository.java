@@ -33,7 +33,7 @@ public class LinkRepository implements ILinkRepository{
             String entryUrl = entry.getValue().getUrl();
 
             if(entryUrl.equals(url)){
-                link = new Link(entry.getKey(), entry.getValue().getUrl(), entry.getValue().isValid(), link.getPassword());
+                link = new Link(entry.getKey(), entry.getValue().getUrl(), entry.getValue().isValid());
             }
         }
 
