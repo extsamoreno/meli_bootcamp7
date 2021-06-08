@@ -1,8 +1,14 @@
 package com.meli.socialmeli.repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.socialmeli.model.User;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,6 +20,10 @@ public class UserRepositoryImpl implements IUserRepository {
 
     public UserRepositoryImpl() {
         this.users = new HashMap<>();
+        List<User> userList = loadUsers();
+        for (User user : userList) {
+            users.put(user.getUserId(), user);
+        }
         this.follow = new HashMap<>();
     }
 
@@ -69,5 +79,24 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public List<Integer> getFollowingByUserId(int userId) {
         return users.keySet().stream().filter(e -> users.get(e).getUserId() == userId).collect(Collectors.toList());
+    }
+
+    private List<User> loadUsers() {
+        File file = null;
+        try {
+            file = ResourceUtils.getFile("classpath:users.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<List<User>> typeRef = new TypeReference<>() {
+        };
+        List<User> users = null;
+        try {
+            users = objectMapper.readValue(file, typeRef);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 }

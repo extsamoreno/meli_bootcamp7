@@ -1,0 +1,51 @@
+[{
+  "userId" : 1,
+  "userName" : "comprador1",
+  "userEmail" : "comprador1@comprador.com"
+},
+  {
+    "userId" : 2,
+    "userName" : "comprador2",
+    "userEmail" : "comprador2@comprador.com"
+  },
+  {
+    "userId" : 3,
+    "userName" : "comprador3",
+    "userEmail" : "comprador3@comprador.com"
+  },
+  {
+    "userId" : 4,
+    "userName" : "comprador4",
+    "userEmail" : "comprador4@comprador.com"
+  },
+  {
+    "userId" : 5,
+    "userName" : "comprador5",
+    "userEmail" : "comprador5@comprador.com"
+  },
+  {
+    "userId" : 6,
+    "userName" : "usuario6",
+    "userEmail" : "usuario6@usuario.com"
+  },
+  {
+    "userId" : 7,
+    "userName" : "usuario7",
+    "userEmail" : "usuario7@usuario.com"
+  },
+  {
+    "userId" : 8,
+    "userName" : "usuario8",
+    "userEmail" : "usuario8@usuario.com"
+  },
+  {
+    "userId" : 9,
+    "userName" : "usuario9",
+    "userEmail" : "usuario9@usuario.com"
+  },
+  {
+    "userId" : 10,
+    "userName" : "usuario10",
+    "userEmail" : "usuario10@usuario.com"
+  }
+]
