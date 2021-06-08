@@ -1,8 +1,9 @@
 package com.example.desafio_1.service;
 
+import com.example.desafio_1.exception.UserExceptionAlreadyFollowed;
 import com.example.desafio_1.exception.UserExceptionNotFound;
 import com.example.desafio_1.exception.UserExceptionWrongType;
 
 public interface IUserService {
-    void followUser(int userId, int userIdToFollow) throws UserExceptionNotFound, UserExceptionWrongType;
+    void followUser(int userId, int userIdToFollow) throws UserExceptionNotFound, UserExceptionWrongType, UserExceptionAlreadyFollowed;
 }

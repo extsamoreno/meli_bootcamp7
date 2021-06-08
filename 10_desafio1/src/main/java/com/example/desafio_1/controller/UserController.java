@@ -1,5 +1,6 @@
 package com.example.desafio_1.controller;
 
+import com.example.desafio_1.exception.UserExceptionAlreadyFollowed;
 import com.example.desafio_1.exception.UserExceptionNotFound;
 import com.example.desafio_1.exception.UserExceptionWrongType;
 import com.example.desafio_1.service.IUserService;
@@ -19,7 +20,7 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<Void> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserExceptionWrongType, UserExceptionNotFound {
+    public ResponseEntity<Void> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserExceptionWrongType, UserExceptionNotFound, UserExceptionAlreadyFollowed {
         userService.followUser(userId, userIdToFollow);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
