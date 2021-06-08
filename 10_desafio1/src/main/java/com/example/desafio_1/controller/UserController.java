@@ -4,13 +4,11 @@ import com.example.desafio_1.exception.UserExceptionAlreadyFollowed;
 import com.example.desafio_1.exception.UserExceptionNotFound;
 import com.example.desafio_1.exception.UserExceptionWrongType;
 import com.example.desafio_1.service.IUserService;
+import com.example.desafio_1.service.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -25,4 +23,13 @@ public class UserController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}/followers/count")
+    public ResponseEntity<UserDTO> followersCount(@PathVariable int userId) throws UserExceptionNotFound, UserExceptionWrongType {
+        return new ResponseEntity<UserDTO>(userService.getFollowersCount(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<UserDTO> followersList(@PathVariable int userId) throws UserExceptionNotFound, UserExceptionWrongType {
+        return new ResponseEntity<UserDTO>(userService.getFollowersList(userId), HttpStatus.OK);
+    }
 }
