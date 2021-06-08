@@ -1,0 +1,22 @@
+[
+  {
+    "userID" : 1,
+    "userName" : "Matias",
+    "seller" : true
+  },
+  {
+    "userID" : 2,
+    "userName" : "Eduardo",
+    "seller" : false
+  },
+  {
+    "userID" : 3,
+    "userName" : "Franco",
+    "seller" : false
+  },
+  {
+    "userID" : 4,
+    "userName" : "Danilo",
+    "seller" : true
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "productID" : 1,
+    "productName" : "Silla Gamer",
+    "type" : "Gamer",
+    "brand" : "Racer",
+    "color" : "Grey & Black",
+    "notes" : "Rare Edition"
+  },
+  {
+    "productID" : 2,
+    "productName" : "Escritorio en L",
+    "type" : "Melamina",
+    "brand" : "Platinium",
+    "color" : "Black",
+    "notes" : "Special Edition"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "userID" : 1,
+    "postID" : 1,
+    "date" : "29-04-2021",
+    "detail" : {
+      "productID" : 1,
+      "productName" : "Silla Gamer",
+      "type" : "Gamer",
+      "brand" : "Racer",
+      "color" : "Grey & Black",
+      "notes" : "Rare Edition"
+    },
+    "category" : 100,
+    "price" : 29999.50
+  },
+  {
+    "userID" : 3,
+    "postID" : 2,
+    "date" : "30-04-2021",
+    "detail" : {
+      "productID" : 2,
+      "productName" : "Escritorio en L",
+      "type" : "Melamina",
+      "brand" : "Platinium",
+      "color" : "Black",
+      "notes" : "Special Edition"
+    },
+    "category" : 100,
+    "price" : 17000
+  }
+]
