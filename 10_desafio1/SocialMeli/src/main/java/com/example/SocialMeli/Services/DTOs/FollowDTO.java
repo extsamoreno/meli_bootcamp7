@@ -9,7 +9,7 @@ import lombok.Setter;
 public class FollowDTO {
 
 
-    private String followerID;
-    private String followedID;
+    private int followerID;
+    private int followedID;
     private String type;
 }

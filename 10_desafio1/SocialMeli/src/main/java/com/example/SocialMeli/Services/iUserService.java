@@ -10,9 +10,9 @@ import com.example.SocialMeli.Services.DTOs.FollowersDTO;
 import java.util.List;
 
 public interface iUserService {
-    public FollowDTO follow(String follower, String followed) throws UserNotFoundException;
-    public FollowCountDTO getFollowersCount(String userId) throws UserNotFoundException;
-    public FollowersDTO getFollowers(String user_id) throws UserNotFoundException;
-    public FollowedDTO getFollowed(String user_id) throws UserNotFoundException;
+    public FollowDTO follow(int followerId, int followedId) throws UserNotFoundException;
+    public FollowCountDTO getFollowersCount(int userId) throws UserNotFoundException;
+    public FollowersDTO getFollowers(int user_id) throws UserNotFoundException;
+    public FollowedDTO getFollowed(int user_id) throws UserNotFoundException;
     public List<User> getdb();
 }

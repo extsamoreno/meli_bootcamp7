@@ -9,7 +9,7 @@ public class FollowCountDTO extends Followment {
 
     private int followers_count;
 
-    public FollowCountDTO(String userId, String userName, int followers_count){
+    public FollowCountDTO(int userId, String userName, int followers_count){
 
         this.setUserId(userId);
         this.setUserName(userName);

@@ -19,21 +19,21 @@ public class UserService implements iUserService{
     iUserRepository iUserRepository;
 
     @Override
-    public FollowDTO follow(String follower, String followed) throws UserNotFoundException {
-        return iUserRepository.follow(follower, followed);
+    public FollowDTO follow(int followerId, int followedId) throws UserNotFoundException {
+        return iUserRepository.follow(followerId, followedId);
     }
 
-    public FollowCountDTO getFollowersCount(String userId) throws UserNotFoundException{
+    public FollowCountDTO getFollowersCount(int userId) throws UserNotFoundException{
         return iUserRepository.getFollowersCount(userId);
     }
 
     @Override
-    public FollowersDTO getFollowers(String userId) throws UserNotFoundException {
+    public FollowersDTO getFollowers(int userId) throws UserNotFoundException {
         return iUserRepository.getFollowers(userId);
     }
 
     @Override
-    public FollowedDTO getFollowed(String userId) throws UserNotFoundException{
+    public FollowedDTO getFollowed(int userId) throws UserNotFoundException{
         return iUserRepository.getFollowed(userId);
     }
 

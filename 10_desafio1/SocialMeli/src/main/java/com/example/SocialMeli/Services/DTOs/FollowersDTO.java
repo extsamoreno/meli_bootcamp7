@@ -10,7 +10,7 @@ public class FollowersDTO extends Followment {
 
     private List<UserDTO> followers;
 
-    public FollowersDTO(String userID, String userName, List<UserDTO> followers){
+    public FollowersDTO(int userID, String userName, List<UserDTO> followers){
         super(userID,userName);
         this.setUserId(userID);
         this.setFollowers(followers);

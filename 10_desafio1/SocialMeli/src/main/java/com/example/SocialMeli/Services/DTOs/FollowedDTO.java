@@ -10,7 +10,7 @@ public class FollowedDTO extends Followment {
 
     private List<UserDTO> followed;
 
-    public FollowedDTO(String userID, String userName, List<UserDTO> followed){
+    public FollowedDTO(int userID, String userName, List<UserDTO> followed){
         super(userID,userName);
         this.setUserId(userID);
         this.setFollowed(followed);

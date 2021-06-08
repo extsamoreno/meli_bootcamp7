@@ -22,26 +22,26 @@ public class UserController {
 
     @Autowired
     iUserService iUserService;
-    @PostMapping("/users/{followerId}/follow/{followedID}")
-    public ResponseEntity<FollowDTO> follow (@PathVariable String followerId, @PathVariable String followedID) throws UserNotFoundException {
+    @PostMapping("/users/{followerId}/follow/{followedId}")
+    public ResponseEntity<FollowDTO> follow (@PathVariable int followerId, @PathVariable int followedId) throws UserNotFoundException {
 
-        return new ResponseEntity<>(iUserService.follow(followerId, followedID), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.follow(followerId, followedId), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}/followers/count")
-    public ResponseEntity<FollowCountDTO> getFollowersCount (@PathVariable String userId) throws UserNotFoundException {
+    public ResponseEntity<FollowCountDTO> getFollowersCount (@PathVariable int userId) throws UserNotFoundException {
 
         return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getFollowers (@PathVariable String userId) throws UserNotFoundException {
+    public ResponseEntity<FollowersDTO> getFollowers (@PathVariable int userId) throws UserNotFoundException {
 
         return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<FollowedDTO> getFollowed (@PathVariable String userId) throws UserNotFoundException {
+    public ResponseEntity<FollowedDTO> getFollowed (@PathVariable int userId) throws UserNotFoundException {
 
         return new ResponseEntity<>(iUserService.getFollowed(userId), HttpStatus.OK);
     }

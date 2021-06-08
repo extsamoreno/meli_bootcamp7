@@ -11,18 +11,18 @@ import java.util.List;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class User {
 
-    private String id;
+    private int id;
     private String name;
-    private List<String> followers;
-    private List<String> followedBy;
-    private List<Object> posts;
+    private List<Integer> followers;
+    private List<Integer> followedBy;
+    private List<Post> posts;
 
 
-    public void addFollower(String userId){
+    public void addFollower(int userId){
         this.followers.add(userId);
     }
 
-    public void addFollowed(String userId){
+    public void addFollowed(int userId){
         this.followedBy.add(userId);
     }
 }

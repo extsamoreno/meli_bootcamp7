@@ -11,10 +11,10 @@ import java.util.List;
 
 public interface iUserRepository {
 
-    public FollowDTO follow(String follower, String followed) throws UserNotFoundException;
+    public FollowDTO follow(int followerId, int followedId) throws UserNotFoundException;
 
-    public FollowCountDTO getFollowersCount(String user_id) throws UserNotFoundException;
-    public FollowersDTO getFollowers(String user_id) throws UserNotFoundException;
-    public FollowedDTO getFollowed(String user_id) throws UserNotFoundException;
+    public FollowCountDTO getFollowersCount(int user_id) throws UserNotFoundException;
+    public FollowersDTO getFollowers(int user_id) throws UserNotFoundException;
+    public FollowedDTO getFollowed(int user_id) throws UserNotFoundException;
     public List<User> getUsers();
 }

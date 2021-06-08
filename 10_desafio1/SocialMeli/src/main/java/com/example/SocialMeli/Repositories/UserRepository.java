@@ -23,7 +23,7 @@ public class UserRepository implements iUserRepository{
 
     private List<User> users= this.loadDataBase();
     @Override
-    public FollowDTO follow(String followerID, String followedID) throws UserNotFoundException {
+    public FollowDTO follow(int followerID, int followedID) throws UserNotFoundException {
 
         User follower = this.findUserByID(followerID);
         User followed = this.findUserByID(followedID);
@@ -35,7 +35,7 @@ public class UserRepository implements iUserRepository{
     }
 
     @Override
-    public FollowCountDTO getFollowersCount(String userId) throws UserNotFoundException {
+    public FollowCountDTO getFollowersCount(int userId) throws UserNotFoundException {
 
         User user = this.findUserByID(userId);
 
@@ -43,7 +43,7 @@ public class UserRepository implements iUserRepository{
     }
 
     @Override
-    public FollowersDTO getFollowers(String userId) throws UserNotFoundException {
+    public FollowersDTO getFollowers(int userId) throws UserNotFoundException {
         User user = this.findUserByID(userId);
         List<UserDTO> followerDTOs = this.getUserDTOListByIds(user.getFollowers());
 
@@ -51,7 +51,7 @@ public class UserRepository implements iUserRepository{
     }
 
     @Override
-    public FollowedDTO getFollowed(String userId) throws UserNotFoundException {
+    public FollowedDTO getFollowed(int userId) throws UserNotFoundException {
 
         User user = this.findUserByID(userId);
         List<UserDTO> followerDTOs = this.getUserDTOListByIds(user.getFollowedBy());
@@ -59,7 +59,7 @@ public class UserRepository implements iUserRepository{
         return new FollowedDTO(user.getId(), user.getName(), followerDTOs);
     }
 
-    private List<UserDTO> getUserDTOListByIds(List<String> UserIds) throws UserNotFoundException {
+    private List<UserDTO> getUserDTOListByIds(List<Integer> UserIds) throws UserNotFoundException {
 
         List<UserDTO> userDTOS = new ArrayList<>();
 
@@ -74,16 +74,16 @@ public class UserRepository implements iUserRepository{
 
     }
 
-    private int findUserIndexByID(String userId) throws UserNotFoundException{
+    private int findUserIndexByID(int userId) throws UserNotFoundException{
 
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId().equals(userId)){
+            if (users.get(i).getId() == userId ){
                 return i;
             }
         }
         throw new UserNotFoundException(userId);
     }
-    private User findUserByID(String userId) throws UserNotFoundException{
+    private User findUserByID(int userId) throws UserNotFoundException{
 
         return users.get(this.findUserIndexByID(userId));
     }
