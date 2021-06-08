@@ -5,11 +5,12 @@ import lombok.*;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Product {
-    public Integer product_id;
-    public String productName;
-    public String type;
-    public String brand;
-    public String color;
-    public String notes;
+    private Integer product_id;
+    private String productName;
+    private String type;
+    private String brand;
+    private String color;
+    private String notes;
 }

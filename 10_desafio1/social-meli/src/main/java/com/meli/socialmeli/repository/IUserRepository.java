@@ -9,5 +9,5 @@ public interface IUserRepository {
     User findUserById(Integer userId);
     void addFollower(User userTo, User userFrom);
     List<User> getUserFollowers(Integer userId);
-    List<User> getUserFolowed(Integer userId);
+    List<User> getUserFollowed(Integer userId);
 }

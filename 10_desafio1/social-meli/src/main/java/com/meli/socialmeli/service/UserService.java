@@ -66,6 +66,6 @@ public class UserService implements IUserService {
             throw new UserIdNotFoundException(userId);
         }
 
-        return new UserFollowedDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFolowed(userId));
+        return new UserFollowedDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowed(userId));
     }
 }

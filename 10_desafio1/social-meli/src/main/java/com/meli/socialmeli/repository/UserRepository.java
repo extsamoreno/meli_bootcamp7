@@ -18,19 +18,19 @@ import java.util.stream.Collectors;
 @Repository
 public class UserRepository implements IUserRepository {
     private List<Follow> follows;
+    private List<User> users;
 
     public UserRepository() {
         this.follows = new ArrayList<>();
+        this.users = loadDatabase();
     }
 
     @Override
     public User findUserById(Integer userId) {
-        List<User> users = null;
-        users = loadDatabase();
         User user = null;
 
-        if(users != null) {
-            Optional<User> item = users.stream().filter(i -> i.getUserId().equals(userId)).findFirst();
+        if(this.users != null) {
+            Optional<User> item = this.users.stream().filter(i -> i.getUserId().equals(userId)).findFirst();
             if (item.isPresent()) user = item.get();
         }
 
@@ -39,16 +39,16 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void addFollower(User userTo, User userFrom) {
-        Optional<Follow> item = follows.stream().filter(i -> i.getUserTo().getUserId().equals(userTo.getUserId()) && i.getUserFrom().getUserId().equals(userFrom.getUserId())).findFirst();
+        Optional<Follow> item = this.follows.stream().filter(i -> i.getUserTo().getUserId().equals(userTo.getUserId()) && i.getUserFrom().getUserId().equals(userFrom.getUserId())).findFirst();
 
         if(item.isEmpty()) {
-            follows.add(new Follow(userFrom,userTo));
+            this.follows.add(new Follow(userFrom,userTo));
         }
     }
 
     @Override
     public List<User> getUserFollowers(Integer userId) {
-        List<Follow> fs = follows.stream().filter(i -> i.getUserTo().getUserId().equals(userId)).collect(Collectors.toList());
+        List<Follow> fs = this.follows.stream().filter(i -> i.getUserTo().getUserId().equals(userId)).collect(Collectors.toList());
         List<User> followers = new ArrayList<>();
 
         for (Follow f : fs) {
@@ -59,8 +59,8 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public List<User> getUserFolowed(Integer userId) {
-        List<Follow> fs = follows.stream().filter(i -> i.getUserFrom().getUserId().equals(userId)).collect(Collectors.toList());
+    public List<User> getUserFollowed(Integer userId) {
+        List<Follow> fs = this.follows.stream().filter(i -> i.getUserFrom().getUserId().equals(userId)).collect(Collectors.toList());
         List<User> followed = new ArrayList<>();
 
         for (Follow f : fs) {
