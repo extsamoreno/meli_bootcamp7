@@ -25,7 +25,7 @@ public class LinkTrackerRepository implements ILinkTrackerRepository {
         return list.stream()
                 .filter(l -> l.getId() == linkId && l.isValid())
                 .findFirst()
-                .orElseThrow(() -> new IdNotFoundException(linkId));
+                .orElseThrow(() -> n;
     }
 
     @Override
