@@ -13,5 +13,5 @@ public class MerchantDTO {
     private Integer id;
     private String name;
     int followCount;
-    List<User> users;
+    List<UserDTO> users;
 }

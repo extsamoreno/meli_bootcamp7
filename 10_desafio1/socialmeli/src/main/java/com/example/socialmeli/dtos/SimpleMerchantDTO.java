@@ -1,16 +1,12 @@
 package com.example.socialmeli.dtos;
 
-import com.example.socialmeli.models.Merchant;
-
 import lombok.*;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowedByMeListDTO {
+public class SimpleMerchantDTO {
     private Integer id;
     private String name;
-    List<SimpleMerchantDTO> followers;
 }

@@ -1,9 +1,6 @@
 package com.example.socialmeli.services;
 
-import com.example.socialmeli.dtos.FollowedByMeListDTO;
-import com.example.socialmeli.dtos.FollowersCountDTO;
-import com.example.socialmeli.dtos.FollowersListDTO;
-import com.example.socialmeli.dtos.MerchantDTO;
+import com.example.socialmeli.dtos.*;
 import com.example.socialmeli.exceptions.MerchantNotFoundException;
 import com.example.socialmeli.exceptions.UserNotFoundException;
 import com.example.socialmeli.repositories.ISocialRepository;
@@ -15,11 +12,6 @@ public class SocialService implements  ISocialService{
 
     @Autowired
     private ISocialRepository socialRepository;
-
-    @Override
-    public MerchantDTO createMerchant(String name) {
-        return socialRepository.createMerchant(name);
-    }
 
     @Override
     public MerchantDTO followMerchant(Integer userid, Integer merchantId) throws Exception {
