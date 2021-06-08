@@ -40,29 +40,6 @@ public class LinkRepositoryImpl implements ILinkRepository {
         return linkId;
     }
 
-    @Override
-    public String invalidateLink(int linkId) throws IncorrectIdException {
-
-        try {
-            database.get(linkId).setValid(false);
-            return "Successful Operation - The link has been successfully invalidated";
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new IncorrectIdException();
-        }
-    }
-
-    @Override
-    public String revalidateLink(int linkId) throws IncorrectIdException {
-        try {
-            database.get(linkId).setValid(true);
-            return "Successful Operation - The link has been successfully revalidated";
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new IncorrectIdException();
-        }
-    }
-
     public void setLinkValidation(int linkId, boolean isValid) {
         database.get(linkId).setValid(isValid);
     }

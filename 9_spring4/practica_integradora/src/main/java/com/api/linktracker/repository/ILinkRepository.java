@@ -8,10 +8,6 @@ public interface ILinkRepository {
 
     int createLink(String url);
 
-    String invalidateLink(int linkId) throws IncorrectIdException;
-
-    String revalidateLink(int linkId) throws IncorrectIdException;
-
     void setLinkValidation(int linkId, boolean isValid) throws IncorrectIdException;
 
     boolean isLinkIdValid(int linkId);
