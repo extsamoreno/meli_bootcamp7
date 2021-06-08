@@ -1,17 +1,18 @@
-package com.meli.socialmeli.model.dao.model;
+package com.meli.socialmeli.model.dto;
 
+import com.meli.socialmeli.model.dao.model.Product;
 import lombok.*;
+
 import java.util.Date;
-import java.util.Formatter;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
-    private int userId;
+public class PostDTO {
     private int idPost;
-    private Date date;
+    private String date;
     private Product detail;
     private int category;
     private double price;

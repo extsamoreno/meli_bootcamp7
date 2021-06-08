@@ -1,10 +1,7 @@
 package com.meli.socialmeli.model.mapper;
 
 import com.meli.socialmeli.model.dao.model.User;
-import com.meli.socialmeli.model.dto.UserListDTO;
-import com.meli.socialmeli.model.dto.UserSellerCountDTO;
-import com.meli.socialmeli.model.dto.UserSellerListDTO;
-import com.meli.socialmeli.model.dto.UserSimpleDTO;
+import com.meli.socialmeli.model.dto.*;
 
 import java.util.ArrayList;
 
@@ -35,8 +32,13 @@ public class UsersMapper {
         return newUserListDTO;
     }
 
-
     private static UserSimpleDTO changeTouserSimpleDTO (User user) {
         return new UserSimpleDTO(user.getUserId(), user.getUserName());
+    }
+
+    public static UserListPostDTO changeToUserListPostDTO(User user) {
+        UserListPostDTO userListPostDTO = new UserListPostDTO();
+        userListPostDTO.setUserId(user.getUserId());
+        return userListPostDTO;
     }
 }

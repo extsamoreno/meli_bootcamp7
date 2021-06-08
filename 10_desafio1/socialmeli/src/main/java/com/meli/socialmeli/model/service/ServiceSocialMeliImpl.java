@@ -1,19 +1,25 @@
 package com.meli.socialmeli.model.service;
 
+import com.meli.socialmeli.model.dao.model.Post;
 import com.meli.socialmeli.model.dao.model.User;
+import com.meli.socialmeli.model.dao.repository.RepositoryPost;
 import com.meli.socialmeli.model.dao.repository.RepositoryUsers;
-import com.meli.socialmeli.model.dto.UserListDTO;
-import com.meli.socialmeli.model.dto.UserSellerCountDTO;
-import com.meli.socialmeli.model.dto.UserSellerListDTO;
+import com.meli.socialmeli.model.dto.*;
+import com.meli.socialmeli.model.mapper.PostMapper;
 import com.meli.socialmeli.model.mapper.UsersMapper;
 import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class ServiceSocialMeliImpl implements ServiceSocialMeli{
     @Autowired
     private RepositoryUsers repositoryUsers;
+
+    @Autowired
+    private RepositoryPost repositoryPost;
 
     public void setFollowerTo(int userId, int userIdToFollow) {
         User buyer = repositoryUsers.getUserById(userId);
@@ -55,5 +61,27 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         return UsersMapper.changeToUserListDTO(user);
     }
 
-    
+    public void createNewPost(Post post) {
+        boolean isCreated = repositoryPost.createNewPost(post);
+        if (!isCreated) {
+            // Generar un error al ser creado
+            System.out.println("POST NO CREADO !!!!!!!!!!!!!!");
+        }
+    }
+
+    public UserListPostDTO getListPostbyUser(int userId) {
+        User user = repositoryUsers.getUserById(userId);
+        UserListPostDTO userListPostDTO = UsersMapper.changeToUserListPostDTO(user);
+        ArrayList<User> usersFollowed = user.getUsersFollowed();
+        for (int i = 0; i < usersFollowed.size(); i++) {
+            ArrayList<Integer> listPost = usersFollowed.get(i).getPost();
+            for (int j = 0; j < listPost.size(); j++) {
+                Post post = repositoryPost.getPostById(listPost.get(j));
+                userListPostDTO.getPosts().add(PostMapper.changeToPostDTO(post));
+            }
+        }
+        return userListPostDTO;
+    }
+
+
 }
