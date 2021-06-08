@@ -1,4 +1,4 @@
-package com.meli.socialmeli.dto;
+package com.meli.socialmeli.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

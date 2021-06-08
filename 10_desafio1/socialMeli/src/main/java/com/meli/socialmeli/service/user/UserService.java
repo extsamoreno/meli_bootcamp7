@@ -1,9 +1,9 @@
 package com.meli.socialmeli.service.user;
 
 import com.meli.socialmeli.domain.User;
-import com.meli.socialmeli.dto.UserWithFollowedDTO;
-import com.meli.socialmeli.dto.UserWithFollowersCountDTO;
-import com.meli.socialmeli.dto.UserWithFollowersDTO;
+import com.meli.socialmeli.dto.user.UserWithFollowedDTO;
+import com.meli.socialmeli.dto.user.UserWithFollowersCountDTO;
+import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
 import com.meli.socialmeli.exception.CanNotFollowException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.repository.user.IUserRepository;
