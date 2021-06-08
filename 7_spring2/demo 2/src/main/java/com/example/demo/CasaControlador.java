@@ -71,7 +71,6 @@ public class CasaControlador {
     }
 
     //EJ2
-
     @GetMapping("/edad/{dia}/{mes}/{anio}")
     public ResponseEntity<String> getEdad (@PathVariable String dia, @PathVariable String mes, @PathVariable String anio){
 
