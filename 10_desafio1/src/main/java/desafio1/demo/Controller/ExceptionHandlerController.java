@@ -1,6 +1,6 @@
 package desafio1.demo.Controller;
 
-import desafio1.demo.Exception.UserException;
+import desafio1.demo.Exception.ApiException;
 import desafio1.demo.Model.DTO.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +10,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 @ControllerAdvice
 public class ExceptionHandlerController {
-    @ExceptionHandler(UserException.class)
-    public ResponseEntity<ErrorDTO> returnError(UserException e){
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ErrorDTO> returnError(ApiException e){
         return new ResponseEntity<>(e.getErrorDTO(),e.getHttpStatus());
     }
 
@@ -20,10 +20,10 @@ public class ExceptionHandlerController {
         return new ResponseEntity<String>("Please verify that you are using the correct data types for this endpoint", HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(Throwable.class)
-    public ResponseEntity<String> returnError(Exception e){
-        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Throwable.class)
+//    public ResponseEntity<String> returnError(Exception e){
+//        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
 
 }

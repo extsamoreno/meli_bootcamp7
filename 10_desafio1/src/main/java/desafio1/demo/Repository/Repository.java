@@ -1,6 +1,8 @@
 package desafio1.demo.Repository;
 
+import desafio1.demo.Exception.DuplicatePostIDException;
 import desafio1.demo.Exception.UserNotFoundException;
+import desafio1.demo.Model.Entity.Post;
 import desafio1.demo.Model.Entity.User;
 
 import java.util.ArrayList;
@@ -38,6 +40,15 @@ public class Repository implements IRepository{
         var user = this.getUserById(userId);
         return this.userDict.values().stream()
                 .filter(u -> u.getFollowedUsersList().contains(user));
+    }
+
+    @Override
+    public void addNewPost(Post newPost) throws UserNotFoundException, DuplicatePostIDException {
+        var postList = this.getUserById(newPost.getUserId()).getPostList();
+        if (postList.stream().anyMatch(post -> post.getId_post() == newPost.getId_post())){
+            throw new DuplicatePostIDException(newPost.getId_post());
+        }
+        postList.add(newPost);
     }
 
 

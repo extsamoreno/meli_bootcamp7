@@ -5,11 +5,11 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data
-public class UserException extends Exception{
+public class ApiException extends Exception{
     ErrorDTO errorDTO = new ErrorDTO();
     HttpStatus httpStatus;
 
-    public UserException(String message, HttpStatus httpStatus) {
+    public ApiException(String message, HttpStatus httpStatus) {
         this.errorDTO.setMessage(message);
         this.errorDTO.setName(this.getClass().getSimpleName());
         this.httpStatus = httpStatus;
