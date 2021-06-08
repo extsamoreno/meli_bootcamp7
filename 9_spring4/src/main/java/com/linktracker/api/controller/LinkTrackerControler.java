@@ -21,7 +21,8 @@ public class LinkTrackerControler {
     LinkTrackerServiceImple linkTrackerServiceImple;
 
     @PostMapping("/link")
-    public ResponseEntity<NewLinkResponseDTO> newLink (@RequestBody NewLinkResquestDTO newLinkResquestDTO) throws LinkTrackerException {
+    public ResponseEntity<NewLinkResponseDTO> newLink (@RequestBody NewLinkResquestDTO newLinkResquestDTO)
+            throws LinkTrackerException {
         return new ResponseEntity<>(linkTrackerServiceImple.addLink(newLinkResquestDTO), HttpStatus.OK);
     }
 

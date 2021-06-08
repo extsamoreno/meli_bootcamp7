@@ -1,0 +1,51 @@
+[
+{
+	"userId": 1569,
+    "userName": "vendedor1",
+    "followers" : [
+   				 {
+   				 "userId":4698,
+   				 "userName":"usuario1"
+   				 },   					 
+                   	                         {
+   				 "userId":1536,
+   				 "userName":"usuario2"
+   				 },
+   				 {
+   				 "userId":2236,
+   				 "userName":"usuario3"
+   				 }  						 
+   			      ]
+},
+{
+	"userId": 1523,
+    "userName": "vendedor1",
+	"followers" : [
+   				 {
+   				 "userId":4698,
+   				 "userName":"usuario1"
+   				 },   					 
+                 {
+   				 "userId":1536,
+   				 "userName":"usuario2"
+   				 }						 
+   			      ]
+},
+{
+	"userId": 1729,
+    "userName": "vendedor1",
+	"followers" : [
+   				 {
+   				 "userId":4698,
+   				 "userName":"usuario1"
+   				 },   					 
+                 {
+   				 "userId":1012,
+   				 "userName":"usuario9"
+   				 }						 
+   			      ]
+}
+]
+
+
+
