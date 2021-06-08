@@ -30,9 +30,6 @@ public class UserController {
     public ResponseEntity<ResponseCountFollower> setFollow(@PathVariable Integer userId) {
 
         ResponseCountFollower status = iUserService.countFollowUser(userId);
-        if (status.isSucessfull() )
-            return new ResponseEntity<ResponseCountFollower>(status, HttpStatus.OK);
-        return new ResponseEntity<ResponseCountFollower>(status, HttpStatus.BAD_REQUEST);
-
+        return new ResponseEntity<ResponseCountFollower>(status, HttpStatus.OK);
     }
 }
