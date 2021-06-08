@@ -34,7 +34,7 @@ public class UserService implements IUserService{
         FollowersCountDTO follCount = new FollowersCountDTO();
         follCount.setUserId(userId);
         follCount.setUserName(iUserRepository.getUserById(userId).getUserName());
-        follCount.setFollowers_count(iUserRepository.getFollowersCount(userId));;
+        follCount.setFollowersCount(iUserRepository.getFollowersCount(userId));;
 
         return follCount;
     }
