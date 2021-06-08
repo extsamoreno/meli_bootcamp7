@@ -5,6 +5,7 @@ import desafio1.demo.Model.Entity.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 @org.springframework.stereotype.Repository
 public class Repository implements IRepository{
@@ -24,12 +25,19 @@ public class Repository implements IRepository{
     }
 
     @Override
-    public User getUserById(int id) throws UserNotFoundException {
-        var user = userDict.get(id);
+    public User getUserById(int userId) throws UserNotFoundException {
+        var user = userDict.get(userId);
         if (user == null){
-            throw new UserNotFoundException(id);
+            throw new UserNotFoundException(userId);
         }
         return user;
+    }
+
+    @Override
+    public Stream<User> getUserFollowersById(int userId) throws UserNotFoundException {
+        var user = this.getUserById(userId);
+        return this.userDict.values().stream()
+                .filter(u -> u.getFollowedUsersList().contains(user));
     }
 
 

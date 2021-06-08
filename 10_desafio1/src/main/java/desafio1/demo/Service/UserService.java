@@ -4,6 +4,9 @@ import desafio1.demo.Exception.UserAlreadyFollowsException;
 import desafio1.demo.Exception.UserCantFollowHimselfException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Model.DTO.FollowersCountDTO;
+import desafio1.demo.Model.DTO.FollowersListDTO;
+import desafio1.demo.Model.DTO.UserDTO;
+import desafio1.demo.Model.Entity.User;
 import desafio1.demo.Repository.IRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -30,11 +33,19 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowersCountDTO getFollwersCountById(int userId) throws UserNotFoundException {
+    public FollowersCountDTO getFollowersCountById(int userId) throws UserNotFoundException {
         var user = repository.getUserById(userId);
-        var count = this.repository.getUserDict().values().stream()
-                .filter(u -> u.getFollowedUsersList().contains(user)).count();
+        var count = this.repository.getUserFollowersById(userId).count();
         return new FollowersCountDTO(userId, user.getUserName(), count);
+    }
+
+    @Override
+    public FollowersListDTO getFollowersListByID(int userId) throws UserNotFoundException {
+        var user = repository.getUserById(userId);
+        var userDTOArray = this.repository.getUserFollowersById(userId)
+                .map(u -> new UserDTO(u.getUserId(),u.getUserName()))
+                .toArray(UserDTO[]::new);
+        return new FollowersListDTO(userId, user.getUserName(), userDTOArray);
     }
 
 
