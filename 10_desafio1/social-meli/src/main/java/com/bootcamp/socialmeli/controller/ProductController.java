@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
 
-
-
     @PostMapping("/newpost")
     public ResponseEntity<Void> newPost(@RequestBody PostRequestDTO post) {
 
