@@ -3,6 +3,7 @@ package desafio1.demo.Service;
 import desafio1.demo.Exception.UserAlreadyFollowsException;
 import desafio1.demo.Exception.UserCantFollowHimselfException;
 import desafio1.demo.Exception.UserNotFoundException;
+import desafio1.demo.Model.DTO.FollowersCountDTO;
 import desafio1.demo.Repository.IRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,14 @@ public class UserService implements IUserService{
             throw new UserAlreadyFollowsException(userId, userIdToFollow);
         }
         user.getFollowedUsersList().add(userToFollow);
+    }
+
+    @Override
+    public FollowersCountDTO getFollwersCountById(int userId) throws UserNotFoundException {
+        var user = repository.getUserById(userId);
+        var count = this.repository.getUserDict().values().stream()
+                .filter(u -> u.getFollowedUsersList().contains(user)).count();
+        return new FollowersCountDTO(userId, user.getUserName(), count);
     }
 
 

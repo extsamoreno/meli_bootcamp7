@@ -3,6 +3,7 @@ package desafio1.demo.Controller;
 import desafio1.demo.Exception.UserAlreadyFollowsException;
 import desafio1.demo.Exception.UserCantFollowHimselfException;
 import desafio1.demo.Exception.UserNotFoundException;
+import desafio1.demo.Model.DTO.FollowersCountDTO;
 import desafio1.demo.Service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,11 @@ public class UserController {
     public ResponseEntity followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotFoundException, UserAlreadyFollowsException, UserCantFollowHimselfException {
         iUserService.followUser(userId,userIdToFollow);
         return  new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/count/")
+    public ResponseEntity<FollowersCountDTO> getFollwersCountById(@PathVariable int userId) throws UserNotFoundException {
+        return new ResponseEntity<FollowersCountDTO>(iUserService.getFollwersCountById(userId),HttpStatus.OK);
     }
 
     
