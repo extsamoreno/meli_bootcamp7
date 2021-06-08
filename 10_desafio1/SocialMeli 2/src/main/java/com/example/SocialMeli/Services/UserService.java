@@ -2,7 +2,7 @@ package com.example.SocialMeli.Services;
 
 import com.example.SocialMeli.Exceptions.UserNotFoundException;
 import com.example.SocialMeli.Models.User;
-import com.example.SocialMeli.Repositories.iUserRepository;
+import com.example.SocialMeli.Repositories.iDataRepository;
 import com.example.SocialMeli.Services.DTOs.FollowCountDTO;
 import com.example.SocialMeli.Services.DTOs.FollowDTO;
 import com.example.SocialMeli.Services.DTOs.FollowedDTO;
@@ -16,29 +16,29 @@ import java.util.List;
 public class UserService implements iUserService{
 
     @Autowired
-    iUserRepository iUserRepository;
+    iDataRepository iDataRepository;
 
     @Override
     public FollowDTO follow(int followerId, int followedId) throws UserNotFoundException {
-        return iUserRepository.follow(followerId, followedId);
+        return iDataRepository.follow(followerId, followedId);
     }
 
     public FollowCountDTO getFollowersCount(int userId) throws UserNotFoundException{
-        return iUserRepository.getFollowersCount(userId);
+        return iDataRepository.getFollowersCount(userId);
     }
 
     @Override
     public FollowersDTO getFollowers(int userId) throws UserNotFoundException {
-        return iUserRepository.getFollowers(userId);
+        return iDataRepository.getFollowers(userId);
     }
 
     @Override
     public FollowedDTO getFollowed(int userId) throws UserNotFoundException{
-        return iUserRepository.getFollowed(userId);
+        return iDataRepository.getFollowed(userId);
     }
 
 
     public List<User> getdb(){
-        return iUserRepository.getUsers();
+        return iDataRepository.getUsers();
     }
 }

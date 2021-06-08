@@ -19,11 +19,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Repository
-public class UserRepository implements iUserRepository{
+public class DataRepository implements iDataRepository {
 
     private List<User> users= this.loadDataBase();
     private List<Post> posts= new ArrayList<>();

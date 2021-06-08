@@ -6,7 +6,7 @@ import com.example.SocialMeli.Services.DTOs.*;
 
 import java.util.List;
 
-public interface iUserRepository {
+public interface iDataRepository {
 
     public FollowDTO follow(int followerId, int followedId) throws UserNotFoundException;
 
