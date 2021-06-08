@@ -4,6 +4,7 @@ import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
 import com.socialmeli.socialmeli.services.dtos.UserDTO;
 import com.socialmeli.socialmeli.services.dtos.UserFollowDTO;
+import com.socialmeli.socialmeli.services.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,12 +40,7 @@ public class UserServiceImpl implements UserService{
 
         for (User user1: user.getFollowers()
              ) {
-            userFollowDTOS.add(
-                    new UserFollowDTO(
-                            user1.getUserId(),
-                            user1.getUserName()
-                    )
-            );
+            userFollowDTOS.add(UserMapper.getUserFollowDTO(user1));
         }
 
         return new UserDTO(
