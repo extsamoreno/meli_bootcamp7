@@ -26,7 +26,9 @@ public class UserService implements IUserService {
         ResponseCountFollower responseCountFollower = new ResponseCountFollower();
         if (user != null) {
             responseCountFollower.setFollowers_count(user.getFollower().size());
-
+            responseCountFollower.setUserId(user.getId());
+            responseCountFollower.setSucessfull(true);
+            responseCountFollower.setUserName(user.getName());
         }
         return (responseCountFollower) ;
 
