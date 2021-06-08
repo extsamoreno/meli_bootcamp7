@@ -1,6 +1,7 @@
 package com.meli.desafio.controllers;
 
 import com.meli.desafio.exceptions.PostErrorException;
+import com.meli.desafio.exceptions.PostNotExistException;
 import com.meli.desafio.exceptions.UserNotFoundException;
 import com.meli.desafio.models.dto.ErrorDTO;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,11 @@ public class ExceptionController {
 
     @ExceptionHandler(PostErrorException.class)
     public ResponseEntity<ErrorDTO> postErrorException(PostErrorException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(PostNotExistException.class)
+    public ResponseEntity<ErrorDTO> postNotExistException(PostNotExistException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }
