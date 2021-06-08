@@ -5,4 +5,5 @@ import com.socialmeli.socialmeli.services.dtos.UserDTO;
 public interface UserService {
     public void followUser(int userId , int userIdToFollow) throws UserNotFoundException;
     public UserDTO getUserFollowersCount(int userId) throws UserNotFoundException;
+    public UserDTO getUserFollowers(int userId) throws UserNotFoundException;
 }

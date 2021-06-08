@@ -16,9 +16,11 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public void addFollowerToUser(int userId,int userIdToFollow){
-        users.get(userId).getFollows().add(userIdToFollow);
-        users.get(userIdToFollow).getFollowers().add(userId);
+    public void addFollowerToUser(int userId,int userIdToFollow) throws UserNotFoundException {
+        User user1 = getUserById(userId);
+        User user2 = getUserById(userIdToFollow);
+        users.get(userId).getFollows().add(user2);
+        users.get(userIdToFollow).getFollowers().add(user1);
     }
 
     @Override
@@ -33,6 +35,4 @@ public class UserRepositoryImpl implements UserRepository{
     public int getFollowersCount(int userId) {
         return users.get(userId).getFollowers().size();
     }
-
-
 }

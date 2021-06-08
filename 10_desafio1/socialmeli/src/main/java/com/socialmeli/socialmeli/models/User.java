@@ -8,6 +8,6 @@ import java.util.List;
 public class User {
     int userId;
     String userName;
-    List<Integer> followers;
-    List<Integer> follows;
+    List<User> followers;
+    List<User> follows;
 }
