@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface SocialMeliService {
-    String US001(Integer userId, Integer userIdToFollow);
-    FollowersCountDTO US002(Integer userId);
-    FollowersDetailDTO US003(int userId);
+    String US001(Integer userId, Integer userIdToFollow) throws Exception;
+    FollowersCountDTO US002(Integer userId) throws Exception;
+    FollowersDetailDTO US003(int userId) throws Exception;
 }
