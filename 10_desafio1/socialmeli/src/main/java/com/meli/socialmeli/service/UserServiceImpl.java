@@ -1,5 +1,6 @@
 package com.meli.socialmeli.service;
 
+import com.meli.socialmeli.exception.SocialExceptionMissingParameter;
 import com.meli.socialmeli.exception.SocialExceptionUserNotExists;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IUserRepository;
@@ -39,28 +40,28 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public int getFollowersAmountByUserId(Optional<Integer> userId, Optional<String> userName) throws SocialExceptionUserNotExists {
-        if(userId.isPresent()){
+    public int getFollowersAmountByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter {
+        if (userId.isPresent()) {
             userExists(userId.get());
             return userRepository.getFollowersAmountByUserId(userId.get());
+        } else {
+            throw new SocialExceptionMissingParameter("userId");
         }
-        if (userName.isPresent()){
-            userExists(userName.get());
-            User user = userRepository.findByName(userName.get());
-            return userRepository.getFollowersAmountByUserId(user.getUserId());
-        }
-        return 0;
     }
 
     @Override
-    public SellerDTO getFollowersByUserId(Optional<Integer> userId, Optional<String> userName) throws SocialExceptionUserNotExists {
-        userExists(userId.get());
-        List<UserBaseDTO> followers = userRepository.getFollowersByUserId(userId.get()).stream().map(UserMapper::modelToDBaseDTO).collect(Collectors.toList());
-        return UserMapper.modelToSellerDTO(getUserById(userId.get()), followers);
+    public SellerDTO getFollowersByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter {
+        if (userId.isPresent()) {
+            userExists(userId.get());
+            List<UserBaseDTO> followers = userRepository.getFollowersByUserId(userId.get()).stream().map(UserMapper::modelToDBaseDTO).collect(Collectors.toList());
+            return UserMapper.modelToSellerDTO(getUserById(userId.get()), followers);
+        } else{
+            throw new SocialExceptionMissingParameter("userId");
+        }
     }
 
     @Override
-    public UserDTO getFollowingByUserId(Optional<Integer> userId, Optional<String> userName) {
+    public UserDTO getFollowingByUserId(Optional<Integer> userId) {
         return null;
     }
 

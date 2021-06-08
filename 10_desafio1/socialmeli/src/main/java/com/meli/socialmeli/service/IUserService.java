@@ -1,5 +1,6 @@
 package com.meli.socialmeli.service;
 
+import com.meli.socialmeli.exception.SocialExceptionMissingParameter;
 import com.meli.socialmeli.exception.SocialExceptionUserNotExists;
 import com.meli.socialmeli.service.dto.SellerDTO;
 import com.meli.socialmeli.service.dto.UserBaseDTO;
@@ -16,10 +17,10 @@ public interface IUserService {
 
     void followUser(int userId, int userIdToFollow) throws SocialExceptionUserNotExists;
 
-    int getFollowersAmountByUserId(Optional<Integer> userId, Optional<String> userName) throws SocialExceptionUserNotExists;
+    int getFollowersAmountByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter;
 
-    SellerDTO getFollowersByUserId(Optional<Integer> userId, Optional<String> userName) throws SocialExceptionUserNotExists;
+    SellerDTO getFollowersByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter;
 
-    UserDTO getFollowingByUserId(Optional<Integer> userId, Optional<String> userName);
+    UserDTO getFollowingByUserId(Optional<Integer> userId);
 
 }
