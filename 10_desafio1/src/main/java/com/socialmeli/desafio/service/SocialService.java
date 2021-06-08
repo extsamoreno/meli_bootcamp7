@@ -1,7 +1,9 @@
 package com.socialmeli.desafio.service;
 
 
+import com.socialmeli.desafio.dto.FollowedListDTO;
 import com.socialmeli.desafio.dto.FollowersCountDTO;
+import com.socialmeli.desafio.dto.FollowersListDTO;
 import com.socialmeli.desafio.model.UsuarioModel;
 import com.socialmeli.desafio.model.VendedorModel;
 import com.socialmeli.desafio.service.mapper.SocialMapper;
@@ -26,9 +28,8 @@ public class SocialService implements ISocialService{
         VendedorModel vendedor= iVendedorRepository.getVendedorById(idVendedor);
         System.out.println("vendedor = " + vendedor);
 
-        //System.out.println("entra al follow");
+
         usuario.agregarFollow(vendedor);
-        //System.out.println("vendedor " + vendedor);
         vendedor.agregarFollower(usuario);
 
 
@@ -40,11 +41,20 @@ public class SocialService implements ISocialService{
         VendedorModel vendedor = iVendedorRepository.getVendedorById(id);
         //falta verificar excepciones
 
-
         return SocialMapper.toFollowerCountDTO(vendedor);
     }
 
 
+    public FollowersListDTO getFollowersList(int id){
+        VendedorModel vendedor = iVendedorRepository.getVendedorById(id);
+        return SocialMapper.toFollowersListDto(vendedor);
+    }
+
+
+    public FollowedListDTO getFollowedList(int id){
+        UsuarioModel usuario = iUsuarioRepository.getUsuarioById(id);
+        return SocialMapper.toFollowedListDto(usuario);
+    }
 
 
 

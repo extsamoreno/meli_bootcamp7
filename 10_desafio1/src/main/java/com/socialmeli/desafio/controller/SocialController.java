@@ -1,7 +1,9 @@
 package com.socialmeli.desafio.controller;
 
 
+import com.socialmeli.desafio.dto.FollowedListDTO;
 import com.socialmeli.desafio.dto.FollowersCountDTO;
+import com.socialmeli.desafio.dto.FollowersListDTO;
 import com.socialmeli.desafio.service.ISocialService;
 import com.socialmeli.desafio.socialRepository.IInitRepository;
 import com.socialmeli.desafio.socialRepository.IUsuarioRepository;
@@ -64,6 +66,19 @@ public class SocialController {
     public ResponseEntity<FollowersCountDTO> followersCount (@PathVariable int id){  //falta hacer las excepciones
 
         return new ResponseEntity<>(iSocialService.getCountFollowers(id),HttpStatus.OK);
+    }
+
+
+    @GetMapping("/users/{id}/followers/list")  //CU0003
+    public ResponseEntity<FollowersListDTO> followersList (@PathVariable int id){  //falta hacer las excepciones
+
+        return new ResponseEntity<>(iSocialService.getFollowersList(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{id}/followed/list")  //CU0004
+    public ResponseEntity<FollowedListDTO> followedList (@PathVariable int id){  //falta hacer las excepciones
+
+        return new ResponseEntity<>(iSocialService.getFollowedList(id),HttpStatus.OK);
     }
 
 
