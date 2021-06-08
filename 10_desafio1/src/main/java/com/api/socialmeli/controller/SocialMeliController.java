@@ -2,7 +2,6 @@ package com.api.socialmeli.controller;
 
 import com.api.socialmeli.dto.FollowersCountDTO;
 import com.api.socialmeli.dto.FollowersDetailDTO;
-import com.api.socialmeli.service.SocialMeliService;
 import com.api.socialmeli.service.SocialMeliServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
