@@ -15,7 +15,7 @@ public class User implements IUser {
     int id;
     String name;
     ArrayList<IUser> followers = new ArrayList<>();
-    //ArrayList<IUser> followed;
+    ArrayList<IUser> followed = new ArrayList<>();
     ArrayList<Post> posts = new ArrayList<>();
 
     public User(int id, String name){
@@ -29,10 +29,11 @@ public class User implements IUser {
     }
 
     @Override
-    public void sell(IProduct iProduct) {
-        posts.add(new Post(
-                posts.size(),
-                LocalDate.now(),
-                iProduct));
+    public void followed(IUser follower) {
+        followed.add(follower);
+    }
+
+    public void addPost(Post post){
+        posts.add(post);
     }
 }

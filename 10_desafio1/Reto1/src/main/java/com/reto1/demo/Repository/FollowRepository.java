@@ -1,5 +1,6 @@
 package com.reto1.demo.Repository;
 
+import com.reto1.demo.Exception.UserAlreadyFollowException;
 import com.reto1.demo.Exception.UserIdNotFoundException;
 import com.reto1.demo.Model.User;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,16 @@ public class FollowRepository<user> implements IFollowRepository {
 
 
     @Override
-    public String follow(int userId, int userIdToFollow) throws UserIdNotFoundException {
+    public String follow(int userId, int userIdToFollow) throws UserIdNotFoundException, UserAlreadyFollowException {
         User user = getUserById(userId);
         User follower = getUserById(userIdToFollow);
-        follower.follow(user);
+        //Revisa si ya existe el usuario ya sigue al vendedor
+        if(!follower.getFollowers().contains(user)){
+            follower.follow(user);
+            user.followed(follower);
+        }else{
+            throw new UserAlreadyFollowException(user.getName());
+        }
         return follower.getName();
     }
 
@@ -39,6 +46,7 @@ public class FollowRepository<user> implements IFollowRepository {
             throw new UserIdNotFoundException(userId);
         return user;
     }
+
 
 
 }
