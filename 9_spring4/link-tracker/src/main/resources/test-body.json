@@ -1,0 +1,19 @@
+"body for endpoint /create-multiple",
+
+[
+{
+"url": "https://www.google.com.ar", "password": "admin"
+},
+{
+"url": "https://www.mercadolibre.com.ar"
+},
+{
+"url": "https://www.google.com.ar/maps"
+},
+{
+"url": "https://www.google.com.ar?q=something", "password": "admin"
+},
+{
+"url": "https://www.google.com.ar?q=anotherThing", "password": "myPass"
+}
+]
