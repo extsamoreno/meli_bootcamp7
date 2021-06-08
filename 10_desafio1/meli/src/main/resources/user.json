@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "name": "Pepe",
+    "follow": [],
+    "publication": []
+  },
+  {
+    "id": 1,
+    "name": "Pepito",
+    "follow": [],
+    "publication": []
+  },
+  {
+    "id": 2,
+    "name": "Agustin",
+    "follow": [],
+    "publication": []
+  },
+  {
+    "id": 3,
+    "name": "Nicolas",
+    "follow": [],
+    "publication": []
+  }
+]
