@@ -9,7 +9,9 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Repository
@@ -19,10 +21,15 @@ public class StarWarsRepositoryImp implements iStarWarsRepository {
     public List<CharacterDTO> findCharacterbyName(String name) {
 
         List<CharacterDTO> listCharacterDTOS = loadDatase();
-        List<CharacterDTO> listResult = null;
+        List<CharacterDTO> listResult = new ArrayList<>();
 
         if(listCharacterDTOS != null){
-            listResult = listCharacterDTOS.stream().filter(i -> i.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
+            for (CharacterDTO ch : listCharacterDTOS) {
+                if(ch.getName().toLowerCase().contains(name.toLowerCase())){
+                    listResult.add(ch);
+                }
+            }
+            // listResult = listCharacterDTOS.stream().filter(i -> i.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
         }
         return listResult;
     }
