@@ -7,9 +7,9 @@ import com.desafiospring.socialMeli.dto.UserFollowedDTO;
 import com.desafiospring.socialMeli.dto.UserFollowingDTO;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 import com.desafiospring.socialMeli.model.User;
-import com.desafiospring.socialMeli.repository.SocialMeliRepository;
+import com.desafiospring.socialMeli.repository.ISocialMeliRepository;
 
-import com.desafiospring.socialMeli.service.mapper.SocialMeliMapper;
+import com.desafiospring.socialMeli.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ISocialMeliService implements SocialMeliService {
+public class UserService implements IUserService {
 
     @Autowired
-    SocialMeliRepository socialMeliRepository;
+    ISocialMeliRepository socialMeliRepository;
 
     @Override
     public void followSeller(int userId, int userIdToFollow) throws UserNotFoundException {
@@ -48,7 +48,7 @@ public class ISocialMeliService implements SocialMeliService {
         List<UserDTO> followingList = new ArrayList<>();
 
         for (User u : user.getFollowers()) {
-            followingList.add(SocialMeliMapper.toDto(u));
+            followingList.add(UserMapper.toDto(u));
         }
 
         return new UserFollowingDTO(user.getUserId(),user.getUserName(),followingList);
@@ -59,7 +59,7 @@ public class ISocialMeliService implements SocialMeliService {
         User user = socialMeliRepository.findUserById(userId);
         List<UserDTO> followingList = new ArrayList<>();
         for (User u : user.getFollowedBy()) {
-            followingList.add(SocialMeliMapper.toDto(u));
+            followingList.add(UserMapper.toDto(u));
         }
 
         return new UserFollowedDTO(user.getUserId(),user.getUserName(),followingList);

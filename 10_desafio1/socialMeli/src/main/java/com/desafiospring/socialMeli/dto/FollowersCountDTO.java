@@ -11,8 +11,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FollowersCountDTO {
+
     private Integer userId;
     private String userName;
     private Integer followers_count;
+
 }
 

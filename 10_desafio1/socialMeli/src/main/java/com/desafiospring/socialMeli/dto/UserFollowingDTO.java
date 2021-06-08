@@ -12,7 +12,7 @@ public class UserFollowingDTO {
 
     private int userId;
     private String userName;
-    private List<UserDTO> followings;
+    private List<UserDTO> followed;
 
 }
 
