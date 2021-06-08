@@ -2,6 +2,7 @@ package com.example.Challenge.controller;
 
 import com.example.Challenge.dto.UserResponseCountDTO;
 import com.example.Challenge.dto.UserResponseListDTO;
+import com.example.Challenge.dto.UserResponseListFollowedDTO;
 import com.example.Challenge.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,11 @@ public class UserController {
     public ResponseEntity<UserResponseListDTO> userFollowersList(@PathVariable Integer userId){
         UserResponseListDTO resultListUser= iUserService.getUserFollowersList(userId);
         return  new ResponseEntity<>(resultListUser, HttpStatus.OK);
+    }
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<UserResponseListFollowedDTO> userFollowedList(@PathVariable Integer userId){
+        UserResponseListFollowedDTO resultListFollowedUser= iUserService.getUserFollowedList(userId);
+        return  new ResponseEntity<>(resultListFollowedUser, HttpStatus.OK);
     }
 
 

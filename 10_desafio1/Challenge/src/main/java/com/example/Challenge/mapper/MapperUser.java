@@ -3,6 +3,7 @@ package com.example.Challenge.mapper;
 import com.example.Challenge.dto.UserDTO;
 import com.example.Challenge.dto.UserResponseCountDTO;
 import com.example.Challenge.dto.UserResponseListDTO;
+import com.example.Challenge.dto.UserResponseListFollowedDTO;
 import com.example.Challenge.model.User;
 
 public class MapperUser {
@@ -17,5 +18,9 @@ public class MapperUser {
     public static UserDTO toUserDTO(User user){
         UserDTO userResult = new UserDTO(user.getIdUser(), user.getUserName());
         return userResult;
+    }
+    public static UserResponseListFollowedDTO toUserFollowedResponseListDTO(User user){
+        UserResponseListFollowedDTO userListResult = new UserResponseListFollowedDTO(user.getIdUser(), user.getUserName(), user.getFollowed());
+        return userListResult;
     }
 }

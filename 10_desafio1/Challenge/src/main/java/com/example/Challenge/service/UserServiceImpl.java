@@ -3,6 +3,7 @@ package com.example.Challenge.service;
 import com.example.Challenge.dto.UserDTO;
 import com.example.Challenge.dto.UserResponseCountDTO;
 import com.example.Challenge.dto.UserResponseListDTO;
+import com.example.Challenge.dto.UserResponseListFollowedDTO;
 import com.example.Challenge.mapper.MapperUser;
 import com.example.Challenge.model.User;
 import com.example.Challenge.repository.IUserRepository;
@@ -28,15 +29,31 @@ public class UserServiceImpl implements   IUserService{
         usersFollowed.add(seller);
         customer.setFollowed(usersFollowed);
         */
+        addFollower(customer,seller);
+        addFollowed(customer,seller);
 
 
+    }
+
+    public void addFollower(User customer, User seller){
         List<UserDTO> usersFollowers = seller.getFollowers();
         if (customer!= null){
             usersFollowers.add(MapperUser.toUserDTO(customer));
-            seller.setFollowed(usersFollowers);
+            seller.setFollowers(usersFollowers);
             iUserRepository.saveChanges(customer);
             iUserRepository.saveChanges(seller);
         }
+    }
+
+    public void addFollowed(User customer, User seller){
+        List<UserDTO> usersFollowed = customer.getFollowed();
+        if(seller!= null){
+            usersFollowed.add(MapperUser.toUserDTO(seller));
+            customer.setFollowed(usersFollowed);
+            iUserRepository.saveChanges(customer);
+            iUserRepository.saveChanges(seller);
+        }
+
     }
 
     @Override
@@ -48,6 +65,12 @@ public class UserServiceImpl implements   IUserService{
     @Override
     public UserResponseListDTO getUserFollowersList(Integer userId) {
         UserResponseListDTO userResult = MapperUser.toUserResponseListDTO(iUserRepository.getUserById(userId));
+        return userResult;
+    }
+
+    @Override
+    public UserResponseListFollowedDTO getUserFollowedList(Integer userId) {
+        UserResponseListFollowedDTO userResult = MapperUser.toUserFollowedResponseListDTO(iUserRepository.getUserById(userId));
         return userResult;
     }
 }
