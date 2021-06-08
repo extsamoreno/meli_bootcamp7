@@ -36,17 +36,34 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDTO getUserFollowers(int userId) throws UserNotFoundException {
         User user = userRepository.getUserById(userId);
-        List<UserFollowDTO> userFollowDTOS = new ArrayList<>();
+        List<UserFollowDTO> userFollowersDTOS = new ArrayList<>();
 
         for (User user1: user.getFollowers()
              ) {
-            userFollowDTOS.add(UserMapper.getUserFollowDTO(user1));
+            userFollowersDTOS.add(UserMapper.getUserFollowDTO(user1));
         }
 
         return new UserDTO(
                 user.getUserId(),
                 user.getUserName(),
-                userFollowDTOS
+                userFollowersDTOS
+        );
+    }
+
+    @Override
+    public UserDTO getUserFollowed(int userId) throws UserNotFoundException {
+        User user = userRepository.getUserById(userId);
+        List<UserFollowDTO> userFollowedDTOS = new ArrayList<>();
+
+        for (User user1: user.getFollowed()
+        ) {
+            userFollowedDTOS.add(UserMapper.getUserFollowDTO(user1));
+        }
+
+        return new UserDTO(
+                user.getUserName(),
+                user.getUserId(),
+                userFollowedDTOS
         );
     }
 

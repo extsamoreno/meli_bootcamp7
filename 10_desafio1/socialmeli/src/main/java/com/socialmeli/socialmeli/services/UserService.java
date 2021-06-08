@@ -6,4 +6,5 @@ public interface UserService {
     public void followUser(int userId , int userIdToFollow) throws UserNotFoundException;
     public UserDTO getUserFollowersCount(int userId) throws UserNotFoundException;
     public UserDTO getUserFollowers(int userId) throws UserNotFoundException;
+    public UserDTO getUserFollowed(int userId) throws UserNotFoundException;
 }

@@ -9,5 +9,5 @@ public class User {
     int userId;
     String userName;
     List<User> followers;
-    List<User> follows;
+    List<User> followed;
 }

@@ -19,7 +19,7 @@ public class UserRepositoryImpl implements UserRepository{
     public void addFollowerToUser(int userId,int userIdToFollow) throws UserNotFoundException {
         User user1 = getUserById(userId);
         User user2 = getUserById(userIdToFollow);
-        users.get(userId).getFollows().add(user2);
+        users.get(userId).getFollowed().add(user2);
         users.get(userIdToFollow).getFollowers().add(user1);
     }
 
