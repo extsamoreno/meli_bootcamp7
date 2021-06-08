@@ -20,11 +20,12 @@ public class UserRepositoryImpl implements IUserRepository {
 
     public UserRepositoryImpl() {
         this.users = new HashMap<>();
+        this.follow = new HashMap<>();
         List<User> userList = loadUsers();
         for (User user : userList) {
             users.put(user.getUserId(), user);
+            follow.put(user.getUserId(), new ArrayList<>());
         }
-        this.follow = new HashMap<>();
     }
 
     @Override
