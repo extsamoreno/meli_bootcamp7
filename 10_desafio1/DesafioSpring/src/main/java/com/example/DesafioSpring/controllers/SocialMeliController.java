@@ -1,22 +1,38 @@
 package com.example.DesafioSpring.controllers;
 
+import com.example.DesafioSpring.dto.FollowDTO;
+import com.example.DesafioSpring.dto.FollowersCountDTO;
+import com.example.DesafioSpring.exceptions.UserNotFoundException;
+import com.example.DesafioSpring.models.User;
+import com.example.DesafioSpring.services.IuserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 @RestController
-@RequestMapping("/users/123")
+@RequestMapping("/users" )
 public class SocialMeliController {
 
-    //autowired
+    @Autowired
+    IuserService iUserService;
+//punto1
+    @GetMapping("{userId}/follow/{userIdToFollow}")
+    public ResponseEntity<FollowDTO> followSeller (@PathVariable String userId, @PathVariable String userIdToFollow) throws UserNotFoundException {
+        return new ResponseEntity<>(iUserService.followSeller(userId,userIdToFollow),HttpStatus.OK);
+    }
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> followSeller (){
 
-   // @GetMapping("/follow/{userIdToFollow}")
+        return new ResponseEntity<>(iUserService.getDatabase(), HttpStatus.OK);
+    }
 
+    //Punto 2
+    @GetMapping("{userId}/followers/count")
+    public ResponseEntity<FollowersCountDTO>getFollowersCount(@PathVariable String userId) throws UserNotFoundException {
+        return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
+    }
 
 }
