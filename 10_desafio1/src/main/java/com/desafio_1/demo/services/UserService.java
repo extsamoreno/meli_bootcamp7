@@ -1,6 +1,6 @@
 package com.desafio_1.demo.services;
 
-import com.desafio_1.demo.dtos.UserDTO;
+import com.desafio_1.demo.dtos.UserFollowDTO;
 import com.desafio_1.demo.dtos.UserFollowerCountDTO;
 import com.desafio_1.demo.dtos.UserFollowerDTO;
 import com.desafio_1.demo.exceptions.UnhandledException;
@@ -11,7 +11,7 @@ import com.desafio_1.demo.models.User;
 import com.desafio_1.demo.repositories.IUserRepository;
 import com.desafio_1.demo.services.mappers.UserFollowerCountMapper;
 import com.desafio_1.demo.services.mappers.UserFollowerMapper;
-import com.desafio_1.demo.services.mappers.UserMapper;
+import com.desafio_1.demo.services.mappers.UserFollowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class UserService implements IUserService{
     IUserRepository userRepository;
 
     @Override
-    public UserDTO addFollowUser(Integer userId, Integer userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
+    public UserFollowDTO addFollowUser(Integer userId, Integer userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
 
         if(userId <= 0){
             throw new UserIdInvalidException();
@@ -38,9 +38,9 @@ public class UserService implements IUserService{
         User userFollowed = user.getFollowed().stream().filter(u -> u.getId() == userIdToFollow).findFirst().orElse(null);
         if(userFollowed != null){
 
-            return UserMapper.toDTO(user);
+            return UserFollowMapper.toDTO(user);
         }
-        return UserMapper.toDTO(userRepository.addFollowUser(userId, userIdToFollow));
+        return UserFollowMapper.toDTO(userRepository.addFollowUser(userId, userIdToFollow));
     }
 
     @Override

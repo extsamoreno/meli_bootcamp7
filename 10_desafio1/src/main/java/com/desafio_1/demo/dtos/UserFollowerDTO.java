@@ -12,10 +12,6 @@ import java.util.ArrayList;
 public class UserFollowerDTO {
     private Integer id;
     private String userName;
-    private ArrayList<UserFollowerDTO> followers;
+    private ArrayList<UserResponseDTO> followers;
 
-    public UserFollowerDTO(Integer id, String userName) {
-        this.id = id;
-        this.userName = userName;
-    }
 }

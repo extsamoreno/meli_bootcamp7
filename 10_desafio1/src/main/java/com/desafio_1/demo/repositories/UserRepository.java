@@ -10,11 +10,11 @@ import java.util.*;
 public class UserRepository implements IUserRepository{
 
         private ArrayList<User> listUsers = new ArrayList<User>(Arrays.asList(
-                new User(1,"usuario1", "Santiago Garcia", new ArrayList<User>(), new ArrayList<User>()),
-                new User(2,"usuario2", "Juan Perez", new ArrayList<User>(), new ArrayList<User>()),
-                new User(3,"usuario3", "Manuel liendo", new ArrayList<User>(), new ArrayList<User>()),
-                new User(4,"usuario4", "Melisa Gonzalez", new ArrayList<User>(), new ArrayList<User>()),
-                new User(5,"usuario5", "Tomas Colazo", new ArrayList<User>(), new ArrayList<User>())
+                new User(1,"santiigarcia1", new ArrayList<User>(), new ArrayList<User>()),
+                new User(2,"juanpe", new ArrayList<User>(), new ArrayList<User>()),
+                new User(3,"manufaliendo", new ArrayList<User>(), new ArrayList<User>()),
+                new User(4,"meligonzalez", new ArrayList<User>(), new ArrayList<User>()),
+                new User(5,"tomicol",new ArrayList<User>(), new ArrayList<User>())
         ));
 
 

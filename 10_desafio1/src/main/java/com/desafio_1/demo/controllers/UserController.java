@@ -1,6 +1,6 @@
 package com.desafio_1.demo.controllers;
 
-import com.desafio_1.demo.dtos.UserDTO;
+import com.desafio_1.demo.dtos.UserFollowDTO;
 import com.desafio_1.demo.dtos.UserFollowerCountDTO;
 import com.desafio_1.demo.dtos.UserFollowerDTO;
 import com.desafio_1.demo.exceptions.UnhandledException;
@@ -21,7 +21,7 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<UserDTO> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
+    public ResponseEntity<UserFollowDTO> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
         return new ResponseEntity<>(userService.addFollowUser(userId, userIdToFollow), HttpStatus.OK);
     }
 

@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserFollowerCountDTO {
-    private Integer id;
-    private String userName;
+public class UserFollowerCountDTO extends UserResponseDTO{
     @JsonProperty("followers_count")
     private Integer followersCount;
+
+    public UserFollowerCountDTO(Integer id, String userName, Integer followersCount) {
+        super(id, userName);
+        this.followersCount = followersCount;
+    }
 }

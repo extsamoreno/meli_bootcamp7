@@ -1,15 +1,15 @@
 package com.desafio_1.demo.services.mappers;
 
-import com.desafio_1.demo.dtos.UserFollowerDTO;
+import com.desafio_1.demo.dtos.UserFollowDTO;
 import com.desafio_1.demo.dtos.UserResponseDTO;
 import com.desafio_1.demo.models.User;
 
 import java.util.ArrayList;
 
-public class UserFollowerMapper {
+public class UserFollowMapper {
 
-    public static UserFollowerDTO toDTO(User user){
-        return new UserFollowerDTO(user.getId(), user.getUserName(),arrayUserToDTO(user.getFollowers()));
+    public static UserFollowDTO toDTO(User user){
+        return new UserFollowDTO(user.getId(),user.getUserName(), arrayUserToDTO(user.getFollowed()));
     }
 
     private static ArrayList<UserResponseDTO> arrayUserToDTO(ArrayList<User> users){
@@ -19,5 +19,4 @@ public class UserFollowerMapper {
         }
         return usersDTO;
     }
-
 }
