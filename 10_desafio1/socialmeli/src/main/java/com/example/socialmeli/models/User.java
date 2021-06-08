@@ -9,4 +9,5 @@ import lombok.*;
 public class User {
     Integer id;
     String name;
+    Merchant[] merchants;
 }

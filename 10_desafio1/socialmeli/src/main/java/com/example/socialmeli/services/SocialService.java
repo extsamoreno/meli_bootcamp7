@@ -5,6 +5,7 @@ import com.example.socialmeli.dtos.FollowersCountDTO;
 import com.example.socialmeli.dtos.FollowersListDTO;
 import com.example.socialmeli.dtos.MerchantDTO;
 import com.example.socialmeli.exceptions.MerchantNotFoundException;
+import com.example.socialmeli.exceptions.UserNotFoundException;
 import com.example.socialmeli.repositories.ISocialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class SocialService implements  ISocialService{
     }
 
     @Override
-    public FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws MerchantNotFoundException {
+    public FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws UserNotFoundException {
         return socialRepository.followedByMe(merchantid, name);
     }
 }

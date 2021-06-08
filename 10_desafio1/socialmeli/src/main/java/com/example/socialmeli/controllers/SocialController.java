@@ -5,6 +5,7 @@ import com.example.socialmeli.dtos.FollowersCountDTO;
 import com.example.socialmeli.dtos.FollowersListDTO;
 import com.example.socialmeli.dtos.MerchantDTO;
 import com.example.socialmeli.exceptions.MerchantNotFoundException;
+import com.example.socialmeli.exceptions.UserNotFoundException;
 import com.example.socialmeli.services.ISocialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,8 +41,8 @@ public class SocialController {
     }
 
     @GetMapping("/user/{userid}/followed/list")
-    public ResponseEntity<FollowedByMeListDTO> myFollowsList(@PathVariable Integer merchantid,
-                                                             @RequestParam(required = false, defaultValue = "") String name) throws MerchantNotFoundException {
-        return new ResponseEntity<FollowedByMeListDTO>(socialService.followedByMe(merchantid, name),HttpStatus.OK);
+    public ResponseEntity<FollowedByMeListDTO> myFollowsList(@PathVariable Integer userid,
+                                                             @RequestParam(required = false, defaultValue = "") String name) throws UserNotFoundException {
+        return new ResponseEntity<FollowedByMeListDTO>(socialService.followedByMe(userid, name),HttpStatus.OK);
     }
 }

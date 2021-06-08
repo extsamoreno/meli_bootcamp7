@@ -5,6 +5,7 @@ import com.example.socialmeli.exceptions.FollowAlreadyExistException;
 import com.example.socialmeli.exceptions.MerchantNotFoundException;
 import com.example.socialmeli.exceptions.UserNotFoundException;
 import com.example.socialmeli.mappers.SocialMapper;
+import com.example.socialmeli.models.Merchant;
 import com.example.socialmeli.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,15 @@ import java.util.List;
 public class SocialRepository implements ISocialRepository{
     private HashMap<Integer, MerchantDTO> merchantsMap = new HashMap<>();
     private HashMap<Integer, UserDTO> usersMap = new HashMap<>();
+    private HashMap<Integer, UserWithMerchantsDTO> usersWithMerchMap = new HashMap<>();
+
+    public SocialRepository() {
+        /*MerchantDTO merchantDTO = new MerchantDTO();
+        merchantDTO.setName("Merchant1");
+        merchantDTO.se
+
+        this.merchantsMap.put(1,)*/
+    }
 
     @Override
     public MerchantDTO createMerchant(String name) {
@@ -34,7 +44,10 @@ public class SocialRepository implements ISocialRepository{
     @Override
     public MerchantDTO followMerchant(Integer userid, Integer merchantId) throws MerchantNotFoundException, FollowAlreadyExistException {
 
-        UserDTO userDTO = new UserDTO();
+        UserDTO userDTO = usersMap.get(userid);
+        if (userDTO == null){
+            userDTO = new UserDTO();
+        }
 
         userDTO.setId(userid);
         userDTO.setName("User"+userid);
@@ -55,17 +68,20 @@ public class SocialRepository implements ISocialRepository{
 
                 merchantDTO.setFollowCount(merchantsMap.get(i).getFollowCount()+1);
 
-                User userDTOtoModel = SocialMapper.usserDTOtoModel(userDTO);
+                User userDTOtoModel = SocialMapper.userDTOtoModel(userDTO);
 
-                List<User> merchantUser = merchantDTO.getUsers();
+                List<User> usersOnMerchantList = merchantDTO.getUsers();
 
-                if (merchantUser == null){
-                    merchantUser = new ArrayList<>();
+                if (usersOnMerchantList == null){
+                    usersOnMerchantList = new ArrayList<>();
                 }
 
-                merchantUser.add(userDTOtoModel);
+                usersOnMerchantList.add(userDTOtoModel);
 
-                merchantDTO.setUsers(merchantUser);
+                merchantDTO.setUsers(usersOnMerchantList);
+
+                // add merchant on UserWithMerchant's list
+                addMerchantOnUser(userid,merchantId);
 
                 return merchantDTO;
             }
@@ -112,20 +128,21 @@ public class SocialRepository implements ISocialRepository{
     public FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws UserNotFoundException {
         FollowedByMeListDTO followedByMeListDTO = new FollowedByMeListDTO();
 
-        MerchantDTO merchantDTO = merchantsMap.get(merchantid);
+        UserWithMerchantsDTO merchantDTO = usersWithMerchMap.get(merchantid);
 
         if (merchantDTO == null){
             throw new UserNotFoundException("UserId does not exist", HttpStatus.BAD_REQUEST);
         }
 
         followedByMeListDTO.setId(merchantid);
-        followedByMeListDTO.setFollowers(merchantDTO.getUsers());
+        followedByMeListDTO.setFollowers(merchantDTO.getMerchants());
         followedByMeListDTO.setName(name);
 
         return followedByMeListDTO;
     }
 
-    public boolean alreadyFollow(Integer userId, Integer merchantId){
+    //region private Methods
+    private boolean alreadyFollow(Integer userId, Integer merchantId){
         MerchantDTO merchantDTO = merchantsMap.get(merchantId);
         List<User> merchantUser = merchantDTO.getUsers();
 
@@ -143,4 +160,34 @@ public class SocialRepository implements ISocialRepository{
 
         return false;
     }
+
+    private void addMerchantOnUser(Integer userId, Integer merchantId){
+        UserWithMerchantsDTO userDTO = usersWithMerchMap.get(userId);
+        //UserWithMerchantsDTO userDTO = new UserWithMerchantsDTO();
+
+        if (userDTO == null){
+            userDTO = new UserWithMerchantsDTO();
+        }
+
+        MerchantDTO merchant = merchantsMap.get(merchantId);
+        Merchant merchantDTOtoModel = SocialMapper.merchantDTOtoModel(merchant);
+
+        userDTO.setId(userId);
+        userDTO.setName(usersMap.get(userId).getName());
+
+        List<Merchant> merchantsOnUserList = userDTO.getMerchants();
+
+        if (merchantsOnUserList == null){
+            merchantsOnUserList = new ArrayList<>();
+        }
+
+        merchantsOnUserList.add(merchantDTOtoModel);
+
+        userDTO.setMerchants(merchantsOnUserList);
+
+        usersWithMerchMap.put(userId, userDTO);
+    }
+
+    //endregion
 }
+
