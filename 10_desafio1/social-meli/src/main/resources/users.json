@@ -1,0 +1,37 @@
+[
+  {
+    "userId": 1,
+    "userName": "Adidas",
+    "followers": [2],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 2,
+    "userName": "Juan Abal",
+    "followers": [],
+    "followed": [1],
+    "posts": []
+  },
+  {
+    "userId": 3,
+    "userName": "Samsung",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 4,
+    "userName": "Mariano González",
+    "followers": [],
+    "followed": [5],
+    "posts": []
+  },
+  {
+    "userId": 5,
+    "userName": "Apple",
+    "followers": [4],
+    "followed": [],
+    "posts": []
+  }
+]

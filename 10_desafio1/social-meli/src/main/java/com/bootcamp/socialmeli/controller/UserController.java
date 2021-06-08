@@ -1,0 +1,49 @@
+package com.bootcamp.socialmeli.controller;
+
+import com.bootcamp.socialmeli.DTO.UserAmountFollowersDTO;
+import com.bootcamp.socialmeli.DTO.UserFollowedListDTO;
+import com.bootcamp.socialmeli.DTO.UserFollowersListDTO;
+import com.bootcamp.socialmeli.model.User;
+import com.bootcamp.socialmeli.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+    @Autowired
+    IUserService userService;
+
+    @PostMapping("/{userId}/follow/{userIdToFollow}")
+    public ResponseEntity<Void> follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) {
+
+        userService.follow(userId, userIdToFollow);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/count")
+    public ResponseEntity<UserAmountFollowersDTO> getAmountUserFollowers(@PathVariable Integer userId) {
+        return new ResponseEntity<>(userService.getAmountUserFollowers(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<UserFollowersListDTO> getListUserFollowers(@PathVariable Integer userId) {
+        return new ResponseEntity<>(userService.getListUserFollowers(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<UserFollowedListDTO> getListUserFollowed(@PathVariable Integer userId) {
+        return new ResponseEntity<>(userService.getListUserFollowed(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    }
+}
