@@ -1,6 +1,9 @@
 package com.meli.socialmeli.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +22,8 @@ public class User {
     public User(Integer userId, String userName) {
         this.userId = userId;
         this.userName = userName;
-        this.followers= new ArrayList<>();
-        this.followed=new ArrayList<>();
+        this.followers = new ArrayList<>();
+        this.followed = new ArrayList<>();
     }
 
     public void startToFollow(User userToFollow) {

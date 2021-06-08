@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository {
 
-    public static List<User> userList=new ArrayList<>();
-    public static Integer cont=0;
+    public static List<User> userList = new ArrayList<>();
+    public static Integer cont = 0;
 
     @Override
     public Optional<User> findUserById(Integer userId) {
