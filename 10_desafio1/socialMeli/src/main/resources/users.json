@@ -1,0 +1,62 @@
+[
+  {
+    "userId": 1,
+    "userName": "seller1",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 2,
+    "userName": "seller2",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 3,
+    "userName": "seller3",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 4,
+    "userName": "seller4",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 5,
+    "userName": "buyer5",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 6,
+    "userName": "buyer6",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 7,
+    "userName": "buyer7",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 8,
+    "userName": "buyer8",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 9,
+    "userName": "buyer9",
+    "followers": [],
+    "followedBy": []
+  },
+  {
+    "userId": 10,
+    "userName": "buyer10",
+    "followers": [],
+    "followedBy": []
+  }
+]
