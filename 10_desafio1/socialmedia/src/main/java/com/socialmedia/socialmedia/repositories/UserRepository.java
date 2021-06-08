@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -43,6 +44,32 @@ public class UserRepository implements IUserRepository {
         userResult.setFollowers(followersByUser);
 
         return userResult;
+    }
+
+    public List<User> getFollowersByUser(int userId) throws UserNotFoundException {
+        List<User> results = new ArrayList<>();
+        User user = getUserById(userId);
+
+        for (Follower follower : user.getFollowers()) {
+            results.add(getUserById(follower.getFollowerId()));
+        }
+
+        return results;
+    }
+
+    @Override
+    public List<User> getFollowedByUser(int id) throws UserNotFoundException {
+        List<User> results = new ArrayList<>();
+
+        var followerList = loadDatabaseFollowers().stream()
+                .filter(follower -> follower.getFollowerId() == id)
+                .collect(Collectors.toList());
+
+        for (Follower follower : followerList) {
+            results.add(getUserById(follower.getUserId()));
+        }
+
+        return results;
     }
 
     private List<User> loadDatabaseUsers() {

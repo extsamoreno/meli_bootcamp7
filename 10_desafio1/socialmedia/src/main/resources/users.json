@@ -44,5 +44,14 @@
         "surname": "generic5",
         "email": "user5@gmail.com",
         "userType": 2
+    },
+    {
+        "id": 6,
+        "nickname": "vendedor6",
+        "password": "55asd",
+        "name": "User66",
+        "surname": "generic6",
+        "email": "user6@gmail.com",
+        "userType": 1
     }
 ]

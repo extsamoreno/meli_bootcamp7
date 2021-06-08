@@ -12,12 +12,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    public int id;
-    public String nickname;
-    public String password;
-    public String name;
-    public String surname;
-    public String email;
-    public int userType;
-    public List<Follower> followers;
+    private int id;
+    private String nickname;
+    private String password;
+    private String name;
+    private String surname;
+    private String email;
+    private int userType;
+    private List<Follower> followers;
 }
