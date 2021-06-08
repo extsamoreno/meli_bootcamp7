@@ -1,0 +1,52 @@
+[
+  {
+    "userId": 1,
+    "userName": "fgomez",
+    "isSeller": false
+  },
+  {
+    "userId": 2,
+    "userName": "aespinola",
+    "isSeller": true
+  },
+  {
+    "userId": 3,
+    "userName": "dnieto",
+    "isSeller": true
+  },
+  {
+    "userId": 4,
+    "userName": "dbonometti",
+    "isSeller": true
+  },
+  {
+    "userId": 5,
+    "userName": "pwillian",
+    "isSeller": true
+  },
+  {
+    "userId": 6,
+    "userName": "mvalverde",
+    "isSeller": true
+  },
+  {
+    "userId": 7,
+    "userName": "mstefanutti",
+    "isSeller": false
+  },
+  {
+    "userId": 8,
+    "userName": "jperez",
+    "isSeller": false
+  },
+  {
+    "userId": 9,
+    "userName": "jgonzalez",
+    "isSeller": false
+  },
+  {
+    "userId": 10,
+    "userName": "hfernandez",
+    "isSeller": false
+  }
+]
