@@ -22,8 +22,8 @@ public class LinkTrackerController {
     private ILinkTrackerService trackerService;
 
     @PostMapping
-    public ResponseEntity<LinkDTO> createLink(@RequestBody LinkTrackerDTO linkTrakerDTO) throws LinkNotExistException {
-        LinkDTO link = trackerService.createLink(linkTrakerDTO);
+    public ResponseEntity<LinkDTO> createLink(@RequestBody LinkTrackerDTO linkTrackerDTO) throws LinkNotExistException {
+        LinkDTO link = trackerService.createLink(linkTrackerDTO);
 
         return new ResponseEntity<>(link, HttpStatus.OK);
     }
