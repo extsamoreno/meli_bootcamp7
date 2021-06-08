@@ -1,7 +1,7 @@
 import java.util.Scanner;
-public class ejercicio3 {
+class ejercicio3 {
 }
-        import java.util.Scanner;
+import java.util.Scanner;
 public class ejercicio3 {
     public static void main(String[] args) {
         //Programa que te dice si un numero es par o impar
