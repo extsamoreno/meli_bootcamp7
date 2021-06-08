@@ -18,9 +18,14 @@ import java.util.List;
 @Repository
 @Data
 public class UserRepository implements IUserRepository {
-    public static List<User> listUsers = new ArrayList<>();
+    public List<User> listUsers = new ArrayList<>();
     private HashMap<Integer, List<UserDTO>> followersList = new HashMap<>();
     private HashMap<Integer, List<UserDTO>> followedList = new HashMap<>();
+
+    @Override
+    public List<User> getUserList() {
+        return listUsers;
+    }
 
     @Override
     public HashMap<Integer, List<UserDTO>>getFollowersList(){
@@ -44,29 +49,5 @@ public class UserRepository implements IUserRepository {
         return null;
     }
 
-    @Override
-    public void loadDataBase() {
-        File file = null;
-
-        try {
-            file = ResourceUtils.getFile("classpath:users.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<User>> typeRef = new TypeReference<>() {};
-        List<User> listUsers = null;
-
-        try{
-            listUsers = objectMapper.readValue(file , typeRef);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-        for(User u: listUsers){
-            this.listUsers.add(u);
-        }
-    }
 
 }

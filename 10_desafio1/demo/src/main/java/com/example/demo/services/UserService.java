@@ -25,6 +25,8 @@ public class UserService implements IUserServices{
         User followingUser = userRepository.getUserById(userId);
         followingUser.getFollowers().add(mapper.toDTO(followedUser));
         followedUser.getFollowed().add(mapper.toDTO(followingUser));
+        userRepository.getUserList().add(followedUser);
+        userRepository.getUserList().add(followingUser);
         userRepository.getFollowedList().put(userId, followingUser.getFollowers());
         userRepository.getFollowersList().put(userIdToFollow, followedUser.getFollowed());
         return true;

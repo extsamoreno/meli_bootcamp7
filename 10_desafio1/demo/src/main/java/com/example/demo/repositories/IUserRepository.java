@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserRepository {
 
-    public void loadDataBase();
+    public List<User> getUserList();
     public HashMap<Integer, List<UserDTO>> getFollowersList();
     public HashMap<Integer, List<UserDTO>> getFollowedList();
     public User getUserById(int id);
