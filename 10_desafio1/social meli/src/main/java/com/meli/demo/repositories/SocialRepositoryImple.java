@@ -56,9 +56,14 @@ public class SocialRepositoryImple implements SocialRepository {
         Usuariosasigandos2.add(user6);
 
 
-        PublicacionDTO pub1 = new PublicacionDTO(1,"Semana","Esta es la primera publicacion");
+        /*PublicacionDTO pub1 = new PublicacionDTO(1,"Semana","Esta es la primera publicacion");
+
+
         PublicacionDTO pub2 = new PublicacionDTO(2,"q hubo","Esta es la segunda publicacion");
 
+        publicaciones.add(pub1);
+        publicaciones2.add(pub2);
+        */
 
         Usuarios.add(user1);
         Usuarios.add(user2);
@@ -70,8 +75,7 @@ public class SocialRepositoryImple implements SocialRepository {
         Usuarios.add(user8);
         Usuarios.add(user9);
 
-        publicaciones.add(pub1);
-        publicaciones2.add(pub2);
+
 
 
         VendedorDTO ven = new VendedorDTO(1,"Pepito perez",publicaciones,Usuariosasigandos);

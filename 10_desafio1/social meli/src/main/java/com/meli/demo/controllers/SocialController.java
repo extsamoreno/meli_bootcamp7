@@ -40,12 +40,14 @@ public class SocialController {
 
         return new ResponseEntity<>(FollowService.listVendedores(User), HttpStatus.OK);
     }
-
+/*
     @PostMapping("/products/newpost")
     public ResponseEntity<ListaVendedoresResponseDTO> nuevaPublicaciòn(@RequestBody PublicacionDTO pubtDTO) throws FollowException {
 
         return new ResponseEntity<>(FollowService.listVendedores(User), HttpStatus.OK);
     }
+    */
+
 
 
 
