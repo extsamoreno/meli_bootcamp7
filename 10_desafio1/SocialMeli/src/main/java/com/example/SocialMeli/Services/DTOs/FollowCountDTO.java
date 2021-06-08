@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 
-public class FollowCountDTO extends FollowmentCounter{
+public class FollowCountDTO extends Followment {
 
     private int followers_count;
 

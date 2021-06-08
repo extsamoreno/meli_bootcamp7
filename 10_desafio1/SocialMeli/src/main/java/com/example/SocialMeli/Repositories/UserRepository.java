@@ -4,6 +4,9 @@ import com.example.SocialMeli.Exceptions.UserNotFoundException;
 import com.example.SocialMeli.Models.User;
 import com.example.SocialMeli.Services.DTOs.FollowCountDTO;
 import com.example.SocialMeli.Services.DTOs.FollowDTO;
+import com.example.SocialMeli.Services.DTOs.FollowersDTO;
+import com.example.SocialMeli.Services.DTOs.UserDTO;
+import com.example.SocialMeli.Services.Mapper.UserMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
@@ -13,6 +16,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +43,21 @@ public class UserRepository implements iUserRepository{
         User user = this.findUserByID(userId);
 
         return new FollowCountDTO(user.getId(), user.getName(), user.getFollowers().size());
+    }
+
+    @Override
+    public FollowersDTO getFollowers(String userId) throws UserNotFoundException {
+        User user = this.findUserByID(userId);
+        List<UserDTO> followerDTOs = new ArrayList<>();
+
+        for (int i = 0; i < user.getFollowers().size(); i++) {
+
+            User follower = this.findUserByID(user.getFollowers().get(i));
+            followerDTOs.add(UserMapper.toDTO(follower));
+
+        }
+
+        return new FollowersDTO(user.getId(), user.getName(), followerDTOs);
     }
 
     private int findUserIndexByID(String userId) throws UserNotFoundException{

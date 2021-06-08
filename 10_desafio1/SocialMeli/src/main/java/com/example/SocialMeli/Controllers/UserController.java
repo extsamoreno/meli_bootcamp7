@@ -4,6 +4,7 @@ import com.example.SocialMeli.Exceptions.UserNotFoundException;
 import com.example.SocialMeli.Models.User;
 import com.example.SocialMeli.Services.DTOs.FollowCountDTO;
 import com.example.SocialMeli.Services.DTOs.FollowDTO;
+import com.example.SocialMeli.Services.DTOs.FollowersDTO;
 import com.example.SocialMeli.Services.iUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,12 +27,17 @@ public class UserController {
         return new ResponseEntity<>(iUserService.follow(followerId, followedID), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{userId}/followers/count/")
-    public ResponseEntity<FollowCountDTO> follow (@PathVariable String userId) throws UserNotFoundException {
+    @GetMapping("/users/{userId}/followers/count")
+    public ResponseEntity<FollowCountDTO> getFollowersCount (@PathVariable String userId) throws UserNotFoundException {
 
         return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/users/{userId}/followers/list")
+    public ResponseEntity<FollowersDTO> getFollowers (@PathVariable String userId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> follow (){
