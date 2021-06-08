@@ -1,13 +1,15 @@
 package com.meli.socialmeli.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowersCountDTO {
+public class UserDTO {
     private Integer userId;
     private String username;
-    private Integer followers_count;
 }

@@ -1,7 +1,8 @@
 package com.meli.socialmeli.service.user;
 
 import com.meli.socialmeli.domain.User;
-import com.meli.socialmeli.dto.FollowersCountDTO;
+import com.meli.socialmeli.dto.UserWithFollowersCountDTO;
+import com.meli.socialmeli.dto.UserWithFollowersDTO;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.repository.user.IUserRepository;
 import com.meli.socialmeli.service.SocialMeliMapper;
@@ -28,7 +29,12 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowersCountDTO followersCountOf(Integer userId) throws IdNotFoundException {
+    public UserWithFollowersCountDTO followersCountOf(Integer userId) throws IdNotFoundException {
         return SocialMeliMapper.toFollowersCountDTO(getValidUserById(userId));
+    }
+
+    @Override
+    public UserWithFollowersDTO followersOf(Integer userId) throws IdNotFoundException {
+        return SocialMeliMapper.toFollowersDTO(getValidUserById(userId));
     }
 }
