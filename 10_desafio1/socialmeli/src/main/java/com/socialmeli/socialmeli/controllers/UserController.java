@@ -1,5 +1,7 @@
 package com.socialmeli.socialmeli.controllers;
+import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.services.UserService;
+import com.socialmeli.socialmeli.services.dtos.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +15,14 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity followUser(@PathVariable Integer userId , @PathVariable Integer userIdToFollow) {
-        boolean follow =
+    public ResponseEntity followUser(@PathVariable Integer userId , @PathVariable Integer userIdToFollow) throws UserNotFoundException {
         userService.followUser(userId,userIdToFollow);
-        if(!follow){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/count")
+    public ResponseEntity<UserDTO> getUserFollowersCount(@PathVariable Integer userId) throws UserNotFoundException {
+        return new ResponseEntity<>(userService.getUserFollowersCount(userId),HttpStatus.OK);
     }
 
 }

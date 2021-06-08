@@ -1,9 +1,10 @@
 package com.socialmeli.socialmeli.services;
+import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
+import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
+import com.socialmeli.socialmeli.services.dtos.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -12,15 +13,21 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
 
     @Override
-    public boolean followUser(int userId, int userIdToFollow){
-        if(
-        userRepository.getUserById(userId) == null ||
-                userRepository.getUserById(userIdToFollow) == null
-        ){
-            return false;
-        }
+    public void followUser(int userId, int userIdToFollow) throws UserNotFoundException {
+        userRepository.getUserById(userId);
+        userRepository.getUserById(userIdToFollow);
         userRepository.addFollowerToUser(userId,userIdToFollow);
-        return true;
+    }
+
+    @Override
+    public UserDTO getUserFollowersCount(int userId) throws UserNotFoundException {
+        User user = userRepository.getUserById(userId);
+        int followersCount = userRepository.getFollowersCount(userId);
+        return new UserDTO(
+                user.getUserId(),
+                user.getUserName(),
+                followersCount
+        );
     }
 
 }
