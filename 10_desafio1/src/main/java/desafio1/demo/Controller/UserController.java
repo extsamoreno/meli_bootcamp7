@@ -3,6 +3,7 @@ package desafio1.demo.Controller;
 import desafio1.demo.Exception.UserAlreadyFollowsException;
 import desafio1.demo.Exception.UserCantFollowHimselfException;
 import desafio1.demo.Exception.UserNotFoundException;
+import desafio1.demo.Model.DTO.FollowedListDTO;
 import desafio1.demo.Model.DTO.FollowersCountDTO;
 import desafio1.demo.Model.DTO.FollowersListDTO;
 import desafio1.demo.Service.IUserService;
@@ -33,6 +34,11 @@ public class UserController {
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersListDTO> getFollowersListByID(@PathVariable int userId) throws UserNotFoundException {
         return new ResponseEntity<FollowersListDTO>(iUserService.getFollowersListByID(userId),HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<FollowedListDTO> getFollowedListByID(@PathVariable int userId) throws UserNotFoundException {
+        return new ResponseEntity<FollowedListDTO>(iUserService.getFollowedListByID(userId),HttpStatus.OK);
     }
 
 }

@@ -3,6 +3,7 @@ package desafio1.demo.Service;
 import desafio1.demo.Exception.UserAlreadyFollowsException;
 import desafio1.demo.Exception.UserCantFollowHimselfException;
 import desafio1.demo.Exception.UserNotFoundException;
+import desafio1.demo.Model.DTO.FollowedListDTO;
 import desafio1.demo.Model.DTO.FollowersCountDTO;
 import desafio1.demo.Model.DTO.FollowersListDTO;
 import desafio1.demo.Model.DTO.UserDTO;
@@ -46,6 +47,14 @@ public class UserService implements IUserService{
                 .map(u -> new UserDTO(u.getUserId(),u.getUserName()))
                 .toArray(UserDTO[]::new);
         return new FollowersListDTO(userId, user.getUserName(), userDTOArray);
+    }
+
+    @Override
+    public FollowedListDTO getFollowedListByID(int userId) throws UserNotFoundException {
+        var user = repository.getUserById(userId);
+        var userDTOArray = user.getFollowedUsersList().stream().map(u->new UserDTO(u.getUserId(),u.getUserName())).toArray(UserDTO[]::new);
+        return new FollowedListDTO(userId,user.getUserName(),userDTOArray);
+
     }
 
 
