@@ -1,6 +1,7 @@
 package com.meli.socialmeli.service;
 
 import com.meli.socialmeli.domain.User;
+import com.meli.socialmeli.dto.UserWithFollowedDTO;
 import com.meli.socialmeli.dto.UserWithFollowersCountDTO;
 import com.meli.socialmeli.dto.UserWithFollowersDTO;
 import com.meli.socialmeli.dto.UserDTO;
@@ -18,6 +19,10 @@ public class SocialMeliMapper {
 
     public static UserWithFollowersDTO toFollowersDTO(User user) {
         return new UserWithFollowersDTO(user.getUserId(), user.getUserName(), toUserDTOList(user.getFollowers()));
+    }
+
+    public static UserWithFollowedDTO toFollowedDTO(User user) {
+        return new UserWithFollowedDTO(user.getUserId(), user.getUserName(), toUserDTOList(user.getFollowed()));
     }
 
     public static List<UserDTO> toUserDTOList(List<User> list) {

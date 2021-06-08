@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -53,5 +54,9 @@ public class User {
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 '}';
+    }
+
+    public boolean isFollowing(User userToFollow) {
+        return followed.stream().map(User::getUserId).collect(Collectors.toList()).contains(userToFollow.getUserId());
     }
 }
