@@ -1,0 +1,12 @@
+[
+  {
+    "relationId": 1,
+    "follower" : 3,
+    "following" : 2
+  },
+  {
+    "relationId": 2,
+    "follower" : 4,
+    "following" : 2
+  }
+]

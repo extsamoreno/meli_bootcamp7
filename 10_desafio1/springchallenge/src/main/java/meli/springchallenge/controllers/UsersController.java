@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UsersController {
 
     @Autowired
     IUserService userService;
@@ -45,8 +45,6 @@ public class UserController {
     public ResponseEntity<FollowListDTO> getFollowed(@PathVariable int userId) throws UserNotValidException{
         return new ResponseEntity<>(userService.getFollowed(userId),HttpStatus.OK);
     }
-
-
 
 
 

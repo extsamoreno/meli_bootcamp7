@@ -4,15 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRelation {
+public class Product {
 
-    private int relationId;
-    private int follower;
-    private int following;
-//    private Date since;
+    private int product_id;
+    private String productName;
+    private String brand;
+    private String color;
+    private String notes;
+
 }

@@ -21,8 +21,8 @@ import java.util.List;
 public class UserRepository implements IUserRepository{
 
     private List<User> users = loadUserDB();
-    private List<UserRelation> usersRelations = new ArrayList<>();
-    private int counterRelations = 0;
+    private List<UserRelation> usersRelations = loadRelationDB();//new ArrayList<>();
+    private int counterRelations = usersRelations.size();
     private int counterUsers = users.size();
 
     @Override
@@ -35,7 +35,7 @@ public class UserRepository implements IUserRepository{
 
         if(followerIsValid && followingIsValid){
             counterRelations++;
-            usersRelations.add(new UserRelation(counterRelations, follower, following, new Date()));
+            usersRelations.add(new UserRelation(counterRelations, follower, following)); //, new Date()
         }
     }
 
@@ -128,6 +128,27 @@ public class UserRepository implements IUserRepository{
         TypeReference<List<User>> typeRef = new TypeReference<>() {};
 
         List<User> db = null;
+
+        try {
+            db = objectMapper.readValue(file, typeRef);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return db;
+    }
+
+    private List<UserRelation> loadRelationDB() {
+        File file = null;
+        try{
+            file = ResourceUtils.getFile("classpath:relations.json");
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<List<UserRelation>> typeRef = new TypeReference<>() {};
+
+        List<UserRelation> db = null;
 
         try {
             db = objectMapper.readValue(file, typeRef);
