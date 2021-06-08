@@ -3,8 +3,6 @@ package com.example.demo.socialmeli.service.dto;
 import lombok.Data;
 
 @Data
-public class CountFollowersDTO {
-    private int userId;
-    private String userName;
+public class CountFollowersDTO extends UserDTO{
     private int followers_count;
 }

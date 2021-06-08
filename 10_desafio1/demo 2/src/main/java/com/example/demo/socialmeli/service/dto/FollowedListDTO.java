@@ -4,6 +4,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 @Data
-public class FollowersListDTO extends UserDTO{
-    private ArrayList<UserDTO> followers;
+public class FollowedListDTO extends UserDTO{
+    private ArrayList<UserDTO> followed;
 }

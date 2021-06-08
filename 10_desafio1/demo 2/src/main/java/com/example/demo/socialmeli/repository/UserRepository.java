@@ -17,7 +17,7 @@ import java.util.Optional;
 @Repository
 public class UserRepository implements IUserRepository{
     @Override
-    public User getUserId(int id) {
+    public User getUserById(int id) {
         List<User> userList = null;
         userList = loadDatabase();
         User result = null;
@@ -77,35 +77,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public int getCountFollowers(int id) {
-        List<User> users = this.loadDatabase();
-        int countFollowers = 0;
-        for (int i=0; i<users.size();i++) {
-            User userDb = users.get(i);
-            for (int k=0; k<userDb.getFollowed().size();k++){
-                if (userDb.getFollowed().get(k)==id) {
-                    countFollowers += 1;
-                }
-            }
-        }
-        return  countFollowers;
-    }
-
-    @Override
-    public ArrayList<UserDTO> getFollowersList(int id) {
-        List<User> users = this.loadDatabase();
-        ArrayList<UserDTO> followersList = new ArrayList<>();
-        for (int i=0; i<users.size();i++) {
-            User userDb = users.get(i);
-            for (int k=0; k<userDb.getFollowed().size();k++){
-                if (userDb.getFollowed().get(k)==id) {
-                    UserDTO userDTO= new UserDTO();
-                    userDTO.setUserId(userDb.getUserId());
-                    userDTO.setUserName(userDb.getUserName());
-                    followersList.add(userDTO);
-                }
-            }
-        }
-        return followersList;
+    public List<User> getAllUsers() {
+        return this.loadDatabase();
     }
 }
