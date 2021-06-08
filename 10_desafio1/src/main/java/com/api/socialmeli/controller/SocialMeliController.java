@@ -29,7 +29,7 @@ public class SocialMeliController {
         return new ResponseEntity<>(socialMeliServiceImple.US002(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{UserID}/followers/list")
+    @GetMapping("/users/{userId}/followers/list")
     public ResponseEntity<FollowersDetailDTO> US003(@PathVariable int userId){
         return new ResponseEntity<>(socialMeliServiceImple.US003(userId), HttpStatus.OK);
     }

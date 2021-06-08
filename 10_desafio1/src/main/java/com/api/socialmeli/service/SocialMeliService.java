@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface SocialMeliService {
     String US001(Integer userId, Integer userIdToFollow);
     FollowersCountDTO US002(Integer userId);
-    FollowersDetailDTO US003(Integer userId);
+    FollowersDetailDTO US003(int userId);
 }

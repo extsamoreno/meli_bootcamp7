@@ -9,5 +9,5 @@ import lombok.Setter;
 @Getter @Setter
 public class FollowerDTO {
     private int userId;
-    private int userName;
+    private String userName;
 }
