@@ -25,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository{
         return this.userList.stream()
                 .filter(user -> user.getUserID() == userID )
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 
     @Override

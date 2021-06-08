@@ -1,6 +1,7 @@
 package com.meli.spring_challenge.service.user;
 
 
+import com.meli.spring_challenge.exception.UserNotFoundException;
 import com.meli.spring_challenge.model.User;
 import com.meli.spring_challenge.repository.follow.FollowRepository;
 import com.meli.spring_challenge.repository.user.UserRepository;
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void followUser(int userID, int userIdToFollow) {
+    public void followUser(int userID, int userIdToFollow) throws UserNotFoundException {
         followService.followUser(userID,userIdToFollow);
     }
 

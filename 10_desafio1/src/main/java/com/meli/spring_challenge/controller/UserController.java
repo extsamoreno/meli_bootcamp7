@@ -1,5 +1,6 @@
 package com.meli.spring_challenge.controller;
 
+import com.meli.spring_challenge.exception.UserNotFoundException;
 import com.meli.spring_challenge.model.Follow;
 import com.meli.spring_challenge.model.User;
 import com.meli.spring_challenge.service.dto.FollowersCountDto;
@@ -25,28 +26,28 @@ public class UserController {
 
     //US 0001
     @PostMapping("/{userID}/follow/{userIdToFollow}")
-    public ResponseEntity followUser(@PathVariable int userID, @PathVariable int userIdToFollow){
+    @ResponseStatus(HttpStatus.OK)
+    public void followUser(@PathVariable int userID, @PathVariable int userIdToFollow) throws UserNotFoundException {
         followService.followUser(userID, userIdToFollow);
-        return new ResponseEntity(HttpStatus.OK);
     }
 
     //US 0002
     @GetMapping("/{userID}/followers/count/")
-    public ResponseEntity<FollowersCountDto> getFollowCountByUserID(@PathVariable int userID){
+    public ResponseEntity<FollowersCountDto> getFollowCountByUserID(@PathVariable int userID) throws UserNotFoundException{
         FollowersCountDto result = followService.getFollowCountByUserID(userID);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     //US 0003
     @GetMapping("/{userID}/followers/list")
-    public ResponseEntity<FollowDto> getFollowersByUserID(@PathVariable int userID){
+    public ResponseEntity<FollowDto> getFollowersByUserID(@PathVariable int userID) throws UserNotFoundException {
         FollowDto result = followService.getFollowersByUserID(userID);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     //US 0004
     @GetMapping("/{userID}/followed/list")
-    public ResponseEntity<FollowDto> getFollowedByUserID(@PathVariable int userID){
+    public ResponseEntity<FollowDto> getFollowedByUserID(@PathVariable int userID) throws UserNotFoundException {
         FollowDto result = followService.getFollowedByUserID(userID);
         return new ResponseEntity<>(result,HttpStatus.OK);
     }
