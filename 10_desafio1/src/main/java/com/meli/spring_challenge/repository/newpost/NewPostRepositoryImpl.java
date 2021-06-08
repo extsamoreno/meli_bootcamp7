@@ -15,9 +15,11 @@ import java.util.List;
 public class NewPostRepositoryImpl implements NewPostRepository{
     private List<Post> newPostList;
 
+    /*
     NewPostRepositoryImpl(){
         this.newPostList = loadDataBase();
     }
+     */
 
     @Override
     public void create(Post post) {

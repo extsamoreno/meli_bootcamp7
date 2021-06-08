@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    NewPostRepository newPostRepository;
-
     @Override
     public void createNewPost(NewPostDto newPostDto) {
 

@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post {
-    private String userId;
+    private String userID;
     private Product product;
     private int category;
     private double price;
