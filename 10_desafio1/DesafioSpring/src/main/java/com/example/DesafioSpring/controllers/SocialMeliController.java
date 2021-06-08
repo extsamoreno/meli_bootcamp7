@@ -1,6 +1,8 @@
 package com.example.DesafioSpring.controllers;
 
 import com.example.DesafioSpring.dto.FollowDTO;
+import com.example.DesafioSpring.dto.FollowedByDTO;
+import com.example.DesafioSpring.dto.FollowersDTO;
 import com.example.DesafioSpring.dto.FollowersCountDTO;
 import com.example.DesafioSpring.exceptions.UserNotFoundException;
 import com.example.DesafioSpring.models.User;
@@ -34,5 +36,16 @@ public class SocialMeliController {
     public ResponseEntity<FollowersCountDTO>getFollowersCount(@PathVariable String userId) throws UserNotFoundException {
         return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }
+    // Punto 3
+    @GetMapping("{userId}/followers/list")
+    public ResponseEntity<FollowersDTO>getFollowers(@PathVariable String userId) throws UserNotFoundException {
+        return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
+    }
+    // Punto 4
+    @GetMapping("{userId}/followed/list")
+    public ResponseEntity<FollowedByDTO>getFollowedBy(@PathVariable String userId) throws UserNotFoundException {
+        return new ResponseEntity<>(iUserService.getFollowedBy(userId), HttpStatus.OK);
+    }
+  // Punto 5
 
 }

@@ -1,9 +1,9 @@
 package com.example.DesafioSpring.repositories;
 
-import com.example.DesafioSpring.dto.FollowDTO;
-import com.example.DesafioSpring.dto.FollowersCountDTO;
+import com.example.DesafioSpring.dto.*;
 import com.example.DesafioSpring.exceptions.UserNotFoundException;
 import com.example.DesafioSpring.models.User;
+import com.example.DesafioSpring.services.mapper.UserMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -12,6 +12,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -53,6 +54,19 @@ public class UserRepository implements IUserRepository {
 
         return new FollowersCountDTO(user.getId(),user.getName(),user.getFollowers().size());
     }
+ @Override
+    public FollowersDTO getFollowers(String userId) throws UserNotFoundException{
+        User user = this.findUserByID(userId);
+        List <UserDTO> followerDTO = this.getUserDTOListById(user.getFollowers());
+        return new FollowersDTO(user.getId(),user.getName(),followerDTO);
+    }
+
+    @Override
+    public FollowedByDTO getFollowedBy(String userId) throws UserNotFoundException {
+        User user = this.findUserByID(userId);
+        List <UserDTO> followedByDTO = this.getUserDTOListById(user.getFollowedBy());
+        return new FollowedByDTO(user.getId(),user.getName(),followedByDTO);
+    }
 
     public List<User> loadDataBase(){
 
@@ -74,6 +88,20 @@ public class UserRepository implements IUserRepository {
         }
 
         return users;
+    }
+    private List<UserDTO> getUserDTOListById(List<String> UserIds) throws UserNotFoundException {
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+
+        for (int i = 0; i < UserIds.size(); i++) {
+
+            User user = this.findUserByID(UserIds.get(i));
+            userDTOS.add(UserMapper.toDTO(user));
+
+        }
+
+        return userDTOS;
+
     }
 
 }
