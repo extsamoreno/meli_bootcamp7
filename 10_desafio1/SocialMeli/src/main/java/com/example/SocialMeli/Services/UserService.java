@@ -5,6 +5,7 @@ import com.example.SocialMeli.Models.User;
 import com.example.SocialMeli.Repositories.iUserRepository;
 import com.example.SocialMeli.Services.DTOs.FollowCountDTO;
 import com.example.SocialMeli.Services.DTOs.FollowDTO;
+import com.example.SocialMeli.Services.DTOs.FollowedDTO;
 import com.example.SocialMeli.Services.DTOs.FollowersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,11 @@ public class UserService implements iUserService{
     @Override
     public FollowersDTO getFollowers(String userId) throws UserNotFoundException {
         return iUserRepository.getFollowers(userId);
+    }
+
+    @Override
+    public FollowedDTO getFollowed(String userId) throws UserNotFoundException{
+        return iUserRepository.getFollowed(userId);
     }
 
 

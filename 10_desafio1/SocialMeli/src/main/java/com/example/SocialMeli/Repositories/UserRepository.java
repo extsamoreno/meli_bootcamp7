@@ -2,10 +2,7 @@ package com.example.SocialMeli.Repositories;
 
 import com.example.SocialMeli.Exceptions.UserNotFoundException;
 import com.example.SocialMeli.Models.User;
-import com.example.SocialMeli.Services.DTOs.FollowCountDTO;
-import com.example.SocialMeli.Services.DTOs.FollowDTO;
-import com.example.SocialMeli.Services.DTOs.FollowersDTO;
-import com.example.SocialMeli.Services.DTOs.UserDTO;
+import com.example.SocialMeli.Services.DTOs.*;
 import com.example.SocialMeli.Services.Mapper.UserMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -48,16 +45,33 @@ public class UserRepository implements iUserRepository{
     @Override
     public FollowersDTO getFollowers(String userId) throws UserNotFoundException {
         User user = this.findUserByID(userId);
-        List<UserDTO> followerDTOs = new ArrayList<>();
+        List<UserDTO> followerDTOs = this.getUserDTOListByIds(user.getFollowers());
 
-        for (int i = 0; i < user.getFollowers().size(); i++) {
+        return new FollowersDTO(user.getId(), user.getName(), followerDTOs);
+    }
 
-            User follower = this.findUserByID(user.getFollowers().get(i));
-            followerDTOs.add(UserMapper.toDTO(follower));
+    @Override
+    public FollowedDTO getFollowed(String userId) throws UserNotFoundException {
+
+        User user = this.findUserByID(userId);
+        List<UserDTO> followerDTOs = this.getUserDTOListByIds(user.getFollowedBy());
+
+        return new FollowedDTO(user.getId(), user.getName(), followerDTOs);
+    }
+
+    private List<UserDTO> getUserDTOListByIds(List<String> UserIds) throws UserNotFoundException {
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+
+        for (int i = 0; i < UserIds.size(); i++) {
+
+            User user = this.findUserByID(UserIds.get(i));
+            userDTOS.add(UserMapper.toDTO(user));
 
         }
 
-        return new FollowersDTO(user.getId(), user.getName(), followerDTOs);
+        return userDTOS;
+
     }
 
     private int findUserIndexByID(String userId) throws UserNotFoundException{
