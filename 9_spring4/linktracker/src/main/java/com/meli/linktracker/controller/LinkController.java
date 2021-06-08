@@ -36,7 +36,7 @@ public class LinkController {
     }
 
     @GetMapping("/metrics/{linkId}")
-    public ResponseEntity<MetricsDTO> getMetricsByLinkId(@PathVariable int linkId) {
+    public ResponseEntity<MetricsDTO> getMetricsByLinkId(@PathVariable int linkId) throws LinkExceptionURLNotExists {
         return new ResponseEntity<MetricsDTO>(linkService.getMetricsByLinkId(linkId), HttpStatus.OK);
     }
 

@@ -10,7 +10,6 @@ import com.meli.linktracker.service.mapper.LinkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.naming.LinkException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -61,8 +60,11 @@ public class LinkServiceImp implements ILinkService {
     }
 
     @Override
-    public MetricsDTO getMetricsByLinkId(Integer id) {
+    public MetricsDTO getMetricsByLinkId(Integer id) throws LinkExceptionURLNotExists {
         Link link = linkRepository.findById(id);
+        if (link == null) {
+            throw new LinkExceptionURLNotExists(id);
+        }
         return LinkMapper.linkToMetricsDTO(link);
     }
 

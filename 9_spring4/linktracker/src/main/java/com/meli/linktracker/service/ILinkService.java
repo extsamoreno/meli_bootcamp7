@@ -11,7 +11,7 @@ public interface ILinkService {
 
     LinkDTO getUrlById(Integer id, String password) throws LinkExceptionURLNotExists, LinkExceptionURLInactive, LinkExceptionBadPassword;
 
-    MetricsDTO getMetricsByLinkId(Integer id);
+    MetricsDTO getMetricsByLinkId(Integer id) throws LinkExceptionURLNotExists;
 
     LinkResponseDto invalidateLinkById(Integer id);
 
