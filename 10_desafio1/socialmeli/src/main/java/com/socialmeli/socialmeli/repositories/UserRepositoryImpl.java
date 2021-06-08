@@ -1,5 +1,6 @@
 package com.socialmeli.socialmeli.repositories;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
+import com.socialmeli.socialmeli.models.Post;
 import com.socialmeli.socialmeli.models.User;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ public class UserRepositoryImpl implements UserRepository{
     HashMap<Integer, User> users = new HashMap<>();
 
     public UserRepositoryImpl(){
-        users.put(1235,new User(1235,"Jose",new ArrayList<>(),new ArrayList<>()));
-        users.put(1569,new User(1569,"Joaquin",new ArrayList<>(),new ArrayList<>()));
+        users.put(1235,new User(1235,"Jose",new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+        users.put(1569,new User(1569,"Joaquin",new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
     }
 
     @Override
@@ -35,4 +36,12 @@ public class UserRepositoryImpl implements UserRepository{
     public int getFollowersCount(int userId) {
         return users.get(userId).getFollowers().size();
     }
+
+    @Override
+    public void insertPost(Post post) throws UserNotFoundException {
+        User user = getUserById(post.getUserId());
+        users.get(user.getUserId()).getPosts().add(post);
+    }
+
+
 }
