@@ -1,0 +1,145 @@
+[
+  {
+    "userId": 1,
+    "userName":  "Alvarez Jorge",
+    "followed": [
+                  {
+                    "userId": 4,
+                    "userName":  "Rodriguez Nicolas"
+                  },
+                  {
+                    "userId": 5,
+                    "userName":  "Gomez Marcos"
+                  }
+                ],
+    "followers": [
+                  {
+                    "userId": 2,
+                    "userName":  "Castro Miguel"
+                  },
+                  {
+                    "userId": 3,
+                    "userName":  "Rojas Macarena"
+                  }
+                ],
+    "posts": [
+             ]
+  },
+  {
+    "userId": 2,
+    "userName":  "Castro Miguel",
+    "followed": [
+                  {
+                    "userId": 1,
+                    "userName":  "Alvarez Jorge"
+                  }
+                ],
+    "followers": [
+                  {
+                    "userId": 2,
+                    "userName":  "Castro Miguel"
+                  },
+                  {
+                    "userId": 3,
+                    "userName":  "Rojas Macarena"
+                  }
+                ],
+    "posts":  [
+              ]
+  },
+  {
+    "userId": 3,
+    "userName":  "Rojas Macarena",
+    "followed": [
+                  {
+                    "userId": 1,
+                    "userName":  "Alvarez Jorge"
+                  }
+                ],
+    "followers": [
+                  {
+                    "userId": 2,
+                    "userName":  "Castro Miguel"
+                  },
+                  {
+                    "userId": 3,
+                    "userName":  "Rojas Macarena"
+                  }
+                ],
+    "posts":  [
+              ]
+  },
+  {
+    "userId": 4,
+    "userName":  "Rodriguez Nicolas",
+    "followed": [
+                ],
+    "followers": [
+                    {
+                      "userId": 1,
+                      "userName":  "Alvarez Jorge"
+                    }
+                 ],
+    "posts": [
+                {
+                  "id_post": 30,
+                  "date": "25-05-2021",
+                  "detail" :
+                            {
+                              "product_id": 3,
+                              "productName": "Mouse Gamer",
+                              "type": "Gamer",
+                              "brand": "Racer",
+                              "color": "Red & Black",
+                              "notes": "Special Edition"
+                            },
+                  "category": 101,
+                  "price": 3000.00
+                }
+            ]
+  },
+  {
+    "userId": 5,
+    "userName":  "Gomez Marcos",
+    "followed": [
+                ],
+    "followers": [
+                    {
+                      "userId": 1,
+                      "userName":  "Alvarez Jorge"
+                    }
+                 ],
+    "posts": [
+                {
+                  "id_post": 20,
+                  "date": "24-05-2021",
+                  "detail" :
+                            {
+                              "product_id": 2,
+                              "productName": "Headset Gamer",
+                              "type": "Gamer",
+                              "brand": "Racer",
+                              "color": "Red & Black",
+                              "notes": "Special Edition"
+                            },
+                  "category": 101,
+                  "price": 3000.00
+                },
+                {
+                  "id_post": 40,
+                  "date": "26-05-2021",
+                  "detail" :
+                            {
+                              "product_id": 100,
+                              "productName": "Keyboard Gamer",
+                              "type": "Gamer",
+                              "brand": "Racer",
+                              "color": "Red & Black",
+                              "notes": "Special Edition"
+                            },
+                  "category": 102,
+                  "price": 4000.00
+                }
+            ]
+  }
+]
