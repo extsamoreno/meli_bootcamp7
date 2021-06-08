@@ -16,11 +16,10 @@ public class UserController {
     public ResponseEntity followUser(@PathVariable Integer userId , @PathVariable Integer userIdToFollow) {
         boolean follow =
         userService.followUser(userId,userIdToFollow);
-        if(follow){
-            return new ResponseEntity(HttpStatus.OK);
-        }else{
+        if(!follow){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }
