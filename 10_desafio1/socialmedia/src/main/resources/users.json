@@ -1,0 +1,48 @@
+[
+    {
+        "id": 1,
+        "nickname": "Randomnick",
+        "password": "pass123",
+        "name": "Edu",
+        "surname": "Guanco",
+        "email": "asd@gmail.com",
+        "userType": 1
+    },
+
+    {
+        "id": 2,
+        "nickname": "randit",
+        "password": "pass123",
+        "name": "Jorge",
+        "surname": "Tolaba",
+        "email": "dsa@gmail.com",
+        "userType": 2
+    },
+    {
+        "id": 3,
+        "nickname": "rand123",
+        "password": "pass321",
+        "name": "Fabian",
+        "surname": "Guanco",
+        "email": "fguanco@gmail.com",
+        "userType": 1
+    },
+    {
+        "id": 4,
+        "nickname": "comprador4",
+        "password": "pass444",
+        "name": "User4",
+        "surname": "generic4",
+        "email": "user4@gmail.com",
+        "userType": 2
+    },
+    {
+        "id": 5,
+        "nickname": "comprador5",
+        "password": "pass554",
+        "name": "User5",
+        "surname": "generic5",
+        "email": "user5@gmail.com",
+        "userType": 2
+    }
+]
