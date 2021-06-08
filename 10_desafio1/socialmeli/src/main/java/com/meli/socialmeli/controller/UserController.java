@@ -34,5 +34,11 @@ public class UserController {
         return serviceSocialMeli.getUserListDTO(userId);
     }
 
+    @GetMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public String UnassingFollowerTo(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
+        serviceSocialMeli.removeFollowerTo(userId, userIdToUnfollow);
+        return "OK";
+    }
+
 
 }

@@ -83,5 +83,25 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         return userListPostDTO;
     }
 
+    public void removeFollowerTo(int userId, int userIdUnFollow) {
+        User buyer = repositoryUsers.getUserById(userId);
+        User seller = repositoryUsers.getUserById(userIdUnFollow);
+        if (buyer == null) {
+            // Retornar con error de que no existe Usuario Comprador
+        }
+        if (seller == null) {
+            // Retornar con error de que no existe Usuario Vendedor
+        }
+        if (!seller.isSeller()) {
+            // Retornar con error de que solo se puede seguir Vendedores
+        }
+        if(!seller.getUsersFollowed().contains(buyer)) {
+            // Retornar con error de que el seguidor no existe en la lista de serguidores
+        }
+        seller.getUsersFollowed().remove(buyer);
+        seller.setCantFollowed(seller.getCantFollowed() - 1);
 
+        buyer.getUsersFollowed().remove(seller);
+        buyer.setCantFollowed(buyer.getCantFollowed() - 1);
+    }
 }
