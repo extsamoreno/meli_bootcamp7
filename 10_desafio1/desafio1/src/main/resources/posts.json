@@ -1,0 +1,29 @@
+[
+	{
+		"postID": 1,
+		"date": "08-06-2021",
+		"detail": 1,
+		"category": "100",
+		"price": 1500.50,
+		"hasPromo": true,
+		"discount": 0.25
+	},
+	{
+		"postID": 2,
+		"date": "10-07-2021",
+		"detail": 2,
+		"category": "200",
+		"price": 2500.50,
+		"hasPromo": true,
+		"discount": 0.5
+	},
+	{
+		"postID": 3,
+		"date": "12-08-2021",
+		"detail": 3,
+		"category": "300",
+		"price": 3500.50,
+		"hasPromo": true,
+		"discount": 0.75
+	}
+]

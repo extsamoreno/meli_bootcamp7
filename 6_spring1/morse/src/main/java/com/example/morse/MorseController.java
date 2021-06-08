@@ -57,7 +57,9 @@ public class MorseController {
 
 	@GetMapping("/translate/{message}")
 	public String getMorse(@PathVariable String message) {
+
 		message = message.toUpperCase();
+		
 		String response = "";
 
 		for (int i = 0; i < message.length(); ++i)

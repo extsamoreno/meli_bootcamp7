@@ -1,0 +1,26 @@
+[
+	{
+		"productID": 1,
+		"productName": "Silla Gamer",
+		"type": "Gamer",
+		"brand": "Racer",
+		"color": "Red & Black",
+		"notes": "Special Edition"
+	},
+	{
+		"productID": 2,
+		"productName": "Teclado Gamer",
+		"type": "Gamer",
+		"brand": "Logitech",
+		"color": "Negro",
+		"notes": "Retroiluminado"
+	},
+	{
+		"productID": 3,
+		"productName": "Mouse Gamer",
+		"type": "Gamer",
+		"brand": "Corsair",
+		"color": "Negro",
+		"notes": "RGB"
+	}
+]

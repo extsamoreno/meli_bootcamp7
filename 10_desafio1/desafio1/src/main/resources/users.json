@@ -1,0 +1,43 @@
+[
+  {
+    "userID": 1,
+    "userName": "dbonometti",
+    "follows":
+    [
+      2,
+      3
+    ],
+    "seller": false,
+    "posts":
+    [
+      1,
+      2
+    ]
+  },
+  {
+    "userID": 2,
+    "userName": "asdf",
+    "follows":
+    [
+      1
+    ],
+    "seller": true,
+    "posts":
+    [
+      3
+    ]
+  },
+  {
+    "userID": 3,
+    "userName": "qwert",
+    "follows":
+    [
+      2
+    ],
+    "seller": true,
+    "posts":
+    [
+      4
+    ]
+  }
+]
