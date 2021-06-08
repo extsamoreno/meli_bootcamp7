@@ -1,0 +1,19 @@
+[
+  {
+    "productId": 1,
+    "productName" : "Silla Gamer",
+    "type" : "Gamer",
+    "brand" : "Racer",
+    "color" : "Red & Black",
+    "notes" : "Special Edition"
+
+  },
+  {
+    "productId" : 2,
+    "productName" : "Headset RGB Inalámbrico",
+    "type" : "Gamer",
+    "brand" : "Razer",
+    "color" : "Green with RGB",
+    "notes" : "Sin Batería"
+  }
+]

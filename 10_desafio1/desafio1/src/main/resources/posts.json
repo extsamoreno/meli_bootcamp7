@@ -1,0 +1,22 @@
+[
+  {
+    "userId": 2,
+    "idPost" : 1,
+    "date" : "29-04-2021",
+    "productId" : 1,
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": true,
+    "discount": 0.25
+  },
+  {
+    "userId": 3,
+    "idPost" : 2,
+    "date" : "29-04-2021",
+    "productId" : 2,
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": false,
+    "discount": 0
+  }
+]
