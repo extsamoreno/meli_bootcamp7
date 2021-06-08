@@ -1,5 +1,5 @@
-##Use port 8082
+USE THE PORT 8082
 
-Change the file "application.properties"
+When you are using postman, create the request with the url:
+"http://localhost:8082/"
 
-Add the line "server.port=8082"
