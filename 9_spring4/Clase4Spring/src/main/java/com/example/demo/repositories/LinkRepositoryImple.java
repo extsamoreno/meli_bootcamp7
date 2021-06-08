@@ -3,7 +3,6 @@ package com.example.demo.repository;
 import com.example.demo.exceptions.LinkInvalidPasswordOrIdException;
 import com.example.demo.exceptions.LinkNotFoundException;
 import com.example.demo.models.Link;
-import com.example.demo.dto.LinkResponseDTO;
 import com.example.demo.services.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
