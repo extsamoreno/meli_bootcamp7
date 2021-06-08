@@ -1,9 +1,6 @@
 package com.meli.linktracker.controller;
 
-import com.meli.linktracker.exception.LinkExceptionBadURL;
-import com.meli.linktracker.exception.LinkExceptionURLEmpty;
-import com.meli.linktracker.exception.LinkExceptionURLInactive;
-import com.meli.linktracker.exception.LinkExceptionURLNotExists;
+import com.meli.linktracker.exception.*;
 import com.meli.linktracker.service.ILinkService;
 import com.meli.linktracker.service.dto.LinkDTO;
 import com.meli.linktracker.service.dto.LinkResponseDto;
@@ -30,8 +27,8 @@ public class LinkController {
     }
 
     @GetMapping("/redirect/{linkId}")
-    public ResponseEntity<Object> redirectToExternalUrl(@PathVariable Integer linkId, @RequestParam(required = false) String password) throws URISyntaxException, LinkExceptionURLNotExists, LinkExceptionURLInactive {
-        LinkDTO link = linkService.getUrlById(linkId);
+    public ResponseEntity<Object> redirectToExternalUrl(@PathVariable Integer linkId, @RequestParam(required = false) String password) throws URISyntaxException, LinkExceptionURLNotExists, LinkExceptionURLInactive, LinkExceptionBadPassword {
+        LinkDTO link = linkService.getUrlById(linkId, password);
         HttpHeaders httpHeaders = new HttpHeaders();
         URI linkRedirect = new URI(link.getUrl());
         httpHeaders.setLocation(linkRedirect);

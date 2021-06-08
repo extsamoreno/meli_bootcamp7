@@ -1,9 +1,6 @@
 package com.meli.linktracker.service;
 
-import com.meli.linktracker.exception.LinkExceptionBadURL;
-import com.meli.linktracker.exception.LinkExceptionURLEmpty;
-import com.meli.linktracker.exception.LinkExceptionURLInactive;
-import com.meli.linktracker.exception.LinkExceptionURLNotExists;
+import com.meli.linktracker.exception.*;
 import com.meli.linktracker.model.Link;
 import com.meli.linktracker.repository.ILinkRepository;
 import com.meli.linktracker.service.dto.LinkDTO;
@@ -45,13 +42,16 @@ public class LinkServiceImp implements ILinkService {
     }
 
     @Override
-    public LinkDTO getUrlById(Integer id) throws LinkExceptionURLNotExists, LinkExceptionURLInactive {
+    public LinkDTO getUrlById(Integer id, String password) throws LinkExceptionURLNotExists, LinkExceptionURLInactive, LinkExceptionBadPassword {
         Link model = linkRepository.findById(id);
         if (model == null) {
             throw new LinkExceptionURLNotExists(id);
         }
         if (!model.isActive()) {
             throw new LinkExceptionURLInactive(model.getId());
+        }
+        if (password == null || !validatePasswordLink(model, password)) {
+            throw new LinkExceptionBadPassword(model.getUrl());
         }
 
         Integer numredirections = model.getNumRedirections() + 1;
@@ -85,9 +85,7 @@ public class LinkServiceImp implements ILinkService {
         try {
             new URL(url).toURI();
             return true;
-        } catch (URISyntaxException exception) {
-            return false;
-        } catch (MalformedURLException exception) {
+        } catch (URISyntaxException | MalformedURLException exception) {
             return false;
         }
     }
