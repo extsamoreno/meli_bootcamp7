@@ -37,4 +37,13 @@ public class UserServiceImpl implements UserService {
         });
         return result;
     }
+
+    public List<UserDTO> getFollows(Integer userId) {
+        List<User> follows = userRepository.getFollows(userId);
+        List<UserDTO> result = UserMapper.toDTOList(follows);
+        result.forEach(u -> {
+            u.setFollows(UserMapper.toDTOList(userRepository.getFollows(u.getUserId())));
+        });
+        return result;
+    }
 }

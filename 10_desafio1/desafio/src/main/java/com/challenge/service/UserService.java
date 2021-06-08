@@ -11,4 +11,6 @@ public interface UserService {
     void follow(Integer userId, Integer userToFollow) throws IOException;
     Integer getFollowersCount(Integer userId);
     List<UserDTO> getFollowers(Integer userId);
+    List<UserDTO> getFollows(Integer userId);
+
 }

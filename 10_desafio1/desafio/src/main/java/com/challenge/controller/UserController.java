@@ -1,6 +1,7 @@
 package com.challenge.controller;
 
 import com.challenge.service.UserService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +26,13 @@ public class UserController {
         return ResponseEntity.ok(userService.getFollowersCount(userId));
     }
 
-    @GetMapping("/{userId}/followed/list")
+    @GetMapping("/{userId}/followers/list")
     public ResponseEntity getFollowers(@PathVariable Integer userId) {
         return ResponseEntity.ok(userService.getFollowers(userId));
     }
 
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity getFollows(@PathVariable Integer userId) {
+        return ResponseEntity.ok(userService.getFollows(userId));
+    }
 }
