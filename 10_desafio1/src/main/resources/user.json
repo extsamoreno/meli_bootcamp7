@@ -1,0 +1,19 @@
+[
+  {
+    "userId": 1569,
+    "userName": "vendedor1",
+    "followed": [],
+    "publication": []
+  },
+  {
+    "userId": 1569,
+    "userName": "vendedor1",
+    "followed": [{
+      "userId": 1569,
+      "userName": "usuario1",
+      "followed": [],
+      "publication": []}
+    ],
+    "publication": []
+  }
+]

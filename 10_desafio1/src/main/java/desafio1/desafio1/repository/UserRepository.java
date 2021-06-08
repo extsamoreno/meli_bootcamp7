@@ -3,6 +3,7 @@ package desafio1.desafio1.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import desafio1.desafio1.domain.User;
+import desafio1.desafio1.exception.UserNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -10,21 +11,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository{
-    /*@Override
-    public List<User> findUserById(String userId) {
+    @Override
+    public User findUserById(int userId) throws UserNotFoundException {
 
-        List<User> ListUser = null;
-        ListUser = loadDataBase();
-        List<Character> listCharacterResult = null;
+        List<User> listUser = null;
+        listUser = loadDataBase();
+        User userResult = null;
 
-        if(listCharacters != null){
-            listCharacterResult = listCharacters.stream().filter(i -> i.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
+        if(listUser != null){
+            userResult = (User)listUser.stream().filter(u -> u.getUserId() == userId);
         }
-        return listCharacterResult;
+
+        if(userResult == null) {
+            throw new UserNotFoundException(userId);
+        }
+
+        return userResult;
     }
 
 
@@ -38,14 +43,14 @@ public class UserRepository implements IUserRepository{
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<Character>> typeRef = new TypeReference<>() {};
-        List<Character> listCharacters = null;
+        TypeReference<List<User>> typeRef = new TypeReference<>() {};
+        List<User> listUsers = null;
 
         try{
-            listCharacters = objectMapper.readValue(file , typeRef);
+            listUsers = objectMapper.readValue(file , typeRef);
         }catch (IOException e){
             e.printStackTrace();
         }
-        return listCharacters;
-    }*/
+        return listUsers;
+    }
 }
