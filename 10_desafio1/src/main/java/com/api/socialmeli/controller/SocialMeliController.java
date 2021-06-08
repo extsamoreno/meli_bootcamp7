@@ -1,6 +1,7 @@
 package com.api.socialmeli.controller;
 
 import com.api.socialmeli.dto.FollowersCountDTO;
+import com.api.socialmeli.dto.FollowersDetailDTO;
 import com.api.socialmeli.service.SocialMeliService;
 import com.api.socialmeli.service.SocialMeliServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class SocialMeliController {
     }
 
     @GetMapping("/users/{UserID}/followers/list")
-    public ResponseEntity<FollowersCountDTO> US003(@PathVariable int userId){
-        return new ResponseEntity<>(, HttpStatus.OK);
+    public ResponseEntity<FollowersDetailDTO> US003(@PathVariable int userId){
+        return new ResponseEntity<>(socialMeliServiceImple.US003(userId), HttpStatus.OK);
     }
 
 

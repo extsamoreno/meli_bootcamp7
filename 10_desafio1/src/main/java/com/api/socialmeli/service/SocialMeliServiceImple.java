@@ -1,6 +1,7 @@
 package com.api.socialmeli.service;
 
 import com.api.socialmeli.dto.FollowersCountDTO;
+import com.api.socialmeli.dto.FollowersDetailDTO;
 import com.api.socialmeli.repository.SocialMeliRepositoryImple;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -38,5 +39,16 @@ SocialMeliRepositoryImple socialMeliRepositoryImple;
         Integer followersCount=socialMeliRepositoryImple.getUsers().get(userId).getFollowers().size();
         return new FollowersCountDTO(userId, userName, followersCount);
     }
+
+    @Override
+    public FollowersDetailDTO US003(Integer userId){
+
+        if (socialMeliRepositoryImple.getUsers().get(userId)==null) return null; //aca va exception
+
+        String userName = socialMeliRepositoryImple.getUsers().get(userId).getUserName();
+        Integer followersCount=socialMeliRepositoryImple.getUsers().get(userId).getFollowers().size();
+        return new FollowersDetailDTO();
+    }
+
 
 }
