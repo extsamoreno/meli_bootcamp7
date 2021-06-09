@@ -6,6 +6,7 @@ import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Model.DTO.NewPostRequestDTO;
 import desafio1.demo.Model.DTO.NewPromoPostRequestDTO;
 import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
+import desafio1.demo.Model.DTO.PromoCountDTO;
 import desafio1.demo.Service.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +39,11 @@ public class ProductController {
     @RequestMapping("/followed/{userId}/list")
     public ResponseEntity<PostListFromFollowedDTO> getPostListFromFollowed (@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException {
         return new ResponseEntity<PostListFromFollowedDTO>(iProductService.getPostListFromFollowed(userId, order),HttpStatus.OK);
+    }
+
+    @GetMapping
+    @RequestMapping("/{userId}/countPromo")
+    public ResponseEntity<PromoCountDTO> getPromoCountDTOById(@PathVariable int userId) throws UserNotFoundException {
+        return new ResponseEntity<>(iProductService.getPromoCountDTOById(userId),HttpStatus.OK);
     }
 }

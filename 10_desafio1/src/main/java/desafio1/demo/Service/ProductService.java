@@ -4,10 +4,7 @@ import desafio1.demo.Exception.DuplicatePostIdException;
 import desafio1.demo.Exception.PromoPostWithoutPromoException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Helper.HelperComparator;
-import desafio1.demo.Model.DTO.NewPostRequestDTO;
-import desafio1.demo.Model.DTO.NewPromoPostRequestDTO;
-import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
-import desafio1.demo.Model.DTO.PostResponseDTO;
+import desafio1.demo.Model.DTO.*;
 import desafio1.demo.Model.Entity.Post;
 import desafio1.demo.Model.Entity.User;
 import desafio1.demo.Repository.IRepository;
@@ -56,5 +53,12 @@ public class ProductService implements IProductService {
                 .collect(Collectors.toList());
 
         return new PostListFromFollowedDTO(userId,postList);
+    }
+
+    @Override
+    public PromoCountDTO getPromoCountDTOById(int userId) throws UserNotFoundException {
+        var user = iRepository.getUserById(userId);
+        var count = iRepository.getUserPromoPostsById(userId).count();
+        return new PromoCountDTO(userId, user.getUserName(), count);
     }
 }

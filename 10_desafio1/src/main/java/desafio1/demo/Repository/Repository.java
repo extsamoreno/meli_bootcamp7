@@ -43,6 +43,11 @@ public class Repository implements IRepository{
     }
 
     @Override
+    public Stream<Post> getUserPromoPostsById(int userId) throws UserNotFoundException {
+        return this.getUserById(userId).getPostList().stream().filter(Post::isHasPromo);
+    }
+
+    @Override
     public void addNewPost(Post newPost) throws UserNotFoundException, DuplicatePostIdException {
         var postList = this.getUserById(newPost.getUserId()).getPostList();
         if (postList.stream().anyMatch(post -> post.getId_post() == newPost.getId_post())){
