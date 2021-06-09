@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException {
+    public void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException, IOException {
         if (!userRepository.checkIfExists(userId) || !userRepository.checkIfExists(userToUnfollow)) {
             throw new UserIdNotFoundException();
         }
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
             dto.setFollows(UserMapper.toDTOList(userRepository.getFollows(u.getUserId())));
             result.add(dto);
         }
-        sortByUsernameTest(sorting, result);
+        sortByUsername(sorting, result);
         return new FollowersResponse(userId, user.getUsername(), result);
     }
 
@@ -75,16 +75,15 @@ public class UserServiceImpl implements UserService {
         for (UserDTO u : result) {
             u.setFollows(UserMapper.toDTOList(userRepository.getFollows(u.getUserId())));
         }
-        sortByUsernameTest(sorting, result);
+        sortByUsername(sorting, result);
         return new FollowersResponse(userId, user.getUsername(), result);
     }
 
-    private List<UserDTO> sortByUsernameTest(SortingUserEnum sorting, List<UserDTO> result) {
+    private void sortByUsername(SortingUserEnum sorting, List<UserDTO> result) {
         if (sorting.equals(SortingUserEnum.name_desc)) {
             result.sort(Comparator.comparing(UserDTO::getUsername));
         } else {
             result.sort(Comparator.comparing(UserDTO::getUsername).reversed());
         }
-        return result;
     }
 }

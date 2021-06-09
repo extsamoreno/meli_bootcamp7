@@ -49,6 +49,7 @@ public class PostRepositoryImpl implements PostRepository {
         if (contains.isEmpty()) {
             this.postList.add(post);
             ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+            //The file's url points to the project folder so data isn't lost upon executing mvn clean command
             objectMapper.writeValue(ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/posts.json"), this.postList);
         } else {
             throw new PostIdAlreadyExistsException();
@@ -58,7 +59,7 @@ public class PostRepositoryImpl implements PostRepository {
     private List<Post> loadPostList() {
         File file = null;
         try {
-            //TODO change the absolute path to the classpath (now used to keep data upon re-compile)
+            //The file's url points to the project folder so data isn't lost upon executing mvn clean command
             file = ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/posts.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();

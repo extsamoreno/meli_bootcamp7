@@ -13,7 +13,7 @@ public interface UserService {
     FollowersCountResponse getFollowersCount(Integer userId) throws UserIdNotFoundException;
     FollowersResponse getFollowers(Integer userId, SortingUserEnum sortingUserEnum) throws UserIdNotFoundException;
     FollowersResponse getFollows(Integer userId, SortingUserEnum sortingUserEnum) throws UserIdNotFoundException;
-    void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException;
+    void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException, IOException;
 
 
 }

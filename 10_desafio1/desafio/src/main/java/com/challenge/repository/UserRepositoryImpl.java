@@ -22,7 +22,12 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     private List<User> userList;
+/*    follows y followedBy emulan la función de una tabla de relaciones en una relación many-to-many
+    follows and followedBy emulate the functionality of relationship tables of many-to-many relationships
+    follows = all the IDs of users that a certain user follows
+    Multimap is a data structure that works like a regular Map but allows to having multiple values per key*/
     private Multimap<Integer, Integer> follows;
+    //followedBy = all the IDs of users that follow a certain user
     private Multimap<Integer, Integer> followedBy;
 
     @PostConstruct
@@ -38,12 +43,13 @@ public class UserRepositoryImpl implements UserRepository {
         return user.orElse(null);
     }
 
+    //Each time a follow or unfollow is requested, the change is persisted in the corresponding file
     public void follow(Integer userId, Integer userIdToFollow) throws IOException {
         if (!follows.get(userId).contains(userIdToFollow)) {
             follows.put(userId, userIdToFollow);
             followedBy.put(userIdToFollow, userId);
             ObjectMapper objectMapper = new ObjectMapper().registerModule(new GuavaModule());
-            //TODO change the absolute path to the classpath (now used to keep data upon re-compile)
+            //The file's url points to the project folder so data isn't lost upon executing mvn clean command
             objectMapper.writeValue(ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/users_follows.json"), follows);
             objectMapper.writeValue(ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/followed_by.json"), followedBy);
         }
@@ -54,9 +60,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void unfollow(Integer userId, Integer userToUnfollow) {
+    public void unfollow(Integer userId, Integer userToUnfollow) throws IOException {
         follows.get(userId).remove(userToUnfollow);
         followedBy.get(userToUnfollow).remove(userId);
+        ObjectMapper objectMapper = new ObjectMapper().registerModule(new GuavaModule());
+        //The file's url points to the project folder so data isn't lost upon executing mvn clean command
+        objectMapper.writeValue(ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/user_follows.json"), follows);
+        objectMapper.writeValue(ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/followed_by.json"), followedBy);
     }
 
     public List<User> getFollowers(Integer userId) {
@@ -83,7 +93,7 @@ public class UserRepositoryImpl implements UserRepository {
     private Multimap<Integer, Integer> loadFollowedByMap() {
         File file = null;
         try {
-            //TODO change the absolute path to the classpath (now used to keep data upon re-compile)
+            //The file's url points to the project folder so data isn't lost upon executing mvn clean command
             file = ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/followed_by.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -104,7 +114,7 @@ public class UserRepositoryImpl implements UserRepository {
     private Multimap<Integer, Integer> loadFollowsMap() {
         File file = null;
         try {
-            //TODO change the absolute path to the classpath (now used to keep data upon re-compile)
+            //The file's url points to the project folder so data isn't lost upon executing mvn clean command
             file = ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/users_follows.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -125,7 +135,7 @@ public class UserRepositoryImpl implements UserRepository {
     private List<User> loadUserList() {
         File file = null;
         try {
-            //TODO change the absolute path to the classpath (now used to keep data upon re-compile)
+            //The file's url points to the project folder so data isn't lost upon executing mvn clean command
             file = ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/users.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();

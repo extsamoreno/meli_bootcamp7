@@ -12,7 +12,7 @@ public interface UserRepository {
     List<User> getFollowers(Integer userId);
     List<User> getFollows(Integer userId);
     List<Integer> getFollowedIds(Integer userId);
-    void unfollow(Integer userId, Integer userToUnfollow);
+    void unfollow(Integer userId, Integer userToUnfollow) throws IOException;
     boolean checkIfExists(Integer userId);
 
 }
