@@ -1,0 +1,31 @@
+[
+  {
+    "username": "usuario1",
+    "following": [
+      {
+        "followers": [
+          {
+            "username": "usuaior2",
+            "following": []
+          }
+        ],
+        "posts": [{
+          "userId": 1235,
+          "idPost" : 18,
+          "date" : "29-04-2021",
+          "detail" :
+            {
+              "productId": 1,
+              "productName" : ";Silla Gamer",
+              "type" :"Gamer",
+              "brand" : "Racer",
+              "color" : "Red & Black",
+              "notes": "Special Edition"
+            },
+          "category" : 100,
+          "price" : 1500.50
+        }
+        ]
+      }
+    ]}
+]
