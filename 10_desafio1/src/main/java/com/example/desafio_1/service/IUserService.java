@@ -1,8 +1,6 @@
 package com.example.desafio_1.service;
 
-import com.example.desafio_1.exception.UserExceptionAlreadyFollowed;
-import com.example.desafio_1.exception.UserExceptionNotFound;
-import com.example.desafio_1.exception.UserExceptionWrongType;
+import com.example.desafio_1.exception.*;
 import com.example.desafio_1.models.User;
 import com.example.desafio_1.service.dto.UserDTO;
 
@@ -11,9 +9,9 @@ public interface IUserService {
 
     UserDTO getFollowersCount(int userId) throws UserExceptionNotFound, UserExceptionWrongType;
 
-    UserDTO getFollowersList(int userId) throws UserExceptionWrongType, UserExceptionNotFound;
+    UserDTO getFollowersList(int userId, String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException;
 
-    UserDTO getFollowingList(int userId) throws UserExceptionWrongType, UserExceptionNotFound;
+    UserDTO getFollowingList(int userId, String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException;
 
     boolean existsUser(int userId) throws UserExceptionNotFound;
 
@@ -22,4 +20,6 @@ public interface IUserService {
     void checkInstance(int userId, String instanceType) throws UserExceptionWrongType, UserExceptionNotFound;
 
     User getUserById(int userId) throws UserExceptionNotFound;
+
+    void unfollowUser(int userId, int userIdToUnFollow) throws UserExceptionNotFound, UserExceptionWrongType, UserExceptionNotFollowing;
 }

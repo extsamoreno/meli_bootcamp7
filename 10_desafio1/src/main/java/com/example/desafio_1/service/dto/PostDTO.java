@@ -1,6 +1,5 @@
 package com.example.desafio_1.service.dto;
 
-import com.example.desafio_1.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

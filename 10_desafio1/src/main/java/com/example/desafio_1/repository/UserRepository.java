@@ -49,4 +49,10 @@ public class UserRepository implements IUserRepository{
         userFollower.getFollowing().put(userToFollow.getId(), userToFollow);
     }
 
+    @Override
+    public void unfollowUser(Buyer userFollower, Seller userToFollow) {
+        userToFollow.getFollowers().remove(userFollower.getId());
+        userFollower.getFollowing().remove(userToFollow.getId());
+    }
+
 }

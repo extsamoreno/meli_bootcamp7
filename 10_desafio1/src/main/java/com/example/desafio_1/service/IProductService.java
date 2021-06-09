@@ -1,10 +1,7 @@
 package com.example.desafio_1.service;
 
-import com.example.desafio_1.exception.EmptyStringException;
-import com.example.desafio_1.exception.NumberNotGreaterThanZero;
 import com.example.desafio_1.exception.ProductExceptionNotFound;
 import com.example.desafio_1.exception.ProductExceptionNotValid;
-import com.example.desafio_1.service.dto.PostDTO;
 import com.example.desafio_1.service.dto.ProductDTO;
 
 public interface IProductService {

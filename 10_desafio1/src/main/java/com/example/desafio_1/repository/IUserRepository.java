@@ -6,4 +6,6 @@ import com.example.desafio_1.models.User;
 
 public interface IUserRepository extends IRepository<User> {
     void followUser(Buyer userFollower, Seller userToFollow);
+
+    void unfollowUser(Buyer userFollower, Seller userToFollow);
 }

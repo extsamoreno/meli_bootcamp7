@@ -1,8 +1,6 @@
 package com.example.desafio_1.service;
 
-import com.example.desafio_1.exception.UserExceptionAlreadyFollowed;
-import com.example.desafio_1.exception.UserExceptionNotFound;
-import com.example.desafio_1.exception.UserExceptionWrongType;
+import com.example.desafio_1.exception.*;
 import com.example.desafio_1.models.Buyer;
 import com.example.desafio_1.models.Seller;
 import com.example.desafio_1.models.User;
@@ -12,8 +10,9 @@ import com.example.desafio_1.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,7 +78,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO getFollowersList(int userId) throws UserExceptionWrongType, UserExceptionNotFound {
+    public UserDTO getFollowersList(int userId, String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException {
         User user = getUserById(userId);
 
         checkInstance(user, "seller");
@@ -91,6 +90,10 @@ public class UserService implements IUserService {
 
         List<UserDTO> followerListDTO = followers.stream().map(x -> userMapper.toDto(x)).collect(Collectors.toList());
 
+        if(!order.isEmpty()) {
+            orderListOfUser(followerListDTO, order);
+        }
+
         userDTO.setFollowers(followerListDTO);
 
         return userDTO;
@@ -98,7 +101,7 @@ public class UserService implements IUserService {
 
     //Medio duplicado esto
     @Override
-    public UserDTO getFollowingList(int userId) throws UserExceptionWrongType, UserExceptionNotFound {
+    public UserDTO getFollowingList(int userId, String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException {
         User user = getUserById(userId);
 
         checkInstance(user, "buyer");
@@ -110,9 +113,27 @@ public class UserService implements IUserService {
 
         List<UserDTO> followingListDTO = following.stream().map(x -> userMapper.toDto(x)).collect(Collectors.toList());
 
+        if(!order.isEmpty()) {
+            orderListOfUser(followingListDTO, order);
+        }
+
         userDTO.setFollowing(followingListDTO);
 
         return userDTO;
+    }
+
+    private void orderListOfUser(List<UserDTO> followingListDTO, String order) throws WrongOrderFieldException {
+        if(order.equalsIgnoreCase("name_asc")) {
+            followingListDTO.sort(Comparator.comparing(UserDTO::getUserName));
+            return;
+        }
+        if(order.equalsIgnoreCase("name_desc")) {
+            followingListDTO.sort(Collections.reverseOrder(Comparator.comparing(UserDTO::getUserName)));
+            return;
+        }
+        if(!order.isEmpty()) { //if is not empty and the order criteria is not valid...
+            throw new WrongOrderFieldException(order);
+        }
     }
 
     @Override
@@ -133,6 +154,28 @@ public class UserService implements IUserService {
         }
 
         return user;
+    }
+
+    @Override
+    public void unfollowUser(int userId, int userIdToUnFollow) throws UserExceptionNotFound, UserExceptionWrongType, UserExceptionNotFollowing {
+        //Existence validated in those method
+        User userFollower = getUserById(userId);
+        User userToFollow = getUserById(userIdToUnFollow);
+
+        //Check instances
+        checkInstance(userFollower, "buyer");
+        checkInstance(userToFollow, "seller");
+
+        checkNotFollowing((Buyer) userFollower, userIdToUnFollow);
+
+        userRepository.unfollowUser((Buyer) userFollower, (Seller) userToFollow);
+    }
+
+    private void checkNotFollowing(Buyer userFollower , int userIdToCheck) throws UserExceptionNotFollowing {
+        //Validate that the user is not in the list
+        if (userFollower.getFollowing().get(userIdToCheck) == null) {
+            throw new UserExceptionNotFollowing(userFollower.getId(), userIdToCheck);
+        }
     }
 
 }

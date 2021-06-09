@@ -1,6 +1,7 @@
 package com.example.desafio_1.service;
 
-import com.example.desafio_1.exception.*;
+import com.example.desafio_1.exception.ProductExceptionNotFound;
+import com.example.desafio_1.exception.ProductExceptionNotValid;
 import com.example.desafio_1.repository.IProductRepository;
 import com.example.desafio_1.service.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
