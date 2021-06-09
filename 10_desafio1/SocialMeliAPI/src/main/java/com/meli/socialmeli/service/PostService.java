@@ -53,9 +53,10 @@ public class PostService implements IPostService {
                 totalPostList.add(postList.get(j));
             }
         }
-        totalPostList=sortPosts(totalPostList,QuickSort.date_des);
         PostDTOFollowedList response= new PostDTOFollowedList();
         response.setUserId(userId);
+        if (totalPostList.size()==0) return response;
+        totalPostList=sortPosts(totalPostList,QuickSort.date_des);
         response.setPosts(totalPostList);
         return response;
     }

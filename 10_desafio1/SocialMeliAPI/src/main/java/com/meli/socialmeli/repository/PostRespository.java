@@ -23,7 +23,11 @@ public class PostRespository implements IPostRepository{
         Date now= c.getTime();
         c.setTime(post.getDate());
         c.add(Calendar.DAY_OF_MONTH,1); // Se le agrega 1 dia ya que date trabaja desde dia 0
-        post.setDate(c.getTime());
+        Date realDate=c.getTime();
+        realDate.setHours(0);
+        realDate.setMinutes(0);
+        realDate.setSeconds(0);
+        post.setDate(realDate);
         if(post.getDate().compareTo(now)>0) throw new OverActualDateException(post.getDate());
         posts.put(post.getId_post(),post);
     }
