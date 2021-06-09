@@ -7,7 +7,7 @@ import com.example.Challenge.dto.UserResponseListFollowedDTO;
 public interface IUserService {
     void Follow(Integer userId, Integer userToFollow);
     UserResponseCountDTO getUserFollowersCount(Integer userId);
-    UserResponseListDTO getUserFollowersList(Integer userId);
-    UserResponseListFollowedDTO getUserFollowedList(Integer userId);
+    UserResponseListDTO getUserFollowersList(Integer userId, String order);
+    UserResponseListFollowedDTO getUserFollowedList(Integer userId, String order);
     void Unfollow (Integer userId, Integer userToUnfollow);
 }

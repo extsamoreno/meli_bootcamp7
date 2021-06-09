@@ -10,6 +10,7 @@ import com.example.Challenge.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -19,16 +20,6 @@ public class UserServiceImpl implements   IUserService{
     IUserRepository iUserRepository;
 
 
-    @Override
-    public void Follow(Integer userId, Integer userToFollow) {
-
-        User customer =  iUserRepository.getUserById(userId);
-        User seller = iUserRepository.getUserById(userToFollow);
-        addFollower(customer,seller);
-        addFollowed(customer,seller);
-
-
-    }
 
     public void addFollower(User customer, User seller){
         List<UserDTO> usersFollowers = seller.getFollowers();
@@ -72,6 +63,15 @@ public class UserServiceImpl implements   IUserService{
 
     }
 
+    @Override
+    public void Follow(Integer userId, Integer userToFollow) {
+
+        User customer =  iUserRepository.getUserById(userId);
+        User seller = iUserRepository.getUserById(userToFollow);
+        addFollower(customer,seller);
+        addFollowed(customer,seller);
+
+    }
 
     @Override
     public UserResponseCountDTO getUserFollowersCount(Integer userId) {
@@ -80,15 +80,45 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public UserResponseListDTO getUserFollowersList(Integer userId) {
+    public UserResponseListDTO getUserFollowersList(Integer userId, String order) {
         UserResponseListDTO userResult = MapperUser.toUserResponseListDTO(iUserRepository.getUserById(userId));
-        return userResult;
+        if(order== null){
+            return userResult;
+        }
+        else if(order.equals("name_asc")){
+            //Sort by Name
+            Collections.sort(userResult.getListFollowers(), (o1, o2) ->o1.getUserName().compareTo(o2.getUserName()) );
+            return userResult;
+        }
+        else if(order.equals("name_desc")){
+            //Sort by Name
+            Collections.sort(userResult.getListFollowers(), (o1, o2) ->o1.getUserName().compareTo(o2.getUserName()) );
+            Collections.reverse(userResult.getListFollowers());
+            return userResult;
+        }
+        else return null;
     }
 
     @Override
-    public UserResponseListFollowedDTO getUserFollowedList(Integer userId) {
+    public UserResponseListFollowedDTO getUserFollowedList(Integer userId, String order) {
         UserResponseListFollowedDTO userResult = MapperUser.toUserFollowedResponseListDTO(iUserRepository.getUserById(userId));
-        return userResult;
+
+        if(order== null){
+            return userResult;
+        }
+        else if(order.equals("name_asc")){
+            //Sort by Name
+            Collections.sort(userResult.getListFollowed(), (o1, o2) ->o1.getUserName().compareTo(o2.getUserName()) );
+            return userResult;
+        }
+        else if(order.equals("name_desc")){
+            //Sort by Name
+            Collections.sort(userResult.getListFollowed(), (o1, o2) ->o1.getUserName().compareTo(o2.getUserName()) );
+            Collections.reverse(userResult.getListFollowed());
+            return userResult;
+        }
+        else return null;
+
     }
 
     @Override

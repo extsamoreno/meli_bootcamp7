@@ -16,6 +16,16 @@ public class ProductServiceImpl implements IProductService{
     @Autowired
     IProductRepository iProductRepository;
 
+    public List<ProductDTO> getLatestPosts(List<ProductDTO> list) {
+        List<ProductDTO> listOut = new ArrayList<>();
+        for (ProductDTO product : list) {
+            if (product.getDateFromString().isAfter(LocalDate.now().minusWeeks(2))) {
+                listOut.add(product);
+            }
+        }
+        return listOut;
+    }
+
     @Override
     public String newPost(Product product) {
         //System.out.println(product.getDateFromString());
@@ -44,14 +54,6 @@ public class ProductServiceImpl implements IProductService{
         return new ProductResponseDTO(userId,getLatestPosts(listResult));
     }
 
-    public List<ProductDTO> getLatestPosts(List<ProductDTO> list) {
-        List<ProductDTO> listOut = new ArrayList<>();
-        for (ProductDTO product : list) {
-            if (product.getDateFromString().isAfter(LocalDate.now().minusWeeks(2))) {
-                listOut.add(product);
-            }
-        }
-        return listOut;
-    }
+
 
 }
