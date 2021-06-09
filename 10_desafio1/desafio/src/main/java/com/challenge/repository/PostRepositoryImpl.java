@@ -3,6 +3,7 @@ package com.challenge.repository;
 import com.challenge.entity.Post;
 import com.challenge.entity.Product;
 import com.challenge.exception.PostIdAlreadyExistsException;
+import com.challenge.exception.UserIdNotFoundException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -13,8 +14,10 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class PostRepositoryImpl implements PostRepository {
@@ -26,6 +29,12 @@ public class PostRepositoryImpl implements PostRepository {
     private void init() {
         this.productList = loadProductList();
         this.postList = loadPostList();
+    }
+
+    @Override
+    public List<Post> getRecentPosts(List<Integer> followedIds, LocalDate since) {
+       return postList.stream().filter(p -> followedIds.contains(p.getUserId()) && p.getDate().isAfter(since)).collect(Collectors.toList());
+
     }
 
     @Override

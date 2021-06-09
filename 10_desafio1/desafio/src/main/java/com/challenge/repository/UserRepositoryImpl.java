@@ -85,6 +85,11 @@ public class UserRepositoryImpl implements UserRepository {
         return follows;
     }
 
+    public List<Integer> getFollowedIds(Integer userId) throws UserIdNotFoundException {
+        checkIfExists(userId);
+        return (List<Integer>) follows.get(userId);
+    }
+
     public Integer getFollowersCount(Integer userId) throws UserIdNotFoundException {
         checkIfExists(userId);
         return followedBy.get(userId).size();

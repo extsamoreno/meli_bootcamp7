@@ -1,7 +1,12 @@
 package com.challenge.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Product {
 
+    @JsonProperty("product_id")
     private Integer productId;
     private String type;
     private String brand;

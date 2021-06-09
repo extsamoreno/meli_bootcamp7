@@ -1,7 +1,10 @@
 package com.challenge.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.time.LocalDate;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Post {
 
     private Integer postId;
