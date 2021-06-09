@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class UserRepositoryImpl implements UserRepository {
 
     @Override
-    public List<UserModel> seedUsers() {
+    public List<UserModel> seedDb() {
         List<UserModel> allUsers = null;
         allUsers = loadDataBase();
         return allUsers;
@@ -56,4 +56,27 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return allUsers;
     }
+
+    @Override
+    public void saveChangesDb(UserModel user, UserModel userToFollow) {
+        List<UserModel> allUsers = loadDataBase();
+        for (UserModel u: allUsers) {
+            if (u.getUserId() == user.getUserId()) allUsers.set(u.getUserId(), user);
+            if (u.getUserId() == userToFollow.getUserId()) allUsers.set(u.getUserId(), userToFollow);
+        }
+        // Para refactorizar
+        File file = null;
+        try {
+            file = ResourceUtils.getFile("classpath:users.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(file, allUsers);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+

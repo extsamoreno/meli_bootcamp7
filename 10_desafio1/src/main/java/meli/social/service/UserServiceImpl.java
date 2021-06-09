@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService{
     // Prueba seed Json
     @Override
     public List<UserModel> getAllUsers() {
-       return userRepository.seedUsers();
+       return userRepository.seedDb();
     }
 
     @Override
@@ -35,6 +35,8 @@ public class UserServiceImpl implements UserService{
         user.getFollowed().add(userIdToFollow);
         userToFollow.getFollowers().add(userId);
 
+        // Falta validación de si ya se están siguiendo
+        userRepository.saveChangesDb(user, userToFollow);
         return HttpStatus.OK;
     }
 
