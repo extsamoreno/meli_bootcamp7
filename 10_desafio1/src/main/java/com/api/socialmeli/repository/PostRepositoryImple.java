@@ -17,7 +17,7 @@ public class PostRepositoryImple implements PostRepository{
     static{
         dbPosts = new ArrayList<>();
         ProductModel product1 = new ProductModel(1000, "Silla Gamer", "Gamer", "Racer", "Black", "Special Edition");
-        PostModel post1 = new PostModel(2000, 1, LocalDate.parse("2021-03-10"), product1, 100, 1500.5);
+        PostModel post1 = new PostModel(2000, 1, LocalDate.parse("2021-03-10"), product1, 100, 1500.5, false, 0);
         dbPosts.add(post1);
     }
 

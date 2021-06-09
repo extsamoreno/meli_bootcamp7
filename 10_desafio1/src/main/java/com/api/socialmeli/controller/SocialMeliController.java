@@ -50,5 +50,14 @@ public class SocialMeliController {
         return new ResponseEntity<>(socialMeliServiceImple.US007(userId, userIdToUnfollow), HttpStatus.OK);
     }
 
+    @GetMapping("/products/{userId}/countPromo/")
+    public ResponseEntity<CountPromoDTO> US011(@PathVariable int userId) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US011(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/products/{userId}/list/")
+    public ResponseEntity<PostPromoDTO> US012(@PathVariable int userId) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US012(userId), HttpStatus.OK);
+    }
 
 }

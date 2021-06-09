@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -227,6 +228,45 @@ PostRepositoryImple postRepositoryImple;
 
         return "user: " + userId + " unfollows: " + userIdToUnfollow;
 
+    }
+
+    @Override
+    public CountPromoDTO US011(int userId) throws Exception{
+
+        if (userRepositoryImple.getUsers().get(userId)==null) throw new NotFoundIdException(userId);
+
+        CountPromoDTO countPromoDTO = new CountPromoDTO();
+        countPromoDTO.setUserId(userId);
+        countPromoDTO.setUserName(userRepositoryImple.getUsers().get(userId).getUserName());
+        List<PostModel> post = postRepositoryImple.getDbPosts();
+        int count = 0;
+        for (int i = 0; i < post.size(); i++) {
+            if ((post.get(i).getUserId()==userId)&&(post.get(i).isHasPromo())){
+                count ++;
+            }
+        }
+        countPromoDTO.setPromoProducts_count(count);
+        return countPromoDTO;
+    }
+
+    @Override
+    public PostPromoDTO US012(int userId) throws Exception{
+
+        if (userRepositoryImple.getUsers().get(userId)==null) throw new NotFoundIdException(userId);
+
+        PostPromoDTO postPromoDTO = new PostPromoDTO();
+        postPromoDTO.setUserId(userId);
+        postPromoDTO.setUserName(userRepositoryImple.getUsers().get(userId).getUserName());
+        ArrayList<PostModel> postDb = (ArrayList<PostModel>) postRepositoryImple.getDbPosts();
+        ArrayList<PostNoUserIdDTO> postDto = new ArrayList<>();
+
+        for (int i = 0; i < postDb.size(); i++) {
+            if ((postDb.get(i).getUserId()==userId)&&(postDb.get(i).isHasPromo())){
+                postDto.add(PostMapper.toNoIdDto(postDb.get(i)));
+            }
+        }
+        postPromoDTO.setPosts(postDto);
+        return postPromoDTO;
     }
 
 }

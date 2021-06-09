@@ -1,16 +1,16 @@
-package com.api.socialmeli.model;
+package com.api.socialmeli.dto;
 
+import com.api.socialmeli.model.ProductModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
-public class PostModel {
-    private int userId;
+public class PostNoUserIdDTO {
     private int id_post;
     private LocalDate date;
     private ProductModel detail;
