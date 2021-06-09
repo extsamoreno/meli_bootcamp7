@@ -10,6 +10,7 @@ public interface IUserRepository {
     User getUserById(Integer id);
     UserDTO getUserDTOById(Integer id);
     Map<Integer, UserDTO> getOrCreateUserDTORepository();
-    boolean updateUserDTORepositoy(UserDTO userDTO);
+    boolean updateUserDTORepository(UserDTO userDTO);
     List<User> getUserList();
+    boolean repositoryStatus();
 }

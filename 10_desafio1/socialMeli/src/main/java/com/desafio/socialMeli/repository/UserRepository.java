@@ -23,6 +23,13 @@ public class UserRepository implements IUserRepository {
     private HashMap<Integer, UserDTO> map;
 
     @Override
+    public boolean repositoryStatus(){
+        boolean res = true;
+        if(this.map == null) res = false;
+        return res;
+    }
+
+    @Override
     public UserDTO getUserDTOById(Integer id) {
         if (this.map.containsKey(id)) {
             return this.map.get(id);
@@ -52,7 +59,6 @@ public class UserRepository implements IUserRepository {
         File file = null;
         try {
             file = ResourceUtils.getFile("classpath:users.json");
-            System.out.println("ENCONTRE EL ARCHIVO: " + file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -77,30 +83,33 @@ public class UserRepository implements IUserRepository {
 
     // busca y sobreEscribe o lo ingresa al final
     @Override
-    public boolean updateUserDTORepositoy(UserDTO userDTO) {
-
-        if(map.isEmpty())   map.put(1, userDTO);
-        else{
-            Integer index = containsUserDTO(userDTO);
-            if(index == 0){
-                this.map.put((this.map.size() + 1), userDTO);
-            }else{
-                this.map.put(index, userDTO);
+    public boolean updateUserDTORepository(UserDTO userDTO) {
+        boolean res = true;
+        if(this.map != null) {
+            if (map.isEmpty()) map.put(1, userDTO);
+            else {
+                Integer index = indexOfUserDTOinRepository(userDTO);
+                if (index == -1) {
+                    this.map.put((this.map.size() + 1), userDTO);
+                } else {
+                    this.map.put(index, userDTO);
+                }
             }
+        }else{
+            res = false;
         }
-        return true;
+        return res;
     }
 
-    private Integer containsUserDTO(UserDTO userDTO){
-        Integer i = 0;
-
-        if(map.isEmpty()) return 0;
-        else {
-            for (i = 0; i <= this.map.size(); i++) {
-                if (this.map.get(i) == userDTO) return i;
+    // retorna -1 si no lo puede encontrar
+    private Integer indexOfUserDTOinRepository(UserDTO userDTO){
+        Integer index = -1;
+        if(!map.isEmpty()){
+            for (Integer i = 0; i <= this.map.size(); i++) {
+                if (this.map.get(i) == userDTO) index = i;
             }
         }
-        return 0;
+        return index;
     }
 
 }
