@@ -1,5 +1,6 @@
 package com.challenge.controller;
 
+import com.challenge.enums.SortingEnum;
 import com.challenge.exception.UserIdNotFoundException;
 import com.challenge.service.UserService;
 import org.apache.coyote.Response;
@@ -34,12 +35,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity getFollowers(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return ResponseEntity.ok(userService.getFollowers(userId));
+    public ResponseEntity getFollowers(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingEnum sorting) throws UserIdNotFoundException {
+        return ResponseEntity.ok(userService.getFollowers(userId, sorting));
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity getFollows(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return ResponseEntity.ok(userService.getFollows(userId));
+    public ResponseEntity getFollows(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingEnum sorting) throws UserIdNotFoundException {
+        return ResponseEntity.ok(userService.getFollows(userId, sorting));
     }
 }

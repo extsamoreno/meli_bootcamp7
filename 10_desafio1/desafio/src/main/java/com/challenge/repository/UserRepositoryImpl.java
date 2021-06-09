@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -63,14 +64,7 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> getFollowers(Integer userId) throws UserIdNotFoundException {
         checkIfExists(userId);
         List<Integer> followersIds = (List<Integer>) followedBy.get(userId);
-        List<User> followers = new ArrayList<>();
-        userList.forEach(u -> {
-            if (followersIds.contains(u.getUserId())) {
-                followers.add(u);
-            }
-        });
-
-        return followers;
+        return userList.stream().filter(u -> followersIds.contains(u.getUserId())).collect(Collectors.toList());
     }
 
     private void checkIfExists(Integer id) throws UserIdNotFoundException {
@@ -83,14 +77,7 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> getFollows(Integer userId) throws UserIdNotFoundException {
         checkIfExists(userId);
         List<Integer> followsIds = (List<Integer>) follows.get(userId);
-        List<User> follows = new ArrayList<>();
-        userList.forEach(u -> {
-            if (followsIds.contains(u.getUserId())) {
-                follows.add(u);
-            }
-        });
-
-        return follows;
+        return userList.stream().filter(u -> followsIds.contains(u.getUserId())).collect(Collectors.toList());
     }
 
     public List<Integer> getFollowedIds(Integer userId) throws UserIdNotFoundException {
