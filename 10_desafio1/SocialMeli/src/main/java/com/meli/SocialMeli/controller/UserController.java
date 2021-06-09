@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
@@ -46,14 +48,14 @@ public class UserController {
     }
 
     @GetMapping(path = "/{userId}/followers/list")
-    public ResponseEntity<UserFollowerListDto> followerList(@PathVariable("userId")int id) throws InvalidUserIdException {
-        UserFollowerListDto user = iUserService.followerList(id);
+    public ResponseEntity<UserFollowerListDto> followerList(@PathVariable("userId")int id, @RequestParam("order") Optional<String> order) throws InvalidUserIdException {
+        UserFollowerListDto user = iUserService.followerList(id,order);
         return  new ResponseEntity<>(user,HttpStatus.OK);
     }
 
     @GetMapping(path = "/{userId}/followed/list")
-    public ResponseEntity<UserFollowedListDto> followedList(@PathVariable("userId")int id) throws InvalidUserIdException {
-        UserFollowedListDto user = iUserService.followedList(id);
+    public ResponseEntity<UserFollowedListDto> followedList(@PathVariable("userId")int id, @RequestParam("order") Optional<String> order) throws InvalidUserIdException {
+        UserFollowedListDto user = iUserService.followedList(id,order);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

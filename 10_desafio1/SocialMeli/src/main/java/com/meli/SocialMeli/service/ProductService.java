@@ -7,6 +7,7 @@ import com.meli.SocialMeli.exception.InvalidPostException;
 import com.meli.SocialMeli.exception.InvalidProductException;
 import com.meli.SocialMeli.exception.InvalidUserIdException;
 import com.meli.SocialMeli.mapper.ProductMapper;
+import com.meli.SocialMeli.model.Follow;
 import com.meli.SocialMeli.model.Post;
 import com.meli.SocialMeli.model.Product;
 import com.meli.SocialMeli.model.User;

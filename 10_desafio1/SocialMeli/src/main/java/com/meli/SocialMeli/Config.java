@@ -7,6 +7,9 @@ import com.meli.SocialMeli.model.User;
 import com.meli.SocialMeli.repository.Tables;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class Config {
 
@@ -24,7 +27,7 @@ public class Config {
         Tables.follow(new Follow(-1,1,2));
         Tables.follow(new Follow(-1,3,2));
         Tables.follow(new Follow(-1,5,2));
-        Tables.follow(new Follow(-1,1,3));
+        Tables.follow(new Follow(-1,1,4));
         Tables.follow(new Follow(-1,1,5));
     }
 

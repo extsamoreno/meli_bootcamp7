@@ -9,6 +9,8 @@ import com.meli.SocialMeli.exception.InvalidUserIdException;
 import com.meli.SocialMeli.exception.InvalidUserNameException;
 import com.meli.SocialMeli.exception.RepeatedFollowUserException;
 
+import java.util.Optional;
+
 public interface IUserService {
     void newUser(UserNewDto userNewDto) throws InvalidUserNameException;
 
@@ -16,9 +18,9 @@ public interface IUserService {
 
     UserFollowerCountDto followerCount(int id) throws InvalidUserIdException;
 
-    UserFollowerListDto followerList(int id) throws InvalidUserIdException;
+    UserFollowerListDto followerList(int id, Optional<String> order) throws InvalidUserIdException;
 
-    UserFollowedListDto followedList(int id) throws InvalidUserIdException;
+    UserFollowedListDto followedList(int id, Optional<String> order) throws InvalidUserIdException;
 
     void unfollow(int followerId, int followedId) throws FollowNotFoundUserException;
 }

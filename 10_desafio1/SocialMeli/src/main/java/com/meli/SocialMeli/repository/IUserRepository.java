@@ -1,6 +1,5 @@
 package com.meli.SocialMeli.repository;
 
-import com.meli.SocialMeli.dto.UserNewDto;
 import com.meli.SocialMeli.model.Follow;
 import com.meli.SocialMeli.model.User;
 

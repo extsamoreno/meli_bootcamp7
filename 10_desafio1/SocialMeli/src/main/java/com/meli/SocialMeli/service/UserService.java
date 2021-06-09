@@ -9,8 +9,14 @@ import com.meli.SocialMeli.model.Follow;
 import com.meli.SocialMeli.repository.IUserRepository;
 import com.meli.SocialMeli.mapper.UserMapper;
 import com.meli.SocialMeli.model.User;
+import com.meli.SocialMeli.util.SortUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 public class UserService implements IUserService{
@@ -41,19 +47,24 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public UserFollowerListDto followerList(int id) throws InvalidUserIdException {
+    public UserFollowerListDto followerList(int id, Optional<String> order) throws InvalidUserIdException {
         validateId(id);
         UserFollowerListDto userDto = UserMapper.userToUserFollowerLDto(iUserRepository.getUserById(id));
-        userDto.setFollowers(UserMapper.batchUserToBasicDto(iUserRepository.getFollowers(id)));
+        ArrayList<User> userList = iUserRepository.getFollowers(id);
+        if(order.isEmpty()) order=Optional.of("aa");
+        userList=sortUser(userList,order.get());
+        userDto.setFollowers(UserMapper.batchUserToBasicDto(userList));
         return userDto;
     }
 
     @Override
-    public UserFollowedListDto followedList(int id) throws InvalidUserIdException {
+    public UserFollowedListDto followedList(int id, Optional<String> order) throws InvalidUserIdException {
         validateId(id);
         UserFollowedListDto userDto = UserMapper.userToUserFollowedLDto(iUserRepository.getUserById(id));
-
-        userDto.setFolloweds(UserMapper.batchUserToBasicDto(iUserRepository.getFolloweds(id)));
+        ArrayList<User> userList = iUserRepository.getFolloweds(id);
+        if(order.isEmpty()) order=Optional.of("aa");
+        userList=sortUser(userList,order.get());
+        userDto.setFolloweds(UserMapper.batchUserToBasicDto(userList));
         return userDto;
     }
 
@@ -86,5 +97,37 @@ public class UserService implements IUserService{
         if(iUserRepository.getFollow(follow.getFollowerId(),follow.getFollowedId())!=null){
             throw new RepeatedFollowUserException();
         }
+    }
+
+    private ArrayList<User> sortUser(ArrayList<User> userList, String order) {
+        Comparator<User> comp;
+        switch(order){
+            case "name_asc":
+                comp = (a,b)->a.getUserName().compareTo(b.getUserName());
+                break;
+            case "name_desc":
+                comp = (a,b)->b.getUserName().compareTo(a.getUserName());
+                break;
+            default:
+                return userList;
+        }
+        userList=new SortUtil<User>().sort(userList,comp);
+        return userList;
+    }
+
+    private ArrayList<Integer> extractFollowers(ArrayList<Follow> follows){
+        ArrayList<Integer> idList = new ArrayList<>();
+        for (Follow follow : follows) {
+            idList.add(follow.getFollowerId());
+        }
+        return idList;
+    }
+
+    private ArrayList<Integer> extractFolloweds(ArrayList<Follow> follows){
+        ArrayList<Integer> idList = new ArrayList<>();
+        for (Follow follow : follows) {
+            idList.add(follow.getFollowedId());
+        }
+        return idList;
     }
 }

@@ -12,4 +12,12 @@ import lombok.Setter;
 public class User {
     int userId;
     String userName;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
 }
