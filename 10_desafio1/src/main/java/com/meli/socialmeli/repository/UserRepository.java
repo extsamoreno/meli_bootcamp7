@@ -23,7 +23,7 @@ public class UserRepository {
         return !users.containsKey(userId);
     }
 
-    public boolean userAlreadyContainsFollower(int userId, int userIdToFollow) {
+    public boolean userContainsFollower(int userId, int userIdToFollow) {
         return users.get(userIdToFollow).getFollowers().containsKey(userId);
     }
 
@@ -37,20 +37,34 @@ public class UserRepository {
 
         // Agrego el follower dentro del listado de followers del followed:
         assert followed != null;
-        followed.getFollowers().put(userId,follower);
+        followed.getFollowers().put(userId, follower);
 
         // Agrego el followed dentro del listado de followed del follower:
-        follower.getFollowed().put(userIdToFollow,followed);
-
+        follower.getFollowed().put(userIdToFollow, followed);
     }
 
-    public int getNumberOfFollowers(int userId){
+    public void removeFollower(int userId, int userIdToUnfollow){
+        // Obtengo el follower específico:
+        User follower = users.get(userId);
+
+        // Obtengo el followed específico:
+        User followed = users.get(userIdToUnfollow);
+
+        // Remuevo el follower dentro del listado de followers del followed:
+        followed.getFollowers().remove(userId);
+
+        // Remuevo el followed dentro del listado de followed del follower:
+        follower.getFollowed().remove(userIdToUnfollow);
+    }
+
+    public int getNumberOfFollowers(int userId) {
         return users.get(userId).getFollowers().size();
     }
 
-    public User getUserById(int userId){
+    public User getUserById(int userId) {
         return users.get(userId);
     }
+
 
 
 

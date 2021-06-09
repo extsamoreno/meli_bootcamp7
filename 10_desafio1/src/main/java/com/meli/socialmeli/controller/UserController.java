@@ -4,6 +4,7 @@ import com.meli.socialmeli.dto.FollowersCountUserDTO;
 import com.meli.socialmeli.dto.UserDTO;
 import com.meli.socialmeli.exception.FollowerAlreadyAddedException;
 import com.meli.socialmeli.exception.InvalidIdException;
+import com.meli.socialmeli.exception.NoFollowerException;
 import com.meli.socialmeli.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,19 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<String> addFollower(@PathVariable int userId, @PathVariable int userIdToFollow) throws InvalidIdException, FollowerAlreadyAddedException {
+    public ResponseEntity<Void> addFollower(@PathVariable int userId, @PathVariable int userIdToFollow) throws InvalidIdException, FollowerAlreadyAddedException {
 
-        return new ResponseEntity<>(userService.addFollower(userId, userIdToFollow), HttpStatus.OK);
+        userService.addFollower(userId, userIdToFollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Void> removeFollower(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws InvalidIdException, NoFollowerException {
+
+        userService.removeFollower(userId, userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountUserDTO> getFollowersCount(@PathVariable int userId) throws InvalidIdException {
@@ -42,3 +52,4 @@ public class UserController {
     }
 
 }
+

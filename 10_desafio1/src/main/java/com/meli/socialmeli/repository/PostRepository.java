@@ -30,5 +30,4 @@ public class PostRepository {
         }
         return merchantPosts;
     }
-
 }

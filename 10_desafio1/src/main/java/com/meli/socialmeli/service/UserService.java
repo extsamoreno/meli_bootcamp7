@@ -4,6 +4,7 @@ import com.meli.socialmeli.dto.FollowersCountUserDTO;
 import com.meli.socialmeli.dto.UserDTO;
 import com.meli.socialmeli.exception.FollowerAlreadyAddedException;
 import com.meli.socialmeli.exception.InvalidIdException;
+import com.meli.socialmeli.exception.NoFollowerException;
 import com.meli.socialmeli.models.User;
 import com.meli.socialmeli.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,28 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public String addFollower(int userId, int userIdToFollow) throws InvalidIdException, FollowerAlreadyAddedException {
+    public void addFollower(int userId, int userIdToFollow) throws InvalidIdException, FollowerAlreadyAddedException {
 
         if (userRepository.userIdIsNotValid(userId) || userRepository.userIdIsNotValid(userIdToFollow)) {
             throw new InvalidIdException();
         }
 
-        if (userRepository.userAlreadyContainsFollower(userId, userIdToFollow)) {
+        if (userRepository.userContainsFollower(userId, userIdToFollow)) {
             throw new FollowerAlreadyAddedException();
         }
         userRepository.insertFollower(userId, userIdToFollow);
+    }
 
-        return "User " + userId + " added successfully to User " + userIdToFollow + " followers";
+    public void removeFollower(int userId, int userIdToUnfollow) throws InvalidIdException, NoFollowerException {
+
+        if (userRepository.userIdIsNotValid(userId) || userRepository.userIdIsNotValid(userIdToUnfollow)) {
+            throw new InvalidIdException();
+        }
+
+        if (!userRepository.userContainsFollower(userId, userIdToUnfollow)) {
+            throw new NoFollowerException();
+        }
+        userRepository.removeFollower(userId, userIdToUnfollow);
     }
 
     public FollowersCountUserDTO getFollowersCount(int userId) throws InvalidIdException {

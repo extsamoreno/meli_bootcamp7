@@ -5,16 +5,16 @@ import com.meli.socialmeli.dto.PostDTO;
 import com.meli.socialmeli.dto.UserDTO;
 import com.meli.socialmeli.exception.InvalidIdException;
 import com.meli.socialmeli.exception.PostIdAlreadyExistsException;
-import com.meli.socialmeli.mapper.PostMapper;
 import com.meli.socialmeli.models.Post;
 import com.meli.socialmeli.repository.PostRepository;
 import com.meli.socialmeli.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.meli.socialmeli.mapper.PostMapper.mapToPost;
 import static com.meli.socialmeli.mapper.PostMapper.mapToPostDTO;
@@ -52,21 +52,38 @@ public class ProductService {
 
         for (UserDTO eachFollowedMerchant : followedList) {
 
-            PostCollectionDTO merchantPostCollectionDTO = new PostCollectionDTO();
+            PostCollectionDTO eachMerchantPostCollectionDTO = new PostCollectionDTO();
             List<PostDTO> merchantPostsDTO = new ArrayList<>();
             Map<Integer, Post> merchantPostsRepository = postRepository.getPostsByMerchantId(eachFollowedMerchant.getUserId());
 
             for (Map.Entry<Integer, Post> entry : merchantPostsRepository.entrySet()) {
 
-                PostDTO eachPost = mapToPostDTO(entry.getKey(), entry.getValue());
-                merchantPostsDTO.add(eachPost);
-            }
-            merchantPostCollectionDTO.setUserId(eachFollowedMerchant.getUserId());
-            merchantPostCollectionDTO.setPosts(merchantPostsDTO);
+                // NOTE: To get the results of the last 14 days, it is necessary to use minusDays(16) by parsing with data type "Date"
+                LocalDate last2Weeks = LocalDate.now().minusDays(16);
 
-            postCollectionDTOList.add(merchantPostCollectionDTO);
+                if (toLocalDate(entry.getValue().getDate()).isAfter(last2Weeks)) {
+
+                    PostDTO eachPost = mapToPostDTO(entry.getKey(), entry.getValue());
+                    merchantPostsDTO.add(eachPost);
+                }
+            }
+            eachMerchantPostCollectionDTO.setUserId(eachFollowedMerchant.getUserId());
+            eachMerchantPostCollectionDTO.setPosts(sortPostsByDateAsc(merchantPostsDTO));
+
+            postCollectionDTOList.add(eachMerchantPostCollectionDTO);
         }
         return postCollectionDTOList;
+    }
+
+    private LocalDate toLocalDate(Date date) {
+        return LocalDate.ofInstant(
+                date.toInstant(), ZoneId.systemDefault());
+    }
+
+    private List<PostDTO> sortPostsByDateAsc(List<PostDTO> merchantPosts) {
+        return merchantPosts.stream().sorted(
+                Comparator.comparing(PostDTO::getDate)
+        ).collect(Collectors.toList());
     }
 }
 
