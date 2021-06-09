@@ -35,10 +35,16 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowListDTO getFollowers(int userId) throws UserNotValidException {
+    public FollowListDTO getFollowers(int userId, String order) throws UserNotValidException {
 
         String userName = userRepository.getUserById(userId).getUserName();
         List<User> followers= userRepository.getFollowers(userId);
+
+        if( order.equals("name_desc")){
+            followers.sort((f1, f2) -> f2.getUserName().compareTo(f1.getUserName()));
+        }else if(order.equals("name_asc")) {
+            followers.sort((f1, f2) -> f1.getUserName().compareTo(f2.getUserName()));
+        }
 
         FollowListDTO response = new FollowListDTO();
         response.setUserId(userId);
@@ -49,10 +55,16 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowListDTO getFollowed(int userId) throws UserNotValidException {
+    public FollowListDTO getFollowed(int userId, String order) throws UserNotValidException {
 
         String userName = userRepository.getUserById(userId).getUserName();
         List<User> followed= userRepository.getFollowed(userId);
+
+        if( order.equals("name_desc")){
+            followed.sort((f1, f2) -> f2.getUserName().compareTo(f1.getUserName()));
+        }else if(order.equals("name_asc")) {
+            followed.sort((f1, f2) -> f1.getUserName().compareTo(f2.getUserName()));
+        }
 
         FollowListDTO response = new FollowListDTO();
         response.setUserId(userId);

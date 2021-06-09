@@ -36,13 +36,13 @@ public class UsersController {
     }
 
     @GetMapping("{userId}/followers/list")
-    public ResponseEntity<FollowListDTO> getFollowers(@PathVariable int userId) throws UserNotValidException{
-        return new ResponseEntity<>(userService.getFollowers(userId),HttpStatus.OK);
+    public ResponseEntity<FollowListDTO> getFollowers(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order) throws UserNotValidException{
+        return new ResponseEntity<>(userService.getFollowers(userId, order),HttpStatus.OK);
     }
 
     @GetMapping("{userId}/followed/list")
-    public ResponseEntity<FollowListDTO> getFollowed(@PathVariable int userId) throws UserNotValidException{
-        return new ResponseEntity<>(userService.getFollowed(userId),HttpStatus.OK);
+    public ResponseEntity<FollowListDTO> getFollowed(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order ) throws UserNotValidException{
+        return new ResponseEntity<>(userService.getFollowed(userId, order),HttpStatus.OK);
     }
 
     @PostMapping("{userId}/unfollow/{userIdToFollow}")

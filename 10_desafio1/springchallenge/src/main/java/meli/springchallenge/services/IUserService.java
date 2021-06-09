@@ -14,9 +14,9 @@ public interface IUserService {
 
     FollowerCountDTO countFollowers(int userId) throws UserNotValidException;
 
-    FollowListDTO getFollowers(int userId) throws UserNotValidException;
+    FollowListDTO getFollowers(int userId, String order) throws UserNotValidException;
 
-    FollowListDTO getFollowed(int userId) throws UserNotValidException;
+    FollowListDTO getFollowed(int userId, String order) throws UserNotValidException;
 
 }
 
