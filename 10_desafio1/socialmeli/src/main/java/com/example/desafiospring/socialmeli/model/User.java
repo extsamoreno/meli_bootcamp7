@@ -11,4 +11,5 @@ public class User {
     String userName;
     List<User> followers;
     List<User> followed;
+    List<Post> posts;
 }
