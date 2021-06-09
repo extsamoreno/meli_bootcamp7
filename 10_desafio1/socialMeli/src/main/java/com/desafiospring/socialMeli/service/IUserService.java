@@ -13,7 +13,9 @@ public interface IUserService {
 
     FollowersCountDTO getNumberOfFollowers(int userId) throws UserNotFoundException;
 
+    UserFollowedDTO getFollowers(int userId) throws UserNotFoundException;
+
     UserFollowingDTO getFollowingList(int userId) throws UserNotFoundException;
 
-    UserFollowedDTO getFollowers(int userId) throws UserNotFoundException;
+    void unfollowSeller (int userId, int userIdToFollow) throws UserNotFoundException;
 }

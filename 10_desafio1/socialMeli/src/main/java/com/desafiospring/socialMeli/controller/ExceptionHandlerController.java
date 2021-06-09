@@ -1,6 +1,7 @@
 package com.desafiospring.socialMeli.controller;
 
 import com.desafiospring.socialMeli.dto.ErrorDTO;
+import com.desafiospring.socialMeli.exceptions.PostException;
 import com.desafiospring.socialMeli.exceptions.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,11 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ErrorDTO> returnError(UserException e){
+        return new ResponseEntity<>(e.getErrorDTO(),e.getHttpStatus());
+    }
+
+    @ExceptionHandler(PostException.class)
+    public ResponseEntity<ErrorDTO> returnError(PostException e){
         return new ResponseEntity<>(e.getErrorDTO(),e.getHttpStatus());
     }
 
