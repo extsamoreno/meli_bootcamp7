@@ -1,10 +1,13 @@
 package com.reto1.demo.Service;
 
-import com.reto1.demo.Exception.*;
-import com.reto1.demo.Model.DTO.UserDTOCount;
-import com.reto1.demo.Model.DTO.UserDTOFolloweds;
-import com.reto1.demo.Model.DTO.UserDTOFollowers;
+import com.reto1.demo.Exception.OrderNotFoundException;
+import com.reto1.demo.Exception.UserAlreadyFollowException;
+import com.reto1.demo.Exception.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserNotFollowException;
 import com.reto1.demo.Model.Post;
+import com.reto1.demo.Model.UserObjets.UserDTOCount;
+import com.reto1.demo.Model.UserObjets.UserDTOFolloweds;
+import com.reto1.demo.Model.UserObjets.UserDTOFollowers;
 
 public interface IFollowService {
 

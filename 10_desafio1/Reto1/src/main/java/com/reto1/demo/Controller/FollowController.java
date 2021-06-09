@@ -1,18 +1,17 @@
 package com.reto1.demo.Controller;
 
-import com.reto1.demo.Exception.*;
-import com.reto1.demo.Model.DTO.UserDTOCount;
-import com.reto1.demo.Model.DTO.UserDTOFolloweds;
-import com.reto1.demo.Model.DTO.UserDTOFollowers;
-import com.reto1.demo.Model.Post;
+import com.reto1.demo.Exception.OrderNotFoundException;
+import com.reto1.demo.Exception.UserAlreadyFollowException;
+import com.reto1.demo.Exception.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserNotFollowException;
+import com.reto1.demo.Model.UserObjets.UserDTOCount;
+import com.reto1.demo.Model.UserObjets.UserDTOFolloweds;
 import com.reto1.demo.Service.IFollowService;
 import com.reto1.demo.Service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 
 @RestController
 public class FollowController {

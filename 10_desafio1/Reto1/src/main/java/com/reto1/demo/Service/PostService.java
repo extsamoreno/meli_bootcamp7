@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 
 
@@ -25,8 +24,15 @@ public class PostService implements IPostService{
 
     @Override
     public String creatPost(Post post) throws UserIdNotFoundException, DuplicatedPostException, DateNotExistException, UserNotFollowException {
-        LocalDate today = LocalDate.now();
 
+        //Revisa si no existe ya antes ese post
+        User user = iFollowRepository.getUserById(post.getUserId());
+        if(!user.getPosts().stream().anyMatch(c->c.getId_post() == post.getId_post())){
+            user.addPost(post);
+        }
+        else throw new DuplicatedPostException(post.getId_post());
+
+        LocalDate today = LocalDate.now();
         // Con el tipo de dato Date, las fechas 26/05 , se vuelven 25/05, por eso se debe sumar un día
         LocalDate datePost = toLocalDate(post.getDate()).plusDays(1);
         post.setDate(toDate(datePost));
@@ -36,12 +42,6 @@ public class PostService implements IPostService{
            throw new DateNotExistException(today, datePost);
         }
 
-        //Revisa si no existe ya antes ese post
-        User user = iFollowRepository.getUserById(post.getUserId());
-        if(!user.getPosts().contains(post)){
-            user.addPost(post);
-        }
-        else throw new DuplicatedPostException(post.getId_post());
         return post.getDetail().getProductName();
     }
 

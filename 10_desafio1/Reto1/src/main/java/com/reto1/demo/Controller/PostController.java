@@ -3,6 +3,7 @@ package com.reto1.demo.Controller;
 import com.reto1.demo.Exception.*;
 import com.reto1.demo.Model.DTO.LastPostDTO;
 import com.reto1.demo.Model.Post;
+import com.reto1.demo.Model.PromoPost;
 import com.reto1.demo.Service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +31,16 @@ public class PostController {
     */
     @GetMapping("/products/followed/{userId}/list")
     public ResponseEntity<LastPostDTO> lastPosts(@PathVariable int userId,
-                                                 @RequestParam(required = false, defaultValue = "name_desc") String order)
+                                                 @RequestParam(required = false, defaultValue = "date_desc") String order)
             throws UserIdNotFoundException, UserNotFollowException, OrderNotFoundException {
         return new ResponseEntity<>(iPostService.orderLastPost(userId, order), HttpStatus.OK);
+    }
+
+
+    @PostMapping("/products/newpromopost")
+    public ResponseEntity<String> createPromoPost(@RequestBody PromoPost post) throws UserIdNotFoundException, DuplicatedPostException, DateNotExistException, UserNotFollowException {
+        String postname = iPostService.creatPost(post);
+        return new ResponseEntity<>("The post " + postname + " was created", HttpStatus.OK);
     }
 }
 

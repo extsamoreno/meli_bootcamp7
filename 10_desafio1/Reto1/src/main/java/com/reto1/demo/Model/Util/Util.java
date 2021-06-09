@@ -2,9 +2,8 @@ package com.reto1.demo.Model.Util;
 
 
 import com.reto1.demo.Model.DTO.PostDTO;
-import com.reto1.demo.Model.DTO.UserDTO;
-import com.reto1.demo.Model.DTO.UserDTOFollowers;
 import com.reto1.demo.Model.Post;
+import com.reto1.demo.Model.UserObjets.UserDTO;
 
 import java.util.ArrayList;
 import java.util.Comparator;

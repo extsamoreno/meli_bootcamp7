@@ -1,9 +1,11 @@
 package com.reto1.demo.Model.DTO.Mapper;
-import com.reto1.demo.Model.DTO.UserDTO;
-import com.reto1.demo.Model.DTO.UserDTOCount;
-import com.reto1.demo.Model.DTO.UserDTOFolloweds;
-import com.reto1.demo.Model.DTO.UserDTOFollowers;
+
 import com.reto1.demo.Model.User;
+import com.reto1.demo.Model.UserObjets.UserDTO;
+import com.reto1.demo.Model.UserObjets.UserDTOCount;
+import com.reto1.demo.Model.UserObjets.UserDTOFolloweds;
+import com.reto1.demo.Model.UserObjets.UserDTOFollowers;
+
 import java.util.ArrayList;
 
 public class UserMapper {

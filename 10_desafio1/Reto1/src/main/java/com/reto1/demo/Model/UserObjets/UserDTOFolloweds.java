@@ -1,4 +1,4 @@
-package com.reto1.demo.Model.DTO;
+package com.reto1.demo.Model.UserObjets;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
