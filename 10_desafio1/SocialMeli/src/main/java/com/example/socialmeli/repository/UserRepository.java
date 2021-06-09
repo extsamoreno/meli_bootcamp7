@@ -1,12 +1,7 @@
 package com.example.socialmeli.repository;
 
-import com.example.socialmeli.DTO.Response.UserFolCouResponseDTO;
-import com.example.socialmeli.DTO.Response.UserFolLisResponseDTO;
-import com.example.socialmeli.DTO.Response.UserFolsLisResponseDTO;
-import com.example.socialmeli.DTO.UserDTO;
 import com.example.socialmeli.model.User;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,72 +9,20 @@ import java.util.List;
 @Repository
 public class UserRepository implements IUserRepository {
     List<User> users = new ArrayList<>();
+    int cont = 1;
 
     @Override
-    public ResponseStatus userAdd(UserDTO userDTO) {
-        User user = new User();
-        if (users.size() > 0)
-            user.setUserId(users.get(users.size() - 1).getUserId() + 1);
-        else
-            user.setUserId(1);
-        user.setUserName(userDTO.getUserName());
+    public User userAdd(User user) {
+        user.setUserId(cont++);
         user.setFollowed(new ArrayList<>());
         user.setFollowers(new ArrayList<>());
-        user.setPosts(new ArrayList<>());
         users.add(user);
-        return null;
+        return user;
     }
 
     @Override
-    public ResponseStatus userAddList(List<UserDTO> userDTO) {
-        for (UserDTO obj : userDTO) {
-            userAdd(obj);
-        }
-        return null;
-    }
-
-    @Override
-    public UserFolCouResponseDTO getFollowersCount(int userId) {
-        for (User obj : users) {
-            if (obj.getUserId() == userId) {
-                return new UserFolCouResponseDTO(obj.getUserId(), obj.getUserName(), obj.getFollowers().size());
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public UserFolsLisResponseDTO getFollowersList(int userId) {
-        for (User obj : users) {
-            if (obj.getUserId() == userId) {
-                List<UserDTO> userDTOS = new ArrayList<>();
-                for (User objDTO : obj.getFollowers()) {
-                    UserDTO userDTO = new UserDTO();
-                    userDTO.setUserId(objDTO.getUserId());
-                    userDTO.setUserName(objDTO.getUserName());
-                    userDTOS.add(userDTO);
-                }
-                return new UserFolsLisResponseDTO(obj.getUserId(), obj.getUserName(), userDTOS);
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public UserFolLisResponseDTO getFollowedList(int userId) {
-        for (User obj : users) {
-            if (obj.getUserId() == userId) {
-                List<UserDTO> userDTOS = new ArrayList<>();
-                for (User objDTO : obj.getFollowed()) {
-                    UserDTO userDTO = new UserDTO();
-                    userDTO.setUserId(objDTO.getUserId());
-                    userDTO.setUserName(objDTO.getUserName());
-                    userDTOS.add(userDTO);
-                }
-                return new UserFolLisResponseDTO(obj.getUserId(), obj.getUserName(), userDTOS);
-            }
-        }
-        return null;
+    public User getUserById(int userId) {
+        return users.stream().filter(x -> x.getUserId() == userId).findFirst().get();
     }
 
     @Override

@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 
 public interface IUserService {
-    ResponseStatus userAdd (UserDTO user);
-    ResponseStatus userAddList (List<UserDTO> user);
+    UserDTO userAdd (UserDTO user);
+    List<UserDTO> userAddList (List<UserDTO> user);
     boolean userFollow (int userid, int useridFollow);
     UserFolCouResponseDTO getFollowersCount(int userId);
-    UserFolsLisResponseDTO getFollowersList(int userId);
-    UserFolLisResponseDTO getFollowedList(int userId);
+    UserFolsLisResponseDTO getFollowersList(int userId, String order);
+    UserFolLisResponseDTO getFollowedList(int userId,String order);
     boolean userUnFollow (int userid, int useridFollow);
 }

@@ -5,19 +5,24 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class PublicationRepository implements IPublicationRepository {
-    List<Publication> posts = new ArrayList<>();
+    List<Publication> publications = new ArrayList<>();
     int cont = 1;
     @Override
-    public Publication addPost(Publication obj) {
+    public Publication addPublication(Publication obj) {
         obj.setId_post(cont++);
-        posts.add(obj);
+        publications.add(obj);
         return obj;
     }
     @Override
-    public List<Publication> getPosts() {
-        return posts;
+    public List<Publication> getPublications() {
+        return publications.stream().takeWhile(x->x.isHasPromo()==false).collect(Collectors.toList());
+    }
+    @Override
+    public List<Publication> getPublicationsPromo() {
+        return publications.stream().takeWhile(x->x.isHasPromo()==true).collect(Collectors.toList());
     }
 }

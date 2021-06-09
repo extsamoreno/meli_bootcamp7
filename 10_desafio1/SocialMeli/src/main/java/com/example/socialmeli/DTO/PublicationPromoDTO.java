@@ -11,11 +11,13 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PublicationDTO {
+public class PublicationPromoDTO {
     private int id_post;
     private int userId;
     private Date date;
     private ProductDTO detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 }
