@@ -7,11 +7,14 @@ import com.example.desafio_1.models.User;
 import com.example.desafio_1.repository.IPostRepository;
 import com.example.desafio_1.service.dto.FollowedPostDTO;
 import com.example.desafio_1.service.dto.PostDTO;
+import com.example.desafio_1.service.dto.UserDTO;
 import com.example.desafio_1.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +61,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public FollowedPostDTO getFollowedUsersPostsByUserId(int userId) throws UserExceptionNotFound, UserExceptionWrongType {
+    public FollowedPostDTO getFollowedUsersPostsByUserId(int userId, String order) throws UserExceptionNotFound, UserExceptionWrongType, WrongOrderFieldException {
 
         //Get user by id if not exists, throw exception
         User user = userService.getUserById(userId);
@@ -74,7 +77,25 @@ public class PostService implements IPostService {
 
         List<Post> posts = getPostsFromFollowingBeforeTwoWeeks(buyerCast);
 
+        if(!order.isEmpty()) {
+            orderListOfPost(posts, order);
+        }
+
         return new FollowedPostDTO(userId, posts.stream().map(x -> postMapper.toDto(x)).collect(Collectors.toList()));
+    }
+
+    private void orderListOfPost(List<Post> posts, String order) throws WrongOrderFieldException {
+        if(order.equalsIgnoreCase("date_asc")) {
+            posts.sort(Comparator.comparing(Post::getCreatedDate));
+            return;
+        }
+        if(order.equalsIgnoreCase("date_desc")) {
+            posts.sort(Collections.reverseOrder(Comparator.comparing(Post::getCreatedDate)));
+            return;
+        }
+        if(!order.isEmpty()) { //if is not empty and the order criteria is not valid...
+            throw new WrongOrderFieldException(order);
+        }
     }
 
     private List<Post> getPostsFromFollowingBeforeTwoWeeks(Buyer buyerCast) {

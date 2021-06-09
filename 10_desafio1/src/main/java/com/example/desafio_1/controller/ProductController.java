@@ -27,8 +27,8 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPostDTO> getFollowedUsersPosts(@PathVariable int userId) throws UserExceptionWrongType, UserExceptionNotFound {
-        return new ResponseEntity<FollowedPostDTO>(postService.getFollowedUsersPostsByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<FollowedPostDTO> getFollowedUsersPosts(@PathVariable int userId, @RequestParam(required = false, defaultValue = "date_asc") String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException {
+        return new ResponseEntity<FollowedPostDTO>(postService.getFollowedUsersPostsByUserId(userId, order), HttpStatus.OK);
     }
 
 }

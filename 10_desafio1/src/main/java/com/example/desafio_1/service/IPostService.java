@@ -9,5 +9,5 @@ public interface IPostService {
     void createPostByDTO(PostDTO postDTO) throws UserExceptionNotFound, UserExceptionWrongType, ProductExceptionNotFound, NumberNotGreaterThanZero, EmptyStringException, PostExceptionNotValid, ProductExceptionNotValid, PostExceptionNotExists, PostExceptionAlreadyExists;
     void createPost(Post post);
 
-    FollowedPostDTO getFollowedUsersPostsByUserId(int userId) throws UserExceptionNotFound, UserExceptionWrongType;
+    FollowedPostDTO getFollowedUsersPostsByUserId(int userId, String order) throws UserExceptionNotFound, UserExceptionWrongType, WrongOrderFieldException;
 }
