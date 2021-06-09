@@ -123,7 +123,7 @@ public class UserService extends Service implements iUserService{
             for(int j=0;j<users.size()-1;j++)
             {
 
-                if((users.get(j).getUserName().compareTo(users.get(j+1).getUserName()) < 0) == condition)
+                if((users.get(j).getUserName().compareTo(users.get(j+1).getUserName()) > 0) == condition)
                 {
                     UserDTO aux = new UserDTO(users.get(j).getUserID(),users.get(j).getUserName());
                     users.set(j, users.get(j+1));

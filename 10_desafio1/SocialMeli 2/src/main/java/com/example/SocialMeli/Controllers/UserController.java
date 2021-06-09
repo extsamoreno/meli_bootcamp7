@@ -42,13 +42,13 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getFollowers (@RequestParam(defaultValue="name_desc") String order ,@PathVariable int userId) throws UserNotFoundException {
+    public ResponseEntity<FollowersDTO> getFollowers (@RequestParam(defaultValue="name_asc") String order ,@PathVariable int userId) throws UserNotFoundException {
 
         return new ResponseEntity<>(iUserService.getFollowers(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<FollowedDTO> getFollowed (@RequestParam(defaultValue="name_desc") String order ,@PathVariable int userId) throws UserNotFoundException {
+    public ResponseEntity<FollowedDTO> getFollowed (@RequestParam(defaultValue="name_asc") String order ,@PathVariable int userId) throws UserNotFoundException {
 
         return new ResponseEntity<>(iUserService.getFollowed(userId, order), HttpStatus.OK);
     }
