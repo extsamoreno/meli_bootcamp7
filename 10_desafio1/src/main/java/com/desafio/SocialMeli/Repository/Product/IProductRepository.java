@@ -10,4 +10,5 @@ public interface IProductRepository {
     List<Product> getAllProducts();
 
     void saveProduct (Product product);
+
 }

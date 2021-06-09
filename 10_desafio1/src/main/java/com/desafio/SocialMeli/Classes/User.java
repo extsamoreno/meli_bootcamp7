@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User  implements Comparable<User>{
     private int userId;
     private String userName;
     private List<User> followers = new ArrayList<>();
@@ -30,5 +30,10 @@ public class User {
 
     public int getFollowersCount() {
         return this.getFollowers().size();
+    }
+
+    @Override
+    public int compareTo(User user) {
+        return this.getUserName().compareTo(user.getUserName());
     }
 }

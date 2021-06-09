@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Exception;
 
-import com.desafio.SocialMeli.DTO.ErrorDTO;
+import com.desafio.SocialMeli.DTO.Error.ErrorDTO;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

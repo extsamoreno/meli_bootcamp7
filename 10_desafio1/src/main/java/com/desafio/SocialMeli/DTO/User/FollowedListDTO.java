@@ -1,6 +1,5 @@
-package com.desafio.SocialMeli.DTO;
+package com.desafio.SocialMeli.DTO.User;
 
-import com.desafio.SocialMeli.Classes.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +9,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowersListDTO {
+public class FollowedListDTO {
     private int userId;
     private String userName;
-    private List<UserDTO> followers;
+    private List<UserDTO> followed;
 }

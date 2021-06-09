@@ -1,7 +1,7 @@
 package com.desafio.SocialMeli.Mapper;
 
 import com.desafio.SocialMeli.Classes.Product;
-import com.desafio.SocialMeli.DTO.ProductDTO;
+import com.desafio.SocialMeli.DTO.Product.ProductDTO;
 
 public class ProductMapper {
     public static ProductDTO toDTO(Product product){

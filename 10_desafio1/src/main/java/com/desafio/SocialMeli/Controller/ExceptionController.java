@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Controller;
 
-import com.desafio.SocialMeli.DTO.ErrorDTO;
+import com.desafio.SocialMeli.DTO.Error.ErrorDTO;
 import com.desafio.SocialMeli.Exception.SocialMeliException;
 import com.desafio.SocialMeli.Exception.User.UserExistsException;
 import com.desafio.SocialMeli.Exception.User.UserIdNotFoundException;

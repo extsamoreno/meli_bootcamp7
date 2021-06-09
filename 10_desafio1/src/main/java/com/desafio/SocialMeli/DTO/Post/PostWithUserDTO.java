@@ -1,6 +1,6 @@
-package com.desafio.SocialMeli.DTO;
+package com.desafio.SocialMeli.DTO.Post;
 
-import com.desafio.SocialMeli.Classes.Product;
+import com.desafio.SocialMeli.DTO.Product.ProductDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;

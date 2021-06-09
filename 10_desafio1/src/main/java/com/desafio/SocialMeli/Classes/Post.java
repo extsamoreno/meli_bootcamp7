@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+public class Post  implements Comparable<Post>{
     private int userId;
     private int id_post;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -17,4 +17,11 @@ public class Post {
     private Product detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
+
+    @Override
+    public int compareTo(Post post) {
+        return this.getDate().compareTo(post.getDate());
+    }
 }

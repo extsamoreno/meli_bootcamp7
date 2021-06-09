@@ -1,6 +1,7 @@
 package com.desafio.SocialMeli.Repository.Product;
 
 import com.desafio.SocialMeli.Classes.Product;
+import com.desafio.SocialMeli.Mapper.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -25,4 +26,5 @@ public class ProductRepository implements IProductRepository{
     public void saveProduct(Product product) {
         productList.add(product);
     }
+
 }

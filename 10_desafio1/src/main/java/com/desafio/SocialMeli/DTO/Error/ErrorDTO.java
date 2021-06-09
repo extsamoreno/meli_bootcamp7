@@ -1,4 +1,4 @@
-package com.desafio.SocialMeli.DTO;
+package com.desafio.SocialMeli.DTO.Error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
