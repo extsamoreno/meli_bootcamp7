@@ -3,6 +3,7 @@ package meli.springchallenge.services;
 import meli.springchallenge.dtos.FollowerCountDTO;
 import meli.springchallenge.dtos.FollowListDTO;
 import meli.springchallenge.dtos.UserDTO;
+import meli.springchallenge.exceptions.RelationNonExistentException;
 import meli.springchallenge.exceptions.RelationNotValidException;
 import meli.springchallenge.exceptions.UserNotValidException;
 import meli.springchallenge.models.User;
@@ -59,6 +60,17 @@ public class UserService implements IUserService{
         response.setRelateds(userMapper(followed));
 
         return response;
+    }
+
+    @Override
+    public String removeFollower(int userId, int userIdToUnfollow) throws RelationNonExistentException {
+        int relationId = userRepository.removeFollower(userId, userIdToUnfollow);
+
+        if (relationId < 0){
+            throw new RelationNonExistentException(userId, userIdToUnfollow);
+        }
+
+        return "Relation #" + relationId + " removed";
     }
 
     private List<UserDTO> userMapper(List<User> users){

@@ -40,6 +40,21 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
+    public int removeFollower(int userId, int userIdToUnfollow){
+
+        int relationId = -1;
+        for(UserRelation r:usersRelations){
+            if(r.getFollower() == userId && r.getFollowing() == userIdToUnfollow){
+                relationId = r.getRelationId();
+                this.usersRelations.remove(r);
+                break;
+            }
+        }
+        return relationId;
+
+    }
+
+    @Override
     public User getUserById(int userId) throws UserNotValidException {
         for(User u:users){
             if(u.getUserId() == userId){
@@ -90,7 +105,7 @@ public class UserRepository implements IUserRepository{
         return followed;
     }
 
-    private boolean validateUser( int userId) throws UserNotValidException {
+    public boolean validateUser( int userId) throws UserNotValidException {
 
         for(User u:users){
             if(u.getUserId() == userId){
@@ -113,7 +128,6 @@ public class UserRepository implements IUserRepository{
         }
 
     }
-
 
 
     private List<User> loadUserDB() {

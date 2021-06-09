@@ -10,6 +10,8 @@ public interface IUserRepository {
 
     void addFollower(int follower, int following) throws UserNotValidException, RelationNotValidException;
 
+    int removeFollower(int userId, int userIdToUnfollow);
+
     User getUserById (int userId) throws UserNotValidException;
 
     int countFollowers(int userId);
@@ -17,4 +19,7 @@ public interface IUserRepository {
     List<User> getFollowers(int userId);
 
     List<User> getFollowed(int userId);
+
+    boolean validateUser( int userId) throws UserNotValidException;
+
 }

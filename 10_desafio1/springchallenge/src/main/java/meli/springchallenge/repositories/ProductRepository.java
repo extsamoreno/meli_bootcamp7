@@ -2,6 +2,8 @@ package meli.springchallenge.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import meli.springchallenge.exceptions.PostIdNotValidException;
+import meli.springchallenge.exceptions.ProductIdNotValidException;
 import meli.springchallenge.models.Post;
 import meli.springchallenge.models.Product;
 import org.springframework.stereotype.Repository;
@@ -24,13 +26,15 @@ public class ProductRepository implements IProductRepository{
     }
 
     @Override
-    public void createProduct(Product product) {
+    public void createProduct(Product product) throws ProductIdNotValidException {
+        validateProductId( product.getProductId());
         this.products.add(product);
 
     }
 
     @Override
-    public void createPost(Post post) {
+    public void createPost(Post post) throws PostIdNotValidException {
+        validatePostId(post.getPostId());
         this.posts.add(post);
     }
 
@@ -56,6 +60,28 @@ public class ProductRepository implements IProductRepository{
             }
         }
         return null;
+    }
+
+    private boolean validatePostId(int postId) throws PostIdNotValidException {
+
+        for(Post p:this.posts) {
+            if (p.getPostId() == postId){
+                throw new PostIdNotValidException(postId);
+            }
+        }
+        return true;
+
+    }
+
+    private boolean validateProductId(int productId) throws ProductIdNotValidException {
+
+        for(Product p:this.products) {
+            if (p.getProductId() == productId){
+                throw new ProductIdNotValidException(productId);
+            }
+        }
+        return true;
+
     }
 
 

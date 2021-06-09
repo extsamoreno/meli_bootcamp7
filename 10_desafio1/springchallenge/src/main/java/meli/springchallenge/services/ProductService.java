@@ -3,6 +3,8 @@ package meli.springchallenge.services;
 import meli.springchallenge.dtos.PostDTO;
 import meli.springchallenge.dtos.FollowedPostDTO;
 import meli.springchallenge.dtos.UserDTO;
+import meli.springchallenge.exceptions.PostIdNotValidException;
+import meli.springchallenge.exceptions.ProductIdNotValidException;
 import meli.springchallenge.exceptions.UserNotValidException;
 import meli.springchallenge.models.Post;
 import meli.springchallenge.models.Product;
@@ -25,13 +27,16 @@ public class ProductService implements IProductService{
     IUserRepository userRepository;
 
     @Override
-    public void createPost(PostDTO post) {
+    public void createPost(PostDTO post) throws ProductIdNotValidException, PostIdNotValidException, UserNotValidException {
+        userRepository.validateUser(post.getUserId());
         productRepository.createProduct(PostMapper.productToModel(post.getDetail()));
         productRepository.createPost(PostMapper.postToModel(post));
     }
 
     @Override
-    public FollowedPostDTO getFollowedPosts(int userId, String order){
+    public FollowedPostDTO getFollowedPosts(int userId, String order) throws UserNotValidException {
+
+        userRepository.validateUser(userId);
         List<User> followed = userRepository.getFollowed(userId);
         List<PostDTO> postDTOs = new ArrayList<>();
         Date limitDate = getDateBeforeTwoWeeks(new Date(), 14);

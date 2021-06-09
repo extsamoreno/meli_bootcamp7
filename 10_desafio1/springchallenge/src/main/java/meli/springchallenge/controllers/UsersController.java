@@ -2,6 +2,7 @@ package meli.springchallenge.controllers;
 
 import meli.springchallenge.dtos.FollowerCountDTO;
 import meli.springchallenge.dtos.FollowListDTO;
+import meli.springchallenge.exceptions.RelationNonExistentException;
 import meli.springchallenge.exceptions.RelationNotValidException;
 import meli.springchallenge.exceptions.UserNotValidException;
 import meli.springchallenge.services.IUserService;
@@ -24,9 +25,7 @@ public class UsersController {
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotValidException, RelationNotValidException {
-
         userService.addFollower(userId, userIdToFollow);
-
         return new ResponseEntity("Relation added", HttpStatus.OK);
     }
 
@@ -44,6 +43,12 @@ public class UsersController {
     @GetMapping("{userId}/followed/list")
     public ResponseEntity<FollowListDTO> getFollowed(@PathVariable int userId) throws UserNotValidException{
         return new ResponseEntity<>(userService.getFollowed(userId),HttpStatus.OK);
+    }
+
+    @PostMapping("{userId}/unfollow/{userIdToFollow}")
+    public ResponseEntity<String> unfollowUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws  RelationNotValidException, RelationNonExistentException {
+
+        return new ResponseEntity(userService.removeFollower(userId, userIdToFollow), HttpStatus.OK);
     }
 
 
