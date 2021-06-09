@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 @Repository
 public class UserRepository implements IUserRepository {
 
+    String userPathFile = System.getProperty("user.dir") + "/src/main/java/com/example/demo/Repository/Data/users.json";
+    //String userPathFile = "/Users/ctaeger/Desktop/RepoBootcampTaeger-Camila/meli_bootcamp7/10_desafio1/demo 4/src/main/java/com/example/demo/Repository/Data/users.json";
+
     List<User> users = loadUsers();
 
     @Override
@@ -36,7 +39,7 @@ public class UserRepository implements IUserRepository {
     public List<User> loadUsers(){
         File file = null;
         try{
-            file = ResourceUtils.getFile("/Users/ctaeger/Desktop/RepoBootcampTaeger-Camila/meli_bootcamp7/10_desafio1/demo 4/src/main/java/com/example/demo/Repository/Data/Users.json");
+            file = ResourceUtils.getFile(userPathFile);
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }
@@ -51,4 +54,20 @@ public class UserRepository implements IUserRepository {
         return users;
     }
 
+    @Override
+    public void saveUsers(){
+        File file = null;
+        try{
+            file = ResourceUtils.getFile(userPathFile);
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try{
+            objectMapper.writeValue(file,users);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 }

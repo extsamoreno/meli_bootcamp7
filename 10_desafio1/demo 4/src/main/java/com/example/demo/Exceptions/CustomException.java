@@ -1,4 +1,4 @@
-package com.example.demo.Exeptions;
+package com.example.demo.Exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomExeption extends Exception{
+public class CustomException extends Exception{
 
     private HttpStatus status;
     private String errorMessage;

@@ -8,5 +8,6 @@ import java.util.List;
 public interface IUserRepository {
 
     public List<User> loadUsers();
+    public void saveUsers();
     public User getById(int userId);
 }
