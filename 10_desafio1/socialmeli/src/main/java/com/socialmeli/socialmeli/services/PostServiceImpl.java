@@ -8,6 +8,8 @@ import com.socialmeli.socialmeli.services.mappers.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+
 @Service
 public class PostServiceImpl implements PostService{
 
@@ -15,7 +17,7 @@ public class PostServiceImpl implements PostService{
     UserRepository userRepository;
 
     @Override
-    public void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
+    public void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException, ParseException {
         userRepository.insertPost(
                 PostMapper.getPost(post)
         );

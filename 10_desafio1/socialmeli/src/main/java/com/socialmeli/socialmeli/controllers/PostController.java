@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+
 
 @RestController
 @RequestMapping("/products")
@@ -21,7 +23,7 @@ public class PostController {
     PostService postService;
 
     @PostMapping("/newpost")
-    public ResponseEntity<Void> newPost(@RequestBody PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
+    public ResponseEntity<Void> newPost(@RequestBody PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException, ParseException {
         System.out.println(post);
         postService.newPost(post);
         return new ResponseEntity<>(HttpStatus.OK);

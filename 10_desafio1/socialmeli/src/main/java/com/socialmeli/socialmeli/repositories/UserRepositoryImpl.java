@@ -52,7 +52,11 @@ public class UserRepositoryImpl implements UserRepository{
             throw new PostIdAlreadyExistException("el post id ya existe");
         }
 
-        if(!ValidDate.validateDate(post.getDate())){
+        if(post.getDate() == null){
+            throw new DateIsNotValidException("la fecha no es valida");
+        }
+
+        if(!ValidDate.validateDate(post.getDate().toString())){
             throw new DateIsNotValidException("la fecha no es valida");
         }
 
