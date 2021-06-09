@@ -1,15 +1,21 @@
 package com.meli.socialmeli.repository;
 
 import com.meli.socialmeli.models.Post;
+import com.meli.socialmeli.models.ProductDetail;
 import org.springframework.stereotype.Repository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.meli.socialmeli.util.ProductUtil.toLocalDate;
 
 @Repository
 public class PostRepository {
 
-    private static Map<Integer, Post> posts = new HashMap<>();
+    public static Map<Integer, Post> posts = new HashMap<>();
 
     public void insertNewPost(int postId, Post post) {
         posts.put(postId, post);
