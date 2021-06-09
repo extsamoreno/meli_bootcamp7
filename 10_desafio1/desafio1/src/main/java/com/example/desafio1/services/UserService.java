@@ -5,6 +5,7 @@ import com.example.desafio1.dtos.FollowersCountDTO;
 import com.example.desafio1.dtos.FollowersDTO;
 import com.example.desafio1.exceptions.FollowingAlreadyExistsException;
 import com.example.desafio1.exceptions.FollowingDoesNotExistException;
+import com.example.desafio1.exceptions.OrderNotValidException;
 import com.example.desafio1.exceptions.UserIdNotValidException;
 import com.example.desafio1.repositories.IUserRepository;
 import com.example.desafio1.services.mappers.MeliUserMapper;
@@ -12,22 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
     @Autowired
     IUserRepository iUserRepository;
 
     @Override
     public void processNewFollowing(int userId, int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException {
         //First check both user Ids are valid and exist
-        if(iUserRepository.getUserById(userId) == null)
+        if (iUserRepository.getUserById(userId) == null)
             throw new UserIdNotValidException(userId);
-        if(iUserRepository.getUserById(userIdToFollow) == null)
+        if (iUserRepository.getUserById(userIdToFollow) == null)
             throw new UserIdNotValidException(userIdToFollow);
         //Then check if the user A already follows user B
-        if(iUserRepository.doesFollowingExist(userId,userIdToFollow))
+        if (iUserRepository.doesFollowingExist(userId, userIdToFollow))
             throw new FollowingAlreadyExistsException();
 
-        iUserRepository.addFollowing(userId,userIdToFollow);
+        iUserRepository.addFollowing(userId, userIdToFollow);
     }
 
     @Override
@@ -35,27 +36,27 @@ public class UserService implements IUserService{
         FollowersCountDTO follCount = new FollowersCountDTO();
         follCount.setUserId(userId);
         follCount.setUserName(iUserRepository.getUserById(userId).getUserName());
-        follCount.setFollowersCount(iUserRepository.getFollowersCount(userId));;
+        follCount.setFollowersCount(iUserRepository.getFollowersCount(userId));
 
         return follCount;
     }
 
     @Override
-    public FollowersDTO getFollowers(int userId) {
+    public FollowersDTO getFollowers(int userId, String order) throws OrderNotValidException {
         FollowersDTO followers = new FollowersDTO();
         followers.setUserId(userId);
         followers.setUserName(iUserRepository.getUserById(userId).getUserName());
-        followers.setFollowers(MeliUserMapper.toDTOList(iUserRepository.getFollowers(userId)));
+        followers.setFollowers(MeliUserMapper.toDTOList(iUserRepository.getFollowers(userId, order)));
 
         return followers;
     }
 
     @Override
-    public FollowedDTO getFollowed(int userId) {
+    public FollowedDTO getFollowed(int userId, String order) throws OrderNotValidException {
         FollowedDTO followed = new FollowedDTO();
         followed.setUserId(userId);
         followed.setUserName(iUserRepository.getUserById(userId).getUserName());
-        followed.setFollowed(MeliUserMapper.toDTOList(iUserRepository.getFollowed(userId)));
+        followed.setFollowed(MeliUserMapper.toDTOList(iUserRepository.getFollowed(userId, order)));
 
         return followed;
     }
@@ -63,14 +64,14 @@ public class UserService implements IUserService{
     @Override
     public void processUnfollow(int userId, int userIdToUnfollow) throws UserIdNotValidException, FollowingDoesNotExistException {
         //First check both user Ids are valid and exist
-        if(iUserRepository.getUserById(userId) == null)
+        if (iUserRepository.getUserById(userId) == null)
             throw new UserIdNotValidException(userId);
-        if(iUserRepository.getUserById(userIdToUnfollow) == null)
+        if (iUserRepository.getUserById(userIdToUnfollow) == null)
             throw new UserIdNotValidException(userIdToUnfollow);
         //Then check if the user A already follows user B
-        if(!iUserRepository.doesFollowingExist(userId,userIdToUnfollow))
+        if (!iUserRepository.doesFollowingExist(userId, userIdToUnfollow))
             throw new FollowingDoesNotExistException();
 
-        iUserRepository.removeFollowing(userId,userIdToUnfollow);
+        iUserRepository.removeFollowing(userId, userIdToUnfollow);
     }
 }

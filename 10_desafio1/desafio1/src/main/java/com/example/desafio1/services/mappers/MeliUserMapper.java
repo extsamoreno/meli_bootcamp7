@@ -1,13 +1,14 @@
 package com.example.desafio1.services.mappers;
 
 import com.example.desafio1.dtos.MeliUserDTO;
+import com.example.desafio1.exceptions.OrderNotValidException;
 import com.example.desafio1.models.MeliUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MeliUserMapper {
-    public static List<MeliUserDTO> toDTOList(List<MeliUser> userList){
+    public static List<MeliUserDTO> toDTOList(List<MeliUser> userList) {
         List<MeliUserDTO> meliUserDTOList = new ArrayList<>();
         MeliUserDTO user;
         for (MeliUser meliUser : userList) {

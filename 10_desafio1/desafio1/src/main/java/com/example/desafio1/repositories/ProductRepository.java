@@ -1,5 +1,6 @@
 package com.example.desafio1.repositories;
 
+import com.example.desafio1.dtos.PublishingPromoDTO;
 import com.example.desafio1.models.Publishing;
 import org.springframework.stereotype.Repository;
 
@@ -19,10 +20,18 @@ public class ProductRepository implements IProductRepository{
     }
 
     @Override
-    public List<Publishing> getPublishings(int userId, LocalDate dateFrom, LocalDate dateTo) {
+    public List<Publishing> getPublishing(int userId, LocalDate dateFrom, LocalDate dateTo) {
         return publishingList.stream()
                 .filter(publishing -> publishing.getUserId() == userId)
                 .filter(publishing -> publishing.getDate().isAfter(dateFrom) && publishing.getDate().isBefore(dateTo))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Publishing> getPromoPublishing(int userId) {
+        return publishingList.stream()
+                .filter(publishing -> publishing.getUserId() == userId)
+                .filter(Publishing::isHasPromo)
                 .collect(Collectors.toList());
     }
 }

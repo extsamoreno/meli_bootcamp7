@@ -1,6 +1,7 @@
 package com.example.desafio1.repositories;
 
 import com.example.desafio1.exceptions.FollowingDoesNotExistException;
+import com.example.desafio1.exceptions.OrderNotValidException;
 import com.example.desafio1.models.Following;
 import com.example.desafio1.models.MeliUser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -39,7 +40,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public List<MeliUser> getFollowers(int userId) {
+    public List<MeliUser> getFollowers(int userId, String order) throws OrderNotValidException {
         List<MeliUser> followers = new ArrayList<>();
 
         for (Following follow : followingsList) {
@@ -47,11 +48,11 @@ public class UserRepository implements IUserRepository{
                 followers.add(getUserById(follow.getUserIdFollower()));
         }
 
-        return followers;
+        return orderIfNeeded(followers, order);
     }
 
     @Override
-    public List<MeliUser> getFollowed(int userId) {
+    public List<MeliUser> getFollowed(int userId, String order) throws OrderNotValidException {
         List<MeliUser> followed = new ArrayList<>();
 
         for (Following follow : followingsList) {
@@ -59,7 +60,7 @@ public class UserRepository implements IUserRepository{
                 followed.add(getUserById(follow.getUserIdFollowed()));
         }
 
-        return followed;
+        return orderIfNeeded(followed, order);
     }
 
     @Override
@@ -73,6 +74,22 @@ public class UserRepository implements IUserRepository{
         fol.ifPresent(following -> followingsList.remove(following));
     }
 
+    private List<MeliUser> orderIfNeeded(List<MeliUser> meliUserList, String order) throws OrderNotValidException {
+        if(order == null)
+            return meliUserList;
+
+        switch (order){
+            case "name_asc":
+                meliUserList.sort((a,b)->a.getUserName().compareTo(b.getUserName()));
+                break;
+            case "name_desc":
+                meliUserList.sort((a,b)->b.getUserName().compareTo(a.getUserName()));
+                break;
+            default:
+                throw new OrderNotValidException(order);
+        }
+        return meliUserList;
+    }
     private ArrayList<MeliUser> loadDatabase() {
         File file = null;
         try {

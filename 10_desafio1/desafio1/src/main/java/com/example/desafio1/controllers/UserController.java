@@ -5,6 +5,7 @@ import com.example.desafio1.dtos.FollowersCountDTO;
 import com.example.desafio1.dtos.FollowersDTO;
 import com.example.desafio1.exceptions.FollowingAlreadyExistsException;
 import com.example.desafio1.exceptions.FollowingDoesNotExistException;
+import com.example.desafio1.exceptions.OrderNotValidException;
 import com.example.desafio1.exceptions.UserIdNotValidException;
 import com.example.desafio1.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getFollowers(@PathVariable int userId){
-        return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
+    public ResponseEntity<FollowersDTO> getFollowers(@PathVariable int userId,@RequestParam(required = false) String order) throws OrderNotValidException {
+        return new ResponseEntity<>(iUserService.getFollowers(userId,order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedDTO> getFollowed(@PathVariable int userId){
-        return new ResponseEntity<>(iUserService.getFollowed(userId), HttpStatus.OK);
+    public ResponseEntity<FollowedDTO> getFollowed(@PathVariable int userId,@RequestParam(required = false) String order) throws OrderNotValidException {
+        return new ResponseEntity<>(iUserService.getFollowed(userId,order), HttpStatus.OK);
     }
 
     @PostMapping("{userId}/unfollow/{userIdToUnfollow}")

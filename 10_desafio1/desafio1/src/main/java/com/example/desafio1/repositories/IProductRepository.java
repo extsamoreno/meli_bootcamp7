@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface IProductRepository {
     void addPublishing(Publishing pub);
-    List<Publishing> getPublishings(int userId, LocalDate dateFrom, LocalDate dateTo);
+    List<Publishing> getPublishing(int userId, LocalDate dateFrom, LocalDate dateTo);
+    List<Publishing> getPromoPublishing(int userId);
 }
