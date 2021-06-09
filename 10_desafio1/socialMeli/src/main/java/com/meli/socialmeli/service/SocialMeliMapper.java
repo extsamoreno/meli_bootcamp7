@@ -21,6 +21,18 @@ public class SocialMeliMapper {
     static String datePattern = "dd-MM-uuuu";
     static DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(datePattern);
 
+    private static String parseDateToString(LocalDate date) {
+        return date.format(DATE_FORMATTER);
+    }
+
+    private static LocalDate parseStringToDate(String date) throws InvalidDateFormatException {
+        try {
+            return LocalDate.parse(date, DATE_FORMATTER.withResolverStyle(ResolverStyle.STRICT));
+        } catch (DateTimeException e) {
+            throw new InvalidDateFormatException(date);
+        }
+    }
+
     public static UserWithFollowersCountDTO toFollowersCountDTO(User user) {
         Integer count = user.getFollowers().size();
         return new UserWithFollowersCountDTO(user.getUserId(), user.getUserName(), count);
@@ -45,7 +57,7 @@ public class SocialMeliMapper {
     public static Publication toPublication(PublicationDTO post) throws InvalidDateFormatException {
         Publication newPost = new Publication();
         newPost.setUserId(post.getUserId());
-        newPost.setId_post(post.getId_post());
+        newPost.setIdPost(post.getIdPost());
         newPost.setDate(parseStringToDate(post.getDate()));
         newPost.setDetail(post.getDetail());
         newPost.setCategory(post.getCategory());
@@ -53,11 +65,20 @@ public class SocialMeliMapper {
         return newPost;
     }
 
-    private static LocalDate parseStringToDate(String date) throws InvalidDateFormatException {
-        try {
-            return LocalDate.parse(date, DATE_FORMATTER.withResolverStyle(ResolverStyle.STRICT));
-        } catch (DateTimeException e) {
-            throw new InvalidDateFormatException(date);
-        }
+    public static List<PublicationDTO> toPublicationDTOList(List<Publication> list) {
+        return list.stream().map(SocialMeliMapper::toPublicationDTO).collect(Collectors.toList());
     }
+
+    public static PublicationDTO toPublicationDTO(Publication post) {
+        PublicationDTO newPost = new PublicationDTO();
+        newPost.setUserId(post.getUserId());
+        newPost.setIdPost(post.getIdPost());
+        newPost.setDate(parseDateToString(post.getDate()));
+        newPost.setDetail(post.getDetail());
+        newPost.setCategory(post.getCategory());
+        newPost.setPrice(post.getPrice());
+        return newPost;
+    }
+
+
 }

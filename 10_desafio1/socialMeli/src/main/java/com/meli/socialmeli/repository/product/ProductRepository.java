@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository implements IProductRepository {
@@ -17,8 +18,13 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public void save(Publication post) throws CanNotCreatePostException {
-        if (alreadyExists(post)) throw new CanNotCreatePostException(post.getId_post());
+        if (alreadyExists(post)) throw new CanNotCreatePostException(post.getIdPost());
         else this.create(post);
+    }
+
+    @Override
+    public List<Publication> findByUserId(Integer userId) {
+        return postList.stream().filter(p -> p.getUserId().equals(userId)).collect(Collectors.toList());
     }
 
     private void create(Publication post) {
@@ -27,7 +33,7 @@ public class ProductRepository implements IProductRepository {
     }
 
     private boolean alreadyExists(Publication post) {
-        return postList.stream().anyMatch(x -> x.getId_post().equals(post.getId_post()));
+        return postList.stream().anyMatch(x -> x.getIdPost().equals(post.getIdPost()));
     }
 
     private void loadDatabase() {

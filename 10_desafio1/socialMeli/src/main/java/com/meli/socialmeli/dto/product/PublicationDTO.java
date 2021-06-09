@@ -12,9 +12,21 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PublicationDTO {
     private Integer userId;
-    private Integer id_post;
+    private Integer idPost;
     private String date;
     private Product detail;
     private Integer category;
     private double price;
+
+    @Override
+    public String toString() {
+        return "PublicationDTO{" +
+                "userId=" + userId +
+                ", id_post=" + idPost +
+                ", date='" + date + '\'' +
+                ", detail=" + detail +
+                ", category=" + category +
+                ", price=" + price +
+                '}';
+    }
 }
