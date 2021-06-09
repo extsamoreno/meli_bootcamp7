@@ -1,23 +1,28 @@
-package com.example.SocialMeli.Services.DTOs;
+package com.example.SocialMeli.Services.Helpers;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.SocialMeli.Services.DTOs.PostDTO;
 
+import java.util.Comparator;
 import java.util.List;
 
-@Setter @Getter @NoArgsConstructor @AllArgsConstructor
-public class UserDTO {
+public abstract class Ordenable<T> {
 
-    private int userID;
-    private String userName;
+    public void bubbleOrder(List<T> ts, Comparator<T> comparator){
 
-    public UserDTO(UserDTO userDTO){
-        this.userID = userDTO.getUserID();
-        this.userName = userDTO.getUserName();
+        for (int i = 0; i < ts.size(); i++) {
+            for(int j=0;j<ts.size()-1;j++)
+            {
+                if(comparator.compare(ts.get(j+1),ts.get(j)) < 0)
+                {
+                    T aux = ts.get(j);
+                    ts.set(j, ts.get(j+1));
+                    ts.set(j+1, aux);
+                }
+            }
+
+        }
+
     }
-
     public String getOrderType(String order){
         String standarOrder = "desc";
         if(order != null){
@@ -32,7 +37,7 @@ public class UserDTO {
 
     }
     public String getOrderBy(String order){
-        String standarOrder = "name";
+        String standarOrder = "id";
         if(order != null){
             String[] orderArray = order.split("_");
             String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
@@ -44,4 +49,5 @@ public class UserDTO {
         }
 
     }
+
 }

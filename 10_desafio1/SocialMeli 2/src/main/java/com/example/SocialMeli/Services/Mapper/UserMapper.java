@@ -1,6 +1,5 @@
 package com.example.SocialMeli.Services.Mapper;
 
-
 import com.example.SocialMeli.Models.User;
 import com.example.SocialMeli.Services.DTOs.UserDTO;
 
@@ -23,7 +22,5 @@ public class UserMapper {
         }
         return output;
     }
-    public static User toUser(UserDTO user){
-        return new User();
-    }
+
 }

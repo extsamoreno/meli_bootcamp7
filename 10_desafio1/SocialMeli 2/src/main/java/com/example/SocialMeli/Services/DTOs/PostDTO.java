@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 @Getter @Setter @NoArgsConstructor
-public class PostDTO {
+public class PostDTO{
 
     private int userId;
     private int postId;
@@ -20,9 +20,15 @@ public class PostDTO {
     private String category;
     private double price;
 
+    public PostDTO(PostDTO postDTO){
 
-
-
+        this.userId = postDTO.getUserId();
+        this.postId = postDTO.getPostId();
+        this.date = postDTO.getDate().toString();
+        this.detail = postDTO.getDetail();
+        this.category = postDTO.getCategory();
+        this.price = postDTO.getPrice();
+    }
     public PostDTO(int userId, int postId, String date, ProductDTO detail, String category, double price) throws DateTimeParseException {
 
         this.userId = userId;
@@ -33,6 +39,8 @@ public class PostDTO {
         this.price = price;
 
     }
+
+
 
     public LocalDate getDate(){
         return LocalDate.parse(this.date);

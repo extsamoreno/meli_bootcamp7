@@ -6,6 +6,7 @@ import com.example.SocialMeli.Models.Product;
 import com.example.SocialMeli.Models.User;
 import com.example.SocialMeli.Repositories.iDataRepository;
 import com.example.SocialMeli.Services.DTOs.*;
+import com.example.SocialMeli.Services.Helpers.Ordenable;
 import com.example.SocialMeli.Services.Mapper.PostMapper;
 import com.example.SocialMeli.Services.Mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class PostService implements iPostService{
+public class PostService extends Ordenable<PostDTO> implements iPostService{
 
     @Autowired
     iDataRepository iDataRepository;
@@ -53,13 +54,20 @@ public class PostService implements iPostService{
         }
 
     }
+
     public void savePost(Post post) throws PostIdInUseException, UserNotFoundException {
 
         User user = iDataRepository.getUserByID(post.getUserId());
 
         List<Post> posts = iDataRepository.getPosts();
         if(!this.isPostIdUsed(post.getId())){
-            user.getPosts().add(post.getId());
+            if(post.getHasPromo()){
+                user.getPromPosts().add(post.getId());
+            }
+            else{
+                user.getPosts().add(post.getId());
+            }
+
             posts.add(post);
         }
         else{
@@ -68,11 +76,15 @@ public class PostService implements iPostService{
 
     }
     @Override
-    public void makePost(PostDTO postDTO) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException {
+    public void makePost(NonPromoPostDTO postDTO) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException {
 
+        savePostInformation(PostMapper.toPost(postDTO), postDTO.getDetail());
 
-        Post post = PostMapper.toPost(postDTO);
-        Product product = ProductMapper.toProduct(postDTO.getDetail());
+    }
+
+    private void savePostInformation(Post post, ProductDTO detail) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException {
+
+        Product product = ProductMapper.toProduct(detail);
 
         if(this.isProductIdUsed(product.getId())){
             throw new ProductIdInUseException(product.getId());
@@ -80,13 +92,16 @@ public class PostService implements iPostService{
         if(this.isPostIdUsed(post.getId())){
             throw new PostIdInUseException(post.getId());
         }
-
         this.savePost(post);
         this.saveProduct(product);
-
-
     }
 
+    @Override
+    public void makePost(PromoPostDTO postDTO) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException {
+
+        savePostInformation(PostMapper.toPost(postDTO), postDTO.getDetail());
+
+    }
     @Override
     public List<PostDTO> getFollowedPost(int userId, String order) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
 
@@ -109,26 +124,22 @@ public class PostService implements iPostService{
 
 
         this.filterPostByDate(output, LocalDate.now().minusWeeks(2), LocalDate.now());
-        this.orderPostDTOs(output, compatator);
+        this.bubbleOrder(output, compatator);
         return output;
     }
 
     private Comparator<PostDTO> getComparator(String order){
         Comparator<PostDTO> comparator;
         String orderBy = this.getOrderBy(order);
-        String orderType = this.getOrderBy(order);
-
+        String orderType = this.getOrderType(order);
         switch (orderBy){
             case "date": comparator = Comparator.comparing(PostDTO::getDate);
+            case "id": comparator = Comparator.comparing(PostDTO::getPostId);
             default: comparator = Comparator.comparing(PostDTO::getDate);;
-
         }
-
         switch (orderType){
             case "desc" : comparator = comparator.reversed();
-
         }
-
         return comparator;
 
     }
@@ -147,50 +158,7 @@ public class PostService implements iPostService{
 
     }
 
-    String getOrderType(String order){
-        String standarOrder = "desc";
-        if(order != null){
-            String[] orderArray = order.split("_");
-            String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
-
-            return orderType;
-        }
-        else{
-            return standarOrder;
-        }
-
-    }
-    String getOrderBy(String order){
-        String standarOrder = "name";
-        if(order != null){
-            String[] orderArray = order.split("_");
-            String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
-
-            return orderType;
-        }
-        else{
-            return standarOrder;
-        }
-
-    }
-
-    private void orderPostDTOs(List<PostDTO> posts, Comparator<PostDTO> comparator){
 
 
-        for (int i = 0; i < posts.size(); i++) {
-            for(int j=0;j<posts.size()-1;j++)
-            {
-
-                if(comparator.compare(posts.get(j+1),posts.get(j)) < 0)
-                {
-                    PostDTO aux = new PostDTO(posts.get(j).getUserId(),posts.get(j).getPostId(),posts.get(j).getDate().toString(),posts.get(j).getDetail(),posts.get(j).getCategory(),posts.get(j).getPrice());
-                    posts.set(j, posts.get(j+1));
-                    posts.set(j+1, aux);
-                }
-            }
-
-        }
-
-    }
 
 }

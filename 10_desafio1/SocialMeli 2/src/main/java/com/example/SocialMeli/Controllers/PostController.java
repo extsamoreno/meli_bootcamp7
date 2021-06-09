@@ -2,7 +2,9 @@ package com.example.SocialMeli.Controllers;
 
 import com.example.SocialMeli.Exceptions.*;
 
+import com.example.SocialMeli.Services.DTOs.NonPromoPostDTO;
 import com.example.SocialMeli.Services.DTOs.PostDTO;
+import com.example.SocialMeli.Services.DTOs.PromoPostDTO;
 import com.example.SocialMeli.Services.iPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +21,13 @@ public class PostController {
     iPostService iPostService;
 
     @PostMapping("/products/newpost")
-    public ResponseEntity<Void> makePost (@RequestBody PostDTO postDTO) throws DateTimeParseException, ProductIdInUseException, PostIdInUseException, UserNotFoundException, PostNotFoundException {
+    public ResponseEntity<Void> makePost (@RequestBody NonPromoPostDTO postDTO) throws DateTimeParseException, ProductIdInUseException, PostIdInUseException, UserNotFoundException, PostNotFoundException {
 
+        iPostService.makePost(postDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PostMapping("/products/newpromopost")
+    public ResponseEntity<Void> makePromoPost (@RequestBody PromoPostDTO postDTO) throws DateTimeParseException, ProductIdInUseException, PostIdInUseException, UserNotFoundException, PostNotFoundException {
         iPostService.makePost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }

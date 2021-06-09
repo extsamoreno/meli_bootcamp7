@@ -4,9 +4,7 @@ package com.example.SocialMeli.Services.Mapper;
 import com.example.SocialMeli.Models.Post;
 import com.example.SocialMeli.Models.Product;
 import com.example.SocialMeli.Models.User;
-import com.example.SocialMeli.Services.DTOs.PostDTO;
-import com.example.SocialMeli.Services.DTOs.ProductDTO;
-import com.example.SocialMeli.Services.DTOs.UserDTO;
+import com.example.SocialMeli.Services.DTOs.*;
 
 import java.util.List;
 
@@ -20,9 +18,11 @@ public class PostMapper {
 
         return new PostDTO(post.getUserId(), post.getId(), post.getDate(),ProductMapper.toDTO(detail), post.getCategory(), post.getPrice());
     }
-    public static Post toPost(PostDTO postDTO){
-        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate().toString(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice());
+    public static Post toPost(NonPromoPostDTO postDTO){
+
+        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate().toString(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice(),false, 0.0);
     }
-
-
+    public static Post toPost(PromoPostDTO postDTO){
+        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate().toString(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice(),postDTO.getHasPromo(), postDTO.getDiscount());
+    }
 }
