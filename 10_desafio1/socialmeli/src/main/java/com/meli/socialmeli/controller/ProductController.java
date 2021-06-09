@@ -8,6 +8,8 @@ import com.meli.socialmeli.model.exception.NonSellerUserException;
 import com.meli.socialmeli.model.exception.PostIdAlreadyExistingException;
 import com.meli.socialmeli.model.service.ServiceSocialMeli;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,15 +19,16 @@ public class ProductController {
     private ServiceSocialMeli serviceSocialMeli;
 
     @PostMapping("/newpost")
-    public String createNewPOst(@RequestBody Post post) throws PostIdAlreadyExistingException,
+    public ResponseEntity<String> createNewPOst(@RequestBody Post post) throws PostIdAlreadyExistingException,
             NonSellerUserException, IdNotFoundException {
         serviceSocialMeli.createNewPost(post); //
-        return "OK";
+        return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")
-    public UserListPostDTO getListofPostbyUser(@PathVariable int userId, @RequestParam(name = "order", required = false,
-            defaultValue = "date_desc") String order) throws IdNotFoundException, ErrorOrderParamDateException {
-        return serviceSocialMeli.getListPostbyUser(userId, order);
+    public ResponseEntity<UserListPostDTO> getListofPostbyUser(@PathVariable int userId, @RequestParam(name = "order",
+            required = false, defaultValue = "date_desc") String order) throws IdNotFoundException,
+            ErrorOrderParamDateException {
+        return new ResponseEntity<>(serviceSocialMeli.getListPostbyUser(userId, order), HttpStatus.OK);
     }
 }
