@@ -1,6 +1,7 @@
 package com.meli.socialmeli.controller;
 
 import com.meli.socialmeli.exception.MissingDataException;
+import com.meli.socialmeli.exception.OverActualDateException;
 import com.meli.socialmeli.exception.PostIdAlreadyExistException;
 import com.meli.socialmeli.exception.UserNotFoundException;
 import com.meli.socialmeli.model.Post;
@@ -17,7 +18,7 @@ public class PostController {
     IPostService iPostService;
 
     @PostMapping("/products/newpost")
-    public ResponseEntity<HttpStatus> addNewPost(@RequestBody Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException {
+    public ResponseEntity<HttpStatus> addNewPost(@RequestBody Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
         HttpStatus status= iPostService.addNewPost(post);
         return new ResponseEntity<>(status, status);
     }

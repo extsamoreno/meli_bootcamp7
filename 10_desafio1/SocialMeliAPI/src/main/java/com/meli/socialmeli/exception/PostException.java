@@ -16,5 +16,6 @@ public class PostException extends Exception{
     public PostException(String message, HttpStatus status){
         this.error = new ErrorDTO(message, this.getClass().getSimpleName());
         this.status = status;
+
     }
 }

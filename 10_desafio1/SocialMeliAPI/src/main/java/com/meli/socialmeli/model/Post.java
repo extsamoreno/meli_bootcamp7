@@ -13,9 +13,18 @@ import java.util.Date;
 public class Post {
     private int userId;
     private int id_post;
-    @JsonFormat(pattern = "dd-mm-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;
     private Product detail;
     private int category;
     private double price;
+
+    public Post(Post post){
+        this.userId=post.getUserId();
+        this.id_post=post.getId_post();
+        this.date=post.getDate();
+        this.detail=post.getDetail();
+        this.category=post.getCategory();
+        this.price=getPrice();
+    }
 }

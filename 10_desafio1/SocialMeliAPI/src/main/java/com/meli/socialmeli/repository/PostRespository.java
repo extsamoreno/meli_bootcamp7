@@ -1,9 +1,10 @@
 package com.meli.socialmeli.repository;
 
+import com.meli.socialmeli.exception.OverActualDateException;
 import com.meli.socialmeli.model.Post;
-import com.meli.socialmeli.service.util.QuickSort;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Repository
@@ -16,7 +17,14 @@ public class PostRespository implements IPostRepository{
     }
 
     @Override
-    public void savePost(Post post) {
+    public void savePost(Post post) throws OverActualDateException {
+
+        Calendar c= Calendar.getInstance();
+        Date now= c.getTime();
+        c.setTime(post.getDate());
+        c.add(Calendar.DAY_OF_MONTH,1); // Se le agrega 1 dia ya que date trabaja desde dia 0
+        post.setDate(c.getTime());
+        if(post.getDate().compareTo(now)>0) throw new OverActualDateException(post.getDate());
         posts.put(post.getId_post(),post);
     }
 
@@ -31,9 +39,18 @@ public class PostRespository implements IPostRepository{
         calendar.add(Calendar.WEEK_OF_YEAR,-2); // Se le restan 2 semanas a la fecha de hoy
         Date twoWeeksAgo=calendar.getTime(); // Se guarda esa fecha
 
+        calendar=Calendar.getInstance(); // se reinicia la variable
+
         for (int i = 0; i < postList.size(); i++) {
+
             if (postList.get(i).getDate().compareTo(twoWeeksAgo)>0){ //Si la fecha se encuentra a 2 semanas o menos de la fecha de hoy
-                requestedPosts.add(postList.get(i)); // Se agrega a requestedPosts
+                calendar.setTime(postList.get(i).getDate());
+                calendar.add(Calendar.DAY_OF_MONTH, -1); // Se le quita un dia para que se imprima con el formato adecuado
+                postList.get(i).setDate(calendar.getTime());
+                requestedPosts.add(new Post(postList.get(i))); // Se agrega a requestedPosts
+                calendar.setTime(postList.get(i).getDate());
+                calendar.add(Calendar.DAY_OF_MONTH, 1); // Se le suma un dia para no modificar la fecha original
+                postList.get(i).setDate(calendar.getTime());
             }
         }
         return requestedPosts;

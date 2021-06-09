@@ -1,13 +1,13 @@
 package com.meli.socialmeli.service;
 
 import com.meli.socialmeli.exception.MissingDataException;
+import com.meli.socialmeli.exception.OverActualDateException;
 import com.meli.socialmeli.exception.PostIdAlreadyExistException;
 import com.meli.socialmeli.exception.UserNotFoundException;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IPostRepository;
 import com.meli.socialmeli.repository.IUserRepository;
-import com.meli.socialmeli.service.IPostService;
 import com.meli.socialmeli.service.dto.PostDTOFollowedList;
 import com.meli.socialmeli.service.util.QuickSort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class PostService implements IPostService {
     IUserRepository iUserRepository;
 
     @Override
-    public HttpStatus addNewPost(Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException {
+    public HttpStatus addNewPost(Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
         if (!isAValidPost(post)){
             return HttpStatus.BAD_REQUEST;
         }
@@ -53,7 +53,7 @@ public class PostService implements IPostService {
                 totalPostList.add(postList.get(j));
             }
         }
-        totalPostList=sortPosts(totalPostList,QuickSort.date_asc);
+        totalPostList=sortPosts(totalPostList,QuickSort.date_des);
         PostDTOFollowedList response= new PostDTOFollowedList();
         response.setUserId(userId);
         response.setPosts(totalPostList);
