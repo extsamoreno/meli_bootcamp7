@@ -1,10 +1,7 @@
 package com.meli.socialmeli.model.service;
 
 import com.meli.socialmeli.model.dao.model.Post;
-import com.meli.socialmeli.model.dto.UserListDTO;
-import com.meli.socialmeli.model.dto.UserListPostDTO;
-import com.meli.socialmeli.model.dto.UserSellerCountDTO;
-import com.meli.socialmeli.model.dto.UserSellerListDTO;
+import com.meli.socialmeli.model.dto.*;
 import com.meli.socialmeli.model.exception.*;
 
 public interface ServiceSocialMeli {
@@ -15,4 +12,6 @@ public interface ServiceSocialMeli {
     void createNewPost(Post post) throws IdNotFoundException, NonSellerUserException, PostIdAlreadyExistingException;
     UserListPostDTO getListPostbyUser(int userId, String order) throws IdNotFoundException, ErrorOrderParamDateException;
     void removeFollowerTo(int userId, int userIdUnFollow) throws IdNotFoundException, NonSellerUserException, NonExistentFolloweException;
+    UserSellerCountPromoDTO getUserSellerCountPromoDTO(int userId) throws IdNotFoundException, NonSellerUserException;
+    UserSellerListPromoDTO getUserSellerListPromoDTO(int userId) throws IdNotFoundException, NonSellerUserException;
 }

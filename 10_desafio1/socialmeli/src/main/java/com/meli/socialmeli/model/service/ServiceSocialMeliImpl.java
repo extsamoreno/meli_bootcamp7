@@ -1,5 +1,6 @@
 package com.meli.socialmeli.model.service;
 
+import ch.qos.logback.core.joran.conditional.IfAction;
 import com.meli.socialmeli.model.dao.model.Post;
 import com.meli.socialmeli.model.dao.model.User;
 import com.meli.socialmeli.model.dao.repository.RepositoryPost;
@@ -153,5 +154,29 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         seller.setCantFollowed(seller.getCantFollowed() - 1);
         buyer.getUsersFollowed().remove(seller);
         buyer.setCantFollowed(buyer.getCantFollowed() - 1);
+    }
+
+    public UserSellerCountPromoDTO getUserSellerCountPromoDTO(int userId) throws IdNotFoundException,
+            NonSellerUserException {
+        User user = repositoryUsers.getUserById(userId);
+        if (user == null) {
+            throw new IdNotFoundException(userId);
+        }
+        if (!user.isSeller()) {
+            throw new NonSellerUserException(userId);
+        }
+        return UsersMapper.chageToUserSellerCountPromoDTO(user);
+    }
+
+    public UserSellerListPromoDTO getUserSellerListPromoDTO(int userId) throws IdNotFoundException,
+            NonSellerUserException {
+        User user = repositoryUsers.getUserById(userId);
+        if (user == null) {
+            throw new IdNotFoundException(userId);
+        }
+        if (!user.isSeller()) {
+            throw new NonSellerUserException(userId);
+        }
+        return UsersMapper.chagerToUserSellerListPromoDTO(user);
     }
 }

@@ -1,5 +1,6 @@
 package com.meli.socialmeli.model.mapper;
 
+import com.meli.socialmeli.model.dao.model.Post;
 import com.meli.socialmeli.model.dao.model.User;
 import com.meli.socialmeli.model.dto.*;
 import com.meli.socialmeli.util.SortDescNameUserUtil;
@@ -55,5 +56,31 @@ public class UsersMapper {
         UserListPostDTO userListPostDTO = new UserListPostDTO();
         userListPostDTO.setUserId(user.getUserId());
         return userListPostDTO;
+    }
+
+    public static UserSellerCountPromoDTO chageToUserSellerCountPromoDTO(User user) {
+        UserSellerCountPromoDTO userSellerCountPromoDTO = new UserSellerCountPromoDTO();
+        userSellerCountPromoDTO.setUserId(user.getUserId());
+        userSellerCountPromoDTO.setUserName(user.getUserName());
+        int counter = 0;
+        for (Post post: user.getPost()) {
+            if (post.isHasPromo()) {
+                counter ++;
+            }
+        }
+        userSellerCountPromoDTO.setPromoProductsCount(counter);
+        return userSellerCountPromoDTO;
+    }
+
+    public static UserSellerListPromoDTO chagerToUserSellerListPromoDTO(User user) {
+        UserSellerListPromoDTO userSellerListPromoDTO = new UserSellerListPromoDTO();
+        userSellerListPromoDTO.setUserId(user.getUserId());
+        userSellerListPromoDTO.setUserName(user.getUserName());
+        for (Post post: user.getPost()) {
+            if (post.isHasPromo()) {
+                userSellerListPromoDTO.getPost().add(PostMapper.changeToPostPromoDTO(post));
+            }
+        }
+        return userSellerListPromoDTO;
     }
 }

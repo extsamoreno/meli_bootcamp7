@@ -2,6 +2,8 @@ package com.meli.socialmeli.controller;
 
 import com.meli.socialmeli.model.dao.model.Post;
 import com.meli.socialmeli.model.dto.UserListPostDTO;
+import com.meli.socialmeli.model.dto.UserSellerCountPromoDTO;
+import com.meli.socialmeli.model.dto.UserSellerListPromoDTO;
 import com.meli.socialmeli.model.exception.ErrorOrderParamDateException;
 import com.meli.socialmeli.model.exception.IdNotFoundException;
 import com.meli.socialmeli.model.exception.NonSellerUserException;
@@ -19,7 +21,7 @@ public class ProductController {
     private ServiceSocialMeli serviceSocialMeli;
 
     @PostMapping("/newpost")
-    public ResponseEntity<String> createNewPOst(@RequestBody Post post) throws PostIdAlreadyExistingException,
+    public ResponseEntity<String> createNewPost(@RequestBody Post post) throws PostIdAlreadyExistingException,
             NonSellerUserException, IdNotFoundException {
         serviceSocialMeli.createNewPost(post); //
         return new ResponseEntity<>("OK", HttpStatus.OK);
@@ -31,4 +33,24 @@ public class ProductController {
             ErrorOrderParamDateException {
         return new ResponseEntity<>(serviceSocialMeli.getListPostbyUser(userId, order), HttpStatus.OK);
     }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity<String> createNewPromoPost(@RequestBody Post post) throws PostIdAlreadyExistingException,
+            NonSellerUserException, IdNotFoundException {
+        serviceSocialMeli.createNewPost(post); //
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<UserSellerCountPromoDTO> getCountPromoByUserSeller(@PathVariable int userId)
+            throws NonSellerUserException, IdNotFoundException {
+        return new ResponseEntity<>(serviceSocialMeli.getUserSellerCountPromoDTO(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<UserSellerListPromoDTO> getListromoByUserSeller(@PathVariable int userId)
+            throws NonSellerUserException, IdNotFoundException {
+        return new ResponseEntity<>(serviceSocialMeli.getUserSellerListPromoDTO(userId), HttpStatus.OK);
+    }
+
 }
