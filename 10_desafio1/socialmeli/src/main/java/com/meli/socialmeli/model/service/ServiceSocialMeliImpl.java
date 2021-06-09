@@ -1,6 +1,5 @@
 package com.meli.socialmeli.model.service;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
 import com.meli.socialmeli.model.dao.model.Post;
 import com.meli.socialmeli.model.dao.model.User;
 import com.meli.socialmeli.model.dao.repository.RepositoryPost;
@@ -9,8 +8,8 @@ import com.meli.socialmeli.model.dto.*;
 import com.meli.socialmeli.model.exception.*;
 import com.meli.socialmeli.model.mapper.PostMapper;
 import com.meli.socialmeli.model.mapper.UsersMapper;
-import com.meli.socialmeli.util.SortAscDatePostUtil;
 import com.meli.socialmeli.util.SortDescDatePostUtil;
+import com.meli.socialmeli.util.SortAscDatePostUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +26,17 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
     private RepositoryPost repositoryPost;
 
     public void setFollowerTo(int userId, int userIdToFollow) throws IdNotFoundException, NonSellerUserException,
-            RepeatFollowerException {
+            RepeatFollowerException, SellerCanNotFollowException{
         User buyer = repositoryUsers.getUserById(userId);
         User seller = repositoryUsers.getUserById(userIdToFollow);
         if (buyer == null) {
             throw new IdNotFoundException(userId);
         }
         if (seller == null) {
-            throw new IdNotFoundException(userIdToFollow);
+            throw new SellerCanNotFollowException(userId);
+        }
+        if (buyer.isSeller()) {
+            throw new IdNotFoundException(userId);
         }
         if (!seller.isSeller()) {
             throw new NonSellerUserException(userIdToFollow);
@@ -74,10 +76,13 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         return UsersMapper.changeToUserSellerListDTO(user, order);
     }
 
-    public UserListDTO getUserListDTO(int userId, String order) throws IdNotFoundException, ErrorOrderParamNameException {
+    public UserListDTO getUserListDTO(int userId, String order) throws IdNotFoundException, ErrorOrderParamNameException, SellerCanNotFollowException {
         User user = repositoryUsers.getUserById(userId);
         if (user == null) {
             throw new IdNotFoundException(userId);
+        }
+        if (user.isSeller()) {
+            throw new SellerCanNotFollowException(userId);
         }
         if (!order.equals("name_asc") && !order.equals("name_desc")) {
             throw new ErrorOrderParamNameException();
@@ -135,7 +140,7 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
     }
 
     public void removeFollowerTo(int userId, int userIdUnFollow) throws IdNotFoundException, NonSellerUserException,
-            NonExistentFolloweException {
+            NonExistentFolloweException, SellerCanNotFollowException {
         User buyer = repositoryUsers.getUserById(userId);
         User seller = repositoryUsers.getUserById(userIdUnFollow);
         if (buyer == null) {
@@ -143,6 +148,9 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         }
         if (seller == null) {
             throw new IdNotFoundException(userIdUnFollow);
+        }
+        if (buyer.isSeller()) {
+            throw new SellerCanNotFollowException(userId);
         }
         if (!seller.isSeller()) {
             throw new NonSellerUserException(userIdUnFollow);

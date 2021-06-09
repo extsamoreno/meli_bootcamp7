@@ -21,24 +21,26 @@ public class ProductController {
     private ServiceSocialMeli serviceSocialMeli;
 
     @PostMapping("/newpost")
-    public ResponseEntity<String> createNewPost(@RequestBody Post post) throws PostIdAlreadyExistingException,
-            NonSellerUserException, IdNotFoundException {
+    public ResponseEntity<String> createNewPost(@RequestBody Post post)
+            throws PostIdAlreadyExistingException, NonSellerUserException, IdNotFoundException {
         serviceSocialMeli.createNewPost(post); //
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new ResponseEntity<>("", HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserListPostDTO> getListofPostbyUser(@PathVariable int userId, @RequestParam(name = "order",
-            required = false, defaultValue = "date_desc") String order) throws IdNotFoundException,
-            ErrorOrderParamDateException {
+    public ResponseEntity<UserListPostDTO> getListofPostbyUser(@PathVariable int userId,
+                                                               @RequestParam(name = "order",
+                                                                       required = false,
+                                                                       defaultValue = "date_desc") String order)
+            throws IdNotFoundException, ErrorOrderParamDateException {
         return new ResponseEntity<>(serviceSocialMeli.getListPostbyUser(userId, order), HttpStatus.OK);
     }
 
     @PostMapping("/newpromopost")
-    public ResponseEntity<String> createNewPromoPost(@RequestBody Post post) throws PostIdAlreadyExistingException,
-            NonSellerUserException, IdNotFoundException {
-        serviceSocialMeli.createNewPost(post); //
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+    public ResponseEntity<String> createNewPromoPost(@RequestBody Post post)
+            throws PostIdAlreadyExistingException, NonSellerUserException, IdNotFoundException {
+        serviceSocialMeli.createNewPost(post);
+        return new ResponseEntity<>("", HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/countPromo")

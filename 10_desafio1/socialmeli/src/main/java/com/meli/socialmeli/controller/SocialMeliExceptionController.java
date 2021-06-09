@@ -47,4 +47,9 @@ public class SocialMeliExceptionController {
     public ResponseEntity<ErrorDTO> handleRepeatFollowerException (RepeatFollowerException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
+
+    @ExceptionHandler(SellerCanNotFollowException.class)
+    public ResponseEntity<ErrorDTO> handleSellerCanNotFollowException (SellerCanNotFollowException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
 }

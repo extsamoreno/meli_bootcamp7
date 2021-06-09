@@ -17,37 +17,39 @@ public class UserController {
     private ServiceSocialMeli serviceSocialMeli;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<String> assingFollowerTo(@PathVariable int userId, @PathVariable int userIdToFollow) throws
-            NonSellerUserException, RepeatFollowerException, IdNotFoundException {
+    public ResponseEntity<String> assingFollowerTo(@PathVariable int userId, @PathVariable int userIdToFollow)
+            throws NonSellerUserException, RepeatFollowerException, IdNotFoundException, SellerCanNotFollowException {
         serviceSocialMeli.setFollowerTo(userId, userIdToFollow);
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new ResponseEntity<>("", HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<UserSellerCountDTO> getCountOfSeller(@PathVariable int userId) throws NonSellerUserException,
-            IdNotFoundException {
+    public ResponseEntity<UserSellerCountDTO> getCountOfSeller(@PathVariable int userId)
+            throws NonSellerUserException, IdNotFoundException {
         return new ResponseEntity<>(serviceSocialMeli.getUserSellerCountDTO(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserSellerListDTO> getListOfSeller(@PathVariable int userId, @RequestParam(name = "order",
-            required = false, defaultValue = "name_asc") String order) throws NonSellerUserException,
-            IdNotFoundException, ErrorOrderParamNameException {
+    public ResponseEntity<UserSellerListDTO> getListOfSeller(@PathVariable int userId,
+                                                             @RequestParam(name = "order", required = false,
+                                                                     defaultValue = "name_asc") String order)
+            throws NonSellerUserException, IdNotFoundException, ErrorOrderParamNameException {
         return new ResponseEntity<>(serviceSocialMeli.getUserSellerListDTO(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserListDTO> getListOfUsers(@PathVariable int userId, @RequestParam(name = "order",
-            required = false, defaultValue = "name_asc") String order) throws IdNotFoundException,
-            ErrorOrderParamNameException {
+    public ResponseEntity<UserListDTO> getListOfUsers(@PathVariable int userId,
+                                                      @RequestParam(name = "order",
+                                                              required = false, defaultValue = "name_asc") String order)
+            throws IdNotFoundException, ErrorOrderParamNameException, SellerCanNotFollowException {
         return new ResponseEntity<>(serviceSocialMeli.getUserListDTO(userId, order), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<String> UnassingFollowerTo(@PathVariable int userId, @PathVariable int userIdToUnfollow)
-            throws NonExistentFolloweException, NonSellerUserException, IdNotFoundException {
+            throws NonExistentFolloweException, NonSellerUserException, IdNotFoundException, SellerCanNotFollowException {
         serviceSocialMeli.removeFollowerTo(userId, userIdToUnfollow);
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return new ResponseEntity<>("", HttpStatus.OK);
     }
 
 }
