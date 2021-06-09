@@ -43,7 +43,6 @@ public class UserService implements IUserService {
 
     @Override
     public UserFollowingDTO getFollowingList(int userId) throws UserNotFoundException {
-        //UserDTO user = SocialMeliMapper.toDto(socialMeliRepository.findUserById(userId));
         User user = socialMeliRepository.findUserById(userId);
         List<UserDTO> followingList = new ArrayList<>();
 

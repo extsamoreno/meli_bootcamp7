@@ -16,4 +16,6 @@ public class User {
     private List<User> followedBy;
 
 
+    public User(int userId) {
+    }
 }

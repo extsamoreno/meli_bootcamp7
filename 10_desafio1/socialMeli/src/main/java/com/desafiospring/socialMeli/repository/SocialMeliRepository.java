@@ -22,7 +22,7 @@ public class SocialMeliRepository implements ISocialMeliRepository {
 
     @Override
     public User findUserById(int userId) throws UserNotFoundException {
-        if(usersDic.get(userId) == null) {
+        if (usersDic.get(userId) == null) {
             throw new UserNotFoundException(userId);
         }
         return usersDic.get(userId);
