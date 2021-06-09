@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class FollowedUserDTOResponse extends UserDTOResponse {
-    private LinkedHashSet<UserDTOResponse> followers = new LinkedHashSet<>();
-    public FollowedUserDTOResponse(User user, LinkedHashSet<UserDTOResponse> followers){
+    private LinkedList<UserDTOResponse> followers = new LinkedList<>();
+    public FollowedUserDTOResponse(User user, LinkedList<UserDTOResponse> followers){
         super(user.getId(),user.getName());
         this.followers = followers;
     }

@@ -16,6 +16,12 @@ public class User {
         followers = new LinkedHashSet<Integer>();
         following = new LinkedHashSet<Integer>();
     }
+    public User(Integer id,String name){
+        this.id = id;
+        this.name = name;
+        followers = new LinkedHashSet<Integer>();
+        following = new LinkedHashSet<Integer>();
+    }
     public void addFollower(User user){
         followers.add(user.getId());
     }
@@ -28,4 +34,9 @@ public class User {
     public void addFollowing(Integer user){
         following.add(user);
     }
+    public void unfollower(Integer user){followers.remove(user);}
+    public void unfollower(User user){followers.remove(user.getId());}
+    public void unfollowing(Integer user){following.remove(user);}
+    public void unfollowing(User user){following.remove(user.getId());}
+
 }

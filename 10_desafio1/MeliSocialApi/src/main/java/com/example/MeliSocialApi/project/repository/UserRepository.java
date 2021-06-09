@@ -10,13 +10,13 @@ public class UserRepository implements IUserRepository {
     private static Map<Integer, User> users = new HashMap<Integer, User>();
 
     static {
-        User user1 = new User(1);
-        User user2 = new User(2);
-        User user3 = new User(3);
-        User user4 = new User(4);
-        User user5 = new User(5);
-        User user6 = new User(6);
-        User user7 = new User(7);
+        User user1 = new User(1,"Juan");
+        User user2 = new User(2,"Rodrigo");
+        User user3 = new User(3,"Pablo");
+        User user4 = new User(4,"Tomas");
+        User user5 = new User(5,"tomy");
+        User user6 = new User(6,"tomman");
+        User user7 = new User(7,"TERRY");
         users.put(user1.getId(), user1);
         users.put(user2.getId(), user2);
         users.put(user3.getId(), user3);
@@ -40,14 +40,6 @@ public class UserRepository implements IUserRepository {
     }
 
     // 1-> 2,3,4 // 2 -> 1 // 4 -> 2,3
-    public boolean follow(User user, User userToFollow) {
-        if (user == null || userToFollow == null)
-            return false;
-        user.addFollowing(userToFollow);
-        userToFollow.addFollower(user);
-        return true;
-    }
-
     public User getUser(Integer id) {
         return users.get(id);
     }

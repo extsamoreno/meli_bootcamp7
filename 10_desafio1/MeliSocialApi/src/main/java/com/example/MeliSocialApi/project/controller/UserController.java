@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -25,8 +27,22 @@ public class UserController {
     public ResponseEntity<UserFollowersCountDTOResponse> getFollowersCount(@PathVariable Integer userId) throws UserNotFoundException {
         return new ResponseEntity<UserFollowersCountDTOResponse>(userService.getFollowersCount(userId),HttpStatus.OK);
     }
+    /*
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersUserDTOResponse> getFollowers(@PathVariable Integer userId) throws UserNotFoundException {
         return new ResponseEntity<FollowersUserDTOResponse>(userService.getFollowersList(userId),HttpStatus.OK);
+    }*/
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity unfollow(@PathVariable Integer userId,@PathVariable Integer userIdToFollow) throws UserNotFoundException {
+        userService.unfollow(userId,userIdToFollow);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<FollowersUserDTOResponse> getFollowers(@PathVariable Integer userId, @RequestParam Optional<String> order) throws UserNotFoundException {
+        return new ResponseEntity<FollowersUserDTOResponse>(userService.getFollowersList(userId,order),HttpStatus.OK);
+    }
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<FollowersUserDTOResponse> getFollowed(@PathVariable Integer userId,@RequestParam Optional<String> order) throws UserNotFoundException {
+        return new ResponseEntity<FollowersUserDTOResponse>(userService.getFollowedList(userId,order),HttpStatus.OK);
     }
 }

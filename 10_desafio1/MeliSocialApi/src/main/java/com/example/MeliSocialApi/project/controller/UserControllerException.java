@@ -13,10 +13,4 @@ public class UserControllerException {
     public ResponseEntity<ErrorDTO> handleGlobalException(UserException e){
         return new ResponseEntity<ErrorDTO>(e.getError(),e.getStatus());
     }
-/*
-    @ExceptionHandler(UserIdNotFoundException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(LinkIdNotFoundException e){
-
-        return new ResponseEntity<>(e.getError(),e.getStatus());
-    }*/
 }
