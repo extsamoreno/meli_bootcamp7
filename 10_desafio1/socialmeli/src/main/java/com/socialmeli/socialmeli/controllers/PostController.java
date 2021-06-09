@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 
 
 @RestController
@@ -26,7 +27,7 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<ListPostDTO> getFollowedPostList(@PathVariable Integer userId) throws UserNotFoundException {
+    public ResponseEntity<ListPostDTO> getFollowedPostList(@PathVariable Integer userId,@RequestParam Optional<String> order) throws UserNotFoundException {
         return new ResponseEntity<>(
                 postService.getFollowedPostList(userId),HttpStatus.OK
         );

@@ -1,14 +1,18 @@
 package com.socialmeli.socialmeli.models;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
+import java.time.LocalDate;
 
-@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Post {
     int userId;
     int id_post;
-    String date;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    LocalDate date;
     Product detail;
     int category;
     double price;

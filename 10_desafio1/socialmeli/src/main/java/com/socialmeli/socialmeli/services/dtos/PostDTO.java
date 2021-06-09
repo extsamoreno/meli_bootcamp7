@@ -1,15 +1,20 @@
 package com.socialmeli.socialmeli.services.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.socialmeli.socialmeli.models.Product;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-@Data
+import java.time.LocalDate;
+import java.util.Date;
+
 @AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class PostDTO {
     int userId;
     int id_post;
-    String date;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    LocalDate date;
     Product detail;
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
     int category;

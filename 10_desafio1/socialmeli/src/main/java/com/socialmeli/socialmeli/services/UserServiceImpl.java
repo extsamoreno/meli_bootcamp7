@@ -2,7 +2,6 @@ package com.socialmeli.socialmeli.services;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
-import com.socialmeli.socialmeli.services.dtos.PostDTO;
 import com.socialmeli.socialmeli.services.dtos.UserDTO;
 import com.socialmeli.socialmeli.services.dtos.UserFollowDTO;
 import com.socialmeli.socialmeli.services.mappers.UserMapper;

@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService{
         }
 
         //Sort by date
-        Comparator<PostDTO> postDateComparator = Comparator.comparing(PostDTO::getDate);
+        Comparator<PostDTO> postDateComparator = Comparator.comparing(PostDTO::getDate).reversed();
         followedPostDTOList.sort(postDateComparator);
 
         return new ListPostDTO(userId,followedPostDTOList);
