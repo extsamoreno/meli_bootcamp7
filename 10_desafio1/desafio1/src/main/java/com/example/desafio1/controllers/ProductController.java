@@ -3,6 +3,7 @@ package com.example.desafio1.controllers;
 import com.example.desafio1.dtos.PostDTO;
 import com.example.desafio1.dtos.ResponseFollowedPostDTO;
 import com.example.desafio1.exceptions.InvalidUserIdException;
+import com.example.desafio1.exceptions.UserException;
 import com.example.desafio1.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,10 +50,16 @@ public class ProductController {
     // Parameters
     // @userId,  number that identifies the actual user
     // Response 200 / 400 -> if the user does not exists
-    // Example: /products/followed/1/list
+    // Example:
+    // /products/followed/1/list
+    // /products/followed/1/list?order=date_asc // sort date in ascending order
+    // /products/followed/1/list?order=date_des // sort date in descending order
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<ResponseFollowedPostDTO> getAllPostOfMyFollowed(@PathVariable int userId)
-            throws InvalidUserIdException {
-        return new ResponseEntity(iProductService.getAllPostOfMyFollowed(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseFollowedPostDTO> getAllPostOfMyFollowed(@PathVariable int userId,
+                                                                          @RequestParam(required = false,
+                                                                                  defaultValue = "date_des")
+                                                                                  String order)
+            throws UserException {
+        return new ResponseEntity(iProductService.getAllPostOfMyFollowed(userId, order), HttpStatus.OK);
     }
 }

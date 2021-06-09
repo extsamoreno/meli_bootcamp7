@@ -64,8 +64,8 @@ public class UserController {
     // Response 200 / 400 -> if the user does not exists
     // Example:
     // /users/1/followers/list
-    // /users/1/followers/list?order=name_asc
-    // /users/1/followers/list?order=name_des
+    // /users/1/followers/list?order=name_asc   // sort alphabetically in ascending order
+    // /users/1/followers/list?order=name_des   // sort alphabetically in descending order
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<ResponseFollowerListDTO> getFollowers(@PathVariable int userId,
                                                                 @RequestParam(required = false,
@@ -78,7 +78,10 @@ public class UserController {
     // Parameters
     // @userId,  number that identifies the actual user
     // Response 200 / 400 -> if the user does not exists
-    // Example: /users/1/followed/list
+    // Example:
+    // /users/1/followed/list
+    // /users/1/followed/list?order=name_asc    // sort alphabetically in ascending order
+    // /users/1/followed/list?order=name_asc    // sort alphabetically in descending order
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<ResponseFollowerListDTO> getFollowedSellers(@PathVariable int userId,
                                                                       @RequestParam(required = false,

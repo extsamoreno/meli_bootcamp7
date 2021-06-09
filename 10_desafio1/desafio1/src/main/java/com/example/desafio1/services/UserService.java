@@ -4,7 +4,7 @@ import com.example.desafio1.dtos.ResponseFollowedSellerDTO;
 import com.example.desafio1.dtos.ResponseFollowerCountDTO;
 import com.example.desafio1.dtos.ResponseFollowerListDTO;
 import com.example.desafio1.dtos.UserDTO;
-import com.example.desafio1.exceptions.InvalidOrderUserException;
+import com.example.desafio1.exceptions.InvalidOrderException;
 import com.example.desafio1.exceptions.InvalidUserIdException;
 import com.example.desafio1.exceptions.UserException;
 import com.example.desafio1.mappers.UserMapper;
@@ -70,7 +70,7 @@ public class UserService implements IUserService {
         User user = iUserRepository.getUserById(userId);
         ResponseFollowerListDTO responseFollowerListDTO = new ResponseFollowerListDTO();
         List<UserDTO> listFollowers = user.getFollowers();
-        orderUserDTO(order, listFollowers);
+        sortUserDTOByName(order, listFollowers);
         responseFollowerListDTO.setUserId(user.getUserId());
         responseFollowerListDTO.setUserName(user.getUserName());
         responseFollowerListDTO.setFollowers(listFollowers);
@@ -82,7 +82,7 @@ public class UserService implements IUserService {
         User user = iUserRepository.getUserById(userId);
         ResponseFollowedSellerDTO responseFollowedSellerDTO = new ResponseFollowedSellerDTO();
         List<UserDTO> listFollowed = user.getFollowed();
-        orderUserDTO(order, listFollowed);
+        sortUserDTOByName(order, listFollowed);
         responseFollowedSellerDTO.setUserId(user.getUserId());
         responseFollowedSellerDTO.setUserName(user.getUserName());
         responseFollowedSellerDTO.setFollowed(listFollowed);
@@ -101,13 +101,13 @@ public class UserService implements IUserService {
         return user.getPosts();
     }
 
-    public void orderUserDTO(String order, List<UserDTO> list) throws InvalidOrderUserException {
+    public void sortUserDTOByName(String order, List<UserDTO> list) throws InvalidOrderException {
         if(order.equals("name_asc")) {
             list.sort(COMPARATOR_NAME_ASC);
         } else if(order.equals("name_des")) {
             list.sort(COMPARATOR_NAME_DES);
         } else if(!order.equals("")) {
-            throw new InvalidOrderUserException(order);
+            throw new InvalidOrderException(order);
         }
     }
 }

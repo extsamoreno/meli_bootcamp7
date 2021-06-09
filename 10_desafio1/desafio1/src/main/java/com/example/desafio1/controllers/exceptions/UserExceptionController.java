@@ -1,7 +1,7 @@
 package com.example.desafio1.controllers.exceptions;
 
 import com.example.desafio1.dtos.ErrorDTO;
-import com.example.desafio1.exceptions.InvalidOrderUserException;
+import com.example.desafio1.exceptions.InvalidOrderException;
 import com.example.desafio1.exceptions.InvalidUserIdException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,8 +15,8 @@ public class UserExceptionController {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
-    @ExceptionHandler(InvalidOrderUserException.class)
-    public ResponseEntity<ErrorDTO> handlerInvalidOrderUserException(InvalidOrderUserException e) {
+    @ExceptionHandler(InvalidOrderException.class)
+    public ResponseEntity<ErrorDTO> handlerInvalidOrderUserException(InvalidOrderException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }
