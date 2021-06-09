@@ -35,6 +35,13 @@ public class UserController {
         return new ResponseEntity(followersListDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<FollowersListDTO> ListFolloweds(@PathVariable int userId) throws UserNotFoundException {
+
+        FollowersListDTO followersListDTO = userServiceImpl.listFollowers(userId) ;
+        return new ResponseEntity(followersListDTO, HttpStatus.OK);
+    }
+
 
 }
 

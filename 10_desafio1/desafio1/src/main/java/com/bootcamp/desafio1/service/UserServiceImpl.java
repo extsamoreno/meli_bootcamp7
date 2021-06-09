@@ -9,7 +9,11 @@ import com.bootcamp.desafio1.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Service
 public class UserServiceImpl implements  IUserService {
@@ -26,8 +30,11 @@ public class UserServiceImpl implements  IUserService {
         ArrayList<User> currentUserFollowedList = currentUser.getFollowed();
         ArrayList<User> userToFollowFollowersList = userToFollow.getFollowers();
 
-        // Validate that the users are not in the Followers and Followed lists
-        if( !currentUserFollowedList.contains(userToFollow) && !userToFollowFollowersList.contains(currentUser)){
+        // Validate that the users are not in the Followers and Followed lists, and userId is different to userIdToFollow
+        if( !currentUserFollowedList.contains(userToFollow) &&
+                !userToFollowFollowersList.contains(currentUser) &&
+                (userId != userIdToFollow) ){
+
             // Add Follower to userToFollow
             userToFollow.getFollowers().add(currentUser);
 
@@ -55,6 +62,11 @@ public class UserServiceImpl implements  IUserService {
         for (User x : completeFollowersList) {
             followers.add(Mapper.toUserDTO(x));
         }
+
+
+        Comparator<UserDTO> NameComparator = (UserDTO a, UserDTO b)->a.getUserName().compareTo(b.getUserName());
+        Collections.sort( followers, NameComparator );
+        //Collections.reverse(followers);
         return Mapper.toFollowersListDTO(currentUser, followers);
     }
 
