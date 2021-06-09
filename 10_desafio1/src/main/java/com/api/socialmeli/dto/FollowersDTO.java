@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
-public class FollowersDetailDTO {
+public class FollowersDTO {
     private int userId;
     private String userName;
-    private ArrayList<FollowerDTO> followers;
+    private ArrayList<UserDTO> followers;
 }

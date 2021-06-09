@@ -1,20 +1,13 @@
-package com.api.socialmeli.model;
+package com.api.socialmeli.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.ArrayList;
-
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
-public class UserModel {
+public class UserDTO {
     private int userId;
     private String userName;
-    private ArrayList<UserModel> followers;
-    private ArrayList<UserModel> followed;
 }
-
-
-

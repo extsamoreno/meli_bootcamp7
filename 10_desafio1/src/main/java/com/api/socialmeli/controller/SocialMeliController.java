@@ -1,16 +1,11 @@
 package com.api.socialmeli.controller;
 
-import com.api.socialmeli.dto.FollowersCountDTO;
-import com.api.socialmeli.dto.FollowersDetailDTO;
+import com.api.socialmeli.dto.*;
 import com.api.socialmeli.service.SocialMeliServiceImple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -30,8 +25,22 @@ public class SocialMeliController {
     }
 
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowersDetailDTO> US003(@PathVariable int userId) throws Exception {
+    public ResponseEntity<FollowersDTO> US003(@PathVariable int userId) throws Exception {
         return new ResponseEntity<>(socialMeliServiceImple.US003(userId), HttpStatus.OK);
+    }
+    @GetMapping("/users/{userId}/followed/list")
+    public ResponseEntity<UserFolowedDTO> US004(@PathVariable int userId) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US004(userId), HttpStatus.OK);
+    }
+
+    @PostMapping("/products/newpost")
+    public ResponseEntity<String> US005(@RequestBody PostDTO newPost ) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US005(newPost), HttpStatus.OK);
+    }
+
+    @GetMapping("/products/followed/{userId}/list")
+    public ResponseEntity<FollowedPostsDTO> US006(@PathVariable int userId) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US006(userId), HttpStatus.OK);
     }
 
 

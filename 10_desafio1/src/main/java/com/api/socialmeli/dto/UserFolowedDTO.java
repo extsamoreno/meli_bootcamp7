@@ -5,9 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
-public class FollowerDTO {
+public class UserFolowedDTO {
+
     private int userId;
     private String userName;
+    private ArrayList<UserDTO> followed;
+
 }
+
