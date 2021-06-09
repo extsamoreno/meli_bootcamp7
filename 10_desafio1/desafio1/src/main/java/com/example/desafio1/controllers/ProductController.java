@@ -1,8 +1,9 @@
 package com.example.desafio1.controllers;
 
 import com.example.desafio1.dtos.*;
-import com.example.desafio1.exceptions.InvalidUserIdException;
-import com.example.desafio1.exceptions.UserException;
+import com.example.desafio1.exceptions.product.InvalidDiscountException;
+import com.example.desafio1.exceptions.user.InvalidUserIdException;
+import com.example.desafio1.exceptions.user.UserException;
 import com.example.desafio1.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,7 +73,8 @@ public class ProductController {
         }
      */
     @PostMapping("/newpromopost")
-    public ResponseEntity<String> addNewPromoPost(@RequestBody PostPromoDTO postPromoDTO) throws InvalidUserIdException {
+    public ResponseEntity<String> addNewPromoPost(@RequestBody PostPromoDTO postPromoDTO)
+            throws InvalidUserIdException, InvalidDiscountException {
         return new ResponseEntity(iProductService.addNewPromoPost(postPromoDTO), HttpStatus.OK);
     }
 

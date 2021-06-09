@@ -1,8 +1,8 @@
 package com.example.desafio1.controllers.exceptions;
 
 import com.example.desafio1.dtos.ErrorDTO;
-import com.example.desafio1.exceptions.InvalidOrderException;
-import com.example.desafio1.exceptions.InvalidUserIdException;
+import com.example.desafio1.exceptions.user.InvalidOrderException;
+import com.example.desafio1.exceptions.user.InvalidUserIdException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

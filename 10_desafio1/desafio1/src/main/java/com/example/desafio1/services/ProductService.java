@@ -1,12 +1,12 @@
 package com.example.desafio1.services;
 
 import com.example.desafio1.dtos.*;
-import com.example.desafio1.exceptions.InvalidOrderException;
-import com.example.desafio1.exceptions.InvalidUserIdException;
-import com.example.desafio1.exceptions.UserException;
+import com.example.desafio1.exceptions.product.InvalidDiscountException;
+import com.example.desafio1.exceptions.user.InvalidOrderException;
+import com.example.desafio1.exceptions.user.InvalidUserIdException;
+import com.example.desafio1.exceptions.user.UserException;
 import com.example.desafio1.mappers.PostMapper;
 import com.example.desafio1.models.Post;
-import com.example.desafio1.models.Product;
 import com.example.desafio1.models.User;
 import com.example.desafio1.repositories.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,13 @@ public class ProductService implements IProductService {
                 " al usuario con id: " + postDTO.getUserId();
     }
 
+    // Discount must be between 0 and 1
     @Override
-    public String addNewPromoPost(PostPromoDTO postPromoDTO) throws InvalidUserIdException {
+    public String addNewPromoPost(PostPromoDTO postPromoDTO) throws InvalidUserIdException, InvalidDiscountException {
+        double discount = postPromoDTO.getDiscount();
+        if(discount < 0.00 || discount > 1.00) {
+            throw new InvalidDiscountException(discount);
+        }
         iProductRepository.addNewPost(iUserService.getUserById(postPromoDTO.getUserId()),
                 PostMapper.PostPromoDTOToPost(postPromoDTO));
         return "Se ha agregado el producto en PROMOCION con id: " + postPromoDTO.getDetail().getProduct_id() +

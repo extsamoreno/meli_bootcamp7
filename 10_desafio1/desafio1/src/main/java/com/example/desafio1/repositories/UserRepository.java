@@ -1,11 +1,7 @@
 package com.example.desafio1.repositories;
 
-import com.example.desafio1.dtos.ResponseFollowedSellerDTO;
-import com.example.desafio1.dtos.ResponseFollowerCountDTO;
-import com.example.desafio1.dtos.ResponseFollowerListDTO;
 import com.example.desafio1.dtos.UserDTO;
-import com.example.desafio1.exceptions.InvalidUserIdException;
-import com.example.desafio1.mappers.UserMapper;
+import com.example.desafio1.exceptions.user.InvalidUserIdException;
 import com.example.desafio1.models.Post;
 import com.example.desafio1.models.Product;
 import com.example.desafio1.models.User;
