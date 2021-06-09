@@ -38,8 +38,16 @@ public class User {
         this.followers.add(userDTO);
     }
 
+    public void removeFollower(UserDTO userDTO) {
+        this.followers.remove(userDTO);
+    }
+
     public void addFollowed(UserDTO userDTO) {
         this.followed.add(userDTO);
+    }
+
+    public void removeFollowed(UserDTO userDTO) {
+        this.followed.remove(userDTO);
     }
 
     public void addNewPost(Post post) {

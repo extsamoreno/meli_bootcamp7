@@ -3,8 +3,11 @@ package com.example.desafio1.repositories;
 import com.example.desafio1.dtos.ResponseFollowedSellerDTO;
 import com.example.desafio1.dtos.ResponseFollowerCountDTO;
 import com.example.desafio1.dtos.ResponseFollowerListDTO;
+import com.example.desafio1.dtos.UserDTO;
 import com.example.desafio1.exceptions.InvalidUserIdException;
 import com.example.desafio1.mappers.UserMapper;
+import com.example.desafio1.models.Post;
+import com.example.desafio1.models.Product;
 import com.example.desafio1.models.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +17,8 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,10 +28,13 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public String createDB() {
+        /*
         List<User> users = loadDateBase();
         for(User u : users) {
             this.users.put(u.getUserId(), u);
         }
+        */
+        users = loadDateBaseManually();
         return "Base de datos inicializada";
     }
 
@@ -39,49 +47,10 @@ public class UserRepository implements IUserRepository {
         return user;
     }
 
-    @Override
-    public String followUser(int userId, int userIdToFollow) throws InvalidUserIdException {
-        User user = getUserById(userId);
-        User userToFollow = getUserById(userIdToFollow);
-        user.addFollowed(UserMapper.UserToDTO(userToFollow));
-        userToFollow.addFollower(UserMapper.UserToDTO(user));
-        return userId + " ha seguido a " + userIdToFollow;
-    }
-
-    @Override
-    public ResponseFollowerCountDTO getFollowersCount(int userId) throws InvalidUserIdException {
-        User user = getUserById(userId);
-        ResponseFollowerCountDTO responseFollowerCountDTO = new ResponseFollowerCountDTO();
-        responseFollowerCountDTO.setUserId(user.getUserId());
-        responseFollowerCountDTO.setUserName(user.getUserName());
-        responseFollowerCountDTO.setFollowers_count(user.getFollowers().size());
-        return responseFollowerCountDTO;
-    }
-
-    @Override
-    public ResponseFollowerListDTO getFollowers(int userId) throws InvalidUserIdException {
-        User user = getUserById(userId);
-        ResponseFollowerListDTO responseFollowerListDTO = new ResponseFollowerListDTO();
-        responseFollowerListDTO.setUserId(user.getUserId());
-        responseFollowerListDTO.setUserName(user.getUserName());
-        responseFollowerListDTO.setFollowers(user.getFollowers());
-        return responseFollowerListDTO;
-    }
-
-    @Override
-    public ResponseFollowedSellerDTO getFollowedSellers(int userId) throws InvalidUserIdException {
-        User user = getUserById(userId);
-        ResponseFollowedSellerDTO responseFollowedSellerDTO = new ResponseFollowedSellerDTO();
-        responseFollowedSellerDTO.setUserId(user.getUserId());
-        responseFollowedSellerDTO.setUserName(user.getUserName());
-        responseFollowedSellerDTO.setFollowed(user.getFollowed());
-        return responseFollowedSellerDTO;
-    }
-
     private List<User> loadDateBase() {
         File file = null;
         try {                                           // need to change to user.json
-            file = ResourceUtils.getFile("classpath:newUsers.json");
+            file = ResourceUtils.getFile("classpath:users.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -94,5 +63,72 @@ public class UserRepository implements IUserRepository {
             e.printStackTrace();
         }
         return userList;
+    }
+
+    private HashMap<Integer, User> loadDateBaseManually() {
+        HashMap<Integer, User> users = new HashMap<>();
+
+        List<UserDTO> followed = new ArrayList<>();
+        followed.add(new UserDTO(4, "Rodriguez Nicolas"));
+        followed.add(new UserDTO(5, "Gomez Marcos"));
+        List<UserDTO> followers = new ArrayList<>();
+        followers.add(new UserDTO(2, "Castro Miguel"));
+        followers.add(new UserDTO(3, "Rojas Macarena"));
+        List<Post> posts = new ArrayList<>();
+        User u = new User(1, "Alvarez Jorge", followed, followers, posts);
+        users.put(u.getUserId(), u);
+
+        List<UserDTO> followed1 = new ArrayList<>();
+        List<UserDTO> followers1 = new ArrayList<>();
+        List<Post> posts1 = new ArrayList<>();
+        followed1.add(new UserDTO(1, "Alvarez Jorge"));
+        followers1.add(new UserDTO(3, "Rojas Macarena"));
+        u = new User(2, "Castro Miguel", followed1, followers1, posts1);
+        users.put(u.getUserId(), u);
+
+        List<UserDTO> followed2 = new ArrayList<>();
+        List<UserDTO> followers2 = new ArrayList<>();
+        List<Post> posts2 = new ArrayList<>();
+        followed2.add(new UserDTO(1, "Alvarez Jorge"));
+        followers2.add(new UserDTO(2, "Castro Miguel"));
+        u = new User(3, "Rojas Macarena", followed2, followers2, posts2);
+        users.put(u.getUserId(), u);
+
+        List<UserDTO> followed3 = new ArrayList<>();
+        List<UserDTO> followers3 = new ArrayList<>();
+        List<Post> posts3 = new ArrayList<>();
+        followers3.add(new UserDTO(1, "Alvarez Jorge"));
+        String dateString = "26-05-2021";
+        String[] st = dateString.split("-");
+        StringBuilder sb = new StringBuilder();
+        sb.append(st[2]).append("-").append(st[1]).append("-").append(st[0]);
+        posts3.add(new Post(30, LocalDate.parse(sb.toString()), new Product(2,
+                "Headset Gamer", "Gamer", "Racer", "Red & Black",
+                "Special Edition"), 101, 3000.00));
+        u = new User(4, "Rojas Macarena", followed3, followers3, posts3);
+        users.put(u.getUserId(), u);
+
+        List<UserDTO> followed4 = new ArrayList<>();
+        List<UserDTO> followers4 = new ArrayList<>();
+        List<Post> posts4 = new ArrayList<>();
+        followers4.add(new UserDTO(1, "Alvarez Jorge"));
+        dateString = "25-05-2021";
+        st = dateString.split("-");
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append(st[2]).append("-").append(st[1]).append("-").append(st[0]);
+        posts4.add(new Post(20, LocalDate.parse(sb1.toString()), new Product(100,
+                "Keyboard Gamer", "Gamer", "Racer", "Red & Black",
+                "Special Edition"), 101, 3000.00));
+        dateString = "27-05-2021";
+        st = dateString.split("-");
+        StringBuilder sb2 = new StringBuilder();
+        sb2.append(st[2]).append("-").append(st[1]).append("-").append(st[0]);
+        posts4.add(new Post(40, LocalDate.parse(sb2.toString()), new Product(3,
+                "Mouse Gamer", "Gamer", "Racer", "Red & Black", "Special Edition"),
+                101, 3000.00));
+        u = new User(5, "Gomez Marcos", followed4, followers4, posts4);
+        users.put(u.getUserId(), u);
+
+        return users;
     }
 }

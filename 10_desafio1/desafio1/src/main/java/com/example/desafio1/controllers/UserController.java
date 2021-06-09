@@ -34,6 +34,18 @@ public class UserController {
         return new ResponseEntity(iUserService.followUser(userId, userIdToFollow), HttpStatus.OK);
     }
 
+    // An user UNfollow a user
+    // Parameters
+    // @userId,  number that identifies the actual user
+    // @userIdToUnfollow,  number that identifies the user to unfollow
+    // Response 200 / 400 -> if any of the users does not exists
+    // Example: /users/2/unfollow/1
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<String> unfollowUser(@PathVariable int userId,
+                                             @PathVariable int userIdToUnfollow) throws InvalidUserIdException {
+        return new ResponseEntity(iUserService.unfollowUser(userId, userIdToUnfollow), HttpStatus.OK);
+    }
+
     // Get the number of followers that user has
     // Parameters
     // @userId,  number that identifies the actual user

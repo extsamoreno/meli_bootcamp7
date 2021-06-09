@@ -36,10 +36,6 @@
                 ],
     "followers": [
                   {
-                    "userId": 2,
-                    "userName":  "Castro Miguel"
-                  },
-                  {
                     "userId": 3,
                     "userName":  "Rojas Macarena"
                   }
@@ -60,10 +56,6 @@
                   {
                     "userId": 2,
                     "userName":  "Castro Miguel"
-                  },
-                  {
-                    "userId": 3,
-                    "userName":  "Rojas Macarena"
                   }
                 ],
     "posts":  [

@@ -49,7 +49,7 @@ public class ProductController {
     // Parameters
     // @userId,  number that identifies the actual user
     // Response 200 / 400 -> if the user does not exists
-    // Example: /products/followed/{userId}/list
+    // Example: /products/followed/1/list
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<ResponseFollowedPostDTO> getAllPostOfMyFollowed(@PathVariable int userId)
             throws InvalidUserIdException {
