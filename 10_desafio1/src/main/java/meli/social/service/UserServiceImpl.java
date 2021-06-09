@@ -2,7 +2,7 @@ package meli.social.service;
 
 import meli.social.exception.UserIdNotFoundException;
 import meli.social.model.UserModel;
-import meli.social.repository.UserRepository;
+import meli.social.repository.DataRepository;
 import meli.social.service.dto.UserDTO;
 import meli.social.service.dto.UserFollowedListDTO;
 import meli.social.service.dto.UserFollowersCounterDTO;
@@ -19,32 +19,31 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    UserRepository userRepository;
+    DataRepository dataRepository;
 
-    // Prueba seed Json
     @Override
     public List<UserModel> getAllUsers() {
-       return userRepository.seedDb();
+       return dataRepository.getUsersDb();
     }
 
     @Override
     public HttpStatus setFollower(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException {
-        UserModel user = userRepository.findUserById(userId);
-        UserModel userToFollow = userRepository.findUserById(userIdToFollow);
+        UserModel user = dataRepository.findUserById(userId);
+        UserModel userToFollow = dataRepository.findUserById(userIdToFollow);
 
         if (!user.getFollowed().contains(userIdToFollow)) {
             user.getFollowed().add(userIdToFollow);
             userToFollow.getFollowers().add(userId);
         }
 
-        userRepository.saveChangesDb(user, userToFollow);
+        dataRepository.saveUserDb(user, userToFollow);
         return HttpStatus.OK;
     }
 
     @Override
     public HttpStatus removeFollower(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException {
-        UserModel user = userRepository.findUserById(userId);
-        UserModel userToUnfollow = userRepository.findUserById(userIdToUnfollow);
+        UserModel user = dataRepository.findUserById(userId);
+        UserModel userToUnfollow = dataRepository.findUserById(userIdToUnfollow);
 
         for (int i = 0; i < user.getFollowed().size(); i++) {
             if (user.getFollowed().get(i) == userIdToUnfollow) user.getFollowed().remove(i);
@@ -53,24 +52,24 @@ public class UserServiceImpl implements UserService{
             if (userToUnfollow.getFollowers().get(i) == userId) userToUnfollow.getFollowers().remove(i);
         }
 
-        userRepository.saveChangesDb(user, userToUnfollow);
+        dataRepository.saveUserDb(user, userToUnfollow);
         return HttpStatus.OK;
     }
 
     @Override
     public UserFollowersCounterDTO getFollowersCounter (int userId) throws UserIdNotFoundException {
-        UserModel user = userRepository.findUserById(userId);
+        UserModel user = dataRepository.findUserById(userId);
         return UserMapper.toFollowersCounterDto(user);
     }
 
     @Override
     public UserFollowersListDTO getFollowersList(int userId) throws UserIdNotFoundException {
-        UserModel user = userRepository.findUserById(userId);
+        UserModel user = dataRepository.findUserById(userId);
 
         List<UserDTO> followers = new ArrayList<>();
         for (int i = 0; i < user.getFollowers().size(); i++) {
             int idFollower = user.getFollowers().get(i);
-            String nameFollower = userRepository.findUserById(idFollower).getUserName();
+            String nameFollower = dataRepository.findUserById(idFollower).getUserName();
             followers.add(new UserDTO(idFollower, nameFollower));
         }
         return UserMapper.toFollowersListDto(user, followers);
@@ -78,12 +77,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserFollowedListDTO getFollowedList(int userId) throws UserIdNotFoundException {
-        UserModel user = userRepository.findUserById(userId);
+        UserModel user = dataRepository.findUserById(userId);
 
         List<UserDTO> followed = new ArrayList<>();
         for (int i = 0; i < user.getFollowed().size(); i++) {
             int idFollowed = user.getFollowed().get(i);
-            String nameFollowed = userRepository.findUserById(idFollowed).getUserName();
+            String nameFollowed = dataRepository.findUserById(idFollowed).getUserName();
             followed.add(new UserDTO(idFollowed, nameFollowed));
         }
         return UserMapper.toFollowedListDto(user, followed);

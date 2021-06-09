@@ -1,6 +1,7 @@
 package meli.social.controller;
 
 import meli.social.exception.UserIdNotFoundException;
+import meli.social.model.PostModel;
 import meli.social.model.UserModel;
 import meli.social.service.UserService;
 import meli.social.service.dto.UserFollowedListDTO;
@@ -11,20 +12,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Hashtable;
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    // Prueba seed JSON
+    // ------------------------- ENDPOINTS PARA VERIFICAR SEEDS -------------------------
     @GetMapping()
     public List<UserModel> allUsers (){
         return userService.getAllUsers();
     }
+
+    // ------------------------------ ENDPOINTS FUNCIONALES ------------------------------
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
     public HttpStatus followUser (@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdNotFoundException {

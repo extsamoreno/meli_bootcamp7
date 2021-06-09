@@ -16,5 +16,5 @@ public class UserModel {
     private String userName;
     private ArrayList<Integer> followers;
     private ArrayList<Integer> followed;
-    private ArrayList<Integer> post;
+    private ArrayList<Integer> posts;
 }
