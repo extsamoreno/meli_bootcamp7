@@ -25,16 +25,29 @@ public class SocialRepository implements ISocialRepository{
         MerchantDTO merch2 = new MerchantDTO(2,"Merchant2",0,null);
         MerchantDTO merch3 = new MerchantDTO(3,"Merchant3",0,null);
         MerchantDTO merch4 = new MerchantDTO(4,"Merchant4",0,null);
+        MerchantDTO merch5 = new MerchantDTO(1235,"Merchant1235",0,null);
 
         this.merchantsMap.put(1,merch1);
         this.merchantsMap.put(2,merch2);
         this.merchantsMap.put(3,merch3);
         this.merchantsMap.put(4,merch4);
+        this.merchantsMap.put(1235,merch5);
+    }
+
+    @Override
+    public UserDTO getUserById(int userId) {
+        return usersMap.get(userId);
+    }
+
+    @Override
+    public MerchantDTO getMerchantById(int merchantId) {
+        return merchantsMap.get(merchantId);
     }
 
     @Override
     public MerchantDTO followMerchant(Integer userid, Integer merchantId) throws MerchantNotFoundException, FollowAlreadyExistException {
 
+        // the user is created on the follow
         UserDTO userDTO = usersMap.get(userid);
         if (userDTO == null){
             userDTO = new UserDTO();

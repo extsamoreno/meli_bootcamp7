@@ -9,4 +9,6 @@ public interface ISocialRepository {
     FollowersCountDTO followersCount(Integer merchantid, String name) throws MerchantNotFoundException;
     FollowersListDTO followersList(Integer merchantid, String name) throws MerchantNotFoundException;
     FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws UserNotFoundException;
+    UserDTO getUserById(int userId);
+    MerchantDTO getMerchantById(int merchantId);
 }

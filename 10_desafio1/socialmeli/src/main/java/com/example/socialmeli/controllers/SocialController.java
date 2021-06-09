@@ -3,6 +3,7 @@ package com.example.socialmeli.controllers;
 import com.example.socialmeli.dtos.*;
 import com.example.socialmeli.exceptions.MerchantNotFoundException;
 import com.example.socialmeli.exceptions.UserNotFoundException;
+import com.example.socialmeli.models.Post;
 import com.example.socialmeli.services.ISocialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

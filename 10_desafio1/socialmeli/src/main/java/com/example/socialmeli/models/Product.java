@@ -6,8 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private Integer id;
-    private String name;
-    private Merchant[] merchants;
+public class Product {
+    private Integer productId;
+    private String productName, type, brand, color, notes;
 }

@@ -32,4 +32,5 @@ public class SocialService implements  ISocialService{
     public FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws UserNotFoundException {
         return socialRepository.followedByMe(merchantid, name);
     }
+
 }

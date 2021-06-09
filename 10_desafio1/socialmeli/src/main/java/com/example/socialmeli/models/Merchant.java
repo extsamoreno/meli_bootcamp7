@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 public class Merchant {
     private String name;
-    Integer Id, followCount;
-    User[] users;
+    private Integer Id, followCount;
+    private User[] users;
 }
