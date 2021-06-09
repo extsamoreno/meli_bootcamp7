@@ -3,6 +3,7 @@ package com.bootcamp.desafio1.service;
 import com.bootcamp.desafio1.dto.request.NewPostDTO;
 import com.bootcamp.desafio1.dto.request.ProductDTO;
 import com.bootcamp.desafio1.dto.response.CountFollowersDTO;
+import com.bootcamp.desafio1.dto.response.CountPromoDTO;
 import com.bootcamp.desafio1.dto.response.FollowedListDTO;
 import com.bootcamp.desafio1.dto.response.FollowersListDTO;
 import com.bootcamp.desafio1.dto.UserDTO;
@@ -43,10 +44,11 @@ public abstract class Mapper {
         post.setProductId(newPostDTO.getDetail().getProductId());
         post.setCategory(newPostDTO.getCategory());
         post.setPrice(newPostDTO.getPrice());
-        post.setHasPromo(false);
-        post.setDiscount(0);
+        post.setHasPromo(newPostDTO.isHasPromo());
+        post.setDiscount(newPostDTO.getDiscount());
         return post;
     }
+
 
     public static Product NewPostToProduct(NewPostDTO newPostDTO){
         ProductDTO newProductDTO = newPostDTO.getDetail();
@@ -59,6 +61,12 @@ public abstract class Mapper {
         product.setColor(newProductDTO.getColor());
         product.setNotes(newProductDTO.getNotes());
         return product;
+    }
+
+
+    public static CountPromoDTO toCountPromoDTO(User user, int promoCount){
+        return new CountPromoDTO(user.getUserId(), user.getUserName(), promoCount);
+
     }
 
 }
