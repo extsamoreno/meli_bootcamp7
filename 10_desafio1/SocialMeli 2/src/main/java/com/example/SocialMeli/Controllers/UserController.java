@@ -10,10 +10,7 @@ import com.example.SocialMeli.Services.iUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,15 +42,15 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getFollowers (@PathVariable int userId) throws UserNotFoundException {
+    public ResponseEntity<FollowersDTO> getFollowers (@RequestParam(defaultValue="name_desc") String order ,@PathVariable int userId) throws UserNotFoundException {
 
-        return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowers(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<FollowedDTO> getFollowed (@PathVariable int userId) throws UserNotFoundException {
+    public ResponseEntity<FollowedDTO> getFollowed (@RequestParam(defaultValue="name_desc") String order ,@PathVariable int userId) throws UserNotFoundException {
 
-        return new ResponseEntity<>(iUserService.getFollowed(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowed(userId, order), HttpStatus.OK);
     }
 
 

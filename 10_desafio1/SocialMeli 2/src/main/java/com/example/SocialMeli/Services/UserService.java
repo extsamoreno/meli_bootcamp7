@@ -6,12 +6,13 @@ import com.example.SocialMeli.Repositories.iDataRepository;
 import com.example.SocialMeli.Services.DTOs.*;
 import com.example.SocialMeli.Services.Mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.SocialMeli.Services.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
-@Service
-public class UserService implements iUserService{
+@org.springframework.stereotype.Service
+public class UserService extends Service implements iUserService{
 
     @Autowired
     iDataRepository iDataRepository;
@@ -63,18 +64,33 @@ public class UserService implements iUserService{
 
 
     @Override
-    public FollowersDTO getFollowers(int userId) throws UserNotFoundException {
+    public FollowersDTO getFollowers(int userId, String order) throws UserNotFoundException {
+
+        String orderType = this.getOrderType(order);
+
         User user = iDataRepository.getUserByID(userId);
         List<User> follower = iDataRepository.getUsersByIds(user.getFollowers());
 
-        return new FollowersDTO(user.getId(), user.getName(), UserMapper.toDTOs(follower));
+        List<UserDTO> userDTOs = UserMapper.toDTOs(follower);
+
+        this.orderUsersDTOs(userDTOs, orderType);
+
+        return new FollowersDTO(user.getId(), user.getName(), userDTOs);
     }
 
     @Override
-    public FollowedDTO getFollowed(int userId) throws UserNotFoundException{
+    public FollowedDTO getFollowed(int userId, String order) throws UserNotFoundException{
+
+        String orderType = this.getOrderType(order);
+
         User user = iDataRepository.getUserByID(userId);
         List<User> followed = iDataRepository.getUsersByIds(user.getFollowing());
-        return new FollowedDTO(user.getId(), user.getName(), UserMapper.toDTOs(followed));
+
+        List<UserDTO> userDTOs = UserMapper.toDTOs(followed);
+
+        this.orderUsersDTOs(userDTOs, orderType);
+
+        return new FollowedDTO(user.getId(), user.getName(), userDTOs);
     }
 
     @Override
@@ -100,9 +116,24 @@ public class UserService implements iUserService{
         return new FollowDTO(follower.getId(),followed.getId(), "Unfollow");
     }
 
+    private void orderUsersDTOs(List<UserDTO> users, String order){
 
+        Boolean condition = (order.equals("asc")) ? true : false;
+        for (int i = 0; i < users.size(); i++) {
+            for(int j=0;j<users.size()-1;j++)
+            {
 
+                if((users.get(j).getUserName().compareTo(users.get(j+1).getUserName()) < 0) == condition)
+                {
+                    UserDTO aux = new UserDTO(users.get(j).getUserID(),users.get(j).getUserName());
+                    users.set(j, users.get(j+1));
+                    users.set(j+1, aux);
+                }
+            }
 
+        }
+
+    }
 
 
     public List<User> getdb(){

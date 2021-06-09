@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PostService implements iPostService{
+public class PostService extends com.example.SocialMeli.Services.Service implements iPostService{
 
     @Autowired
     iDataRepository iDataRepository;
@@ -85,19 +85,7 @@ public class PostService implements iPostService{
 
 
     }
-    private String getOrderType(String order){
-        String standarOrder = "desc";
-        if(order != null){
-            String[] orderArray = order.split("_");
-            String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
 
-            return orderType;
-        }
-        else{
-            return standarOrder;
-        }
-
-    }
     @Override
     public List<PostDTO> getFollowedPost(int userId, String order) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
 
