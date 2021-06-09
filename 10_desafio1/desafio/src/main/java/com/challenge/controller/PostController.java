@@ -26,7 +26,7 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<List<PostDTO>> getRecentPosts(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingPostsEnum sorting) throws UserIdNotFoundException {
+    public ResponseEntity<RecentPostsResponse> getRecentPosts(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingPostsEnum sorting) throws UserIdNotFoundException {
         return ResponseEntity.ok(postService.getRecentPosts(userId, sorting));
     }
 

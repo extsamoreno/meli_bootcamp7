@@ -28,7 +28,7 @@ public class PostServiceImpl implements PostService {
     UserRepository userRepository;
 
     @Override
-    public List<PostDTO> getRecentPosts(Integer id, SortingPostsEnum sorting) throws UserIdNotFoundException {
+    public RecentPostsResponse getRecentPosts(Integer id, SortingPostsEnum sorting) throws UserIdNotFoundException {
         List<Integer> followedIds = userRepository.getFollowedIds(id);
         List<Post> recentPosts = postRepository.getRecentPosts(followedIds, LocalDate.now().minusWeeks(2));
         if (sorting == null || sorting.equals(SortingPostsEnum.date_asc)) {
@@ -36,7 +36,7 @@ public class PostServiceImpl implements PostService {
         } else if (sorting.equals(SortingPostsEnum.date_desc)) {
             recentPosts.sort(Comparator.comparing(Post::getDate));
         }
-        return PostMapper.toDtoList(recentPosts);
+        return new RecentPostsResponse(id, PostMapper.toDtoList(recentPosts));
     }
 
     @Override

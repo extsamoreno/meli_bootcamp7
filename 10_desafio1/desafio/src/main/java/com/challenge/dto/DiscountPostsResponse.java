@@ -2,16 +2,18 @@ package com.challenge.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"user_id", "username", "posts"})
 public class DiscountPostsResponse {
 
     @JsonProperty("user_id")
     private Integer userId;
     private String username;
-    @JsonProperty("promo_posts")
+    @JsonProperty("posts")
     private List<PostDTO> promoPosts;
 
     public DiscountPostsResponse(Integer userId, String username, List<PostDTO> promoPosts) {
