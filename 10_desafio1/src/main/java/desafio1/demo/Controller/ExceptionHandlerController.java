@@ -20,10 +20,10 @@ public class ExceptionHandlerController {
         return new ResponseEntity<String>("Please verify that you are using the correct data types for this endpoint", HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(Throwable.class)
-//    public ResponseEntity<String> returnError(Exception e){
-//        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<String> returnError(Exception e){
+        return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 
 }

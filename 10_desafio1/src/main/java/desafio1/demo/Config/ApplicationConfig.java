@@ -34,10 +34,22 @@ public class ApplicationConfig {
         modelMapper.addConverter(toStringDate);
         modelMapper.getTypeMap(String.class, LocalDate.class).setProvider(localDateProvider);
 
-//        TypeMap<NewPostDTO, Post> typeMap = modelMapper.createTypeMap(NewPostDTO.class, Post.class);
+        Converter<LocalDate,String> toDateString = new AbstractConverter<LocalDate, String>() {
+            @Override
+            protected String convert(LocalDate localDate) {
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                return localDate.format(format);
+            }
+        };
+
+        modelMapper.createTypeMap(LocalDate.class, String.class);
+        modelMapper.addConverter(toDateString);
+
+//        TypeMap<Post, NewPostDTO> typeMap = modelMapper.createTypeMap(Post.class, NewPostDTO.class);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 //
 //        typeMap.addMappings(mapper ->
-//            mapper.map(src-> LocalDate.parse(src.getDate()), Post::setDate)
+//            mapper.map(src-> src.getDate().format(formatter), NewPostDTO::setDate)
 //        );
 
         return modelMapper;
