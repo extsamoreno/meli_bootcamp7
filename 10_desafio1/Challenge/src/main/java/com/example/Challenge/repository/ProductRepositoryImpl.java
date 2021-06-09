@@ -1,8 +1,10 @@
 package com.example.Challenge.repository;
 
 
+import com.example.Challenge.dto.UserDTO;
 import com.example.Challenge.model.Product;
 import com.example.Challenge.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Repository
 public class ProductRepositoryImpl implements  IProductRepository{
+    @Autowired
+    IUserRepository iUserRepository;
 
     public final List<Product> dataBaseProducts = new ArrayList<>();
 
@@ -24,7 +28,17 @@ public class ProductRepositoryImpl implements  IProductRepository{
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return dataBaseProducts;
+    public List<Product> getAllProducts(Integer userId) {
+        List<Product> listResult = new ArrayList<>();
+        User user = iUserRepository.getUserById(userId);
+
+        for(int i=0; i<user.getFollowed().size(); i++){
+            for(int j=0; j<dataBaseProducts.size();j++){
+                if(user.getFollowed().get(i).getIdUser()== dataBaseProducts.get(j).getUserId()){
+                    listResult.add(dataBaseProducts.get(j));
+                }
+            }
+        }
+        return listResult;
     }
 }

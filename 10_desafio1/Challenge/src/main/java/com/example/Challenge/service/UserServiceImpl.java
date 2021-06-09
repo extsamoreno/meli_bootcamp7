@@ -4,6 +4,7 @@ import com.example.Challenge.dto.UserDTO;
 import com.example.Challenge.dto.UserResponseCountDTO;
 import com.example.Challenge.dto.UserResponseListDTO;
 import com.example.Challenge.dto.UserResponseListFollowedDTO;
+import com.example.Challenge.exception.UserIdNotFoundException;
 import com.example.Challenge.mapper.MapperUser;
 import com.example.Challenge.model.User;
 import com.example.Challenge.repository.IUserRepository;
@@ -21,7 +22,7 @@ public class UserServiceImpl implements   IUserService{
 
 
 
-    public void addFollower(User customer, User seller){
+    public void addFollower(User customer, User seller) {
         List<UserDTO> usersFollowers = seller.getFollowers();
         if (customer!= null){
             usersFollowers.add(MapperUser.toUserDTO(customer));
@@ -64,10 +65,16 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public void Follow(Integer userId, Integer userToFollow) {
+    public void Follow(Integer userId, Integer userToFollow) throws UserIdNotFoundException {
 
         User customer =  iUserRepository.getUserById(userId);
         User seller = iUserRepository.getUserById(userToFollow);
+        if(customer == null){
+            throw new UserIdNotFoundException(userId);
+        }
+        else if (seller == null){
+            throw new UserIdNotFoundException(userToFollow);
+        }
         addFollower(customer,seller);
         addFollowed(customer,seller);
 

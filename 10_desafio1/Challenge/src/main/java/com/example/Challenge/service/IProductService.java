@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IProductService {
     String newPost(Product product);
-    List<Product> getAllProduct();
+    List<Product> getAllProduct(Integer userId);
     ProductResponseDTO getPostById(Integer idUser, String order);
 }

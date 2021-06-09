@@ -22,9 +22,9 @@ public class ProductController {
         iProductService.newPost(product);
         return new ResponseEntity<>("Producto agregado", HttpStatus.OK);
     }
-    @GetMapping("/list")
-    public ResponseEntity<List<Product>> getAllProduct(){
-        return new ResponseEntity<>(iProductService.getAllProduct(), HttpStatus.OK);
+    @GetMapping("/list/{idUser}")
+    public ResponseEntity<List<Product>> getAllProduct(@PathVariable Integer idUser){
+        return new ResponseEntity<>(iProductService.getAllProduct(idUser), HttpStatus.OK);
     }
     @GetMapping("followed/{userId}/list")
     public ResponseEntity<ProductResponseDTO> getAllPostById(@PathVariable Integer userId, @RequestParam(required = false) String order){

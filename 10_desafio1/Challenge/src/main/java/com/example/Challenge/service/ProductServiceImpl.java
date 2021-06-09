@@ -32,19 +32,19 @@ public class ProductServiceImpl implements IProductService{
         return iProductRepository.createPost(product);
     }
 
+
+
     @Override
-    public List<Product> getAllProduct() {
-        return iProductRepository.getAllProducts();
+    public List<Product> getAllProduct(Integer userId) {
+        return iProductRepository.getAllProducts(userId);
 
     }
     @Override
     public ProductResponseDTO getPostById(Integer userId, String order) {
         List<ProductDTO> listResult= new ArrayList<>();
-        List<Product> listProducts = iProductRepository.getAllProducts();
+        List<Product> listProducts = iProductRepository.getAllProducts(userId);
         for(Product product: listProducts){
-            if(product.getUserId().equals(userId)){
-                listResult.add(MapperProduct.toProductDTO(product));
-            }
+            listResult.add(MapperProduct.toProductDTO(product));
         }
         //Sort by date LatestPost
         if(order == null){

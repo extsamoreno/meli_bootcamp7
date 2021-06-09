@@ -3,6 +3,7 @@ package com.example.Challenge.controller;
 import com.example.Challenge.dto.UserResponseCountDTO;
 import com.example.Challenge.dto.UserResponseListDTO;
 import com.example.Challenge.dto.UserResponseListFollowedDTO;
+import com.example.Challenge.exception.UserIdNotFoundException;
 import com.example.Challenge.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class UserController {
     IUserService iUserService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<String> follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow){
+    public ResponseEntity<String> follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdNotFoundException {
         iUserService.Follow(userId, userIdToFollow);
         return  new ResponseEntity<>("OK", HttpStatus.OK);
     }
