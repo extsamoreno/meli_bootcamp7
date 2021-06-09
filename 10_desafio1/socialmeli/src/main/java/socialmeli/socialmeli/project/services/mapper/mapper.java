@@ -5,12 +5,14 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 import socialmeli.socialmeli.project.models.Post;
 import socialmeli.socialmeli.project.models.User;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostArrayDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostDto;
 import socialmeli.socialmeli.project.services.Dto.UserDto.FollowedListResponseDto;
 import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersListResponseDto;
 import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersResponseDto;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 @Data
 @AllArgsConstructor
@@ -41,5 +43,11 @@ public static FollowersResponseDto toFollowersResponseDto(User u, Integer i){
     public static Post dtoToPost(PostDto postDto)
     {
         return new Post(postDto.getUserId(),postDto.getIdPost(),postDto.getDate(),postDto.getDetail(),postDto.getCategory(),postDto.getPrice());
+    }
+
+    public static PostArrayDto postArrayToDto (ArrayList<Post> arrayPost){
+        PostArrayDto postArrayDto = new PostArrayDto();
+        postArrayDto.getPostDtoList().addAll(arrayPost);
+        return postArrayDto;
     }
 }

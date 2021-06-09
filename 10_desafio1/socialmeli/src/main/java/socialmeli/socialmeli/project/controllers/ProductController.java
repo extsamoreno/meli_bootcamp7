@@ -3,11 +3,11 @@ package socialmeli.socialmeli.project.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import socialmeli.socialmeli.project.exceptions.ProductExceptions.NoPostsFoundException;
 import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostAlreadyExistsException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostArrayDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostDto;
 import socialmeli.socialmeli.project.services.IProductService;
 
@@ -26,6 +26,11 @@ public class ProductController {
         ArrayList<String> response = new ArrayList<>();
         response.add("The post for "+postDto.getIdPost()+" has succesfully created");
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<PostArrayDto> getPostList (@PathVariable Integer userId) throws NoPostsFoundException {
+       return new ResponseEntity<>(iProductService.getArrayPostById(userId), HttpStatus.OK);
     }
 
 }

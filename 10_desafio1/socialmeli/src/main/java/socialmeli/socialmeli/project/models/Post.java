@@ -10,12 +10,16 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
-public class Post {
-    private Integer userId;
-    private Integer idPost;
-    private Date date;
-    private Product detail;
-    private Integer category;
-    private Double price;
+    public class Post implements Comparable<Post>{
+        private Integer userId;
+        private Integer idPost;
+        private Date date;
+        private Product detail;
+        private Integer category;
+        private Double price;
 
-}
+    @Override
+    public int compareTo(Post o) {
+        return getDate().compareTo(o.getDate());
+        }
+    }
