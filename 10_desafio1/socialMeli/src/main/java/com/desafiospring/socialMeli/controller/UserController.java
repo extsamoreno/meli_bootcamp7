@@ -3,6 +3,7 @@ package com.desafiospring.socialMeli.controller;
 import com.desafiospring.socialMeli.dto.FollowersCountDTO;
 import com.desafiospring.socialMeli.dto.UserFollowedDTO;
 import com.desafiospring.socialMeli.dto.UserFollowingDTO;
+import com.desafiospring.socialMeli.exceptions.UserAlreadyFollowsException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 import com.desafiospring.socialMeli.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserController {
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity followUser(@PathVariable int userId, @PathVariable int userIdToFollow)
-            throws UserNotFoundException {
+            throws UserNotFoundException, UserAlreadyFollowsException {
         userService.followSeller(userId, userIdToFollow);
         return new ResponseEntity(HttpStatus.OK);
     }

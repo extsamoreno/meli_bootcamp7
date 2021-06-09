@@ -5,9 +5,10 @@ import com.desafiospring.socialMeli.dto.FollowersCountDTO;
 import com.desafiospring.socialMeli.dto.UserDTO;
 import com.desafiospring.socialMeli.dto.UserFollowedDTO;
 import com.desafiospring.socialMeli.dto.UserFollowingDTO;
+import com.desafiospring.socialMeli.exceptions.UserAlreadyFollowsException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 import com.desafiospring.socialMeli.model.User;
-import com.desafiospring.socialMeli.repository.IUserRepository;
+import com.desafiospring.socialMeli.repository.ISocialMeliRepository;
 
 import com.desafiospring.socialMeli.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,22 @@ import java.util.List;
 public class UserService implements IUserService {
 
     @Autowired
-    IUserRepository userRepository;
+    ISocialMeliRepository socialMeliRepository;
 
     @Override
-    public void followSeller(int userId, int userIdToFollow) throws UserNotFoundException {
-        userRepository.findUserById(userId);
-        userRepository.findUserById(userIdToFollow);
-        userRepository.addFollowerToUser(userId, userIdToFollow);
+    public void followSeller(int userId, int userIdToFollow) throws
+            UserNotFoundException, UserAlreadyFollowsException {
+        socialMeliRepository.findUserById(userId);
+        socialMeliRepository.findUserById(userIdToFollow);
+
+
+        socialMeliRepository.addFollowerToUser(userId, userIdToFollow);
     }
 
     @Override
     public FollowersCountDTO getNumberOfFollowers(int userId) throws UserNotFoundException {
-        User user = userRepository.findUserById(userId);
-        int count = userRepository.getFollowersCount(userId);
+        User user = socialMeliRepository.findUserById(userId);
+        int count = socialMeliRepository.getFollowersCount(userId);
 
         return new FollowersCountDTO(user.getUserId(), user.getUserName(), count);
     }
@@ -40,7 +44,7 @@ public class UserService implements IUserService {
     @Override
     public UserFollowedDTO getFollowers(int userId) throws UserNotFoundException {
 
-        User user = userRepository.findUserById(userId);
+        User user = socialMeliRepository.findUserById(userId);
         List<UserDTO> followersList = new ArrayList<>();
 
         for (User u : user.getFollowedBy()) {
@@ -52,7 +56,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserFollowingDTO getFollowingList(int userId) throws UserNotFoundException {
-        User user = userRepository.findUserById(userId);
+        User user = socialMeliRepository.findUserById(userId);
         List<UserDTO> followingList = new ArrayList<>();
 
         for (User u : user.getFollowed()) {
@@ -66,9 +70,9 @@ public class UserService implements IUserService {
 
     @Override
     public void unfollowSeller(int userId, int userIdToFollow) throws UserNotFoundException {
-        userRepository.findUserById(userId);
-        userRepository.findUserById(userIdToFollow);
-        userRepository.deleteFollower(userId, userIdToFollow);
+        socialMeliRepository.findUserById(userId);
+        socialMeliRepository.findUserById(userIdToFollow);
+        socialMeliRepository.deleteFollower(userId, userIdToFollow);
     }
 
 }

@@ -1,20 +1,24 @@
 package com.desafiospring.socialMeli.repository;
 
-import com.desafiospring.socialMeli.dto.UserDTO;
+import com.desafiospring.socialMeli.exceptions.PostIdAlreadyExistException;
+import com.desafiospring.socialMeli.exceptions.UserAlreadyFollowsException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
+import com.desafiospring.socialMeli.model.Post;
 import com.desafiospring.socialMeli.model.User;
-import com.desafiospring.socialMeli.service.mapper.UserMapper;
 import org.springframework.stereotype.Repository;
 
+import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
-public class UserRepository implements IUserRepository {
+public class SocialMeliRepository implements ISocialMeliRepository {
     HashMap<Integer, User> usersDic = new HashMap<>();
+    private List<Post> posts = new ArrayList<>();
 
-    public UserRepository() {
+    public SocialMeliRepository() {
         usersDic.put(1, new User("Usuario1", 1, new ArrayList<>(), new ArrayList<>()));
         usersDic.put(2, new User("Usuario2", 2, new ArrayList<>(), new ArrayList<>()));
         usersDic.put(3, new User("Usuario3", 3, new ArrayList<>(), new ArrayList<>()));
@@ -32,10 +36,17 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void addFollowerToUser(int userId, int userIdToFollow) throws UserNotFoundException {
-        
-        usersDic.get(userId).getFollowed().add(findUserById(userIdToFollow));
-        usersDic.get(userIdToFollow).getFollowedBy().add(findUserById(userId));
+    public void addFollowerToUser(int userId, int userIdToFollow)
+            throws UserNotFoundException, UserAlreadyFollowsException {
+        User user = findUserById(userId);
+        User userToFollow = findUserById(userIdToFollow);
+
+        if (user.getFollowed().contains(userToFollow)) {
+            throw new UserAlreadyFollowsException(userId, userIdToFollow);
+        } else {
+            usersDic.get(userId).getFollowed().add(findUserById(userIdToFollow));
+            usersDic.get(userIdToFollow).getFollowedBy().add(findUserById(userId));
+        }
     }
 
     @Override
@@ -72,5 +83,39 @@ public class UserRepository implements IUserRepository {
         usersDic.get(userId).getFollowed().remove(findUserById(userIdToFollow));
         usersDic.get(userIdToFollow).getFollowedBy().remove(findUserById(userId));
     }
+
+
+    @Override
+    public void addNewPost(Post post) throws PostIdAlreadyExistException {
+
+        Post checkPost = this.posts.stream()
+                .filter(p -> p.getId_post() == post.getId_post())
+                .findAny().orElse(null);
+
+        if (checkPost != null) {
+            throw new PostIdAlreadyExistException(post.getId_post());
+        } else {
+            this.posts.add(post.getId_post(), post);
+        }
+
+    }
+
+    @Override
+    public List<Post> getFollowedPosts(List<User> followed) {
+        List<Post> followedPosts = new ArrayList<>();
+
+        for (User u : followed) {
+            followedPosts.addAll(getPosts(u.getUserId()));
+        }
+
+        return followedPosts;
+    }
+
+    private List<Post> getPosts(Integer userId) {
+        return this.posts.stream()
+                .filter(i -> i.getUserId() == (userId))
+                .collect(Collectors.toList());
+    }
+
 
 }
