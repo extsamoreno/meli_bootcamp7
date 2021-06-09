@@ -5,11 +5,11 @@ import com.example.demo.model.User;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface IUserRepository {
 
-    public List<User> getUserList();
-    public HashMap<Integer, List<UserDTO>> getFollowersList();
-    public HashMap<Integer, List<UserDTO>> getFollowedList();
-    public User getUserById(int id);
+    User getUserById(Integer id);
+
+
 }

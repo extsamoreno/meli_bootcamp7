@@ -10,7 +10,7 @@ public class FollowersListDTO {
 
     private int id;
     private String userName;
-    private List<UserDTO> followers;
+    private List<UserDTO> followers = new ArrayList<>();
 
     public FollowersListDTO(String userName, int id, List<UserDTO> followers) {
         this.userName = userName;

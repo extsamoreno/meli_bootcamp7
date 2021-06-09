@@ -19,7 +19,6 @@ public class UserController {
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<Boolean> followUser(@PathVariable int userId, @PathVariable int userIdToFollow){
-        System.out.println(userRepository.getUserById(userId).getUserName() + " is now following " + userRepository.getUserById(userIdToFollow).getUserName());
         return new ResponseEntity<>(userServices.followUser(userId, userIdToFollow), HttpStatus.OK);
     }
 
@@ -31,6 +30,16 @@ public class UserController {
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<?> getFollowersList(@PathVariable int userId){
         return new ResponseEntity<>(userServices.getFollowersList(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<?> getFollowedList(@PathVariable int userId){
+        return new ResponseEntity<>(userServices.getFollowedList(userId), HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow){
+        return new ResponseEntity<>(userServices.unfollow(userId, userIdToUnfollow), HttpStatus.OK);
     }
 
 

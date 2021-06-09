@@ -1,13 +1,19 @@
 package com.example.demo.services;
 
+import com.example.demo.model.DTO.FollowedListDTO;
 import com.example.demo.model.DTO.FollowersListDTO;
 import com.example.demo.model.DTO.ResponseCountDTO;
 
 public interface IUserServices {
 
-    public boolean followUser(int userId, int userIdToFollow);
+    boolean followUser(int userId, int userIdToFollow);
 
-    public ResponseCountDTO getFollowersCount(int userId);
+    ResponseCountDTO getFollowersCount(int userId);
 
-    public FollowersListDTO getFollowersList(int userId);
+    FollowersListDTO getFollowersList(int userId);
+
+    FollowedListDTO getFollowedList(int userId);
+
+    boolean unfollow(int userId, int userIdToUnfollow);
+
 }

@@ -1,7 +1,9 @@
 package com.example.demo.model.DTO;
 
 import com.example.demo.model.User;
+import lombok.Data;
 
+@Data
 public class ResponseCountDTO {
 
     private int id;
