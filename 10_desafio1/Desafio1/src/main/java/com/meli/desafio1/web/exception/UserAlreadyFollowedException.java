@@ -4,6 +4,6 @@ import org.springframework.http.HttpStatus;
 
 public class UserAlreadyFollowedException extends UserException{
     public UserAlreadyFollowedException(int user, int followed,  HttpStatus status) {
-        super("The id: " + user + " already follows user "+ followed, HttpStatus.BAD_REQUEST);
+        super("The user with id: " + user + " already follows user with id: "+ followed, HttpStatus.BAD_REQUEST);
     }
 }

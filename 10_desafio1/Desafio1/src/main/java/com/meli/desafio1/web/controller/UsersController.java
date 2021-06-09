@@ -30,26 +30,21 @@ public class UsersController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<List<UserDTO>> ListFollowersResponse(@RequestParam(value = "order", required = false,defaultValue = "") String order,@PathVariable("userId") int userId){
+    public ResponseEntity<List<UserDTO>> ListFollowersResponse(@RequestParam(value = "order", required = false,defaultValue = "") String order,@PathVariable("userId") int userId) throws UserNotFoundException {
         return new ResponseEntity<>(iUserService.followersByUserId(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<List<UserDTO>> ListFollowedResponse(@RequestParam(value = "order", required = false, defaultValue = "") String order,@PathVariable("userId") int userId){
+    public ResponseEntity<List<UserDTO>> ListFollowedResponse(@RequestParam(value = "order", required = false, defaultValue = "") String order,@PathVariable("userId") int userId) throws UserNotFoundException {
         return new ResponseEntity<>(iUserService.followedByUserId(userId,order), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<Integer> unFollowResponse(@PathVariable("userId") int userId, @PathVariable("userIdToUnfollow") int userIdToUnfollow){
+    public ResponseEntity<String> unFollowResponse(@PathVariable("userId") int userId, @PathVariable("userIdToUnfollow") int userIdToUnfollow) throws UserException {
 
-        int respuesta = iUserService.unFollow(userId,userIdToUnfollow);
-        HttpStatus status;
-        if(respuesta == 1) {
-            status = HttpStatus.CREATED;
-        }else{
-            status = HttpStatus.BAD_REQUEST;
-        }
+        iUserService.unFollow(userId,userIdToUnfollow);
 
-        return new ResponseEntity<>(respuesta, status);
+
+        return new ResponseEntity<>("todo OK", HttpStatus.OK);
     }
 }

@@ -54,4 +54,13 @@ public class UserRepository implements IUserRepository{
             }
             return null;
     }
+    @Override
+    public String userNameByUserId(int userId) {
+        for(User user:this.listaUser){
+            if(user.getUserId()==userId){
+                return user.getUserName();
+            }
+        }
+        return "";
+    }
 }

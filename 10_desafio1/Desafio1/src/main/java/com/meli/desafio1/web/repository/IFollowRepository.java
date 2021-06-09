@@ -11,4 +11,5 @@ public interface IFollowRepository {
     public void setFollowList(List <Follow> followList);
     public Follow getFollowById(int userId);
 
+
 }
