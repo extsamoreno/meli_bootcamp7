@@ -17,8 +17,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Repository
@@ -36,9 +40,58 @@ public class DataRepository implements iDataRepository {
         followed.addFollower(follower.getId());
         follower.addFollowed(followed.getId());
 
-        return new FollowDTO(followedID,followerID, "Follow");
+        return new FollowDTO(followerID,followedID, "Follow");
     }
 
+    @Override
+    public List<PostDTO> getFollowedPost(int userId) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
+
+        User user = this.findUserByID(userId);
+
+        List<PostDTO> output = new ArrayList<>();
+        for (int i = 0; i < user.getFollowing().size(); i++) {
+
+            User followed = this.findUserByID(user.getFollowing().get(i));
+            output.addAll(this.getPostDTOsByIds(followed.getPosts()));
+        }
+        this.filterPostByDate(output, LocalDate.now().minusWeeks(2), LocalDate.now());
+        return output;
+    }
+    private void filterPostByDate(List<PostDTO> posts ,LocalDate from, LocalDate until){
+
+        for (int i = 0; i < posts.size(); i++) {
+            LocalDate postDate = LocalDate.parse(posts.get(i).getDate());
+            Boolean biggerThanUntil = (postDate.isAfter(from) || postDate.isEqual(from));
+            Boolean smallerThanFrom = (postDate.isBefore(until) || postDate.isEqual(until));
+
+            if(!(biggerThanUntil && smallerThanFrom)){
+                posts.remove(i);
+            }
+
+        }
+
+    }
+    private List<UserDTO> getUserDTOListByIds(List<Integer> UserIds) throws UserNotFoundException {
+
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (int i = 0; i < UserIds.size(); i++) {
+            User user = this.findUserByID(UserIds.get(i));
+            userDTOS.add(UserMapper.toDTO(user));
+        }
+        return userDTOS;
+
+    }
+    private List<PostDTO> getPostDTOsByIds(List<Integer> postIds) throws PostNotFoundException, ProductNotFoundException {
+
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for (int i = 0; i < postIds.size(); i++) {
+            Post post = this.findPostByID(postIds.get(i));
+            Product product = this.findProductByID(post.getProductId());
+            postDTOS.add(PostMapper.toDTO(post, ProductMapper.toDTO(product)));
+        }
+        return postDTOS;
+
+    }
     @Override
     public FollowCountDTO getFollowersCount(int userId) throws UserNotFoundException {
 
@@ -59,7 +112,7 @@ public class DataRepository implements iDataRepository {
     public FollowedDTO getFollowed(int userId) throws UserNotFoundException {
 
         User user = this.findUserByID(userId);
-        List<UserDTO> followerDTOs = this.getUserDTOListByIds(user.getFollowedBy());
+        List<UserDTO> followerDTOs = this.getUserDTOListByIds(user.getFollowing());
         return new FollowedDTO(user.getId(), user.getName(), followerDTOs);
     }
 
@@ -115,16 +168,7 @@ public class DataRepository implements iDataRepository {
             return false;
         }
     }
-    private List<UserDTO> getUserDTOListByIds(List<Integer> UserIds) throws UserNotFoundException {
 
-        List<UserDTO> userDTOS = new ArrayList<>();
-        for (int i = 0; i < UserIds.size(); i++) {
-            User user = this.findUserByID(UserIds.get(i));
-            userDTOS.add(UserMapper.toDTO(user));
-        }
-        return userDTOS;
-
-    }
     private int findPostIndexByID(int postId) throws PostNotFoundException {
 
         for (int i = 0; i < posts.size(); i++) {

@@ -3,42 +3,42 @@
     "id": "1",
     "name": "Felipe Aranda",
     "followers": [],
-    "followedBy": [],
+    "following": [],
     "posts":[]
   },
   {
     "id": "2",
     "name": "Catalina Palma",
     "followers": [],
-    "followedBy": [],
+    "following": [],
     "posts":[]
   },
   {
     "id": "3",
     "name": "Andres Cortez",
     "followers": [],
-    "followedBy": [],
+    "following": [],
     "posts":[]
   },
   {
     "id": "4",
     "name": "Patricio Gutierrez",
     "followers": [],
-    "followedBy": [],
+    "following": [],
     "posts":[]
   },
   {
     "id": "5",
     "name": "Diego Algo",
     "followers": [],
-    "followedBy": [],
+    "following": [],
     "posts":[]
   },
   {
     "id": "6",
     "name": "Tamara Aranda",
     "followers": [],
-    "followedBy": [],
+    "following": [],
     "posts":[]
   }
 ]

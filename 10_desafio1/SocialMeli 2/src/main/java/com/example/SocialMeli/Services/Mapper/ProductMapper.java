@@ -9,8 +9,9 @@ import com.example.SocialMeli.Services.DTOs.UserDTO;
 
 public class ProductMapper {
 
-    public static UserDTO toDTO(User user){
-        return new UserDTO(user.getId(), user.getName());
+    public static ProductDTO toDTO(Product product){
+
+        return new ProductDTO(product.getId(),product.getName(), product.getType(), product.getColor(), product.getNotes());
     }
 
     public static Product toProduct(ProductDTO productDTO){

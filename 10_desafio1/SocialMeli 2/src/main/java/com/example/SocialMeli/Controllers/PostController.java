@@ -1,9 +1,6 @@
 package com.example.SocialMeli.Controllers;
 
-import com.example.SocialMeli.Exceptions.PostIdInUseException;
-import com.example.SocialMeli.Exceptions.ProductIdInUseException;
-import com.example.SocialMeli.Exceptions.ProductNotFoundException;
-import com.example.SocialMeli.Exceptions.UserNotFoundException;
+import com.example.SocialMeli.Exceptions.*;
 
 import com.example.SocialMeli.Services.DTOs.PostDTO;
 import com.example.SocialMeli.Services.iPostService;
@@ -27,5 +24,8 @@ public class PostController {
         iPostService.makePost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @GetMapping("/products/followed/{userId}/list")
+    public ResponseEntity<List<PostDTO>> getFollowedPosts (@PathVariable int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
+        return new ResponseEntity<>(iPostService.getFollowedPost(userId) ,HttpStatus.OK);
+    }
 }

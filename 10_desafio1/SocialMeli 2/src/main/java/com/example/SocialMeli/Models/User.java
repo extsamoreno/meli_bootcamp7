@@ -14,7 +14,7 @@ public class User {
     private int id;
     private String name;
     private List<Integer> followers;
-    private List<Integer> followedBy;
+    private List<Integer> following;
     private List<Integer> posts;
 
 
@@ -23,7 +23,7 @@ public class User {
     }
 
     public void addFollowed(int userId){
-        this.followedBy.add(userId);
+        this.following.add(userId);
     }
 
     public void addPost(int postId){
