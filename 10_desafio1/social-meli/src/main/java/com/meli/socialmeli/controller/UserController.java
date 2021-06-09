@@ -27,13 +27,13 @@ public class UserController {
     //Requirement US 0002
     @GetMapping("/{userId}/followers/count/")
     public ResponseEntity<FollowersCountDTO> getUserFollowersCount(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowersCount(userId),HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }
 
     //Requirement US 0003/008
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<UserFollowersDTO> getUserFollowers(@PathVariable Integer userId, @RequestParam(required = false) String order) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iUserService.getUserFollowers(userId,order),HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getUserFollowers(userId,order), HttpStatus.OK);
     }
 
     //Requirement US 0004/008

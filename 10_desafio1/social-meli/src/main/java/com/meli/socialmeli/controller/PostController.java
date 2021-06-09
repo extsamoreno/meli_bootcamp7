@@ -3,6 +3,7 @@ package com.meli.socialmeli.controller;
 import com.meli.socialmeli.dto.FollowedPostsDTO;
 import com.meli.socialmeli.dto.NewPostDTO;
 import com.meli.socialmeli.dto.NewPromoPostDTO;
+import com.meli.socialmeli.dto.PromoPostCount;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 import com.meli.socialmeli.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,13 @@ public class PostController {
 
     //Requirement US 0011
     @GetMapping("/{userId}/countPromo")
-    public ResponseEntity<?> getPromoPostCount(@PathVariable Integer userId) throws UserIdNotFoundException {
+    public ResponseEntity<PromoPostCount> getPromoPostCount(@PathVariable Integer userId) throws UserIdNotFoundException {
         return new ResponseEntity<>(iPostService.getPromoPostCount(userId), HttpStatus.OK);
+    }
+
+    //Requirement US 0012
+    @GetMapping("/{userId}/list/")
+    public ResponseEntity<?> getUserPromoPosts(@PathVariable Integer userId) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iPostService.getUserPromoPosts(userId), HttpStatus.OK);
     }
 }

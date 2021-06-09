@@ -1,9 +1,6 @@
 package com.meli.socialmeli.service;
 
-import com.meli.socialmeli.dto.FollowedPostsDTO;
-import com.meli.socialmeli.dto.NewPostDTO;
-import com.meli.socialmeli.dto.NewPromoPostDTO;
-import com.meli.socialmeli.dto.PromoPostCount;
+import com.meli.socialmeli.dto.*;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IPostRepository;
@@ -62,5 +59,16 @@ public class PostService implements IPostService{
         }
 
         return new PromoPostCount(user.getUserId(), user.getUserName(), iPostRepository.getPromoPosts(userId).size());
+    }
+
+    @Override
+    public UserPromoPostsDTO getUserPromoPosts(Integer userId) throws UserIdNotFoundException {
+        User user = iUserRepository.findUserById(userId);
+
+        if(user == null) {
+            throw new UserIdNotFoundException(userId);
+        }
+
+        return new UserPromoPostsDTO(user.getUserId(), user.getUserName(), iPostRepository.getPromoPosts(userId));
     }
 }
