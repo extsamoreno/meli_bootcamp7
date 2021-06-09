@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.stream.Stream;
 
 public interface IRepository {
-    public HashMap<Integer, User> getUserDict();
     public User getUserById(int userId) throws UserNotFoundException;
     public Stream<User> getUserFollowersById(int userId) throws UserNotFoundException;
     public Stream<Post> getUserPromoPostsById(int userId) throws UserNotFoundException;

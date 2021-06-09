@@ -48,6 +48,7 @@ public class ProductService implements IProductService {
             postStream = Stream.concat(postStream,u.getPostList().stream()
                     .filter(post -> post.getDate().plusDays(12).isAfter(LocalDate.now()))            );
         }
+        //Sort after concatenating all the recent posts from all the vendors in a single stream.
         var postList = postStream.sorted(HelperComparator.postDateComparatorDescDefault(order))
                 .map(post -> modelMapper.map(post, PostResponseDTO.class))
                 .collect(Collectors.toList());

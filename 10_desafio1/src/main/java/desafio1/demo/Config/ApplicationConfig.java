@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 
 @Configuration
 public class ApplicationConfig {
+
+    //Model Mapper configuration to map automatically from LocalDate to String, and fom String to LocalDate.
     @Bean
     public ModelMapper modelMapper(){
         var modelMapper = new ModelMapper();
@@ -23,7 +25,7 @@ public class ApplicationConfig {
         Converter<String, LocalDate> toStringDate = new AbstractConverter<String, LocalDate>() {
             @Override
             protected LocalDate convert(String source) {
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("d-M-y");
                 return LocalDate.parse(source, format);
             }
         };
@@ -35,7 +37,7 @@ public class ApplicationConfig {
         Converter<LocalDate,String> toDateString = new AbstractConverter<LocalDate, String>() {
             @Override
             protected String convert(LocalDate localDate) {
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("d-M-y");
                 return localDate.format(format);
             }
         };
@@ -43,13 +45,7 @@ public class ApplicationConfig {
         modelMapper.createTypeMap(LocalDate.class, String.class);
         modelMapper.addConverter(toDateString);
 
-//        TypeMap<Post, NewPostDTO> typeMap = modelMapper.createTypeMap(Post.class, NewPostDTO.class);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//
-//        typeMap.addMappings(mapper ->
-//            mapper.map(src-> src.getDate().format(formatter), NewPostDTO::setDate)
-//        );
-
         return modelMapper;
     }
 }
+

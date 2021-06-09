@@ -4,6 +4,8 @@ import desafio1.demo.Model.DTO.ErrorDTO;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+//General exception that all the other custom exceptions extend.
+
 @Data
 public class ApiException extends Exception{
     ErrorDTO errorDTO = new ErrorDTO();
