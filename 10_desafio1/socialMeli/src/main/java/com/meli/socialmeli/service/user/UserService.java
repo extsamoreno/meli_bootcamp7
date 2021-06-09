@@ -8,7 +8,7 @@ import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
 import com.meli.socialmeli.exception.FollowException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.repository.user.IUserRepository;
-import com.meli.socialmeli.service.SocialMeliMapper;
+import com.meli.socialmeli.service.UserMapper;
 import com.meli.socialmeli.service.orderType.UserOrderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,12 +44,12 @@ public class UserService implements IUserService {
 
     @Override
     public UserWithFollowersCountDTO followersCountOf(Integer userId) throws IdNotFoundException {
-        return SocialMeliMapper.toFollowersCountDTO(getValidUserById(userId));
+        return UserMapper.toFollowersCountDTO(getValidUserById(userId));
     }
 
     @Override
     public UserWithFollowersDTO followersOf(Integer userId, UserOrderType order) throws IdNotFoundException {
-        UserWithFollowersDTO user = SocialMeliMapper.toFollowersDTO(getValidUserById(userId));
+        UserWithFollowersDTO user = UserMapper.toFollowersDTO(getValidUserById(userId));
         if (order == null) return user;
         sortByName(user.getFollowers(), order);
         return user;
@@ -70,7 +70,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserWithFollowedDTO followedOf(Integer userId, UserOrderType order) throws IdNotFoundException {
-        UserWithFollowedDTO user = SocialMeliMapper.toFollowedDTO(getValidUserById(userId));
+        UserWithFollowedDTO user = UserMapper.toFollowedDTO(getValidUserById(userId));
         if (order == null) return user;
         sortByName(user.getFollowed(), order);
         return user;

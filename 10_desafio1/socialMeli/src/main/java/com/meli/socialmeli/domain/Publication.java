@@ -1,6 +1,9 @@
 package com.meli.socialmeli.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -15,16 +18,20 @@ public class Publication {
     private Product detail;
     private Integer category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 
     @Override
     public String toString() {
         return "Publication{" +
                 "userId=" + userId +
-                ", id_post=" + idPost +
+                ", idPost=" + idPost +
                 ", date=" + date +
                 ", detail=" + detail +
                 ", category=" + category +
                 ", price=" + price +
+                ", hasPromo=" + hasPromo +
+                ", discount=" + discount +
                 '}';
     }
 }

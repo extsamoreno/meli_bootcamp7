@@ -3,13 +3,14 @@ package com.meli.socialmeli.service.product;
 import com.meli.socialmeli.domain.Publication;
 import com.meli.socialmeli.dto.product.FollowedPublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationDTO;
+import com.meli.socialmeli.dto.product.PublicationWithPromoDTO;
 import com.meli.socialmeli.dto.user.UserDTO;
 import com.meli.socialmeli.dto.user.UserWithFollowedDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
 import com.meli.socialmeli.repository.product.IProductRepository;
-import com.meli.socialmeli.service.SocialMeliMapper;
+import com.meli.socialmeli.service.PublicationMapper;
 import com.meli.socialmeli.service.orderType.PublicationOrderType;
 import com.meli.socialmeli.service.orderType.UserOrderType;
 import com.meli.socialmeli.service.user.IUserService;
@@ -32,7 +33,7 @@ public class ProductService implements IProductService {
 
     @Override
     public void createPost(PublicationDTO post) throws CanNotCreatePostException, InvalidDateFormatException {
-        productRepository.save(SocialMeliMapper.toPublication(post));
+        productRepository.save(PublicationMapper.toPublication(post));
     }
 
     @Override
@@ -45,21 +46,26 @@ public class ProductService implements IProductService {
         return sortByDate(user.getUserId(), posts, order);
     }
 
+    @Override
+    public void createPostWithPromo(PublicationWithPromoDTO post) throws InvalidDateFormatException, CanNotCreatePostException {
+        productRepository.save(PublicationMapper.promoToPublication(post));
+    }
+
     private FollowedPublicationDTO sortByDate(Integer userId, List<Publication> posts, PublicationOrderType order) {
         if (order.equals(PublicationOrderType.date_desc)) return followedPublicationDTODesc(userId, posts);
         else if (order.equals(PublicationOrderType.date_asc)) return followedPublicationDTOAsc(userId, posts);
-        else return new FollowedPublicationDTO(userId, SocialMeliMapper.toPublicationDTOList(posts));
+        else return new FollowedPublicationDTO(userId, PublicationMapper.toPublicationDTOList(posts));
     }
 
 
     private FollowedPublicationDTO followedPublicationDTOAsc(Integer userId, List<Publication> posts) {
         orderListAsc(posts);
-        return new FollowedPublicationDTO(userId, SocialMeliMapper.toPublicationDTOList(posts));
+        return new FollowedPublicationDTO(userId, PublicationMapper.toPublicationDTOList(posts));
     }
 
     private FollowedPublicationDTO followedPublicationDTODesc(Integer userId, List<Publication> posts) {
         orderListDesc(posts);
-        return new FollowedPublicationDTO(userId, SocialMeliMapper.toPublicationDTOList(posts));
+        return new FollowedPublicationDTO(userId, PublicationMapper.toPublicationDTOList(posts));
     }
 
     private void orderListAsc(List<Publication> list) {

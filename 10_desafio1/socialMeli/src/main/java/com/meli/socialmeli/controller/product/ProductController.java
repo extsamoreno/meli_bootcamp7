@@ -2,6 +2,7 @@ package com.meli.socialmeli.controller.product;
 
 import com.meli.socialmeli.dto.product.FollowedPublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationDTO;
+import com.meli.socialmeli.dto.product.PublicationWithPromoDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
@@ -29,5 +30,9 @@ public class ProductController {
     public ResponseEntity<FollowedPublicationDTO> followedPublications(@PathVariable Integer userId,@RequestParam(required = false) PublicationOrderType order) throws IdNotFoundException {
         return new ResponseEntity<>(productService.followedRecentPublications(userId,order), HttpStatus.OK);
     }
-
+    @PostMapping("/newpromopost")
+    public ResponseEntity<Void> createNewPostWithPromo(@RequestBody PublicationWithPromoDTO body) throws CanNotCreatePostException, InvalidDateFormatException {
+        productService.createPostWithPromo(body);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
