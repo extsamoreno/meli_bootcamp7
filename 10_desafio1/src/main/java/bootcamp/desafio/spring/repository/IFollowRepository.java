@@ -10,9 +10,21 @@ public interface IFollowRepository {
 
     List<Follow> findAll();
 
+    /**
+     * Obtengo lista de todas las personas a las que sige una persona
+     * @param followerId userId de cliente Vendedor
+     * @return listaDeRelacion
+     */
     ArrayList<Follow> findByIdFollower(Long followerId);
 
-    ArrayList<Follow> findByIdFollow(Long followId);
+    /**
+     * Obtengo lista de todas las personas que esta siguiendo una persona
+     * @param followId userId de cliente
+     * @return listaDeRelacion
+     */
+    ArrayList<Follow> findByIdFollowing(Long followId);
 
     Follow save(Follow follow);
+
+    void remove(Follow follow);
 }

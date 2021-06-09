@@ -5,14 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserCountFollowersDTO {
+public class ProductFollowedDTO {
 
-    private Long userId;
-    private String userName;
-    private int followers_count;
-
+    private long userId;
+    private ArrayList<PostDTO> posts;
 }

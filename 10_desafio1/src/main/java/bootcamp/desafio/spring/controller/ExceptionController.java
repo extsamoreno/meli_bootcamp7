@@ -1,6 +1,8 @@
 package bootcamp.desafio.spring.controller;
 
 
+import bootcamp.desafio.spring.exception.DateException;
+import bootcamp.desafio.spring.exception.PostException;
 import bootcamp.desafio.spring.exception.UserException;
 import bootcamp.desafio.spring.service.dto.ErrorDTO;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,16 @@ public class ExceptionController {
 
     @ExceptionHandler(UserException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(UserException e){
+        return new ResponseEntity<ErrorDTO>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(PostException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(PostException e){
+        return new ResponseEntity<ErrorDTO>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(DateException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(DateException e){
         return new ResponseEntity<ErrorDTO>(e.getError(),e.getStatus());
     }
 }

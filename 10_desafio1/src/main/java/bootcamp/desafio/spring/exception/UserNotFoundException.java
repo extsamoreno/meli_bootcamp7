@@ -2,6 +2,7 @@ package bootcamp.desafio.spring.exception;
 
 import org.springframework.http.HttpStatus;
 
+
 public class UserNotFoundException extends UserException{
 
     public UserNotFoundException(Long UserId) {

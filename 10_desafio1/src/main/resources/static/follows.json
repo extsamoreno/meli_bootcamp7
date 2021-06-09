@@ -1,0 +1,34 @@
+[
+  {
+    "idUserFollowing": 1001,
+    "idUserFollower": 1005
+  },
+  {
+    "idUserFollowing": 1002,
+    "idUserFollower": 1005
+  },
+  {
+    "idUserFollowing": 1003,
+    "idUserFollower": 1005
+  },
+  {
+    "idUserFollowing": 1004,
+    "idUserFollower": 1005
+  },
+  {
+    "idUserFollowing": 1005,
+    "idUserFollower": 1005
+  },
+  {
+    "idUserFollowing": 1005,
+    "idUserFollower": 1004
+  },
+  {
+    "idUserFollowing": 1005,
+    "idUserFollower": 1003
+  },
+  {
+    "idUserFollowing": 1005,
+    "idUserFollower": 1002
+  }
+]

@@ -32,6 +32,7 @@ public class UserService implements IUserService{
             throw new UserNotFoundException(sellerId);
         }
         Follow follow= new Follow(userId,sellerId);
+
         iFollowRepository.save(follow);
     }
 
@@ -45,18 +46,55 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public ArrayList<UserDTO> getFollowers(Long userId) {
+    public ArrayList<UserDTO> getFollowers(Long userId, String order) {
         ArrayList<UserDTO> result= new ArrayList<>();
         for (Follow us:iFollowRepository.findByIdFollower(userId)) {
-            Optional<User> user= iClientRepository.findById(us.getIdUserFollow());
+            Optional<User> user= iClientRepository.findById(us.getIdUserFollowing());
             if(user.isPresent()){
-                result.add(
-                        UserMapper.toDTO(user.get()));
+                result.add(UserMapper.toDTO(user.get()));
             }
 
         }
-        return result;
+        switch (order){
+            case "name_asc":
+                result.sort((d1,d2) -> d1.getUserName().compareTo(d2.getUserName()));
+                return result;
+            case "name_desc":
+                result.sort((d1,d2) -> d2.getUserName().compareTo(d1.getUserName()));
+                return result;
+            default:
+                return result;
+        }
     }
 
+    @Override
+    public ArrayList<UserDTO> getFollows(Long userId, String order) {
+        ArrayList<UserDTO> result= new ArrayList<>();
+        for (Follow us:iFollowRepository.findByIdFollowing(userId)) {
+            Optional<User> user= iClientRepository.findById(us.getIdUserFollower());
+            if(user.isPresent()){
+                result.add(UserMapper.toDTO(user.get()));
+            }
+        }
+        switch (order){
+            case "name_asc":
+                result.sort((d1,d2) -> d1.getUserName().compareTo(d2.getUserName()));
+                return result;
+            case "name_desc":
+                result.sort((d1,d2) -> d2.getUserName().compareTo(d1.getUserName()));
+                return result;
+            default:
+                return result;
+        }
+    }
 
+    @Override
+    public void unfollow(Long userId, Long sellerId) {
+        iFollowRepository.remove(new Follow(userId,sellerId));
+    }
+
+    @Override
+    public ArrayList<User> findAll() {
+        return (ArrayList<User>) iClientRepository.findAll();
+    }
 }

@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class Follow {
 
-    private Long idUserFollow;
+    //one to many a users
+    private Long idUserFollowing;
+
+    //one to many a sellers
     private Long idUserFollower;
+
 }

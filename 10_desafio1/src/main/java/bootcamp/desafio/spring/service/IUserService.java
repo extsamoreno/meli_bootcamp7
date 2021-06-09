@@ -14,5 +14,11 @@ public interface IUserService {
 
     UserCountFollowersDTO countFollowers(Long userId) throws UserNotFoundException;
 
-    ArrayList<UserDTO> getFollowers(Long userId);
+    ArrayList<UserDTO> getFollowers(Long userId, String order);
+
+    ArrayList<UserDTO> getFollows(Long userId, String order);
+
+    void unfollow(Long userId, Long sellerId);
+
+    ArrayList<User> findAll();
 }
