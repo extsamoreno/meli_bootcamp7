@@ -3,7 +3,6 @@ package com.example.challenge.Services;
 import com.example.challenge.Exceptions.InvalidOrderException;
 import com.example.challenge.Exceptions.UserNotFoundException;
 import com.example.challenge.Models.Post;
-import com.example.challenge.Models.User;
 import com.example.challenge.Repositories.IProductRepository;
 import com.example.challenge.Services.DTOs.PostDTO;
 import com.example.challenge.Services.DTOs.ResponseFollowedPostDTO;
@@ -56,7 +55,6 @@ public class ProductService implements IProductService {
             sortPostByDate("date_des", posts);
         else
             sortPostByDate(order, posts);
-        posts.sort(COMPARATOR_DATE_DES);
         List<PostDTO> postsDTO = new ArrayList<>();
         for (Post p : posts) {
             PostDTO postDTO = PostMapper.postToPostDTO(p);
