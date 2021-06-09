@@ -34,13 +34,11 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public List<UserDTO> getFollowersTo(User user) {
-        List<UserDTO> userList = new ArrayList<>();
+    public List<Integer> getFollowersTo(User user) {
+        List<Integer> userList = new ArrayList<>();
         for (User u : listUsers){
-            for(UserDTO uDTO : u.getFollowed()){
-                if(uDTO.getId() == user.getId()){
-                    userList.add(UserMapper.userToDTO(u));
-                }
+            for(Integer id: u.getFollowed()){
+                if(id == user.getId()) userList.add(u.getId());
             }
         }
 
@@ -58,7 +56,7 @@ public class UserRepository implements IUserRepository {
     @Override
     public void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException {
         User user = this.getById(userId);
-        List<UserDTO> list = user.getFollowed();
-        user.setFollowed(list.stream().filter(u -> u.getId() != userIdToUnfollow).collect(Collectors.toList()));
+        List<Integer> list = user.getFollowed();
+        user.setFollowed(list.stream().filter(u -> u != userIdToUnfollow).collect(Collectors.toList()));
     }
 }

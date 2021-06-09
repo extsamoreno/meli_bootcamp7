@@ -8,6 +8,7 @@ import com.meli.desafio.posts.models.dto.PostDTO;
 import com.meli.desafio.posts.models.dto.ResponseListPostsDto;
 import com.meli.desafio.posts.repositories.IPostRepository;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
+import com.meli.desafio.users.mappers.UserMapper;
 import com.meli.desafio.users.models.dto.UserDTO;
 import com.meli.desafio.users.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,12 @@ public class PostService implements IPostService{
     @Override
     public List<ResponseListPostsDto> getPostListForUsersFollowed(Integer userId, String order) throws UserNotFoundException {
         List<ResponseListPostsDto> listPostsDtos = new ArrayList<>();
-        List<UserDTO> listUsers = userService.getById(userId).getFollowed();
+        List<Integer> listUsersIds = userService.getById(userId).getFollowed();
+        List<UserDTO> listUsers = new ArrayList<>();
+
+        for(Integer id : listUsersIds){
+            listUsers.add(UserMapper.userToDTO(userService.getById(id)));
+        }
 
         for(UserDTO u : listUsers){
             List<Post> listPosts = postRepository.getAllByUserId(u.getId())

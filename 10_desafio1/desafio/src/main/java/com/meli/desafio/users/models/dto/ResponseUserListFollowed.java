@@ -1,6 +1,5 @@
-package com.meli.desafio.users.models;
+package com.meli.desafio.users.models.dto;
 
-import com.meli.desafio.users.models.dto.UserDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,8 +7,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class User  {
+public class ResponseUserListFollowed {
     private Integer id;
     private String userName;
-    private List<Integer> followed;
+    private List<UserDTO> followed;
 }

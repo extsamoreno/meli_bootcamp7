@@ -1,16 +1,21 @@
 package com.meli.desafio.users.services;
 
+import com.meli.desafio.users.exceptions.UserAlredyFollowedException;
+import com.meli.desafio.users.exceptions.UserFollowYourselfException;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
 import com.meli.desafio.users.mappers.UserMapper;
 import com.meli.desafio.users.models.User;
 import com.meli.desafio.users.models.dto.ResponseUserCountFollowers;
+import com.meli.desafio.users.models.dto.ResponseUserListFollowed;
 import com.meli.desafio.users.models.dto.ResponseUserListFollowers;
 import com.meli.desafio.users.models.dto.UserDTO;
 import com.meli.desafio.users.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,22 +25,19 @@ public class UserService implements IUserService {
     IUserRepository userRepository;
 
     @Override
-    public void addNewFollow(Integer userId, Integer userIdToFollow) throws UserNotFoundException {
-        UserDTO userToFollow = UserMapper.userToDTO(userRepository.getById(userIdToFollow));
+    public void addNewFollow(Integer userId, Integer userIdToFollow)
+            throws UserNotFoundException, UserFollowYourselfException, UserAlredyFollowedException {
+        if(userId == userIdToFollow) throw new UserFollowYourselfException();
 
         User userFollower = userRepository.getById(userId);
-        userFollower.getFollowed().add(userToFollow);
+        if(userFollower.getFollowed().contains(userIdToFollow)) throw new UserAlredyFollowedException();
+
+        userFollower.getFollowed().add(userIdToFollow);
     }
 
     @Override
-    public ResponseUserCountFollowers showCountFollowers(Optional<Integer> userId, Optional<String> userName) throws UserNotFoundException {
-        User user;
-        if(userId.isPresent()){
-            user = userRepository.getById(userId.get());
-        }
-        else{
-            user = userRepository.getByName(userName.get());
-        }
+    public ResponseUserCountFollowers showCountFollowers(Integer userId) throws UserNotFoundException {
+        User user = userRepository.getById(userId);
 
         ResponseUserCountFollowers response = UserMapper.userToResponse(user);
         response.setFollowersCount(userRepository.getFollowersTo(user).size());
@@ -47,23 +49,36 @@ public class UserService implements IUserService {
     public ResponseUserListFollowers showAllFollowers(Integer userId, String order) throws UserNotFoundException {
         User user = userRepository.getById(userId);
         ResponseUserListFollowers userDTO = UserMapper.userToResponseList(user);
-        userDTO.setFollowersList(userRepository.getFollowersTo(user));
+        List<Integer> listFollowersIds = userRepository.getFollowersTo(user);
+        List<UserDTO> listUsersDTO = new ArrayList<>();
+
+        for(Integer id: listFollowersIds){
+            listUsersDTO.add(UserMapper.userToDTO(userRepository.getById(id)));
+        }
+        userDTO.setFollowersList(listUsersDTO);
 
         Collections.sort(userDTO.getFollowersList());
         if(order.equalsIgnoreCase("name_desc"))
                 Collections.reverse(userDTO.getFollowersList());
+
         return userDTO;
     }
 
     @Override
-    public User showAllFollowed(Integer userId, String order) throws UserNotFoundException {
+    public ResponseUserListFollowed showAllFollowed(Integer userId, String order) throws UserNotFoundException {
         User user = userRepository.getById(userId);
 
-        Collections.sort(user.getFollowed());
-        if(order.equalsIgnoreCase("name_desc"))
-            Collections.reverse(user.getFollowed());
+        List<UserDTO> listUserDTo = new ArrayList<>();
+        for(Integer id: user.getFollowed()){
+            UserDTO userDTO = UserMapper.userToDTO(userRepository.getById(id));
+            listUserDTo.add(userDTO);
+        }
 
-        return user;
+        Collections.sort(listUserDTo);
+        if(order.equalsIgnoreCase("name_desc"))
+            Collections.reverse(listUserDTo);
+
+        return UserMapper.userToUserWithFollowed(user, listUserDTo);
     }
 
     @Override

@@ -11,7 +11,7 @@ public interface IUserRepository {
 
     User getByName(String userName) throws UserNotFoundException;
 
-    List<UserDTO> getFollowersTo(User user);
+    List<Integer> getFollowersTo(User user);
 
     boolean userExist(Integer userId);
 
