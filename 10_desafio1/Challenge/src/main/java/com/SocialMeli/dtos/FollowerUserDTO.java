@@ -1,5 +1,6 @@
 package com.SocialMeli.dtos;
 
+import com.SocialMeli.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,8 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 class FollowerUserDTO {
-    private Integer id;
+    private Integer userId;
     private String userName;
-    private ArrayList<UserResponseDTO> followers;
+    private ArrayList<User> follower;
 
 }

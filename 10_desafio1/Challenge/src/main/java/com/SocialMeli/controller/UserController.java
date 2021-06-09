@@ -1,34 +1,51 @@
 package com.SocialMeli.controller;
 
-import com.SocialMeli.repositories.IUserRepository;
 import com.SocialMeli.services.IUserService;
+import com.SocialMeli.dtos.FollowedUserDTO;
+import com.SocialMeli.dtos.FollowUserDTO;
+import com.SocialMeli.dtos.CountFollowerUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.SocialMeli.controller.UserExceptionController;
+
+import java.util.ArrayList;
 
 @RestController
-@RequestMapping
+@RequestMapping("users")
 
 public class UserController {
 
-    @Autowired
-    IUserRepository userRepository;
+   @Autowired
+   IUserService iUserService;
 
-    @PostMapping("{userId}/follow/{userIdToFollow}")
-    public ResponseEntity followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
-        return new ResponseEntity<>(userService.addFollowUser(userId, userIdToFollow), HttpStatus.OK);
+    @PostMapping("/{userID}/follow/{userIdToFollow}")
+    public ResponseEntity<FollowUserDTO>unfollow (@PathVariable int followerId, @PathVariable int followedId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.unfollow(followerId, followedId), HttpStatus.OK);
     }
 
-    @GetMapping("{userId}/followers/count")
-    public ResponseEntity findFollowersCount(@PathVariable Integer userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
-        return new ResponseEntity<>(userService.findFollowersCount(userId), HttpStatus.OK);
+      @GetMapping("/users/{userId}/followers/count")
+    public ResponseEntity<CountFollowerUserDTO> getFollowersCount (@PathVariable int userId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }
 
-    @GetMapping("{userId}/followers/list")
-    public ResponseEntity findFollowersByUserId(@PathVariable Integer userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
-        return new ResponseEntity<>(userService.findFollowersByUserId(userId), HttpStatus.OK);
+    @GetMapping("/users/{userId}/followers/list")
+    public ResponseEntity<FollowersDTO> getFollowers (@PathVariable int userId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
+    }
+    @GetMapping("/users/{userId}/followed/list")
+    public ResponseEntity<FollowedDTO> getFollowed (@PathVariable int userId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.getFollowed(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> follow (){
+
+        return new ResponseEntity<>(iUserService.getdb(), HttpStatus.OK);
     }
 
 }
