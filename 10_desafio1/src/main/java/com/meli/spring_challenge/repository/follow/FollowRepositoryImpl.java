@@ -46,6 +46,11 @@ public class FollowRepositoryImpl implements FollowRepository{
                 .getAsInt());
     }
 
+    @Override
+    public boolean remove(Follow follow) {
+        return this.followList.remove(follow);
+    }
+
     private List<Follow> loadDataBase() {
         File file = null;
         try{

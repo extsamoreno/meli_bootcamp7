@@ -1,8 +1,8 @@
 [
   {
-    "userID" : 1,
+    "userID" : 4,
     "postID" : 1,
-    "date" : "29-04-2021",
+    "date" : "29-05-2021",
     "detail" : {
       "productID" : 1,
       "productName" : "Silla Gamer",
@@ -15,9 +15,9 @@
     "price" : 29999.50
   },
   {
-    "userID" : 3,
+    "userID" : 4,
     "postID" : 2,
-    "date" : "30-04-2021",
+    "date" : "30-05-2021",
     "detail" : {
       "productID" : 2,
       "productName" : "Escritorio en L",
@@ -28,5 +28,36 @@
     },
     "category" : 100,
     "price" : 17000
-  }
+  },
+  {
+    "userID" : 4,
+    "postID" : 3,
+    "date" : "3-03-2021",
+    "detail" : {
+      "productID" : 3,
+      "productName" : "Escritorio en L",
+      "type" : "Melamina",
+      "brand" : "Easy",
+      "color" : "Black",
+      "notes" : "Special Edition"
+    },
+    "category" : 100,
+    "price" : 17000
+  },{
+  "userID" : 4,
+  "postID" : 4,
+  "date" : "28-05-2021",
+  "detail" : {
+    "productID" : 2,
+    "productName" : "Escritorio en V",
+    "type" : "Melamina",
+    "brand" : "Platinium",
+    "color" : "Black",
+    "notes" : "Special Edition"
+  },
+  "category" : 100,
+  "price" : 15000,
+  "hasPromo": true,
+  "discount": 10
+}
 ]

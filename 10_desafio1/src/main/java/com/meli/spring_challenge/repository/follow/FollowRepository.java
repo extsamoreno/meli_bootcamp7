@@ -8,4 +8,5 @@ public interface FollowRepository {
     List<Follow> getAll();
     void save(Follow follow);
     int getMaxID();
+    boolean remove(Follow follow);
 }

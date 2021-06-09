@@ -10,21 +10,28 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class NewPostRepositoryImpl implements NewPostRepository{
     private List<Post> newPostList;
 
-    /*
     NewPostRepositoryImpl(){
         this.newPostList = loadDataBase();
     }
-     */
 
     @Override
     public void create(Post post) {
         newPostList.add(post);
     }
+
+    @Override
+    public List<Post> getPostsByUserID(int userID) {
+        return this.newPostList.stream()
+                .filter(post -> post.getUserID() == userID)
+                .collect(Collectors.toList());
+    }
+
 
     private List<Post> loadDataBase() {
         File file = null;
