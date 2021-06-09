@@ -14,9 +14,23 @@ public class PostMapper {
                 postDTO.getUserId(),
                 postDTO.getId_post(),
                 postDTO.getDate(),
-                postDTO.getDetails(),
+                postDTO.getDetail(),
                 postDTO.getCategory(),
                 postDTO.getPrice()
         );
     }
+
+    public static PostDTO getPostDTO(Post post){
+
+        return new PostDTO(
+                post.getUserId(),
+                post.getId_post(),
+                post.getDate(),
+                post.getDetail(),
+                post.getCategory(),
+                post.getPrice()
+        );
+    }
+
+
 }

@@ -1,8 +1,6 @@
 package com.socialmeli.socialmeli.services.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.lang.Nullable;
-
 import java.util.List;
 
 @Data

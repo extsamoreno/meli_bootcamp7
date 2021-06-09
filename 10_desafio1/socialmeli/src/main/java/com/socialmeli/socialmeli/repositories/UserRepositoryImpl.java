@@ -56,12 +56,9 @@ public class UserRepositoryImpl implements UserRepository{
             throw new DateIsNotValidException("la fecha no es valida");
         }
 
-        if(!ValidDate.validateDate(post.getDate().toString())){
-            System.out.println(post.getDate().toString());
-            throw new DateIsNotValidException("la fecha no es valida");
-        }
-
         users.get(user.getUserId()).getPosts().add(post);
     }
+
+
 
 }

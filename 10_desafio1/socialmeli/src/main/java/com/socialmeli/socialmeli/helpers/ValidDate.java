@@ -12,7 +12,7 @@ public class ValidDate {
         }
         else
         {
-            SimpleDateFormat sdfrmt = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdfrmt = new SimpleDateFormat("dd-MM-yyyy");
             sdfrmt.setLenient(false);
             try
             {
