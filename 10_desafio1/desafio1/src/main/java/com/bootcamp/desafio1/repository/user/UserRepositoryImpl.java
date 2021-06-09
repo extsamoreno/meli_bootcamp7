@@ -1,4 +1,4 @@
-package com.bootcamp.desafio1.repository;
+package com.bootcamp.desafio1.repository.user;
 
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.model.User;
@@ -50,28 +50,6 @@ public class UserRepositoryImpl implements IUserRepository{
         return usersList;
     }
 
-
-    /*
-    private List<User> readDateBase() {
-        File file = null;
-        try {
-            file = ResourceUtils.getFile("classpath:users.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        ObjectMapper om = new ObjectMapper();
-        TypeReference<List<User>> typeDef = new TypeReference<>() {
-        };
-        List<User> usersList = null;
-        try {
-            usersList = om.readValue(file, typeDef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return usersList;
-    }
-
-     */
 
     @Override
     public User getUserById(int id) throws UserNotFoundException {

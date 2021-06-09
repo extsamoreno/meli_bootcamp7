@@ -1,11 +1,12 @@
-package com.bootcamp.desafio1.dto;
+package com.bootcamp.desafio1.dto.response;
 
+import com.bootcamp.desafio1.dto.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CountFollowersDTO extends UserDTO{
+public class CountFollowersDTO extends UserDTO {
 
     private int followersCount;
 

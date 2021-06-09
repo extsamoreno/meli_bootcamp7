@@ -1,10 +1,9 @@
 package com.bootcamp.desafio1.service;
 
-import com.bootcamp.desafio1.dto.CountFollowersDTO;
-import com.bootcamp.desafio1.dto.FollowedListDTO;
-import com.bootcamp.desafio1.dto.FollowersListDTO;
+import com.bootcamp.desafio1.dto.response.CountFollowersDTO;
+import com.bootcamp.desafio1.dto.response.FollowedListDTO;
+import com.bootcamp.desafio1.dto.response.FollowersListDTO;
 import com.bootcamp.desafio1.exception.UserNotFoundException;
-import org.springframework.web.bind.annotation.PathVariable;
 
 public interface IUserService {
 

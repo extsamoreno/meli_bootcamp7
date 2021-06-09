@@ -1,4 +1,4 @@
-package com.bootcamp.desafio1.repository;
+package com.bootcamp.desafio1.repository.user;
 
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.model.User;

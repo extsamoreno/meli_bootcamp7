@@ -2,10 +2,8 @@ package com.bootcamp.desafio1.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Comparator;
 
 @Getter
 @Setter

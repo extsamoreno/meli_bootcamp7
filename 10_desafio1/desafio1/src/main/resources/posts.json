@@ -1,7 +1,7 @@
 [
   {
     "userId": 2,
-    "idPost" : 1,
+    "postId" : 1,
     "date" : "29-04-2021",
     "productId" : 1,
     "category" : 100,
@@ -11,7 +11,7 @@
   },
   {
     "userId": 3,
-    "idPost" : 2,
+    "postId" : 2,
     "date" : "29-04-2021",
     "productId" : 2,
     "category" : 100,

@@ -1,18 +1,16 @@
 package com.bootcamp.desafio1.service;
 
-import com.bootcamp.desafio1.dto.CountFollowersDTO;
-import com.bootcamp.desafio1.dto.FollowedListDTO;
-import com.bootcamp.desafio1.dto.FollowersListDTO;
+import com.bootcamp.desafio1.dto.response.CountFollowersDTO;
+import com.bootcamp.desafio1.dto.response.FollowedListDTO;
+import com.bootcamp.desafio1.dto.response.FollowersListDTO;
 import com.bootcamp.desafio1.dto.UserDTO;
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.model.User;
-import com.bootcamp.desafio1.repository.IUserRepository;
+import com.bootcamp.desafio1.repository.user.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 

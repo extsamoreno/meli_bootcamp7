@@ -1,9 +1,9 @@
 package com.bootcamp.desafio1.controller;
 
 
-import com.bootcamp.desafio1.dto.CountFollowersDTO;
-import com.bootcamp.desafio1.dto.FollowedListDTO;
-import com.bootcamp.desafio1.dto.FollowersListDTO;
+import com.bootcamp.desafio1.dto.response.CountFollowersDTO;
+import com.bootcamp.desafio1.dto.response.FollowedListDTO;
+import com.bootcamp.desafio1.dto.response.FollowersListDTO;
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,13 @@ public class UserController {
     }
 
 
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    @ResponseStatus(HttpStatus.OK)
+    public void createUnFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException {
+        userServiceImpl.createUnFollow(userId, userIdToUnfollow);
+    }
+
+
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<CountFollowersDTO> countFollowers(@PathVariable int userId) throws UserNotFoundException {
         CountFollowersDTO countFollowersDTO = userServiceImpl.countFollowers(userId);
@@ -45,13 +52,6 @@ public class UserController {
     public ResponseEntity<FollowedListDTO> ListFollowed(@PathVariable int userId, @RequestParam(defaultValue = "") String order) throws UserNotFoundException {
         FollowedListDTO followedListDTO = userServiceImpl.listFollowed(userId, order) ;
         return new ResponseEntity(followedListDTO, HttpStatus.OK);
-    }
-
-
-    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    @ResponseStatus(HttpStatus.OK)
-    public void createUnFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException {
-        userServiceImpl.createUnFollow(userId, userIdToUnfollow);
     }
 
 }

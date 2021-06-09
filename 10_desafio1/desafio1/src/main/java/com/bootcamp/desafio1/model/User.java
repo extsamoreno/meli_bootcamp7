@@ -16,5 +16,6 @@ public class User {
     private boolean seller;
     private ArrayList<User> followers;
     private ArrayList<User> followed;
+    private ArrayList<Integer> posts;
 
 }
