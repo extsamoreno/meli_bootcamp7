@@ -1,12 +1,11 @@
 package com.example.challenge.Services.Mappers;
 
+import com.example.challenge.Models.Post;
 import com.example.challenge.Models.User;
-import com.example.challenge.Services.DTOs.FollowerCountDTO;
-import com.example.challenge.Services.DTOs.FollowersDTO;
-import com.example.challenge.Services.DTOs.GetUserDTO;
-import com.example.challenge.Services.DTOs.UserDTO;
+import com.example.challenge.Services.DTOs.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper {
 
@@ -16,6 +15,32 @@ public class UserMapper {
         followerCountDTO.setName(user.getName());
         followerCountDTO.setCount(user.getFollowers().size());
         return followerCountDTO;
+    }
+
+    public PromoCountDTO userToPromoCount(User user) {
+        int count = 0;
+        PromoCountDTO promoCountDTO = new PromoCountDTO();
+        promoCountDTO.setId(user.getId());
+        promoCountDTO.setName(user.getName());
+        for(Post p : user.getPosts()){
+            if(p.getHasPromo())
+                count++;
+        }
+        promoCountDTO.setCount(count);
+        return promoCountDTO;
+    }
+
+    public ResponsePromotionListDTO userToResponsePromo(User user) {
+        ResponsePromotionListDTO responsePromotionListDTODTO = new ResponsePromotionListDTO();
+        responsePromotionListDTODTO.setUserId(user.getId());
+        responsePromotionListDTODTO.setUserName(user.getName());
+        List<PostPromotionDTO> posts = new ArrayList<>();
+        for(Post p : user.getPosts()){
+            if(p.getHasPromo())
+                posts.add(PostMapper.postToPostPromotionDTO(p));
+        }
+        responsePromotionListDTODTO.setPosts(posts);
+        return responsePromotionListDTODTO;
     }
 
     public GetUserDTO userToGetUser(User user) {

@@ -2,9 +2,7 @@ package com.example.challenge.Services;
 
 import com.example.challenge.Exceptions.InvalidOrderException;
 import com.example.challenge.Exceptions.UserNotFoundException;
-import com.example.challenge.Services.DTOs.PostDTO;
-import com.example.challenge.Services.DTOs.PostPromotionDTO;
-import com.example.challenge.Services.DTOs.ResponseFollowedPostDTO;
+import com.example.challenge.Services.DTOs.*;
 
 public interface IProductService {
 
@@ -12,4 +10,8 @@ public interface IProductService {
 
     String addNewPromoPost(PostPromotionDTO postDTO) throws UserNotFoundException, InvalidOrderException;
     ResponseFollowedPostDTO getMyFollowedPostList(int userId, String order) throws UserNotFoundException, InvalidOrderException;
+
+    PromoCountDTO getCountPromo(int userId) throws UserNotFoundException;
+
+    ResponsePromotionListDTO getPromotionsPost(int userId) throws UserNotFoundException;
 }

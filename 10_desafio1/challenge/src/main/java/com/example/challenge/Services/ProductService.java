@@ -3,12 +3,12 @@ package com.example.challenge.Services;
 import com.example.challenge.Exceptions.InvalidOrderException;
 import com.example.challenge.Exceptions.UserNotFoundException;
 import com.example.challenge.Models.Post;
+import com.example.challenge.Models.User;
 import com.example.challenge.Repositories.IProductRepository;
-import com.example.challenge.Services.DTOs.PostDTO;
-import com.example.challenge.Services.DTOs.PostPromotionDTO;
-import com.example.challenge.Services.DTOs.ResponseFollowedPostDTO;
-import com.example.challenge.Services.DTOs.UserDTO;
+import com.example.challenge.Repositories.IUserRepository;
+import com.example.challenge.Services.DTOs.*;
 import com.example.challenge.Services.Mappers.PostMapper;
+import com.example.challenge.Services.Mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +23,11 @@ public class ProductService implements IProductService {
     @Autowired
     IProductRepository iProductRepository;
     @Autowired
+    IUserRepository iUserRepository;
+    @Autowired
     IUserService iUserService;
 
+    UserMapper um = new UserMapper();
 
     private final Comparator<Post> COMPARATOR_DATE_ASC = Comparator.comparing(Post::getDate);
 
@@ -73,6 +76,18 @@ public class ProductService implements IProductService {
         responseFollowedPostDTO.setPosts(postsDTO);
         return responseFollowedPostDTO;
 
+    }
+
+    @Override
+    public PromoCountDTO getCountPromo(int userId) throws UserNotFoundException {
+        User u = iUserRepository.findUserById(userId);
+        return um.userToPromoCount(u);
+    }
+
+    @Override
+    public ResponsePromotionListDTO getPromotionsPost(int userId) throws UserNotFoundException {
+        User u = iUserRepository.findUserById(userId);
+        return um.userToResponsePromo(u);
     }
 
     public void sortPostByDate(String order, List<Post> list) throws InvalidOrderException {

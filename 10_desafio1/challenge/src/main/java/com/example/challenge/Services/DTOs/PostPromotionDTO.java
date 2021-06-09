@@ -15,7 +15,7 @@ public class PostPromotionDTO {
     private int categoryId;
     private double price;
     private Boolean hasPromo;
-    private double discount;
+    private double discount     ;
 }
 
 
