@@ -4,10 +4,7 @@ package com.reto1.demo.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,13 +22,23 @@ public class User implements IUser {
     }
 
     @Override
-    public void follow(IUser iuser) {
-        followers.add(iuser);
+    public void followPages(IUser iuser) {
+        followed.add(iuser);
     }
 
     @Override
-    public void followed(IUser follower) {
-        followed.add(follower);
+    public void addFollower(IUser follower) {
+        followers.add(follower);
+    }
+
+    @Override
+    public void unFollowPages(IUser iuser) {
+        followed.remove(iuser);
+    }
+
+    @Override
+    public void removeFollower(IUser follower) {
+        followers.remove(follower);
     }
 
     public void addPost(Post post){

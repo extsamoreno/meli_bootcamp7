@@ -1,12 +1,11 @@
 package com.reto1.demo.Service;
 
-import com.reto1.demo.Exception.DateNotExistException;
-import com.reto1.demo.Exception.DuplicatedPostException;
-import com.reto1.demo.Exception.UserIdNotFoundException;
+import com.reto1.demo.Exception.*;
 import com.reto1.demo.Model.DTO.LastPostDTO;
 import com.reto1.demo.Model.DTO.Mapper.PostMapper;
 import com.reto1.demo.Model.Post;
 import com.reto1.demo.Model.User;
+import com.reto1.demo.Model.Util.Util;
 import com.reto1.demo.Repository.IFollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,17 +24,19 @@ public class PostService implements IPostService{
     IFollowRepository iFollowRepository;
 
     @Override
-    public String creatPost(Post post) throws UserIdNotFoundException, DuplicatedPostException, DateNotExistException {
+    public String creatPost(Post post) throws UserIdNotFoundException, DuplicatedPostException, DateNotExistException, UserNotFollowException {
         LocalDate today = LocalDate.now();
 
         // Con el tipo de dato Date, las fechas 26/05 , se vuelven 25/05, por eso se debe sumar un día
         LocalDate datePost = toLocalDate(post.getDate()).plusDays(1);
         post.setDate(toDate(datePost));
 
+        //Verifica si la fecha es mayor a la del dia de hoy
         if(datePost.isAfter(today)){
            throw new DateNotExistException(today, datePost);
         }
 
+        //Revisa si no existe ya antes ese post
         User user = iFollowRepository.getUserById(post.getUserId());
         if(!user.getPosts().contains(post)){
             user.addPost(post);
@@ -45,20 +46,30 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public LastPostDTO lastPosts(int userId) throws UserIdNotFoundException {
+    public LastPostDTO lastPosts(int userId) throws UserIdNotFoundException, UserNotFollowException {
         User user = iFollowRepository.getUserById(userId);
         LocalDate last2Weeks = LocalDate.now().minusDays(14);
         ArrayList<Post> recentPost = recent(user, last2Weeks);
-        orderByDateASC(recentPost);
+        Util.orderDescByDate(recentPost);
         return PostMapper.toLastPostDTO(user,recentPost);
     }
 
-    public void orderByDateASC(ArrayList posts){
-        Comparator<Post> c = (p1, p2) -> p2.getDate().compareTo(p1.getDate());
-        posts.sort(c);
+    @Override
+    public LastPostDTO orderLastPost(int userId,String order) throws UserNotFollowException, UserIdNotFoundException, OrderNotFoundException {
+        LastPostDTO lastPostDTO = lastPosts(userId);
+        if(order.equals("date_asc")){
+            Util.orderAscByDateDTO(lastPostDTO.getPosts());
+        }else if(order.equals("date_desc")){
+            Util.orderDescByDateDTO(lastPostDTO.getPosts());
+        }else{
+            throw new OrderNotFoundException(order, "date");
+        }
+        return lastPostDTO;
     }
 
-
+    /*
+    * Filtra las últimas dos semanas
+    * */
     public ArrayList<Post> recent(User user, LocalDate last2weeks){
         ArrayList<Post> recentPost = new ArrayList<>();
         for (Post post: user.getPosts()) {

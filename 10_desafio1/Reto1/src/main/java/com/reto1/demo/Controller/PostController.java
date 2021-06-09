@@ -1,8 +1,6 @@
 package com.reto1.demo.Controller;
 
-import com.reto1.demo.Exception.DateNotExistException;
-import com.reto1.demo.Exception.DuplicatedPostException;
-import com.reto1.demo.Exception.UserIdNotFoundException;
+import com.reto1.demo.Exception.*;
 import com.reto1.demo.Model.DTO.LastPostDTO;
 import com.reto1.demo.Model.Post;
 import com.reto1.demo.Service.IPostService;
@@ -20,7 +18,7 @@ public class PostController {
 
     //Create a post
     @PostMapping("/products/newpost")
-    public ResponseEntity<String> createPost(@RequestBody Post post) throws UserIdNotFoundException, DuplicatedPostException, DateNotExistException {
+    public ResponseEntity<String> createPost(@RequestBody Post post) throws UserIdNotFoundException, DuplicatedPostException, DateNotExistException, UserNotFollowException {
         String postname = iPostService.creatPost(post);
         return new ResponseEntity<>("The post " + postname + " was created", HttpStatus.OK);
     }
@@ -28,10 +26,13 @@ public class PostController {
     /*
     Obtener un listado de las publicaciones realizadas por los vendedores que
     un usuario sigue en las últimas dos semanas
+    Ordena en forma desc las fechas
     */
     @GetMapping("/products/followed/{userId}/list")
-    public ResponseEntity<LastPostDTO> lastPosts(@PathVariable int userId) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iPostService.lastPosts(userId), HttpStatus.OK);
+    public ResponseEntity<LastPostDTO> lastPosts(@PathVariable int userId,
+                                                 @RequestParam(required = false, defaultValue = "name_desc") String order)
+            throws UserIdNotFoundException, UserNotFollowException, OrderNotFoundException {
+        return new ResponseEntity<>(iPostService.orderLastPost(userId, order), HttpStatus.OK);
     }
 }
 

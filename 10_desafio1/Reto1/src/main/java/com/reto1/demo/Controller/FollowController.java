@@ -1,7 +1,6 @@
 package com.reto1.demo.Controller;
 
-import com.reto1.demo.Exception.UserAlreadyFollowException;
-import com.reto1.demo.Exception.UserIdNotFoundException;
+import com.reto1.demo.Exception.*;
 import com.reto1.demo.Model.DTO.UserDTOCount;
 import com.reto1.demo.Model.DTO.UserDTOFolloweds;
 import com.reto1.demo.Model.DTO.UserDTOFollowers;
@@ -12,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 
 @RestController
 public class FollowController {
@@ -26,7 +27,7 @@ public class FollowController {
      * */
     @PostMapping("/users/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> followOtherUser(@PathVariable int userId,
-                                                  @PathVariable int userIdToFollow) throws UserIdNotFoundException, UserAlreadyFollowException {
+                                                  @PathVariable int userIdToFollow) throws UserAlreadyFollowException, UserIdNotFoundException  {
         String nameUser = iFollowService.followOtherUser(userId, userIdToFollow);
         return new ResponseEntity("Following to " + nameUser, HttpStatus.OK);
     }
@@ -35,33 +36,37 @@ public class FollowController {
      * Count followers
      * */
     @GetMapping("/users/{userId}/followers/count/")
-    public ResponseEntity<UserDTOCount> countFollower(@PathVariable int userId) throws UserIdNotFoundException {
+    public ResponseEntity<UserDTOCount> countFollower(@PathVariable int userId) throws UserIdNotFoundException, UserNotFollowException {
         return new ResponseEntity<>(iFollowService.countFollowers(userId), HttpStatus.OK);
     }
 
     /*
-     * Return user with followers
+     * Return user with followers, Order ASC default value
      * */
+
     @GetMapping("/users/{UserID}/followers/list")
-    public ResponseEntity<UserDTOFollowers> listFollowes(@PathVariable int UserID) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iFollowService.getFollowers(UserID), HttpStatus.OK);
+    public ResponseEntity<UserDTOFolloweds> orderFollowerList(@PathVariable int UserID,
+                                                              @RequestParam(required = false,defaultValue = "name_asc") String order)
+                                                                throws UserNotFollowException, UserIdNotFoundException, OrderNotFoundException {
+        return new ResponseEntity(iFollowService.orderListFollowers(order, UserID), HttpStatus.OK);
     }
 
     /*
-     *  Who I follow
-     * */
+     *  Who I follow, Order ASC default value
+     */
     @GetMapping("/users/{UserID}/followed/list")
-    public ResponseEntity<UserDTOFolloweds> listFolloweds(@PathVariable int UserID) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iFollowService.getFolloweds(UserID), HttpStatus.OK);
+    public ResponseEntity<UserDTOFolloweds> listFolloweds(@PathVariable int UserID,
+                                                          @RequestParam(required = false,defaultValue = "name_asc") String order)
+            throws UserIdNotFoundException, UserNotFollowException, OrderNotFoundException {
+        return new ResponseEntity<>(iFollowService.orderListFolloweds(order, UserID), HttpStatus.OK);
     }
-
 
     //UnFollow
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<String>  unFollow(@PathVariable int userId,
-                                            @PathVariable int userIdToUnfollow){
+                                            @PathVariable int userIdToUnfollow) throws UserNotFollowException, UserIdNotFoundException {
         String userName = iFollowService.unFollow(userId, userIdToUnfollow);
-        return new ResponseEntity("User "+userName+" unfollow",HttpStatus.OK);
+        return new ResponseEntity("Has unfollow to "+userName,HttpStatus.OK);
     }
 
 
