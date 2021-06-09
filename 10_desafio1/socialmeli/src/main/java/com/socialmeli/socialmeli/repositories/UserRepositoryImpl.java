@@ -2,7 +2,6 @@ package com.socialmeli.socialmeli.repositories;
 import com.socialmeli.socialmeli.exceptions.DateIsNotValidException;
 import com.socialmeli.socialmeli.exceptions.PostIdAlreadyExistException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
-import com.socialmeli.socialmeli.helpers.ValidDate;
 import com.socialmeli.socialmeli.models.Post;
 import com.socialmeli.socialmeli.models.User;
 import org.springframework.stereotype.Repository;
@@ -25,6 +24,13 @@ public class UserRepositoryImpl implements UserRepository{
         User user2 = getUserById(userIdToFollow);
         users.get(userId).getFollowed().add(user2);
         users.get(userIdToFollow).getFollowers().add(user1);
+    }
+
+    @Override
+    public void removeFollowerToUser(int userId, int userIdToUnFollow) throws UserNotFoundException {
+        User user1 = getUserById(userId);
+        User user2 = getUserById(userIdToUnFollow);
+        users.get(userId).getFollowed().remove(user2);
     }
 
     @Override

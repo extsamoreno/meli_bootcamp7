@@ -23,6 +23,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void unFollowUser(int userId, int userIdToUnFollow) throws UserNotFoundException {
+        userRepository.removeFollowerToUser(userId,userIdToUnFollow);
+    }
+
+    @Override
     public UserDTO getUserFollowersCount(int userId) throws UserNotFoundException {
         User user = userRepository.getUserById(userId);
         int followersCount = userRepository.getFollowersCount(userId);
