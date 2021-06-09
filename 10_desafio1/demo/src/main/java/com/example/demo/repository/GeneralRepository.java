@@ -3,6 +3,8 @@ package com.example.demo.repository;
 import com.example.demo.DTO.PostDTO;
 import com.example.demo.DTO.PostListDTO;
 import com.example.demo.DTO.UserDTO;
+import com.example.demo.exception.FollowersNotFoundException;
+import com.example.demo.exception.GenericException;
 import com.example.demo.exception.UserNotFoundException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @Repository
 public class GeneralRepository implements IGeneralRepository {
@@ -87,6 +90,12 @@ public class GeneralRepository implements IGeneralRepository {
         return (this.postDB.get(userId) == null ? new ArrayList<>():this.postDB.get(userId));
     }
 
+    @Override
+    public void unfollow(UserDTO userId, UserDTO userIdToUnfollow) throws GenericException {
+        lessFollower(userId,userIdToUnfollow);
+        lessFollowed(userId,userIdToUnfollow);
+    }
+
     private void addFollowed(UserDTO userId, UserDTO userIdToFollow) {
         if(this.followedDB.containsKey(userId.getUserId())){
             this.followedDB.get(userId.getUserId()).add(userIdToFollow);
@@ -106,6 +115,36 @@ public class GeneralRepository implements IGeneralRepository {
             this.followerDB.put(userIdToFollow.getUserId(),listFollowed);
         }
     }
+
+    private void lessFollowed(UserDTO userId, UserDTO userIdToUnfollow) throws FollowersNotFoundException {
+        if (this.followedDB.containsKey(userId.getUserId())){
+            List<UserDTO> listFollowed = this.followedDB.get(userId.getUserId());
+            Integer index = IntStream.range(0,listFollowed.size())
+                    .filter(a -> listFollowed.get(a).getUserId().intValue() == userIdToUnfollow.getUserId().intValue())
+                    .findFirst().orElse(-1);
+            if(index == -1)
+                throw new FollowersNotFoundException(userId.getUserId(),userIdToUnfollow.getUserId());
+            listFollowed.remove(index);
+            this.followedDB.get(userId.getUserId()).remove(index.intValue());
+        }else{
+            throw new FollowersNotFoundException(userId.getUserId(),userIdToUnfollow.getUserId());
+        }
+    }
+
+    private void lessFollower(UserDTO userId, UserDTO userIdToUnfollow) throws GenericException {
+        if (this.followerDB.containsKey(userIdToUnfollow.getUserId())){
+            List<UserDTO> listFollower = this.followerDB.get(userIdToUnfollow.getUserId());
+            Integer index = IntStream.range(0,listFollower.size())
+                    .filter(a -> listFollower.get(a).getUserId().intValue() == userId.getUserId().intValue())
+                    .findFirst().orElse(-1);
+            if(index == -1)
+                throw new FollowersNotFoundException(userId.getUserId(),userIdToUnfollow.getUserId());
+            this.followerDB.get(userIdToUnfollow.getUserId()).remove(index.intValue());
+        }else{
+            throw new FollowersNotFoundException(userId.getUserId(),userIdToUnfollow.getUserId());
+        }
+    }
+
 
     private List<UserDTO> LoadDataBase() {
         File file = null;

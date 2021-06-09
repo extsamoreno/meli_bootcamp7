@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.DTO.ErrorDTO;
+import com.example.demo.exception.FollowedsNotFoundException;
 import com.example.demo.exception.FollowersNotFoundException;
 import com.example.demo.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,11 @@ public class UserControllerException {
 
     @ExceptionHandler(FollowersNotFoundException.class)
     public ResponseEntity<ErrorDTO> followersNotFoundException(FollowersNotFoundException e){
+        return new ResponseEntity<>(e.getError(),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FollowedsNotFoundException.class)
+    public ResponseEntity<ErrorDTO> followedsNotFoundException(FollowedsNotFoundException e){
         return new ResponseEntity<>(e.getError(),HttpStatus.BAD_REQUEST);
     }
 

@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import com.example.demo.DTO.PostDTO;
 import com.example.demo.DTO.PostListDTO;
 import com.example.demo.DTO.UserDTO;
+import com.example.demo.exception.GenericException;
 import com.example.demo.exception.UserNotFoundException;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface IGeneralRepository {
     void newPost (PostDTO post);
 
     List<PostDTO> findPostByUserId(Integer userId);
+
+    void unfollow(UserDTO userId, UserDTO userIdToUnfollow) throws GenericException;
+
 }

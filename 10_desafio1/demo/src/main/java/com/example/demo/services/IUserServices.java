@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.DTO.*;
+import com.example.demo.exception.GenericException;
 import com.example.demo.exception.UserNotFoundException;
 
 public interface IUserServices {
@@ -8,8 +9,9 @@ public interface IUserServices {
 
     FollowersCountDTO countFollowers(Integer userId) throws UserNotFoundException;
 
-    FollowersListDTO followersList (Integer userId) throws UserNotFoundException;
+    FollowersListDTO followersList (Integer userId,String order) throws UserNotFoundException;
 
-    FollowedListDTO followedList(Integer userID) throws UserNotFoundException;
+    FollowedListDTO followedList(Integer userID, String order) throws UserNotFoundException;
 
+    void unfollow(Integer userId, Integer userIdToUnfollow) throws GenericException;
 }

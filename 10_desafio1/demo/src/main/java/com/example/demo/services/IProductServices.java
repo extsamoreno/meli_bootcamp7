@@ -10,5 +10,5 @@ public interface IProductServices {
 
     void newPost(PostDTO post) throws UserNotFoundException;
 
-    PostListDTO getPostList(Integer userId);
+    PostListDTO getPostList(Integer userId, String order);
 }

@@ -23,9 +23,8 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostListDTO> getPostList(@PathVariable Integer userId){
-
-        return new ResponseEntity<>(productServices.getPostList(userId),HttpStatus.OK);
+    public ResponseEntity<PostListDTO> getPostList(@PathVariable Integer userId,@RequestParam(required = false, value = "order",defaultValue = "date_desc") String order){
+        return new ResponseEntity<>(productServices.getPostList(userId,order),HttpStatus.OK);
     }
 
 

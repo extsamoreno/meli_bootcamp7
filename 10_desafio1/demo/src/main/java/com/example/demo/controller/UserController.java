@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.DTO.FollowedListDTO;
 import com.example.demo.DTO.FollowersCountDTO;
 import com.example.demo.DTO.FollowersListDTO;
+import com.example.demo.exception.GenericException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.services.IUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,20 @@ public class UserController {
     }
 
     @GetMapping("/{UserID}/followers/list")
-    public ResponseEntity<FollowersListDTO> followersList (@PathVariable Integer UserID) throws UserNotFoundException {
-        return new ResponseEntity<>(userServices.followersList(UserID),HttpStatus.OK);
+    public ResponseEntity<FollowersListDTO> followersList (@PathVariable Integer UserID, @RequestParam(required = false, value = "order",defaultValue = "") String order) throws UserNotFoundException {
+        return new ResponseEntity<>(userServices.followersList(UserID,order),HttpStatus.OK);
     }
 
     @GetMapping("/{UserID}/followed/list")
-    public ResponseEntity<FollowedListDTO> followedList (@PathVariable Integer UserID) throws UserNotFoundException {
-        return new ResponseEntity<>(userServices.followedList(UserID),HttpStatus.OK);
+    public ResponseEntity<FollowedListDTO> followedList (@PathVariable Integer UserID, @RequestParam(required = false, value = "order",defaultValue = "") String order) throws UserNotFoundException {
+        return new ResponseEntity<>(userServices.followedList(UserID,order),HttpStatus.OK);
     }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Void> unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws GenericException {
+        userServices.unfollow(userId,userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }
