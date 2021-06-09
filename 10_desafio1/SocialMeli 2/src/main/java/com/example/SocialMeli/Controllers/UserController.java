@@ -22,6 +22,16 @@ public class UserController {
 
     @Autowired
     iUserService iUserService;
+
+
+
+    @PostMapping("/users/{followerId}/unfollow/{followedId}")
+    public ResponseEntity<FollowDTO> unfollow (@PathVariable int followerId, @PathVariable int followedId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.unfollow(followerId, followedId), HttpStatus.OK);
+    }
+
+
     @PostMapping("/users/{followerId}/follow/{followedId}")
     public ResponseEntity<FollowDTO> follow (@PathVariable int followerId, @PathVariable int followedId) throws UserNotFoundException {
 

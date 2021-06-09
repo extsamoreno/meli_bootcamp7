@@ -31,7 +31,20 @@ public class User {
         }
 
     }
+    public void unfollow(int userId){
+        int index = this.following.indexOf(userId);
+        if(index != -1){
+            this.following.remove(index);
+        }
 
+    }
+    public void unfollowed(int userId){
+        int index = this.followers.indexOf(userId);
+        if(index != -1){
+            this.followers.remove(index);
+        }
+
+    }
     public void addPost(int postId){
 
         this.posts.add(postId);

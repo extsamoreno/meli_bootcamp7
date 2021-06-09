@@ -44,6 +44,17 @@ public class DataRepository implements iDataRepository {
     }
 
     @Override
+    public FollowDTO unfollow(int followerID, int followedID) throws UserNotFoundException {
+
+        User follower = this.findUserByID(followerID);
+        User followed = this.findUserByID(followedID);
+
+        followed.unfollowed(follower.getId());
+        follower.unfollow(followed.getId());
+
+        return new FollowDTO(followerID,followedID, "Unfollow");
+    }
+    @Override
     public List<PostDTO> getFollowedPost(int userId) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
 
         User user = this.findUserByID(userId);

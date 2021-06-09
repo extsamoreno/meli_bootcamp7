@@ -23,6 +23,11 @@ public class UserService implements iUserService{
         return iDataRepository.follow(followerId, followedId);
     }
 
+    @Override
+    public FollowDTO unfollow(int followerId, int followedId) throws UserNotFoundException {
+        return iDataRepository.unfollow(followerId, followedId);
+    }
+
     public FollowCountDTO getFollowersCount(int userId) throws UserNotFoundException{
         return iDataRepository.getFollowersCount(userId);
     }

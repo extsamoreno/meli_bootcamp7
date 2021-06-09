@@ -9,6 +9,7 @@ import java.util.List;
 public interface iDataRepository {
 
     public FollowDTO follow(int followerId, int followedId) throws UserNotFoundException;
+    public FollowDTO unfollow(int followerID, int followedID) throws UserNotFoundException;
     public List<PostDTO> getFollowedPost(int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException;
     public FollowCountDTO getFollowersCount(int user_id) throws UserNotFoundException;
     public FollowersDTO getFollowers(int user_id) throws UserNotFoundException;
