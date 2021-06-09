@@ -10,11 +10,9 @@ import com.meli.socialmeli.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import static com.meli.socialmeli.mapper.UserMapper.mapFollowed;
 import static com.meli.socialmeli.mapper.UserMapper.mapFollowers;
+import static com.meli.socialmeli.util.UserUtil.sortFollows;
 
 @Service
 public class UserService {
@@ -78,26 +76,6 @@ public class UserService {
         userDTO.setFollowers(sortFollows(mapFollowers(user), order));
 
         return userDTO;
-    }
-
-    private List<UserDTO> sortFollows(List<UserDTO> follows, String order) {
-
-        if ("name_desc".equals(order)) {
-            return orderFollowersByNameDesc(follows);
-        }
-        return orderFollowersByNameAsc(follows);
-    }
-
-    private List<UserDTO> orderFollowersByNameAsc(List<UserDTO> followers) {
-
-        return followers.stream().sorted(
-                Comparator.comparing(UserDTO::getUserName)).collect(Collectors.toList());
-    }
-
-    private List<UserDTO> orderFollowersByNameDesc(List<UserDTO> followers) {
-
-        return followers.stream().sorted(
-                Comparator.comparing(UserDTO::getUserName).reversed()).collect(Collectors.toList());
     }
 
     public UserDTO getFollowedList(int userId, String order) throws InvalidIdException {

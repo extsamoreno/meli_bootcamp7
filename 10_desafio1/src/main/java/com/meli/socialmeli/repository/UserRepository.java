@@ -48,7 +48,7 @@ public class UserRepository {
         follower.getFollowed().put(userIdToFollow, followed);
     }
 
-    public void removeFollower(int userId, int userIdToUnfollow){
+    public void removeFollower(int userId, int userIdToUnfollow) {
         // Obtengo el follower específico:
         User follower = users.get(userId);
 
@@ -69,8 +69,4 @@ public class UserRepository {
     public User getUserById(int userId) {
         return users.get(userId);
     }
-
-
-
-
 }

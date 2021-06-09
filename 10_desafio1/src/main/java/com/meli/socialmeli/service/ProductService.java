@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static com.meli.socialmeli.mapper.PostMapper.mapToPost;
 import static com.meli.socialmeli.mapper.PostMapper.mapToPostDTO;
+import static com.meli.socialmeli.util.ProductUtil.sortPosts;
+import static com.meli.socialmeli.util.ProductUtil.toLocalDate;
 
 @Service
 public class ProductService {
@@ -44,7 +46,7 @@ public class ProductService {
         postRepository.insertNewPost(postDTO.getIdPost(), mapToPost(postDTO));
     }
 
-    public List<PostCollectionDTO> getFollowedMerchantsPosts(int userId) throws InvalidIdException {
+    public List<PostCollectionDTO> getFollowedMerchantsPosts(int userId, String order) throws InvalidIdException {
 
         List<PostCollectionDTO> postCollectionDTOList = new ArrayList<>();
 
@@ -68,23 +70,13 @@ public class ProductService {
                 }
             }
             eachMerchantPostCollectionDTO.setUserId(eachFollowedMerchant.getUserId());
-            eachMerchantPostCollectionDTO.setPosts(sortPostsByDateAsc(merchantPostsDTO));
+            eachMerchantPostCollectionDTO.setPosts(sortPosts(merchantPostsDTO, order));
 
             postCollectionDTOList.add(eachMerchantPostCollectionDTO);
         }
         return postCollectionDTOList;
     }
 
-    private LocalDate toLocalDate(Date date) {
-        return LocalDate.ofInstant(
-                date.toInstant(), ZoneId.systemDefault());
-    }
-
-    private List<PostDTO> sortPostsByDateAsc(List<PostDTO> merchantPosts) {
-        return merchantPosts.stream().sorted(
-                Comparator.comparing(PostDTO::getDate)
-        ).collect(Collectors.toList());
-    }
 }
 
 

@@ -28,8 +28,8 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<List<PostCollectionDTO>> getFollowedMerchantsPosts(@PathVariable int userId) throws InvalidIdException{
+    public ResponseEntity<List<PostCollectionDTO>> getFollowedMerchantsPosts(@PathVariable int userId, @RequestParam (required = false, defaultValue = "date_asc") String order) throws InvalidIdException{
 
-        return new ResponseEntity<>(productService.getFollowedMerchantsPosts(userId), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getFollowedMerchantsPosts(userId, order), HttpStatus.OK);
     }
 }
