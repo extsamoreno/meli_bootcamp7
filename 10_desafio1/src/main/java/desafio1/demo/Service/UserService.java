@@ -2,6 +2,7 @@ package desafio1.demo.Service;
 
 import desafio1.demo.Exception.UserAlreadyFollowsException;
 import desafio1.demo.Exception.UserCantFollowHimselfException;
+import desafio1.demo.Exception.UserDoesNotFollowException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Model.DTO.FollowedListDTO;
 import desafio1.demo.Model.DTO.FollowersCountDTO;
@@ -31,6 +32,15 @@ public class UserService implements IUserService{
             throw new UserAlreadyFollowsException(userId, userIdToFollow);
         }
         user.getFollowedUsersList().add(userToFollow);
+    }
+
+    @Override
+    public void unfollowUser(int userId, int userIdToUnfollow) throws UserNotFoundException, UserDoesNotFollowException {
+        var user = repository.getUserById(userId);
+        var userToUnfollow = repository.getUserById(userIdToUnfollow);
+        if (!user.getFollowedUsersList().remove(userToUnfollow)){
+            throw new UserDoesNotFollowException(userId,userIdToUnfollow);
+        }
     }
 
     @Override

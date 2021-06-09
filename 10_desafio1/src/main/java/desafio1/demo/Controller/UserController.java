@@ -2,6 +2,7 @@ package desafio1.demo.Controller;
 
 import desafio1.demo.Exception.UserAlreadyFollowsException;
 import desafio1.demo.Exception.UserCantFollowHimselfException;
+import desafio1.demo.Exception.UserDoesNotFollowException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Model.DTO.FollowedListDTO;
 import desafio1.demo.Model.DTO.FollowersCountDTO;
@@ -25,6 +26,13 @@ public class UserController {
         iUserService.followUser(userId,userIdToFollow);
         return  new ResponseEntity(HttpStatus.OK);
     }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity unfollowUser(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException, UserDoesNotFollowException {
+        iUserService.unfollowUser(userId,userIdToUnfollow);
+        return  new ResponseEntity(HttpStatus.OK);
+    }
+
 
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> getFollowersCountById(@PathVariable int userId) throws UserNotFoundException {
