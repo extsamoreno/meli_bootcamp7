@@ -13,7 +13,7 @@ public interface IUserService {
 
     UserFollowerCountDTO findFollowersCount(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
 
-    UserFollowerDTO findFollowersByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
+    UserFollowerDTO findFollowersByUserId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
 
-    UserFollowedDTO findFollowedByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
+    UserFollowedDTO findFollowedByUserId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
 }

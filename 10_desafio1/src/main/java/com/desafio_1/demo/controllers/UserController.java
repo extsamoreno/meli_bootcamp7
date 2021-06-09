@@ -31,12 +31,12 @@ public class UserController {
     }
 
     @GetMapping("{userId}/followers/list")
-    public ResponseEntity<UserFollowerDTO> findFollowersByUserId(@PathVariable int userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
-        return new ResponseEntity<>(userService.findFollowersByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<UserFollowerDTO> findFollowersByUserId(@PathVariable int userId, @RequestParam(required = false) String order) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
+        return new ResponseEntity<>(userService.findFollowersByUserId(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("{userId}/followed/list")
-    public ResponseEntity<UserFollowedDTO> findFollowedByUserId(@PathVariable int userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
-        return new ResponseEntity<>(userService.findFollowedByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<UserFollowedDTO> findFollowedByUserId(@PathVariable int userId, @RequestParam(required = false) String order) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
+        return new ResponseEntity<>(userService.findFollowedByUserId(userId, order), HttpStatus.OK);
     }
 }

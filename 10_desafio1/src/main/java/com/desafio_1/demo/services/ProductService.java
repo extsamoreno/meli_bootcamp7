@@ -61,7 +61,7 @@ public class ProductService implements IProductService{
         if(user == null)
             throw new UserNotFoundException(userId);
 
-        ArrayList<User> followed = userRepository.findFollowedByUserId(userId);
+        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, (a, b)->a.compareTo(b));
 
         List<Integer> usersId = followed.stream().map(User::getId).collect(Collectors.toList());
 

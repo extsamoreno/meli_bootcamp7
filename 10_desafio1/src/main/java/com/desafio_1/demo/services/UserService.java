@@ -15,7 +15,9 @@ import com.desafio_1.demo.services.mappers.UserFollowedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @Service
 public class UserService implements IUserService{
@@ -40,13 +42,16 @@ public class UserService implements IUserService{
         if(user == null)
             throw new UserNotFoundException(userId);
 
-        ArrayList<User> followed = userRepository.findFollowedByUserId(userId);
+        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, (a, b) -> a.compareTo(b));
         User userFollowed = followed.stream().filter(u -> u.getId() == userIdToFollow).findFirst().orElse(null);
 
         if(userFollowed != null)
             return UserFollowedMapper.toDTO(user, followed);
 
-        return UserFollowedMapper.toDTO(userRepository.addFollowUser(userId, userIdToFollow), followed);
+        user = userRepository.addFollowUser(userId, userIdToFollow);
+        followed = userRepository.findFollowedByUserId(userId, (a, b) -> a.compareTo(b));
+
+        return UserFollowedMapper.toDTO(user, followed);
     }
 
     @Override
@@ -64,7 +69,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public UserFollowerDTO findFollowersByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
+    public UserFollowerDTO findFollowersByUserId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
         if(userId <= 0)
             throw new UserIdInvalidException();
 
@@ -73,13 +78,13 @@ public class UserService implements IUserService{
         if(user == null)
             throw new UserNotFoundException(userId);
 
-        ArrayList<User> followers = userRepository.findFollowersByUserId(userId);
+        ArrayList<User> followers = userRepository.findFollowersByUserId(userId, createComparatorName(order));
 
         return UserFollowerMapper.toDTO(user, followers);
     }
 
     @Override
-    public UserFollowedDTO findFollowedByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
+    public UserFollowedDTO findFollowedByUserId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
         if(userId <= 0)
             throw new UserIdInvalidException();
 
@@ -88,8 +93,17 @@ public class UserService implements IUserService{
         if(user == null)
             throw new UserNotFoundException(userId);
 
-        ArrayList<User> followed = userRepository.findFollowedByUserId(userId);
+        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, createComparatorName(order));
 
         return UserFollowedMapper.toDTO(user, followed);
+    }
+
+    private Comparator<String> createComparatorName(String order){
+        Comparator<String> comparator = (a, b) -> a.compareTo(b);
+
+        if(order != null && order.equals("name_desc")){
+            comparator = (a, b) -> b.compareTo(a);
+        }
+        return comparator;
     }
 }
