@@ -4,14 +4,18 @@ import desafio1.demo.Exception.UserAlreadyFollowsException;
 import desafio1.demo.Exception.UserCantFollowHimselfException;
 import desafio1.demo.Exception.UserDoesNotFollowException;
 import desafio1.demo.Exception.UserNotFoundException;
+import desafio1.demo.Helper.HelperComparator;
 import desafio1.demo.Model.DTO.FollowedListDTO;
 import desafio1.demo.Model.DTO.FollowersCountDTO;
 import desafio1.demo.Model.DTO.FollowersListDTO;
 import desafio1.demo.Model.DTO.UserDTO;
+import desafio1.demo.Model.Entity.Post;
 import desafio1.demo.Model.Entity.User;
 import desafio1.demo.Repository.IRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.stream.Stream;
 
 @Service
 public class UserService implements IUserService{
@@ -51,20 +55,23 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowersListDTO getFollowersListById(int userId) throws UserNotFoundException {
+    public FollowersListDTO getFollowersListById(int userId, String order) throws UserNotFoundException {
         var user = repository.getUserById(userId);
         var userDTOArray = this.repository.getUserFollowersById(userId)
+                .sorted(HelperComparator.userNameComparator(order))
                 .map(u -> new UserDTO(u.getUserId(),u.getUserName()))
                 .toArray(UserDTO[]::new);
         return new FollowersListDTO(userId, user.getUserName(), userDTOArray);
     }
 
     @Override
-    public FollowedListDTO getFollowedListById(int userId) throws UserNotFoundException {
+    public FollowedListDTO getFollowedListById(int userId, String order) throws UserNotFoundException {
         var user = repository.getUserById(userId);
-        var userDTOArray = user.getFollowedUsersList().stream().map(u->new UserDTO(u.getUserId(),u.getUserName())).toArray(UserDTO[]::new);
+        var userDTOArray = user.getFollowedUsersList().stream()
+                .sorted(HelperComparator.userNameComparator(order))
+                .map(u->new UserDTO(u.getUserId(),u.getUserName()))
+                .toArray(UserDTO[]::new);
         return new FollowedListDTO(userId,user.getUserName(),userDTOArray);
-
     }
 
 

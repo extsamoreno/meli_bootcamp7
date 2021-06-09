@@ -40,13 +40,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersListDTO> getFollowersListById(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<FollowersListDTO>(iUserService.getFollowersListById(userId),HttpStatus.OK);
+    public ResponseEntity<FollowersListDTO> getFollowersListById(@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException {
+        return new ResponseEntity<FollowersListDTO>(iUserService.getFollowersListById(userId, order),HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedListDTO> getFollowedListById(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<FollowedListDTO>(iUserService.getFollowedListById(userId),HttpStatus.OK);
+    public ResponseEntity<FollowedListDTO> getFollowedListById(@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException {
+        return new ResponseEntity<FollowedListDTO>(iUserService.getFollowedListById(userId, order),HttpStatus.OK);
     }
 
 }
