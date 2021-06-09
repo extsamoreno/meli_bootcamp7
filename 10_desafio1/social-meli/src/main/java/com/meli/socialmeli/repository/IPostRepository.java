@@ -8,4 +8,5 @@ import java.util.List;
 public interface IPostRepository {
     void insertPost(Post post);
     List<Post> getFollowedPosts(List<User> followed, String order);
+    List<Post> getPromoPosts(Integer userId);
 }

@@ -9,7 +9,8 @@ import java.util.Date;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewPostDTO {
+@ToString
+public class NewPromoPostDTO {
     private Integer userId;
     private Integer postId;
     @JsonFormat(pattern="dd-MM-yyyy")
@@ -17,4 +18,6 @@ public class NewPostDTO {
     private Product detail;
     private Integer category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 }

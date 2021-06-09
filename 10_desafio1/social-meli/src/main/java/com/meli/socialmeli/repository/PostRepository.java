@@ -41,6 +41,16 @@ public class PostRepository implements IPostRepository {
         return followedPosts;
     }
 
+    @Override
+    public List<Post> getPromoPosts(Integer userId) {
+        List<Post> promoPosts = this.posts.stream()
+                .filter(i -> i.getUserId().equals(userId))
+                .filter(Post::isHasPromo)
+                .collect(Collectors.toList());
+
+        return promoPosts;
+    }
+
     private List<Post> getPostsByUser(Integer userId) {
         return this.posts.stream()
                 .filter(i -> i.getUserId().equals(userId))
