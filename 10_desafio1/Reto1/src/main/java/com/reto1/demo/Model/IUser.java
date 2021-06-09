@@ -5,6 +5,8 @@ import lombok.Data;
 
 public interface IUser {
 
-    void follow(IUser iuser);
-    void followed(IUser follower);
+    void followPages(IUser iuser);
+    void addFollower(IUser follower);
+    void unFollowPages(IUser iuser);
+    void removeFollower(IUser follower);
 }

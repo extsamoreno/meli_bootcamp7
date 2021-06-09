@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class UserMapper {
 
-    public static UserDTOCount toUserDTO(User user){
+    public static UserDTOCount toUserCount(User user){
         return new UserDTOCount(user.getId(), user.getName(), user.getFollowers().size());
     }
 
