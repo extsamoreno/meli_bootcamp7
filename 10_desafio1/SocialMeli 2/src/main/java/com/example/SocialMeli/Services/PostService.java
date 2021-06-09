@@ -85,9 +85,25 @@ public class PostService implements iPostService{
 
 
     }
+    private String getOrderType(String order){
+        String standarOrder = "desc";
+        if(order != null){
+            String[] orderArray = order.split("_");
+            String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
 
+            return orderType;
+        }
+        else{
+            return standarOrder;
+        }
+
+    }
     @Override
-    public List<PostDTO> getFollowedPost(int userId) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
+    public List<PostDTO> getFollowedPost(int userId, String order) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
+
+
+
+        String orderType = this.getOrderType(order);
 
         User user = iDataRepository.getUserByID(userId);
 
@@ -104,7 +120,7 @@ public class PostService implements iPostService{
 
         }
         this.filterPostByDate(output, LocalDate.now().minusWeeks(2), LocalDate.now());
-        this.orderPostDTOs(output, "desc");
+        this.orderPostDTOs(output, orderType);
         return output;
     }
 
