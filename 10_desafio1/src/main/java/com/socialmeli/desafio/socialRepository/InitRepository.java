@@ -24,6 +24,9 @@ public class InitRepository implements IInitRepository{
        iUsuarioRepository.altaUsuario("Usuario 2");
        iUsuarioRepository.altaUsuario("Usuario 3");
        iUsuarioRepository.altaUsuario("Usuario 4");
+       iUsuarioRepository.altaUsuario("Usuario 5");
+       iUsuarioRepository.altaUsuario("Usuario 6");
+       iUsuarioRepository.altaUsuario("Usuario 7");
 
 
 
@@ -37,7 +40,13 @@ public class InitRepository implements IInitRepository{
         iVendedorRepository.altaVendedor("Vendedor 2");
         iVendedorRepository.altaVendedor("Vendedor 3");
         iVendedorRepository.altaVendedor("Vendedor 4");
+        iVendedorRepository.altaVendedor("Vendedor 5");
+        iVendedorRepository.altaVendedor("Vendedor 6");
+        iVendedorRepository.altaVendedor("Vendedor 7");
     }
+
+
+
 
 
 }

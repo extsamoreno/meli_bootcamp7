@@ -24,5 +24,9 @@ public class VendedorModel {
 
     }
 
+    public void addPost(PublicacionModel publicacion){
+        this.posts.add(publicacion);
+    }
+
 
 }

@@ -4,6 +4,8 @@ package com.socialmeli.desafio.controller;
 import com.socialmeli.desafio.dto.FollowedListDTO;
 import com.socialmeli.desafio.dto.FollowersCountDTO;
 import com.socialmeli.desafio.dto.FollowersListDTO;
+import com.socialmeli.desafio.model.PublicacionModel;
+import com.socialmeli.desafio.model.VendedorModel;
 import com.socialmeli.desafio.service.ISocialService;
 import com.socialmeli.desafio.socialRepository.IInitRepository;
 import com.socialmeli.desafio.socialRepository.IUsuarioRepository;
@@ -15,8 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/SocialMeli")
-public class SocialController {
+@RequestMapping("/users")
+public class UsersController {
 
 
      @Autowired
@@ -33,8 +35,6 @@ public class SocialController {
 
 
 
-
-
     @PostMapping("/crearDB")
     public void crearDB()  {    //Se crea la base de datos
         iInitRepository.altaUsuarios();
@@ -47,10 +47,19 @@ public class SocialController {
        iUsuarioRepository.listarUsuarios();
        iVendedorRepository.listarVendedores();
 
+
+    }
+
+    @PostMapping("/listarPublicacionesPorVendedor/{id}")    //Se listan las BD, prueba para verificar que funciona ok
+    public void listarPublicaciones(@PathVariable int id)  {
+       VendedorModel vendedor= iVendedorRepository.getVendedorById(id);
+        System.out.println(vendedor.getPosts().get(0).getDetail());
+
+
     }
 
 
-    @PostMapping("/users/{id}/follow/{userIdToFollow}")   //CU0001
+    @PostMapping("/{id}/follow/{userIdToFollow}")   //CU0001
     public ResponseEntity<HttpStatus> follow (@PathVariable int id, @PathVariable int userIdToFollow)  {
 
         iSocialService.follow(id, userIdToFollow);
@@ -62,20 +71,20 @@ public class SocialController {
     }
 
 
-    @GetMapping("/users/{id}/followers/count/")  //CU0002
+    @GetMapping("/{id}/followers/count/")  //CU0002
     public ResponseEntity<FollowersCountDTO> followersCount (@PathVariable int id){  //falta hacer las excepciones
 
         return new ResponseEntity<>(iSocialService.getCountFollowers(id),HttpStatus.OK);
     }
 
 
-    @GetMapping("/users/{id}/followers/list")  //CU0003
+    @GetMapping("/{id}/followers/list")  //CU0003
     public ResponseEntity<FollowersListDTO> followersList (@PathVariable int id){  //falta hacer las excepciones
 
         return new ResponseEntity<>(iSocialService.getFollowersList(id),HttpStatus.OK);
     }
 
-    @GetMapping("/users/{id}/followed/list")  //CU0004
+    @GetMapping("/{id}/followed/list")  //CU0004
     public ResponseEntity<FollowedListDTO> followedList (@PathVariable int id){  //falta hacer las excepciones
 
         return new ResponseEntity<>(iSocialService.getFollowedList(id),HttpStatus.OK);

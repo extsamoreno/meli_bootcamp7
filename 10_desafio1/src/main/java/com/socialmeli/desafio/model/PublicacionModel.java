@@ -1,11 +1,10 @@
 package com.socialmeli.desafio.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
@@ -15,18 +14,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class PublicacionModel {
 
+    private int userId;
     private int id_post;   //modificar a un mismo criterio.
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;
-    private int product_id;
-    private String productName;
-    private String type;
-    private String brand;
-    private String color;
-    private String notes;
+    private DetailModel detail;
     private int category;
     private double price;
-
-
-
 
 }
