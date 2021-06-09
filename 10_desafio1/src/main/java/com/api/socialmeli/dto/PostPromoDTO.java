@@ -1,10 +1,7 @@
 package com.api.socialmeli.dto;
 
-import com.api.socialmeli.model.ProductModel;
 import lombok.*;
-
 import java.util.ArrayList;
-
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter

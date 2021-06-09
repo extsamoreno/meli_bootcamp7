@@ -1,6 +1,5 @@
 package com.api.socialmeli.repository;
 
-import com.api.socialmeli.exception.PostIdExistsException;
 import com.api.socialmeli.model.PostModel;
 import com.api.socialmeli.model.ProductModel;
 import org.springframework.stereotype.Repository;
@@ -28,6 +27,5 @@ public class PostRepositoryImple implements PostRepository{
     public void setDbPosts(ArrayList<PostModel> dbPosts) {
         PostRepositoryImple.dbPosts = dbPosts;
     }
-
 
 }

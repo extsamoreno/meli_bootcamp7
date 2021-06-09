@@ -1,11 +1,7 @@
 package com.api.socialmeli.dto;
 
 import com.api.socialmeli.model.ProductModel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import java.time.LocalDate;
 
 @AllArgsConstructor @NoArgsConstructor

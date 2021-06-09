@@ -5,6 +5,7 @@ import com.api.socialmeli.dto.PostNoUserIdDTO;
 import com.api.socialmeli.model.PostModel;
 
 public class PostMapper {
+
     public static PostModel dtoToModel (PostDTO post){
         PostModel model = new PostModel();
         model.setUserId(post.getUserId());
@@ -18,6 +19,7 @@ public class PostMapper {
 
         return model;
     }
+
     public static PostDTO modelToDto (PostModel model){
         PostDTO dto = new PostDTO();
         dto.setUserId(model.getUserId());
