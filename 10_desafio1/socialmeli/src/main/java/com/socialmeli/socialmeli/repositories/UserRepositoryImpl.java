@@ -1,5 +1,8 @@
 package com.socialmeli.socialmeli.repositories;
+import com.socialmeli.socialmeli.exceptions.DateIsNotValidException;
+import com.socialmeli.socialmeli.exceptions.PostIdAlreadyExistException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
+import com.socialmeli.socialmeli.helpers.ValidDate;
 import com.socialmeli.socialmeli.models.Post;
 import com.socialmeli.socialmeli.models.User;
 import org.springframework.stereotype.Repository;
@@ -38,10 +41,22 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public void insertPost(Post post) throws UserNotFoundException {
+    public void insertPost(Post post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
         User user = getUserById(post.getUserId());
+
+        Post checkPost = user.getPosts().stream().filter(
+                p -> p.getId_post() == post.getId_post()
+        ).findAny().orElse(null);
+
+        if(checkPost != null){
+            throw new PostIdAlreadyExistException("el post id ya existe");
+        }
+
+        if(!ValidDate.validateDate(post.getDate())){
+            throw new DateIsNotValidException("la fecha no es valida");
+        }
+
         users.get(user.getUserId()).getPosts().add(post);
     }
-
 
 }

@@ -1,4 +1,6 @@
 package com.socialmeli.socialmeli.services;
+import com.socialmeli.socialmeli.exceptions.DateIsNotValidException;
+import com.socialmeli.socialmeli.exceptions.PostIdAlreadyExistException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.repositories.UserRepository;
 import com.socialmeli.socialmeli.services.dtos.PostDTO;
@@ -13,7 +15,7 @@ public class PostServiceImpl implements PostService{
     UserRepository userRepository;
 
     @Override
-    public void newPost(PostDTO post) throws UserNotFoundException {
+    public void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
         userRepository.insertPost(
                 PostMapper.getPost(post)
         );

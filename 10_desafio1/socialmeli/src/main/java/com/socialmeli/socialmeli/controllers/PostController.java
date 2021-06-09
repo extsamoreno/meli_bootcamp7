@@ -1,4 +1,6 @@
 package com.socialmeli.socialmeli.controllers;
+import com.socialmeli.socialmeli.exceptions.DateIsNotValidException;
+import com.socialmeli.socialmeli.exceptions.PostIdAlreadyExistException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.services.PostService;
 import com.socialmeli.socialmeli.services.dtos.PostDTO;
@@ -19,7 +21,8 @@ public class PostController {
     PostService postService;
 
     @PostMapping("/newpost")
-    public ResponseEntity<Void> newPost(@RequestBody PostDTO post) throws UserNotFoundException {
+    public ResponseEntity<Void> newPost(@RequestBody PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
+        System.out.println(post);
         postService.newPost(post);
         return new ResponseEntity<>(HttpStatus.OK);
     }
