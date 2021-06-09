@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,9 +49,13 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public List<Post> getPostsByUser(int id) {
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, -14);
+        Date twoWeeks = c.getTime();
+
         List<Post> postsByUser = loadDatabasePosts()
                 .stream()
-                .filter(post -> post.getUserId() == id)
+                .filter(post -> post.getUserId() == id && !post.getDate().before(twoWeeks))
                 .collect(Collectors.toList());
 
         return postsByUser;

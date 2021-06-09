@@ -48,6 +48,7 @@ public class ProductService implements IProductService {
 
         for (UserDTO followedDTO : userWithFollowed.getFollowed()) {
             List<Post> postsByFollowed = productRepository.getPostsByUser(followedDTO.getId());
+
             allPostsFollowed.addAll(postsByFollowed);
         }
         var result = ProductMapper.userAndPostsToUserWithFollowedPostsDTO(userWithFollowed, allPostsFollowed);
