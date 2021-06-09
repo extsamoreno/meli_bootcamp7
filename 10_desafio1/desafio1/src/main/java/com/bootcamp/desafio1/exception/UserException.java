@@ -1,5 +1,6 @@
 package com.bootcamp.desafio1.exception;
 
+import com.bootcamp.desafio1.dto.ErrorDTO;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

@@ -2,6 +2,7 @@ package com.bootcamp.desafio1.controller;
 
 
 import com.bootcamp.desafio1.dto.CountFollowersDTO;
+import com.bootcamp.desafio1.dto.FollowedListDTO;
 import com.bootcamp.desafio1.dto.FollowersListDTO;
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.service.IUserService;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
+
     @Autowired
     IUserService userServiceImpl;
+
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity createFollow(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotFoundException {
@@ -23,25 +26,33 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<CountFollowersDTO> countFollowers(@PathVariable int userId) throws UserNotFoundException {
         CountFollowersDTO countFollowersDTO = userServiceImpl.countFollowers(userId);
         return new ResponseEntity(countFollowersDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersListDTO> ListFollowers(@PathVariable int userId) throws UserNotFoundException {
-        FollowersListDTO followersListDTO = userServiceImpl.listFollowers(userId) ;
+
+    @GetMapping(value = "/{userId}/followers/list")
+    public ResponseEntity<FollowersListDTO> ListFollowers(@PathVariable int userId, @RequestParam(defaultValue = "") String order) throws UserNotFoundException {
+        FollowersListDTO followersListDTO = userServiceImpl.listFollowers(userId, order) ;
         return new ResponseEntity(followersListDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowersListDTO> ListFolloweds(@PathVariable int userId) throws UserNotFoundException {
 
-        FollowersListDTO followersListDTO = userServiceImpl.listFollowers(userId) ;
-        return new ResponseEntity(followersListDTO, HttpStatus.OK);
+    @GetMapping(value = "/{userId}/followed/list")
+    public ResponseEntity<FollowedListDTO> ListFollowed(@PathVariable int userId, @RequestParam(defaultValue = "") String order) throws UserNotFoundException {
+        FollowedListDTO followedListDTO = userServiceImpl.listFollowed(userId, order) ;
+        return new ResponseEntity(followedListDTO, HttpStatus.OK);
     }
 
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    @ResponseStatus(HttpStatus.OK)
+    public void createUnFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException {
+        userServiceImpl.createUnFollow(userId, userIdToUnfollow);
+    }
 
 }
 

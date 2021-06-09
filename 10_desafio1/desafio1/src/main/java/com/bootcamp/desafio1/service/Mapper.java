@@ -1,6 +1,7 @@
 package com.bootcamp.desafio1.service;
 
 import com.bootcamp.desafio1.dto.CountFollowersDTO;
+import com.bootcamp.desafio1.dto.FollowedListDTO;
 import com.bootcamp.desafio1.dto.FollowersListDTO;
 import com.bootcamp.desafio1.dto.UserDTO;
 import com.bootcamp.desafio1.model.User;
@@ -19,5 +20,10 @@ public abstract class Mapper {
 
     public static FollowersListDTO toFollowersListDTO(User user, ArrayList<UserDTO> followers){
         return new FollowersListDTO(user.getUserId(), user.getUserName(), followers);
+    }
+
+
+    public static FollowedListDTO toFollowedListDTO(User user, ArrayList<UserDTO> followed){
+        return new FollowedListDTO(user.getUserId(), user.getUserName(), followed);
     }
 }

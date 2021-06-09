@@ -1,4 +1,4 @@
-package com.bootcamp.desafio1.exception;
+package com.bootcamp.desafio1.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

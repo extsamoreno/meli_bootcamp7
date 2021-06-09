@@ -1,7 +1,7 @@
 package com.bootcamp.desafio1.controller;
 
 
-import com.bootcamp.desafio1.exception.ErrorDTO;
+import com.bootcamp.desafio1.dto.ErrorDTO;
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
