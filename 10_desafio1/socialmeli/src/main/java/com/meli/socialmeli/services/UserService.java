@@ -1,15 +1,15 @@
 package com.meli.socialmeli.services;
 
 import com.meli.socialmeli.Mappers.UserMapper;
-import com.meli.socialmeli.dto.FollowDTO;
+import com.meli.socialmeli.dto.UserFollowDTO;
+import com.meli.socialmeli.dto.UserFollowedByListDTO;
 import com.meli.socialmeli.dto.UserFollowerCount;
 import com.meli.socialmeli.dto.UserFollowerListDTO;
 import com.meli.socialmeli.exceptions.UserInvalidException;
+import com.meli.socialmeli.exceptions.UserNotFoundException;
 import com.meli.socialmeli.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.util.ArrayList;
 
 @Controller
 public class UserService implements IUserService{
@@ -18,7 +18,7 @@ public class UserService implements IUserService{
     IUserRepository iUserRepository;
 
     @Override
-    public FollowDTO follow(int userId, int userIdToFollow) throws UserInvalidException {
+    public UserFollowDTO follow(int userId, int userIdToFollow) throws UserInvalidException {
         if (userId != userIdToFollow) {
             return UserMapper.UserMeliToFollowDTO( iUserRepository.followMerchant(userId, userIdToFollow) );
         } else {
@@ -34,7 +34,21 @@ public class UserService implements IUserService{
 
     @Override
     public UserFollowerListDTO getFollowerList(int userId) {
-        return iUserRepository.getListFolloweraById(userId);
+        return iUserRepository.getListFollowersById(userId);
+    }
+
+    @Override
+    public UserFollowedByListDTO getFollowedBy(int userId) {
+        return iUserRepository.getListFollowedById(userId);
+    }
+
+    @Override
+    public UserFollowDTO unfollow(int userId, int userIdTounfollow) throws UserInvalidException, UserNotFoundException {
+        if (userId != userIdTounfollow) {
+            return UserMapper.UserMeliToFollowDTO( iUserRepository.unfollowMerchant(userId, userIdTounfollow) );
+        } else {
+            throw new UserInvalidException();
+        }
     }
 
 //    @Override

@@ -1,19 +1,16 @@
 package com.meli.socialmeli.Mappers;
 
-import com.meli.socialmeli.dto.FollowDTO;
+import com.meli.socialmeli.dto.UserFollowDTO;
 import com.meli.socialmeli.dto.UserFollowerCount;
-import com.meli.socialmeli.dto.UserFollowerListDTO;
 import com.meli.socialmeli.dto.UserResponseDTO;
 import com.meli.socialmeli.models.UserMeli;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 //@AllArgsConstructor
 //@NoArgsConstructor
 public class UserMapper {
 
-    public static FollowDTO UserMeliToFollowDTO(UserMeli userMeli){
-        return new FollowDTO(userMeli.getUserId(), userMeli.getUserName());
+    public static UserFollowDTO UserMeliToFollowDTO(UserMeli userMeli){
+        return new UserFollowDTO(userMeli.getUserId(), userMeli.getUserName());
     }
     public static UserFollowerCount UserMeliToUserFollowerCount(UserMeli userMeli){
         return new UserFollowerCount(userMeli.getUserId(), userMeli.getUserName(), userMeli.getFollowers().size());

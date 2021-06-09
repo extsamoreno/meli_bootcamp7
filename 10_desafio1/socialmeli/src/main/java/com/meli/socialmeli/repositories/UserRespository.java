@@ -1,9 +1,11 @@
 package com.meli.socialmeli.repositories;
 
 import com.meli.socialmeli.Mappers.UserMapper;
-import com.meli.socialmeli.dto.FollowDTO;
+import com.meli.socialmeli.dto.UserFollowedByListDTO;
 import com.meli.socialmeli.dto.UserFollowerListDTO;
 import com.meli.socialmeli.dto.UserResponseDTO;
+import com.meli.socialmeli.exceptions.UserInvalidException;
+import com.meli.socialmeli.exceptions.UserNotFoundException;
 import com.meli.socialmeli.models.UserMeli;
 import org.springframework.stereotype.Repository;
 
@@ -23,10 +25,14 @@ public class UserRespository implements IUserRepository{
     }
 
     @Override
-    public UserMeli followMerchant(int userId, int userIdToFollow) {
+    public UserMeli followMerchant(int userId, int userIdToFollow) throws UserInvalidException {
         if (!users.get(userId).getFollowers().contains(users.get(userIdToFollow))) {
             users.get(userId).getFollowers().add(users.get(userIdToFollow).getUserId());
+            users.get(userIdToFollow).getFollowedBy().add(users.get(userId).getUserId());
+        } else {
+            throw new UserInvalidException();
         }
+
         return users.get(userId);
     }
 
@@ -55,12 +61,42 @@ public class UserRespository implements IUserRepository{
              ) {
             followDTOArrayList.add(getFollowerById(idUser));
         }
-
         return followDTOArrayList;
     }
 
     @Override
-    public UserFollowerListDTO getListFolloweraById(int userId) {
+    public UserFollowerListDTO getListFollowersById(int userId) {
         return new UserFollowerListDTO(users.get(userId).getUserId(), users.get(userId).getUserName(), getFollowersById(userId));
+    }
+
+    @Override
+    public UserFollowedByListDTO getListFollowedById(int userId) {
+        return new UserFollowedByListDTO(users.get(userId).getUserId(), users.get(userId).getUserName(), getFollowedById(userId));
+    }
+
+    @Override
+    public UserMeli unfollowMerchant(int userId, int userIdToFollow) throws UserNotFoundException {
+        if (users.get(userId).getFollowers().contains(users.get(userIdToFollow))) {
+            //int index = new Integer(users.get(userIdToFollow).getUserId());
+            users.get(userId).getFollowers().remove(Integer.valueOf(users.get(userIdToFollow).getUserId()));
+            users.get(userIdToFollow).getFollowedBy().remove(Integer.valueOf(users.get(userId).getUserId()));
+        }
+        else {
+            throw new UserNotFoundException();
+        }
+        return users.get(userId);
+    }
+
+    private ArrayList<UserResponseDTO> getFollowedById(int userId) {
+        ArrayList<UserResponseDTO> followDTOArrayList = new ArrayList<>();
+
+        ArrayList<Integer> listIdFollowedBy = users.get(userId).getFollowedBy() ;
+
+        for (Integer idUser: listIdFollowedBy
+        ) {
+            followDTOArrayList.add(getFollowerById(idUser));
+        }
+
+        return followDTOArrayList;
     }
 }

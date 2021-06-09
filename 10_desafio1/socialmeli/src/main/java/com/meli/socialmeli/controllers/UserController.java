@@ -1,9 +1,11 @@
 package com.meli.socialmeli.controllers;
 
-import com.meli.socialmeli.dto.FollowDTO;
+import com.meli.socialmeli.dto.UserFollowDTO;
+import com.meli.socialmeli.dto.UserFollowedByListDTO;
 import com.meli.socialmeli.dto.UserFollowerCount;
 import com.meli.socialmeli.dto.UserFollowerListDTO;
 import com.meli.socialmeli.exceptions.UserInvalidException;
+import com.meli.socialmeli.exceptions.UserNotFoundException;
 import com.meli.socialmeli.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,13 +21,13 @@ public class UserController {
 
     //Punto 1 LISTO
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<FollowDTO> followMerchant(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserInvalidException {
+    public ResponseEntity<UserFollowDTO> followMerchant(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserInvalidException {
         return new ResponseEntity<>(iUserService.follow(userId, userIdToFollow), HttpStatus.OK);
     }
 
     //Punto 2 Listo
     @GetMapping("/{userId}/followers/count/")
-    public ResponseEntity<UserFollowerCount> followers(@PathVariable int userId) {
+    public ResponseEntity<UserFollowerCount> followersCount(@PathVariable int userId) {
         return new ResponseEntity<>(iUserService.getFollowerCount(userId), HttpStatus.ACCEPTED);
     }
 
@@ -37,9 +39,14 @@ public class UserController {
         return new ResponseEntity<>(iUserService.getFollowerList(userId), HttpStatus.OK);
     }
 
-    // Punto 4
-//    @GetMapping("{userId}/followed/list")
-//    public ResponseEntity<FollowedByDTO>getFollowedBy(@PathVariable String userId) throws UserNotFoundException {
-//        return new ResponseEntity<>(iUserService.getFollowedBy(userId), HttpStatus.OK);
-//    }
+    // Punto 4 Listo
+    @GetMapping("{userId}/followed/list")
+    public ResponseEntity<UserFollowedByListDTO> getFollowedByList(@PathVariable int userId){
+        return new ResponseEntity<>(iUserService.getFollowedBy(userId), HttpStatus.OK);
+    }
+    //Punto 7 LISTO
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<UserFollowDTO> UnfollowMerchant(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserInvalidException, UserNotFoundException {
+        return new ResponseEntity<>(iUserService.unfollow(userId, userIdToUnfollow), HttpStatus.OK);
+    }
 }
