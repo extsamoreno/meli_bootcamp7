@@ -5,6 +5,7 @@ import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.FollowSellerResponseDTO;
+import com.example.socialmeli.models.dtos.response.FollowersCountResponseDTO;
 import com.example.socialmeli.models.dtos.response.NewUserResponseDTO;
 import com.example.socialmeli.exceptions.ExistentUserException;
 import com.example.socialmeli.repositories.UserRepository;
@@ -33,5 +34,12 @@ public class UserServiceImple implements UserService{
         FollowSellerResponseDTO modifiedUser = userRepository.followSeller(userId, userIdToFollow);
 
         return modifiedUser;
+    }
+
+    @Override
+    public FollowersCountResponseDTO countFollowers(int userId) throws InexistentUserException {
+        FollowersCountResponseDTO countResponse = userRepository.countResponse(userId);
+
+        return countResponse;
     }
 }
