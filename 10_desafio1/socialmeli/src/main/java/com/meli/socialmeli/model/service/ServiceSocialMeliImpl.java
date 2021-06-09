@@ -173,7 +173,7 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         if (!user.isSeller()) {
             throw new NonSellerUserException(userId);
         }
-        return UsersMapper.chageToUserSellerCountPromoDTO(user);
+        return UsersMapper.changeToUserSellerCountPromoDTO(user);
     }
 
     public UserSellerListPromoDTO getUserSellerListPromoDTO(int userId) throws IdNotFoundException,
@@ -185,6 +185,6 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         if (!user.isSeller()) {
             throw new NonSellerUserException(userId);
         }
-        return UsersMapper.chagerToUserSellerListPromoDTO(user);
+        return UsersMapper.changeToUserSellerListPromoDTO(user);
     }
 }

@@ -26,7 +26,7 @@ public class UsersMapper {
             Collections.sort(userList, new SortDescNameUserUtil());
         }
         for (User userOfList: userList) {
-            newUserSellerDTO.getFollowers().add(UsersMapper.changeTouserSimpleDTO(userOfList));
+            newUserSellerDTO.getFollowers().add(UsersMapper.changeToUserSimpleDTO(userOfList));
         }
         return newUserSellerDTO;
     }
@@ -43,12 +43,12 @@ public class UsersMapper {
             Collections.sort(userList, new SortDescNameUserUtil());
         }
         for (User userOfList: userList) {
-            newUserListDTO.getFollowed().add(UsersMapper.changeTouserSimpleDTO(userOfList));
+            newUserListDTO.getFollowed().add(UsersMapper.changeToUserSimpleDTO(userOfList));
         }
         return newUserListDTO;
     }
 
-    private static UserSimpleDTO changeTouserSimpleDTO (User user) {
+    private static UserSimpleDTO changeToUserSimpleDTO(User user) {
         return new UserSimpleDTO(user.getUserId(), user.getUserName());
     }
 
@@ -58,7 +58,7 @@ public class UsersMapper {
         return userListPostDTO;
     }
 
-    public static UserSellerCountPromoDTO chageToUserSellerCountPromoDTO(User user) {
+    public static UserSellerCountPromoDTO changeToUserSellerCountPromoDTO(User user) {
         UserSellerCountPromoDTO userSellerCountPromoDTO = new UserSellerCountPromoDTO();
         userSellerCountPromoDTO.setUserId(user.getUserId());
         userSellerCountPromoDTO.setUserName(user.getUserName());
@@ -72,7 +72,7 @@ public class UsersMapper {
         return userSellerCountPromoDTO;
     }
 
-    public static UserSellerListPromoDTO chagerToUserSellerListPromoDTO(User user) {
+    public static UserSellerListPromoDTO changeToUserSellerListPromoDTO(User user) {
         UserSellerListPromoDTO userSellerListPromoDTO = new UserSellerListPromoDTO();
         userSellerListPromoDTO.setUserId(user.getUserId());
         userSellerListPromoDTO.setUserName(user.getUserName());

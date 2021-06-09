@@ -32,4 +32,5 @@ public class RepositoryPostImpl implements RepositoryPost {
         dataBasePost.add(post);
         user.getPost().add(post);
     }
+
 }

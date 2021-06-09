@@ -1,11 +1,6 @@
 package com.meli.socialmeli.model.dto;
 
-import com.meli.socialmeli.model.dao.model.Post;
-import com.meli.socialmeli.model.dao.model.Product;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 
