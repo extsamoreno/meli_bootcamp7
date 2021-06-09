@@ -26,56 +26,52 @@ public class UserService implements IUserService{
     @Override
     public UserFollowedDTO addFollowUser(int userId, int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException {
 
-        if(userId <= 0){
+        if(userId <= 0)
             throw new UserIdInvalidException();
-        }
 
-        if(userIdToFollow <= 0){
+        if(userIdToFollow <= 0)
             throw new UserIdInvalidException();
-        }
-        if(userId == userIdToFollow){
+
+        if(userId == userIdToFollow)
             throw new UserIdFollowerEqualsFollowed();
-        }
 
         User user = userRepository.findUserById(userId);
 
-        if(user == null){
+        if(user == null)
             throw new UserNotFoundException(userId);
-        }
+
         ArrayList<User> followed = userRepository.findFollowedByUserId(userId);
         User userFollowed = followed.stream().filter(u -> u.getId() == userIdToFollow).findFirst().orElse(null);
-        if(userFollowed != null){
 
+        if(userFollowed != null)
             return UserFollowedMapper.toDTO(user, followed);
-        }
+
         return UserFollowedMapper.toDTO(userRepository.addFollowUser(userId, userIdToFollow), followed);
     }
 
     @Override
     public UserFollowerCountDTO findFollowersCount(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
 
-        if(userId <= 0){
+        if(userId <= 0)
             throw new UserIdInvalidException();
-        }
 
         User user = userRepository.findUserById(userId);
 
-        if(user == null){
+        if(user == null)
             throw new UserNotFoundException(userId);
-        }
+
         return UserFollowerCountMapper.toDTO(user, user.getFollowers().size());
     }
 
     @Override
     public UserFollowerDTO findFollowersByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
-        if(userId <= 0){
+        if(userId <= 0)
             throw new UserIdInvalidException();
-        }
+
         User user = userRepository.findUserById(userId);
 
-        if(user == null){
+        if(user == null)
             throw new UserNotFoundException(userId);
-        }
 
         ArrayList<User> followers = userRepository.findFollowersByUserId(userId);
 
@@ -84,14 +80,13 @@ public class UserService implements IUserService{
 
     @Override
     public UserFollowedDTO findFollowedByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
-        if(userId <= 0){
+        if(userId <= 0)
             throw new UserIdInvalidException();
-        }
+
         User user = userRepository.findUserById(userId);
 
-        if(user == null){
+        if(user == null)
             throw new UserNotFoundException(userId);
-        }
 
         ArrayList<User> followed = userRepository.findFollowedByUserId(userId);
 

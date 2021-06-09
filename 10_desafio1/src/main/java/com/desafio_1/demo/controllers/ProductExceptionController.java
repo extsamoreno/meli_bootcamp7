@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ProductExceptionController {
 
+    @ExceptionHandler(ProductIdPostInvalidException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductIdPostInvalidException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
     @ExceptionHandler(ProductDateInvalidException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(UserIdInvalidException e){
 
@@ -33,9 +39,35 @@ public class ProductExceptionController {
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 
-    @ExceptionHandler(ProductIdPostInvalidException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(ProductIdPostInvalidException e){
+    @ExceptionHandler(ProductDetailIdInvalidException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDetailIdInvalidException e){
 
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
+
+    @ExceptionHandler(ProductDetailNameRequiredException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDetailNameRequiredException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(ProductDetailBrandRequiredException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDetailBrandRequiredException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(ProductDetailColorRequiredException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDetailColorRequiredException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(ProductDetailTypeRequiredException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDetailTypeRequiredException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+
 }
