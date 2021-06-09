@@ -1,4 +1,4 @@
-package com.example.desafiospring.socialmeli.help;
+package com.example.desafiospring.socialmeli.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
