@@ -5,10 +5,7 @@ import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.models.User;
 import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
-import com.example.socialmeli.models.dtos.response.FollowSellerResponseDTO;
-import com.example.socialmeli.models.dtos.response.FollowersCountResponseDTO;
-import com.example.socialmeli.models.dtos.response.ListFollowersResponseDTO;
-import com.example.socialmeli.models.dtos.response.NewUserResponseDTO;
+import com.example.socialmeli.models.dtos.response.*;
 import com.example.socialmeli.exceptions.ExistentUserException;
 import com.example.socialmeli.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +38,10 @@ public class UserController {
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<ListFollowersResponseDTO> listFollowers (@PathVariable int userId) throws InexistentUserException {
         return new ResponseEntity<>(userService.listFollowers(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<ListFollowedResponseDTO> listFollowed (@PathVariable int userId) throws InexistentUserException {
+        return new ResponseEntity<>(userService.listFollowed(userId), HttpStatus.OK);
     }
 }
