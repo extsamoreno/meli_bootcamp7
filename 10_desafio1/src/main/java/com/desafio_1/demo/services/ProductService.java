@@ -119,19 +119,19 @@ public class ProductService implements IProductService{
             ProductDetailTypeRequiredException
     {
 
-        if(detailDTO.getProduct_id() <= 0)
+        if(detailDTO.getProductId() <= 0)
             throw new ProductDetailIdInvalidException();
 
-        if(detailDTO.getProductName().equals(""))
+        if(detailDTO.getProductName().isBlank())
             throw new ProductDetailNameRequiredException();
 
-        if(detailDTO.getBrand().equals(""))
+        if(detailDTO.getBrand().isBlank())
             throw new ProductDetailBrandRequiredException();
 
-        if(detailDTO.getColor().equals(""))
+        if(detailDTO.getColor().isBlank())
             throw new ProductDetailColorRequiredException();
 
-        if(detailDTO.getType().equals(""))
+        if(detailDTO.getType().isBlank())
             throw new ProductDetailTypeRequiredException();
 
         return true;

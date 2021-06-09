@@ -42,14 +42,14 @@ public class UserService implements IUserService{
         if(user == null)
             throw new UserNotFoundException(userId);
 
-        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, (a, b) -> a.compareTo(b));
+        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, createComparatorName(null));
         User userFollowed = followed.stream().filter(u -> u.getId() == userIdToFollow).findFirst().orElse(null);
 
         if(userFollowed != null)
             return UserFollowedMapper.toDTO(user, followed);
 
         user = userRepository.addFollowUser(userId, userIdToFollow);
-        followed = userRepository.findFollowedByUserId(userId, (a, b) -> a.compareTo(b));
+        followed = userRepository.findFollowedByUserId(userId, createComparatorName(null));
 
         return UserFollowedMapper.toDTO(user, followed);
     }
@@ -116,7 +116,7 @@ public class UserService implements IUserService{
 
         user = userRepository.unfollowUser(userId, userIdToUnfollow);
 
-        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, (a, b) -> a.compareTo(b));
+        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, createComparatorName(null));
 
         return UserFollowedMapper.toDTO(user, followed);
     }

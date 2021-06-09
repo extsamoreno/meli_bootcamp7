@@ -27,4 +27,12 @@ public class ProductController {
         return new ResponseEntity<>(productService.findProductsByFollowedId(userId, order), HttpStatus.OK);
     }
 
+    /*
+    @PostMapping("/newpost")
+    public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody ProductRequestDTO product) throws UserIdInvalidException, ProductCategoryInvalidException, ProductPriceInvalidException, UserNotFoundException, UnhandledException, ProductDetailRequiredException, ProductDateInvalidException, ProductIdPostInvalidException, ProductDetailIdInvalidException, ProductDetailNameRequiredException, ProductDetailBrandRequiredException, ProductDetailColorRequiredException, ProductDetailTypeRequiredException {
+        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
+    }
+
+
+     */
 }
