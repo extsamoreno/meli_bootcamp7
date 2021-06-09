@@ -6,7 +6,7 @@ import com.meli.socialmeli.dto.user.UserWithFollowersCountDTO;
 import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
 import com.meli.socialmeli.exception.FollowException;
 import com.meli.socialmeli.exception.IdNotFoundException;
-import com.meli.socialmeli.service.UserOrderType;
+import com.meli.socialmeli.service.orderType.UserOrderType;
 
 public interface IUserService {
 

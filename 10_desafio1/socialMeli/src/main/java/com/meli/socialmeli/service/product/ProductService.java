@@ -10,7 +10,8 @@ import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
 import com.meli.socialmeli.repository.product.IProductRepository;
 import com.meli.socialmeli.service.SocialMeliMapper;
-import com.meli.socialmeli.service.UserOrderType;
+import com.meli.socialmeli.service.orderType.PublicationOrderType;
+import com.meli.socialmeli.service.orderType.UserOrderType;
 import com.meli.socialmeli.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,12 +36,30 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public FollowedPublicationDTO followedRecentPublications(Integer userId) throws IdNotFoundException {
+    public FollowedPublicationDTO followedRecentPublications(Integer userId, PublicationOrderType order) throws IdNotFoundException {
         UserWithFollowedDTO user = userService.followedOf(userId, UserOrderType.name_asc);
         List<Integer> followedIds = user.getFollowed().stream().map(UserDTO::getUserId).collect(Collectors.toList());
-        List<Publication> posts = getRecentsPublications(followedIds);
+        List<Publication> posts = getRecentPublications(followedIds);
+
+        if (order == null) return followedPublicationDTODesc(user.getUserId(), posts);
+        return sortByDate(user.getUserId(), posts, order);
+    }
+
+    private FollowedPublicationDTO sortByDate(Integer userId, List<Publication> posts, PublicationOrderType order) {
+        if (order.equals(PublicationOrderType.date_desc)) return followedPublicationDTODesc(userId, posts);
+        else if (order.equals(PublicationOrderType.date_asc)) return followedPublicationDTOAsc(userId, posts);
+        else return new FollowedPublicationDTO(userId, SocialMeliMapper.toPublicationDTOList(posts));
+    }
+
+
+    private FollowedPublicationDTO followedPublicationDTOAsc(Integer userId, List<Publication> posts) {
+        orderListAsc(posts);
+        return new FollowedPublicationDTO(userId, SocialMeliMapper.toPublicationDTOList(posts));
+    }
+
+    private FollowedPublicationDTO followedPublicationDTODesc(Integer userId, List<Publication> posts) {
         orderListDesc(posts);
-        return new FollowedPublicationDTO(user.getUserId(), SocialMeliMapper.toPublicationDTOList(posts));
+        return new FollowedPublicationDTO(userId, SocialMeliMapper.toPublicationDTOList(posts));
     }
 
     private void orderListAsc(List<Publication> list) {
@@ -51,7 +70,7 @@ public class ProductService implements IProductService {
         list.sort(Comparator.comparing(Publication::getDate).reversed());
     }
 
-    private List<Publication> getRecentsPublications(List<Integer> followedIds) {
+    private List<Publication> getRecentPublications(List<Integer> followedIds) {
         List<Publication> temp = new ArrayList<>();
         followedIds.forEach(id -> temp.addAll(findRecentPostByUserID(id)));
         return temp;

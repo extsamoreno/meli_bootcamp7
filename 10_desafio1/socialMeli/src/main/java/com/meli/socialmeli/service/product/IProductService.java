@@ -5,10 +5,10 @@ import com.meli.socialmeli.dto.product.PublicationDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
-import org.springframework.http.ResponseEntity;
+import com.meli.socialmeli.service.orderType.PublicationOrderType;
 
 public interface IProductService {
     void createPost(PublicationDTO post) throws CanNotCreatePostException, InvalidDateFormatException;
 
-   FollowedPublicationDTO followedRecentPublications(Integer userId) throws IdNotFoundException;
+    FollowedPublicationDTO followedRecentPublications(Integer userId, PublicationOrderType order) throws IdNotFoundException;
 }

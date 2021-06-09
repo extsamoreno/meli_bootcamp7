@@ -9,7 +9,7 @@ import com.meli.socialmeli.exception.FollowException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.repository.user.IUserRepository;
 import com.meli.socialmeli.service.SocialMeliMapper;
-import com.meli.socialmeli.service.UserOrderType;
+import com.meli.socialmeli.service.orderType.UserOrderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

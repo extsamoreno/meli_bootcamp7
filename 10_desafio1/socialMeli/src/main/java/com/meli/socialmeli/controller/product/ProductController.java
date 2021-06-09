@@ -5,6 +5,7 @@ import com.meli.socialmeli.dto.product.PublicationDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
+import com.meli.socialmeli.service.orderType.PublicationOrderType;
 import com.meli.socialmeli.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +26,8 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPublicationDTO> followedPublications(@PathVariable Integer userId) throws IdNotFoundException {
-        return new ResponseEntity<>(productService.followedRecentPublications(userId), HttpStatus.OK);
+    public ResponseEntity<FollowedPublicationDTO> followedPublications(@PathVariable Integer userId,@RequestParam(required = false) PublicationOrderType order) throws IdNotFoundException {
+        return new ResponseEntity<>(productService.followedRecentPublications(userId,order), HttpStatus.OK);
     }
 
 }
