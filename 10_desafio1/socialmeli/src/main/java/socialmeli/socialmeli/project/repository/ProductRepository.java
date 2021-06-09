@@ -8,9 +8,10 @@ import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostAlreadyExi
 import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
 import socialmeli.socialmeli.project.models.Post;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
@@ -42,7 +43,24 @@ public class ProductRepository implements IProductRepository {
                                         .collect(Collectors.toList());
 
         Collections.reverse(arrayListPost);
-        return arrayListPost;
+
+        LocalDate todayLocalDate = LocalDate.now();
+        LocalDate previousTwoWeeks = todayLocalDate.minusWeeks(2);
+        ArrayList<Post> previosTwoWeeksPostsArr = new ArrayList<>();
+
+        for(Post post : arrayListPost){
+
+            LocalDate localDate = post.getDate()
+                                    .toInstant()
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDate(); //date to localdate
+            if (localDate.isAfter(previousTwoWeeks) && localDate.isBefore(todayLocalDate)){
+                previosTwoWeeksPostsArr.add(post);
+            }
+        }
+        return previosTwoWeeksPostsArr;
     }
+
+
 
 }
