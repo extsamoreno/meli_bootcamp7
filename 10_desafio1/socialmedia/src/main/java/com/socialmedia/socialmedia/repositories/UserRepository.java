@@ -20,11 +20,21 @@ public class UserRepository implements IUserRepository {
     public int followToUser(int userId, int userIdToFollow) {
         List<Follower> followers = loadDatabaseFollowers();
 
-        followers.add(new Follower(followers.size() + 1, userIdToFollow, userId));
+        followers.add(new Follower(followers.size() + 1, userIdToFollow, userId, true));
 
         updateDatabaseFollowers(followers);
 
         return 0;
+    }
+
+    @Override
+    public void unfollowToUser(Follower follower) {
+        List<Follower> followers = loadDatabaseFollowers();
+
+        followers.stream().filter(follower1 -> follower1.getId() == follower.getId())
+                .findFirst().get().setFollow(false);
+
+        updateDatabaseFollowers(followers);
     }
 
     @Override
@@ -39,7 +49,7 @@ public class UserRepository implements IUserRepository {
         var userResult = userOptional.get();
 
         List<Follower> followersByUser = followers.stream()
-                .filter(follower -> follower.getUserId() == userId).collect(Collectors.toList());
+                .filter(follower -> follower.getUserId() == userId && follower.isFollow()).collect(Collectors.toList());
 
         userResult.setFollowers(followersByUser);
 

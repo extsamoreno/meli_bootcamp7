@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService implements IUserService {
@@ -32,6 +33,20 @@ public class UserService implements IUserService {
         if (existRelation) throw new UserExistAsFollowerException(userId, userIdToFollow);
 
         int idFollower = userRepository.followToUser(userId, userIdToFollow);
+    }
+
+    @Override
+    public void unfollowToUser(int userId, int userIdToFollow) throws UserNotFoundException, UserExistAsFollowerException {
+        User userToFollow = userRepository.getUserById(userIdToFollow);
+        User user = userRepository.getUserById(userId);
+
+        var followerResult = userToFollow.getFollowers().stream()
+                .filter(follower -> follower.getFollowerId() == user.getId())
+                .findFirst().get();
+
+        if (Objects.isNull(followerResult)) throw new UserExistAsFollowerException(userId, userIdToFollow);
+
+        userRepository.unfollowToUser(followerResult);
     }
 
     @Override

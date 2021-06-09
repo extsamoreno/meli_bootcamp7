@@ -26,6 +26,14 @@ public class UserController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    @PostMapping("/{userId}/unfollow/{userIdToFollow}")
+    public ResponseEntity<Void> unfollowToUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotFoundException, UserExistAsFollowerException {
+
+        userService.unfollowToUser(userId, userIdToFollow);
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<UserCountFollowerDTO> getCountFollowersByUser(@PathVariable int userId) throws UserNotFoundException {
 

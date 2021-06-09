@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserWithFollowersDTO extends UserDTO {
-    private List<UserDTO> followers;
+public class UserWithFollowedPostsDTO extends UserDTO {
+    private List<PostDTO> posts;
 }
-

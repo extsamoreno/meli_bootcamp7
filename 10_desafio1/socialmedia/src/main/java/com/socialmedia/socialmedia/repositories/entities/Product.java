@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Follower {
+public class Product {
     private int id;
-    private int userId;
-    private int followerId;
-    private boolean follow;
+    private String name;
+    private String type;
+    private String brand;
+    private String color;
+    private String notes;
 }
