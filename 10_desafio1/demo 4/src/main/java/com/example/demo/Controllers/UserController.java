@@ -39,4 +39,10 @@ public class UserController {
         ResponseListSellerDTO response = userService.listSeller(userId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnFollow}")
+    public ResponseEntity unFolLowSeller(@PathVariable int userId, @PathVariable int userIdToUnFollow) throws Exception {
+        userService.unFolLowSeller(userId, userIdToUnFollow);
+        return ResponseEntity.ok().build();
+    }
 }

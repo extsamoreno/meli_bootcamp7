@@ -11,4 +11,5 @@ public interface IUserRepository {
     public void saveUsers();
     public User getById(int userId);
     public List<User> getSellersFollowedByUser(User user);
+    public void unFollowSeller(User user, User seller);
 }

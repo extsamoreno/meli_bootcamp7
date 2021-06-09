@@ -99,4 +99,19 @@ public class UserService {
                 sellers
         );
     }
+
+    public void unFolLowSeller(int idUser, int sellerId) throws Exception{
+
+        User user = userRepository.getById(idUser);
+        User seller = userRepository.getById(sellerId);
+
+        if(user==null){
+            throw new NotFoundException("User not exist");
+        }
+        if(seller==null){
+            throw new NotFoundException("Seller not exist");
+        }
+        userRepository.unFollowSeller(user, seller);
+        userRepository.saveUsers();
+    }
 }

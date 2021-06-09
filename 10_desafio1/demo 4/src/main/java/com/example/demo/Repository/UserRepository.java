@@ -24,7 +24,7 @@ public class UserRepository implements IUserRepository {
     public User getById(int userId) {
 
         User result = null;
-        if(users != null){
+        if (users != null) {
             User item = users.stream()
                     .filter(user -> user.getUserId() == userId)
                     .findAny().orElse(null);
@@ -35,47 +35,54 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public List<User> loadUsers(){
+    public List<User> loadUsers() {
         File file = null;
-        try{
+        try {
             file = ResourceUtils.getFile(userPathFile);
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<User>> typeRef = new TypeReference<>(){};
+        TypeReference<List<User>> typeRef = new TypeReference<>() {
+        };
         List<User> users = null;
-        try{
-            users = objectMapper.readValue(file,typeRef);
-        }catch(IOException e){
+        try {
+            users = objectMapper.readValue(file, typeRef);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return users;
     }
 
     @Override
-    public void saveUsers(){
+    public void saveUsers() {
         File file = null;
-        try{
+        try {
             file = ResourceUtils.getFile(userPathFile);
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         ObjectMapper objectMapper = new ObjectMapper();
 
-        try{
-            objectMapper.writeValue(file,users);
-        }catch(IOException e){
+        try {
+            objectMapper.writeValue(file, users);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public List<User> getSellersFollowedByUser(User user){
+    public List<User> getSellersFollowedByUser(User user) {
 
         List<User> items = users.stream()
                 .filter(userAux -> userAux.getFollowers().contains(user)).collect(Collectors.toList());
-        return  items;
+        return items;
+    }
+
+    @Override
+    public void unFollowSeller(User user, User seller) {
+        User userToDelete = seller.getFollowers().stream().filter(userAux -> userAux.getUserId() == user.getUserId()).findAny().orElse(null);
+        seller.getFollowers().remove(userToDelete);
     }
 
 }
