@@ -1,7 +1,6 @@
 package com.example.desafio1.controllers;
 
-import com.example.desafio1.dtos.PostDTO;
-import com.example.desafio1.dtos.ResponseFollowedPostDTO;
+import com.example.desafio1.dtos.*;
 import com.example.desafio1.exceptions.InvalidUserIdException;
 import com.example.desafio1.exceptions.UserException;
 import com.example.desafio1.services.IProductService;
@@ -46,6 +45,37 @@ public class ProductController {
         return new ResponseEntity(iProductService.addNewPost(postDTO), HttpStatus.OK);
     }
 
+    // Add a PROMO post of a product to a user
+    // Parameters
+    // @productDTO,  entity that has all the necessary information to add a product to a user (see example)
+    // Response 200 / 400 -> if the user does not exists
+    // Example: /products/newpromopost
+    // Body example:
+    /*
+        {
+            "userId": 1235,
+            "id_post": 18,
+            "date": "29-04-2021",
+            "detail" :
+                        {
+                        "product_id": 1,
+                        "productName": "Silla Gamer",
+                        "type": "Gamer",
+                        "brand": "Racer",
+                        "color": "Red & Black",
+                        "notes": "Special Edition"
+                        },
+            "category": 100,
+            "price": 1500.50,
+            "hasPromo": true,
+            "discount": 0.25
+        }
+     */
+    @PostMapping("/newpromopost")
+    public ResponseEntity<String> addNewPromoPost(@RequestBody PostPromoDTO postPromoDTO) throws InvalidUserIdException {
+        return new ResponseEntity(iProductService.addNewPromoPost(postPromoDTO), HttpStatus.OK);
+    }
+
     // Obtain all post of the last 2 week from the sellers the user follow
     // Parameters
     // @userId,  number that identifies the actual user
@@ -61,5 +91,28 @@ public class ProductController {
                                                                                   String order)
             throws UserException {
         return new ResponseEntity(iProductService.getAllPostOfMyFollowed(userId, order), HttpStatus.OK);
+    }
+
+
+    // Get the number of PROMO products that user has
+    // Parameters
+    // @userId,  number that identifies the actual user
+    // Response 200 / 400 -> if the user does not exists
+    // Example: /products/5/countPromo
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<ResponsePromoCountDTO> getPromoProductsCount(@PathVariable int userId)
+            throws InvalidUserIdException {
+        return new ResponseEntity(iProductService.getPromoProductsCount(userId), HttpStatus.OK);
+    }
+
+    // Get the number of PROMO products that user has
+    // Parameters
+    // @userId,  number that identifies the actual user
+    // Response 200 / 400 -> if the user does not exists
+    // Example: /products/5/list
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<ResponsePromoListDTO> getListOfPromoProducts(@PathVariable int userId)
+            throws InvalidUserIdException {
+        return new ResponseEntity(iProductService.getListOfPromoProducts(userId), HttpStatus.OK);
     }
 }

@@ -9,9 +9,8 @@ import org.springframework.stereotype.Repository;
 public class ProductRepository implements IProductRepository {
 
     @Override
-    public String addNewPost(int userId, Post post, User user) throws InvalidUserIdException {
+    public String addNewPost(User user, Post post) throws InvalidUserIdException {
         user.addNewPost(post);
-        return "Se ha agregado el producto con id: " + post.getDetail().getProduct_id() +
-                " al usuario con id: " + userId;
+        return "OK";
     }
 }

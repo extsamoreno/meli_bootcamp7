@@ -1,13 +1,13 @@
 package com.example.desafio1.services;
 
-import com.example.desafio1.dtos.PostDTO;
-import com.example.desafio1.dtos.ResponseFollowedPostDTO;
-import com.example.desafio1.dtos.UserDTO;
+import com.example.desafio1.dtos.*;
 import com.example.desafio1.exceptions.InvalidOrderException;
 import com.example.desafio1.exceptions.InvalidUserIdException;
 import com.example.desafio1.exceptions.UserException;
 import com.example.desafio1.mappers.PostMapper;
 import com.example.desafio1.models.Post;
+import com.example.desafio1.models.Product;
+import com.example.desafio1.models.User;
 import com.example.desafio1.repositories.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,9 @@ import java.util.*;
 @Service
 public class ProductService implements IProductService {
     // older to newer
-    private final Comparator<Post> COMPARATOR_DATE_ASC = (a,b)->a.getDate().compareTo(b.getDate());
+    private final Comparator<Post> COMPARATOR_DATE_ASC = (a,b) -> a.getDate().compareTo(b.getDate());
     // newer to older
-    private final Comparator<Post> COMPARATOR_DATE_DES = (a,b)->b.getDate().compareTo(a.getDate());
+    private final Comparator<Post> COMPARATOR_DATE_DES = (a,b) -> b.getDate().compareTo(a.getDate());
 
     @Autowired
     IProductRepository iProductRepository;
@@ -30,8 +30,18 @@ public class ProductService implements IProductService {
 
     @Override
     public String addNewPost(PostDTO postDTO) throws InvalidUserIdException {
-        return iProductRepository.addNewPost(postDTO.getUserId(), PostMapper.DTOToPost(postDTO),
-                iUserService.getUserById(postDTO.getUserId()));
+        iProductRepository.addNewPost(iUserService.getUserById(postDTO.getUserId()),
+                PostMapper.PostDTOToPost(postDTO));
+        return "Se ha agregado el producto con id: " + postDTO.getDetail().getProduct_id() +
+                " al usuario con id: " + postDTO.getUserId();
+    }
+
+    @Override
+    public String addNewPromoPost(PostPromoDTO postPromoDTO) throws InvalidUserIdException {
+        iProductRepository.addNewPost(iUserService.getUserById(postPromoDTO.getUserId()),
+                PostMapper.PostPromoDTOToPost(postPromoDTO));
+        return "Se ha agregado el producto en PROMOCION con id: " + postPromoDTO.getDetail().getProduct_id() +
+                " al usuario con id: " + postPromoDTO.getUserId();
     }
 
     @Override
@@ -55,6 +65,36 @@ public class ProductService implements IProductService {
         responseFollowedPostDTO.setUserId(userId);
         responseFollowedPostDTO.setPosts(posts);
         return responseFollowedPostDTO;
+    }
+
+    @Override
+    public ResponsePromoCountDTO getPromoProductsCount(int userId) throws InvalidUserIdException {
+        User user = iUserService.getUserById(userId);
+        ResponsePromoCountDTO responsePromoCountDTO = new ResponsePromoCountDTO();
+        responsePromoCountDTO.setUserId(user.getUserId());
+        responsePromoCountDTO.setUserName(user.getUserName());
+        responsePromoCountDTO.setPromoProductsCount(getListOfPromoProds(user.getPosts()).size());
+        return responsePromoCountDTO;
+    }
+
+    @Override
+    public ResponsePromoListDTO getListOfPromoProducts(int userId) throws InvalidUserIdException {
+        User user = iUserService.getUserById(userId);
+        ResponsePromoListDTO responsePromoListDTO = new ResponsePromoListDTO();
+        responsePromoListDTO.setUserId(user.getUserId());
+        responsePromoListDTO.setUserName(user.getUserName());
+        responsePromoListDTO.setPosts(getListOfPromoProds(user.getPosts()));
+        return responsePromoListDTO;
+    }
+
+    private List<Post> getListOfPromoProds(List<Post> posts) {
+        List<Post> postPromoList = new ArrayList<>();
+        for(Post p : posts) {
+            if(p.isHasPromo()) {
+                postPromoList.add(p);
+            }
+        }
+        return postPromoList;
     }
 
     public void sortPostByDate(String order, List<Post> list) throws InvalidOrderException {

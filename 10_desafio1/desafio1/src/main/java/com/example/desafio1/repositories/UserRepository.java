@@ -82,6 +82,7 @@ public class UserRepository implements IUserRepository {
         List<UserDTO> followers1 = new ArrayList<>();
         List<Post> posts1 = new ArrayList<>();
         followed1.add(new UserDTO(1, "Alvarez Jorge"));
+        followed1.add(new UserDTO(3, "Rojas Macarena"));
         followers1.add(new UserDTO(3, "Rojas Macarena"));
         u = new User(2, "Castro Miguel", followed1, followers1, posts1);
         users.put(u.getUserId(), u);
@@ -90,6 +91,7 @@ public class UserRepository implements IUserRepository {
         List<UserDTO> followers2 = new ArrayList<>();
         List<Post> posts2 = new ArrayList<>();
         followed2.add(new UserDTO(1, "Alvarez Jorge"));
+        followed2.add(new UserDTO(2, "Castro Miguel"));
         followers2.add(new UserDTO(2, "Castro Miguel"));
         u = new User(3, "Rojas Macarena", followed2, followers2, posts2);
         users.put(u.getUserId(), u);
