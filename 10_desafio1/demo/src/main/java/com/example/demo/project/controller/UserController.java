@@ -10,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -19,9 +21,9 @@ public class UserController {
 
     //US 0001
     @PostMapping ("/{userid}/follow/{useridtofollow}")
-    public HttpStatus followUser(@PathVariable Integer userid, @PathVariable Integer useridtofollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
+    public ResponseEntity<Void>  followUser(@PathVariable Integer userid, @PathVariable Integer useridtofollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
         iUserService.follow(userid, useridtofollow);
-        return HttpStatus.OK;
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //US 0002
@@ -32,8 +34,8 @@ public class UserController {
 
     //US 0003
     @GetMapping("/{id}/followers/list")
-    public ResponseEntity<SellerDTO> followers(@PathVariable Integer id) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowers(id), HttpStatus.OK);
+    public ResponseEntity<SellerDTO> followers(@PathVariable Integer id, @RequestParam Optional<String>  order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iUserService.getFollowers(id, order), HttpStatus.OK);
     }
 
     //US 0004
@@ -44,10 +46,16 @@ public class UserController {
 
     //US 0005
     @GetMapping("/{id}/following/list")
-    public ResponseEntity<UserDTO> following(@PathVariable Integer id) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowing(id), HttpStatus.OK);
+    public ResponseEntity<UserDTO> following(@PathVariable Integer id, @RequestParam Optional<String> order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iUserService.getFollowing(id, order), HttpStatus.OK);
     }
 
+    //US 0007
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Void> unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
+        iUserService.unfollow(userId, userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     /*
     @PostMapping ("/{userid}/follow/{useridtofollow}")

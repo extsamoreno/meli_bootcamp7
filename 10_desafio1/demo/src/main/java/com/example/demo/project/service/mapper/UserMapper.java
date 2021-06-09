@@ -36,6 +36,10 @@ public class UserMapper {
         return new UserWithFollowingCountDTO(user.getName(), user.getId(), user.getFollowing_count());
     }
 
+    public UserWithPromoPublicationCountDTO toUserWithPromoPublicationsDTO(User user, int pubs){
+        return new UserWithPromoPublicationCountDTO(user.getName(), user.getId(), pubs);
+    }
+
     public UserDTO toUserDTO(User user){
         return new UserDTO(user.getName(), user.getId());
     }

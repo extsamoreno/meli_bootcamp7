@@ -13,9 +13,11 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class DataRepository implements IDataRepository {
@@ -29,17 +31,61 @@ public class DataRepository implements IDataRepository {
     }
 
     @Override
-    public void addPublication(Publication publication) throws DuplicatedPublicationIdException, UserIdNotFoundException {
-        if (publications.containsKey(publication.getId_post())) throw new DuplicatedPublicationIdException(publication.getId_post());
-        //if (users.containsKey(publication.getId_user())) throw new UserIdNotFoundException(publication.getId_user());
-        publications.put(publication.getId_post(), publication);
-        //users.p
+    public Publication getPublicationById(Integer id) {
+        return publications.get(id);
     }
 
-    /*
-    public isValidUserByIndex(Integer index) {
-        i
-    }*/
+    @Override
+    public void addPublication(Publication publication) throws DuplicatedPublicationIdException, UserIdNotFoundException {
+        if (publications.containsKey(publication.getId_post())) throw new DuplicatedPublicationIdException(publication.getId_post());
+        if (!users.containsKey(publication.getId_user())) throw new UserIdNotFoundException(publication.getId_user());
+        publications.put(publication.getId_post(), publication);
+        users.get(publication.getId_user()).getPublications().add(publication.getId_post());
+        persistPublicationDataBase();
+        persistUserDataBase();
+    }
+
+    @Override
+    public List<Publication> getFollowedPublications(List<Integer> users_id) {
+
+        //GET USERS FROM FOLLOWING IDS
+        List<User> seller_list = users_id
+                .stream()
+                .map(user_id-> getUserById(user_id))
+                .collect(Collectors.toList());
+
+        //GET PUBLICATION IDS FROM THOSE USERS
+        List<Integer> publications_id = seller_list.stream().map(user -> user.getPublications()).flatMap(listContainer -> listContainer.stream()).collect(Collectors.toList());
+
+        //GET PUBLICATIONS
+        return getPublications(publications_id);
+    }
+
+    @Override
+    public List<Publication> getPublications(List<Integer> publications) {
+
+        //GET PUBLICATIONS
+        List<Publication> publications_list = publications
+                .stream()
+                .map(user_id-> getPublicationById(user_id))
+                .filter(publication -> publication.getDate().isAfter(LocalDate.now().minusWeeks(2)))
+                .collect(Collectors.toList());
+
+        return publications_list;
+    }
+
+    @Override
+    public List<Publication> getPromoPublications(List<Integer> publications) {
+
+        //GET PUBLICATIONS
+        List<Publication> publications_list = publications
+                .stream()
+                .map(user_id-> getPublicationById(user_id))
+                .filter(publication -> publication.getHasPromo())
+                .collect(Collectors.toList());
+
+        return publications_list;
+    }
 
     private Hashtable<Integer,User> LoadUserDataBase() {
         File file = null;
@@ -62,6 +108,7 @@ public class DataRepository implements IDataRepository {
         for (User user: users_list) {
             users.put(user.getId(), user);
         }
+
         return users;
     }
 
@@ -98,10 +145,12 @@ public class DataRepository implements IDataRepository {
             e.printStackTrace();
         }
 
+        List<Publication> publications_list = new ArrayList<>();
+        publications.forEach((k, v) -> publications_list.add(v));
         ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
         try {
-            objectMapper.writeValue(file, publications);
+            objectMapper.writeValue(file, publications_list);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -125,4 +174,6 @@ public class DataRepository implements IDataRepository {
             e.printStackTrace();
         }
     }
+
+
 }

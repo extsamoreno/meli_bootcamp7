@@ -5,13 +5,14 @@ import com.example.demo.project.exception.UsersCantFollowThemselvesException;
 import com.example.demo.project.models.User;
 import com.example.demo.project.repository.IDataRepository;
 import com.example.demo.project.service.dto.SellerDTO;
+import com.example.demo.project.service.dto.SellerWithFollowersDTO;
 import com.example.demo.project.service.dto.UserDTO;
+import com.example.demo.project.service.dto.UserWithFollowingListDTO;
 import com.example.demo.project.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserService implements IUserService {
@@ -32,8 +33,27 @@ public class UserService implements IUserService {
             User seller = iDataRepository.getUserById(useridtofollow);
             if (seller == null) throw new UserIdNotFoundException(useridtofollow);
 
-            user.addFollowing(useridtofollow);
-            seller.addFollower(userid);
+            addFollowing(user, useridtofollow);
+            addFollower(seller, userid);
+            iDataRepository.persistUserDataBase();
+        } else {
+            throw new UsersCantFollowThemselvesException();
+        }
+    }
+
+    @Override
+    public void unfollow(int userid, int useridtounfollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
+        if (userid != useridtounfollow) {
+
+            User user = iDataRepository.getUserById(userid);
+            if (user == null) throw new UserIdNotFoundException(userid);
+
+            User seller = iDataRepository.getUserById(useridtounfollow);
+            if (seller == null) throw new UserIdNotFoundException(useridtounfollow);
+
+            removeFollowing(user, useridtounfollow);
+            removeFollower(seller, userid);
+            iDataRepository.persistUserDataBase();
         } else {
             throw new UsersCantFollowThemselvesException();
         }
@@ -46,13 +66,31 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public SellerDTO getFollowers(int userid) throws UserIdNotFoundException {
+    public SellerDTO getFollowers(int userid, Optional<String> order) throws UserIdNotFoundException {
         User user = iDataRepository.getUserById(userid);
         List<User> followers = new ArrayList<>();
         for (Integer follower_id: user.getFollowers()) {
             followers.add(iDataRepository.getUserById(follower_id));
         }
-        return userMapper.toSellerDTO(user, followers);
+
+        SellerDTO sellerDTO = userMapper.toSellerDTO(user, followers);
+
+        if (order.isPresent()) orderUserDTOList(((SellerWithFollowersDTO)sellerDTO).getFollowers(), order.get());
+
+        return sellerDTO;
+    }
+
+    private void orderUserDTOList(List<UserDTO> userDTOList, String order) {
+        switch (order) {
+            case "name_asc":
+                Comparator<UserDTO> userNameComparator = Comparator.comparing(u -> u.getName().toUpperCase());
+                userDTOList.sort(userNameComparator);
+                break;
+            case "name_desc":
+                Comparator<UserDTO> userNameComparatorRev = Comparator.comparing(u -> u.getName().toUpperCase());
+                userDTOList.sort(userNameComparatorRev.reversed());
+                break;
+        }
     }
 
     @Override
@@ -62,33 +100,46 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO getFollowing(int userid) throws UserIdNotFoundException {
+    public UserDTO getFollowing(int userid, Optional<String> order) throws UserIdNotFoundException {
         User user = iDataRepository.getUserById(userid);
         List<User> following = new ArrayList<>();
         for (Integer following_id: user.getFollowing()) {
             following.add(iDataRepository.getUserById(following_id));
         }
-        return userMapper.toUserWithFollowingDTO(user, following);
+
+        UserDTO userDTO = userMapper.toUserWithFollowingDTO(user, following);
+
+        if (order.isPresent()) orderUserDTOList(((UserWithFollowingListDTO)userDTO).getFollowing(), order.get());
+
+        return userDTO;
     }
 
-
-
-    /*
-    @Override
-    public Integer addUrlToRepository(UrlDTO urldto) throws UrlNotValidException{
-        UrlValidator urlValidator = new UrlValidator(SCHEME);
-        if (urlValidator.isValid(urldto.getUrl())) {
-            Url url = UrlMapper.toUrl(urldto);
-            return iUrlRepository.addUrl(url);
-        } else {
-            throw new UrlNotValidException(urldto.getUrl());
+    public void addFollowing(User user, int userid) {
+        if (!user.getFollowing().contains(userid)) {
+            user.getFollowing().add(userid);
+            user.setFollowing_count(user.getFollowing_count()+1);
         }
     }
 
-    @Override
-    public UrlDTO getUrlById(Integer id) throws UrlIdNotFoundException {
-        Url url = iUrlRepository.getById(id);
-        return UrlMapper.toDTO(url);
-    }*/
+    public void removeFollowing(User user, int userid) {
+        if (user.getFollowing().contains(userid)) {
+            user.getFollowing().remove((Object)userid);
+            user.setFollowing_count(user.getFollowing_count()-1);
+        }
+    }
+
+    public void addFollower(User user, int userid) {
+        if (!user.getFollowers().contains(userid)) {
+            user.getFollowers().add(userid);
+            user.setFollowers_count(user.getFollowers_count()+1);
+        }
+    }
+
+    public void removeFollower(User user, int userid) {
+        if (user.getFollowers().contains(userid)) {
+            user.getFollowers().remove((Object)userid);
+            user.setFollowers_count(user.getFollowers_count()-1);
+        }
+    }
 
 }

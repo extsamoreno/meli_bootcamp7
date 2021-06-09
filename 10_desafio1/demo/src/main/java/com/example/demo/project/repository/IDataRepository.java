@@ -14,4 +14,9 @@ public interface IDataRepository {
 
     void persistPublicationDataBase();
     void persistUserDataBase();
+
+    Publication getPublicationById(Integer id);
+    List<Publication> getFollowedPublications(List<Integer> users_id);
+    List<Publication> getPublications(List<Integer> users_id);
+    List<Publication> getPromoPublications(List<Integer> users_id);
 }

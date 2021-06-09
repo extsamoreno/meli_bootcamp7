@@ -2,10 +2,8 @@ package com.example.demo.project.service.dto;
 
 import com.example.demo.project.models.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,11 +11,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PublicationDTO {
+
     private int id_post, id_user;
 
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate date;
+
     private ProductDTO detail;
-    private String category;
-    private float price;
+    private int category;
+    private double price;
 }

@@ -1,10 +1,1 @@
-[
-  {
-    "name": "Luke Skywalker",
-    "id": 0
-  },
-  {
-    "name": "Ramon Skywalker",
-    "id": 1
-  }
-]
+[{"name":"Luke Skywalker","id":0,"following_count":3,"followers_count":0,"following":[5,14,1],"followers":[],"publications":[]},{"name":"Ramon Skywalker","id":1,"following_count":0,"followers_count":3,"following":[],"followers":[14,5,0],"publications":[14,17,18,16,19]},{"name":"Joselito Suarez","id":14,"following_count":1,"followers_count":1,"following":[1],"followers":[0],"publications":[]},{"name":"Joselito Skywalker","id":5,"following_count":1,"followers_count":1,"following":[1],"followers":[0],"publications":[]}]

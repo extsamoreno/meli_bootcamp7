@@ -1,8 +1,6 @@
 package com.example.demo.project.controller;
 
-import com.example.demo.project.exception.DuplicatedPublicationIdException;
-import com.example.demo.project.exception.UserException;
-import com.example.demo.project.exception.UserIdNotFoundException;
+import com.example.demo.project.exception.*;
 import com.example.demo.project.service.dto.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,6 +15,16 @@ public class PublicationExceptionController {
 
     @ExceptionHandler(DuplicatedPublicationIdException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(DuplicatedPublicationIdException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(PublicationIsNotPromoException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(PublicationIsNotPromoException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(CantInsertDateGreaterThanToday.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(CantInsertDateGreaterThanToday e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 }

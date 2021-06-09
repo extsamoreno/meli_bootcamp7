@@ -15,6 +15,7 @@ public class User {
     private int id, following_count, followers_count;
     private List<Integer> following; //Sellers ID
     private List<Integer> followers; //Users ID
+    private List<Integer> publications; //Users ID
 
     public User(String name, int id) {
         this.name = name;
@@ -22,39 +23,13 @@ public class User {
         this.followers_count = this.following_count = 0;
         this.following = new ArrayList<>();
         this.followers = new ArrayList<>();
+        this.publications = new ArrayList<>();
     }
 
     public User() {
         this.followers_count = this.following_count = 0;
         this.following = new ArrayList<>();
         this.followers = new ArrayList<>();
-    }
-
-    public void addFollowing(int sellerID) {
-        if (!following.contains(sellerID)) {
-            following.add(sellerID);
-            following_count++;
-        }
-    }
-
-    public void removeFollowing(int sellerID) {
-        if (following.contains(sellerID)) {
-            following.remove(sellerID);
-            followers_count--;
-        }
-    }
-
-    public void addFollower(int sellerID) {
-        if (!following.contains(sellerID)) {
-            following.add(sellerID);
-            followers_count++;
-        }
-    }
-
-    public void removeFollower(int sellerID) {
-        if (followers.contains(sellerID)) {
-            followers.remove(sellerID);
-            followers_count--;
-        }
+        this.publications = new ArrayList<>();
     }
 }
