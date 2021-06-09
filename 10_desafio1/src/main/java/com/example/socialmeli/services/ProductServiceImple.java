@@ -41,7 +41,7 @@ public class ProductServiceImple implements ProductService{
                 break;
             case "date_desc":
                 posts.getPosts().sort(Comparator.comparing(PostDTO::getDate));
-                Collections.sort(posts.getPosts(), Collections.reverseOrder());
+                Collections.reverse(posts.getPosts());
                 break;
         }
 
