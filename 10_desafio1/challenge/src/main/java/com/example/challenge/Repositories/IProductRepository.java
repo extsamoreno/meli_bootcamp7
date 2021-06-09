@@ -6,5 +6,5 @@ import com.example.challenge.Models.User;
 
 public interface IProductRepository {
 
-   public String addNewPost(Post post, User user) throws UserNotFoundException;
+   String addNewPost(Post post, User user) throws UserNotFoundException;
 }

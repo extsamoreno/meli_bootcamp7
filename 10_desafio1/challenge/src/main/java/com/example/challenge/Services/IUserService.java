@@ -1,9 +1,6 @@
 package com.example.challenge.Services;
 
-import com.example.challenge.Exceptions.InvalidOrderException;
-import com.example.challenge.Exceptions.UserAlreadyFollowException;
-import com.example.challenge.Exceptions.UserNotFoundException;
-import com.example.challenge.Exceptions.UserSameIdException;
+import com.example.challenge.Exceptions.*;
 import com.example.challenge.Models.User;
 import com.example.challenge.Services.DTOs.*;
 
@@ -11,7 +8,7 @@ import java.util.List;
 
 public interface IUserService {
 
-    String loadUser();
+    String loadUser() throws UserNotFoundException, PostDuplicateException;
 
     List<GetUserDTO> getUsers();
 

@@ -1,9 +1,6 @@
 package com.example.challenge.Services;
 
-import com.example.challenge.Exceptions.InvalidOrderException;
-import com.example.challenge.Exceptions.UserAlreadyFollowException;
-import com.example.challenge.Exceptions.UserNotFoundException;
-import com.example.challenge.Exceptions.UserSameIdException;
+import com.example.challenge.Exceptions.*;
 import com.example.challenge.Models.User;
 import com.example.challenge.Repositories.IUserRepository;
 import com.example.challenge.Services.DTOs.*;
@@ -29,7 +26,7 @@ public class UserService implements IUserService {
     UserMapper um = new UserMapper();
 
     @Override
-    public String loadUser() {
+    public String loadUser() throws UserNotFoundException, PostDuplicateException {
         iUserRepository.loadData();
         return "Data load";
     }
