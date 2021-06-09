@@ -31,7 +31,7 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public FollowedPostsDTO getFollowedPosts(Integer userId) throws UserIdNotFoundException {
+    public FollowedPostsDTO getFollowedPosts(Integer userId, String order) throws UserIdNotFoundException {
         User user = iUserRepository.findUserById(userId);
 
         if(user == null) {
@@ -39,6 +39,6 @@ public class PostService implements IPostService{
         }
 
         List<User> followed = iUserRepository.getUserFollowed(userId,null);
-        return new FollowedPostsDTO(userId, iPostRepository.getFollowedPosts(followed));
+        return new FollowedPostsDTO(userId, iPostRepository.getFollowedPosts(followed,order));
     }
 }

@@ -23,9 +23,9 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //Requirement US 0006
+    //Requirement US 0006/009
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPostsDTO> getFollowedPosts(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iPostService.getFollowedPosts(userId), HttpStatus.OK);
+    public ResponseEntity<FollowedPostsDTO> getFollowedPosts(@PathVariable Integer userId, @RequestParam(required = false) String order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iPostService.getFollowedPosts(userId,order), HttpStatus.OK);
     }
 }

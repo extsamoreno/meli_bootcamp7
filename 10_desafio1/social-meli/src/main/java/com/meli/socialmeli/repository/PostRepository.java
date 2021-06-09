@@ -25,14 +25,18 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public List<Post> getFollowedPosts(List<User> followed) {
+    public List<Post> getFollowedPosts(List<User> followed, String order) {
         List<Post> followedPosts = new ArrayList<>();
 
         for (User u : followed) {
             followedPosts.addAll(getPostsByUser(u.getUserId()));
         }
 
-        followedPosts.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
+        if(order != null && order.equals("date_asc")) {
+            followedPosts.sort(Comparator.comparing(Post::getDate));
+        } else {
+            followedPosts.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
+        }
 
         return followedPosts;
     }

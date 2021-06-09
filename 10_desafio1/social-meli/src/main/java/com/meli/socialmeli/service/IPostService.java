@@ -6,5 +6,5 @@ import com.meli.socialmeli.exception.UserIdNotFoundException;
 
 public interface IPostService {
     void addPost(NewPostDTO newPost) throws UserIdNotFoundException;
-    FollowedPostsDTO getFollowedPosts(Integer userId) throws UserIdNotFoundException;
+    FollowedPostsDTO getFollowedPosts(Integer userId, String order) throws UserIdNotFoundException;
 }
