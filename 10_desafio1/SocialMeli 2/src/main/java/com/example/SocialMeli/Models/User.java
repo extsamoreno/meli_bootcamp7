@@ -19,14 +19,21 @@ public class User {
 
 
     public void addFollower(int userId){
-        this.followers.add(userId);
+        if(this.followers.indexOf(userId) == -1){
+            this.followers.add(userId);
+        }
+
     }
 
     public void addFollowed(int userId){
-        this.following.add(userId);
+        if(this.following.indexOf(userId) == -1){
+            this.following.add(userId);
+        }
+
     }
 
     public void addPost(int postId){
+
         this.posts.add(postId);
     }
 }
