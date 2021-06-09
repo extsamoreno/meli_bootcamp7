@@ -9,6 +9,7 @@ public class SocialMeliApplication {
 	public static void main(String[] args) {
 		Config.configUsers();
 		Config.configFollows();
+		Config.configPosts();
 		SpringApplication.run(SocialMeliApplication.class, args);
 	}
 

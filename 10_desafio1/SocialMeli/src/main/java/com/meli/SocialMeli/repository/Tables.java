@@ -1,6 +1,8 @@
 package com.meli.SocialMeli.repository;
 
 import com.meli.SocialMeli.model.Follow;
+import com.meli.SocialMeli.model.Post;
+import com.meli.SocialMeli.model.Product;
 import com.meli.SocialMeli.model.User;
 
 import java.util.ArrayList;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 public class Tables {
     private static ArrayList<User> userList = new ArrayList<>();
     private static ArrayList<Follow> followList = new ArrayList<>();
+    private static ArrayList<Post> postList = new ArrayList<>();
+    private static ArrayList<Product> productList = new ArrayList<>();
 
     public static void newUser(User newUser){
         newUser.setUserId(nextUserId());
@@ -63,5 +67,51 @@ public class Tables {
             }
         }
         return followedList;
+    }
+
+    public static void newPost(Post post) {
+        post.setId(nextPostId());
+        postList.add(post);
+    }
+
+    public static int newProduct(Product product) {
+        product.setId(nextProductId());
+        productList.add(product);
+        return product.getId();
+    }
+
+    private static int nextPostId(){
+        int id=1;
+        if(postList.size()>0){
+            id=postList.get(postList.size()-1).getId()+1;
+        }
+        return id;
+    }
+
+    private static int nextProductId(){
+        int id=1;
+        if(productList.size()>0){
+            id=productList.get(productList.size()-1).getId()+1;
+        }
+        return id;
+    }
+
+    public static ArrayList<Post> getPostByUser(int userId) {
+        ArrayList<Post> retPostList = new ArrayList<>();
+        for(Post post : postList){
+            if(post.getUserId()==userId){
+                retPostList.add(post);
+            }
+        }
+        return retPostList;
+    }
+
+    public static Product getProductById(int productId) {
+        for(Product product : productList){
+            if(product.getId()==productId){
+                return product;
+            }
+        }
+        return null;
     }
 }
