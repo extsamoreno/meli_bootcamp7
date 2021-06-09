@@ -61,5 +61,4 @@ public class UserRepository implements IUserRepository {
         cont = 7250;
     }
 
-
 }
