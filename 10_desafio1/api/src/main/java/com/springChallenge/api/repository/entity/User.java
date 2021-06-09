@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements Comparable<User>{
     private int userId;
     private String userName;
     private ArrayList<User> sellersFollowed;
@@ -49,5 +49,11 @@ public class User {
         this.sellersFollowed = user.getSellersFollowed();
         this.followers = user.getFollowers();
         this.posts = user.getPosts();
+    }
+
+
+    @Override
+    public int compareTo(User u) {
+        return this.getUserName().compareTo(u.getUserName());
     }
 }

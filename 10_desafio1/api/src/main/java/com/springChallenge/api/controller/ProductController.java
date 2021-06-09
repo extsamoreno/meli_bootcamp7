@@ -21,7 +21,9 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostsListDTO> getPostsByUserId(@PathVariable Integer userId) throws UserNotFoundException{
-        return new ResponseEntity<>(iProductService.getPostsByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<PostsListDTO> getPostsByUserId
+            (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "") String order)
+            throws UserNotFoundException{
+        return new ResponseEntity<>(iProductService.getPostsByUserId(userId, order), HttpStatus.OK);
     }
 }

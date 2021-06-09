@@ -29,13 +29,17 @@ public class UserController {
     }
 
     @GetMapping("{userId}/followers/list")
-    public ResponseEntity<FollowerListDTO> getFollowerList(@PathVariable Integer userId) throws UserNotFoundException{
-        return new ResponseEntity<>(iUserService.getFollowerList(userId), HttpStatus.OK);
+    public ResponseEntity<FollowerListDTO> getFollowerList
+            (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "") String order)
+            throws UserNotFoundException{
+        return new ResponseEntity<>(iUserService.getFollowerList(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("{userId}/followed/list")
-    public ResponseEntity<FollowedListDTO> getFollowedList(@PathVariable Integer userId) throws UserNotFoundException{
-        return new ResponseEntity<>(iUserService.getFollowedList(userId), HttpStatus.OK);
+    public ResponseEntity<FollowedListDTO> getFollowedList
+            (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "") String order)
+            throws UserNotFoundException{
+        return new ResponseEntity<>(iUserService.getFollowedList(userId, order), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")

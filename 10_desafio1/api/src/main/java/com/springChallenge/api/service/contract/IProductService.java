@@ -7,5 +7,5 @@ import com.springChallenge.api.controller.exception.user.UserNotFoundException;
 public interface IProductService {
     void createNewPost(PostDTO postDTO) throws UserNotFoundException;
 
-    PostsListDTO getPostsByUserId(Integer userId) throws UserNotFoundException;
+    PostsListDTO getPostsByUserId(Integer userId, String order) throws UserNotFoundException;
 }

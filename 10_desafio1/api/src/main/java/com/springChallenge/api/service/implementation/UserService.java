@@ -13,6 +13,9 @@ import com.springChallenge.api.service.mapper.user.FollowerListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 @Service
 public class UserService implements IUserService {
     @Autowired
@@ -41,14 +44,26 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowerListDTO getFollowerList(Integer userId) throws UserNotFoundException {
+    public FollowerListDTO getFollowerList(Integer userId, String order) throws UserNotFoundException {
         User user = iUserRepository.getByUserId(userId);
+        if (!order.isEmpty())
+            orderUserList(user.getFollowers(), order);
         return FollowerListMapper.mapToDTO(user);
     }
 
+    private void orderUserList(ArrayList<User> list, String order) {
+        if (order.equals("name_asc")) {
+            Collections.sort(list);
+        } else {
+            list.sort(Collections.reverseOrder());
+        }
+    }
+
     @Override
-    public FollowedListDTO getFollowedList(Integer userId) throws UserNotFoundException {
+    public FollowedListDTO getFollowedList(Integer userId, String order) throws UserNotFoundException {
         User user = iUserRepository.getByUserId(userId);
+        if (!order.isEmpty())
+            orderUserList(user.getSellersFollowed(), order);
         return FollowedListMapper.mapToDTO(user);
     }
 

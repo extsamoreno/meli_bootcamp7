@@ -5,11 +5,15 @@ import com.springChallenge.api.controller.dto.product.PostsListDTO;
 import com.springChallenge.api.controller.exception.user.UserNotFoundException;
 import com.springChallenge.api.repository.contract.IProductRepository;
 import com.springChallenge.api.repository.contract.IUserRepository;
+import com.springChallenge.api.repository.entity.Post;
 import com.springChallenge.api.service.contract.IProductService;
 import com.springChallenge.api.service.mapper.product.PostMapper;
 import com.springChallenge.api.service.mapper.product.PostsListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 @Service
 public class ProductService implements IProductService {
@@ -27,9 +31,19 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public PostsListDTO getPostsByUserId(Integer userId) throws UserNotFoundException {
-        var user = iUserRepository.getByUserId(userId);
-        return PostsListMapper.toDTO(user);
+    public PostsListDTO getPostsByUserId(Integer userId, String order) throws UserNotFoundException {
+        ArrayList<Post> posts = iUserRepository.getFollowedPosts(userId);
+        if (!order.isEmpty())
+            orderList(posts, order);
+        return PostsListMapper.toDTO(userId, posts);
+    }
+
+    private void orderList(ArrayList<Post> posts, String order) {
+        if (order.equals("date_asc")) {
+            Collections.sort(posts);
+        } else {
+            posts.sort(Collections.reverseOrder());
+        }
     }
 
     private void validatePost(PostDTO postDTO) {
