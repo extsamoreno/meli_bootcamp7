@@ -78,8 +78,12 @@ public class UserService implements IUserService {
 
 
     @Override
-    public CusersResponse cUserFollowers(int userId) {
+    public CusersResponse cUserFollowers(int userId) throws UserNotFoundException{
         int count = 0;
+        Follow user = iFollowRepository.getFollowById(userId);
+        if(user==null){
+            throw new UserNotFoundException(Integer.toString(userId), HttpStatus.BAD_REQUEST);
+        }
         List<Follow> follows = iFollowRepository.getFollowList();
         for(Follow follow:follows){
             if(follow.getFollows_id().contains(userId)){

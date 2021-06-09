@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IUserService {
     public void follow(int userId, int follow_id) throws UserException;
-    public CusersResponse cUserFollowers(int userId);
+    public CusersResponse cUserFollowers(int userId) throws UserNotFoundException;
     public String userNameByUserId(int userId);
     public List<UserDTO> followersByUserId(int userId, String order);
     public List<UserDTO> followedByUserId(int userId, String order);

@@ -25,7 +25,7 @@ public class UsersController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<CusersResponse> countResponse(@PathVariable("userId") int userId){
+    public ResponseEntity<CusersResponse> countResponse(@PathVariable("userId") int userId) throws UserNotFoundException{
         return new ResponseEntity<>(iUserService.cUserFollowers(userId), HttpStatus.OK);
     }
 
