@@ -1,14 +1,14 @@
-package desafio1.desafio1.service;
+package desafio1.desafio1.service.userService;
 
 import desafio1.desafio1.domain.User;
-import desafio1.desafio1.exception.UserNotFoundException;
-import desafio1.desafio1.exception.ValidateSellerException;
-import desafio1.desafio1.exception.ValidateUserException;
+import desafio1.desafio1.exception.userException.UserNotFoundException;
+import desafio1.desafio1.exception.userException.ValidateSellerException;
+import desafio1.desafio1.exception.userException.ValidateUserException;
 import desafio1.desafio1.repository.IUserRepository;
-import desafio1.desafio1.service.dto.SellerCountDTO;
-import desafio1.desafio1.service.dto.list.SellerListDTO;
-import desafio1.desafio1.service.dto.UserSaveDTO;
-import desafio1.desafio1.service.dto.list.UserListDTO;
+import desafio1.desafio1.service.userService.dto.SellerCountDTO;
+import desafio1.desafio1.service.userService.dto.SellerListDTO;
+import desafio1.desafio1.service.userService.dto.UserSaveDTO;
+import desafio1.desafio1.service.userService.dto.UserListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

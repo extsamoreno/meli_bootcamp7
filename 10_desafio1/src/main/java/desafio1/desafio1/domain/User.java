@@ -1,9 +1,8 @@
 package desafio1.desafio1.domain;
 
-import desafio1.desafio1.service.dto.UserSaveDTO;
+import desafio1.desafio1.service.userService.dto.UserSaveDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;

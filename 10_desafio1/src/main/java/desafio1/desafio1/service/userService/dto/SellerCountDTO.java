@@ -1,4 +1,4 @@
-package desafio1.desafio1.service.dto;
+package desafio1.desafio1.service.userService.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

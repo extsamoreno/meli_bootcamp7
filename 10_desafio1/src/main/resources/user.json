@@ -1,14 +1,46 @@
 [
-  {"userId": 1223,
-  "userName": "vendedor1",
-  "followList": [],
-  "followMeList": [ {
-                  "userId": 1226,
-                  "userName": "usuario2"
-  }],
-  "publicationsList": []
-  }
-  ,
+  {
+    "userId": 1223,
+    "userName": "vendedor1",
+    "followList": [],
+    "followMeList": [ {
+                    "userId": 1226,
+                    "userName": "usuario2"
+    }],
+    "publicationsList": [
+      {
+        "id_post": 5,
+        "date": "30-05-2021",
+        "detail":
+        {
+          "product_id": 1,
+          "productName": "Silla Gamer",
+          "type": "Gamer",
+          "brand": "Racer",
+          "color": "Red & Black",
+          "notes": "Special Edition"
+        },
+        "category": 100,
+        "price": 1500.50
+      },
+      {
+        "id_post": 5,
+        "date": "20-04-2021",
+        "detail":
+        {
+          "product_id": 1,
+          "productName": "Silla Gamer",
+          "type": "Gamer",
+          "brand": "Racer",
+          "color": "Red & Black",
+          "notes": "Special Edition"
+        },
+        "category": 100,
+        "price": 1500.50
+      }
+
+    ]
+  },
   {
     "userId": 1224,
     "userName": "vendedor2",

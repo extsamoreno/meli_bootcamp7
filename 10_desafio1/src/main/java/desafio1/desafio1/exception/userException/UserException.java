@@ -1,6 +1,6 @@
-package desafio1.desafio1.exception;
+package desafio1.desafio1.exception.userException;
 
-import desafio1.desafio1.service.dto.ErrorDTO;
+import desafio1.desafio1.service.ErrorDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

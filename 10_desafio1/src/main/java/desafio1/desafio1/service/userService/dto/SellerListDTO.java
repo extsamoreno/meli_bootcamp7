@@ -1,7 +1,6 @@
-package desafio1.desafio1.service.dto.list;
+package desafio1.desafio1.service.userService.dto;
 
-import desafio1.desafio1.domain.User;
-import desafio1.desafio1.service.dto.UserSaveDTO;
+import desafio1.desafio1.service.userService.dto.UserSaveDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

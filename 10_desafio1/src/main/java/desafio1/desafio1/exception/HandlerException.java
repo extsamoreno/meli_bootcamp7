@@ -1,6 +1,9 @@
 package desafio1.desafio1.exception;
 
-import desafio1.desafio1.service.dto.ErrorDTO;
+import desafio1.desafio1.exception.userException.UserNotFoundException;
+import desafio1.desafio1.exception.userException.ValidateSellerException;
+import desafio1.desafio1.exception.userException.ValidateUserException;
+import desafio1.desafio1.service.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -2,9 +2,10 @@ package desafio1.desafio1.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import desafio1.desafio1.domain.Publications;
 import desafio1.desafio1.domain.User;
-import desafio1.desafio1.exception.UserNotFoundException;
-import desafio1.desafio1.service.dto.UserSaveDTO;
+import desafio1.desafio1.exception.userException.UserNotFoundException;
+import desafio1.desafio1.service.userService.dto.UserSaveDTO;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -12,12 +13,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class UserRepository implements IUserRepository{
+public class UserRepository implements IUserRepository {
 
     private List<User> listUser = null; //esto lo cambie de lugar porque me recomendaron hacerlo como atributo de clase y no de metodo
 
@@ -51,9 +51,10 @@ public class UserRepository implements IUserRepository{
     public List<UserSaveDTO> filterFollowers(int userId, String criterio) throws UserNotFoundException {
         User user = findUserById(userId);
         List<UserSaveDTO> listFollowers = null;
+        List<UserSaveDTO> listUserSaveDTO = user.getFollowMeList();
 
-        if(user.getFollowList() != null){
-             listFollowers = user.getFollowList().stream().filter(
+        if(listUserSaveDTO != null){
+             listFollowers = listUserSaveDTO.stream().filter(
                     x -> x.getUserName().toLowerCase().contains(criterio.toLowerCase())).collect(Collectors.toList());
         }
 
@@ -74,6 +75,11 @@ public class UserRepository implements IUserRepository{
 
         return listFollowersMe;
 
+    }
+
+    @Override
+    public List<Publications> findPublicationByUserID(int userId) throws UserNotFoundException {
+        return findUserById(userId).getPublicationsList();
     }
 
 
