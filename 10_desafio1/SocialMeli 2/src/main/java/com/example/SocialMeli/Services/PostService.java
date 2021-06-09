@@ -98,12 +98,13 @@ public class PostService implements iPostService{
             List<Post> posts = iDataRepository.getPostsByIds(followed.getPosts());
             for (int j = 0; j < posts.size(); j++) {
 
-                Product product = iDataRepository.getProductByID(posts.get(i).getProductId());
-                output.add( PostMapper.toDTO(posts.get(i),product));
+                Product product = iDataRepository.getProductByID(posts.get(j).getProductId());
+                output.add( PostMapper.toDTO(posts.get(j),product));
             }
 
         }
         this.filterPostByDate(output, LocalDate.now().minusWeeks(2), LocalDate.now());
+        this.orderPostDTOs(output, "desc");
         return output;
     }
 
@@ -117,6 +118,26 @@ public class PostService implements iPostService{
 
             if(!(biggerThanUntil && smallerThanFrom)){
                 posts.remove(i);
+            }
+
+        }
+
+    }
+    private void orderPostDTOs(List<PostDTO> posts, String order){
+
+        Boolean condition = (order.equals("asc")) ? true : false;
+        for (int i = 0; i < posts.size(); i++) {
+            for(int j=0;j<posts.size()-1;j++)
+            {
+                LocalDate postDate = LocalDate.parse(posts.get(j+1).getDate());
+                LocalDate previousPostDate = LocalDate.parse(posts.get(j).getDate());
+
+                if(previousPostDate.isAfter(postDate) == condition)
+                {
+                    PostDTO aux = new PostDTO(posts.get(j).getUserId(),posts.get(j).getPostId(),posts.get(j).getDate(),posts.get(j).getDetail(),posts.get(j).getCategory(),posts.get(j).getPrice());
+                    posts.set(j, posts.get(j+1));
+                    posts.set(j+1, aux);
+                }
             }
 
         }
