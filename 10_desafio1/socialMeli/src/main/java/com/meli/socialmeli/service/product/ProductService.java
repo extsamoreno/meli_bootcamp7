@@ -6,6 +6,7 @@ import com.meli.socialmeli.dto.product.FollowedPublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationWithPromoDTO;
 import com.meli.socialmeli.dto.user.UserWithPromoCountDTO;
+import com.meli.socialmeli.dto.user.UserWithPromoListDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
@@ -36,46 +37,48 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public FollowedPublicationDTO followedRecentPublications(Integer userId, PublicationOrderType order) throws IdNotFoundException {
-        User user = userService.getValidUserById(userId);
-        List<Integer> followedIds = user.getFollowed().stream().map(User::getUserId).collect(Collectors.toList());
-        List<Publication> posts = getRecentPublications(followedIds);
-
-        if (order == null) return followedPublicationDTODesc(user.getUserId(), posts);
-        return sortByDate(user.getUserId(), posts, order);
-    }
-
-    @Override
     public void createPostWithPromo(PublicationWithPromoDTO post) throws InvalidDateFormatException, CanNotCreatePostException {
         productRepository.save(PublicationMapper.promoToPublication(post));
     }
 
     @Override
+    public FollowedPublicationDTO followedRecentPublications(Integer userId, PublicationOrderType order) throws IdNotFoundException {
+        User user = getUserByID(userId);
+        List<Integer> followedIds = user.getFollowed().stream().map(User::getUserId).collect(Collectors.toList());
+        List<Publication> posts = getRecentPublications(followedIds);
+        sortByDate(posts, order);
+        return new FollowedPublicationDTO(userId, PublicationMapper.toPublicationDTOList(posts));
+    }
+
+    private User getUserByID(Integer userId) throws IdNotFoundException {
+        return userService.getValidUserById(userId);
+    }
+
+    @Override
     public UserWithPromoCountDTO promoCountOf(Integer userId) throws IdNotFoundException {
         Integer count = publicationWithPromoOf(userId).size();
-        User user = userService.getValidUserById(userId);
+        User user = getUserByID(userId);
         return new UserWithPromoCountDTO(userId, user.getUserName(), count);
+    }
+
+    @Override
+    public UserWithPromoListDTO promoListOf(Integer userId, PublicationOrderType order) throws IdNotFoundException {
+        User user = getUserByID(userId);
+        List<Publication> posts = publicationWithPromoOf(userId);
+        sortByDate(posts, order);
+        return new UserWithPromoListDTO(userId, user.getUserName(), PublicationMapper.toPublicationWithPromoDTOList(posts));
     }
 
     private List<Publication> publicationWithPromoOf(Integer userId) {
         return findPostByUserID(userId).stream().filter(Publication::isHasPromo).collect(Collectors.toList());
     }
 
-    private FollowedPublicationDTO sortByDate(Integer userId, List<Publication> posts, PublicationOrderType order) {
-        if (order.equals(PublicationOrderType.date_desc)) return followedPublicationDTODesc(userId, posts);
-        else if (order.equals(PublicationOrderType.date_asc)) return followedPublicationDTOAsc(userId, posts);
-        else return new FollowedPublicationDTO(userId, PublicationMapper.toPublicationDTOList(posts));
-    }
-
-
-    private FollowedPublicationDTO followedPublicationDTOAsc(Integer userId, List<Publication> posts) {
-        orderListAsc(posts);
-        return new FollowedPublicationDTO(userId, PublicationMapper.toPublicationDTOList(posts));
-    }
-
-    private FollowedPublicationDTO followedPublicationDTODesc(Integer userId, List<Publication> posts) {
-        orderListDesc(posts);
-        return new FollowedPublicationDTO(userId, PublicationMapper.toPublicationDTOList(posts));
+    private void sortByDate(List<Publication> posts, PublicationOrderType order) {
+        if (order == null) orderListDesc(posts);
+        else {
+            if (order.equals(PublicationOrderType.date_desc)) orderListDesc(posts);
+            if (order.equals(PublicationOrderType.date_asc)) orderListAsc(posts);
+        }
     }
 
     private void orderListAsc(List<Publication> list) {

@@ -3,14 +3,12 @@ package com.meli.socialmeli.controller.product;
 import com.meli.socialmeli.dto.product.FollowedPublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationWithPromoDTO;
-import com.meli.socialmeli.dto.user.UserWithFollowersCountDTO;
-import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
 import com.meli.socialmeli.dto.user.UserWithPromoCountDTO;
+import com.meli.socialmeli.dto.user.UserWithPromoListDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
 import com.meli.socialmeli.service.orderType.PublicationOrderType;
-import com.meli.socialmeli.service.orderType.UserOrderType;
 import com.meli.socialmeli.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,9 +29,10 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPublicationDTO> followedPublications(@PathVariable Integer userId,@RequestParam(required = false) PublicationOrderType order) throws IdNotFoundException {
-        return new ResponseEntity<>(productService.followedRecentPublications(userId,order), HttpStatus.OK);
+    public ResponseEntity<FollowedPublicationDTO> followedPublications(@PathVariable Integer userId, @RequestParam(required = false) PublicationOrderType order) throws IdNotFoundException {
+        return new ResponseEntity<>(productService.followedRecentPublications(userId, order), HttpStatus.OK);
     }
+
     @PostMapping("/newpromopost")
     public ResponseEntity<Void> createNewPostWithPromo(@RequestBody PublicationWithPromoDTO body) throws CanNotCreatePostException, InvalidDateFormatException {
         productService.createPostWithPromo(body);
@@ -45,8 +44,8 @@ public class ProductController {
         return new ResponseEntity<>(productService.promoCountOf(userId), HttpStatus.OK);
     }
 
-//    @GetMapping("/{userId}/followers/list")
-//    public ResponseEntity<UserWithFollowersDTO> followersListOf(@PathVariable Integer userId, @RequestParam(required = false) UserOrderType order) throws IdNotFoundException {
-//        return new ResponseEntity<>(userService.followersOf(userId, order), HttpStatus.OK);
-//    }
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<UserWithPromoListDTO> promoListOf(@PathVariable Integer userId, @RequestParam(required = false) PublicationOrderType order) throws IdNotFoundException {
+        return new ResponseEntity<>(productService.promoListOf(userId, order), HttpStatus.OK);
+    }
 }

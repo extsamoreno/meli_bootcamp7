@@ -57,7 +57,7 @@ public class UserRepository implements IUserRepository {
         u4698.startToFollow(u6631);
         u1536.startToFollow(u1569);
         u2236.startToFollow(u1569);
-        userList.addAll(Arrays.asList(new User[]{u1569, u4698, u1536, u2236, u6932, u6631, u1235, u1456, u1578}));
+        userList.addAll(Arrays.asList(u1569, u4698, u1536, u2236, u6932, u6631, u1235, u1456, u1578));
         cont = 7250;
     }
 

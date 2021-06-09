@@ -4,6 +4,7 @@ import com.meli.socialmeli.dto.product.FollowedPublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationWithPromoDTO;
 import com.meli.socialmeli.dto.user.UserWithPromoCountDTO;
+import com.meli.socialmeli.dto.user.UserWithPromoListDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
@@ -17,4 +18,6 @@ public interface IProductService {
     void createPostWithPromo(PublicationWithPromoDTO post) throws InvalidDateFormatException, CanNotCreatePostException;
 
     UserWithPromoCountDTO promoCountOf(Integer userId) throws IdNotFoundException;
+
+    UserWithPromoListDTO promoListOf(Integer userId, PublicationOrderType order) throws IdNotFoundException;
 }

@@ -1,6 +1,5 @@
 package com.meli.socialmeli.dto.product;
 
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

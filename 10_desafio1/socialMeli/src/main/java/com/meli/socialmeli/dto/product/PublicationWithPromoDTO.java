@@ -23,13 +23,13 @@ public class PublicationWithPromoDTO extends PublicationDTO {
 
     @Override
     public String toString() {
-        return "PublicationWithPromoDTO{" +"userId=" + getUserId() +
+        return "PublicationWithPromoDTO{" + "userId=" + getUserId() +
                 ", id_post=" + getIdPost() +
                 ", date='" + getDate() + '\'' +
                 ", detail=" + getDetail() +
                 ", category=" + getCategory() +
                 ", price=" + getPrice() +
-                '}'+
+                '}' +
                 "hasPromo=" + hasPromo +
                 ", discount=" + discount +
                 '}';
