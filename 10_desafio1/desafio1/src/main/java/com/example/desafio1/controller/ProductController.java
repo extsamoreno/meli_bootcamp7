@@ -3,6 +3,8 @@ package com.example.desafio1.controller;
 import com.example.desafio1.dto.PostDTO;
 import com.example.desafio1.dto.PromoCountDTO;
 import com.example.desafio1.dto.PromoDTO;
+import com.example.desafio1.exception.PostIDAllReadyInDatabaseException;
+import com.example.desafio1.exception.ProductIDAllReadyInDatabaseException;
 import com.example.desafio1.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,14 +23,16 @@ public class ProductController {
 
 	// US0005
 	@PostMapping("/newpost")
-	ResponseEntity<HttpStatus> newpost(@RequestBody PostDTO post) {
+	ResponseEntity<HttpStatus> newpost(@RequestBody PostDTO post) throws ProductIDAllReadyInDatabaseException, PostIDAllReadyInDatabaseException {
+		productService.newPost(post);
+
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	// US0006
 	@GetMapping("/followed/{userID}/list")
 	ResponseEntity<List<PostDTO>> followedPosts(@PathVariable Integer userID, @RequestParam(required = false) String order) {
-		return new ResponseEntity<>(new ArrayList<PostDTO>(), HttpStatus.OK);
+		return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
 	}
 
 	// US0010

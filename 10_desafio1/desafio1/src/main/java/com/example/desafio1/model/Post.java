@@ -11,7 +11,7 @@ public class Post {
 	int postID;
 	String date;
 	int detail;
-	String category;
+	int category;
 	float price;
 	boolean hasPromo;
 	float discount;

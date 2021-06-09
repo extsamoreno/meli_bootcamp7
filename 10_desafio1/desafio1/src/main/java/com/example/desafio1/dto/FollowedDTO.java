@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowerCountDTO {
+public class FollowedDTO {
 	int userID;
 	String userName;
-	int followersCount;
+	List<UserDTO> followed;
 }

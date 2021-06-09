@@ -8,5 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostDTO {
-	public int postID;
+	int userID;
+	int postID;
+	String date;
+	ProductDTO detail;
+	int category;
+	float price;
 }

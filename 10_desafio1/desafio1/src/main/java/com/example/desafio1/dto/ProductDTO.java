@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowerCountDTO {
-	int userID;
-	String userName;
-	int followersCount;
+public class ProductDTO {
+	int productID;
+	String productName;
+	String type;
+	String brand;
+	String color;
+	String notes;
 }
