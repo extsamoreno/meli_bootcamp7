@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTOFolloweds {
-    int id;
-    String name;
+    int userId;
+    String userName;
     ArrayList<UserDTO> followed;
 }

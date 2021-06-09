@@ -7,12 +7,11 @@ import com.reto1.demo.Model.DTO.UserDTOFolloweds;
 import com.reto1.demo.Model.DTO.UserDTOFollowers;
 import com.reto1.demo.Model.Post;
 import com.reto1.demo.Service.IFollowService;
+import com.reto1.demo.Service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 public class FollowController {
@@ -20,6 +19,8 @@ public class FollowController {
     @Autowired
     IFollowService iFollowService;
 
+    @Autowired
+    IPostService iPostService;
     /*
      * Follow other user
      * */
@@ -52,13 +53,6 @@ public class FollowController {
     @GetMapping("/users/{UserID}/followed/list")
     public ResponseEntity<UserDTOFolloweds> listFolloweds(@PathVariable int UserID) throws UserIdNotFoundException {
         return new ResponseEntity<>(iFollowService.getFolloweds(UserID), HttpStatus.OK);
-    }
-
-    //Create a post
-    @PostMapping("/products/newpost")
-    public ResponseEntity<String> createPost(@RequestBody Post post) throws UserIdNotFoundException {
-        String postname = iFollowService.creatPost(post);
-        return new ResponseEntity<>("The post " + postname + " was created", HttpStatus.OK);
     }
     
 }

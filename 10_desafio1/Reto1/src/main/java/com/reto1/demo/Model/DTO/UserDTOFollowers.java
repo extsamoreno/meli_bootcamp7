@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTOFollowers{
-    int id;
-    String name;
+    int userId;
+    String userName;
     ArrayList<UserDTO> followers;
 }

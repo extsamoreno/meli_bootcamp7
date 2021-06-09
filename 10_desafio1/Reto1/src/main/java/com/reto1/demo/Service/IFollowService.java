@@ -7,8 +7,6 @@ import com.reto1.demo.Model.DTO.UserDTOFolloweds;
 import com.reto1.demo.Model.DTO.UserDTOFollowers;
 import com.reto1.demo.Model.Post;
 
-import java.util.ArrayList;
-
 public interface IFollowService {
 
     String followOtherUser(int userId, int userIdToFollow) throws UserIdNotFoundException, UserAlreadyFollowException;
