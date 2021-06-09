@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class PostRepository implements IPostRepository{
@@ -24,18 +25,25 @@ public class PostRepository implements IPostRepository{
 
     @Override
     public  List<Post> getPostByUserId(Integer userId) {
-        List<Post> postList = new ArrayList<>();
+        //List<Post> postList = new ArrayList<>();
+        List<Post> postList = postsMap.entrySet().stream().map(e -> e.getValue())
+                .filter(e -> e.getUserId() == userId)
+                .collect(Collectors.toList());
 
-        for (int i = 0; i < postsMap.size(); i++) {
+       /*for (int i = 0; i < postsMap.size(); i++) {
             Integer id = postsMap.get(i+1).getUserId();
 
-            if (id == userId){
+            if (id == userId)
                 postList.add(postsMap.get(i+1));
-            }
-        }
+        }*/
 
         postList.sort(Comparator.comparing(Post::getDate));
 
         return postList;
+    }
+
+    @Override
+    public void unfollow(Integer userId, Integer userIdToUnfollow) {
+
     }
 }

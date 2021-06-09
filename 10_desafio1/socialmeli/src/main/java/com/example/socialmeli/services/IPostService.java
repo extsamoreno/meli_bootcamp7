@@ -10,4 +10,5 @@ import org.springframework.http.HttpStatus;
 public interface IPostService {
     HttpStatus newPost(Post post) throws MissingDataException, PostAlreadyExistException, UserNotFoundException;
     PostListDTO getPostByUserId(Integer userId) throws UserNotFoundException;
+    HttpStatus unfollow(Integer userId,Integer userIdToUnfollow);
 }

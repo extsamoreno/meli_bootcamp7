@@ -13,11 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -78,6 +75,11 @@ public class PostService implements IPostService{
         response.setPosts(finalPostList);
 
         return response;
+    }
+
+    @Override
+    public HttpStatus unfollow(Integer userId, Integer userIdToUnfollow) {
+        return null;
     }
 
     //region private methods
