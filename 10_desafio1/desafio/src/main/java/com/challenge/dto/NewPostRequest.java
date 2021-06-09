@@ -3,7 +3,6 @@ package com.challenge.dto;
 import com.challenge.entity.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 

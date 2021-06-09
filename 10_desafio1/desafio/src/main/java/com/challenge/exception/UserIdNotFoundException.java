@@ -1,6 +1,5 @@
 package com.challenge.exception;
 
-
 import org.springframework.http.HttpStatus;
 
 public class UserIdNotFoundException extends UserException{

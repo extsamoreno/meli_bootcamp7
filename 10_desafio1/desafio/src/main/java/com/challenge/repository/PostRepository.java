@@ -2,7 +2,6 @@ package com.challenge.repository;
 
 import com.challenge.entity.Post;
 import com.challenge.exception.PostIdAlreadyExistsException;
-import com.challenge.exception.UserIdNotFoundException;
 
 import java.io.IOException;
 import java.time.LocalDate;

@@ -1,7 +1,6 @@
 package com.challenge.repository;
 
 import com.challenge.entity.User;
-import com.challenge.exception.UserIdNotFoundException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;

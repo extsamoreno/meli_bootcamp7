@@ -2,7 +2,6 @@ package com.challenge.controller;
 
 import com.challenge.dto.FollowersCountResponse;
 import com.challenge.dto.FollowersResponse;
-import com.challenge.dto.UserDTO;
 import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.UserIdNotFoundException;
 import com.challenge.service.UserService;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")

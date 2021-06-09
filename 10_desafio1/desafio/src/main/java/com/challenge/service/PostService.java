@@ -1,14 +1,11 @@
 package com.challenge.service;
 
 import com.challenge.dto.*;
-import com.challenge.entity.Post;
 import com.challenge.enums.SortingPostsEnum;
-import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.PostIdAlreadyExistsException;
 import com.challenge.exception.UserIdNotFoundException;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface PostService {
 

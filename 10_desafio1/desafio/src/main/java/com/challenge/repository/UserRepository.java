@@ -1,9 +1,6 @@
 package com.challenge.repository;
 
 import com.challenge.entity.User;
-import com.challenge.exception.UserIdNotFoundException;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 

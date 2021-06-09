@@ -4,7 +4,6 @@ import com.challenge.dto.NewPostRequest;
 import com.challenge.dto.NewPromoPostRequest;
 import com.challenge.dto.PostDTO;
 import com.challenge.entity.Post;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,12 +2,10 @@ package com.challenge.service;
 
 import com.challenge.dto.FollowersCountResponse;
 import com.challenge.dto.FollowersResponse;
-import com.challenge.dto.UserDTO;
 import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.UserIdNotFoundException;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface UserService {
 
