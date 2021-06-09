@@ -1,9 +1,6 @@
 package com.meli.socialmeli.service;
 
-import com.meli.socialmeli.exception.MissingDataException;
-import com.meli.socialmeli.exception.OverActualDateException;
-import com.meli.socialmeli.exception.PostIdAlreadyExistException;
-import com.meli.socialmeli.exception.UserNotFoundException;
+import com.meli.socialmeli.exception.*;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IPostRepository;
@@ -14,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PostService implements IPostService {
@@ -30,7 +24,7 @@ public class PostService implements IPostService {
     @Override
     public HttpStatus addNewPost(Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
         if (!isAValidPost(post)){
-            return HttpStatus.BAD_REQUEST;
+            throw new MissingDataException(post);
         }
         if(iUserRepository.getUserById(post.getUserId())==null){
             throw new UserNotFoundException(post.getUserId());
@@ -43,7 +37,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public PostDTOFollowedList getFollowedUserPosts(int userId) {
+    public PostDTOFollowedList getFollowedUserPosts(int userId, String order) throws IncorrectOrderTypeException {
         List<Post> totalPostList= new ArrayList<>();
         List<User> followedUsers= iUserRepository.getUserById(userId).getFollowed();
         List<Post> postList;
@@ -53,10 +47,20 @@ public class PostService implements IPostService {
                 totalPostList.add(postList.get(j));
             }
         }
+
+        Comparator<Date> c=null;
+        if (order==null || order.equals("date_desc")){
+            c=QuickSort.date_des;
+        } else if (order.equals("date_asc")){
+            c=QuickSort.date_asc;
+        } else {
+            throw new IncorrectOrderTypeException(order);
+        }
+
         PostDTOFollowedList response= new PostDTOFollowedList();
         response.setUserId(userId);
         if (totalPostList.size()==0) return response;
-        totalPostList=sortPosts(totalPostList,QuickSort.date_des);
+        totalPostList=sortPosts(totalPostList,c);
         response.setPosts(totalPostList);
         return response;
     }

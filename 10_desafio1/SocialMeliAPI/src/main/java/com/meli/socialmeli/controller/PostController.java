@@ -1,9 +1,6 @@
 package com.meli.socialmeli.controller;
 
-import com.meli.socialmeli.exception.MissingDataException;
-import com.meli.socialmeli.exception.OverActualDateException;
-import com.meli.socialmeli.exception.PostIdAlreadyExistException;
-import com.meli.socialmeli.exception.UserNotFoundException;
+import com.meli.socialmeli.exception.*;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.service.IPostService;
 import com.meli.socialmeli.service.dto.PostDTOFollowedList;
@@ -24,7 +21,7 @@ public class PostController {
     }
 
     @GetMapping("/products/followed/{userId}/list")
-    public ResponseEntity<PostDTOFollowedList> getFollowedUserPosts(@PathVariable int userId){
-        return new ResponseEntity<>(iPostService.getFollowedUserPosts(userId),HttpStatus.OK);
+    public ResponseEntity<PostDTOFollowedList> getFollowedUserPosts(@PathVariable int userId, @RequestParam(required = false) String order) throws IncorrectOrderTypeException {
+        return new ResponseEntity<>(iPostService.getFollowedUserPosts(userId, order),HttpStatus.OK);
     }
 }
