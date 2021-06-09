@@ -48,11 +48,14 @@ public class UserServiceImpl implements UserService{
         }
 
         Comparator<UserFollowDTO> userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
-        switch (order.get()){
-            case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
-                break;
-            case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
-                break;
+
+        if(order.isPresent()){
+            switch (order.get()){
+                case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+                    break;
+                case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
+                    break;
+            }
         }
 
         userFollowersDTOS.sort(userNameComparator);
@@ -75,11 +78,13 @@ public class UserServiceImpl implements UserService{
         }
 
         Comparator<UserFollowDTO> userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
-        switch (order.get()){
-            case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
-            break;
-            case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
-            break;
+        if(order.isPresent()){
+            switch (order.get()){
+                case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+                    break;
+                case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
+                    break;
+            }
         }
 
         userFollowedDTOS.sort(userNameComparator);

@@ -4,7 +4,6 @@ import com.socialmeli.socialmeli.models.Product;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor

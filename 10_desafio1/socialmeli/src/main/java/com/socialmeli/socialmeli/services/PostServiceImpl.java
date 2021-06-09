@@ -7,6 +7,7 @@ import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
 import com.socialmeli.socialmeli.services.dtos.ListPostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostDTO;
+import com.socialmeli.socialmeli.services.dtos.UserFollowDTO;
 import com.socialmeli.socialmeli.services.mappers.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -29,7 +31,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public ListPostDTO getFollowedPostList(int userId) throws UserNotFoundException {
+    public ListPostDTO getFollowedPostList(int userId, Optional<String> order) throws UserNotFoundException {
         User user = userRepository.getUserById(userId);
         List<PostDTO> followedPostDTOList = new ArrayList<>();
 
@@ -43,8 +45,16 @@ public class PostServiceImpl implements PostService{
             }
         }
 
-        //Sort by date
         Comparator<PostDTO> postDateComparator = Comparator.comparing(PostDTO::getDate).reversed();
+        if(order.isPresent()){
+            switch (order.get()){
+                case "date_asc": postDateComparator = Comparator.comparing(PostDTO::getDate);
+                    break;
+                case "date_desc" : postDateComparator = Comparator.comparing(PostDTO::getDate).reversed();
+                    break;
+            }
+        }
+
         followedPostDTOList.sort(postDateComparator);
 
         return new ListPostDTO(userId,followedPostDTOList);

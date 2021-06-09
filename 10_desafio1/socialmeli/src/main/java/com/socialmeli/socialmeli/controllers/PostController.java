@@ -29,7 +29,7 @@ public class PostController {
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<ListPostDTO> getFollowedPostList(@PathVariable Integer userId,@RequestParam Optional<String> order) throws UserNotFoundException {
         return new ResponseEntity<>(
-                postService.getFollowedPostList(userId),HttpStatus.OK
+                postService.getFollowedPostList(userId,order),HttpStatus.OK
         );
     }
 

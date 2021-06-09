@@ -7,8 +7,9 @@ import com.socialmeli.socialmeli.services.dtos.PostDTO;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 public interface PostService {
     public void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException;
-    public ListPostDTO getFollowedPostList(int userId) throws UserNotFoundException;
+    public ListPostDTO getFollowedPostList(int userId, Optional<String> order) throws UserNotFoundException;
 }
