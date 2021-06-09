@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class UserRepository implements IUserRepository {
 
     String userPathFile = System.getProperty("user.dir") + "/src/main/java/com/example/demo/Repository/Data/users.json";
-    //String userPathFile = "/Users/ctaeger/Desktop/RepoBootcampTaeger-Camila/meli_bootcamp7/10_desafio1/demo 4/src/main/java/com/example/demo/Repository/Data/users.json";
 
     List<User> users = loadUsers();
 
@@ -70,4 +69,13 @@ public class UserRepository implements IUserRepository {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<User> getSellersFollowedByUser(User user){
+
+        List<User> items = users.stream()
+                .filter(userAux -> userAux.getFollowers().contains(user)).collect(Collectors.toList());
+        return  items;
+    }
+
 }

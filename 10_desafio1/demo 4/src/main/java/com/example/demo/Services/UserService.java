@@ -5,7 +5,7 @@ import com.example.demo.Entities.User;
 import com.example.demo.Exceptions.BadRequestException;
 import com.example.demo.Exceptions.CustomException;
 import com.example.demo.Exceptions.NotFoundException;
-import com.example.demo.Repository.UserRepository;
+import com.example.demo.Repository.*;
 import com.example.demo.Services.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.*;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    IUserRepository userRepository;
 
     public void addFollow(int userId, int sellerId) throws Exception {
 

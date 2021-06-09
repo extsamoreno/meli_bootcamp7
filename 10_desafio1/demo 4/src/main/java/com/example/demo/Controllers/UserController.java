@@ -18,7 +18,7 @@ public class UserController {
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity folLowSeller(@PathVariable int userId, @PathVariable int userIdToFollow) throws Exception {
-        userService.addFollow(userId,userIdToFollow);
+        userService.addFollow(userId, userIdToFollow);
         return ResponseEntity.ok().build();
     }
 

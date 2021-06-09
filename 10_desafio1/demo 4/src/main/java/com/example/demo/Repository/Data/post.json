@@ -1,0 +1,62 @@
+[
+  {
+    "userId": 1,
+    "id_post": 1,
+    "date": 1622937600000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 400.0
+  },
+  {
+    "userId": 2,
+    "id_post": 2,
+    "date": 1623024000000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 400.0
+  },
+  {
+    "userId": 2,
+    "id_post": 3,
+    "date": 1623110400000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 800.0
+  },
+  {
+    "userId": 1,
+    "id_post": 4,
+    "date": 1591574400000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 800.0
+  }
+]
