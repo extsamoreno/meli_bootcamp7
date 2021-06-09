@@ -2,7 +2,14 @@ package bootcamp.desafio.spring.repository;
 
 import bootcamp.desafio.spring.model.Post;
 import bootcamp.desafio.spring.model.id.PostId;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +21,11 @@ public class PostRepository implements IPostRepository{
     private HashMap<Integer, Post> postDB;
 
     public PostRepository() {
-        postDB= new HashMap<>();
+        postDB = new HashMap<>();
+        for (Post post: this.LoadDataBase()) {
+            Integer id= new PostId(post.getUserId(), post.getIdPost()).hashCode();
+            postDB.put(id, post);
+        }
     }
 
     @Override
@@ -41,5 +52,22 @@ public class PostRepository implements IPostRepository{
         return result;
     }
 
+    private ArrayList<Post> LoadDataBase() {
+        File file = null;
+        try {
+            file = ResourceUtils.getFile( "src/main/resources/static/posts.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<ArrayList<Post>> typeRef = new TypeReference<>() {};
+        ArrayList<Post> posts = null;
+        try {
+            posts = objectMapper.readValue(file, typeRef);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
 }

@@ -67,7 +67,7 @@ public class ProductService implements IProductService{
                 }
             }
         }
-        if(order.equals("")){
+        if(order.equals("date_desc")){
             result.sort((postX,postY) -> postY.getDate().compareTo(postX.getDate()));
         }else{
             result.sort((postX,postY) -> postX.getDate().compareTo(postY.getDate()));
