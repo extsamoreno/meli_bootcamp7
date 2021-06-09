@@ -13,4 +13,5 @@ public interface PostRepository {
     void addNewProduct(Post post) throws PostIdAlreadyExistsException, IOException;
     List<Post> getRecentPosts(List<Integer> followedIds, LocalDate since);
     Integer getPromoPostCount(Integer userId);
+    List<Post> getAllPromoPosts(Integer userId);
 }

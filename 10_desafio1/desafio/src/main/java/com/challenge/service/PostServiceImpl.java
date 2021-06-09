@@ -1,9 +1,8 @@
 package com.challenge.service;
 
-import com.challenge.dto.NewPostRequest;
-import com.challenge.dto.NewPromoPostRequest;
-import com.challenge.dto.PostDTO;
+import com.challenge.dto.*;
 import com.challenge.entity.Post;
+import com.challenge.entity.Product;
 import com.challenge.entity.User;
 import com.challenge.enums.SortingPostsEnum;
 import com.challenge.enums.SortingUserEnum;
@@ -54,11 +53,22 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Integer getPromoPostsCount(Integer userId) throws UserIdNotFoundException {
+    public ProductCountResponse getPromoPostsCount(Integer userId) throws UserIdNotFoundException {
         User user = userRepository.getUserById(userId);
         if (user == null) {
             throw new UserIdNotFoundException();
         }
-        return postRepository.getPromoPostCount(userId);
+        return new ProductCountResponse(userId, user.getUsername(), postRepository.getPromoPostCount(userId));
+    }
+
+    @Override
+    public DiscountPostsResponse getAllPromoPosts(Integer userId) throws UserIdNotFoundException {
+        User user = userRepository.getUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException();
+        }
+        List<Post> list = postRepository.getAllPromoPosts(userId);
+        List<PostDTO> dtoList = PostMapper.toDtoList(list);
+        return new DiscountPostsResponse(userId, user.getUsername(), dtoList);
     }
 }

@@ -22,12 +22,10 @@ import java.util.stream.Collectors;
 @Repository
 public class PostRepositoryImpl implements PostRepository {
 
-    private List<Product> productList;
     private List<Post> postList;
 
     @PostConstruct
     private void init() {
-        this.productList = loadProductList();
         this.postList = loadPostList();
     }
 
@@ -40,6 +38,10 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Integer getPromoPostCount(Integer userId) {
         return (int) postList.stream().filter(p -> p.getUserId().equals(userId) && p.getHasPromo().equals(true)).count();
+    }
+
+    public List<Post> getAllPromoPosts(Integer userId) {
+        return postList.stream().filter(p -> p.getHasPromo().equals(true) && p.getUserId().equals(userId)).collect(Collectors.toList());
     }
 
     @Override
@@ -77,24 +79,4 @@ public class PostRepositoryImpl implements PostRepository {
         return posts;
     }
 
-    private List<Product> loadProductList() {
-        File file = null;
-        try {
-            //TODO change the absolute path to the classpath (now used to keep data upon re-compile)
-            file = ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/products.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        TypeReference<List<Product>> typeRef = new TypeReference<>() {};
-        List<Product> products = null;
-
-        try {
-            products = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return products;
-    }
 }

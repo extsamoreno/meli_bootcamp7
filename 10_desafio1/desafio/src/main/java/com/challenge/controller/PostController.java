@@ -1,11 +1,7 @@
 package com.challenge.controller;
 
-import com.challenge.dto.NewPostRequest;
-import com.challenge.dto.NewPromoPostRequest;
-import com.challenge.dto.PostDTO;
-import com.challenge.entity.Post;
+import com.challenge.dto.*;
 import com.challenge.enums.SortingPostsEnum;
-import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.PostIdAlreadyExistsException;
 import com.challenge.exception.UserIdNotFoundException;
 import com.challenge.service.PostService;
@@ -41,10 +37,13 @@ public class PostController {
     }
 
     @GetMapping("/{userId}/countPromo")
-    public ResponseEntity<Integer> getPromoPostsCount(@PathVariable Integer userId) throws UserIdNotFoundException {
+    public ResponseEntity<ProductCountResponse> getPromoPostsCount(@PathVariable Integer userId) throws UserIdNotFoundException {
         return ResponseEntity.ok(postService.getPromoPostsCount(userId));
     }
 
-
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<DiscountPostsResponse> getAllPromoPosts(@PathVariable Integer userId) throws UserIdNotFoundException {
+        return ResponseEntity.ok(postService.getAllPromoPosts(userId));
+    }
 
 }
