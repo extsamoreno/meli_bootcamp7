@@ -1,6 +1,7 @@
 package com.challenge.dto;
 
 import com.challenge.entity.Product;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +13,7 @@ public class NewPostRequest {
     private Integer userId;
     @JsonProperty("post_id")
     private Integer postId;
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     private Product detail;
     private Integer category;

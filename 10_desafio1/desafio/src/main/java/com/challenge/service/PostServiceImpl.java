@@ -1,6 +1,7 @@
 package com.challenge.service;
 
 import com.challenge.dto.NewPostRequest;
+import com.challenge.dto.NewPromoPostRequest;
 import com.challenge.entity.Post;
 import com.challenge.entity.User;
 import com.challenge.enums.SortingPostsEnum;
@@ -45,6 +46,10 @@ public class PostServiceImpl implements PostService {
         if (user == null) {
             throw new UserIdNotFoundException();
         }
-       postRepository.addNewProduct(PostMapper.toPost(request));
+        if (request instanceof NewPromoPostRequest) {
+            postRepository.addNewProduct(PostMapper.toPromoPost((NewPromoPostRequest) request));
+        } else {
+            postRepository.addNewProduct(PostMapper.toPost(request));
+        }
     }
 }

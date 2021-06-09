@@ -1,6 +1,7 @@
 package com.challenge.controller;
 
 import com.challenge.dto.NewPostRequest;
+import com.challenge.dto.NewPromoPostRequest;
 import com.challenge.enums.SortingPostsEnum;
 import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.PostIdAlreadyExistsException;
@@ -28,6 +29,12 @@ public class PostController {
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity getRecentPosts(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingPostsEnum sorting) throws UserIdNotFoundException {
         return ResponseEntity.ok(postService.getRecentPosts(userId, sorting));
+    }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity addNewPromoPost(@RequestBody NewPromoPostRequest request) throws PostIdAlreadyExistsException, UserIdNotFoundException, IOException {
+        postService.addNewPost(request);
+        return ResponseEntity.ok().build();
     }
 
 
