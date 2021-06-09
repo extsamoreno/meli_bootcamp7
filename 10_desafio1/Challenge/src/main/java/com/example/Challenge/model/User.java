@@ -14,12 +14,14 @@ import java.util.List;
 public class User {
     private Integer idUser;
     private String userName;
+    private boolean isSeller;
     private List<UserDTO> followers;
     private List<UserDTO> followed;
 
-    public User(Integer idUser, String userName) {
+    public User(Integer idUser, String userName, boolean isSeller) {
         this.idUser=idUser;
         this.userName= userName;
+        this.isSeller=isSeller;
         this.followers = new ArrayList<UserDTO>();
         this.followed = new ArrayList<UserDTO>();
     }

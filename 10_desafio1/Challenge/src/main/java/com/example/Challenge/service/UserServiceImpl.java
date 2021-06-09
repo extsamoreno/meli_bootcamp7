@@ -4,11 +4,13 @@ import com.example.Challenge.dto.UserDTO;
 import com.example.Challenge.dto.UserResponseCountDTO;
 import com.example.Challenge.dto.UserResponseListDTO;
 import com.example.Challenge.dto.UserResponseListFollowedDTO;
+import com.example.Challenge.exception.UserException;
 import com.example.Challenge.exception.UserIdNotFoundException;
 import com.example.Challenge.mapper.MapperUser;
 import com.example.Challenge.model.User;
 import com.example.Challenge.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
@@ -65,16 +67,22 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public void Follow(Integer userId, Integer userToFollow) throws UserIdNotFoundException {
+    public void Follow(Integer userId, Integer userToFollow) throws UserException {
 
         User customer =  iUserRepository.getUserById(userId);
         User seller = iUserRepository.getUserById(userToFollow);
-        if(customer == null){
-            throw new UserIdNotFoundException(userId);
+
+
+        if(customer == null) throw new UserIdNotFoundException(userId);
+        else if (seller == null) throw new UserIdNotFoundException(userToFollow);
+        else if(customer.getFollowed().contains(MapperUser.toUserDTO(seller))){
+            throw new UserException("You already follow the seller", HttpStatus.BAD_REQUEST);
+        }else if(userId.equals(userToFollow)){
+            throw new UserException("You can't follow yourself", HttpStatus.BAD_REQUEST);
+        }else if(!seller.isSeller()){
+            throw new UserException("You can only follow sellers", HttpStatus.BAD_REQUEST);
         }
-        else if (seller == null){
-            throw new UserIdNotFoundException(userToFollow);
-        }
+
         addFollower(customer,seller);
         addFollowed(customer,seller);
 

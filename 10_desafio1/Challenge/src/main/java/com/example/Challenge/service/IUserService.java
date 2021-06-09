@@ -7,7 +7,7 @@ import com.example.Challenge.exception.UserException;
 import com.example.Challenge.exception.UserIdNotFoundException;
 
 public interface IUserService {
-    void Follow(Integer userId, Integer userToFollow) throws UserIdNotFoundException;
+    void Follow(Integer userId, Integer userToFollow) throws UserException;
     UserResponseCountDTO getUserFollowersCount(Integer userId);
     UserResponseListDTO getUserFollowersList(Integer userId, String order);
     UserResponseListFollowedDTO getUserFollowedList(Integer userId, String order);
