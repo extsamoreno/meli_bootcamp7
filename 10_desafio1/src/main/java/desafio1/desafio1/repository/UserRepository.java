@@ -49,14 +49,23 @@ public class UserRepository implements IUserRepository {
     //filtra los que sigo
     @Override
     public List<UserSaveDTO> filterFollowers(int userId, String criterio) throws UserNotFoundException {
-        User user = findUserById(userId);
+        //User user = findUserById(userId);
         List<UserSaveDTO> listFollowers = null;
-        List<UserSaveDTO> listUserSaveDTO = user.getFollowMeList();
+        List<UserSaveDTO> listUserSaveDTO = findUserById(userId).getFollowList();
 
         if(listUserSaveDTO != null){
-             listFollowers = listUserSaveDTO.stream().filter(
-                    x -> x.getUserName().toLowerCase().contains(criterio.toLowerCase())).collect(Collectors.toList());
+            for(UserSaveDTO u : listUserSaveDTO){
+
+                if(u.getUserName().equals(criterio)) {
+                    listFollowers.add(u);
+                }
+            }
+
+            /* listFollowers = listUserSaveDTO.stream().filter(
+                    x -> x.getUserName().toLowerCase().contains(criterio.toLowerCase())).collect(Collectors.toList());*/
         }
+
+
 
         return listFollowers;
 
