@@ -3,12 +3,27 @@ package com.desafio_1.demo.services.mappers;
 import com.desafio_1.demo.dtos.ProductRequestDTO;
 import com.desafio_1.demo.dtos.ProductResponseDTO;
 import com.desafio_1.demo.models.Product;
+import com.desafio_1.demo.models.ProductDetail;
 
 public class ProductMapper {
-    private static ProductResponseDTO toDTO(Product product){
-        return null;
+
+    public static ProductResponseDTO toDTO(Product product){
+
+        return new ProductResponseDTO(
+                product.getDate(),
+                ProductDetailMapper.toDTO(product.getDetail()),
+                product.getPrice()
+        );
     }
-    private static Product toModel(ProductRequestDTO product){
-        return new Product();
+    public static Product toModel(ProductRequestDTO product){
+
+        return new Product(
+                product.getUserId(),
+                product.getIdPost(),
+                product.getDate(),
+                ProductDetailMapper.toModel(product.getDetail()),
+                product.getCategory(),
+                product.getPrice()
+                );
     }
 }
