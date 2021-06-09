@@ -1,18 +1,17 @@
 package com.meli.socialmeli.service.product;
 
 import com.meli.socialmeli.domain.Publication;
+import com.meli.socialmeli.domain.User;
 import com.meli.socialmeli.dto.product.FollowedPublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationWithPromoDTO;
-import com.meli.socialmeli.dto.user.UserDTO;
-import com.meli.socialmeli.dto.user.UserWithFollowedDTO;
+import com.meli.socialmeli.dto.user.UserWithPromoCountDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
 import com.meli.socialmeli.repository.product.IProductRepository;
 import com.meli.socialmeli.service.PublicationMapper;
 import com.meli.socialmeli.service.orderType.PublicationOrderType;
-import com.meli.socialmeli.service.orderType.UserOrderType;
 import com.meli.socialmeli.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,8 +37,8 @@ public class ProductService implements IProductService {
 
     @Override
     public FollowedPublicationDTO followedRecentPublications(Integer userId, PublicationOrderType order) throws IdNotFoundException {
-        UserWithFollowedDTO user = userService.followedOf(userId, UserOrderType.name_asc);
-        List<Integer> followedIds = user.getFollowed().stream().map(UserDTO::getUserId).collect(Collectors.toList());
+        User user = userService.getValidUserById(userId);
+        List<Integer> followedIds = user.getFollowed().stream().map(User::getUserId).collect(Collectors.toList());
         List<Publication> posts = getRecentPublications(followedIds);
 
         if (order == null) return followedPublicationDTODesc(user.getUserId(), posts);
@@ -49,6 +48,17 @@ public class ProductService implements IProductService {
     @Override
     public void createPostWithPromo(PublicationWithPromoDTO post) throws InvalidDateFormatException, CanNotCreatePostException {
         productRepository.save(PublicationMapper.promoToPublication(post));
+    }
+
+    @Override
+    public UserWithPromoCountDTO promoCountOf(Integer userId) throws IdNotFoundException {
+        Integer count = publicationWithPromoOf(userId).size();
+        User user = userService.getValidUserById(userId);
+        return new UserWithPromoCountDTO(userId, user.getUserName(), count);
+    }
+
+    private List<Publication> publicationWithPromoOf(Integer userId) {
+        return findPostByUserID(userId).stream().filter(Publication::isHasPromo).collect(Collectors.toList());
     }
 
     private FollowedPublicationDTO sortByDate(Integer userId, List<Publication> posts, PublicationOrderType order) {

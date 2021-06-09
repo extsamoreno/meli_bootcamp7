@@ -3,10 +3,14 @@ package com.meli.socialmeli.controller.product;
 import com.meli.socialmeli.dto.product.FollowedPublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationDTO;
 import com.meli.socialmeli.dto.product.PublicationWithPromoDTO;
+import com.meli.socialmeli.dto.user.UserWithFollowersCountDTO;
+import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
+import com.meli.socialmeli.dto.user.UserWithPromoCountDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
 import com.meli.socialmeli.service.orderType.PublicationOrderType;
+import com.meli.socialmeli.service.orderType.UserOrderType;
 import com.meli.socialmeli.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,4 +39,14 @@ public class ProductController {
         productService.createPostWithPromo(body);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @GetMapping("/{userId}/countPromo/")
+    public ResponseEntity<UserWithPromoCountDTO> promoCount(@PathVariable Integer userId) throws IdNotFoundException {
+        return new ResponseEntity<>(productService.promoCountOf(userId), HttpStatus.OK);
+    }
+
+//    @GetMapping("/{userId}/followers/list")
+//    public ResponseEntity<UserWithFollowersDTO> followersListOf(@PathVariable Integer userId, @RequestParam(required = false) UserOrderType order) throws IdNotFoundException {
+//        return new ResponseEntity<>(userService.followersOf(userId, order), HttpStatus.OK);
+//    }
 }
