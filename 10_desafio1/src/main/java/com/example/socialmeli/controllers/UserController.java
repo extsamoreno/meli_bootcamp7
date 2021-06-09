@@ -1,6 +1,7 @@
 package com.example.socialmeli.controllers;
 
 import com.example.socialmeli.exceptions.ExistentFollowerException;
+import com.example.socialmeli.exceptions.InexistentFollowerException;
 import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.models.User;
 import com.example.socialmeli.models.dtos.UserDTO;
@@ -43,5 +44,10 @@ public class UserController {
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<ListFollowedResponseDTO> listFollowed (@PathVariable int userId) throws InexistentUserException {
         return new ResponseEntity<>(userService.listFollowed(userId), HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<FollowSellerResponseDTO> unfollowSeller (@PathVariable int userId, @PathVariable int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException {
+        return new ResponseEntity<>(userService.unfollowSeller(userId, userIdToUnfollow), HttpStatus.OK);
     }
 }

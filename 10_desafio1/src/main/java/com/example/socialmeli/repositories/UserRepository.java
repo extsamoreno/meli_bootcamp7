@@ -2,6 +2,7 @@ package com.example.socialmeli.repositories;
 
 import com.example.socialmeli.exceptions.ExistentFollowerException;
 import com.example.socialmeli.exceptions.ExistentUserException;
+import com.example.socialmeli.exceptions.InexistentFollowerException;
 import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.models.User;
 import com.example.socialmeli.models.dtos.UserDTO;
@@ -23,5 +24,5 @@ public interface UserRepository {
     FollowersCountResponseDTO countResponse(int userId) throws InexistentUserException;
     ListFollowersResponseDTO listFollowers(int userId) throws InexistentUserException;
     ListFollowedResponseDTO listFollowed (int userId) throws InexistentUserException;
-
+    FollowSellerResponseDTO unfollowSeller(int userId, int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException;
 }

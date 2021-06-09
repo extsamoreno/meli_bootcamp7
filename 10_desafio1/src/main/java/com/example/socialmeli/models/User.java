@@ -30,4 +30,12 @@ public class User {
     public void addFollowed (UserDTO user){
         this.followed.add(user);
     }
+
+    public void deleteFollower (UserDTO user) {
+        this.followers.remove(user);
+    }
+
+    public void deleteFollowed (UserDTO user) {
+        this.followed.remove(user);
+    }
 }

@@ -1,10 +1,7 @@
 package com.example.socialmeli.controllers;
 
-import com.example.socialmeli.exceptions.ExistentFollowerException;
-import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.exceptions.*;
 import com.example.socialmeli.models.dtos.ErrorDTO;
-import com.example.socialmeli.exceptions.ExistentUserException;
-import com.example.socialmeli.exceptions.UserException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +26,11 @@ public class SocialMeliExceptionController {
 
     @ExceptionHandler(ExistentFollowerException.class)
     public ResponseEntity<ErrorDTO> handleExistentFollowerException(ExistentFollowerException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(InexistentFollowerException.class)
+    public ResponseEntity<ErrorDTO> handleInexistentFollowerException(InexistentFollowerException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 }

@@ -1,6 +1,7 @@
 package com.example.socialmeli.services;
 
 import com.example.socialmeli.exceptions.ExistentFollowerException;
+import com.example.socialmeli.exceptions.InexistentFollowerException;
 import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
@@ -15,4 +16,5 @@ public interface UserService {
     FollowersCountResponseDTO countFollowers(int userId) throws InexistentUserException;
     ListFollowersResponseDTO listFollowers(int userId) throws InexistentUserException;
     ListFollowedResponseDTO listFollowed (int userId) throws InexistentUserException;
+    FollowSellerResponseDTO unfollowSeller(int userId, int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException;
 }

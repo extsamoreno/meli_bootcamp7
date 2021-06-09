@@ -2,6 +2,7 @@ package com.example.socialmeli.repositories;
 
 import com.example.socialmeli.exceptions.ExistentFollowerException;
 import com.example.socialmeli.exceptions.ExistentUserException;
+import com.example.socialmeli.exceptions.InexistentFollowerException;
 import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.mappers.UserMapper;
 import com.example.socialmeli.models.User;
@@ -57,9 +58,7 @@ public class UserRepositoryImple implements UserRepository {
         for (int i = 0; i < users.size(); i++) {
             User dbUser = users.get(i);
 
-            if(dbUser.getFollowed().size() == 0){
-                continue;
-            } else {
+            if(dbUser.getUserId() == userId){
                 for (int j = 0; j < dbUser.getFollowed().size(); j++) {
                     UserDTO followed = dbUser.getFollowed().get(j);
 
@@ -67,6 +66,9 @@ public class UserRepositoryImple implements UserRepository {
                         throw new ExistentFollowerException(userId, userIdToFollow);
                     }
                 }
+                break;
+            } else {
+                continue;
             }
         }
 
@@ -137,6 +139,55 @@ public class UserRepositoryImple implements UserRepository {
 
         return listFollowedResponseDTO;
     }
+
+    @Override
+    public FollowSellerResponseDTO unfollowSeller(int userId, int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException{
+        User user = getUserById(userId);
+        User userToUnfollow = getUserById(userIdToUnfollow);
+        UserDTO followedUser = null;
+        UserDTO followerUser = null;
+        FollowSellerResponseDTO modifiedUser = new FollowSellerResponseDTO();
+        boolean followerNotFound = true;
+
+        for (int i = 0; i < users.size(); i++) {
+            User dbUser = users.get(i);
+
+            if(dbUser.getUserId() == userId){
+                for (int j = 0; j < dbUser.getFollowed().size(); j++) {
+                    followedUser = dbUser.getFollowed().get(j);
+
+                    if(followedUser.getUserId() == userIdToUnfollow){
+                        for (int k = 0; k < userToUnfollow.getFollowers().size(); k++) {
+                            followerUser = userToUnfollow.getFollowers().get(k);
+
+                            if(followerUser.getUserId() == userId){
+                                followerNotFound = false;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+            } else {
+                continue;
+            }
+        }
+
+        if(followerNotFound){
+            throw new InexistentFollowerException(userId, userIdToUnfollow);
+        }
+
+        user.deleteFollowed(followedUser);
+        userToUnfollow.deleteFollower(followerUser);
+
+        modifiedUser.setUserId(user.getUserId());
+        modifiedUser.setUserName(user.getUserName());
+        modifiedUser.setFollowed(user.getFollowed());
+
+        return modifiedUser;
+    }
+
 
     /*private List<User> loadDateBase() {
         File file = null;
