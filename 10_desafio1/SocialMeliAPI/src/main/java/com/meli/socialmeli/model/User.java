@@ -22,6 +22,14 @@ public class User {
         this.userName=userName;
     }
 
+    public User(User user){
+        this.userId=user.getUserId();
+        this.userName=user.getUserName();
+        this.followers=user.getFollowers();
+        this.followed=user.getFollowed();
+        this.posts=user.getPosts();
+    }
+
     public void addFollower(User user){
         followers.add(user);
     }

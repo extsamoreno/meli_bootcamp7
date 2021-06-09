@@ -1,5 +1,6 @@
 package com.meli.socialmeli.controller;
 
+import com.meli.socialmeli.exception.IncorrectOrderTypeException;
 import com.meli.socialmeli.exception.UserAlreadyFollowedException;
 import com.meli.socialmeli.exception.UserAlreadyUnfollowedException;
 import com.meli.socialmeli.exception.UserNotFoundException;
@@ -23,6 +24,11 @@ public class UserExceptionController {
 
     @ExceptionHandler(UserAlreadyUnfollowedException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(UserAlreadyUnfollowedException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(IncorrectOrderTypeException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(IncorrectOrderTypeException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }

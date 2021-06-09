@@ -1,5 +1,6 @@
 package com.meli.socialmeli.controller;
 
+import com.meli.socialmeli.exception.IncorrectOrderTypeException;
 import com.meli.socialmeli.exception.UserAlreadyFollowedException;
 import com.meli.socialmeli.exception.UserAlreadyUnfollowedException;
 import com.meli.socialmeli.exception.UserNotFoundException;
@@ -10,10 +11,7 @@ import com.meli.socialmeli.service.dto.UserDTOFollowersList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -32,13 +30,13 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<UserDTOFollowersList> getFollowersList(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowersList(userId), HttpStatus.OK);
+    public ResponseEntity<UserDTOFollowersList> getSortedFollowersList(@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException, IncorrectOrderTypeException {
+        return new ResponseEntity<>(iUserService.getSortedFollowersList(userId,order), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<UserDTOFollowedList> getFollowedList(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowedList(userId),HttpStatus.OK);
+    public ResponseEntity<UserDTOFollowedList> getSortedFollowedList(@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException, IncorrectOrderTypeException {
+        return new ResponseEntity<>(iUserService.getSortedFollowedList(userId, order),HttpStatus.OK);
     }
 
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
@@ -46,4 +44,6 @@ public class UserController {
         HttpStatus status=iUserService.unfollowUser(userId,userIdToUnfollow);
         return new ResponseEntity<>(status,status);
     }
+
+
 }

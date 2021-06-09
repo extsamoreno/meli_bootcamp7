@@ -74,7 +74,7 @@ public class PostService implements IPostService {
         List<Post> sortedPostList= new ArrayList<>(); //Aqui se guardaran las fechas ordenadas
 
         QuickSort sorter= new QuickSort();
-        sorter.sort(arrPostList,c);
+        sorter.sortPostByDate(arrPostList,c);
         Collections.addAll(sortedPostList,arrPostList); //Ya ordenado se agrega a sortedPostList
 
         return sortedPostList;
