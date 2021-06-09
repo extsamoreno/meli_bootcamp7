@@ -7,6 +7,6 @@ import com.example.SocialMeli.Services.DTOs.*;
 import java.util.List;
 
 public interface iPostService {
-    public void makePost(PostDTO postDTO) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException;
+    public void makePost(PostDTO postDTO) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException, PostNotFoundException;
     public List<PostDTO> getFollowedPost(int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException;
 }

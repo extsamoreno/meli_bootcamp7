@@ -19,7 +19,7 @@ public class PostController {
     iPostService iPostService;
 
     @PostMapping("/products/newpost")
-    public ResponseEntity<Void> makePost (@RequestBody PostDTO postDTO) throws DateTimeParseException, ProductIdInUseException, PostIdInUseException, UserNotFoundException {
+    public ResponseEntity<Void> makePost (@RequestBody PostDTO postDTO) throws DateTimeParseException, ProductIdInUseException, PostIdInUseException, UserNotFoundException, PostNotFoundException {
 
         iPostService.makePost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
