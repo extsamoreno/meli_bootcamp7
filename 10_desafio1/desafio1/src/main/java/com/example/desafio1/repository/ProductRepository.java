@@ -13,9 +13,26 @@ public class ProductRepository implements IProductRepository{
 
     @Override
     public void createProduct(Product product) {
-
-
+       catalog.put(product.getProduct_id(), product);
     }
+
+    @Override
+    public boolean isUsedId(int productId) {
+        return catalog.containsKey(productId);
+    }
+
+    //used ids are invalid
+    @Override
+    public int validId() {
+        return catalog.size() + 1;
+    }
+
+    //Method for test queries only
+    @Override
+    public HashMap<Integer, Product> getProductCatalog() {
+        return catalog;
+    }
+
 
     @Override
     public Product getProductById(int productId) throws ProductNotFoundException {
