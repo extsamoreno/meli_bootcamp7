@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -16,7 +15,7 @@ public class ResponsePostDTO {
 
     private Integer idPost;
 
-    private @JsonFormat(pattern = "dd-mm-yyyy")
+    private @JsonFormat(pattern = "dd-MM-yyyy")
     Date date;
 
     private ProductDetail detail;

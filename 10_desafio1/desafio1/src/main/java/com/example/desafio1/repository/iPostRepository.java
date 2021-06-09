@@ -12,6 +12,6 @@ import java.util.ArrayList;
 public interface iPostRepository {
 
     Post savePost(Post post) throws PostAlreadyExistException, UserNotFoundException;
-    //Post findPostById(Integer id) throws PostNotFoundException;
-    ArrayList<Post> findPostsByUserId(Integer id) throws UserNotFoundException;
+    ArrayList<Post> findWeeksPosts(int weeksToFind);
+    ArrayList<Post> findWeeksPostsByUserId(Integer id, Integer weeksToFind) throws UserNotFoundException;
 }

@@ -27,7 +27,7 @@ public class PostService implements iPostService {
         iPostRepository.savePost(post);
     }
 
-    // Get a list of the posts made by the sellers that a user follows (post made last two weeks)
+    // Get a list of the posts made by the sellers that a user follows (post made last weeks)
     @Override
     public ResponseListFollowedSellers listPostsFollowed(Integer userId) throws UserNotFoundException {
 
@@ -41,7 +41,7 @@ public class PostService implements iPostService {
             listPostDTO.setUserId(seller.getUserId());
 
             // Creating list with seller posts
-            for (Post p : iPostRepository.findPostsByUserId(seller.getUserId())) {
+            for (Post p : iPostRepository.findWeeksPostsByUserId(seller.getUserId(), 2)) {
                 listPostDTO.getPosts().add(PostMapper.postToDto(p));
             }
 

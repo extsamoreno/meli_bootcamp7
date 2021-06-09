@@ -1,16 +1,19 @@
 package com.example.desafio1.repository;
 
 import com.example.desafio1.exception.post.PostAlreadyExistException;
-import com.example.desafio1.exception.post.PostNotFoundException;
 import com.example.desafio1.exception.user.UserNotFoundException;
 import com.example.desafio1.model.Post;
 import com.example.desafio1.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+
+import static JavaUtils.JavaUtils.convertToLocalDate;
+import static JavaUtils.JavaUtils.orderByDateASC;
 
 @Repository
 public class PostRepository implements iPostRepository {
@@ -26,7 +29,7 @@ public class PostRepository implements iPostRepository {
     public Post savePost(Post post) throws PostAlreadyExistException, UserNotFoundException {
 
         // Exception: user id doesn't exist
-        if(iUserRepository.findUserById(post.getUserId()) == null){
+        if (iUserRepository.findUserById(post.getUserId()) == null) {
             throw new UserNotFoundException(post.getUserId());
         }
 
@@ -39,30 +42,51 @@ public class PostRepository implements iPostRepository {
         return post;
     }
 
-    /*// Search a post by postId
     @Override
-    public Post findPostById(Integer id) throws PostNotFoundException {
+    // Search posts created up "weeksToFind" weeks ago
+    public ArrayList<Post> findWeeksPosts(int weeksToFind) {
 
-        // Exception: ID doesn't exist
-        if (mapPosts.get(id) == null) {
-            throw new PostNotFoundException(id);
-        }
-        return mapPosts.get(id);
-    }*/
+        // New list to return
+        ArrayList<Post> listPosts = new ArrayList<>();
 
-    // Search all post created by userId
-    @Override
-    public ArrayList<Post> findPostsByUserId(Integer id) throws UserNotFoundException {
+        LocalDate today = LocalDate.now();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate datePost;
 
-        User userOwner = iUserRepository.findUserById(id);
-        ArrayList<Post> listPost = new ArrayList<>();
-
+        // Create a list with posts "weeksToFind" ago
         for (Map.Entry<Integer, Post> entry : mapPosts.entrySet()) {
 
-            if(entry.getValue().getUserId() == id){
-                listPost.add(entry.getValue());
+            datePost = convertToLocalDate(entry.getValue().getDate()).plusDays(1);
+            long weeksPost = ChronoUnit.WEEKS.between(datePost, today);
+
+            if (weeksToFind >= weeksPost) {
+                listPosts.add(entry.getValue());
             }
         }
-        return listPost;
+
+        // Order posts by Date ASC
+        orderByDateASC(listPosts);
+
+        return listPosts;
+    }
+
+    @Override
+    // Search posts created up "weeksToFind" ago by userId
+    public ArrayList<Post> findWeeksPostsByUserId(Integer id, Integer weeksToFind) throws UserNotFoundException {
+
+        // List with the last posts (filtered by weeks)
+        ArrayList<Post> listPostsWeeks = findWeeksPosts(weeksToFind);
+
+        // List to return filtered by id and weeks
+        ArrayList<Post> listPostsFiltered = new ArrayList<>();
+
+        // Filter posts by userId
+        for (Post p : listPostsWeeks) {
+
+            if (id == p.getUserId()) {
+                listPostsFiltered.add(p);
+            }
+        }
+        return listPostsFiltered;
     }
 }
