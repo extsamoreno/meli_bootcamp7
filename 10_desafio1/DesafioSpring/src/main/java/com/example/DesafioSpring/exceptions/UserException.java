@@ -13,8 +13,8 @@ public class UserException extends Exception {
 
     public UserException (String msg, HttpStatus status){
         this.errorMsg = new ErrorMsgDTO();
-        this.errorMsg.setMsg(msg);
-        this.errorMsg.setNameDescription(this.getClass().getSimpleName());
+        this.errorMsg.setMessage(msg);
+        this.errorMsg.setName(this.getClass().getSimpleName());
         this.status = status;
     }
 

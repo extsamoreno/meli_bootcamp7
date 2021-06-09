@@ -7,11 +7,11 @@ import java.util.List;
 
 @Setter@Getter
 public class FollowedByDTO extends Following{
-    private List<UserDTO> followedBy;
+    private List<UserDTO> followed;
 
-    public FollowedByDTO(String userId, String userName, List <UserDTO> followedBy){
+    public FollowedByDTO(int userId, String userName, List <UserDTO> followed){
         super(userId,userName);
         this.setUserId(userId);
-        this.setFollowedBy(followedBy);
+        this.setFollowed(followed);
     }
 }

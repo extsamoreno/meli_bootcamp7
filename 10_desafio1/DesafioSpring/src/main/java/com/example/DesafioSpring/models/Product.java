@@ -5,18 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Product {
     private int id;
     private String name;
-    private List<Integer> followers;
-    private List<Integer> following;
-    private List<Integer> posts;
-
-
-
+    private String type;
+    private String color;
+    private String notes;
 }

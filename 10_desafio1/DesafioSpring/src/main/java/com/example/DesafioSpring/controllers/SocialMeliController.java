@@ -6,7 +6,7 @@ import com.example.DesafioSpring.dto.FollowersDTO;
 import com.example.DesafioSpring.dto.FollowersCountDTO;
 import com.example.DesafioSpring.exceptions.UserNotFoundException;
 import com.example.DesafioSpring.models.User;
-import com.example.DesafioSpring.services.IuserService;
+import com.example.DesafioSpring.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,33 +19,43 @@ import java.util.List;
 public class SocialMeliController {
 
     @Autowired
-    IuserService iUserService;
-//punto1
-    @PostMapping("{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<FollowDTO> followSeller (@PathVariable String userId, @PathVariable String userIdToFollow) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.followSeller(userId,userIdToFollow),HttpStatus.OK);
+    IUserService iUserService;
+
+
+
+    @PostMapping("/{followerId}/follow/{followedId}")
+    public ResponseEntity<FollowDTO> followSeller (@PathVariable int followerId, @PathVariable int followedId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.followSeller(followerId, followedId), HttpStatus.OK);
     }
+
+    @GetMapping("{userId}/followers/count")
+    public ResponseEntity<FollowersCountDTO> getFollowersCount (@PathVariable int userId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<FollowersDTO> getFollowers (@RequestParam(defaultValue="name_desc") String order,@PathVariable int userId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.getFollowers(userId,order), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<FollowedByDTO> getFollowed (@RequestParam(defaultValue="name_desc") String order,@PathVariable int userId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.getFollowed(userId,order), HttpStatus.OK);
+    }
+
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> followSeller (){
 
-        return new ResponseEntity<>(iUserService.getDatabase(), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getdb(), HttpStatus.OK);
     }
+    @PostMapping("{followerId}/unfollow/{followedId}")
+    public ResponseEntity<FollowDTO> unfollow (@PathVariable int followerId, @PathVariable int followedId) throws UserNotFoundException {
 
-    //Punto 2
-    @GetMapping("{userId}/followers/count")
-    public ResponseEntity<FollowersCountDTO>getFollowersCount(@PathVariable String userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.unfollow(followerId, followedId), HttpStatus.OK);
     }
-    // Punto 3
-    @GetMapping("{userId}/followers/list")
-    public ResponseEntity<FollowersDTO>getFollowers(@PathVariable String userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
-    }
-    // Punto 4
-    @GetMapping("{userId}/followed/list")
-    public ResponseEntity<FollowedByDTO>getFollowedBy(@PathVariable String userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowedBy(userId), HttpStatus.OK);
-    }
-  // Punto 5
-
 }

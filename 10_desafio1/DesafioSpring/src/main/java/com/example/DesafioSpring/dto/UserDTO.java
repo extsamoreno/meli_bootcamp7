@@ -7,6 +7,6 @@ import lombok.Setter;
 
 @Getter@Setter @NoArgsConstructor @AllArgsConstructor
 public class UserDTO {
-    private String userId;
+    private int userId;
     private String userName;
 }

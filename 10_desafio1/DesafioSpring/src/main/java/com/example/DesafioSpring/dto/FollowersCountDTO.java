@@ -7,7 +7,7 @@ import lombok.Setter;
 public class FollowersCountDTO extends Following {
     private int followers_count;
 
-    public FollowersCountDTO(String userId, String userName, int followers_count){
+    public FollowersCountDTO(int userId, String userName, int followers_count){
 
         this.setUserId(userId);
         this.setUserName(userName);

@@ -1,20 +1,24 @@
 package com.example.DesafioSpring.repositories;
 
-import com.example.DesafioSpring.dto.FollowDTO;
-import com.example.DesafioSpring.dto.FollowedByDTO;
-import com.example.DesafioSpring.dto.FollowersCountDTO;
-import com.example.DesafioSpring.dto.FollowersDTO;
-import com.example.DesafioSpring.exceptions.UserNotFoundException;
+import com.example.DesafioSpring.dto.*;
+import com.example.DesafioSpring.exceptions.*;
+import com.example.DesafioSpring.models.Post;
+import com.example.DesafioSpring.models.Product;
 import com.example.DesafioSpring.models.User;
 
 import java.util.List;
 
 public interface IUserRepository {
-    public FollowDTO followSeller(String follower, String followed) throws UserNotFoundException;
+    public List<User> getUsersByIds(List<Integer> UserIds) throws UserNotFoundException;
+
+    public List<Post> getPostsByIds(List<Integer> postIds) throws PostNotFoundException, ProductNotFoundException;
+    public Post getPostByID(int postId) throws PostNotFoundException;
+    public List<Post> getPosts();
+    public Product getProductByID(int productId) throws ProductNotFoundException;
+
     public List<User> getUsers();
 
-    public FollowersCountDTO getFollowersCount(String userId)throws UserNotFoundException;
-    public FollowersDTO getFollowers(String userId) throws UserNotFoundException;
+    public List<Product> getProducts();
 
-    public FollowedByDTO getFollowedBy(String userId) throws UserNotFoundException;;
+    public User getUserByID(int userId) throws UserNotFoundException;
 }

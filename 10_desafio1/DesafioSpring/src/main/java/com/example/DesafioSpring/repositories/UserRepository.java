@@ -1,9 +1,10 @@
 package com.example.DesafioSpring.repositories;
 
-import com.example.DesafioSpring.dto.*;
-import com.example.DesafioSpring.exceptions.UserNotFoundException;
+
+import com.example.DesafioSpring.exceptions.*;
+import com.example.DesafioSpring.models.Post;
+import com.example.DesafioSpring.models.Product;
 import com.example.DesafioSpring.models.User;
-import com.example.DesafioSpring.services.mapper.UserMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -18,57 +19,100 @@ import java.util.List;
 @Repository
 public class UserRepository implements IUserRepository {
     private List<User> users= this.loadDataBase();
-    @Override
-    public FollowDTO followSeller(String userId, String userIdToFollow) throws UserNotFoundException {
+    private List<Post> posts= new ArrayList<>();
+    private List<Product> products= new ArrayList<>();
 
-        User follower = this.findUserByID(userId);
-        User followed = this.findUserByID(userIdToFollow);
-
-        followed.addFollower(follower.getId());
-        follower.addFollowed(followed.getId());
-
-        return new FollowDTO(userId,userIdToFollow, "Following");
+    public List<Post> getPosts() {
+        return this.posts;
     }
 
-    private int findUserIndexByID(String userId) throws UserNotFoundException{
-
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId().equals(userId)){
-                return i;
-            }
-        }
-        throw new UserNotFoundException(userId);
+    public List<Product> getProducts() {
+        return this.products;
     }
-    private User findUserByID(String userId) throws UserNotFoundException{
 
-        return users.get(this.findUserIndexByID(userId));
-    }
     public List<User> getUsers(){
 
         return this.users;
     }
 
-    @Override
-    public FollowersCountDTO getFollowersCount(String userId) throws UserNotFoundException{
-        User user= this.findUserByID(userId);
+    public void addPostToUser(int userId, Post post) throws UserNotFoundException {
 
-        return new FollowersCountDTO(user.getId(),user.getName(),user.getFollowers().size());
-    }
- @Override
-    public FollowersDTO getFollowers(String userId) throws UserNotFoundException{
-        User user = this.findUserByID(userId);
-        List <UserDTO> followerDTO = this.getUserDTOListById(user.getFollowers());
-        return new FollowersDTO(user.getId(),user.getName(),followerDTO);
+        User user = this.getUserByID(userId);
+
+        List<Integer> posts = user.getPosts();
+        posts.add(post.getId());
+        user.setPosts(posts);
+
     }
 
-    @Override
-    public FollowedByDTO getFollowedBy(String userId) throws UserNotFoundException {
-        User user = this.findUserByID(userId);
-        List <UserDTO> followedByDTO = this.getUserDTOListById(user.getFollowedBy());
-        return new FollowedByDTO(user.getId(),user.getName(),followedByDTO);
+    public List<User> getUsersByIds(List<Integer> UserIds) throws UserNotFoundException {
+
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < UserIds.size(); i++) {
+            User user = this.getUserByID(UserIds.get(i));
+            users.add(user);
+        }
+        return users;
+
     }
 
-    public List<User> loadDataBase(){
+    public List<Post> getPostsByIds(List<Integer> postIds) throws PostNotFoundException, ProductNotFoundException {
+
+        List<Post> posts = new ArrayList<>();
+        for (int i = 0; i < postIds.size(); i++) {
+            Post post = this.getPostByID(postIds.get(i));
+            posts.add(post);
+        }
+        return posts;
+
+    }
+
+
+
+
+    private int findPostIndexByID(int postId) throws PostNotFoundException {
+
+        for (int i = 0; i < posts.size(); i++) {
+            if (posts.get(i).getId() == postId ){
+                return i;
+            }
+        }
+        throw new PostNotFoundException(postId);
+    }
+    public Post getPostByID(int postId) throws PostNotFoundException {
+
+        return posts.get(this.findPostIndexByID(postId));
+    }
+    private int findProductIndexByID(int productId) throws ProductNotFoundException{
+
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == productId ){
+                return i;
+            }
+        }
+        throw new ProductNotFoundException(productId);
+    }
+    public Product getProductByID(int productId) throws ProductNotFoundException {
+
+        return products.get(this.findProductIndexByID(productId));
+    }
+
+
+    public int findUserIndexByID(int userId) throws UserNotFoundException{
+
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId() == userId ){
+                return i;
+            }
+        }
+        throw new UserNotFoundException(userId);
+    }
+    public User getUserByID(int userId) throws UserNotFoundException{
+
+        return users.get(this.findUserIndexByID(userId));
+    }
+
+    private List<User> loadDataBase(){
 
         File file = null;
         try{
@@ -89,19 +133,4 @@ public class UserRepository implements IUserRepository {
 
         return users;
     }
-    private List<UserDTO> getUserDTOListById(List<String> UserIds) throws UserNotFoundException {
-
-        List<UserDTO> userDTOS = new ArrayList<>();
-
-        for (int i = 0; i < UserIds.size(); i++) {
-
-            User user = this.findUserByID(UserIds.get(i));
-            userDTOS.add(UserMapper.toDTO(user));
-
-        }
-
-        return userDTOS;
-
-    }
-
 }

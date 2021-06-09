@@ -7,6 +7,6 @@ import lombok.Setter;
 
 @Setter@Getter@AllArgsConstructor@NoArgsConstructor
 public abstract class Following {
-    private String userId;
+    private int userId;
     private String userName;
 }

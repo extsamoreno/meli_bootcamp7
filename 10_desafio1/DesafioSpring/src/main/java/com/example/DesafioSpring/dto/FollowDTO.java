@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor @NoArgsConstructor
 public class FollowDTO {
-    private String userId;
-    private String userIdToFollow;
-    private String typeOfFollow;
+    private int followerID;
+    private int followedID;
+    private String type;
 }
