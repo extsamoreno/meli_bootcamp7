@@ -41,7 +41,7 @@ public class PostRepositoryImpl implements PostRepository {
     public void addNewProduct(Post post) throws PostIdAlreadyExistsException, IOException {
 
         Optional<Post> contains = postList.stream().filter(p -> p.getPostId().equals(post.getPostId())).findAny();
-        if (!contains.isPresent()) {
+        if (contains.isEmpty()) {
             this.postList.add(post);
             ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
             objectMapper.writeValue(ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/posts.json"), this.postList);

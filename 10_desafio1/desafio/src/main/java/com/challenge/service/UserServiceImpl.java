@@ -2,7 +2,7 @@ package com.challenge.service;
 
 import com.challenge.dto.UserDTO;
 import com.challenge.entity.User;
-import com.challenge.enums.SortingEnum;
+import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.UserIdNotFoundException;
 import com.challenge.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -34,7 +33,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.getFollowersCount(userId);
     }
 
-    public List<UserDTO> getFollowers(Integer userId, SortingEnum sorting) throws UserIdNotFoundException {
+    @Override
+    public List<UserDTO> getFollowers(Integer userId, SortingUserEnum sorting) throws UserIdNotFoundException {
         List<User> follows = userRepository.getFollowers(userId);
         List<UserDTO> result = new ArrayList<>();
         for (User u : follows) {
@@ -44,34 +44,25 @@ public class UserServiceImpl implements UserService {
             dto.setFollows(UserMapper.toDTOList(userRepository.getFollows(u.getUserId())));
             result.add(dto);
         }
-        return sortByUsername(sorting, result);
+        return sortByUsernameTest(sorting, result);
     }
 
-    private List<UserDTO> sortByUsername(SortingEnum sorting, List<UserDTO> result) {
-        if (sorting.equals(SortingEnum.name_desc)) {
-            result.sort(new Comparator<UserDTO>() {
-                @Override
-                public int compare(UserDTO o1, UserDTO o2) {
-                    return o1.getUsername().compareTo(o2.getUsername());
-                }
-            });
-        } else {
-            result.sort(new Comparator<UserDTO>() {
-                @Override
-                public int compare(UserDTO o1, UserDTO o2) {
-                    return o2.getUsername().compareTo(o1.getUsername());
-                }
-            });
-        }
-        return result;
-    }
-
-    public List<UserDTO> getFollows(Integer userId, SortingEnum sorting) throws UserIdNotFoundException {
+    @Override
+    public List<UserDTO> getFollows(Integer userId, SortingUserEnum sorting) throws UserIdNotFoundException {
         List<User> follows = userRepository.getFollows(userId);
         List<UserDTO> result = UserMapper.toDTOList(follows);
         for (UserDTO u : result) {
             u.setFollows(UserMapper.toDTOList(userRepository.getFollows(u.getUserId())));
         }
-        return sortByUsername(sorting, result);
+        return sortByUsernameTest(sorting, result);
+    }
+
+    private List<UserDTO> sortByUsernameTest(SortingUserEnum sorting, List<UserDTO> result) {
+        if (sorting.equals(SortingUserEnum.name_desc)) {
+            result.sort(Comparator.comparing(UserDTO::getUsername));
+        } else {
+            result.sort(Comparator.comparing(UserDTO::getUsername).reversed());
+        }
+        return result;
     }
 }

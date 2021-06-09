@@ -1,6 +1,6 @@
 package com.challenge.enums;
 
-public enum SortingEnum {
+public enum SortingUserEnum {
 
     name_asc, name_desc
 

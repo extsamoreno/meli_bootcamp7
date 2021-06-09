@@ -1,5 +1,6 @@
 package com.challenge.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDate;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 public class Post {
 
     private Integer postId;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     private Integer userId;
     private Product detail;

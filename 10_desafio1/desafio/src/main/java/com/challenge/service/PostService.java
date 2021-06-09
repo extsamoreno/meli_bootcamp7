@@ -2,6 +2,8 @@ package com.challenge.service;
 
 import com.challenge.dto.NewPostRequest;
 import com.challenge.entity.Post;
+import com.challenge.enums.SortingPostsEnum;
+import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.PostIdAlreadyExistsException;
 import com.challenge.exception.UserIdNotFoundException;
 
@@ -11,5 +13,5 @@ import java.util.List;
 public interface PostService {
 
     void addNewPost(NewPostRequest request) throws PostIdAlreadyExistsException, UserIdNotFoundException, IOException;
-    List<Post> getRecentPosts(Integer id) throws UserIdNotFoundException;
+    List<Post> getRecentPosts(Integer id, SortingPostsEnum sorting) throws UserIdNotFoundException;
 }

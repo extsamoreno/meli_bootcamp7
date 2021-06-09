@@ -3,60 +3,71 @@
     "postId": 1,
     "date": [
       2021,
-      8,
-      6
+      6,
+      8
     ],
     "userId": 2,
     "detail": {
-      "product_id": 1,
       "type": "Gamer",
       "brand": "HyperX",
       "color": "red",
-      "notes": "Fury"
+      "notes": "Fury",
+      "product_id": 1
     },
     "category": 12,
-    "price": 3000.0,
-    "hasPromo": null,
-    "discount": null
+    "price": 3000.0
   },
   {
     "postId": 2,
     "date": [
       2021,
-      8,
-      6
+      6,
+      9
     ],
     "userId": 3,
     "detail": {
-      "product_id": 1,
       "type": "Gamer",
       "brand": "HyperX",
       "color": "red",
-      "notes": "Mouse"
+      "notes": "Mouse",
+      "product_id": 1
     },
     "category": 12,
-    "price": 3000.0,
-    "hasPromo": null,
-    "discount": null
+    "price": 3000.0
   },
   {
     "postId": 3,
     "date": [
       2021,
-      3,
-      5
+      5,
+      3
     ],
     "userId": 3,
     "detail": {
-      "product_id": 2,
+      "type": "Gamer",
+      "brand": "HyperX",
+      "color": "red",
+      "notes": "keyboard",
+      "product_id": 2
+    },
+    "category": 12,
+    "price": 3000.0
+  },
+  {
+    "postId": 4,
+    "date": [
+      2021,
+      6,
+      3
+    ],
+    "userId": 3,
+    "detail": {
       "type": "Gamer",
       "brand": "HyperX",
       "color": "red",
       "notes": "keyboard"
     },
     "category": 12,
-    "price": 3000.0,
-    "hasPromo": null,
-    "discount": null
+    "price": 3000.0
   }
 ]

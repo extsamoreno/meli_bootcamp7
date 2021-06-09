@@ -1,9 +1,8 @@
 package com.challenge.controller;
 
-import com.challenge.enums.SortingEnum;
+import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.UserIdNotFoundException;
 import com.challenge.service.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +34,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity getFollowers(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingEnum sorting) throws UserIdNotFoundException {
+    public ResponseEntity getFollowers(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollowers(userId, sorting));
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity getFollows(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingEnum sorting) throws UserIdNotFoundException {
+    public ResponseEntity getFollows(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollows(userId, sorting));
     }
 }

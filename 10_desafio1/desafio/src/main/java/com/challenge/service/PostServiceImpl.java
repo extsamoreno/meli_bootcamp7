@@ -3,6 +3,8 @@ package com.challenge.service;
 import com.challenge.dto.NewPostRequest;
 import com.challenge.entity.Post;
 import com.challenge.entity.User;
+import com.challenge.enums.SortingPostsEnum;
+import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.PostIdAlreadyExistsException;
 import com.challenge.exception.UserIdNotFoundException;
 import com.challenge.repository.PostRepository;
@@ -25,10 +27,15 @@ public class PostServiceImpl implements PostService {
     UserRepository userRepository;
 
     @Override
-    public List<Post> getRecentPosts(Integer id) throws UserIdNotFoundException {
+    public List<Post> getRecentPosts(Integer id, SortingPostsEnum sorting) throws UserIdNotFoundException {
         List<Integer> followedIds = userRepository.getFollowedIds(id);
         List<Post> recentPosts = postRepository.getRecentPosts(followedIds, LocalDate.now().minusWeeks(2));
-        recentPosts.sort(Comparator.comparing(Post::getDate));
+        if (sorting == null || sorting.equals(SortingPostsEnum.date_asc)) {
+            recentPosts.sort(Comparator.comparing(Post::getDate).reversed());
+        } else if (sorting.equals(SortingPostsEnum.date_desc)) {
+            recentPosts.sort(Comparator.comparing(Post::getDate));
+
+        }
         return recentPosts;
     }
 

@@ -1,10 +1,11 @@
 package com.challenge.controller;
 
 import com.challenge.dto.NewPostRequest;
+import com.challenge.enums.SortingPostsEnum;
+import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.PostIdAlreadyExistsException;
 import com.challenge.exception.UserIdNotFoundException;
 import com.challenge.service.PostService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,8 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity getRecentPosts(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return ResponseEntity.ok(postService.getRecentPosts(userId));
+    public ResponseEntity getRecentPosts(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingPostsEnum sorting) throws UserIdNotFoundException {
+        return ResponseEntity.ok(postService.getRecentPosts(userId, sorting));
     }
 
 
