@@ -13,9 +13,11 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -64,9 +66,17 @@ public class ProductRepositoy implements IProductrepository {
     }
 
     @Override
-    public ResponseFollowersListDTO getProductListFollow (Integer userId){
-            User user =  iUserrepository.findUserById(userId);
-            ArrayList<User> listfollow = iUserrepository.listFollow(userId).getFollow();
+    public RequestFollowedProductList getProductListFollow (Integer userId, LocalDate dateFrome, LocalDate dateBefore){
+        RequestFollowedProductList requestFollowedProductList = new RequestFollowedProductList();
+        User user = iUserrepository.findUserById(userId);
+        ArrayList<User> listFollowUser =  iUserrepository.listFollow(userId).getFollow();
+        requestFollowedProductList.setUserId(userId);
+        requestFollowedProductList.setPosts((ArrayList<Publication>) this.publications.stream()
+                .filter(publication -> publication.getUser_id() == userId)
+                .filter(publication -> publication.getDate().isAfter(dateFrome) && publication.getDate().isBefore(dateBefore))
+                .collect(Collectors.toList()));
+
+        return requestFollowedProductList ;
 
     }
 

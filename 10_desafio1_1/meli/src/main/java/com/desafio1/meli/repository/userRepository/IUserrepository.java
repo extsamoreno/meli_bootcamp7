@@ -7,6 +7,7 @@ public interface IUserrepository {
     User findUserById(Integer id);
     Integer countFollower(Integer userId);
     boolean follow(RequestFollowUserToUser requestFollowUserToUser);
+    boolean unFollow(RequestUnFollowUserToUser requestUnFollowUserToUser);
     ResponseFollowersListDTO listFollower(Integer userId);
     ResponseFollowsListDTO listFollow(Integer userId);
 }

@@ -19,6 +19,14 @@ public class UserService implements IUserService {
         requestFollowUserToUser.setUserFollower(iUserrepository.findUserById(userIdToFollow));
         return iUserrepository.follow(requestFollowUserToUser);
     }
+
+    @Override
+    public boolean unFollowUser(Integer userId, Integer userIdToFollow){
+        RequestUnFollowUserToUser requestUnFollowUserToUser = new RequestUnFollowUserToUser();
+        requestUnFollowUserToUser.setUser(iUserrepository.findUserById(userId));
+        requestUnFollowUserToUser.setUserUnFollower(iUserrepository.findUserById(userIdToFollow));
+        return iUserrepository.unFollow(requestUnFollowUserToUser);
+    }
     @Override
     public ResponseCountFollower countFollowUser (Integer userId){
         User user = iUserrepository.findUserById(userId);

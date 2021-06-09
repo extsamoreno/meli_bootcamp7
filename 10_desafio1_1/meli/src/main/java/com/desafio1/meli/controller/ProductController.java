@@ -1,5 +1,6 @@
 package com.desafio1.meli.controller;
 
+import com.desafio1.meli.service.DTO.RequestFollowedProductList;
 import com.desafio1.meli.service.DTO.RequestNewProduct;
 import com.desafio1.meli.service.DTO.ResponseFollowersListDTO;
 import com.desafio1.meli.service.productService.IProductservice;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
 @RequestMapping("/product")
 public class ProductController{
 
@@ -15,7 +17,7 @@ public class ProductController{
     IProductservice iProductservice;
 
 
-    @PostMapping("/newpost")
+    @PostMapping("/newpost/")
     public ResponseEntity<Boolean> setPost(@RequestBody RequestNewProduct requestNewProduct) {
 
         boolean status = iProductservice.newProduct(requestNewProduct);
@@ -25,9 +27,9 @@ public class ProductController{
 
     }
     @GetMapping("/followed/{userId}/list/")
-    public ResponseEntity<ResponseFollowersListDTO> getFollower(@PathVariable Integer userId) {
+    public ResponseEntity<RequestFollowedProductList> getFollower(@PathVariable Integer userId) {
 
-        ResponseFollowersListDTO status = iProductservice.listProductFollowerUser(userId);
-        return new ResponseEntity<ResponseFollowersListDTO>(status, HttpStatus.OK);
+        RequestFollowedProductList status = iProductservice.listProductFollowerUser(userId);
+        return new ResponseEntity<RequestFollowedProductList>(status, HttpStatus.OK);
     }
 }

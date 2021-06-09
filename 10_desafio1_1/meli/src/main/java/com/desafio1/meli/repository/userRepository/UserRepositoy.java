@@ -36,22 +36,60 @@ public class UserRepositoy implements IUserrepository {
         try{
             // If follow list is empty
             if (this.follow.isEmpty()){
-                ArrayList<User> user = new ArrayList<>();
-                user.add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
-                this.follow.put(requestFollowUserToUser.getUser().getId(), user);
+                ArrayList<User> userList = new ArrayList<>();
+                userList.add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
+                this.follow.put(requestFollowUserToUser.getUser().getId(), userList);
             }else{
-                this.follow.get(requestFollowUserToUser.getUser().getId()).add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
+                if (!this.follow.containsKey(requestFollowUserToUser.getUser().getId())){
+                    ArrayList<User> userList = new ArrayList<>();
+                    userList.add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
+                    this.follower.put(requestFollowUserToUser.getUser().getId(), userList);
+                }else {
+                    User getUser = findUserById(requestFollowUserToUser.getUserFollower().getId());
+                    this.follow.get(requestFollowUserToUser.getUser().getId()).add(getUser);
+                }
+
             }
             // If follower list is empty
             if (this.follower.isEmpty()){
-                ArrayList<User> user = new ArrayList<>();
-                user.add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
-                this.follower.put(requestFollowUserToUser.getUser().getId(), user);
+                ArrayList<User> userList = new ArrayList<>();
+                //Agrego al Arreglo user el user que sigue
+                userList.add(findUserById(requestFollowUserToUser.getUser().getId()));
+                // en el key-> seguido agrego el usuario que sigue al seguido
+                this.follower.put(requestFollowUserToUser.getUserFollower().getId(), userList);
             }else{
+                // Si en la key seguido no tiene a nadie se crea el array y se asigna
+                if(!this.follower.containsKey(requestFollowUserToUser.getUserFollower().getId())){
+                    ArrayList<User> userList = new ArrayList<>();
+                    userList.add(findUserById(requestFollowUserToUser.getUser().getId()));
+                    this.follower.put(requestFollowUserToUser.getUserFollower().getId(), userList);
+                }else{
+                    //sino se asigna en el key del seguido
+                    User getUser = findUserById(requestFollowUserToUser.getUser().getId());
+                    this.follower.get(requestFollowUserToUser.getUserFollower().getId()).add(getUser);
+                }
 
-                this.follower.get(requestFollowUserToUser.getUserFollower().getId()).add(findUserById(requestFollowUserToUser.getUser().getId()));
             }
             return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    @Override
+    public boolean unFollow(RequestUnFollowUserToUser requestUnFollowUserToUser){
+        boolean status = false;
+        try{
+            // If follow list is !empty
+            if (!this.follow.isEmpty() && findUserById(requestUnFollowUserToUser.getUserUnFollower().getId())!=null){
+                User user = findUserById(requestUnFollowUserToUser.getUserUnFollower().getId());
+                status =  this.follow.get(requestUnFollowUserToUser.getUser().getId()).remove(user);
+            }
+            // If follower list is !empty
+            if (!this.follower.isEmpty() && findUserById(requestUnFollowUserToUser.getUser().getId())!=null){
+                User user = findUserById(requestUnFollowUserToUser.getUser().getId());
+                status = this.follower.get(requestUnFollowUserToUser.getUserUnFollower().getId()).remove(user);;
+            }
+            return status;
         }catch (Exception e){
             return false;
         }

@@ -45,6 +45,13 @@ public class UserController {
         ResponseFollowsListDTO status = iUserService.listFollowUser(userId);
         return new ResponseEntity<ResponseFollowsListDTO>(status, HttpStatus.OK);
     }
+    @GetMapping("/{userId}/unfollow/{userIdToUnFollow}/")
+    public ResponseEntity<Boolean> setUnFollow(@PathVariable Integer userId,@PathVariable Integer userIdToUnFollow) {
 
+        boolean status = iUserService.unFollowUser(userId, userIdToUnFollow);
+        if (status)
+            return new ResponseEntity<Boolean>(status, HttpStatus.OK);
+        return new ResponseEntity<Boolean>(status, HttpStatus.BAD_REQUEST);
+    }
 
 }
