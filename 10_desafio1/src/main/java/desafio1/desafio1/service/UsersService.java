@@ -3,9 +3,12 @@ package desafio1.desafio1.service;
 import desafio1.desafio1.domain.User;
 import desafio1.desafio1.exception.UserNotFoundException;
 import desafio1.desafio1.exception.ValidateSellerException;
+import desafio1.desafio1.exception.ValidateUserException;
 import desafio1.desafio1.repository.IUserRepository;
-import desafio1.desafio1.service.dto.SellerDTO;
-import desafio1.desafio1.service.dto.UserDTO;
+import desafio1.desafio1.service.dto.SellerCountDTO;
+import desafio1.desafio1.service.dto.list.SellerListDTO;
+import desafio1.desafio1.service.dto.UserSaveDTO;
+import desafio1.desafio1.service.dto.list.UserListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,33 +18,82 @@ public class UsersService implements IUsersService {
    @Autowired
     IUserRepository userRepository;
 
-    @Override
-    public UserDTO follow(int userId, int userIdToFollow) throws UserNotFoundException { //userIdToFollow es a quien quiero seguir
-        UserDTO userDTO = new UserDTO();
+    @Override//estoy devolviendo una instancia nueva, debeiria devolver la de la bdd
+    public User follow(int userId, int userIdToFollow) throws UserNotFoundException { //userIdToFollow es a quien quiero seguir
+        UserSaveDTO userSaveDTO = new UserSaveDTO();
+        UserSaveDTO userSaveDTOFollow = new UserSaveDTO();
 
-        userRepository.findUserById(userId).getFollowList().add(userRepository.findUserById(userIdToFollow));
-        userRepository.findUserById(userIdToFollow).getFollowMeList().add(userRepository.findUserById(userId));
 
-        userDTO.setUserId(userRepository.findUserById(userIdToFollow).getUserId());
-        userDTO.setUserName(userRepository.findUserById(userIdToFollow).getUserName());
+        //hago eso porque en el find se fija si existe y no tengo que validar de nuevo aca
+        userSaveDTO.setUserId(userRepository.findUserById(userId).getUserId());
+        userSaveDTO.setUserName(userRepository.findUserById(userId).getUserName());
 
-        return userDTO;
+        userSaveDTOFollow.setUserId(userRepository.findUserById(userIdToFollow).getUserId());
+        userSaveDTOFollow.setUserName(userRepository.findUserById(userIdToFollow).getUserName());
+
+        userRepository.findUserById(userId).getFollowList().add(userSaveDTOFollow);
+        userRepository.findUserById(userIdToFollow).getFollowMeList().add(userSaveDTO);
+
+
+        return userRepository.findUserById(userId);
     }
 
     @Override
-    public SellerDTO countFollowersById(int userId) throws UserNotFoundException, ValidateSellerException {
-        SellerDTO sellerDTO = new SellerDTO();
+    public SellerCountDTO countFollowersUserById(int userId) throws UserNotFoundException, ValidateSellerException {
+        SellerCountDTO sellerCountDTO = new SellerCountDTO();
         User user = new User();
         user = userRepository.findUserById(userId);
 
-        sellerDTO.setUserId(user.getUserId());
-        sellerDTO.setUserName(user.getUserName());
-        sellerDTO.setFollowers_count(user.getFollowMeList().size());
+        sellerCountDTO.setUserId(user.getUserId());
+        sellerCountDTO.setUserName(user.getUserName());
 
-        if(!sellerDTO.getUserName().contains("vendedor")){  //REVISAR ESTO, LO HICE RAPIDO, NO ESTOY SEGURA
-            throw new ValidateSellerException(sellerDTO.getUserId());
+        //valido que en la lista haya usuarios que siguen a este vendedor, y obtengo el tamaño
+        sellerCountDTO.setFollowers_count(userRepository.filterFollowersMe(userId, "usuario").size());
+
+        if(!sellerCountDTO.getUserName().contains("vendedor")){  //REVISAR ESTO, LO HICE RAPIDO, NO ESTOY SEGURA
+            throw new ValidateSellerException(sellerCountDTO.getUserId());
         }
 
-        return sellerDTO;
+        return sellerCountDTO;
+    }
+
+    @Override
+    public SellerListDTO listFollowersSeller(int userId) throws UserNotFoundException, ValidateSellerException {
+        SellerListDTO sellerListDTO = new SellerListDTO();
+
+        User user = new User();
+        user = userRepository.findUserById(userId);
+
+        sellerListDTO.setUserId(user.getUserId());
+        sellerListDTO.setUserName(user.getUserName());
+
+        //valido que en la lista haya usuarios que siguen a este vendedor, y obtengo el tamaño
+        sellerListDTO.setFollowMeList(userRepository.filterFollowersMe(userId, "usuario"));
+
+        if(!sellerListDTO.getUserName().contains("vendedor")){  //Valido si yo soy un vendedor
+            throw new ValidateSellerException(sellerListDTO.getUserId());
+        }
+
+        return sellerListDTO;
+
+    }
+
+    @Override
+    public UserListDTO listFollowedUser(int userId) throws UserNotFoundException, ValidateUserException {
+        UserListDTO userListDTO = new UserListDTO();
+        User user = new User();
+        user = userRepository.findUserById(userId);
+
+        userListDTO.setUserId(user.getUserId());
+        userListDTO.setUserName(user.getUserName());
+
+        userListDTO.setFollowList(userRepository.filterFollowers(userId, "vendedor"));
+
+        if(!userListDTO.getUserName().contains("usuario")){
+            throw new ValidateUserException(userListDTO.getUserId());
+        }
+
+        return userListDTO;
+
     }
 }

@@ -1,5 +1,6 @@
 package desafio1.desafio1.domain;
 
+import desafio1.desafio1.service.dto.UserSaveDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,13 +15,11 @@ import java.util.List;
 public class User {
     private int userId;
     private String userName;
-    private List<User> followList; //quienes sigo yo
-    private List<User> followMeList; //quienes me siguen
+    private List<UserSaveDTO> followList; //quienes sigo yo
+    private List<UserSaveDTO> followMeList; //quienes me siguen
     private List<Publications> publicationsList;
 
     public User() {
-        this.userId = -1;
-        this.userName = "";
         this.followList = new ArrayList<>();
         this.followMeList = new ArrayList<>();
         this.publicationsList = new ArrayList<>();

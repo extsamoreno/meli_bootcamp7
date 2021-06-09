@@ -17,4 +17,9 @@ public class HandlerException {
     public ResponseEntity<ErrorDTO> validateSellerException(ValidateSellerException e){
         return  new ResponseEntity<>(e.getError(), e.getStatus());
     }
+
+    @ExceptionHandler(ValidateUserException.class)
+    public ResponseEntity<ErrorDTO> validateUserException(ValidateUserException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
 }

@@ -1,6 +1,7 @@
-package desafio1.desafio1.service.dto;
+package desafio1.desafio1.service.dto.list;
 
 import desafio1.desafio1.domain.User;
+import desafio1.desafio1.service.dto.UserSaveDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,15 +10,13 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class UserDTO {
+public class SellerListDTO {
     private int userId;
     private String userName;
-    private List<UserSaveDTO> followList; //quienes sigo yo
-    private List<UserSaveDTO> followMeList; //quienes me siguen
+    private List<UserSaveDTO> followMeList;
 
 
-    public UserDTO() {
-        this.followList = new ArrayList<>();
+    public SellerListDTO() {
         this.followMeList = new ArrayList<>();
     }
 }

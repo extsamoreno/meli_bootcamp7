@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import desafio1.desafio1.domain.User;
 import desafio1.desafio1.exception.UserNotFoundException;
+import desafio1.desafio1.service.dto.UserSaveDTO;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -11,25 +12,68 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository{
+
+    private List<User> listUser = null; //esto lo cambie de lugar porque me recomendaron hacerlo como atributo de clase y no de metodo
+
+    public UserRepository() {
+        this.listUser = loadDataBase();
+    }
+
     @Override
     public User findUserById(int userId) throws UserNotFoundException {
 
-        List<User> listUser = null;
-        listUser = loadDataBase();
         User userResult = null;
 
         if(listUser != null){
-            userResult = (User)listUser.stream().filter(u -> u.getUserId() == userId);
+            Optional<User> item = listUser.stream().filter(u -> u.getUserId() == userId).findFirst();
+
+            if(item.isPresent()) {
+                userResult = item.get();
+            }
         }
 
-        if(userResult == null) {
+        if(userResult==null){
             throw new UserNotFoundException(userId);
         }
 
         return userResult;
+    }
+
+    //chiterio va a ser "vendedor" o "usuario" entonces todos los userSaveTDO que contengan en el nombre, uno de esos, se va a guardar en la lista que voy a devolver
+    //filtra los que sigo
+    @Override
+    public List<UserSaveDTO> filterFollowers(int userId, String criterio) throws UserNotFoundException {
+        User user = findUserById(userId);
+        List<UserSaveDTO> listFollowers = null;
+
+        if(user.getFollowList() != null){
+             listFollowers = user.getFollowList().stream().filter(
+                    x -> x.getUserName().toLowerCase().contains(criterio.toLowerCase())).collect(Collectors.toList());
+        }
+
+        return listFollowers;
+
+    }
+    //filtra los que me siguen a mi
+    @Override
+    public List<UserSaveDTO> filterFollowersMe(int userId, String criterio) throws UserNotFoundException {
+        User user = findUserById(userId);
+        List<UserSaveDTO> listFollowersMe = null;
+        List<UserSaveDTO> listUserSaveDTO = user.getFollowMeList();
+
+        if(listUserSaveDTO != null){
+            listFollowersMe = listUserSaveDTO.stream().filter(
+                    x -> x.getUserName().toLowerCase().contains(criterio.toLowerCase())).collect(Collectors.toList());
+        }
+
+        return listFollowersMe;
+
     }
 
 

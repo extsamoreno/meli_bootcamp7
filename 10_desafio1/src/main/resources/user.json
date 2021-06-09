@@ -1,19 +1,35 @@
 [
+  {"userId": 1223,
+  "userName": "vendedor1",
+  "followList": [],
+  "followMeList": [ {
+                  "userId": 1226,
+                  "userName": "usuario2"
+  }],
+  "publicationsList": []
+  }
+  ,
   {
-    "userId": 1569,
-    "userName": "vendedor1",
-    "followed": [],
-    "publication": []
+    "userId": 1224,
+    "userName": "vendedor2",
+    "followList": [],
+    "followMeList": [],
+    "publicationsList": []
   },
   {
-    "userId": 1569,
-    "userName": "vendedor1",
-    "followed": [{
-      "userId": 1569,
-      "userName": "usuario1",
-      "followed": [],
-      "publication": []}
+    "userId": 1225,
+    "userName": "usuario1",
+    "followList": [
+        {
+          "userId": 1224,
+          "userName": "vendedor2"
+        },
+        {
+          "userId": 1223,
+          "userName": "vendedor1"
+        }
     ],
-    "publication": []
+    "followMeList": [],
+    "publicationsList": []
   }
 ]
