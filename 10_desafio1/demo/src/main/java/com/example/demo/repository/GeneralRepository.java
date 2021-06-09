@@ -1,8 +1,8 @@
 package com.example.demo.repository;
 
-import com.example.demo.DTO.FollowersListDTO;
+import com.example.demo.DTO.PostDTO;
+import com.example.demo.DTO.PostListDTO;
 import com.example.demo.DTO.UserDTO;
-import com.example.demo.exception.FollowersNotFoundException;
 import com.example.demo.exception.UserNotFoundException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,14 +18,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class UserRepository implements IUserRepository {
+public class GeneralRepository implements IGeneralRepository {
 
     private HashMap<Integer, List<UserDTO>> followerDB;
     private HashMap<Integer, List<UserDTO>> followedDB;
+    private HashMap<Integer, List<PostDTO>> postDB;
 
-    public UserRepository(){
+    public GeneralRepository(){
         this.followedDB = new HashMap<>();
         this.followerDB = new HashMap<>();
+        this.postDB = new HashMap<>();
     }
 
     @Override
@@ -61,6 +63,28 @@ public class UserRepository implements IUserRepository {
     public List<UserDTO> followersList(Integer userId) {
         List<UserDTO> followersList = this.followerDB.get(userId);
         return (followersList == null?new ArrayList<>():followersList);
+    }
+
+    @Override
+    public List<UserDTO> followedList(Integer userID) {
+        List<UserDTO> followedList = this.followedDB.get(userID);
+        return (followedList == null?new ArrayList<>():followedList);
+    }
+
+    @Override
+    public void newPost(PostDTO post) {
+        if (this.postDB.containsKey(post.getUserId()))
+            this.postDB.get(post.getUserId()).add(post);
+        else{
+            List<PostDTO> listPost = new ArrayList<>();
+            listPost.add(post);
+            this.postDB.put(post.getUserId(),listPost);
+        }
+    }
+
+    @Override
+    public List<PostDTO> findPostByUserId(Integer userId) {
+        return (this.postDB.get(userId) == null ? new ArrayList<>():this.postDB.get(userId));
     }
 
     private void addFollowed(UserDTO userId, UserDTO userIdToFollow) {

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.DTO.FollowedListDTO;
 import com.example.demo.DTO.FollowersCountDTO;
 import com.example.demo.DTO.FollowersListDTO;
 import com.example.demo.exception.UserNotFoundException;
@@ -30,6 +31,11 @@ public class UserController {
     @GetMapping("/{UserID}/followers/list")
     public ResponseEntity<FollowersListDTO> followersList (@PathVariable Integer UserID) throws UserNotFoundException {
         return new ResponseEntity<>(userServices.followersList(UserID),HttpStatus.OK);
+    }
+
+    @GetMapping("/{UserID}/followed/list")
+    public ResponseEntity<FollowedListDTO> followedList (@PathVariable Integer UserID) throws UserNotFoundException {
+        return new ResponseEntity<>(userServices.followedList(UserID),HttpStatus.OK);
     }
 
 }

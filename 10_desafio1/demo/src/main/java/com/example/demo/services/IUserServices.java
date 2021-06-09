@@ -1,8 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.DTO.FollowersCountDTO;
-import com.example.demo.DTO.FollowersListDTO;
-import com.example.demo.DTO.UserDTO;
+import com.example.demo.DTO.*;
 import com.example.demo.exception.UserNotFoundException;
 
 public interface IUserServices {
@@ -11,4 +9,7 @@ public interface IUserServices {
     FollowersCountDTO countFollowers(Integer userId) throws UserNotFoundException;
 
     FollowersListDTO followersList (Integer userId) throws UserNotFoundException;
+
+    FollowedListDTO followedList(Integer userID) throws UserNotFoundException;
+
 }
