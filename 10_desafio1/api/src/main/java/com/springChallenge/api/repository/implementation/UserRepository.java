@@ -49,7 +49,7 @@ public class UserRepository implements IUserRepository {
         LocalDate localDate = LocalDate.now();
         return posts
                 .stream()
-                .filter(x -> x.getDate().isAfter(localDate.minusWeeks(2)))
+                .filter(x -> x.getDate().isAfter(localDate.minusWeeks(2)) && x.getDate().isBefore(localDate.plusDays(1)))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

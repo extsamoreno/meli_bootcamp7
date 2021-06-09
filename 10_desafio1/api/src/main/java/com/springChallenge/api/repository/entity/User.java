@@ -1,11 +1,13 @@
 package com.springChallenge.api.repository.entity;
 
+import com.springChallenge.api.controller.exception.product.IDPostAlreadyUsed;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Getter @Setter
 @AllArgsConstructor
@@ -39,7 +41,11 @@ public class User implements Comparable<User>{
         this.followers.remove(user);
     }
 
-    public void addPost(Post post){
+    public void addPost(Post post) throws IDPostAlreadyUsed {
+        Optional<Post> postInDB = this.posts.stream().filter(x -> x.getIdPost() == post.getIdPost()).findFirst();
+        if (postInDB.isPresent()){
+            throw new IDPostAlreadyUsed(post.getIdPost());
+        }
         this.posts.add(post);
     }
 

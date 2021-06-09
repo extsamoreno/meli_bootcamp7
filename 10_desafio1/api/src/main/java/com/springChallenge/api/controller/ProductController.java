@@ -2,6 +2,7 @@ package com.springChallenge.api.controller;
 
 import com.springChallenge.api.controller.dto.product.PostDTO;
 import com.springChallenge.api.controller.dto.product.PostsListDTO;
+import com.springChallenge.api.controller.exception.product.IDPostAlreadyUsed;
 import com.springChallenge.api.controller.exception.user.UserNotFoundException;
 import com.springChallenge.api.service.contract.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class ProductController {
     IProductService iProductService;
 
     @PostMapping("/newpost")
-    public void createNewPost(@RequestBody PostDTO postDTO) throws UserNotFoundException {
+    public void createNewPost(@RequestBody PostDTO postDTO) throws UserNotFoundException, IDPostAlreadyUsed {
         iProductService.createNewPost(postDTO);
     }
 

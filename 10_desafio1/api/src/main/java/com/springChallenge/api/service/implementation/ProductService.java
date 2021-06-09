@@ -2,8 +2,8 @@ package com.springChallenge.api.service.implementation;
 
 import com.springChallenge.api.controller.dto.product.PostDTO;
 import com.springChallenge.api.controller.dto.product.PostsListDTO;
+import com.springChallenge.api.controller.exception.product.IDPostAlreadyUsed;
 import com.springChallenge.api.controller.exception.user.UserNotFoundException;
-import com.springChallenge.api.repository.contract.IProductRepository;
 import com.springChallenge.api.repository.contract.IUserRepository;
 import com.springChallenge.api.repository.entity.Post;
 import com.springChallenge.api.service.contract.IProductService;
@@ -21,7 +21,7 @@ public class ProductService implements IProductService {
     IUserRepository iUserRepository;
 
     @Override
-    public void createNewPost(PostDTO postDTO) throws UserNotFoundException {
+    public void createNewPost(PostDTO postDTO) throws UserNotFoundException, IDPostAlreadyUsed {
         validatePost(postDTO);
         var post = PostMapper.toEntity(postDTO);
         var user = iUserRepository.getByUserId(post.getUserId());
