@@ -8,7 +8,6 @@ import com.example.socialmeli.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -44,9 +43,9 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
-    public ListFollowersResponseDTO listFollowers(int userId, String order) throws InexistentUserException, InexistentOrderException {
+    public ListFollowersResponseDTO listFollowers(int userId, String order) throws InexistentUserException, InexistentNameOrderException {
         if(!order.matches("name_asc|name_desc")){
-            throw new InexistentOrderException(order);
+            throw new InexistentNameOrderException(order);
         }
 
         ListFollowersResponseDTO userResponse = userRepository.listFollowers(userId);
@@ -58,15 +57,16 @@ public class UserServiceImple implements UserService{
             case "name_desc":
                 Collections.sort(userResponse.getFollowers(), Comparator.comparing(UserDTO::getUserName));
                 Collections.reverse(userResponse.getFollowers());
+                break;
         }
 
         return userResponse;
     }
 
     @Override
-    public ListFollowedResponseDTO listFollowed (int userId, String order) throws InexistentUserException, InexistentOrderException{
+    public ListFollowedResponseDTO listFollowed (int userId, String order) throws InexistentUserException, InexistentNameOrderException {
         if(!order.matches("name_asc|name_desc")){
-            throw new InexistentOrderException(order);
+            throw new InexistentNameOrderException(order);
         }
 
         ListFollowedResponseDTO userResponse = userRepository.listFollowed(userId);

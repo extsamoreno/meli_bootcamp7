@@ -32,12 +32,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<ListFollowersResponseDTO> listFollowers (@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws InexistentUserException, InexistentOrderException {
+    public ResponseEntity<ListFollowersResponseDTO> listFollowers (@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws InexistentUserException, InexistentNameOrderException {
         return new ResponseEntity<>(userService.listFollowers(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<ListFollowedResponseDTO> listFollowed (@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws InexistentUserException, InexistentOrderException {
+    public ResponseEntity<ListFollowedResponseDTO> listFollowed (@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws InexistentUserException, InexistentNameOrderException {
         return new ResponseEntity<>(userService.listFollowed(userId, order), HttpStatus.OK);
     }
 

@@ -10,7 +10,7 @@ public interface UserService {
     NewUserResponseDTO addUser(NewUserRequestDTO newUserRequestDTO) throws ExistentUserException;
     FollowSellerResponseDTO followSeller(int userId, int userIdToFollow) throws InexistentUserException, ExistentFollowerException;
     FollowersCountResponseDTO countFollowers(int userId) throws InexistentUserException;
-    ListFollowersResponseDTO listFollowers(int userId, String order) throws InexistentUserException, InexistentOrderException;
-    ListFollowedResponseDTO listFollowed (int userId, String order) throws InexistentUserException, InexistentOrderException;
+    ListFollowersResponseDTO listFollowers(int userId, String order) throws InexistentUserException, InexistentNameOrderException;
+    ListFollowedResponseDTO listFollowed (int userId, String order) throws InexistentUserException, InexistentNameOrderException;
     FollowSellerResponseDTO unfollowSeller(int userId, int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException;
 }

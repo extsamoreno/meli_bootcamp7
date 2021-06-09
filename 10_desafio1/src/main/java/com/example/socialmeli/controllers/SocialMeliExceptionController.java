@@ -39,8 +39,8 @@ public class SocialMeliExceptionController {
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 
-    @ExceptionHandler(InexistentOrderException.class)
-    public ResponseEntity<ErrorDTO> handleInexistentOrderException(InexistentOrderException e){
+    @ExceptionHandler(InexistentNameOrderException.class)
+    public ResponseEntity<ErrorDTO> handleInexistentOrderException(InexistentNameOrderException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 }
