@@ -38,6 +38,11 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
+    public Integer getPromoPostCount(Integer userId) {
+        return (int) postList.stream().filter(p -> p.getUserId().equals(userId) && p.getHasPromo().equals(true)).count();
+    }
+
+    @Override
     public void addNewProduct(Post post) throws PostIdAlreadyExistsException, IOException {
 
         Optional<Post> contains = postList.stream().filter(p -> p.getPostId().equals(post.getPostId())).findAny();

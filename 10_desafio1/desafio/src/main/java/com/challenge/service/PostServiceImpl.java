@@ -2,6 +2,7 @@ package com.challenge.service;
 
 import com.challenge.dto.NewPostRequest;
 import com.challenge.dto.NewPromoPostRequest;
+import com.challenge.dto.PostDTO;
 import com.challenge.entity.Post;
 import com.challenge.entity.User;
 import com.challenge.enums.SortingPostsEnum;
@@ -28,16 +29,15 @@ public class PostServiceImpl implements PostService {
     UserRepository userRepository;
 
     @Override
-    public List<Post> getRecentPosts(Integer id, SortingPostsEnum sorting) throws UserIdNotFoundException {
+    public List<PostDTO> getRecentPosts(Integer id, SortingPostsEnum sorting) throws UserIdNotFoundException {
         List<Integer> followedIds = userRepository.getFollowedIds(id);
         List<Post> recentPosts = postRepository.getRecentPosts(followedIds, LocalDate.now().minusWeeks(2));
         if (sorting == null || sorting.equals(SortingPostsEnum.date_asc)) {
             recentPosts.sort(Comparator.comparing(Post::getDate).reversed());
         } else if (sorting.equals(SortingPostsEnum.date_desc)) {
             recentPosts.sort(Comparator.comparing(Post::getDate));
-
         }
-        return recentPosts;
+        return PostMapper.toDtoList(recentPosts);
     }
 
     @Override
@@ -51,5 +51,14 @@ public class PostServiceImpl implements PostService {
         } else {
             postRepository.addNewProduct(PostMapper.toPost(request));
         }
+    }
+
+    @Override
+    public Integer getPromoPostsCount(Integer userId) throws UserIdNotFoundException {
+        User user = userRepository.getUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException();
+        }
+        return postRepository.getPromoPostCount(userId);
     }
 }
