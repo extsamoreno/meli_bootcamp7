@@ -9,4 +9,5 @@ public interface IUserService {
     UserResponseCountDTO getUserFollowersCount(Integer userId);
     UserResponseListDTO getUserFollowersList(Integer userId);
     UserResponseListFollowedDTO getUserFollowedList(Integer userId);
+    void Unfollow (Integer userId, Integer userToUnfollow);
 }

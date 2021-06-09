@@ -24,11 +24,6 @@ public class UserServiceImpl implements   IUserService{
 
         User customer =  iUserRepository.getUserById(userId);
         User seller = iUserRepository.getUserById(userToFollow);
-
-        /*List<User> usersFollowed = customer.getFollowed();
-        usersFollowed.add(seller);
-        customer.setFollowed(usersFollowed);
-        */
         addFollower(customer,seller);
         addFollowed(customer,seller);
 
@@ -56,6 +51,28 @@ public class UserServiceImpl implements   IUserService{
 
     }
 
+    public void deleteFollower(User customer, User seller){
+        List<UserDTO> usersFollowers = seller.getFollowers();
+        if (customer!= null){
+            usersFollowers.remove(MapperUser.toUserDTO(customer));
+            seller.setFollowers(usersFollowers);
+            iUserRepository.saveChanges(customer);
+            iUserRepository.saveChanges(seller);
+        }
+    }
+
+    public void deleteFollowed(User customer, User seller){
+        List<UserDTO> usersFollowed = customer.getFollowed();
+        if(seller!= null){
+            usersFollowed.remove(MapperUser.toUserDTO(seller));
+            customer.setFollowed(usersFollowed);
+            iUserRepository.saveChanges(customer);
+            iUserRepository.saveChanges(seller);
+        }
+
+    }
+
+
     @Override
     public UserResponseCountDTO getUserFollowersCount(Integer userId) {
         UserResponseCountDTO userResult = MapperUser.toUserResponseCountDTO(iUserRepository.getUserById(userId));
@@ -72,5 +89,15 @@ public class UserServiceImpl implements   IUserService{
     public UserResponseListFollowedDTO getUserFollowedList(Integer userId) {
         UserResponseListFollowedDTO userResult = MapperUser.toUserFollowedResponseListDTO(iUserRepository.getUserById(userId));
         return userResult;
+    }
+
+    @Override
+    public void Unfollow(Integer userId, Integer userToUnfollow) {
+
+        User customer =  iUserRepository.getUserById(userId);
+        System.out.println("holaaaa");
+        User seller = iUserRepository.getUserById(userToUnfollow);
+        deleteFollower(customer,seller);
+        deleteFollowed(customer,seller);
     }
 }
