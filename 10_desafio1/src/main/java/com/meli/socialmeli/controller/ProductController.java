@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<List<PostCollectionDTO>> getFollowedMerchantsPosts(@PathVariable int userId) throws InvalidIdException {
+    public ResponseEntity<List<PostCollectionDTO>> getFollowedMerchantsPosts(@PathVariable int userId) throws InvalidIdException{
 
         return new ResponseEntity<>(productService.getFollowedMerchantsPosts(userId), HttpStatus.OK);
     }

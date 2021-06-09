@@ -48,7 +48,7 @@ public class ProductService {
 
         List<PostCollectionDTO> postCollectionDTOList = new ArrayList<>();
 
-        List<UserDTO> followedList = userService.getFollowedList(userId).getFollowed();
+        List<UserDTO> followedList = userService.getFollowedList(userId, "name_asc").getFollowed();
 
         for (UserDTO eachFollowedMerchant : followedList) {
 

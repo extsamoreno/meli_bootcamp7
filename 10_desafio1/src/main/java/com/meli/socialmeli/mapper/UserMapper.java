@@ -11,6 +11,20 @@ import java.util.Map;
 @Component
 public class UserMapper {
 
+    public static List<UserDTO> mapFollowers(User user) {
+
+        List<UserDTO> followers = new ArrayList<>();
+
+        for (Map.Entry<Integer, User> entry : user.getFollowers().entrySet()) {
+
+            UserDTO follower = new UserDTO();
+            follower.setUserId(entry.getKey());
+            follower.setUserName(entry.getValue().getUserName());
+            followers.add(follower);
+        }
+        return followers;
+    }
+
     public static  List<UserDTO> mapFollowed(User user) {
 
         List<UserDTO> followedList = new ArrayList<>();
@@ -25,4 +39,7 @@ public class UserMapper {
         }
         return followedList;
     }
+
+
+
 }

@@ -15,6 +15,11 @@ public class UserRepository {
         users.put(1, new User("user_1", new HashMap<>(), new HashMap<>()));
         users.put(2, new User("user_2", new HashMap<>(), new HashMap<>()));
         users.put(3, new User("user_3", new HashMap<>(), new HashMap<>()));
+        users.put(4, new User("a_user_4", new HashMap<>(), new HashMap<>()));
+        users.put(5, new User("z_user_5", new HashMap<>(), new HashMap<>()));
+        users.put(6, new User("x_user_6", new HashMap<>(), new HashMap<>()));
+        users.put(7, new User("b_user_7", new HashMap<>(), new HashMap<>()));
+        users.put(8, new User("y_user_7", new HashMap<>(), new HashMap<>()));
         users.put(1547, new User("merchant_1547", new HashMap<>(), new HashMap<>()));
         users.put(6684, new User("merchant_6684", new HashMap<>(), new HashMap<>()));
     }

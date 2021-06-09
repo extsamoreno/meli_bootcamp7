@@ -32,7 +32,6 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountUserDTO> getFollowersCount(@PathVariable int userId) throws InvalidIdException {
 
@@ -40,15 +39,15 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserDTO> getFollowersList(@PathVariable int userId) throws InvalidIdException {
+    public ResponseEntity<UserDTO> getFollowersList(@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws InvalidIdException {
 
-        return new ResponseEntity<>(userService.getFollowersList(userId), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getFollowersList(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserDTO> getFollowedList(@PathVariable int userId) throws InvalidIdException {
+    public ResponseEntity<UserDTO> getFollowedList(@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc")String order) throws InvalidIdException {
 
-        return new ResponseEntity<>(userService.getFollowedList(userId), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getFollowedList(userId, order), HttpStatus.OK);
     }
 
 }

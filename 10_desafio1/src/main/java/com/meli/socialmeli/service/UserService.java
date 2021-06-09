@@ -10,11 +10,11 @@ import com.meli.socialmeli.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.meli.socialmeli.mapper.UserMapper.mapFollowed;
+import static com.meli.socialmeli.mapper.UserMapper.mapFollowers;
 
 @Service
 public class UserService {
@@ -63,7 +63,7 @@ public class UserService {
         return followersCountUserDTO;
     }
 
-    public UserDTO getFollowersList(int userId) throws InvalidIdException {
+    public UserDTO getFollowersList(int userId, String order) throws InvalidIdException {
 
         if (userRepository.userIdIsNotValid(userId)) {
             throw new InvalidIdException();
@@ -74,26 +74,33 @@ public class UserService {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(userId);
         userDTO.setUserName(user.getUserName());
-        userDTO.setFollowers(mapFollowers(user));
+
+        userDTO.setFollowers(sortFollows(mapFollowers(user), order));
 
         return userDTO;
     }
 
-    private List<UserDTO> mapFollowers(User user) {
+    private List<UserDTO> sortFollows(List<UserDTO> follows, String order) {
 
-        List<UserDTO> followers = new ArrayList<>();
-
-        for (Map.Entry<Integer, User> entry : user.getFollowers().entrySet()) {
-
-            UserDTO follower = new UserDTO();
-            follower.setUserId(entry.getKey());
-            follower.setUserName(entry.getValue().getUserName());
-            followers.add(follower);
+        if ("name_desc".equals(order)) {
+            return orderFollowersByNameDesc(follows);
         }
-        return followers;
+        return orderFollowersByNameAsc(follows);
     }
 
-    public UserDTO getFollowedList(int userId) throws InvalidIdException {
+    private List<UserDTO> orderFollowersByNameAsc(List<UserDTO> followers) {
+
+        return followers.stream().sorted(
+                Comparator.comparing(UserDTO::getUserName)).collect(Collectors.toList());
+    }
+
+    private List<UserDTO> orderFollowersByNameDesc(List<UserDTO> followers) {
+
+        return followers.stream().sorted(
+                Comparator.comparing(UserDTO::getUserName).reversed()).collect(Collectors.toList());
+    }
+
+    public UserDTO getFollowedList(int userId, String order) throws InvalidIdException {
 
         if (userRepository.userIdIsNotValid(userId)) {
             throw new InvalidIdException();
@@ -104,9 +111,9 @@ public class UserService {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(userId);
         userDTO.setUserName(user.getUserName());
-        userDTO.setFollowed(mapFollowed(user));
+
+        userDTO.setFollowed(sortFollows(mapFollowed(user), order));
 
         return userDTO;
     }
-
 }
