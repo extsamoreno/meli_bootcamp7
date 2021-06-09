@@ -3,6 +3,7 @@ package com.example.socialmeli.controllers;
 import com.example.socialmeli.exceptions.InexistentDateOrderException;
 import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
+import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowedPostsResponseDTO;
 import com.example.socialmeli.models.dtos.response.NewPostResponseDTO;
 import com.example.socialmeli.services.ProductService;
@@ -26,5 +27,10 @@ public class ProductController {
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<ListFollowedPostsResponseDTO> listPosts (@PathVariable int userId, @RequestParam(required = false, defaultValue = "date_asc") String order) throws InexistentUserException, InexistentDateOrderException {
         return new ResponseEntity<>(productService.listPosts(userId, order), HttpStatus.OK);
+    }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity<String> addPost (@RequestBody NewPromoPostRequestDTO newPost) throws InexistentUserException {
+        return new ResponseEntity<>(productService.addPromoPost (newPost), HttpStatus.OK);
     }
 }

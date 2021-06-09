@@ -16,6 +16,8 @@ public class Post {
     private Product detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 
     public Post (PostDTO postDTO){
         this.postId = postDTO.getPostId();
@@ -23,5 +25,7 @@ public class Post {
         this.detail = postDTO.getDetail();
         this.category = postDTO.getCategory();
         this.price = postDTO.getPrice();
+        this.hasPromo = postDTO.isHasPromo();
+        this.discount = postDTO.getDiscount();
     }
 }

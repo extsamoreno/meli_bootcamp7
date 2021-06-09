@@ -1,6 +1,5 @@
-package com.example.socialmeli.models.dtos;
+package com.example.socialmeli.models.dtos.request;
 
-import com.example.socialmeli.models.Post;
 import com.example.socialmeli.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +10,7 @@ import java.time.LocalDate;
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
-public class PostDTO {
+public class NewPromoPostRequestDTO {
     private int userId;
     private int postId;
     private LocalDate date;
@@ -20,14 +19,4 @@ public class PostDTO {
     private double price;
     private boolean hasPromo;
     private double discount;
-
-    public PostDTO(Post post) {
-        this.postId = post.getPostId();
-        this.date = post.getDate();
-        this.detail = post.getDetail();
-        this.category = post.getCategory();
-        this.price = post.getPrice();
-        this.hasPromo = post.isHasPromo();
-        this.discount = post.getDiscount();
-    }
 }
