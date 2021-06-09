@@ -1,5 +1,7 @@
 package com.challenge.service;
 
+import com.challenge.dto.FollowersCountResponse;
+import com.challenge.dto.FollowersResponse;
 import com.challenge.dto.UserDTO;
 import com.challenge.entity.User;
 import com.challenge.enums.SortingUserEnum;
@@ -20,21 +22,35 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     public void follow(Integer userId, Integer userToFollow) throws IOException, UserIdNotFoundException {
+       if (!userRepository.checkIfExists(userId) || !userRepository.checkIfExists(userToFollow)) {
+           throw new UserIdNotFoundException();
+       }
        userRepository.follow(userId, userToFollow);
     }
 
     @Override
     public void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException {
+        if (!userRepository.checkIfExists(userId) || !userRepository.checkIfExists(userToUnfollow)) {
+            throw new UserIdNotFoundException();
+        }
         userRepository.unfollow(userId, userToUnfollow);
     }
 
     @Override
-    public Integer getFollowersCount(Integer userId) throws UserIdNotFoundException {
-        return userRepository.getFollowersCount(userId);
+    public FollowersCountResponse getFollowersCount(Integer userId) throws UserIdNotFoundException {
+        User user = userRepository.getUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException();
+        }
+        return new FollowersCountResponse(userId, user.getUsername(), userRepository.getFollowersCount(userId));
     }
 
     @Override
-    public List<UserDTO> getFollowers(Integer userId, SortingUserEnum sorting) throws UserIdNotFoundException {
+    public FollowersResponse getFollowers(Integer userId, SortingUserEnum sorting) throws UserIdNotFoundException {
+        User user = userRepository.getUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException();
+        }
         List<User> follows = userRepository.getFollowers(userId);
         List<UserDTO> result = new ArrayList<>();
         for (User u : follows) {
@@ -44,17 +60,23 @@ public class UserServiceImpl implements UserService {
             dto.setFollows(UserMapper.toDTOList(userRepository.getFollows(u.getUserId())));
             result.add(dto);
         }
-        return sortByUsernameTest(sorting, result);
+        sortByUsernameTest(sorting, result);
+        return new FollowersResponse(userId, user.getUsername(), result);
     }
 
     @Override
-    public List<UserDTO> getFollows(Integer userId, SortingUserEnum sorting) throws UserIdNotFoundException {
+    public FollowersResponse getFollows(Integer userId, SortingUserEnum sorting) throws UserIdNotFoundException {
+        User user = userRepository.getUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException();
+        }
         List<User> follows = userRepository.getFollows(userId);
         List<UserDTO> result = UserMapper.toDTOList(follows);
         for (UserDTO u : result) {
             u.setFollows(UserMapper.toDTOList(userRepository.getFollows(u.getUserId())));
         }
-        return sortByUsernameTest(sorting, result);
+        sortByUsernameTest(sorting, result);
+        return new FollowersResponse(userId, user.getUsername(), result);
     }
 
     private List<UserDTO> sortByUsernameTest(SortingUserEnum sorting, List<UserDTO> result) {

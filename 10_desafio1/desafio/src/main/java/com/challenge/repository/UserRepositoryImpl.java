@@ -39,9 +39,7 @@ public class UserRepositoryImpl implements UserRepository {
         return user.orElse(null);
     }
 
-    public void follow(Integer userId, Integer userIdToFollow) throws IOException, UserIdNotFoundException {
-        checkIfExists(userId);
-        checkIfExists(userIdToFollow);
+    public void follow(Integer userId, Integer userIdToFollow) throws IOException {
         if (!follows.get(userId).contains(userIdToFollow)) {
             follows.put(userId, userIdToFollow);
             followedBy.put(userIdToFollow, userId);
@@ -52,40 +50,31 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    public boolean checkIfExists(Integer userId) {
+        return userList.stream().anyMatch(u -> u.getUserId().equals(userId));
+    }
+
     @Override
-    public void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException {
-        checkIfExists(userId);
-        checkIfExists(userToUnfollow);
+    public void unfollow(Integer userId, Integer userToUnfollow) {
         follows.get(userId).remove(userToUnfollow);
         followedBy.get(userToUnfollow).remove(userId);
     }
 
-    public List<User> getFollowers(Integer userId) throws UserIdNotFoundException {
-        checkIfExists(userId);
+    public List<User> getFollowers(Integer userId) {
         List<Integer> followersIds = (List<Integer>) followedBy.get(userId);
         return userList.stream().filter(u -> followersIds.contains(u.getUserId())).collect(Collectors.toList());
     }
 
-    private void checkIfExists(Integer id) throws UserIdNotFoundException {
-       boolean exists = userList.stream().anyMatch(u -> u.getUserId().equals(id));
-       if (!exists) {
-           throw new UserIdNotFoundException();
-       }
-    }
-
-    public List<User> getFollows(Integer userId) throws UserIdNotFoundException {
-        checkIfExists(userId);
+    public List<User> getFollows(Integer userId) {
         List<Integer> followsIds = (List<Integer>) follows.get(userId);
         return userList.stream().filter(u -> followsIds.contains(u.getUserId())).collect(Collectors.toList());
     }
 
-    public List<Integer> getFollowedIds(Integer userId) throws UserIdNotFoundException {
-        checkIfExists(userId);
+    public List<Integer> getFollowedIds(Integer userId) {
         return (List<Integer>) follows.get(userId);
     }
 
-    public Integer getFollowersCount(Integer userId) throws UserIdNotFoundException {
-        checkIfExists(userId);
+    public Integer getFollowersCount(Integer userId) {
         return followedBy.get(userId).size();
     }
 

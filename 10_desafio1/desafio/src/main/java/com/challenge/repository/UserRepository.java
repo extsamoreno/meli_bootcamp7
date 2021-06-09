@@ -10,11 +10,12 @@ import java.util.List;
 public interface UserRepository {
 
     User getUserById(Integer id);
-    void follow(Integer userId, Integer userToFollow) throws IOException, UserIdNotFoundException;
-    Integer getFollowersCount(Integer userId) throws UserIdNotFoundException;
-    List<User> getFollowers(Integer userId) throws UserIdNotFoundException;
-    List<User> getFollows(Integer userId) throws UserIdNotFoundException;
-    List<Integer> getFollowedIds(Integer userId) throws UserIdNotFoundException;
-    void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException;
+    void follow(Integer userId, Integer userToFollow) throws IOException ;
+    Integer getFollowersCount(Integer userId);
+    List<User> getFollowers(Integer userId);
+    List<User> getFollows(Integer userId);
+    List<Integer> getFollowedIds(Integer userId);
+    void unfollow(Integer userId, Integer userToUnfollow);
+    boolean checkIfExists(Integer userId);
 
 }

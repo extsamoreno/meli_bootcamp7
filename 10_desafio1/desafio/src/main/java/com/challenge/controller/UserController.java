@@ -1,5 +1,7 @@
 package com.challenge.controller;
 
+import com.challenge.dto.FollowersCountResponse;
+import com.challenge.dto.FollowersResponse;
 import com.challenge.dto.UserDTO;
 import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.UserIdNotFoundException;
@@ -31,17 +33,17 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<Integer> getFollowersCount(@PathVariable Integer userId) throws UserIdNotFoundException {
+    public ResponseEntity<FollowersCountResponse> getFollowersCount(@PathVariable Integer userId) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollowersCount(userId));
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<List<UserDTO>> getFollowers(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
+    public ResponseEntity<FollowersResponse> getFollowers(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollowers(userId, sorting));
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<List<UserDTO>> getFollows(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
+    public ResponseEntity<FollowersResponse> getFollows(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollows(userId, sorting));
     }
 }
