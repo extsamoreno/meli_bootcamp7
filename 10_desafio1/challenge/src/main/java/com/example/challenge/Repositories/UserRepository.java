@@ -83,12 +83,12 @@ public class UserRepository implements IUserRepository {
         this.users.put(7, new User(7, "Franco", new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
         this.users.put(8, new User(8, "Diego", new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
 
-        addPost(new Post(1, 1, LocalDate.now(), new Product(1, "prod1", "type1", "brand1", "Color1", "bla", false, 0), 123, 232));
-        addPost(new Post(1, 2, LocalDate.now().minusDays(2), new Product(2, "prod2", "type2", "brand2", "Color2", "bla", false, 0), 123, 232));
-        addPost(new Post(1, 3, LocalDate.now().minusDays(5), new Product(3, "prod3", "type3", "brand3", "Color3", "bla", false, 0), 123, 232));
-        addPost(new Post(3, 1, LocalDate.now().minusDays(45), new Product(1, "prod1", "type1", "brand1", "Color1", "bla", false, 0), 123, 232));
-        addPost(new Post(4, 1, LocalDate.now().minusDays(1), new Product(1, "prod1", "type1", "brand1", "Color1", "bla", false, 0), 123, 232));
-        addPost(new Post(1, 4, LocalDate.now().minusDays(13), new Product(4, "prod1", "type1", "brand1", "Color1", "bla", false, 0), 123, 232));
+        addPost(new Post(1, 1, LocalDate.now(), new Product(1, "prod1", "type1", "brand1", "Color1", "bla"), 123, 232 ));
+        addPost(new Post(1, 2, LocalDate.now().minusDays(2), new Product(2, "prod2", "type2", "brand2", "Color2", "bla"), 123, 232));
+        addPost(new Post(1, 3, LocalDate.now().minusDays(5), new Product(3, "prod3", "type3", "brand3", "Color3", "bla"), 123, 232));
+        addPost(new Post(3, 1, LocalDate.now().minusDays(45), new Product(1, "prod1", "type1", "brand1", "Color1", "bla"), 123, 232));
+        addPost(new Post(4, 1, LocalDate.now().minusDays(1), new Product(1, "prod1", "type1", "brand1", "Color1", "bla"), 123, 232));
+        addPost(new Post(1, 4, LocalDate.now().minusDays(13), new Product(4, "prod1", "type1", "brand1", "Color1", "bla"), 123, 232));
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.example.challenge.Exceptions.UserNotFoundException;
 import com.example.challenge.Models.Post;
 import com.example.challenge.Repositories.IProductRepository;
 import com.example.challenge.Services.DTOs.PostDTO;
+import com.example.challenge.Services.DTOs.PostPromotionDTO;
 import com.example.challenge.Services.DTOs.ResponseFollowedPostDTO;
 import com.example.challenge.Services.DTOs.UserDTO;
 import com.example.challenge.Services.Mappers.PostMapper;
@@ -34,6 +35,13 @@ public class ProductService implements IProductService {
         return iProductRepository.addNewPost(PostMapper.postDtoToPost(postDTO),
                 iUserService.getUserById(postDTO.getUserId()));
     }
+
+    @Override
+    public String addNewPromoPost(PostPromotionDTO postPromoDTO) throws UserNotFoundException {
+        return iProductRepository.addNewPromoPost(PostMapper.postPromotionDtoToPost(postPromoDTO),
+                iUserService.getUserById(postPromoDTO.getUserId()));
+    }
+
 
     @Override
     public ResponseFollowedPostDTO getMyFollowedPostList(int userId, String order) throws UserNotFoundException, InvalidOrderException {

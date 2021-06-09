@@ -16,6 +16,18 @@ public class Post {
     private Product product;
     private int categoryId;
     private double price;
+    private Boolean hasPromo;
+    private double discount;
 
+    public Post(int userId, int id, LocalDate date, Product product, int categoryId, double price){
+        this.userId = userId;
+        this.id = id;
+        this.date = date;
+        this.product = product;
+        this.categoryId = categoryId;
+        this.price = price;
+        this.hasPromo = false;
+        this.discount = 0;
+    }
 
 }

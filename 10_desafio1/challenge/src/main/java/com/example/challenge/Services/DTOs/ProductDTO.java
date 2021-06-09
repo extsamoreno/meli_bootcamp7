@@ -13,6 +13,5 @@ public class ProductDTO {
     private String brand;
     private String color;
     private String notes;
-    private Boolean hasPromo;
-    private double discount;
+
 }

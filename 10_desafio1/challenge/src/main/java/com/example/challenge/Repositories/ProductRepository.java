@@ -14,4 +14,12 @@ public class ProductRepository implements IProductRepository{
         else
             return "Error adding Post";
     }
+
+    @Override
+    public String addNewPromoPost(Post post, User user) throws UserNotFoundException {
+        if(user.addNewPost(post))
+            return "Post added successfully";
+        else
+            return "Error adding Post";
+    }
 }

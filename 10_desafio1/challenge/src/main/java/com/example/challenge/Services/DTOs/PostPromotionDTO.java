@@ -1,12 +1,12 @@
 package com.example.challenge.Services.DTOs;
 
-import com.example.challenge.Models.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
 @Data
-public class PostDTO {
+public class PostPromotionDTO {
+
     private int userId;
     private int id;
     @JsonFormat(pattern="dd-MM-yyyy")
@@ -14,4 +14,8 @@ public class PostDTO {
     private ProductDTO product;
     private int categoryId;
     private double price;
+    private Boolean hasPromo;
+    private double discount;
 }
+
+

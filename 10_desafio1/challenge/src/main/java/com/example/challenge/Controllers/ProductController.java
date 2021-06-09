@@ -3,6 +3,7 @@ package com.example.challenge.Controllers;
 import com.example.challenge.Exceptions.InvalidOrderException;
 import com.example.challenge.Exceptions.UserNotFoundException;
 import com.example.challenge.Services.DTOs.PostDTO;
+import com.example.challenge.Services.DTOs.PostPromotionDTO;
 import com.example.challenge.Services.DTOs.ResponseFollowedPostDTO;
 import com.example.challenge.Services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,12 @@ public class ProductController {
     public ResponseEntity<String> addNewPost(@RequestBody PostDTO postDTO) throws UserNotFoundException {
 
         return new ResponseEntity<>(iProductService.addNewPost(postDTO), HttpStatus.OK);
+    }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity<String> addNewPromoPost(@RequestBody PostPromotionDTO postPromoDTO) throws UserNotFoundException, InvalidOrderException {
+
+        return new ResponseEntity<>(iProductService.addNewPromoPost(postPromoDTO), HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")
