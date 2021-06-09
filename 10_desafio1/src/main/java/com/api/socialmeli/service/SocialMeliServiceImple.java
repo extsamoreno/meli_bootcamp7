@@ -2,6 +2,7 @@ package com.api.socialmeli.service;
 
 import com.api.socialmeli.dto.*;
 import com.api.socialmeli.exception.EqualsIdException;
+import com.api.socialmeli.exception.IsNotaFollowerException;
 import com.api.socialmeli.exception.NotFoundIdException;
 import com.api.socialmeli.exception.PostIdExistsException;
 import com.api.socialmeli.model.PostModel;
@@ -13,7 +14,9 @@ import com.api.socialmeli.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -152,11 +155,36 @@ PostRepositoryImple postRepositoryImple;
         return followedPosts;
     }
 
+    @Override
+    public String US007(int userId, int userIdToUnfollow) throws Exception{
 
+        if (userRepositoryImple.getUsers().get(userId)==null) throw new NotFoundIdException(userId);
+        if (userRepositoryImple.getUsers().get(userIdToUnfollow)==null) throw new NotFoundIdException(userIdToUnfollow);
 
+        ArrayList <UserModel> followedList = userRepositoryImple.getUsers().get(userId).getFollowed();
+        ArrayList <UserModel> followerList = userRepositoryImple.getUsers().get(userIdToUnfollow).getFollowers();
 
+        ArrayList <UserModel> auxList1 = new ArrayList<>();
+        for (int i = 0; i < followedList.size(); i++) {
+            if (followedList.get(i).getUserId()!=userIdToUnfollow){
+                auxList1.add(followedList.get(i));
+            }
+        }
 
+        if (auxList1.size()==followedList.size()) throw new IsNotaFollowerException(userId,userIdToUnfollow);
 
+        ArrayList <UserModel> auxList2 = new ArrayList<>();
+        for (int i = 0; i < followerList.size(); i++) {
+            if (followerList.get(i).getUserId()!=userId){
+                auxList2.add(followerList.get(i));
+            }
+        }
 
+        userRepositoryImple.getUsers().get(userId).setFollowed(auxList1);
+        userRepositoryImple.getUsers().get(userIdToUnfollow).setFollowers(auxList2);
+
+        return "user: " + userId + " unfollows: " + userIdToUnfollow;
+
+    }
 
 }

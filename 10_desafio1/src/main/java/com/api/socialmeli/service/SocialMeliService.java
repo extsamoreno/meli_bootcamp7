@@ -13,4 +13,5 @@ public interface SocialMeliService {
     UserFolowedDTO US004(int userId) throws Exception;
     String US005(PostDTO newPost ) throws Exception;
     FollowedPostsDTO US006(int userId ) throws Exception;
+    String US007(int userId, int userIdToUnfollow) throws Exception;
 }

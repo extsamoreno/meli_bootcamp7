@@ -1,10 +1,7 @@
 package com.api.socialmeli.controller;
 
 import com.api.socialmeli.dto.ErrorDTO;
-import com.api.socialmeli.exception.EqualsIdException;
-import com.api.socialmeli.exception.NotFoundIdException;
-import com.api.socialmeli.exception.PostIdExistsException;
-import com.api.socialmeli.exception.SocialMeliException;
+import com.api.socialmeli.exception.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,6 +23,10 @@ public class SocialMeliExceptionController {
     }
     @ExceptionHandler(PostIdExistsException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(PostIdExistsException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+    @ExceptionHandler(IsNotaFollowerException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(IsNotaFollowerException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 

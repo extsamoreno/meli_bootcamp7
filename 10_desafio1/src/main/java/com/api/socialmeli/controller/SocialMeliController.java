@@ -43,5 +43,10 @@ public class SocialMeliController {
         return new ResponseEntity<>(socialMeliServiceImple.US006(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<String> US007(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US007(userId, userIdToUnfollow), HttpStatus.OK);
+    }
+
 
 }
