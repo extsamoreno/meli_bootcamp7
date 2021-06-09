@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class UserFollowerMapper {
 
-    public static UserFollowerDTO toDTO(User user){
-        return new UserFollowerDTO(user.getId(), user.getUserName(),arrayUserToDTO(user.getFollowers()));
+    public static UserFollowerDTO toDTO(User user, ArrayList<User> followers){
+        return new UserFollowerDTO(user.getId(), user.getUserName(),arrayUserToDTO(followers));
     }
 
     private static ArrayList<UserResponseDTO> arrayUserToDTO(ArrayList<User> users){

@@ -15,6 +15,8 @@ import com.desafio_1.demo.services.mappers.UserFollowedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserService implements IUserService{
 
@@ -22,7 +24,7 @@ public class UserService implements IUserService{
     IUserRepository userRepository;
 
     @Override
-    public UserFollowedDTO addFollowUser(int userId, int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
+    public UserFollowedDTO addFollowUser(int userId, int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException {
 
         if(userId <= 0){
             throw new UserIdInvalidException();
@@ -34,13 +36,19 @@ public class UserService implements IUserService{
         if(userId == userIdToFollow){
             throw new UserIdFollowerEqualsFollowed();
         }
+
         User user = userRepository.findUserById(userId);
-        User userFollowed = user.getFollowed().stream().filter(u -> u.getId() == userIdToFollow).findFirst().orElse(null);
+
+        if(user == null){
+            throw new UserNotFoundException(userId);
+        }
+        ArrayList<User> followed = userRepository.findFollowedByUserId(userId);
+        User userFollowed = followed.stream().filter(u -> u.getId() == userIdToFollow).findFirst().orElse(null);
         if(userFollowed != null){
 
-            return UserFollowedMapper.toDTO(user);
+            return UserFollowedMapper.toDTO(user, followed);
         }
-        return UserFollowedMapper.toDTO(userRepository.addFollowUser(userId, userIdToFollow));
+        return UserFollowedMapper.toDTO(userRepository.addFollowUser(userId, userIdToFollow), followed);
     }
 
     @Override
@@ -69,8 +77,9 @@ public class UserService implements IUserService{
             throw new UserNotFoundException(userId);
         }
 
+        ArrayList<User> followers = userRepository.findFollowersByUserId(userId);
 
-        return UserFollowerMapper.toDTO(user);
+        return UserFollowerMapper.toDTO(user, followers);
     }
 
     @Override
@@ -84,7 +93,8 @@ public class UserService implements IUserService{
             throw new UserNotFoundException(userId);
         }
 
+        ArrayList<User> followed = userRepository.findFollowedByUserId(userId);
 
-        return UserFollowedMapper.toDTO(user);
+        return UserFollowedMapper.toDTO(user, followed);
     }
 }

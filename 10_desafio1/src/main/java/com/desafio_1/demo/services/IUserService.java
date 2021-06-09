@@ -9,7 +9,7 @@ import com.desafio_1.demo.exceptions.UserIdInvalidException;
 import com.desafio_1.demo.exceptions.UserNotFoundException;
 
 public interface IUserService {
-    UserFollowedDTO addFollowUser(int userId, int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed;
+    UserFollowedDTO addFollowUser(int userId, int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException;
 
     UserFollowerCountDTO findFollowersCount(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
 

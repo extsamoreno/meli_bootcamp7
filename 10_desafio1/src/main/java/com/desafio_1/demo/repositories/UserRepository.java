@@ -77,4 +77,19 @@ public class UserRepository implements IUserRepository{
 
     }
 
+    @Override
+    public ArrayList<User> findFollowedByUserId(int userId) throws UnhandledException {
+        try{
+            ArrayList<User> followed = listUsers.stream()
+                    .filter(u -> u.getId() == userId)
+                    .findFirst()
+                    .get()
+                    .getFollowed();
+
+            return followed;
+        }catch (Exception ex){
+            throw new UnhandledException(ex.getMessage());
+        }
+    }
+
 }

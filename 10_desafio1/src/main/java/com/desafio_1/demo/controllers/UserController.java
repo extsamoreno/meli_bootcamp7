@@ -21,7 +21,7 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<UserFollowedDTO> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
+    public ResponseEntity<UserFollowedDTO> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException {
         return new ResponseEntity<>(userService.addFollowUser(userId, userIdToFollow), HttpStatus.OK);
     }
 
