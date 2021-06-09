@@ -1,6 +1,7 @@
 package com.bootcamp.desafio1.repository.product;
 
 
+import com.bootcamp.desafio1.exception.PostNotFoundException;
 import com.bootcamp.desafio1.exception.ProductAlreadyExistsException;
 import com.bootcamp.desafio1.exception.ProductNotFoundException;
 import com.bootcamp.desafio1.model.Product;
@@ -54,14 +55,22 @@ public class ProductRepositoryImpl implements IProductRepository {
 
 
     @Override
+    public boolean productIdExists(int productId) {
+        // Validate that the productId is in the Data Base
+        if(productDB.containsKey(productId))
+            return true;
+        else
+            return false;
+    }
+
+
+    @Override
     public Product getProductById(int productId) throws ProductNotFoundException {
-        Product product = null;
-        try {
-            product = productDB.get(productId);
-        } catch (Exception e) {
+        // Validate that the postId is in the Data Base
+        if( productIdExists(productId) )
+            return  productDB.get(productId);
+        else
             throw new ProductNotFoundException(productId);
-        }
-        return product;
     }
 
     @Override

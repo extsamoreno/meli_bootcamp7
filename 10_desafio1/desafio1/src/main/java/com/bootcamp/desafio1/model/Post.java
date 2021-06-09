@@ -1,5 +1,6 @@
 package com.bootcamp.desafio1.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ public class Post {
 
     private int userId;
     private int postId;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date date;
     private int productId;
     private int category;

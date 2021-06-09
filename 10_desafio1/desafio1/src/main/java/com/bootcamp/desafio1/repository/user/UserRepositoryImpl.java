@@ -52,15 +52,25 @@ public class UserRepositoryImpl implements IUserRepository{
 
 
     @Override
-    public User getUserById(int id) throws UserNotFoundException {
-        User user = null;
-        try {
-            user = usersDB.get(id);
-        } catch (Exception e) {
-            throw new UserNotFoundException(id);
-        }
-        return user;
+    public boolean userIdExists(int userId) {
+        // Validate that the userId is in the Data Base
+        if(usersDB.containsKey(userId))
+            return true;
+        else
+            return false;
     }
+
+
+    @Override
+    public User getUserById(int id) throws UserNotFoundException {
+
+        // Validate that the userId is in the Data Base
+        if( userIdExists(id) )
+            return  usersDB.get(id);
+        else
+            throw new UserNotFoundException(id);
+    }
+
 
     @Override
     public void updateUserInDB(User user) {

@@ -1,10 +1,12 @@
 package com.bootcamp.desafio1.service;
 
+import com.bootcamp.desafio1.dto.request.NewPostDTO;
 import com.bootcamp.desafio1.exception.PostAlreadyExistsException;
 import com.bootcamp.desafio1.exception.ProductAlreadyExistsException;
+import com.bootcamp.desafio1.exception.UserNotFoundException;
 
 public interface IProductService {
 
-    void insertNewPost() throws PostAlreadyExistsException, ProductAlreadyExistsException;
+    void insertNewPost(NewPostDTO newPostDTO) throws PostAlreadyExistsException, ProductAlreadyExistsException, UserNotFoundException;
 
 }

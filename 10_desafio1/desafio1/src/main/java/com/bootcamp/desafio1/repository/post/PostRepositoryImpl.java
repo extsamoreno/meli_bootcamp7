@@ -2,6 +2,7 @@ package com.bootcamp.desafio1.repository.post;
 
 import com.bootcamp.desafio1.exception.PostAlreadyExistsException;
 import com.bootcamp.desafio1.exception.PostNotFoundException;
+import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.model.Post;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,14 +54,22 @@ public class PostRepositoryImpl implements IPostRepository{
 
 
     @Override
+    public boolean postIdExists(int postId) {
+        // Validate that the productId is in the Data Base
+        if(postsDB.containsKey(postId))
+            return true;
+        else
+            return false;
+    }
+
+
+    @Override
     public Post getPostById(int postId) throws PostNotFoundException {
-        Post post = null;
-        try {
-            post = postsDB.get(postId);
-        } catch (Exception e) {
+        // Validate that the postId is in the Data Base
+        if(postIdExists(postId))
+            return  postsDB.get(postId);
+        else
             throw new PostNotFoundException(postId);
-        }
-        return post;
     }
 
 

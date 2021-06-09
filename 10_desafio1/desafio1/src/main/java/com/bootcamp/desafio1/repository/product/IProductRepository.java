@@ -6,6 +6,8 @@ import com.bootcamp.desafio1.model.Product;
 
 public interface IProductRepository {
 
+    boolean productIdExists(int productId);
+
     Product getProductById(int productId) throws ProductNotFoundException;
 
     void addProductInDB(Product product) throws ProductAlreadyExistsException;

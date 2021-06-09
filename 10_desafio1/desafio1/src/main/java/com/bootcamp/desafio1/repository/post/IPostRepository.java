@@ -7,6 +7,8 @@ import com.bootcamp.desafio1.model.Post;
 
 public interface IPostRepository {
 
+    boolean postIdExists(int postId);
+
     Post getPostById(int postId) throws PostNotFoundException;
 
     void addPostInDB(Post post) throws PostAlreadyExistsException;

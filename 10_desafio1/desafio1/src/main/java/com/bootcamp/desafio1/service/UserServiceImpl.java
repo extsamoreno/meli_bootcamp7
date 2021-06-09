@@ -4,6 +4,7 @@ import com.bootcamp.desafio1.dto.response.CountFollowersDTO;
 import com.bootcamp.desafio1.dto.response.FollowedListDTO;
 import com.bootcamp.desafio1.dto.response.FollowersListDTO;
 import com.bootcamp.desafio1.dto.UserDTO;
+import com.bootcamp.desafio1.exception.PostAlreadyExistsException;
 import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.model.User;
 import com.bootcamp.desafio1.repository.user.IUserRepository;
@@ -111,6 +112,21 @@ public class UserServiceImpl implements  IUserService {
         orderUserName(followed, order);
 
         return Mapper.toFollowedListDTO(currentUser, followed);
+    }
+
+
+    @Override
+    public void addPostId(int userId, int postId) throws UserNotFoundException, PostAlreadyExistsException {
+        User currentUser = userRepository.getUserById(userId);
+
+        // Validate that the list of posts is empty or postId is not in the list of posts
+        if( currentUser.getPosts().isEmpty()  || ! currentUser.getPosts().contains(postId) )
+            currentUser.getPosts().add(postId);
+        else
+            throw new PostAlreadyExistsException(postId);
+
+        // Update the User in the Data Base
+        userRepository.updateUserInDB(currentUser);
     }
 
 
