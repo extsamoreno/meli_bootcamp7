@@ -1,8 +1,10 @@
 package desafio1.demo.Controller;
 
 import desafio1.demo.Exception.DuplicatePostIdException;
+import desafio1.demo.Exception.PromoPostWithoutPromoException;
 import desafio1.demo.Exception.UserNotFoundException;
-import desafio1.demo.Model.DTO.NewPostDTO;
+import desafio1.demo.Model.DTO.NewPostRequestDTO;
+import desafio1.demo.Model.DTO.NewPromoPostRequestDTO;
 import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
 import desafio1.demo.Service.IProductService;
 import org.springframework.http.HttpStatus;
@@ -20,8 +22,15 @@ public class ProductController {
 
     @PostMapping
     @RequestMapping("/newpost")
-    public ResponseEntity addNewPost(@RequestBody NewPostDTO newPostDTO) throws DuplicatePostIdException, UserNotFoundException {
-        iProductService.addNewPost(newPostDTO);
+    public ResponseEntity addNewPost(@RequestBody NewPostRequestDTO newPostRequestDTO) throws DuplicatePostIdException, UserNotFoundException {
+        iProductService.addNewPost(newPostRequestDTO);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping
+    @RequestMapping("/newpromopost")
+    public ResponseEntity addNewPromoPost(@RequestBody NewPromoPostRequestDTO newPromoPostRequestDTO) throws DuplicatePostIdException, UserNotFoundException, PromoPostWithoutPromoException {
+        iProductService.addNewPromoPost(newPromoPostRequestDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 

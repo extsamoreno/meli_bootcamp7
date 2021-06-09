@@ -1,11 +1,14 @@
 package desafio1.demo.Service;
 
 import desafio1.demo.Exception.DuplicatePostIdException;
+import desafio1.demo.Exception.PromoPostWithoutPromoException;
 import desafio1.demo.Exception.UserNotFoundException;
-import desafio1.demo.Model.DTO.NewPostDTO;
+import desafio1.demo.Model.DTO.NewPostRequestDTO;
+import desafio1.demo.Model.DTO.NewPromoPostRequestDTO;
 import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
 
 public interface IProductService{
-    void addNewPost(NewPostDTO newPostDTO) throws DuplicatePostIdException, UserNotFoundException;
+    void addNewPost(NewPostRequestDTO newPostRequestDTO) throws DuplicatePostIdException, UserNotFoundException;
+    void addNewPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws DuplicatePostIdException, UserNotFoundException, PromoPostWithoutPromoException;
     PostListFromFollowedDTO getPostListFromFollowed(int userId, String order) throws UserNotFoundException;
 }

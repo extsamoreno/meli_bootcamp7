@@ -1,7 +1,5 @@
 package desafio1.demo.Config;
 
-import desafio1.demo.Model.DTO.NewPostDTO;
-import desafio1.demo.Model.Entity.Post;
 import org.modelmapper.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

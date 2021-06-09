@@ -1,14 +1,13 @@
-package desafio1.demo.Model.Entity;
+package desafio1.demo.Model.DTO;
 
+import desafio1.demo.Model.Entity.Product;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
-public class Post {
+public class PostResponseDTO {
     int userId;
     int id_post;
-    LocalDate date;
+    String date;
     Product detail;
     int category;
     double price;

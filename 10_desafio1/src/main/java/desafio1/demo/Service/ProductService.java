@@ -1,10 +1,13 @@
 package desafio1.demo.Service;
 
 import desafio1.demo.Exception.DuplicatePostIdException;
+import desafio1.demo.Exception.PromoPostWithoutPromoException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Helper.HelperComparator;
-import desafio1.demo.Model.DTO.NewPostDTO;
+import desafio1.demo.Model.DTO.NewPostRequestDTO;
+import desafio1.demo.Model.DTO.NewPromoPostRequestDTO;
 import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
+import desafio1.demo.Model.DTO.PostResponseDTO;
 import desafio1.demo.Model.Entity.Post;
 import desafio1.demo.Model.Entity.User;
 import desafio1.demo.Repository.IRepository;
@@ -12,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,8 +29,17 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void addNewPost(NewPostDTO newPostDTO) throws DuplicatePostIdException, UserNotFoundException {
-        var post = modelMapper.map(newPostDTO, Post.class);
+    public void addNewPost(NewPostRequestDTO newPostRequestDTO) throws DuplicatePostIdException, UserNotFoundException {
+        var post = modelMapper.map(newPostRequestDTO, Post.class);
+        iRepository.addNewPost(post);
+    }
+
+    @Override
+    public void addNewPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws DuplicatePostIdException, UserNotFoundException, PromoPostWithoutPromoException {
+        if (!newPromoPostRequestDTO.isHasPromo() || newPromoPostRequestDTO.getDiscount() <= 0.0){
+            throw new PromoPostWithoutPromoException(newPromoPostRequestDTO.getId_post());
+        }
+        var post = modelMapper.map(newPromoPostRequestDTO, Post.class);
         iRepository.addNewPost(post);
     }
 
@@ -41,7 +52,7 @@ public class ProductService implements IProductService {
                     .filter(post -> post.getDate().plusDays(12).isAfter(LocalDate.now()))            );
         }
         var postList = postStream.sorted(HelperComparator.postDateComparatorDescDefault(order))
-                .map(post -> modelMapper.map(post,NewPostDTO.class))
+                .map(post -> modelMapper.map(post, PostResponseDTO.class))
                 .collect(Collectors.toList());
 
         return new PostListFromFollowedDTO(userId,postList);
