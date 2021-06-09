@@ -10,9 +10,9 @@ import com.meli.socialmeli.model.exception.*;
 public interface ServiceSocialMeli {
     void setFollowerTo(int userId, int userIdToFollow) throws IdNotFoundException, NonSellerUserException, RepeatFollowerException;
     UserSellerCountDTO getUserSellerCountDTO(int userId) throws NonSellerUserException, IdNotFoundException;
-    UserSellerListDTO getUserSellerListDTO(int userId, String order) throws NonSellerUserException, IdNotFoundException;
-    UserListDTO getUserListDTO(int userId) throws IdNotFoundException;
+    UserSellerListDTO getUserSellerListDTO(int userId, String order) throws NonSellerUserException, IdNotFoundException, ErrorOrderParamNameException;
+    UserListDTO getUserListDTO(int userId, String order) throws IdNotFoundException, ErrorOrderParamNameException;
     void createNewPost(Post post) throws IdNotFoundException, NonSellerUserException, PostIdAlreadyExistingException;
-    UserListPostDTO getListPostbyUser(int userId) throws IdNotFoundException;
+    UserListPostDTO getListPostbyUser(int userId, String order) throws IdNotFoundException, ErrorOrderParamDateException;
     void removeFollowerTo(int userId, int userIdUnFollow) throws IdNotFoundException, NonSellerUserException, NonExistentFolloweException;
 }

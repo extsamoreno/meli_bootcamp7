@@ -3,10 +3,7 @@ package com.meli.socialmeli.controller;
 import com.meli.socialmeli.model.dto.UserListDTO;
 import com.meli.socialmeli.model.dto.UserSellerCountDTO;
 import com.meli.socialmeli.model.dto.UserSellerListDTO;
-import com.meli.socialmeli.model.exception.IdNotFoundException;
-import com.meli.socialmeli.model.exception.NonExistentFolloweException;
-import com.meli.socialmeli.model.exception.NonSellerUserException;
-import com.meli.socialmeli.model.exception.RepeatFollowerException;
+import com.meli.socialmeli.model.exception.*;
 import com.meli.socialmeli.model.service.ServiceSocialMeli;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,17 +28,19 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public UserSellerListDTO getListOfSeller(@PathVariable int userId) throws NonSellerUserException,
-            IdNotFoundException {
-        return serviceSocialMeli.getUserSellerListDTO(userId, "");
+    public UserSellerListDTO getListOfSeller(@PathVariable int userId, @RequestParam(name = "order", required = false,
+            defaultValue = "name_asc") String order) throws NonSellerUserException, IdNotFoundException,
+            ErrorOrderParamNameException {
+        return serviceSocialMeli.getUserSellerListDTO(userId, order);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public UserListDTO getListOfUsers(@PathVariable int userId) throws IdNotFoundException {
-        return serviceSocialMeli.getUserListDTO(userId);
+    public UserListDTO getListOfUsers(@PathVariable int userId, @RequestParam(name = "order", required = false,
+            defaultValue = "name_asc") String order) throws IdNotFoundException, ErrorOrderParamNameException {
+        return serviceSocialMeli.getUserListDTO(userId, order);
     }
 
-    @GetMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public String UnassingFollowerTo(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws
             NonExistentFolloweException, NonSellerUserException, IdNotFoundException {
         serviceSocialMeli.removeFollowerTo(userId, userIdToUnfollow);

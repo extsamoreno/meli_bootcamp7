@@ -8,10 +8,14 @@ import com.meli.socialmeli.model.dto.*;
 import com.meli.socialmeli.model.exception.*;
 import com.meli.socialmeli.model.mapper.PostMapper;
 import com.meli.socialmeli.model.mapper.UsersMapper;
+import com.meli.socialmeli.util.SortAscDatePostUtil;
+import com.meli.socialmeli.util.SortDescDatePostUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 
 @Service
 public class ServiceSocialMeliImpl implements ServiceSocialMeli{
@@ -55,7 +59,7 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
     }
 
     public UserSellerListDTO getUserSellerListDTO(int userId, String order) throws NonSellerUserException,
-            IdNotFoundException {
+            IdNotFoundException, ErrorOrderParamNameException {
         User user = repositoryUsers.getUserById(userId);
         if (user == null) {
             throw new IdNotFoundException(userId);
@@ -63,15 +67,21 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         if (!user.isSeller()) {
             throw new NonSellerUserException(userId);
         }
-        return UsersMapper.changeToUserSellerListDTO(user);
+        if (!order.equals("name_asc") && !order.equals("name_desc")) {
+            throw new ErrorOrderParamNameException();
+        }
+        return UsersMapper.changeToUserSellerListDTO(user, order);
     }
 
-    public UserListDTO getUserListDTO(int userId) throws IdNotFoundException {
+    public UserListDTO getUserListDTO(int userId, String order) throws IdNotFoundException, ErrorOrderParamNameException {
         User user = repositoryUsers.getUserById(userId);
         if (user == null) {
             throw new IdNotFoundException(userId);
         }
-        return UsersMapper.changeToUserListDTO(user);
+        if (!order.equals("name_asc") && !order.equals("name_desc")) {
+            throw new ErrorOrderParamNameException();
+        }
+        return UsersMapper.changeToUserListDTO(user, order);
     }
 
     public void createNewPost(Post post) throws IdNotFoundException, NonSellerUserException,
@@ -90,17 +100,33 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         repositoryPost.createNewPost(post);
     }
 
-    public UserListPostDTO getListPostbyUser(int userId) throws IdNotFoundException {
+    public UserListPostDTO getListPostbyUser(int userId, String order) throws IdNotFoundException,
+            ErrorOrderParamDateException {
+        if (!order.equals("date_asc") && !order.equals("date_desc")) {
+            throw new ErrorOrderParamDateException();
+        }
         User user = repositoryUsers.getUserById(userId);
         if (user == null) {
             throw new IdNotFoundException(userId);
         }
+        Calendar dateDaysAgo = Calendar.getInstance();
+        dateDaysAgo.add(Calendar.DAY_OF_YEAR, -15);
         UserListPostDTO userListPostDTO = UsersMapper.changeToUserListPostDTO(user);
         ArrayList<User> usersFollowed = user.getUsersFollowed();
+        ArrayList<Post> postArrayList = new ArrayList<>();
         for (int i = 0; i < usersFollowed.size(); i++) {
-            ArrayList<Post> listPost = usersFollowed.get(i).getPost();
-            for (int j = 0; j < listPost.size(); j++) {
-                Post post = listPost.get(j);
+            for (int j = 0; j < usersFollowed.get(i).getPost().size(); j++) {
+                postArrayList.add(usersFollowed.get(i).getPost().get(j));
+            }
+        }
+        if (order.equals("date_asc")) {
+            Collections.sort(postArrayList, new SortAscDatePostUtil());
+        }
+        if (order.equals("date_desc")) {
+            Collections.sort(postArrayList, new SortDescDatePostUtil());
+        }
+        for (Post post: postArrayList) {
+            if(post.getDate().getTime() > dateDaysAgo.getTimeInMillis()) {
                 userListPostDTO.getPosts().add(PostMapper.changeToPostDTO(post));
             }
         }

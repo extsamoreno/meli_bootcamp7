@@ -2,6 +2,7 @@ package com.meli.socialmeli.controller;
 
 import com.meli.socialmeli.model.dao.model.Post;
 import com.meli.socialmeli.model.dto.UserListPostDTO;
+import com.meli.socialmeli.model.exception.ErrorOrderParamDateException;
 import com.meli.socialmeli.model.exception.IdNotFoundException;
 import com.meli.socialmeli.model.exception.NonSellerUserException;
 import com.meli.socialmeli.model.exception.PostIdAlreadyExistingException;
@@ -18,12 +19,13 @@ public class ProductController {
     @PostMapping("/newpost")
     public String createNewPOst(@RequestBody Post post) throws PostIdAlreadyExistingException,
             NonSellerUserException, IdNotFoundException {
-        serviceSocialMeli.createNewPost(post); // el dato Date no esta recibiendo segun lo indicado por lor equerimientos tecnicos, se debe produndisar en cómo solucionar.
+        serviceSocialMeli.createNewPost(post); //
         return "OK";
     }
 
     @GetMapping("/followed/{userId}/list")
-    public UserListPostDTO getListofPostbyUser(@PathVariable int userId) throws IdNotFoundException {
-        return serviceSocialMeli.getListPostbyUser(userId);
+    public UserListPostDTO getListofPostbyUser(@PathVariable int userId, @RequestParam(name = "order", required = false,
+            defaultValue = "date_desc") String order) throws IdNotFoundException, ErrorOrderParamDateException {
+        return serviceSocialMeli.getListPostbyUser(userId, order);
     }
 }

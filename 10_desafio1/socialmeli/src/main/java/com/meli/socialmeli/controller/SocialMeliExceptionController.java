@@ -13,6 +13,16 @@ public class SocialMeliExceptionController {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
+    @ExceptionHandler(ErrorOrderParamDateException.class)
+    public ResponseEntity<ErrorDTO> handleErrorOrderParamDateException (ErrorOrderParamDateException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(ErrorOrderParamNameException.class)
+    public ResponseEntity<ErrorDTO> handleErrorOrderParamException (ErrorOrderParamNameException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
     @ExceptionHandler(IdNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleIdNotFoundException (IdNotFoundException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
