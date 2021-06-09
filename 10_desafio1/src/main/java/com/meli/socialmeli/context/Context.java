@@ -25,21 +25,26 @@ public class Context {
         UserRepository.users.put(6, new User("x_user_6", new HashMap<>(), new HashMap<>()));
         UserRepository.users.put(7, new User("b_user_7", new HashMap<>(), new HashMap<>()));
         UserRepository.users.put(8, new User("y_user_7", new HashMap<>(), new HashMap<>()));
-        UserRepository.users.put(1547, new User("merchant_1547", new HashMap<>(), new HashMap<>()));
-        UserRepository.users.put(6684, new User("merchant_6684", new HashMap<>(), new HashMap<>()));
+        UserRepository.users.put(1547, new User("m_user_1547", new HashMap<>(), new HashMap<>()));
+        UserRepository.users.put(6684, new User("m_user_6684", new HashMap<>(), new HashMap<>()));
 
-        PostRepository.posts.put(1, generatePost("01-06-2021"));
-        PostRepository.posts.put(2, generatePost("30-05-2021"));
-        PostRepository.posts.put(3, generatePost("06-06-2021"));
-        PostRepository.posts.put(4, generatePost("29-05-2021"));
+        PostRepository.posts.put(1, generatePost("07-06-2021",1));
+        PostRepository.posts.put(2, generatePost("03-06-2021",1));
+        PostRepository.posts.put(3, generatePost("30-05-2021",1));
+        PostRepository.posts.put(4, generatePost("06-06-2021",1));
+
+        PostRepository.posts.put(5, generatePost("01-06-2021",2));
+        PostRepository.posts.put(6, generatePost("30-05-2021",2));
+        PostRepository.posts.put(7, generatePost("06-06-2021",2));
+        PostRepository.posts.put(8, generatePost("29-05-2021",2));
 
     }
 
-    private static Post generatePost(String postDate) {
+    private static Post generatePost(String postDate, int userId) {
 
         Post post = new Post();
 
-        post.setUserId(1547);
+        post.setUserId(userId);
         post.setPrice(1500.50);
         post.setCategory(100);
         post.setDetail(new ProductDetail(62, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition"));
