@@ -1,9 +1,8 @@
 package com.meli.spring_challenge.service.user;
 
 
-import com.meli.spring_challenge.exception.UserNotFoundException;
+import com.meli.spring_challenge.exception.user.UserNotFoundException;
 import com.meli.spring_challenge.model.User;
-import com.meli.spring_challenge.repository.follow.FollowRepository;
 import com.meli.spring_challenge.repository.user.UserRepository;
 import com.meli.spring_challenge.service.follow.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;

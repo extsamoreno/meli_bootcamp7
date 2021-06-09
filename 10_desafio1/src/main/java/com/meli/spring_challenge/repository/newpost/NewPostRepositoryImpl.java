@@ -32,6 +32,13 @@ public class NewPostRepositoryImpl implements NewPostRepository{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Post getPostById(int postID){
+        return this.newPostList.stream()
+                .filter(post -> post.getPostID() == postID)
+                .findFirst()
+                .orElse(null);
+    }
 
     private List<Post> loadDataBase() {
         File file = null;

@@ -1,6 +1,6 @@
 package com.meli.spring_challenge.service.user;
 
-import com.meli.spring_challenge.exception.UserNotFoundException;
+import com.meli.spring_challenge.exception.user.UserNotFoundException;
 import com.meli.spring_challenge.model.User;
 
 import java.util.List;

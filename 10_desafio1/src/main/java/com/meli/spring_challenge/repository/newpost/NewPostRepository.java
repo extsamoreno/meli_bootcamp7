@@ -7,4 +7,5 @@ import java.util.List;
 public interface NewPostRepository {
     void create(Post post);
     List<Post> getPostsByUserID(int userID);
+    Post getPostById(int postID);
 }

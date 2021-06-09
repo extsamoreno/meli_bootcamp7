@@ -1,4 +1,4 @@
-package com.meli.spring_challenge.exception;
+package com.meli.spring_challenge.exception.user;
 
 import org.springframework.http.HttpStatus;
 

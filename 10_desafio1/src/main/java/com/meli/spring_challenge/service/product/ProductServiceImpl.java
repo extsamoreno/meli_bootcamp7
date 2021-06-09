@@ -1,9 +1,13 @@
 package com.meli.spring_challenge.service.product;
 
-import com.meli.spring_challenge.exception.UserNotFoundException;
+import com.meli.spring_challenge.exception.PostAlreadyExistException;
+import com.meli.spring_challenge.exception.ProductIDAlreadyExistException;
+import com.meli.spring_challenge.exception.user.UserNotFoundException;
 import com.meli.spring_challenge.model.Post;
+import com.meli.spring_challenge.model.Product;
 import com.meli.spring_challenge.model.User;
 import com.meli.spring_challenge.repository.newpost.NewPostRepository;
+import com.meli.spring_challenge.repository.product.ProductRepository;
 import com.meli.spring_challenge.repository.user.UserRepository;
 import com.meli.spring_challenge.service.dto.FollowedSellerCountDto;
 import com.meli.spring_challenge.service.dto.FollowedSellerDto;
@@ -20,14 +24,25 @@ public class ProductServiceImpl implements ProductService {
     NewPostRepository newPostRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     //TODO - Agregar control de Excepciones de Post,Product
     @Override
-    public void createNewPost(Post post) throws UserNotFoundException {
+    public void createNewPost(Post post) throws UserNotFoundException, PostAlreadyExistException, ProductIDAlreadyExistException {
         User user = userRepository.getUserByID(post.getUserID());
+        Post postExists = newPostRepository.getPostById(post.getPostID());
+        Product productExists = productRepository.findProductByID(post.getDetail().getProductID());
 
         if(user == null)
             throw new UserNotFoundException(post.getUserID());
+
+        if(postExists != null)
+            throw new PostAlreadyExistException(postExists.getPostID());
+
+        if(productExists == null)
+            throw new ProductIDAlreadyExistException(post.getDetail().getProductID());
+
 
         newPostRepository.create(post);
     }
@@ -131,10 +146,4 @@ public class ProductServiceImpl implements ProductService {
         return calendar.getTime();
     }
 
-    private Date addDays(Date date, int days) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, days);
-        return calendar.getTime();
-    }
 }

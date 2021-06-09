@@ -1,7 +1,9 @@
 package com.meli.spring_challenge.service.follow;
 
-import com.meli.spring_challenge.exception.UserNotFoundException;
-import com.meli.spring_challenge.exception.UserRelationNotFoundException;
+import com.meli.spring_challenge.exception.user.UserGuestException;
+import com.meli.spring_challenge.exception.user.UserNotFoundException;
+import com.meli.spring_challenge.exception.user.UserNotSellerException;
+import com.meli.spring_challenge.exception.user.UserRelationNotFoundException;
 import com.meli.spring_challenge.model.Follow;
 import com.meli.spring_challenge.model.User;
 import com.meli.spring_challenge.repository.follow.FollowRepository;
@@ -73,21 +75,26 @@ public class FollowServiceImpl implements FollowService{
     }
 
     @Override
-    public FollowDto getFollowersByUserID(int userId) throws UserNotFoundException {
+    public FollowDto getFollowersByUserID(int userId) throws UserNotFoundException, UserNotSellerException {
         FollowDto result = new FollowDto();
         User user = userRepository.getUserByID(userId);
 
-        if(user == null){
+        if(user == null)
             throw new UserNotFoundException(userId);
-        }
+
+
+        if(!user.isSeller())
+            throw  new UserNotSellerException(userId);
 
         List<Follow> followList = followRepository.getAll().stream()
-                .filter(follow -> follow.getFollowedUserID() == userId)
+                .filter(follow -> follow.getUserID() == userId)
                 .collect(Collectors.toList());
 
         List<User> userList = followList.stream()
-                .map(follow -> userRepository.getUserByID(follow.getUserID()))
+                .map(follow -> userRepository.getUserByID(follow.getFollowedUserID()))
+                .filter(user1 -> !user1.isSeller())
                 .collect(Collectors.toList());
+
 
         result.setUserID(user.getUserID());
         result.setUserName(user.getUserName());
@@ -98,12 +105,16 @@ public class FollowServiceImpl implements FollowService{
     }
 
     @Override
-    public FollowDto getFollowedByUserID(int userID, String order) throws UserNotFoundException {
+    public FollowDto getFollowedByUserID(int userID, String order) throws UserNotFoundException, UserGuestException {
         FollowDto result = new FollowDto();
         User user = userRepository.getUserByID(userID);
 
         if(user == null){
             throw new UserNotFoundException(userID);
+        }
+
+        if(user.isSeller()){
+            throw new UserGuestException(userID);
         }
 
         List<Follow> followList = followRepository.getAll().stream()
@@ -112,11 +123,9 @@ public class FollowServiceImpl implements FollowService{
 
         List<User> userList = followList.stream()
                 .map(follow -> userRepository.getUserByID(follow.getFollowedUserID()))
+                .filter(user1 -> user1.isSeller())
                 .collect(Collectors.toList());
 
-        userList = userList.stream()
-                .filter(user1 -> user1.isSeller() == true)
-                .collect(Collectors.toList());
 
         if(order != null && order.equals("name_asc")){
                 Collections.sort(userList, new Comparator<User>() {
@@ -132,7 +141,6 @@ public class FollowServiceImpl implements FollowService{
                     return o2.getUserName().compareTo(o1.getUserName());
                 }
             });
-
         }
 
         result.setUserID(user.getUserID());

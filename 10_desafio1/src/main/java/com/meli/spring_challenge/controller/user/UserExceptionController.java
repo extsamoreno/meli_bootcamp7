@@ -1,8 +1,9 @@
-package com.meli.spring_challenge.controller;
+package com.meli.spring_challenge.controller.user;
 
-import com.meli.spring_challenge.exception.UserException;
-import com.meli.spring_challenge.exception.UserNotFoundException;
-import com.meli.spring_challenge.exception.UserRelationNotFoundException;
+import com.meli.spring_challenge.exception.user.UserException;
+import com.meli.spring_challenge.exception.user.UserNotFoundException;
+import com.meli.spring_challenge.exception.user.UserNotSellerException;
+import com.meli.spring_challenge.exception.user.UserRelationNotFoundException;
 import com.meli.spring_challenge.service.dto.ErrorDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,6 +24,11 @@ public class UserExceptionController {
 
         @ExceptionHandler(UserRelationNotFoundException.class)
         public ResponseEntity<ErrorDto> handleGlobalException(UserRelationNotFoundException e){
+            return new ResponseEntity<>(e.getError(),e.getStatus());
+        }
+
+        @ExceptionHandler(UserNotSellerException.class)
+        public ResponseEntity<ErrorDto> handleGlobalException(UserNotSellerException e){
             return new ResponseEntity<>(e.getError(),e.getStatus());
         }
 }
