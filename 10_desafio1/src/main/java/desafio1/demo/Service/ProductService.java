@@ -61,4 +61,13 @@ public class ProductService implements IProductService {
         var count = iRepository.getUserPromoPostsById(userId).count();
         return new PromoCountDTO(userId, user.getUserName(), count);
     }
+
+    @Override
+    public PromoListDTO getPromoListDTOById(int userId) throws UserNotFoundException {
+        var user = iRepository.getUserById(userId);
+        var postList = iRepository.getUserPromoPostsById(userId)
+                .map(post -> modelMapper.map(post, PostResponseDTO.class))
+                .collect(Collectors.toList());
+        return new PromoListDTO(userId, user.getUserName(), postList);
+    }
 }
