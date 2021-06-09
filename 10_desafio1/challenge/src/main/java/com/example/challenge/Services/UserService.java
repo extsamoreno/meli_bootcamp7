@@ -16,9 +16,9 @@ import java.util.List;
 public class UserService implements IUserService {
 
     // A to Z
-    private final Comparator<User> COMPARATOR_NAME_ASC = (a, b)->a.getName().compareTo(b.getName());
+    private final Comparator<User> COMPARATOR_NAME_ASC = Comparator.comparing(User::getName);
     // Z to A
-    private final Comparator<User> COMPARATOR_NAME_DES = (a, b)->b.getName().compareTo(a.getName());
+    private final Comparator<User> COMPARATOR_NAME_DES = (a, b) -> b.getName().compareTo(a.getName());
 
     @Autowired
     IUserRepository iUserRepository;
@@ -98,11 +98,11 @@ public class UserService implements IUserService {
     }
 
     public void sortUserDTOByName(String order, List<User> list) throws InvalidOrderException {
-        if(order.equals("name_asc")) {
+        if (order.equals("name_asc")) {
             list.sort(COMPARATOR_NAME_ASC);
-        } else if(order.equals("name_des")) {
+        } else if (order.equals("name_des")) {
             list.sort(COMPARATOR_NAME_DES);
-        } else if(!order.equals("")) {
+        } else if (!order.equals("")) {
             throw new InvalidOrderException(order);
         }
     }

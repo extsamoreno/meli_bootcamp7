@@ -7,7 +7,7 @@ import com.example.challenge.Services.DTOs.ResponseFollowedPostDTO;
 
 public interface IProductService {
 
-   String addNewPost(PostDTO postDTO) throws UserNotFoundException;
+    String addNewPost(PostDTO postDTO) throws UserNotFoundException;
 
     ResponseFollowedPostDTO getMyFollowedPostList(int userId, String order) throws UserNotFoundException, InvalidOrderException;
 }

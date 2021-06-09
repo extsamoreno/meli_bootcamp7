@@ -1,9 +1,6 @@
 package com.example.challenge.Controllers;
 
-import com.example.challenge.Exceptions.InvalidOrderException;
-import com.example.challenge.Exceptions.UserAlreadyFollowException;
-import com.example.challenge.Exceptions.UserNotFoundException;
-import com.example.challenge.Exceptions.UserSameIdException;
+import com.example.challenge.Exceptions.*;
 import com.example.challenge.Services.DTOs.FollowDTO;
 import com.example.challenge.Services.DTOs.FollowerCountDTO;
 import com.example.challenge.Services.DTOs.FollowersDTO;
@@ -25,7 +22,7 @@ public class UserController {
 
     //Load HardCode Data
     @PostMapping("/load")
-    public ResponseEntity<String> create() {
+    public ResponseEntity<String> create() throws UserNotFoundException, PostDuplicateException {
         return new ResponseEntity<>(iUserService.loadUser(), HttpStatus.OK);
     }
 

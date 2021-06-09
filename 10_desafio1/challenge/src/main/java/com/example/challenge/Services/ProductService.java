@@ -26,9 +26,9 @@ public class ProductService implements IProductService {
     IUserService iUserService;
 
 
-    private final Comparator<Post> COMPARATOR_DATE_ASC = (a, b)->a.getDate().compareTo(b.getDate());
+    private final Comparator<Post> COMPARATOR_DATE_ASC = Comparator.comparing(Post::getDate);
 
-    private final Comparator<Post> COMPARATOR_DATE_DES = (a, b)->b.getDate().compareTo(a.getDate());
+    private final Comparator<Post> COMPARATOR_DATE_DES = (a, b) -> b.getDate().compareTo(a.getDate());
 
     @Override
     public String addNewPost(PostDTO postDTO) throws UserNotFoundException {
@@ -52,7 +52,7 @@ public class ProductService implements IProductService {
                 posts.add(p);
             }
         }
-        if(order == "")
+        if (order == "")
             sortPostByDate("date_des", posts);
         else
             sortPostByDate(order, posts);
@@ -70,11 +70,11 @@ public class ProductService implements IProductService {
     }
 
     public void sortPostByDate(String order, List<Post> list) throws InvalidOrderException {
-        if(order.equals("date_asc")) {
+        if (order.equals("date_asc")) {
             list.sort(COMPARATOR_DATE_ASC);
-        } else if(order.equals("date_des")) {
+        } else if (order.equals("date_des")) {
             list.sort(COMPARATOR_DATE_DES);
-        } else if(!order.equals("")) {
+        } else if (!order.equals("")) {
             throw new InvalidOrderException(order);
         }
     }

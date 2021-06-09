@@ -24,6 +24,6 @@ public interface IUserService {
 
     User getUserById(int userId) throws UserNotFoundException;
 
-    FollowDTO unfollowUser(int followerId, int followedID)throws UserNotFoundException, UserAlreadyFollowException, UserSameIdException;
+    FollowDTO unfollowUser(int followerId, int followedID) throws UserNotFoundException, UserAlreadyFollowException, UserSameIdException;
 
 }
