@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface IUserService {
     public void followUser(int userId, int userIdToFollow) throws UserNotFoundException, UserAlreadyFollowsException, UserCantFollowHimselfException;
     public FollowersCountDTO getFollowersCountById(int userId) throws UserNotFoundException;
-    public FollowersListDTO getFollowersListByID(int userId) throws UserNotFoundException;
-    public FollowedListDTO getFollowedListByID(int userId) throws UserNotFoundException;
+    public FollowersListDTO getFollowersListById(int userId) throws UserNotFoundException;
+    public FollowedListDTO getFollowedListById(int userId) throws UserNotFoundException;
 }

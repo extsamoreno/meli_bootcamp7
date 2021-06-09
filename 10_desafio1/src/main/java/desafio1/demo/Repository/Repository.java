@@ -1,6 +1,6 @@
 package desafio1.demo.Repository;
 
-import desafio1.demo.Exception.DuplicatePostIDException;
+import desafio1.demo.Exception.DuplicatePostIdException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Model.Entity.Post;
 import desafio1.demo.Model.Entity.User;
@@ -43,10 +43,10 @@ public class Repository implements IRepository{
     }
 
     @Override
-    public void addNewPost(Post newPost) throws UserNotFoundException, DuplicatePostIDException {
+    public void addNewPost(Post newPost) throws UserNotFoundException, DuplicatePostIdException {
         var postList = this.getUserById(newPost.getUserId()).getPostList();
         if (postList.stream().anyMatch(post -> post.getId_post() == newPost.getId_post())){
-            throw new DuplicatePostIDException(newPost.getId_post());
+            throw new DuplicatePostIdException(newPost.getId_post());
         }
         postList.add(newPost);
     }

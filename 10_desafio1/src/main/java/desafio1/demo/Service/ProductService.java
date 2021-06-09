@@ -1,6 +1,6 @@
 package desafio1.demo.Service;
 
-import desafio1.demo.Exception.DuplicatePostIDException;
+import desafio1.demo.Exception.DuplicatePostIdException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Model.DTO.NewPostDTO;
 import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
@@ -11,7 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,7 +26,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void addNewPost(NewPostDTO newPostDTO) throws DuplicatePostIDException, UserNotFoundException {
+    public void addNewPost(NewPostDTO newPostDTO) throws DuplicatePostIdException, UserNotFoundException {
         var post = modelMapper.map(newPostDTO, Post.class);
         iRepository.addNewPost(post);
     }

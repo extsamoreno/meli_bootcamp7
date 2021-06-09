@@ -27,18 +27,18 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<FollowersCountDTO> getFollwersCountById(@PathVariable int userId) throws UserNotFoundException {
+    public ResponseEntity<FollowersCountDTO> getFollowersCountById(@PathVariable int userId) throws UserNotFoundException {
         return new ResponseEntity<FollowersCountDTO>(iUserService.getFollowersCountById(userId),HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersListDTO> getFollowersListByID(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<FollowersListDTO>(iUserService.getFollowersListByID(userId),HttpStatus.OK);
+    public ResponseEntity<FollowersListDTO> getFollowersListById(@PathVariable int userId) throws UserNotFoundException {
+        return new ResponseEntity<FollowersListDTO>(iUserService.getFollowersListById(userId),HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedListDTO> getFollowedListByID(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<FollowedListDTO>(iUserService.getFollowedListByID(userId),HttpStatus.OK);
+    public ResponseEntity<FollowedListDTO> getFollowedListById(@PathVariable int userId) throws UserNotFoundException {
+        return new ResponseEntity<FollowedListDTO>(iUserService.getFollowedListById(userId),HttpStatus.OK);
     }
 
 }

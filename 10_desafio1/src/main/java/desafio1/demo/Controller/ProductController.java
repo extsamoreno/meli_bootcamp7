@@ -1,6 +1,6 @@
 package desafio1.demo.Controller;
 
-import desafio1.demo.Exception.DuplicatePostIDException;
+import desafio1.demo.Exception.DuplicatePostIdException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Model.DTO.NewPostDTO;
 import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
@@ -20,7 +20,7 @@ public class ProductController {
 
     @PostMapping
     @RequestMapping("/newpost")
-    public ResponseEntity addNewPost(@RequestBody NewPostDTO newPostDTO) throws DuplicatePostIDException, UserNotFoundException {
+    public ResponseEntity addNewPost(@RequestBody NewPostDTO newPostDTO) throws DuplicatePostIdException, UserNotFoundException {
         iProductService.addNewPost(newPostDTO);
         return new ResponseEntity(HttpStatus.OK);
     }

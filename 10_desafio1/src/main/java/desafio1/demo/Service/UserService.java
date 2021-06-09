@@ -41,7 +41,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowersListDTO getFollowersListByID(int userId) throws UserNotFoundException {
+    public FollowersListDTO getFollowersListById(int userId) throws UserNotFoundException {
         var user = repository.getUserById(userId);
         var userDTOArray = this.repository.getUserFollowersById(userId)
                 .map(u -> new UserDTO(u.getUserId(),u.getUserName()))
@@ -50,7 +50,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowedListDTO getFollowedListByID(int userId) throws UserNotFoundException {
+    public FollowedListDTO getFollowedListById(int userId) throws UserNotFoundException {
         var user = repository.getUserById(userId);
         var userDTOArray = user.getFollowedUsersList().stream().map(u->new UserDTO(u.getUserId(),u.getUserName())).toArray(UserDTO[]::new);
         return new FollowedListDTO(userId,user.getUserName(),userDTOArray);
