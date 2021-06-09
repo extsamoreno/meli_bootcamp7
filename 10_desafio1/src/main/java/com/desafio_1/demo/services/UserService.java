@@ -98,6 +98,29 @@ public class UserService implements IUserService{
         return UserFollowedMapper.toDTO(user, followed);
     }
 
+    @Override
+    public UserFollowedDTO unfollowUser(int userId, int userIdToUnfollow) throws UserIdFollowerEqualsFollowed, UserIdInvalidException, UserNotFoundException, UnhandledException {
+        if(userId <= 0)
+            throw new UserIdInvalidException();
+
+        if(userIdToUnfollow <= 0)
+            throw new UserIdInvalidException();
+
+        if(userId == userIdToUnfollow)
+            throw new UserIdFollowerEqualsFollowed();
+
+        User user = userRepository.findUserById(userId);
+
+        if(user == null)
+            throw new UserNotFoundException(userId);
+
+        user = userRepository.unfollowUser(userId, userIdToUnfollow);
+
+        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, (a, b) -> a.compareTo(b));
+
+        return UserFollowedMapper.toDTO(user, followed);
+    }
+
     private Comparator<String> createComparatorName(String order){
         Comparator<String> comparator = (a, b) -> a.compareTo(b);
 

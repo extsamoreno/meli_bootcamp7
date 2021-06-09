@@ -98,4 +98,22 @@ public class UserRepository implements IUserRepository{
         }
     }
 
+    @Override
+    public User unfollowUser(int userId, int userIdToUnfollow) throws UnhandledException {
+        try{
+            List<User> users = listUsers;
+            User userFollower = users.stream().filter(user -> user.getId() == userId).findFirst().orElse(null);
+            User userToUnfollow = users.stream().filter(user -> user.getId() == userIdToUnfollow).findFirst().orElse(null);
+
+            userFollower.getFollowed().remove(userToUnfollow);
+            userToUnfollow.getFollowers().remove(userFollower);
+            users.set(userFollower.getId() - 1, userFollower);
+            users.set(userToUnfollow.getId() - 1, userToUnfollow);
+
+            return userFollower;
+        }catch (Exception ex){
+            throw new UnhandledException(ex.getMessage());
+        }
+    }
+
 }

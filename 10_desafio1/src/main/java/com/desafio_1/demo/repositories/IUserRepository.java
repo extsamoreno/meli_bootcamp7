@@ -11,4 +11,5 @@ public interface IUserRepository {
     User findUserById(int userId) throws UnhandledException;
     ArrayList<User> findFollowersByUserId(int userId, Comparator<String> comparator) throws UnhandledException;
     ArrayList<User> findFollowedByUserId(int userId, Comparator<String> comparator) throws UnhandledException;
+    User unfollowUser(int userId, int userIdToUnfollow) throws UnhandledException;;
 }
