@@ -2,14 +2,14 @@ package com.socialmeli.socialmeli.services;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
+import com.socialmeli.socialmeli.services.dtos.PostDTO;
 import com.socialmeli.socialmeli.services.dtos.UserDTO;
 import com.socialmeli.socialmeli.services.dtos.UserFollowDTO;
 import com.socialmeli.socialmeli.services.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO getUserFollowers(int userId) throws UserNotFoundException {
+    public UserDTO getUserFollowers(int userId,Optional<String> order) throws UserNotFoundException {
         User user = userRepository.getUserById(userId);
         List<UserFollowDTO> userFollowersDTOS = new ArrayList<>();
 
@@ -47,6 +47,16 @@ public class UserServiceImpl implements UserService{
              ) {
             userFollowersDTOS.add(UserMapper.getUserFollowDTO(user1));
         }
+
+        Comparator<UserFollowDTO> userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+        switch (order.get()){
+            case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+                break;
+            case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
+                break;
+        }
+
+        userFollowersDTOS.sort(userNameComparator);
 
         return new UserDTO(
                 user.getUserId(),
@@ -56,7 +66,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO getUserFollowed(int userId) throws UserNotFoundException {
+    public UserDTO getUserFollowed(int userId, Optional<String> order) throws UserNotFoundException {
         User user = userRepository.getUserById(userId);
         List<UserFollowDTO> userFollowedDTOS = new ArrayList<>();
 
@@ -65,13 +75,21 @@ public class UserServiceImpl implements UserService{
             userFollowedDTOS.add(UserMapper.getUserFollowDTO(user1));
         }
 
+        Comparator<UserFollowDTO> userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+        switch (order.get()){
+            case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+            break;
+            case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
+            break;
+        }
+
+        userFollowedDTOS.sort(userNameComparator);
+
         return new UserDTO(
                 user.getUserName(),
                 user.getUserId(),
                 userFollowedDTOS
         );
     }
-
-
 
 }

@@ -16,6 +16,8 @@ public class UserRepositoryImpl implements UserRepository{
     public UserRepositoryImpl(){
         users.put(1235,new User(1235,"Jose",new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
         users.put(1569,new User(1569,"Joaquin",new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+        users.put(1570,new User(1570,"Elsa",new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+        users.put(1571,new User(1571,"Pedro",new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
     }
 
     @Override

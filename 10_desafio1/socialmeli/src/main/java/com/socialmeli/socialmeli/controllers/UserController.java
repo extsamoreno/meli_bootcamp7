@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -32,13 +34,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserDTO> getUserFollowers(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<>(userService.getUserFollowers(userId),HttpStatus.OK);
+    public ResponseEntity<UserDTO> getUserFollowers(@PathVariable Integer userId,@RequestParam Optional<String> order) throws UserNotFoundException {
+        return new ResponseEntity<>(userService.getUserFollowers(userId,order),HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserDTO> getUserFollowed(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<>(userService.getUserFollowed(userId),HttpStatus.OK);
+    public ResponseEntity<UserDTO> getUserFollowed(@PathVariable Integer userId,@RequestParam Optional<String> order) throws UserNotFoundException {
+        return new ResponseEntity<>(userService.getUserFollowed(userId,order),HttpStatus.OK);
     }
 
 
