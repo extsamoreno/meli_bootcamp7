@@ -1,5 +1,6 @@
 package meli.social.service;
 
+import meli.social.exception.UserIdNotFoundException;
 import meli.social.model.PostModel;
 import meli.social.repository.DataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public HttpStatus addPost(PostModel post) {
+    public HttpStatus addPost(PostModel post) throws UserIdNotFoundException {
+        int userId = post.getUserId();
+        dataRepository.findUserById(userId);
         dataRepository.savePostDb(post);
         return HttpStatus.OK;
     }

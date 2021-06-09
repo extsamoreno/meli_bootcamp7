@@ -16,5 +16,6 @@ public interface DataRepository {
 
     // --------------------------- POSTS ---------------------------
     List<PostModel> getPostsDb();
+    PostModel findPostById(int postId);
     void savePostDb (PostModel post);
 }

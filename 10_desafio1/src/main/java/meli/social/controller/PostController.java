@@ -28,7 +28,7 @@ public class PostController {
     // ------------------------------ ENDPOINTS FUNCIONALES ------------------------------
 
     @PostMapping("/newpost")
-    public HttpStatus newPost (@RequestBody PostModel post) {
+    public HttpStatus newPost (@RequestBody PostModel post) throws UserIdNotFoundException {
         return postService.addPost(post);
     }
 

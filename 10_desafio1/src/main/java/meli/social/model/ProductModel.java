@@ -1,8 +1,10 @@
 package meli.social.model;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter @Setter
 public class ProductModel {
     private int productId;
     private String productName, type, brand, color, notes;
