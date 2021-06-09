@@ -1,10 +1,7 @@
 package com.api.socialmeli.service;
 
 import com.api.socialmeli.dto.*;
-import com.api.socialmeli.exception.EqualsIdException;
-import com.api.socialmeli.exception.IsNotaFollowerException;
-import com.api.socialmeli.exception.NotFoundIdException;
-import com.api.socialmeli.exception.PostIdExistsException;
+import com.api.socialmeli.exception.*;
 import com.api.socialmeli.model.PostModel;
 import com.api.socialmeli.model.UserModel;
 import com.api.socialmeli.repository.PostRepositoryImple;
@@ -19,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +59,7 @@ PostRepositoryImple postRepositoryImple;
     }
 
     @Override
-    public FollowersDTO US003(int userId) throws Exception {
+    public FollowersDTO US003(int userId, String order) throws Exception {
 
         if (userRepositoryImple.getUsers().get(userId)==null) throw new NotFoundIdException(userId);
         UserModel user = userRepositoryImple.getUsers().get(userId);
@@ -72,14 +70,32 @@ PostRepositoryImple postRepositoryImple;
 
         for (UserModel u : user.getFollowers())
             followers.add(UserMapper.userToFollowerDTO(u));
-        dto.setFollowers(followers);
 
+        if (order!=null){
+            if (order.equals("name_asc")){
+                List<UserDTO> sortedList =  followers.stream()
+                        .sorted((o1, o2) -> { return o1.getUserName().compareTo(o2.getUserName()); })
+                        .collect(Collectors.toList());
+
+                followers= (ArrayList<UserDTO>) sortedList;
+            }
+            if (order.equals("name_desc")){
+                List<UserDTO> sortedList =  followers.stream()
+                        .sorted((o1, o2) -> { return o2.getUserName().compareTo(o1.getUserName()); })
+                        .collect(Collectors.toList());
+
+                followers= (ArrayList<UserDTO>) sortedList;
+            }
+
+        }
+
+        dto.setFollowers(followers);
         return dto;
 
     }
 
     @Override
-    public UserFolowedDTO US004(int userId) throws Exception {
+    public UserFolowedDTO US004(int userId, String order) throws Exception {
 
         if (userRepositoryImple.getUsers().get(userId)==null) throw new NotFoundIdException(userId);
 
@@ -92,8 +108,26 @@ PostRepositoryImple postRepositoryImple;
 
         for (UserModel u : user.getFollowed())
             followed.add(UserMapper.userToFollowerDTO(u));
-        dto.setFollowed(followed);
 
+        if (order!=null){
+            if (order.equals("name_asc")){
+                List<UserDTO> sortedList =  followed.stream()
+                        .sorted((o1, o2) -> { return o1.getUserName().compareTo(o2.getUserName()); })
+                        .collect(Collectors.toList());
+
+                followed= (ArrayList<UserDTO>) sortedList;
+            }
+            if (order.equals("name_desc")){
+                List<UserDTO> sortedList =  followed.stream()
+                        .sorted((o1, o2) -> { return o2.getUserName().compareTo(o1.getUserName()); })
+                        .collect(Collectors.toList());
+
+                followed= (ArrayList<UserDTO>) sortedList;
+            }
+
+        }
+
+        dto.setFollowed(followed);
         return dto;
 
     }
@@ -114,7 +148,7 @@ PostRepositoryImple postRepositoryImple;
     }
 
     @Override
-    public FollowedPostsDTO US006(int userId ) throws Exception{
+    public FollowedPostsDTO US006(int userId , String order) throws Exception{
 
         if (userRepositoryImple.getUsers().get(userId)==null) throw new NotFoundIdException(userId);
 
@@ -149,8 +183,20 @@ PostRepositoryImple postRepositoryImple;
         List<PostModel> sortedList = followedPosts.getPosts().stream()
                 .sorted((o1, o2) -> { return o1.getDate().compareTo(o2.getDate()); })
                 .collect(Collectors.toList());
-
         followedPosts.setPosts(sortedList);
+
+        if (order!= null){
+            if (order.equals("date_asc")){
+                followedPosts.setPosts(sortedList);
+            }
+            if (order.equals("date_desc")){
+                List<PostModel> descSorterList = new ArrayList<>();
+                for (int i = 0; i < sortedList.size(); i++) {
+                    descSorterList.add(sortedList.get(sortedList.size()-1-i));
+                }
+                followedPosts.setPosts(descSorterList);
+            }
+        }
 
         return followedPosts;
     }

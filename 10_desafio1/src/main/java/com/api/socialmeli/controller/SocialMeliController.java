@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 public class SocialMeliController {
 
@@ -25,12 +24,14 @@ public class SocialMeliController {
     }
 
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> US003(@PathVariable int userId) throws Exception {
-        return new ResponseEntity<>(socialMeliServiceImple.US003(userId), HttpStatus.OK);
+    public ResponseEntity<FollowersDTO> US003(@PathVariable int userId ,
+                                              @RequestParam(value="order", required=false) String order) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US003(userId, order), HttpStatus.OK);
     }
     @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<UserFolowedDTO> US004(@PathVariable int userId) throws Exception {
-        return new ResponseEntity<>(socialMeliServiceImple.US004(userId), HttpStatus.OK);
+    public ResponseEntity<UserFolowedDTO> US004(@PathVariable int userId,
+                                                @RequestParam(value="order", required=false) String order) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US004(userId, order), HttpStatus.OK);
     }
 
     @PostMapping("/products/newpost")
@@ -39,8 +40,9 @@ public class SocialMeliController {
     }
 
     @GetMapping("/products/followed/{userId}/list")
-    public ResponseEntity<FollowedPostsDTO> US006(@PathVariable int userId) throws Exception {
-        return new ResponseEntity<>(socialMeliServiceImple.US006(userId), HttpStatus.OK);
+    public ResponseEntity<FollowedPostsDTO> US006(@PathVariable int userId,
+                                                  @RequestParam(value="order", required=false) String order) throws Exception {
+        return new ResponseEntity<>(socialMeliServiceImple.US006(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
