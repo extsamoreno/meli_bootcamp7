@@ -4,24 +4,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import socialmeli.socialmeli.project.exceptions.FollowAlreadyException;
-import socialmeli.socialmeli.project.exceptions.FollowMyselfException;
-import socialmeli.socialmeli.project.exceptions.IdNotFoundException;
-import socialmeli.socialmeli.project.services.Dto.FollowedListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.FollowersListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.FollowersResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserRequestDto;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowAlreadyException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowMyselfException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowedListResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersListResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.UserRequestDto;
 import socialmeli.socialmeli.project.services.IUserService;
 
 import java.util.ArrayList;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     IUserService iUserService;
 
-    @PostMapping("users/{userId}/follow/{userIdToFollow}")
+    @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<?> followUser(@PathVariable Integer userId,@PathVariable Integer userIdToFollow) throws IdNotFoundException, FollowMyselfException, FollowAlreadyException {
         UserRequestDto userRequestDto = new UserRequestDto(userId,userIdToFollow);
         iUserService.followUser(userRequestDto);
@@ -30,17 +31,17 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/users/{userId}/followers/count")
+    @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersResponseDto> getFollowersCount (@PathVariable Integer userId) throws IdNotFoundException {
         return new ResponseEntity<>(iUserService.getFollowersCountById(userId.toString()),HttpStatus.OK);
     }
 
-    @GetMapping("/users/{userId}/followers/list")
+    @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersListResponseDto> getFollowersList (@PathVariable Integer userId) throws IdNotFoundException {
         return new ResponseEntity<>(iUserService.getFollowersById(userId.toString()),HttpStatus.OK);
     }
 
-    @GetMapping("/users/{userId}/followed/list")
+    @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedListResponseDto> getFollowedUsers (@PathVariable Integer userId) throws IdNotFoundException {
         return new ResponseEntity<>(iUserService.getFollowedById(userId.toString()),HttpStatus.OK);
     }

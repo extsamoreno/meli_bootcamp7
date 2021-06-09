@@ -1,6 +1,6 @@
 package socialmeli.socialmeli.project.repository;
 
-import socialmeli.socialmeli.project.exceptions.IdNotFoundException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
 import socialmeli.socialmeli.project.models.User;
 
 import java.util.ArrayList;

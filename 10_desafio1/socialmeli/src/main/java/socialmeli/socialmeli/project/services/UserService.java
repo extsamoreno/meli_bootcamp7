@@ -2,18 +2,16 @@ package socialmeli.socialmeli.project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import socialmeli.socialmeli.project.exceptions.FollowAlreadyException;
-import socialmeli.socialmeli.project.exceptions.FollowMyselfException;
-import socialmeli.socialmeli.project.exceptions.IdNotFoundException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowAlreadyException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowMyselfException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
 import socialmeli.socialmeli.project.models.User;
 import socialmeli.socialmeli.project.repository.IUserRepository;
-import socialmeli.socialmeli.project.services.Dto.FollowedListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.FollowersListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.FollowersResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserRequestDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowedListResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersListResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.UserRequestDto;
 import socialmeli.socialmeli.project.services.mapper.mapper;
-
-import java.util.ArrayList;
 
 @Service
 public class UserService implements IUserService{

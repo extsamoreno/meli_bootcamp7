@@ -2,16 +2,15 @@ package socialmeli.socialmeli.project.services.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
+import socialmeli.socialmeli.project.models.Post;
 import socialmeli.socialmeli.project.models.User;
-import socialmeli.socialmeli.project.services.Dto.FollowedListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.FollowersListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.FollowersResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserRequestDto;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowedListResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersListResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersResponseDto;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -34,4 +33,13 @@ public static FollowersResponseDto toFollowersResponseDto(User u, Integer i){
         return new FollowedListResponseDto(u.getUserId(),u.getUserName(),listDto);
     }
 
+    public static PostDto postToDto(Post post)
+    {
+        return new PostDto(post.getUserId(),post.getIdPost(),post.getDate(),post.getDetail(),post.getCategory(),post.getPrice());
+    }
+
+    public static Post dtoToPost(PostDto postDto)
+    {
+        return new Post(postDto.getUserId(),postDto.getIdPost(),postDto.getDate(),postDto.getDetail(),postDto.getCategory(),postDto.getPrice());
+    }
 }

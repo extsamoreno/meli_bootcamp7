@@ -1,4 +1,4 @@
-package socialmeli.socialmeli.project.services.Dto;
+package socialmeli.socialmeli.project.services.Dto.UserDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

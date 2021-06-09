@@ -1,10 +1,12 @@
 package socialmeli.socialmeli.project.services;
 
-import org.springframework.http.ResponseEntity;
-import socialmeli.socialmeli.project.exceptions.FollowAlreadyException;
-import socialmeli.socialmeli.project.exceptions.FollowMyselfException;
-import socialmeli.socialmeli.project.exceptions.IdNotFoundException;
-import socialmeli.socialmeli.project.services.Dto.*;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowAlreadyException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowMyselfException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowedListResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersListResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersResponseDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.UserRequestDto;
 
 public interface IUserService {
     public void followUser (UserRequestDto userRequestDto) throws IdNotFoundException, FollowMyselfException, FollowAlreadyException;

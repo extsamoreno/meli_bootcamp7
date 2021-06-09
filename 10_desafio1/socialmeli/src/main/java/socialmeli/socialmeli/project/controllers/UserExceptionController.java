@@ -3,12 +3,10 @@ package socialmeli.socialmeli.project.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import socialmeli.socialmeli.project.exceptions.FollowAlreadyException;
-import socialmeli.socialmeli.project.exceptions.FollowMyselfException;
-import socialmeli.socialmeli.project.exceptions.IdNotFoundException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowAlreadyException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowMyselfException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
 import socialmeli.socialmeli.project.services.Dto.ErrorDto;
-
-import java.io.FileNotFoundException;
 
 @ControllerAdvice
 public class UserExceptionController {
