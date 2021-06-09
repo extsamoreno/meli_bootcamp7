@@ -1,6 +1,7 @@
 package com.meli.socialmeli.service;
 
 import com.meli.socialmeli.exception.UserAlreadyFollowedException;
+import com.meli.socialmeli.exception.UserAlreadyUnfollowedException;
 import com.meli.socialmeli.exception.UserNotFoundException;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IUserRepository;
@@ -18,12 +19,11 @@ public class UserService implements IUserService{
     IUserRepository iUserRepository;
 
     @Override
-    public HttpStatus followUser(int userId, int userIdToFollow) throws UserAlreadyFollowedException {
+    public HttpStatus followUser(int userId, int userIdToFollow) throws UserAlreadyFollowedException, UserNotFoundException {
         User actualUser= iUserRepository.getUserById(userId);
         User userToFollow= iUserRepository.getUserById(userIdToFollow);
-        if (actualUser==null || userToFollow==null){
-            return HttpStatus.BAD_REQUEST;
-        }
+        if (actualUser==null) throw new UserNotFoundException(userId);
+        if (userToFollow==null) throw new UserNotFoundException(userIdToFollow);
         if (actualUser.getFollowed().contains(userToFollow)){
             throw new UserAlreadyFollowedException(userToFollow);
         } else {
@@ -58,5 +58,20 @@ public class UserService implements IUserService{
             throw new UserNotFoundException(userId);
         }
         return UserMapper.toUserFollowedList(actualUser);
+    }
+
+    @Override
+    public HttpStatus unfollowUser(int userId, int userIdToUnfollow) throws UserNotFoundException, UserAlreadyUnfollowedException {
+        User actualUser=iUserRepository.getUserById(userId);
+        User userToUnfollow= iUserRepository.getUserById(userIdToUnfollow);
+        if (actualUser==null) throw new UserNotFoundException(userId);
+        if (userToUnfollow==null) throw new UserNotFoundException(userIdToUnfollow);
+        if (!actualUser.getFollowed().contains(userToUnfollow)){
+            throw new UserAlreadyUnfollowedException(userToUnfollow);
+        } else {
+            actualUser.getFollowed().remove(userToUnfollow);
+            userToUnfollow.getFollowers().remove(actualUser);
+            return HttpStatus.OK;
+        }
     }
 }

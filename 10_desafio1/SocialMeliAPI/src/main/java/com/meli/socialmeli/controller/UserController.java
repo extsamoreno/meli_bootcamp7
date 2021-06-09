@@ -1,6 +1,7 @@
 package com.meli.socialmeli.controller;
 
 import com.meli.socialmeli.exception.UserAlreadyFollowedException;
+import com.meli.socialmeli.exception.UserAlreadyUnfollowedException;
 import com.meli.socialmeli.exception.UserNotFoundException;
 import com.meli.socialmeli.service.IUserService;
 import com.meli.socialmeli.service.dto.UserDTOFollowedList;
@@ -20,7 +21,7 @@ public class UserController {
     IUserService iUserService;
 
     @PostMapping("/users/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<HttpStatus> followAnUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserAlreadyFollowedException {
+    public ResponseEntity<HttpStatus> followAnUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserAlreadyFollowedException, UserNotFoundException {
         HttpStatus status=iUserService.followUser(userId,userIdToFollow);
         return new ResponseEntity<>(status, status);
     }
@@ -40,4 +41,9 @@ public class UserController {
         return new ResponseEntity<>(iUserService.getFollowedList(userId),HttpStatus.OK);
     }
 
+    @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<HttpStatus> unfollowAnUser(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException, UserAlreadyUnfollowedException {
+        HttpStatus status=iUserService.unfollowUser(userId,userIdToUnfollow);
+        return new ResponseEntity<>(status,status);
+    }
 }
