@@ -25,4 +25,9 @@ public class UsuarioModel {
 
     }
 
+    public void quitarFollow(VendedorModel follow){
+        this.follows.remove(follow);
+
+    }
+
 }

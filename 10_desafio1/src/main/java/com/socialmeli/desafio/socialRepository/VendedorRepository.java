@@ -14,7 +14,6 @@ import java.util.HashMap;
 @Data
 public class VendedorRepository implements IVendedorRepository {
 
-
     private static HashMap<Integer, VendedorModel> dataBaseVendedor = new HashMap<>();
 
 
@@ -22,21 +21,15 @@ public class VendedorRepository implements IVendedorRepository {
     public void altaVendedor(String userName){
 
         int idNext= dataBaseVendedor.size()+1;
-
         VendedorModel user =new VendedorModel(idNext,userName,new ArrayList<PublicacionModel>(),new ArrayList<UsuarioModel>());
-
         dataBaseVendedor.put(idNext,user);
-
-
     }
 
 
     public void listarVendedores(){
-
         for (int i = 1; i < dataBaseVendedor.size() ; i++) {
             System.out.println(dataBaseVendedor.get(i).getUserName());
         }
-
     }
 
 

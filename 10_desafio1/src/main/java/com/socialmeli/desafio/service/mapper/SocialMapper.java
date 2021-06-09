@@ -1,6 +1,7 @@
 package com.socialmeli.desafio.service.mapper;
 
 import com.socialmeli.desafio.dto.*;
+import com.socialmeli.desafio.model.PublicacionModel;
 import com.socialmeli.desafio.model.UsuarioModel;
 import com.socialmeli.desafio.model.VendedorModel;
 
@@ -35,16 +36,14 @@ public class SocialMapper {
 
 
     public static FollowedListDTO toFollowedListDto (UsuarioModel usuario){
+        //  usar el servicio que cree despues, falta arreglar!!!!!!!
         ArrayList<VendedorDTO> followed = new ArrayList<>();
 
         for (int i = 0; i < usuario.getFollows().size(); i++) {
-
-
-            VendedorDTO vendedorDto= SocialMapper.toVendedorDTO(usuario.getFollows().get(i));
-            followed.add(vendedorDto);
+            VendedorDTO vendedorDto= SocialMapper.toVendedorDTO(usuario.getFollows().get(i)); //obtengo cada uno de los seguidos que tiene el usuario
+            followed.add(vendedorDto); //agrego en la lista los vendedores de tipo dto, ya que solo necesito nombre e id
         }
-
-        //FollowersListDTO, incluye  el nombre, el id del vendedor y la lista de seguidores
+        //FollowersListDTO, incluye  el nombre, el id del vendedor y la lista de seguidos
         FollowedListDTO followedList = new FollowedListDTO(usuario.getUserId(), usuario.getUserName(), followed);
 
 
@@ -54,6 +53,34 @@ public class SocialMapper {
     public static VendedorDTO toVendedorDTO (VendedorModel vendedor){
         return new VendedorDTO(vendedor.getUserId(), vendedor.getUserName());
     }
+
+
+
+    //Recibe un publicacion y la convierte a su DTO
+    public static PublicacionDTO toPublicacionDTO (PublicacionModel publicacion){
+         PublicacionDTO publicacionDTO = new PublicacionDTO();
+
+         publicacionDTO.setUserId(publicacion.getUserId());
+         publicacionDTO.setId_post(publicacion.getId_post());
+         publicacionDTO.setDate(publicacion.getDate());
+         publicacionDTO.setDetail(publicacion.getDetail());
+         publicacionDTO.setCategory(publicacion.getCategory());
+         publicacionDTO.setPrice(publicacion.getPrice());
+
+        return publicacionDTO;
+    }
+
+
+    public static PublicacionesVendedoresSeguidosDTO toPublicacionesVendedoresSeguidosDTO (int userId, ArrayList<PublicacionDTO> publicacionesDTO){
+        PublicacionesVendedoresSeguidosDTO publicacionesVendedoresSeguidosDTO =new PublicacionesVendedoresSeguidosDTO();
+
+        publicacionesVendedoresSeguidosDTO.setUserId(userId);
+        publicacionesVendedoresSeguidosDTO.setPublicaciones(publicacionesDTO);
+
+        return publicacionesVendedoresSeguidosDTO;
+
+    }
+
 
 
 

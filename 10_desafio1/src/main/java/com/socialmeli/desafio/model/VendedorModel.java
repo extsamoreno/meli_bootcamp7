@@ -29,4 +29,10 @@ public class VendedorModel {
     }
 
 
+    public void quitarFollower (UsuarioModel follower){
+        this.followers.remove(follower);
+
+    }
+
+
 }

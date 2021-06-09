@@ -17,7 +17,6 @@ public class UsuarioRepository implements IUsuarioRepository{
 
 
 
-
   public void altaUsuario(String userName){
 
         int idNext= dataBaseUsuario.size()+1;
@@ -25,15 +24,11 @@ public class UsuarioRepository implements IUsuarioRepository{
         UsuarioModel user =new UsuarioModel(idNext,userName, new ArrayList<VendedorModel>());
 
         dataBaseUsuario.put(idNext,user);
-
-
     }
 
 
      public void listarUsuarios(){
-
          for (int i = 1; i < dataBaseUsuario.size() ; i++) {
-
              System.out.println(dataBaseUsuario.get(i).getUserName());
          }
     }
