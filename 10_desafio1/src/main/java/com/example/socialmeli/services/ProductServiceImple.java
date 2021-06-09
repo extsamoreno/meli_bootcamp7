@@ -1,5 +1,7 @@
 package com.example.socialmeli.services;
 
+import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.models.dtos.PostDTO;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.NewPostResponseDTO;
 import com.example.socialmeli.repositories.ProductRepository;
@@ -13,7 +15,9 @@ public class ProductServiceImple implements ProductService{
     ProductRepository productRepository;
 
     @Override
-    public NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) {
-        return null;
+    public NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException {
+        NewPostResponseDTO newPost = productRepository.addPost(newPostRequestDTO);
+
+        return newPost;
     }
 }
