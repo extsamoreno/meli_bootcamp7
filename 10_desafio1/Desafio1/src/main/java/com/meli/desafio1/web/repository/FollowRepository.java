@@ -32,11 +32,11 @@ public class FollowRepository implements IFollowRepository{
     }
 
     @Override
-    public FollowDTO getFollowById(int userId) {
+    public Follow getFollowById(int userId) {
 
         for(Follow follow:this.followList){
             if(follow.getUserId()==userId){
-                return FollowMapper.toDTO(follow);
+                return follow;
             }
         }
         return null;

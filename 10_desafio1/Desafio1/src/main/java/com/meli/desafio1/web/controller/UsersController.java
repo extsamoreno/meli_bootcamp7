@@ -1,6 +1,8 @@
 package com.meli.desafio1.web.controller;
 
 import com.meli.desafio1.web.dto.UserDTO;
+import com.meli.desafio1.web.exception.UserException;
+import com.meli.desafio1.web.exception.UserNotFoundException;
 import com.meli.desafio1.web.response.CusersResponse;
 import com.meli.desafio1.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +18,10 @@ public class UsersController {
     @Autowired
     IUserService iUserService;
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<Integer> followResponse(@PathVariable("userId") int userId, @PathVariable("userIdToFollow") int userIdToFollow){
+    public ResponseEntity<String> followResponse(@PathVariable("userId") int userId, @PathVariable("userIdToFollow") int userIdToFollow) throws UserException {
         System.out.println("Entró a el servicio");
-        int respuesta = iUserService.follow(userId,userIdToFollow);
-        HttpStatus status;
-        if(respuesta == 1) {
-             status = HttpStatus.CREATED;
-        }else{
-                 status = HttpStatus.BAD_REQUEST;
-            }
-
-        return new ResponseEntity<>(respuesta, status);
+        iUserService.follow(userId,userIdToFollow);
+        return new ResponseEntity<>("todo OK",HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/count")

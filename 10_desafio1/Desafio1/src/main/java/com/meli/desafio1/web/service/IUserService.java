@@ -1,12 +1,14 @@
 package com.meli.desafio1.web.service;
 
 import com.meli.desafio1.web.dto.UserDTO;
+import com.meli.desafio1.web.exception.UserException;
+import com.meli.desafio1.web.exception.UserNotFoundException;
 import com.meli.desafio1.web.response.CusersResponse;
 
 import java.util.List;
 
 public interface IUserService {
-    public int follow(int userId, int follow_id);
+    public void follow(int userId, int follow_id) throws UserException;
     public CusersResponse cUserFollowers(int userId);
     public String userNameByUserId(int userId);
     public List<UserDTO> followersByUserId(int userId, String order);

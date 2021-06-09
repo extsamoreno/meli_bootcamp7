@@ -9,6 +9,6 @@ import java.util.List;
 public interface IFollowRepository {
     public List<Follow> getFollowList();
     public void setFollowList(List <Follow> followList);
-    public FollowDTO getFollowById(int userId);
+    public Follow getFollowById(int userId);
 
 }

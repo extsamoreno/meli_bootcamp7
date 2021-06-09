@@ -44,4 +44,14 @@ public class UserRepository implements IUserRepository{
     public List<User> getUserList() {
         return this.listaUser;
     }
+
+    @Override
+    public User getUserById(int userId) {
+            for(User user:listaUser){
+                if(user.getUserId()==userId){
+                    return user;
+                }
+            }
+            return null;
+    }
 }

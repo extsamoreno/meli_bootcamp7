@@ -1,12 +1,16 @@
 package com.meli.desafio1.web.service;
 
 import com.meli.desafio1.web.dto.UserDTO;
+import com.meli.desafio1.web.exception.UserAlreadyFollowedException;
+import com.meli.desafio1.web.exception.UserException;
+import com.meli.desafio1.web.exception.UserNotFoundException;
 import com.meli.desafio1.web.model.Follow;
 import com.meli.desafio1.web.model.User;
 import com.meli.desafio1.web.repository.IFollowRepository;
 import com.meli.desafio1.web.repository.IUserRepository;
 import com.meli.desafio1.web.response.CusersResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,29 +26,27 @@ public class UserService implements IUserService {
     IUserRepository iUserRepository;
     @Override
 
-    public int follow(int userId, int follow_id) {
+    public void follow(int userId, int follow_id) throws UserException {
 
-
-        List<Follow> followList = iFollowRepository.getFollowList();
-        for (Follow follow : followList) {
-            if (follow.getUserId() == userId) {
-                List<Integer> followListId = follow.getFollows_id();
-                if (!followListId.contains(follow_id)) {
-
-                    followListId.add(follow_id);
-                    follow.setFollows_id(followListId);
-
-                    System.out.println(iFollowRepository.getFollowList());
-                    return 1;
-                }
-                else {
-                    return 0;
-                }
-
+        Follow user = iFollowRepository.getFollowById(userId);
+        Follow followedUser = iFollowRepository.getFollowById(follow_id);
+        if(user == null){
+            throw new UserNotFoundException(Integer.toString(userId), HttpStatus.BAD_REQUEST);
+        }
+        else{
+            if(followedUser ==null){
+                throw new UserNotFoundException(Integer.toString(follow_id), HttpStatus.BAD_REQUEST);
             }
+        }
+        List<Integer> followListId = user.getFollows_id();
+        if(!user.getFollows_id().contains(follow_id)){
+            followListId.add(follow_id);
+            user.setFollows_id(followListId);
 
         }
-        return -1;
+        else {
+            throw new UserAlreadyFollowedException(userId,follow_id, HttpStatus.BAD_REQUEST);
+        }
     }
 
 
