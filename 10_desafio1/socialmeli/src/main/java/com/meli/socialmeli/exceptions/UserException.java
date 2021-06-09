@@ -1,4 +1,4 @@
-package com.meli.socialmeli.exception;
+package com.meli.socialmeli.exceptions;
 
 import com.meli.socialmeli.dto.ErrorDTO;
 import lombok.AllArgsConstructor;

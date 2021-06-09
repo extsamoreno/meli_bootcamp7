@@ -1,23 +1,23 @@
-package com.meli.socialmeli.model;
+package com.meli.socialmeli.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserMeli {
+
     private int userId;
     private String userName;
-    private ArrayList<UserMeli> followers = new ArrayList<>();
-    private ArrayList<UserMeli> followed = new ArrayList<>();
+    private ArrayList<Integer> followers = new ArrayList<>();
+    private ArrayList<Integer> followedBy = new ArrayList<>();
 
     public UserMeli(int userId, String userName) {
         this.userId = userId;
         this.userName = userName;
     }
-
-    //private String followed;
-    //private String followers;
 }
