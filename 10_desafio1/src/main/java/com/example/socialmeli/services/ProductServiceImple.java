@@ -7,6 +7,7 @@ import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowedPostsResponseDTO;
+import com.example.socialmeli.models.dtos.response.ListSellerPromoProductsDTO;
 import com.example.socialmeli.models.dtos.response.NewPostResponseDTO;
 import com.example.socialmeli.models.dtos.response.SellerPromoProductsCountResponseDTO;
 import com.example.socialmeli.repositories.ProductRepository;
@@ -59,7 +60,14 @@ public class ProductServiceImple implements ProductService{
 
     @Override
     public SellerPromoProductsCountResponseDTO countPromoProducts(int userId) throws InexistentUserException{
-        SellerPromoProductsCountResponseDTO promoProducts = productRepository.countPromoProducts(userId);
+        SellerPromoProductsCountResponseDTO promoProductsCount = productRepository.countPromoProducts(userId);
+
+        return promoProductsCount;
+    }
+
+    @Override
+    public ListSellerPromoProductsDTO listPromoProducts(int userId) throws InexistentUserException {
+        ListSellerPromoProductsDTO promoProducts = productRepository.listPromoProducts(userId);
 
         return promoProducts;
     }

@@ -4,10 +4,7 @@ import com.example.socialmeli.exceptions.InexistentDateOrderException;
 import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
-import com.example.socialmeli.models.dtos.response.FollowersCountResponseDTO;
-import com.example.socialmeli.models.dtos.response.ListFollowedPostsResponseDTO;
-import com.example.socialmeli.models.dtos.response.NewPostResponseDTO;
-import com.example.socialmeli.models.dtos.response.SellerPromoProductsCountResponseDTO;
+import com.example.socialmeli.models.dtos.response.*;
 import com.example.socialmeli.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,5 +36,10 @@ public class ProductController {
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<SellerPromoProductsCountResponseDTO> countPromoProducts (@PathVariable int userId) throws InexistentUserException {
         return new ResponseEntity<>(productService.countPromoProducts(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<ListSellerPromoProductsDTO> listPromoProducts (@PathVariable int userId) throws InexistentUserException {
+        return new ResponseEntity<>(productService.listPromoProducts(userId), HttpStatus.OK);
     }
 }

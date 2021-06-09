@@ -8,6 +8,7 @@ import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowedPostsResponseDTO;
+import com.example.socialmeli.models.dtos.response.ListSellerPromoProductsDTO;
 import com.example.socialmeli.models.dtos.response.NewPostResponseDTO;
 import com.example.socialmeli.models.dtos.response.SellerPromoProductsCountResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,4 +113,28 @@ public class ProductRepositoryImple implements ProductRepository{
 
         return promoProducts;
     }
+
+    @Override
+    public ListSellerPromoProductsDTO listPromoProducts(int userId) throws InexistentUserException {
+        User user = userRepository.getUserById(userId);
+        ListSellerPromoProductsDTO promoProducts = new ListSellerPromoProductsDTO();
+        ArrayList<PostDTO> promoPosts = new ArrayList<>();
+
+        for (int i = 0; i < user.getPosts().size(); i++) {
+            PostDTO post = user.getPosts().get(i);
+
+            if(post.isHasPromo()){
+                promoPosts.add(post);
+            }
+        }
+
+
+        promoProducts.setUserId(userId);
+        promoProducts.setUserName(user.getUserName());
+        promoProducts.setPosts(promoPosts);
+
+        return promoProducts;
+    }
+
+
 }
