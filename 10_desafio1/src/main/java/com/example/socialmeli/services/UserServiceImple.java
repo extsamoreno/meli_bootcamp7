@@ -1,15 +1,16 @@
 package com.example.socialmeli.services;
 
-import com.example.socialmeli.exceptions.ExistentFollowerException;
-import com.example.socialmeli.exceptions.InexistentFollowerException;
-import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.exceptions.*;
 import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.*;
-import com.example.socialmeli.exceptions.ExistentUserException;
 import com.example.socialmeli.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Service
 public class UserServiceImple implements UserService{
@@ -43,15 +44,41 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
-    public ListFollowersResponseDTO listFollowers(int userId) throws InexistentUserException{
+    public ListFollowersResponseDTO listFollowers(int userId, String order) throws InexistentUserException, InexistentOrderException {
+        /*if(!(order.equalsIgnoreCase("name_asc")) || !(order.equalsIgnoreCase("name_desc"))){
+            throw new InexistentOrderException(order);
+        }*/
+
         ListFollowersResponseDTO userResponse = userRepository.listFollowers(userId);
+
+        switch (order) {
+            case "name_asc":
+                Collections.sort(userResponse.getFollowers(), Comparator.comparing(UserDTO::getUserName));
+                break;
+            case "name_desc":
+                Collections.sort(userResponse.getFollowers(), Comparator.comparing(UserDTO::getUserName));
+                Collections.reverse(userResponse.getFollowers());
+        }
 
         return userResponse;
     }
 
     @Override
-    public ListFollowedResponseDTO listFollowed (int userId) throws InexistentUserException{
+    public ListFollowedResponseDTO listFollowed (int userId, String order) throws InexistentUserException, InexistentOrderException{
+        /*if(!(order.equalsIgnoreCase("name_asc")) || !(order.equalsIgnoreCase("name_desc"))){
+            throw new InexistentOrderException(order);
+        }*/
+
         ListFollowedResponseDTO userResponse = userRepository.listFollowed(userId);
+
+        switch (order) {
+            case "name_asc":
+                Collections.sort(userResponse.getFollowed(), Comparator.comparing(UserDTO::getUserName));
+                break;
+            case "name_desc":
+                Collections.sort(userResponse.getFollowed(), Comparator.comparing(UserDTO::getUserName));
+                Collections.reverse(userResponse.getFollowed());
+        }
 
         return userResponse;
     }

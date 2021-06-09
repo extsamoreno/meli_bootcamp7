@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class SocialMeliExceptionController {
 
     @ExceptionHandler(UserException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(UserException e){
+    public ResponseEntity<ErrorDTO> handleGlobalUserException(UserException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 
@@ -31,6 +31,16 @@ public class SocialMeliExceptionController {
 
     @ExceptionHandler(InexistentFollowerException.class)
     public ResponseEntity<ErrorDTO> handleInexistentFollowerException(InexistentFollowerException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(OrderException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalOrderException(OrderException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(InexistentOrderException.class)
+    public ResponseEntity<ErrorDTO> handleInexistentOrderException(InexistentOrderException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 }
