@@ -2,8 +2,8 @@ package com.meli.desafio.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.desafio.models.Post;
-import com.meli.desafio.models.User;
+import com.meli.desafio.posts.models.Post;
+import com.meli.desafio.users.models.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.util.ResourceUtils;
