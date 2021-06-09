@@ -10,7 +10,6 @@ import com.meli.desafio.posts.repositories.IPostRepository;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
 import com.meli.desafio.users.models.dto.UserDTO;
 import com.meli.desafio.users.services.IUserService;
-import com.meli.desafio.utils.SortUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,11 +49,13 @@ public class PostService implements IPostService{
         List<UserDTO> listUsers = userService.getById(userId).getFollowed();
 
         for(UserDTO u : listUsers){
-            List<Post> listPosts = postRepository.getAllByUserId(userId)
-                    .stream().filter(p -> p.getDate().after(getDateBeforeTwoWeeks())).collect(Collectors.toList());
-            Collections.sort(listPosts);
-            if(order.equalsIgnoreCase("date_desc"))
+            List<Post> listPosts = postRepository.getAllByUserId(u.getId())
+                    .stream().filter(p -> p.getDate().after(getDateBeforeTwoWeeks())).sorted().collect(Collectors.toList());
+
+            if(order.equalsIgnoreCase("date_desc")) {
                 Collections.reverse(listPosts);
+            }
+
             listPostsDtos.add(createlistPostDTO(listPosts, u.getId()));
         }
 

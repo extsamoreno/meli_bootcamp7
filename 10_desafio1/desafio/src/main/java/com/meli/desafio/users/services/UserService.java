@@ -7,7 +7,6 @@ import com.meli.desafio.users.models.dto.ResponseUserCountFollowers;
 import com.meli.desafio.users.models.dto.ResponseUserListFollowers;
 import com.meli.desafio.users.models.dto.UserDTO;
 import com.meli.desafio.users.repositories.IUserRepository;
-import com.meli.desafio.utils.SortUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

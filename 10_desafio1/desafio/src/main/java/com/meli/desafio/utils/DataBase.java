@@ -53,15 +53,15 @@ public class DataBase {
 
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<Post>> typeRef = new TypeReference<>() {};
-        List<Post> listPosts = null;
+        List<Post> listPost = null;
 
         try{
-            listPosts = objectMapper.readValue(file , typeRef);
+            listPost = objectMapper.readValue(file , typeRef);
         }catch (IOException e){
             e.printStackTrace();
         }
 
-        for(Post p: listPosts){
+        for(Post p: listPost){
             this.listPosts.add(p);
         }
     }

@@ -3,11 +3,9 @@ package com.meli.desafio.posts.repositories;
 import com.meli.desafio.posts.exceptions.PostErrorException;
 import com.meli.desafio.posts.exceptions.PostNotExistException;
 import com.meli.desafio.posts.models.Post;
-import com.meli.desafio.posts.models.dto.PostDTO;
 import com.meli.desafio.utils.DataBase;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
