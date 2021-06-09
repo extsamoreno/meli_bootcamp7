@@ -51,7 +51,7 @@ public class SocialMeliController {
     @GetMapping("/users")
     public ResponseEntity<List<User>> followSeller (){
 
-        return new ResponseEntity<>(iUserService.getdb(), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getUserDatabase(), HttpStatus.OK);
     }
     @PostMapping("{followerId}/unfollow/{followedId}")
     public ResponseEntity<FollowDTO> unfollow (@PathVariable int followerId, @PathVariable int followedId) throws UserNotFoundException {

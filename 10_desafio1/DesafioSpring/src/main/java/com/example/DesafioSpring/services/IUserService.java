@@ -16,5 +16,5 @@ public interface IUserService {
     public FollowersCountDTO getFollowersCount(int userId) throws UserNotFoundException;
     public FollowersDTO getFollowers(int userid, String order) throws UserNotFoundException;
     public FollowedByDTO getFollowed(int userid, String order) throws UserNotFoundException;
-    public List<User> getdb();
+    public List<User> getUserDatabase();
 }

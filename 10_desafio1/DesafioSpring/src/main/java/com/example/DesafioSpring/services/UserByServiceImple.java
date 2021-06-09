@@ -90,7 +90,9 @@ public class UserByServiceImple extends OrderByService implements IUserService {
 
         return new FollowedByDTO(user.getId(), user.getName(), userDTOs);
     }
-
+    public List<User> getUserDatabase(){
+        return iUserRepository.getUsers();
+    }
     @Override
     public FollowDTO followSeller(int followerId, int followedId) throws UserNotFoundException {
 
@@ -132,11 +134,5 @@ public class UserByServiceImple extends OrderByService implements IUserService {
         }
 
     }
-
-
-    public List<User> getdb(){
-        return iUserRepository.getUsers();
-    }
-
 
 }
