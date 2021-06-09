@@ -1,18 +1,22 @@
 package com.example.demo.services;
 
-import com.example.demo.dtos.UserFollowedListDTO;
-import com.example.demo.dtos.UserFollowerListDTO;
-import com.example.demo.dtos.UserFollowersCountDTO;
-import com.example.demo.dtos.UserResponseDTO;
+import com.example.demo.dtos.*;
 import com.example.demo.exceptions.UserAlreadyFollowException;
+import com.example.demo.exceptions.UserDoesntExistException;
+import com.example.demo.model.Post;
 import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
 
 @Service
 public interface UserService {
     void addUsers();
-    void follow(int userId, int userIdToFollow) throws UserAlreadyFollowException;
+    void follow(int userId, int userIdToFollow) throws UserAlreadyFollowException, UserDoesntExistException;
     void unfollow(int userId, int userIdToFollow);
-    UserFollowersCountDTO followersCount(int userId);
-    UserFollowerListDTO getFollowersList(int userId);
-    UserFollowedListDTO getFollowedList(int userId);
+    UserFollowersCountDTO getFollowersCount(int userId) throws UserDoesntExistException;
+    UserFollowerListDTO getFollowersList(int userId, String order) throws UserDoesntExistException;
+    UserFollowedListDTO getFollowedList(int userId, String order) throws UserDoesntExistException;
+    //NewPostResponseDTO newPost(NewPostRequestDTO newPostRequestDTO) throws ParseException;
+    //FollowedPostListResponseDTO getFollowedPostList(int userId, String order);
+
 }

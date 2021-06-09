@@ -1,15 +1,17 @@
 package com.example.demo.dtos;
+
+import com.example.demo.model.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDTO {
+public class FollowedPostListResponseDTO {
     private int userId;
-    private String userName;
-
+    private List<Post> posts;
 }

@@ -14,4 +14,19 @@ public class UserExceptionController {
 
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
+    @ExceptionHandler(UserDoesntExistException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(UserDoesntExistException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+    @ExceptionHandler(ProductDoesntExistException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDoesntExistException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+    @ExceptionHandler(CategoryDoesntExistException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(CategoryDoesntExistException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 public class User {
     private int userId;
     private String userName;
+    private List<Post> posts = new ArrayList<>();
     private List<User> followed = new ArrayList<>();
 
     public User(int userId, String userName) {
