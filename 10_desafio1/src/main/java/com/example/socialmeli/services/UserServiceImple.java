@@ -45,9 +45,9 @@ public class UserServiceImple implements UserService{
 
     @Override
     public ListFollowersResponseDTO listFollowers(int userId, String order) throws InexistentUserException, InexistentOrderException {
-        /*if(!(order.equalsIgnoreCase("name_asc")) || !(order.equalsIgnoreCase("name_desc"))){
+        if(!order.matches("name_asc|name_desc")){
             throw new InexistentOrderException(order);
-        }*/
+        }
 
         ListFollowersResponseDTO userResponse = userRepository.listFollowers(userId);
 
@@ -65,9 +65,9 @@ public class UserServiceImple implements UserService{
 
     @Override
     public ListFollowedResponseDTO listFollowed (int userId, String order) throws InexistentUserException, InexistentOrderException{
-        /*if(!(order.equalsIgnoreCase("name_asc")) || !(order.equalsIgnoreCase("name_desc"))){
+        if(!order.matches("name_asc|name_desc")){
             throw new InexistentOrderException(order);
-        }*/
+        }
 
         ListFollowedResponseDTO userResponse = userRepository.listFollowed(userId);
 
