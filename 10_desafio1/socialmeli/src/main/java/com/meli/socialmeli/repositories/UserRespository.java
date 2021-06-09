@@ -6,6 +6,8 @@ import com.meli.socialmeli.dto.UserFollowerListDTO;
 import com.meli.socialmeli.dto.UserResponseDTO;
 import com.meli.socialmeli.exceptions.UserInvalidException;
 import com.meli.socialmeli.exceptions.UserNotFoundException;
+import com.meli.socialmeli.models.Post;
+import com.meli.socialmeli.models.Product;
 import com.meli.socialmeli.models.UserMeli;
 import org.springframework.stereotype.Repository;
 
@@ -15,10 +17,26 @@ import java.util.HashMap;
 @Repository
 public class UserRespository implements IUserRepository{
 
-    private static HashMap<Integer, UserMeli> users = new HashMap<>();
+    protected static HashMap<Integer, UserMeli> users = new HashMap<>();
 
     static {
-        users.put(1, new UserMeli(1, "comprador1"));
+        Product detail = new Product(123, "Silla Gamer", "Gamer", "Racer","Red & Black", "Special Edition");
+        Post post = new Post(1, 18, "29-04-2021", detail, 100, 1500.50);
+//        int product_id;         //: 1,
+//        String productName;     // : "Silla Gamer",
+//        String type;            // : "Gamer",,
+//        String brand;           //: "Racer"
+//        String color;           //" : "Red & Black",
+//        String notes;           // : "Special Edition"
+//
+//        int userId;         //: 1235,
+//        int id_post;        // : 18,
+//        String date;        // : "29-04-2021",
+//        Product detail;
+//        int category;       // :100,
+//        double price;       // :1500.50
+
+        users.put(1, new UserMeli(1, "comprador1", post));
         users.put(2, new UserMeli(2, "vendedor1"));
         users.put(3, new UserMeli(3, "comprador2"));
         users.put(4, new UserMeli(4, "vendedor"));
