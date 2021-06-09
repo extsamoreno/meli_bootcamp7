@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.dtos;
 
 import lombok.Data;
 
@@ -9,9 +9,7 @@ public class RoomDTO {
     private double width;
     private double length;
 
-    public double calculateArea() {
+/*    public double calculateArea() {
         return this.width * this.length;
-    }
-
-
+    }*/
 }

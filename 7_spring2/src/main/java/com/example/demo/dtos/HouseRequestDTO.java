@@ -1,6 +1,5 @@
-package com.example.demo;
+package com.example.demo.dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -9,8 +8,6 @@ import java.util.List;
 public class HouseRequestDTO {
 
     private String name;
-
     private String address;
-
     private List<RoomDTO> rooms;
 }
