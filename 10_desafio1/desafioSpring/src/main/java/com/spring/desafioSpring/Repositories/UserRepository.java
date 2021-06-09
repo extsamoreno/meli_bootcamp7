@@ -28,11 +28,11 @@ public class UserRepository implements IUserRepository{
         user1.setFollowed(followedUser1);
 
         ArrayList<User> followedUser2 = new ArrayList<>();
-        followedUser2.add(user5);
+        followedUser2.add(user5); followedUser2.add(user6);
         user2.setFollowed(followedUser2);
 
         ArrayList<User> followersUser5 = new ArrayList<>();
-        followersUser5.add(user1); followersUser5.add(user2);
+        followersUser5.add(user1); followersUser5.add(user2); followersUser5.add(user4);
         user5.setFollowers(followersUser5);
 
         ArrayList<User> followedUser3 = new ArrayList<>();
@@ -44,7 +44,7 @@ public class UserRepository implements IUserRepository{
         user4.setFollowed(followedUser4);
 
         ArrayList<User> followersUser6 = new ArrayList<>();
-        followersUser6.add(user3); followersUser6.add(user4);
+        followersUser6.add(user3); followersUser6.add(user4); followersUser6.add(user2);
         user6.setFollowers(followersUser6);
 
         dbUsers.put(1, user1);
@@ -64,6 +64,14 @@ public class UserRepository implements IUserRepository{
         userToFollow.getFollowers().add(user);
     }
 
+    @Override
+    public void unfollow(int userId, int userIdToUnollow) throws UserNotFoundException {
+        User user = getUser(userId);
+        User userToUnfollow = getUser(userIdToUnollow);
+
+        user.getFollowed().remove(userToUnfollow);
+        userToUnfollow.getFollowers().remove(user);
+    }
 
     @Override
     public User getUser(int userId) throws UserNotFoundException {
@@ -74,6 +82,8 @@ public class UserRepository implements IUserRepository{
 
         return user;
     }
+
+
 
 
 }

@@ -25,7 +25,6 @@ public class UserController {
 
         iUserService.follow(userId, userIdToFollow);
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
     //US0002
@@ -34,17 +33,29 @@ public class UserController {
         return new ResponseEntity<>(iUserService.countFollowers(userId), HttpStatus.OK);
     }
 
-    //US0003
+    //US0003 - US0008(order by name)
     @GetMapping("{userId}/followers/list")
-    public ResponseEntity<FollowersUserDTO> followersByUser(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.followersByUser(userId), HttpStatus.OK);
+    public ResponseEntity<FollowersUserDTO> followersByUser(@PathVariable int userId, @RequestParam(required = false) String order)
+            throws UserNotFoundException {
+        return new ResponseEntity<>(iUserService.followersByUser(userId, order), HttpStatus.OK);
     }
 
-    //US004
+    //US0004 - US0008(order by name)
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedUserDTO> followedByUser(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.followedByUser(userId), HttpStatus.OK);
+    public ResponseEntity<FollowedUserDTO> followedByUser(@PathVariable int userId, @RequestParam(required = false) String order)
+            throws UserNotFoundException {
+        return new ResponseEntity<>(iUserService.followedByUser(userId, order), HttpStatus.OK);
     }
+
+    //US0007
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity unfollow(@PathVariable() int userId, @PathVariable() int userIdToUnfollow)
+            throws UserNotFoundException {
+
+        iUserService.unfollow(userId, userIdToUnfollow);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 
 
 

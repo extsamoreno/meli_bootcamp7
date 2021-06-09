@@ -1,9 +1,6 @@
 package com.spring.desafioSpring.Services;
 
-import com.spring.desafioSpring.DTOs.CountUserFollowersDTO;
-import com.spring.desafioSpring.DTOs.FollowedUserDTO;
-import com.spring.desafioSpring.DTOs.FollowersUserDTO;
-import com.spring.desafioSpring.DTOs.UserIdNameDTO;
+import com.spring.desafioSpring.DTOs.*;
 import com.spring.desafioSpring.Exceptions.FollowYourselfException;
 import com.spring.desafioSpring.Exceptions.UserNotFoundException;
 import com.spring.desafioSpring.Models.User;
@@ -29,6 +26,11 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public void unfollow(int userId, int userIdToUnollow) throws UserNotFoundException {
+        iUserRepository.unfollow(userId, userIdToUnollow);
+    }
+
+    @Override
     public CountUserFollowersDTO countFollowers(int userId) throws UserNotFoundException {
         User user = iUserRepository.getUser(userId);
 
@@ -42,7 +44,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowersUserDTO followersByUser(int userId) throws UserNotFoundException {
+    public FollowersUserDTO followersByUser(int userId, String order) throws UserNotFoundException {
         User user = iUserRepository.getUser(userId);
 
         FollowersUserDTO dto = new FollowersUserDTO();
@@ -50,8 +52,12 @@ public class UserService implements IUserService{
         dto.setUserName(user.getUserName());
 
         ArrayList<UserIdNameDTO> followers = new ArrayList<>();
+
         for (User u : user.getFollowers())
             followers.add(UserMapper.userToUserIdNameDTO(u));
+
+        if(order != null)
+            orderListUserIdNameDTObyName(followers, order);
 
         dto.setFollowers(followers);
 
@@ -59,7 +65,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowedUserDTO followedByUser(int userId) throws UserNotFoundException {
+    public FollowedUserDTO followedByUser(int userId, String order) throws UserNotFoundException {
         User user = iUserRepository.getUser(userId);
 
         FollowedUserDTO dto = new FollowedUserDTO();
@@ -70,8 +76,31 @@ public class UserService implements IUserService{
         for (User u : user.getFollowed())
             followed.add(UserMapper.userToUserIdNameDTO(u));
 
+        if(order != null)
+            orderListUserIdNameDTObyName(followed, order);
+
         dto.setFollowed(followed);
 
         return dto;
     }
+
+    @Override
+    public UserDTO getUserById(int userId) throws UserNotFoundException {
+        return UserMapper.userToUserDTO(iUserRepository.getUser(userId));
+    }
+
+    private void orderListUserIdNameDTObyName(ArrayList<UserIdNameDTO> list, String order) {
+        switch (order){
+            case ("name_asc") :
+                list.sort( (a,b) -> a.getUserName().compareTo(b.getUserName()));
+            break;
+
+            case ("name_desc") :
+                list.sort( (a,b) -> b.getUserName().compareTo(a.getUserName()));
+            break;
+
+            default:
+        }
+    }
+
 }

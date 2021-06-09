@@ -7,8 +7,7 @@ import java.time.LocalDate;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostDTO {
-    private int userId;
+public class PostWithoutIdUserDTO {
     private int id_post;
     private LocalDate Date;
     private Product detail;
@@ -17,5 +16,3 @@ public class PostDTO {
     private boolean hasPromo;
     private double discount;
 }
-
-
