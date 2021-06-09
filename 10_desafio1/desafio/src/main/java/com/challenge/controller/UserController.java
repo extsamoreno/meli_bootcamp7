@@ -1,5 +1,6 @@
 package com.challenge.controller;
 
+import com.challenge.dto.UserDTO;
 import com.challenge.enums.SortingUserEnum;
 import com.challenge.exception.UserIdNotFoundException;
 import com.challenge.service.UserService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -16,30 +18,30 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/{userId}/followed/{userToFollow}")
-    public ResponseEntity follow(@PathVariable Integer userId, @PathVariable Integer userToFollow) throws IOException, UserIdNotFoundException {
+    @PostMapping("/{userId}/follow/{userToFollow}")
+    public ResponseEntity<String> follow(@PathVariable Integer userId, @PathVariable Integer userToFollow) throws IOException, UserIdNotFoundException {
         userService.follow(userId, userToFollow);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("User followed");
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException {
+    public ResponseEntity<String> unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException {
         userService.unfollow(userId, userIdToUnfollow);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("User unfollowed");
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity getFollowersCount(@PathVariable Integer userId) throws UserIdNotFoundException {
+    public ResponseEntity<Integer> getFollowersCount(@PathVariable Integer userId) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollowersCount(userId));
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity getFollowers(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
+    public ResponseEntity<List<UserDTO>> getFollowers(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollowers(userId, sorting));
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity getFollows(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
+    public ResponseEntity<List<UserDTO>> getFollows(@PathVariable Integer userId, @RequestParam(name = "order", required = false) SortingUserEnum sorting) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollows(userId, sorting));
     }
 }
