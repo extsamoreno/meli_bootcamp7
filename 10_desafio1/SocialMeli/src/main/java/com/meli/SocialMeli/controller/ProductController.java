@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/products")
@@ -29,7 +30,7 @@ public class ProductController {
     }
 
     @GetMapping(path = "/followed/{userId}/list")
-    public ResponseEntity<UserFollowedpostDto> getFollowedPosts(@PathVariable("userId") int userId) throws InvalidUserIdException {
-        return new ResponseEntity<>(iProductService.getFollowedPost(userId),HttpStatus.OK);
+    public ResponseEntity<UserFollowedpostDto> getFollowedPosts(@PathVariable("userId") int userId, @RequestParam("order") Optional<String> order) throws InvalidUserIdException {
+        return new ResponseEntity<>(iProductService.getFollowedPost(userId,order),HttpStatus.OK);
     }
 }

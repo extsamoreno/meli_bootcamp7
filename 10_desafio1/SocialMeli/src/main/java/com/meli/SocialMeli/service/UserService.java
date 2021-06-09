@@ -114,20 +114,4 @@ public class UserService implements IUserService{
         userList=new SortUtil<User>().sort(userList,comp);
         return userList;
     }
-
-    private ArrayList<Integer> extractFollowers(ArrayList<Follow> follows){
-        ArrayList<Integer> idList = new ArrayList<>();
-        for (Follow follow : follows) {
-            idList.add(follow.getFollowerId());
-        }
-        return idList;
-    }
-
-    private ArrayList<Integer> extractFolloweds(ArrayList<Follow> follows){
-        ArrayList<Integer> idList = new ArrayList<>();
-        for (Follow follow : follows) {
-            idList.add(follow.getFollowedId());
-        }
-        return idList;
-    }
 }

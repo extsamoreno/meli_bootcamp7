@@ -10,9 +10,10 @@ import com.meli.SocialMeli.model.Post;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public interface IProductService {
     void newPost(PostDto postDto) throws ParseException, InvalidPostException, InvalidProductException;
 
-    UserFollowedpostDto getFollowedPost(int userId) throws InvalidUserIdException;
+    UserFollowedpostDto getFollowedPost(int userId, Optional<String> order) throws InvalidUserIdException;
 }

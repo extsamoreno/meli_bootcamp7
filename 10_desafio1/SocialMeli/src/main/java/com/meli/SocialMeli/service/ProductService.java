@@ -13,6 +13,7 @@ import com.meli.SocialMeli.model.Product;
 import com.meli.SocialMeli.model.User;
 import com.meli.SocialMeli.repository.IProductRepository;
 import com.meli.SocialMeli.repository.IUserRepository;
+import com.meli.SocialMeli.util.SortUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class ProductService implements IProductService{
@@ -44,13 +47,14 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public UserFollowedpostDto getFollowedPost(int userId) throws InvalidUserIdException {
+    public UserFollowedpostDto getFollowedPost(int userId, Optional<String> order) throws InvalidUserIdException {
         validateId(userId);
         ArrayList<Post> postList = new ArrayList<>();
         for(User user : iUserRepository.getFolloweds(userId)){
             postList.addAll(iProductRepository.getPostByUser(user.getUserId()));
         }
-        postList=sortPostByDate(postList);
+        if(order.isEmpty()) order=Optional.of("aa");
+        postList=sortPost(postList,order.get());
         postList=trimByDays(postList,14);
         ArrayList<PostResDto> postDtoList = new ArrayList<>();
         for(Post post : postList){
@@ -59,7 +63,7 @@ public class ProductService implements IProductService{
         return new UserFollowedpostDto(userId,postDtoList);
     }
 
-    public void validatePost(Post post) throws InvalidPostException {
+    private void validatePost(Post post) throws InvalidPostException {
         if(post.getId_post()<=0 ||
         post.getDate()==null ||
         post.getCategory()<=0 ||
@@ -68,7 +72,7 @@ public class ProductService implements IProductService{
         }
     }
 
-    public void validateProduct(Product product) throws InvalidProductException {
+    private void validateProduct(Product product) throws InvalidProductException {
         if(product.getProduct_id()<=0 ||
         product.getProductName()==null || product.getProductName().equals("") ||
         product.getBrand()==null || product.getBrand().equals("") ||
@@ -84,27 +88,6 @@ public class ProductService implements IProductService{
         }
     }
 
-    public ArrayList<Post> sortPostByDate(ArrayList<Post> postList) {
-        for (int i = 0; i < postList.size()-1; i++) {
-            for (int j = 0; j < postList.size() - 1; j++) {
-                if (comparePost(postList.get(j),postList.get(j+1))) {
-                    Post tmp = postList.get(j);
-                    postList.set(j,postList.get(j+1));
-                    postList.set(j+1,tmp);
-                }
-            }
-        }
-        return postList;
-    }
-
-    private boolean comparePost(Post post, Post post1) {
-        if (post.getDate().before(post1.getDate())){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     private ArrayList<Post> trimByDays(ArrayList<Post> postList,int days){
         ZoneId defaultZoneId = ZoneId.systemDefault();
         LocalDate localDate = LocalDate.now();
@@ -112,9 +95,26 @@ public class ProductService implements IProductService{
 
         for (int i = 0; i < postList.size(); i++) {
             if(ChronoUnit.DAYS.between(postList.get(i).getDate().toInstant(),curDate.toInstant())>days){
-                postList=new ArrayList<>(postList.subList(0,i));
+                postList.remove(i);
+                i=i--;
             }
         }
+        return postList;
+    }
+
+    private ArrayList<Post> sortPost(ArrayList<Post> postList, String order) {
+        Comparator<Post> comp;
+        switch(order){
+            case "date_asc":
+                comp = (a,b)->(int)ChronoUnit.DAYS.between(a.getDate().toInstant(),b.getDate().toInstant());
+                break;
+            case "date_desc":
+                comp = (a,b)->(int)ChronoUnit.DAYS.between(b.getDate().toInstant(),a.getDate().toInstant());
+                break;
+            default:
+                return postList;
+        }
+        postList=new SortUtil<Post>().sort(postList,comp);
         return postList;
     }
 }
