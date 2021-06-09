@@ -1,10 +1,10 @@
 package com.example.desafio1.service.mapper;
 
 import com.example.desafio1.model.User;
-import com.example.desafio1.service.dto.ResponseCountFollowersDTO;
-import com.example.desafio1.service.dto.ResponseListFollowedDTO;
-import com.example.desafio1.service.dto.ResponseListFollowersDTO;
-import com.example.desafio1.service.dto.ResponseUserDTO;
+import com.example.desafio1.service.dto.user.ResponseCountFollowersDTO;
+import com.example.desafio1.service.dto.user.ResponseListFollowedDTO;
+import com.example.desafio1.service.dto.user.ResponseListFollowersDTO;
+import com.example.desafio1.service.dto.user.ResponseUserDTO;
 
 import java.util.ArrayList;
 

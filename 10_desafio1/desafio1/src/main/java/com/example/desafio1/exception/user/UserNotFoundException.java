@@ -1,4 +1,4 @@
-package com.example.desafio1.exception;
+package com.example.desafio1.exception.user;
 
 import org.springframework.http.HttpStatus;
 

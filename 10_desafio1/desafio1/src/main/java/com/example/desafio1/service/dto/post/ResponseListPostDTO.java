@@ -1,6 +1,5 @@
-package com.example.desafio1.service.dto;
+package com.example.desafio1.service.dto.post;
 
-import com.example.desafio1.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +7,10 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ResponseUserDTO {
+@AllArgsConstructor
+public class ResponseListPostDTO {
 
     private int userId;
-    private String userName;
+    private ArrayList<ResponsePostDTO> posts = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
-package com.example.desafio1.model;
+package com.example.desafio1.service.dto.post;
 
+import com.example.desafio1.model.ProductDetail;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +12,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+public class ResponsePostDTO {
 
-    private int userId;
     private Integer idPost;
 
     private @JsonFormat(pattern = "dd-mm-yyyy")
@@ -22,4 +22,5 @@ public class Post {
     private ProductDetail detail;
     private int category;
     private double price;
+
 }

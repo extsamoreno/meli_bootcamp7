@@ -1,6 +1,6 @@
 package com.example.desafio1.repository;
 
-import com.example.desafio1.exception.UserNotFoundException;
+import com.example.desafio1.exception.user.UserNotFoundException;
 import com.example.desafio1.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,7 @@ import java.util.HashMap;
 @Repository
 public class UserRepository implements iUserRepository {
 
+    // Map with Users
     HashMap<Integer, User> mapUsers = new HashMap();
 
     public UserRepository() {
@@ -26,7 +27,12 @@ public class UserRepository implements iUserRepository {
 
     // Search user by Id
     @Override
-    public User findUserById(Integer id) {
+    public User findUserById(Integer id) throws UserNotFoundException {
+
+        // Exception: ID doesn't exist
+        if (mapUsers.get(id) == null) {
+            throw new UserNotFoundException(id);
+        }
         return mapUsers.get(id);
     }
 
@@ -34,11 +40,8 @@ public class UserRepository implements iUserRepository {
     // Load default users
     public void loadUsers() {
 
-        // Sellers
         mapUsers.put(0, new User(0, "tomas", true, new ArrayList<User>(), new ArrayList<User>()));
         mapUsers.put(1, new User(1, "carlos", true, new ArrayList<User>(), new ArrayList<User>()));
-
-        // Buyers
         mapUsers.put(2, new User(2, "agustin", false, new ArrayList<User>(), new ArrayList<User>()));
         mapUsers.put(3, new User(3, "mario", false, new ArrayList<User>(), new ArrayList<User>()));
     }
