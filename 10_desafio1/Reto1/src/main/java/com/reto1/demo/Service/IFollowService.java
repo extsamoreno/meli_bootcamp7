@@ -18,4 +18,6 @@ public interface IFollowService {
     UserDTOFolloweds getFolloweds(int userID) throws UserIdNotFoundException;
 
     String creatPost(Post post) throws UserIdNotFoundException;
+
+    String unFollow(int userId, int userIdToUnfollow);
 }

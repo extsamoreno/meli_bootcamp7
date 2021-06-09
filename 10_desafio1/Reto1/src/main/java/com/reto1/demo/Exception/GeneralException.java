@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 
 @Data
 @NoArgsConstructor
-public class UserException extends Exception{
+public class GeneralException extends Exception{
     ErrorDTO error;
     HttpStatus status;
 
-    public UserException(String message, HttpStatus status){
+    public GeneralException(String message, HttpStatus status){
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setMessage(message);
         errorDTO.setName(this.getClass().getSimpleName());

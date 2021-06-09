@@ -45,4 +45,9 @@ public class FollowService implements IFollowService{
         user.addPost(post);
         return post.getDetail().getProductName();
     }
+
+    @Override
+    public String unFollow(int userId, int userIdToUnfollow) {
+        return null;
+    }
 }

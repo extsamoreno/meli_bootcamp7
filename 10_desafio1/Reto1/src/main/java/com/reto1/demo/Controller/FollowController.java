@@ -54,7 +54,24 @@ public class FollowController {
     public ResponseEntity<UserDTOFolloweds> listFolloweds(@PathVariable int UserID) throws UserIdNotFoundException {
         return new ResponseEntity<>(iFollowService.getFolloweds(UserID), HttpStatus.OK);
     }
-    
+
+
+    //UnFollow
+    @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<String>  unFollow(@PathVariable int userId,
+                                            @PathVariable int userIdToUnfollow){
+        String userName = iFollowService.unFollow(userId, userIdToUnfollow);
+        return new ResponseEntity("User "+userName+" unfollow",HttpStatus.OK);
+    }
+
+
+    /*
+     * Crear función donde pueda editar los post
+     * Equals user
+     * */
+
+
+
 }
 
 

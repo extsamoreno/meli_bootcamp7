@@ -1,18 +1,17 @@
-package com.reto1.demo.Model;
+package com.reto1.demo.Model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.reto1.demo.Model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
-    int userId;
+public class PostDTO {
     int id_post;
     @JsonFormat(pattern = "dd-MM-yyyy")
     Date date;
