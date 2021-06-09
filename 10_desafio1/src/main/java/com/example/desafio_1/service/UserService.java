@@ -49,13 +49,19 @@ public class UserService implements IUserService {
         }
     }
 
-    private void checkInstance(User user, String instanceType) throws UserExceptionWrongType {
+    @Override
+    public void checkInstance(User user, String instanceType) throws UserExceptionWrongType {
         if (instanceType.equals("buyer") && !(user instanceof Buyer)) {
             throw new UserExceptionWrongType(user.getId(), "Buyer");
         }
         if (instanceType.equals("seller") && !(user instanceof Seller)) {
             throw new UserExceptionWrongType(user.getId(), "Seller");
         }
+    }
+
+    @Override
+    public void checkInstance(int userId, String instanceType) throws UserExceptionWrongType, UserExceptionNotFound {
+        checkInstance(getUserById(userId), instanceType);
     }
 
     @Override
@@ -109,11 +115,15 @@ public class UserService implements IUserService {
         return userDTO;
     }
 
-    public boolean existsUser(int userId) {
-        return userRepository.getById(userId) == null;
+    @Override
+    public boolean existsUser(int userId) throws UserExceptionNotFound {
+        if(userRepository.getById(userId) == null) {
+            throw new UserExceptionNotFound(userId);
+        }
+        return true;
     }
 
-    public User getUserById(int userId) throws UserExceptionNotFound {
+    private User getUserById(int userId) throws UserExceptionNotFound {
 
         User user = userRepository.getById(userId);
 

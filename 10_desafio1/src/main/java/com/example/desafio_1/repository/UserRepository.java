@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class UserRepository implements IUserRepository{
 
-    HashMap<Integer, User> users;
+    private HashMap<Integer, User> users;
     public UserRepository() {
         this.users = new HashMap<Integer, User>(); //Load data
         add(new Buyer("Genaro"));
