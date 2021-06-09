@@ -10,4 +10,5 @@ public interface IUserRepository {
     void addFollower(User userTo, User userFrom);
     List<User> getUserFollowers(Integer userId);
     List<User> getUserFollowed(Integer userId);
+    void deleteFollower(Integer userId, Integer userIdToUnfollow);
 }

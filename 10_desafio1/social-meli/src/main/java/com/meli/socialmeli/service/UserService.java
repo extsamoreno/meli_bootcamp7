@@ -68,4 +68,17 @@ public class UserService implements IUserService {
 
         return new UserFollowedDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowed(userId));
     }
+
+    @Override
+    public void unfollowUser(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException {
+        if(iUserRepository.findUserById(userId) == null) {
+            throw new UserIdNotFoundException(userId);
+        }
+
+        if(iUserRepository.findUserById(userIdToUnfollow) == null) {
+            throw new UserIdNotFoundException(userIdToUnfollow);
+        }
+
+        iUserRepository.deleteFollower(userId,userIdToUnfollow);
+    }
 }

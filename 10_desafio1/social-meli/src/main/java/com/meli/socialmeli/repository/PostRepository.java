@@ -1,10 +1,11 @@
 package com.meli.socialmeli.repository;
 
 import com.meli.socialmeli.model.Post;
+import com.meli.socialmeli.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class PostRepository implements IPostRepository {
@@ -16,7 +17,44 @@ public class PostRepository implements IPostRepository {
 
     @Override
     public void insertPost(Post post) {
-        this.posts.add(post);
-        System.out.println(this.posts.get(0));
+        Optional<Post> item = this.posts.stream().filter(i -> i.getPostId().equals(post.getPostId()) && i.getUserId().equals(post.getUserId())).findFirst();
+
+        if(item.isEmpty()) {
+            this.posts.add(post);
+        }
+    }
+
+    @Override
+    public List<Post> getFollowedPosts(List<User> followed) {
+        List<Post> followedPosts = new ArrayList<>();
+
+        for (User u : followed) {
+            followedPosts.addAll(getPostsByUser(u.getUserId()));
+        }
+
+        followedPosts.sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
+
+        return followedPosts;
+    }
+
+    private List<Post> getPostsByUser(Integer userId) {
+        return this.posts.stream()
+                .filter(i -> i.getUserId().equals(userId))
+                .filter(i -> i.getDate().after(getDateBeforeTwoWeeks()))
+                .collect(Collectors.toList());
+    }
+
+    private Date getDateBeforeTwoWeeks() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.getTime();
+        calendar.add(Calendar.DATE, -14); //2 weeks
+        return calendar.getTime();
+    }
+
+    private Date addDays(Date date, int days) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, days);
+        return calendar.getTime();
     }
 }

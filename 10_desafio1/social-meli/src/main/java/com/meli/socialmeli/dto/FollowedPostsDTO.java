@@ -1,12 +1,14 @@
 package com.meli.socialmeli.dto;
 
+import com.meli.socialmeli.model.Post;
+
+import java.util.List;
 import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowersCountDTO {
+public class FollowedPostsDTO {
     private Integer userId;
-    private String userName;
-    private Integer followersCount;
+    private List<Post> posts;
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 @ToString
 public class Post {
     private Integer userId;
-    private Integer id_post;
+    private Integer postId;
     private Date date;
     private Product detail;
     private Integer category;

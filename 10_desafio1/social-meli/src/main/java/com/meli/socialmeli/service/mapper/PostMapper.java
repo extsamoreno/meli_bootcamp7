@@ -8,7 +8,7 @@ public class PostMapper {
         Post post = new Post();
 
         post.setUserId(newPost.getUserId());
-        post.setId_post(newPost.getId_post());
+        post.setPostId(newPost.getPostId());
         post.setDate(newPost.getDate());
         post.setDetail(newPost.getDetail());
         post.setCategory(newPost.getCategory());

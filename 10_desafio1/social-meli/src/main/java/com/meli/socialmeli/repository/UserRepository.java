@@ -70,6 +70,16 @@ public class UserRepository implements IUserRepository {
         return followed;
     }
 
+    @Override
+    public void deleteFollower(Integer userId, Integer userIdToUnfollow) {
+        Optional<Follow> item = this.follows.stream().filter(i -> i.getUserTo().getUserId().equals(userIdToUnfollow) && i.getUserFrom().getUserId().equals(userId)).findFirst();
+
+        if(item.isPresent()) {
+            Follow followToDelete = item.get();
+            this.follows.remove(followToDelete);
+        }
+    }
+
     private List<User> loadDatabase() {
         File file = null;
 

@@ -41,4 +41,11 @@ public class UserController {
     public ResponseEntity<UserFollowedDTO> getUserFollowed(@PathVariable Integer userId) throws UserIdNotFoundException {
         return new ResponseEntity<>(iUserService.userFollowed(userId), HttpStatus.OK);
     }
+
+    //Requirement US 0007
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException {
+        iUserService.unfollowUser(userId,userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
