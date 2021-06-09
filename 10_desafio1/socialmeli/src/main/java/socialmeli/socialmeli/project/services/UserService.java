@@ -5,18 +5,51 @@ import org.springframework.stereotype.Service;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowAlreadyException;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowMyselfException;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.UnfollowException;
 import socialmeli.socialmeli.project.models.User;
 import socialmeli.socialmeli.project.repository.IUserRepository;
-import socialmeli.socialmeli.project.services.Dto.UserDto.FollowedListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserDto.UserRequestDto;
+import socialmeli.socialmeli.project.services.Dto.UserDto.*;
 import socialmeli.socialmeli.project.services.mapper.mapper;
 
 @Service
 public class UserService implements IUserService{
     @Autowired
     IUserRepository iUserRepository;
+
+    @Override
+    public void unfollowUser(UserUnfollowRequestDto userUnfollowRequestDto) throws IdNotFoundException, UnfollowException {
+        if (!iUserRepository.getUserFollowersList(userUnfollowRequestDto.getUserIdToUnfollow())
+                .stream()
+                .anyMatch(user -> user.getUserId() == userUnfollowRequestDto.getUserId())) {
+            throw new UnfollowException(userUnfollowRequestDto.getUserIdToUnfollow().toString());
+        }
+        removeUserFromFollowersList(userUnfollowRequestDto);
+        removeUserFromFollowedList(userUnfollowRequestDto);
+    }
+
+    private void removeUserFromFollowedList(UserUnfollowRequestDto userUnfollowRequestDto) throws IdNotFoundException {
+        User userToRemove =  iUserRepository.getUserFollowedList(userUnfollowRequestDto.getUserId())
+                .stream()
+                .filter(x -> x.getUserId() == userUnfollowRequestDto.getUserIdToUnfollow())
+                .findFirst()
+                .get();
+
+        iUserRepository.getUserFollowedList(userUnfollowRequestDto.getUserId())
+                .remove(userToRemove);
+    }
+
+    private void removeUserFromFollowersList(UserUnfollowRequestDto userUnfollowRequestDto) throws IdNotFoundException {
+        User userToRemove = iUserRepository.getUserFollowersList(userUnfollowRequestDto.getUserIdToUnfollow())
+                .stream()
+                .filter(x -> x.getUserId() == userUnfollowRequestDto.getUserId())
+                .findFirst()
+                .get();
+
+        iUserRepository.getUserFollowersList(userUnfollowRequestDto.getUserIdToUnfollow())
+                .remove(userToRemove);
+    }
+
+
 
     @Override
     public void followUser (UserRequestDto userRequestDto) throws IdNotFoundException, FollowMyselfException, FollowAlreadyException {
@@ -29,14 +62,21 @@ public class UserService implements IUserService{
           throw new FollowAlreadyException(userRequestDto.getUserIdToFollow().toString());
       }
         else{
-          User userFollower = iUserRepository.findUserById(userRequestDto.getUserId());
-          User userFollowed = iUserRepository.findUserById(userRequestDto.getUserIdToFollow());
-
-          iUserRepository.getUserFollowersList(userRequestDto.getUserIdToFollow())
-                  .add(new User(userFollower.getUserId(),userFollower.getUserName()));
-          iUserRepository.getUserFollowedList(userRequestDto.getUserId())
-                  .add(new User(userFollowed.getUserId(),userFollowed.getUserName()));
+          addUserToFollowerList(userRequestDto);
+          addUserToFollowedList(userRequestDto);
       }
+    }
+
+    private void addUserToFollowedList(UserRequestDto userRequestDto) throws IdNotFoundException {
+        User userFollowed = iUserRepository.findUserById(userRequestDto.getUserIdToFollow());
+        iUserRepository.getUserFollowedList(userRequestDto.getUserId())
+                .add(new User(userFollowed.getUserId(),userFollowed.getUserName()));
+    }
+
+    private void addUserToFollowerList(UserRequestDto userRequestDto) throws IdNotFoundException {
+        User userFollower = iUserRepository.findUserById(userRequestDto.getUserId());
+        iUserRepository.getUserFollowersList(userRequestDto.getUserIdToFollow())
+                .add(new User(userFollower.getUserId(),userFollower.getUserName()));
     }
 
     @Override

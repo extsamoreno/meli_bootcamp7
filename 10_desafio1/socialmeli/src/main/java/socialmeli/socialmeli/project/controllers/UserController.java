@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowAlreadyException;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowMyselfException;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
-import socialmeli.socialmeli.project.services.Dto.UserDto.FollowedListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersListResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersResponseDto;
-import socialmeli.socialmeli.project.services.Dto.UserDto.UserRequestDto;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.UnfollowException;
+import socialmeli.socialmeli.project.services.Dto.UserDto.*;
 import socialmeli.socialmeli.project.services.IUserService;
 
 import java.util.ArrayList;
@@ -46,4 +44,12 @@ public class UserController {
         return new ResponseEntity<>(iUserService.getFollowedById(userId.toString()),HttpStatus.OK);
     }
 
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> unfollowUser (@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws IdNotFoundException, UnfollowException {
+        UserUnfollowRequestDto userUnfollowRequestDto = new UserUnfollowRequestDto(userId,userIdToUnfollow);
+        iUserService.unfollowUser(userUnfollowRequestDto);
+        ArrayList<String> response = new ArrayList<>();
+        response.add("userId: "+userId+" has successfully unfollowed userIdToUnfollow: "+userIdToUnfollow);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
