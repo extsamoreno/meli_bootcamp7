@@ -20,6 +20,14 @@ public class PostMapper {
         postDTO.setCategory(post.getCategory());
         postDTO.setPrice(post.getPrice());
 
+        if (post.isHasPromo()) {
+            postDTO.setHasPromo(post.isHasPromo());
+        }
+
+        if (post.getDiscount() > 0) {
+            postDTO.setDiscount(post.getDiscount());
+        }
+
         return postDTO;
     }
 
@@ -46,6 +54,14 @@ public class PostMapper {
         post.setDetail(mapToProductDetail(postDTO.getDetail()));
         post.setCategory(postDTO.getCategory());
         post.setPrice(postDTO.getPrice());
+
+        if (postDTO.isHasPromo()) {
+            post.setHasPromo(postDTO.isHasPromo());
+        }
+
+        if (postDTO.getDiscount() > 0) {
+            post.setDiscount(postDTO.getDiscount());
+        }
 
         return post;
     }

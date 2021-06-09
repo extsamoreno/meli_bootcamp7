@@ -26,9 +26,17 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/newpromopost")
+    public ResponseEntity<Void> insertPromoPost(@RequestBody PostDTO postDTO) throws InvalidIdException, PostIdAlreadyExistsException {
+
+        productService.insertNewPromoPost(postDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<List<PostCollectionDTO>> getFollowedMerchantsPosts(@PathVariable int userId, @RequestParam (required = false, defaultValue = "date_desc") String order) throws InvalidIdException{
 
         return new ResponseEntity<>(productService.getFollowedMerchantsPosts(userId, order), HttpStatus.OK);
     }
+
 }

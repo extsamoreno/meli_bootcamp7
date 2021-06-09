@@ -77,6 +77,21 @@ public class ProductService {
         return postCollectionDTOList;
     }
 
+    public void insertNewPromoPost(PostDTO postDTO) throws InvalidIdException, PostIdAlreadyExistsException {
+
+        if (userRepository.userIdIsNotValid(postDTO.getUserId())) {
+            throw new InvalidIdException();
+        }
+
+        if (postRepository.postIdAlreadyExists(postDTO.getIdPost())) {
+            throw new PostIdAlreadyExistsException();
+        }
+
+        postRepository.insertNewPost(postDTO.getIdPost(), mapToPost(postDTO));
+
+    }
+
+
 }
 
 
