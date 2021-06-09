@@ -1,8 +1,6 @@
 package meli.springchallenge.services;
 
-import meli.springchallenge.dtos.PostDTO;
-import meli.springchallenge.dtos.FollowedPostDTO;
-import meli.springchallenge.dtos.UserDTO;
+import meli.springchallenge.dtos.*;
 import meli.springchallenge.exceptions.PostIdNotValidException;
 import meli.springchallenge.exceptions.ProductIdNotValidException;
 import meli.springchallenge.exceptions.UserNotValidException;
@@ -16,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService{
@@ -67,6 +66,53 @@ public class ProductService implements IProductService{
 
 
         return new FollowedPostDTO(userId, postDTOs);
+    }
+
+    @Override
+    public CountPromoDTO countPromoPost(int userId) throws UserNotValidException {
+
+        String userName = userRepository.getUserById(userId).getUserName();
+        int countPost = 0;
+
+        try{
+            List<Post> posts = productRepository.getPostByUserId(userId);
+
+            for(Post p:posts){
+                if(p.isHasPromo()){
+                    countPost++;
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return new CountPromoDTO( userId, userName, countPost);
+    }
+
+    @Override
+    public PostsListDTO getPostsByUserId(int userId, String filter) throws UserNotValidException {
+        String userName = userRepository.getUserById(userId).getUserName();
+        List<Post> filteredPosts = new ArrayList<>();
+        List<PostDTO> postDTOs = new ArrayList<>();
+        try{
+            List<Post>  posts = productRepository.getPostByUserId(userId);
+            if(filter.equals("hasPromo")){
+                filteredPosts = posts.stream().filter(p->p.isHasPromo()).collect(Collectors.toList());
+            }else{
+                filteredPosts = posts;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        for(Post p:filteredPosts){
+            Product product = productRepository.getProductById(p.getProductId());
+            postDTOs.add(PostMapper.postToDTO(p, product));
+        }
+
+        return new PostsListDTO( userId, userName, postDTOs);
     }
 
 

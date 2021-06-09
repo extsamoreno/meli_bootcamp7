@@ -27,7 +27,9 @@ public class PostMapper {
 //                postDTO.getDate(),
                 postDTO.getDetail().getProduct_id(),
                 postDTO.getCategory(),
-                postDTO.getPrice());
+                postDTO.getPrice(),
+                postDTO.isHasPromo(),
+                postDTO.getDiscount());
     }
 
     public static PostDTO postToDTO(Post post, Product product){
@@ -40,7 +42,9 @@ public class PostMapper {
                 DateMapper.toString(post.getDate()),
                 prodDTO,
                 post.getCategory(),
-                post.getPrice()
+                post.getPrice(),
+                post.isHasPromo(),
+                post.getDiscount()
         );
     }
 

@@ -144,6 +144,127 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "unfollow",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/unfollow/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"unfollow",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MyFollowedPosts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/followed/3/list?order=date_asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"followed",
+						"3",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "date_asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NewPromoPost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 2,\n    \"id_post\" : 21,\n    \"date\" : \"08-06-2021\",\n    \"detail\":{ \"product_id\" : 16,\n        \"productName\" : \"Soy la nueva Promo \",\n        \"type\" : \"Gamer\",\n        \"brand\" : \"Racer\",\n        \"color\" : \"Red & Black\",\n        \"notes\" : \"Special Edition\"\n        },\n    \"category\" : 100,\n    \"price\" : 1500.50,\n    \"hasPromo\": true,\n    \"discount\": 0.25\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/newpromopost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpromopost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CountPromo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/2/countPromo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"2",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PromoList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/2/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"2",
+						"list"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
