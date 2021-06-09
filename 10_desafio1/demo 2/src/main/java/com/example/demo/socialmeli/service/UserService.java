@@ -21,42 +21,54 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public HttpStatus follow(int userid, int useridtofollow) {
-        User user = userRepository.getUserById(userid);
-        User userFollowed = userRepository.getUserById(useridtofollow);
+    public HttpStatus follow(int userId, int useridToFollow) {
+        User user = userRepository.getUserById(userId);
+        User userFollowed = userRepository.getUserById(useridToFollow);
         user.getFollowed().add(userFollowed.getUserId());
         userRepository.refreshUser(user);
         return HttpStatus.OK;
     }
 
     @Override
-    public CountFollowersDTO countFollowers(int userid) {
-        User user = userRepository.getUserById(userid);
+    public CountFollowersDTO countFollowers(int userId) {
+        User user = userRepository.getUserById(userId);
         CountFollowersDTO countFollowersDTO = new CountFollowersDTO();
         countFollowersDTO.setUserId(user.getUserId());
         countFollowersDTO.setUserName(user.getUserName());
-        countFollowersDTO.setFollowers_count(this.getCountFollowers(userid));
+        countFollowersDTO.setFollowers_count(this.getCountFollowers(userId));
         return countFollowersDTO;
     }
 
     @Override
-    public FollowersListDTO getFollowerList(int userid) {
-        User user = userRepository.getUserById(userid);
+    public FollowersListDTO getFollowerList(int userId) {
+        User user = userRepository.getUserById(userId);
         FollowersListDTO followersListDTO = new FollowersListDTO();
-        followersListDTO.setUserId(userid);
+        followersListDTO.setUserId(userId);
         followersListDTO.setUserName(user.getUserName());
-        followersListDTO.setFollowers(this.getList(userid, false));
+        followersListDTO.setFollowers(this.getList(userId, false));
         return followersListDTO;
     }
 
     @Override
-    public FollowedListDTO getFollowedList(int userid) {
-        User user = userRepository.getUserById(userid);
+    public FollowedListDTO getFollowedList(int userId) {
+        User user = userRepository.getUserById(userId);
         FollowedListDTO followedListDTO = new FollowedListDTO();
-        followedListDTO.setUserId(userid);
+        followedListDTO.setUserId(userId);
         followedListDTO.setUserName(user.getUserName());
-        followedListDTO.setFollowed(this.getList(userid, true));
+        followedListDTO.setFollowed(this.getList(userId, true));
         return followedListDTO;
+    }
+
+    @Override
+    public HttpStatus unFollow(int userId, int useridToUnFollow) {
+        User user = userRepository.getUserById(userId);
+        User userFollowed = userRepository.getUserById(useridToUnFollow);
+        for (int i=0;i<user.getFollowed().size();i++){
+            if (user.getFollowed().get(i)==useridToUnFollow)
+                user.getFollowed().remove(i);
+        }
+        userRepository.refreshUser(user);
+        return HttpStatus.OK;
     }
 
 

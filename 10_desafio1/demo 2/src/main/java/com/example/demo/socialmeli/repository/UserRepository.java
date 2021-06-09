@@ -80,4 +80,52 @@ public class UserRepository implements IUserRepository{
     public List<User> getAllUsers() {
         return this.loadDatabase();
     }
+
+    @Override
+    public void refreshPublications(Publication publication) {
+        List<Publication> publications = this.loadDatabasePublications();
+        publications.add(publication);
+        File file = null;
+        try {
+            file = ResourceUtils.getFile("src/main/resources/static/publications.json");
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(file,publications);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private List<Publication> loadDatabasePublications() {
+        File file = null;
+        try {
+            file = ResourceUtils.getFile("src/main/resources/static/publications.json");
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<List<Publication>> typeReference = new TypeReference<>() {};
+        List<Publication> publications = null;
+        try {
+            publications =  objectMapper.readValue(file,typeReference);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return publications;
+
+    }
+    @Override
+    public List<Publication> getAllPublication() {
+        return this.loadDatabasePublications();
+    }
+
 }
+

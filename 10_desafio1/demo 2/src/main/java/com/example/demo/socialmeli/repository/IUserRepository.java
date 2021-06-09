@@ -11,4 +11,7 @@ public interface IUserRepository {
     User getUserById(int id);
     void refreshUser(User user);
     List<User> getAllUsers ();
+    void refreshPublications(Publication publication);
+    List<Publication> getAllPublication();
+
 }

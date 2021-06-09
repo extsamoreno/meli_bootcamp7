@@ -11,10 +11,11 @@ import java.util.ArrayList;
 
 @Service
 public interface IUserService {
-    HttpStatus follow(int userid,int useridtofollow);
+    HttpStatus follow(int userId,int useridToFollow);
     int getCountFollowers (int id);
     ArrayList<UserDTO> getList (int id, boolean isFollowed);
-    CountFollowersDTO countFollowers (int userid);
-    FollowersListDTO getFollowerList(int userid);
-    FollowedListDTO getFollowedList(int userid);
+    CountFollowersDTO countFollowers (int userId);
+    FollowersListDTO getFollowerList(int userId);
+    FollowedListDTO getFollowedList(int userId);
+    HttpStatus unFollow(int userId,int useridToUnFollow);
 }
