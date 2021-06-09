@@ -37,9 +37,8 @@ public class ProductServiceImpl implements IProductService{
         return iProductRepository.getAllProducts();
 
     }
-
     @Override
-    public ProductResponseDTO getPostById(Integer userId) {
+    public ProductResponseDTO getPostById(Integer userId, String order) {
         List<ProductDTO> listResult= new ArrayList<>();
         List<Product> listProducts = iProductRepository.getAllProducts();
         for(Product product: listProducts){
@@ -47,11 +46,23 @@ public class ProductServiceImpl implements IProductService{
                 listResult.add(MapperProduct.toProductDTO(product));
             }
         }
-        //Sort by date
-        Collections.sort(listResult, (o1, o2) -> o1.getDateFromString().compareTo(o2.getDateFromString()));
-        Collections.reverse(listResult);
+        //Sort by date LatestPost
+        if(order == null){
+            Collections.sort(listResult, (o1, o2) -> o1.getDateFromString().compareTo(o2.getDateFromString()));
+            Collections.reverse(listResult);
+            return new ProductResponseDTO(userId,getLatestPosts(listResult));
+        }
+        else if(order.equals("date_asc")){
+            Collections.sort(listResult, (o1, o2) -> o1.getDateFromString().compareTo(o2.getDateFromString()));
+            return new ProductResponseDTO(userId,listResult);
+        }
+        else if(order.equals("date_desc")){
+            Collections.sort(listResult, (o1, o2) -> o1.getDateFromString().compareTo(o2.getDateFromString()));
+            Collections.reverse(listResult);
+            return new ProductResponseDTO(userId,listResult);
+        }
+        else return null;
 
-        return new ProductResponseDTO(userId,getLatestPosts(listResult));
     }
 
 

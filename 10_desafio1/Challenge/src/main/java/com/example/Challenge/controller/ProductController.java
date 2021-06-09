@@ -27,8 +27,8 @@ public class ProductController {
         return new ResponseEntity<>(iProductService.getAllProduct(), HttpStatus.OK);
     }
     @GetMapping("followed/{userId}/list")
-    public ResponseEntity<ProductResponseDTO> getAllPostById(@PathVariable Integer userId){
-        ProductResponseDTO productResponseDTO = iProductService.getPostById(userId);
+    public ResponseEntity<ProductResponseDTO> getAllPostById(@PathVariable Integer userId, @RequestParam(required = false) String order){
+        ProductResponseDTO productResponseDTO = iProductService.getPostById(userId, order);
         return new ResponseEntity<>(productResponseDTO, HttpStatus.OK);
     }
 }

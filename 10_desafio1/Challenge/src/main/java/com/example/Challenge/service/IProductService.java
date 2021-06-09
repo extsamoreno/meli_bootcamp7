@@ -9,5 +9,5 @@ import java.util.List;
 public interface IProductService {
     String newPost(Product product);
     List<Product> getAllProduct();
-    ProductResponseDTO getPostById(Integer idUser);
+    ProductResponseDTO getPostById(Integer idUser, String order);
 }
