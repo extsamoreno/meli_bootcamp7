@@ -1,7 +1,6 @@
 package com.example.socialmeli.services;
 
 import com.example.socialmeli.exceptions.*;
-import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.*;
 import org.springframework.stereotype.Service;

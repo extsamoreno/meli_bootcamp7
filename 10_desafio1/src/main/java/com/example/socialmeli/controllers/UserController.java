@@ -1,8 +1,6 @@
 package com.example.socialmeli.controllers;
 
 import com.example.socialmeli.exceptions.*;
-import com.example.socialmeli.models.User;
-import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.*;
 import com.example.socialmeli.services.UserService;

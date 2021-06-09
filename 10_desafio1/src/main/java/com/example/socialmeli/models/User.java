@@ -15,6 +15,7 @@ public class User {
     private String userName;
     private ArrayList<UserDTO> followers;
     private ArrayList<UserDTO> followed;
+    private ArrayList<Post> posts;
 
     public User(UserDTO userDTO) {
         this.userId = userDTO.getUserId();
