@@ -1,5 +1,7 @@
 package com.example.socialmeli.services;
 
+import com.example.socialmeli.exceptions.ExistentPostException;
+import com.example.socialmeli.exceptions.ExistentPromoPostException;
 import com.example.socialmeli.exceptions.InexistentDateOrderException;
 import com.example.socialmeli.exceptions.InexistentUserException;
 import com.example.socialmeli.models.dtos.PostDTO;
@@ -24,10 +26,10 @@ public class ProductServiceImple implements ProductService{
     ProductRepository productRepository;
 
     @Override
-    public NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException {
-        NewPostResponseDTO newPost = productRepository.addPost(newPostRequestDTO);
+    public String addPost(PostDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException {
+        productRepository.addPost(newPostRequestDTO);
 
-        return newPost;
+        return "Se ha agregado un nuevo producto al repositorio";
     }
 
     @Override
@@ -52,7 +54,7 @@ public class ProductServiceImple implements ProductService{
     }
 
     @Override
-    public String addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException {
+    public String addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException {
         productRepository.addPromoPost(newPromoPostRequestDTO);
 
         return "Se ha agregado un nuevo producto en promoción al repositorio";

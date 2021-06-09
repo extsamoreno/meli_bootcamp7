@@ -1,11 +1,11 @@
 package com.example.socialmeli.repositories;
 
+import com.example.socialmeli.exceptions.ExistentPostException;
+import com.example.socialmeli.exceptions.ExistentPromoPostException;
 import com.example.socialmeli.exceptions.InexistentUserException;
-import com.example.socialmeli.models.Post;
 import com.example.socialmeli.models.User;
 import com.example.socialmeli.models.dtos.PostDTO;
 import com.example.socialmeli.models.dtos.UserDTO;
-import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowedPostsResponseDTO;
 import com.example.socialmeli.models.dtos.response.ListSellerPromoProductsDTO;
@@ -16,22 +16,28 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class ProductRepositoryImple implements ProductRepository{
-    int count = 0;
 
     @Autowired
     UserRepository userRepository;
 
     @Override
-    public NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException {
+    public void addPost(PostDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException {
         User user = userRepository.getUserById(newPostRequestDTO.getUserId());
         PostDTO post = new PostDTO();
         NewPostResponseDTO newPost = new NewPostResponseDTO();
 
-        post.setPostId(count);
+        for (int i = 0; i < user.getPosts().size(); i++) {
+            PostDTO sellerPost = user.getPosts().get(i);
+
+            if(sellerPost.getPostId() == newPostRequestDTO.getPostId()){
+                throw new ExistentPostException(sellerPost.getPostId());
+            }
+        }
+
+        post.setPostId(newPostRequestDTO.getPostId());
         post.setUserId(user.getUserId());
         post.setDetail(newPostRequestDTO.getDetail());
         post.setCategory(newPostRequestDTO.getCategory());
@@ -40,12 +46,8 @@ public class ProductRepositoryImple implements ProductRepository{
 
         user.addPost(post);
 
-        newPost.setPostId(count);
+        newPost.setPostId(newPostRequestDTO.getPostId());
         newPost.setUserId(user.getUserId());
-
-        count++;
-
-        return newPost;
     }
 
     @Override
@@ -77,9 +79,17 @@ public class ProductRepositoryImple implements ProductRepository{
     }
 
     @Override
-    public void addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException {
+    public void addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException {
         User user = userRepository.getUserById(newPromoPostRequestDTO.getUserId());
         PostDTO post = new PostDTO();
+
+        for (int i = 0; i < user.getPosts().size(); i++) {
+            PostDTO sellerPromoPost = user.getPosts().get(i);
+
+            if(sellerPromoPost.getPostId() == newPromoPostRequestDTO.getPostId()){
+                throw new ExistentPromoPostException(sellerPromoPost.getPostId());
+            }
+        }
 
         post.setPostId(newPromoPostRequestDTO.getPostId());
         post.setUserId(newPromoPostRequestDTO.getUserId());

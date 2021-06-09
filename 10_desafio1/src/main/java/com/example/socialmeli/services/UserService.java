@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
     NewUserResponseDTO addUser(NewUserRequestDTO newUserRequestDTO) throws ExistentUserException;
-    FollowSellerResponseDTO followSeller(int userId, int userIdToFollow) throws InexistentUserException, ExistentFollowerException;
+    FollowSellerResponseDTO followSeller(int userId, int userIdToFollow) throws InexistentUserException, ExistentFollowerException, InvalidFollowerException;
     FollowersCountResponseDTO countFollowers(int userId) throws InexistentUserException;
     ListFollowersResponseDTO listFollowers(int userId, String order) throws InexistentUserException, InexistentNameOrderException;
     ListFollowedResponseDTO listFollowed (int userId, String order) throws InexistentUserException, InexistentNameOrderException;

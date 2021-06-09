@@ -18,11 +18,11 @@ public class UserController {
 
     @PostMapping("/addOne")
     public ResponseEntity<NewUserResponseDTO> addUser (@RequestBody NewUserRequestDTO newUser) throws ExistentUserException {
-        return new ResponseEntity<>(userService.addUser(newUser), HttpStatus.OK);
+        return new ResponseEntity<>(userService.addUser(newUser), HttpStatus.CREATED);
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<FollowSellerResponseDTO> followSeller (@PathVariable int userId, @PathVariable int userIdToFollow) throws InexistentUserException, ExistentFollowerException {
+    public ResponseEntity<FollowSellerResponseDTO> followSeller (@PathVariable int userId, @PathVariable int userIdToFollow) throws InexistentUserException, ExistentFollowerException, InvalidFollowerException {
         return new ResponseEntity<>(userService.followSeller(userId, userIdToFollow), HttpStatus.OK);
     }
 

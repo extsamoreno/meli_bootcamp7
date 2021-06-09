@@ -188,26 +188,4 @@ public class UserRepositoryImple implements UserRepository {
         return modifiedUser;
     }
 
-
-    /*private List<User> loadDateBase() {
-        File file = null;
-
-        try {
-            file = ResourceUtils.getFile("classpath:users.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<User>> typeRef = new TypeReference<>(){};
-        List<User> userList = null;
-
-        try {
-            userList = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return userList;
-    }*/
 }

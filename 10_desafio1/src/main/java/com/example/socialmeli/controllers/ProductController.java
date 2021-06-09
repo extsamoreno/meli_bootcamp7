@@ -1,7 +1,10 @@
 package com.example.socialmeli.controllers;
 
+import com.example.socialmeli.exceptions.ExistentPostException;
+import com.example.socialmeli.exceptions.ExistentPromoPostException;
 import com.example.socialmeli.exceptions.InexistentDateOrderException;
 import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.models.dtos.PostDTO;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.*;
@@ -19,7 +22,7 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/newpost")
-    public ResponseEntity<NewPostResponseDTO> addPost (@RequestBody NewPostRequestDTO newPost) throws InexistentUserException {
+    public ResponseEntity<String> addPost (@RequestBody PostDTO newPost) throws InexistentUserException, ExistentPostException {
         return new ResponseEntity<>(productService.addPost (newPost), HttpStatus.OK);
     }
 
@@ -29,7 +32,7 @@ public class ProductController {
     }
 
     @PostMapping("/newpromopost")
-    public ResponseEntity<String> addPost (@RequestBody NewPromoPostRequestDTO newPost) throws InexistentUserException {
+    public ResponseEntity<String> addPromoPost (@RequestBody NewPromoPostRequestDTO newPost) throws InexistentUserException, ExistentPromoPostException {
         return new ResponseEntity<>(productService.addPromoPost (newPost), HttpStatus.OK);
     }
 

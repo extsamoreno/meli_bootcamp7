@@ -29,7 +29,11 @@ public class UserServiceImple implements UserService{
     }
 
     @Override
-    public FollowSellerResponseDTO followSeller(int userId, int userIdToFollow) throws InexistentUserException, ExistentFollowerException {
+    public FollowSellerResponseDTO followSeller(int userId, int userIdToFollow) throws InexistentUserException, ExistentFollowerException, InvalidFollowerException {
+        if(userId == userIdToFollow){
+            throw new InvalidFollowerException();
+        }
+
         FollowSellerResponseDTO modifiedUser = userRepository.followSeller(userId, userIdToFollow);
 
         return modifiedUser;

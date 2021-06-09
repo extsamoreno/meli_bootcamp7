@@ -34,6 +34,11 @@ public class SocialMeliExceptionController {
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 
+    @ExceptionHandler(InvalidFollowerException.class)
+    public ResponseEntity<ErrorDTO> handleInvalidFollowerException(InvalidFollowerException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
     @ExceptionHandler(OrderException.class)
     public ResponseEntity<ErrorDTO> handleGlobalOrderException(OrderException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
@@ -44,21 +49,6 @@ public class SocialMeliExceptionController {
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 
-    @ExceptionHandler(ProductException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalProductException(ProductException e){
-        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
-    }
-
-    @ExceptionHandler(ExistentProductException.class)
-    public ResponseEntity<ErrorDTO> handleExistentProductException(ExistentProductException e){
-        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
-    }
-
-    @ExceptionHandler(ExistentPromoProductException.class)
-    public ResponseEntity<ErrorDTO> handleExistentPromoProductException(ExistentPromoProductException e){
-        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
-    }
-
     @ExceptionHandler(PostException.class)
     public ResponseEntity<ErrorDTO> handleGlobalPostException(PostException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
@@ -66,6 +56,11 @@ public class SocialMeliExceptionController {
 
     @ExceptionHandler(ExistentPostException.class)
     public ResponseEntity<ErrorDTO> handleExistentExistentPostException(ExistentPostException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(ExistentPromoPostException.class)
+    public ResponseEntity<ErrorDTO> handleExistentPromoPostException(ExistentPromoPostException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 }
