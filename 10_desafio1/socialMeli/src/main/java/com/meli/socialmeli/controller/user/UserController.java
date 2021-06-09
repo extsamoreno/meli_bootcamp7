@@ -3,7 +3,7 @@ package com.meli.socialmeli.controller.user;
 import com.meli.socialmeli.dto.user.UserWithFollowedDTO;
 import com.meli.socialmeli.dto.user.UserWithFollowersCountDTO;
 import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
-import com.meli.socialmeli.exception.CanNotFollowException;
+import com.meli.socialmeli.exception.FollowException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<Void> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws IdNotFoundException, CanNotFollowException {
+    public ResponseEntity<Void> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws IdNotFoundException, FollowException {
         userService.followUser(userId, userIdToFollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -38,4 +38,11 @@ public class UserController {
     public UserWithFollowedDTO followedListOf(@PathVariable Integer userId) throws IdNotFoundException {
         return userService.followedOf(userId);
     }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Void> unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws IdNotFoundException, FollowException {
+        userService.unfollowUser(userId, userIdToUnfollow);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }

@@ -63,4 +63,9 @@ public class User {
     public boolean isTheSameUser(User userToFollow) {
         return userId.equals(userToFollow.getUserId());
     }
+
+    public void stopToFollow(User userToFollow) {
+        this.removeFromFollowed(userToFollow);
+        userToFollow.removeFromFollowers(this);
+    }
 }
