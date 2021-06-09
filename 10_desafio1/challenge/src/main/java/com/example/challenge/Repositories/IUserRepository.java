@@ -1,19 +1,27 @@
 package com.example.challenge.Repositories;
 
-import com.example.challenge.Exceptions.UserNoFoundException;
+import com.example.challenge.Exceptions.PostDuplicateException;
+import com.example.challenge.Exceptions.UserNotFoundException;
+import com.example.challenge.Models.Post;
 import com.example.challenge.Models.User;
 import com.example.challenge.Services.DTOs.FollowDTO;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface IUserRepository {
 
-    public String addUser(String userName);
+     String addUser(String userName);
 
-    public FollowDTO follow(int follower, int followed) throws UserNoFoundException;
+     FollowDTO follow(int follower, int followed) throws UserNotFoundException;
 
-    public List<User> getUsers();
+     List<User> getUsers();
 
-    public User findUserByID(int userId) throws UserNoFoundException;
+     User findUserById(int userId) throws UserNotFoundException;
 
+     void loadData() throws UserNotFoundException, PostDuplicateException;
+
+     void addPost(Post post) throws UserNotFoundException, PostDuplicateException;
+
+    FollowDTO unfollow(int follower, int followed) throws UserNotFoundException;
 }

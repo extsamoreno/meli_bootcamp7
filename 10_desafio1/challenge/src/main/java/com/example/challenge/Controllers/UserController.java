@@ -1,6 +1,9 @@
 package com.example.challenge.Controllers;
 
-import com.example.challenge.Exceptions.UserNoFoundException;
+import com.example.challenge.Exceptions.InvalidOrderException;
+import com.example.challenge.Exceptions.UserAlreadyFollowException;
+import com.example.challenge.Exceptions.UserNotFoundException;
+import com.example.challenge.Exceptions.UserSameIdException;
 import com.example.challenge.Services.DTOs.FollowDTO;
 import com.example.challenge.Services.DTOs.FollowerCountDTO;
 import com.example.challenge.Services.DTOs.FollowersDTO;
@@ -9,54 +12,70 @@ import com.example.challenge.Services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     IUserService iUserService;
 
-    @PostMapping("/users/{followerId}/follow/{followedID}")
-    public ResponseEntity<FollowDTO> follow(@PathVariable int followerId, @PathVariable int followedID) throws UserNoFoundException {
-
-        return new ResponseEntity<>(iUserService.follow(followerId, followedID), HttpStatus.OK);
+    //Load HardCode Data
+    @PostMapping("/load")
+    public ResponseEntity<String> create() {
+        return new ResponseEntity<>(iUserService.loadUser(), HttpStatus.OK);
     }
 
-    @GetMapping("/users")
+    // Get a list with all the users (usefull to check changes)
+    @GetMapping
     public ResponseEntity<List<GetUserDTO>> getUsers() {
 
         return new ResponseEntity<>(iUserService.getUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{userId}/followers/count/")
-    public ResponseEntity<FollowerCountDTO> getFollowersCont(@PathVariable int userId) throws UserNoFoundException {
-
-        return new ResponseEntity<>(iUserService.getFollowersCont(userId), HttpStatus.OK);
-    }
-
-    @PostMapping("/users/create/{userName}")
+    @PostMapping("/create/{userName}")
     public ResponseEntity<String> create(@PathVariable String userName) throws Exception {
 
         return new ResponseEntity<>(iUserService.addUser(userName), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getFollowers(@PathVariable int userId) throws UserNoFoundException {
+    @PostMapping("/{followerId}/follow/{followedID}")
+    public ResponseEntity<FollowDTO> follow(@PathVariable int followerId, @PathVariable int followedID) throws UserNotFoundException, UserAlreadyFollowException, UserSameIdException {
 
-        return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.followUser(followerId, followedID), HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<FollowDTO> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException, UserAlreadyFollowException, UserSameIdException {
+
+        return new ResponseEntity<>(iUserService.unfollowUser(userId, userIdToUnfollow), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/count")
+    public ResponseEntity<FollowerCountDTO> getFollowersCount(@PathVariable int userId) throws UserNotFoundException {
+
+        return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<FollowersDTO> getFollowers(@PathVariable int userId, @RequestParam(required = false,
+            defaultValue = "") String order) throws UserNotFoundException, InvalidOrderException {
+
+        return new ResponseEntity<>(iUserService.getFollowers(userId, order), HttpStatus.OK);
 
     }
 
-    @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<FollowersDTO> getFollowed(@PathVariable int userId) throws UserNoFoundException {
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<FollowersDTO> getFollowed(@PathVariable int userId ,@RequestParam(required = false,
+            defaultValue = "") String order) throws UserNotFoundException, InvalidOrderException {
 
-        return new ResponseEntity<>(iUserService.getFollowed(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowed(userId, order), HttpStatus.OK);
 
     }
+
+
+
 }

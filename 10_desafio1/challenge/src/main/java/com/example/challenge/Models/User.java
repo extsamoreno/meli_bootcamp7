@@ -1,5 +1,6 @@
 package com.example.challenge.Models;
 
+import com.example.challenge.Services.DTOs.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,5 +40,18 @@ public class User {
         }
         if (!exist)
             this.followed.add(u);
+    }
+
+    public boolean addNewPost(Post post){
+        boolean exist = false;
+        for (Post p : this.posts) {
+            if (p.getId() == post.getId()) {
+                exist = true;
+            }
+        }
+        if (!exist)
+            this.posts.add(post);
+
+        return !exist;
     }
 }

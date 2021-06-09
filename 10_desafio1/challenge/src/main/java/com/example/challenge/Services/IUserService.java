@@ -1,26 +1,32 @@
 package com.example.challenge.Services;
 
-import com.example.challenge.Exceptions.UserNoFoundException;
-import com.example.challenge.Services.DTOs.FollowDTO;
-import com.example.challenge.Services.DTOs.FollowerCountDTO;
-import com.example.challenge.Services.DTOs.FollowersDTO;
-import com.example.challenge.Services.DTOs.GetUserDTO;
+import com.example.challenge.Exceptions.InvalidOrderException;
+import com.example.challenge.Exceptions.UserAlreadyFollowException;
+import com.example.challenge.Exceptions.UserNotFoundException;
+import com.example.challenge.Exceptions.UserSameIdException;
+import com.example.challenge.Models.User;
+import com.example.challenge.Services.DTOs.*;
 
 import java.util.List;
 
 public interface IUserService {
 
-    public FollowDTO follow(int follower, int followed) throws UserNoFoundException;
+    String loadUser();
 
-    public List<GetUserDTO> getUsers();
+    List<GetUserDTO> getUsers();
 
-    public String addUser(String userName);
+    String addUser(String userName);
 
-    public FollowerCountDTO getFollowersCont(int userId) throws UserNoFoundException;
+    FollowDTO followUser(int follower, int followed) throws UserNotFoundException, UserAlreadyFollowException, UserSameIdException;
 
-    public FollowersDTO getFollowers(int userId) throws UserNoFoundException;
+    FollowerCountDTO getFollowersCount(int userId) throws UserNotFoundException;
 
-    public FollowersDTO getFollowed(int userId) throws UserNoFoundException;
+    FollowersDTO getFollowers(int userId, String order) throws UserNotFoundException, InvalidOrderException;
 
-    ;
+    FollowersDTO getFollowed(int userId, String order) throws UserNotFoundException, InvalidOrderException;
+
+    User getUserById(int userId) throws UserNotFoundException;
+
+    FollowDTO unfollowUser(int followerId, int followedID)throws UserNotFoundException, UserAlreadyFollowException, UserSameIdException;
+
 }

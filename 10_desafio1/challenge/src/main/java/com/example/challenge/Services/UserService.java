@@ -1,28 +1,50 @@
 package com.example.challenge.Services;
 
-import com.example.challenge.Exceptions.UserNoFoundException;
+import com.example.challenge.Exceptions.InvalidOrderException;
+import com.example.challenge.Exceptions.UserAlreadyFollowException;
+import com.example.challenge.Exceptions.UserNotFoundException;
+import com.example.challenge.Exceptions.UserSameIdException;
 import com.example.challenge.Models.User;
 import com.example.challenge.Repositories.IUserRepository;
-import com.example.challenge.Services.DTOs.FollowDTO;
-import com.example.challenge.Services.DTOs.FollowerCountDTO;
-import com.example.challenge.Services.DTOs.FollowersDTO;
-import com.example.challenge.Services.DTOs.GetUserDTO;
+import com.example.challenge.Services.DTOs.*;
 import com.example.challenge.Services.Mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class UserService implements IUserService {
 
+    // A to Z
+    private final Comparator<User> COMPARATOR_NAME_ASC = (a, b)->a.getName().compareTo(b.getName());
+    // Z to A
+    private final Comparator<User> COMPARATOR_NAME_DES = (a, b)->b.getName().compareTo(a.getName());
+
     @Autowired
     IUserRepository iUserRepository;
+
     UserMapper um = new UserMapper();
 
     @Override
-    public FollowDTO follow(int follower, int followed) throws UserNoFoundException {
+    public String loadUser() {
+        iUserRepository.loadData();
+        return "Data load";
+    }
+
+    @Override
+    public FollowDTO followUser(int follower, int followed) throws UserNotFoundException, UserSameIdException, UserAlreadyFollowException {
+
+        if (followed == follower) {
+            throw new UserSameIdException();
+        }
+        User userFollower = iUserRepository.findUserById(follower);
+        User userFollowed = iUserRepository.findUserById(followed);
+        if (userFollower.getFollowed().contains(userFollowed)) {
+            throw new UserAlreadyFollowException(follower, followed);
+        }
         return iUserRepository.follow(follower, followed);
     }
 
@@ -40,20 +62,52 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowerCountDTO getFollowersCont(int userId) throws UserNoFoundException {
-        User u = iUserRepository.findUserByID(userId);
+    public FollowerCountDTO getFollowersCount(int userId) throws UserNotFoundException {
+        User u = iUserRepository.findUserById(userId);
         return um.userToFollowerCount(u);
     }
 
     @Override
-    public FollowersDTO getFollowers(int userId) throws UserNoFoundException {
-        User u = iUserRepository.findUserByID(userId);
+    public FollowersDTO getFollowers(int userId, String order) throws UserNotFoundException, InvalidOrderException {
+        User u = iUserRepository.findUserById(userId);
+        sortUserDTOByName(order, u.getFollowers());
         return um.userToFollowers(u);
     }
 
     @Override
-    public FollowersDTO getFollowed(int userId) throws UserNoFoundException {
-        User u = iUserRepository.findUserByID(userId);
+    public FollowersDTO getFollowed(int userId, String order) throws UserNotFoundException, InvalidOrderException {
+        User u = iUserRepository.findUserById(userId);
+        sortUserDTOByName(order, u.getFollowed());
         return um.userToFollowed(u);
     }
+
+    @Override
+    public User getUserById(int userId) throws UserNotFoundException {
+        return iUserRepository.findUserById(userId);
+    }
+
+
+    @Override
+    public FollowDTO unfollowUser(int follower, int followed) throws UserNotFoundException, UserSameIdException, UserAlreadyFollowException {
+
+        if (followed == follower) {
+            throw new UserSameIdException();
+        }
+        User userFollower = iUserRepository.findUserById(follower);
+        User userFollowed = iUserRepository.findUserById(followed);
+        if (!userFollower.getFollowed().contains(userFollowed))
+            throw new UserAlreadyFollowException(follower, followed);
+        return iUserRepository.unfollow(follower, followed);
+    }
+
+    public void sortUserDTOByName(String order, List<User> list) throws InvalidOrderException {
+        if(order.equals("name_asc")) {
+            list.sort(COMPARATOR_NAME_ASC);
+        } else if(order.equals("name_des")) {
+            list.sort(COMPARATOR_NAME_DES);
+        } else if(!order.equals("")) {
+            throw new InvalidOrderException(order);
+        }
+    }
+
 }

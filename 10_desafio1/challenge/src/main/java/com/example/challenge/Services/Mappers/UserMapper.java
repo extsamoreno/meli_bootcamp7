@@ -22,7 +22,7 @@ public class UserMapper {
         GetUserDTO getUserDTO = new GetUserDTO();
         getUserDTO.setId(user.getId());
         getUserDTO.setName(user.getName());
-        getUserDTO.setFollowed(new ArrayList<>());
+        getUserDTO.setFollowed( new ArrayList<>());
         getUserDTO.setFollowers(new ArrayList<>());
         for (User u : user.getFollowed()) {
             UserDTO us = new UserDTO(u.getId(), u.getName());
@@ -37,23 +37,23 @@ public class UserMapper {
         return getUserDTO;
     }
 
-    public FollowersDTO userToFollowers(User user) {
+    public FollowersDTO userToFollowers(User user){
         FollowersDTO followersDTO = new FollowersDTO();
         followersDTO.setFollowers(new ArrayList<>());
         followersDTO.setUserName(user.getName());
         followersDTO.setId(user.getId());
-        for (User u : user.getFollowers()) {
+        for(User u : user.getFollowers()){
             followersDTO.getFollowers().add(new UserDTO(u.getId(), u.getName()));
         }
         return followersDTO;
     }
 
-    public FollowersDTO userToFollowed(User user) {
+    public FollowersDTO userToFollowed(User user){
         FollowersDTO followersDTO = new FollowersDTO();
         followersDTO.setFollowers(new ArrayList<>());
         followersDTO.setUserName(user.getName());
         followersDTO.setId(user.getId());
-        for (User u : user.getFollowed()) {
+        for(User u : user.getFollowed()){
             followersDTO.getFollowers().add(new UserDTO(u.getId(), u.getName()));
         }
         return followersDTO;

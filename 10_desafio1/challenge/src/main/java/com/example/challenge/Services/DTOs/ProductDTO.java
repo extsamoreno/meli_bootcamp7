@@ -1,15 +1,12 @@
-package com.example.challenge.Models;
+package com.example.challenge.Services.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Product {
+public class ProductDTO {
     private int id;
     private String name;
     private String type;
@@ -18,5 +15,4 @@ public class Product {
     private String notes;
     private Boolean hasPromo;
     private double discount;
-
 }
