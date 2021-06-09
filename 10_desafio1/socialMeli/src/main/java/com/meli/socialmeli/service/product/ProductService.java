@@ -10,6 +10,7 @@ import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
 import com.meli.socialmeli.repository.product.IProductRepository;
 import com.meli.socialmeli.service.SocialMeliMapper;
+import com.meli.socialmeli.service.UserOrderType;
 import com.meli.socialmeli.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,12 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public FollowedPublicationDTO followedRecentsPublications(Integer userId) throws IdNotFoundException {
-        UserWithFollowedDTO user = userService.followedOf(userId);
+    public FollowedPublicationDTO followedRecentPublications(Integer userId) throws IdNotFoundException {
+        UserWithFollowedDTO user = userService.followedOf(userId, UserOrderType.name_asc);
         List<Integer> followedIds = user.getFollowed().stream().map(UserDTO::getUserId).collect(Collectors.toList());
         List<Publication> posts = getRecentsPublications(followedIds);
         orderListDesc(posts);
         return new FollowedPublicationDTO(user.getUserId(), SocialMeliMapper.toPublicationDTOList(posts));
-
     }
 
     private void orderListAsc(List<Publication> list) {

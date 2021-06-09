@@ -25,8 +25,8 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public FollowedPublicationDTO followedPublications(@PathVariable Integer userId) throws IdNotFoundException {
-        return productService.followedRecentsPublications(userId);
+    public ResponseEntity<FollowedPublicationDTO> followedPublications(@PathVariable Integer userId) throws IdNotFoundException {
+        return new ResponseEntity<>(productService.followedRecentPublications(userId), HttpStatus.OK);
     }
 
 }

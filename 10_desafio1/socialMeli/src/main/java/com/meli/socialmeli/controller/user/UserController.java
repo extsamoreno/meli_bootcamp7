@@ -5,6 +5,7 @@ import com.meli.socialmeli.dto.user.UserWithFollowersCountDTO;
 import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
 import com.meli.socialmeli.exception.FollowException;
 import com.meli.socialmeli.exception.IdNotFoundException;
+import com.meli.socialmeli.service.UserOrderType;
 import com.meli.socialmeli.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,18 +26,18 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count/")
-    public UserWithFollowersCountDTO followersCount(@PathVariable Integer userId) throws IdNotFoundException {
-        return userService.followersCountOf(userId);
+    public ResponseEntity<UserWithFollowersCountDTO> followersCount(@PathVariable Integer userId) throws IdNotFoundException {
+        return new ResponseEntity<>(userService.followersCountOf(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
-    public UserWithFollowersDTO followersListOf(@PathVariable Integer userId) throws IdNotFoundException {
-        return userService.followersOf(userId);
+    public ResponseEntity<UserWithFollowersDTO> followersListOf(@PathVariable Integer userId, @RequestParam(required = false) UserOrderType order) throws IdNotFoundException {
+        return new ResponseEntity<>(userService.followersOf(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public UserWithFollowedDTO followedListOf(@PathVariable Integer userId) throws IdNotFoundException {
-        return userService.followedOf(userId);
+    public ResponseEntity<UserWithFollowedDTO> followedListOf(@PathVariable Integer userId, @RequestParam(required = false) UserOrderType order) throws IdNotFoundException {
+        return new ResponseEntity<>(userService.followedOf(userId, order), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")

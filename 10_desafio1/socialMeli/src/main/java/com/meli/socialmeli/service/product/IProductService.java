@@ -10,5 +10,5 @@ import org.springframework.http.ResponseEntity;
 public interface IProductService {
     void createPost(PublicationDTO post) throws CanNotCreatePostException, InvalidDateFormatException;
 
-   FollowedPublicationDTO followedRecentsPublications(Integer userId) throws IdNotFoundException;
+   FollowedPublicationDTO followedRecentPublications(Integer userId) throws IdNotFoundException;
 }
