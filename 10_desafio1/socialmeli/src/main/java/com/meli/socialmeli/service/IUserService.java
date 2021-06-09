@@ -17,10 +17,14 @@ public interface IUserService {
 
     void followUser(int userId, int userIdToFollow) throws SocialExceptionUserNotExists;
 
+    void unfollowUser(int userId, int userIdToUnfollow) throws SocialExceptionUserNotExists;
+
     int getFollowersAmountByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter;
 
     SellerDTO getFollowersByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter;
 
-    UserDTO getFollowingByUserId(Optional<Integer> userId);
+    UserDTO getFollowingByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter;
+
+    void userExists(int userId) throws SocialExceptionUserNotExists;
 
 }

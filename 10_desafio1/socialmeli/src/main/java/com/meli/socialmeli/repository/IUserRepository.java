@@ -14,13 +14,13 @@ public interface IUserRepository {
 
     List<User> getUserList();
 
-    void followUser(User user, int userIdToFollow);
+    void followUser(int userId, int userIdToFollow);
 
     void UnfollowUser(int userId, int userIdToFollow);
 
     int getFollowersAmountByUserId(int userId);
 
-    List<User> getFollowersByUserId(int userId);
+    List<Integer> getFollowersByUserId(int userId);
 
     List<Integer> getFollowingByUserId(int userId);
 

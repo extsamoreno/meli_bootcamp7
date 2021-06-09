@@ -13,8 +13,8 @@ public class Post {
 
     private Integer postId;
     private Integer userId;
-    private LocalDate dateCreation;
-    private LocalDate dateModification;
+    private String dateCreation;
+    private String dateModification;
     private Integer categoryId;
     private Product product;
     private double price;

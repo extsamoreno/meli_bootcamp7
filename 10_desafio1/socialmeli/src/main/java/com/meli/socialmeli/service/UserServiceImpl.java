@@ -35,8 +35,14 @@ public class UserServiceImpl implements IUserService {
     public void followUser(int userId, int userIdToFollow) throws SocialExceptionUserNotExists {
         userExists(userId);
         userExists(userIdToFollow);
-        User user = getUserById(userId);
-        userRepository.followUser(user, userIdToFollow);
+        userRepository.followUser(userId, userIdToFollow);
+    }
+
+    @Override
+    public void unfollowUser(int userId, int userIdToUnfollow) throws SocialExceptionUserNotExists {
+        userExists(userId);
+        userExists(userIdToUnfollow);
+        userRepository.UnfollowUser(userId, userIdToUnfollow);
     }
 
     @Override
@@ -53,16 +59,22 @@ public class UserServiceImpl implements IUserService {
     public SellerDTO getFollowersByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter {
         if (userId.isPresent()) {
             userExists(userId.get());
-            List<UserBaseDTO> followers = userRepository.getFollowersByUserId(userId.get()).stream().map(UserMapper::modelToDBaseDTO).collect(Collectors.toList());
+            List<UserBaseDTO> followers = userRepository.getFollowersByUserId(userId.get()).stream().map(this::getUserById).map(UserMapper::modelToDBaseDTO).collect(Collectors.toList());
             return UserMapper.modelToSellerDTO(getUserById(userId.get()), followers);
-        } else{
+        } else {
             throw new SocialExceptionMissingParameter("userId");
         }
     }
 
     @Override
-    public UserDTO getFollowingByUserId(Optional<Integer> userId) {
-        return null;
+    public UserDTO getFollowingByUserId(Optional<Integer> userId) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter {
+        if (userId.isPresent()) {
+            userExists(userId.get());
+            List<UserBaseDTO> following = userRepository.getFollowingByUserId(userId.get()).stream().map(this::getUserById).map(UserMapper::modelToDBaseDTO).collect(Collectors.toList());
+            return UserMapper.modelToUserDTO(getUserById(userId.get()), following);
+        } else {
+            throw new SocialExceptionMissingParameter("userId");
+        }
     }
 
     private User getUserById(int userId) {
@@ -73,7 +85,8 @@ public class UserServiceImpl implements IUserService {
         return userRepository.findByName(userName);
     }
 
-    private void userExists(int userId) throws SocialExceptionUserNotExists {
+    @Override
+    public void userExists(int userId) throws SocialExceptionUserNotExists {
         User user = getUserById(userId);
         if (user == null) {
             throw new SocialExceptionUserNotExists(userId);

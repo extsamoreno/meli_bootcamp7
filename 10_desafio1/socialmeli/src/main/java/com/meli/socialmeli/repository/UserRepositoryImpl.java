@@ -8,6 +8,7 @@ import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,15 +17,18 @@ import java.util.stream.Collectors;
 public class UserRepositoryImpl implements IUserRepository {
 
     Map<Integer, User> users;
-    Map<Integer, List<User>> follow;
+    Map<Integer, List<Integer>> follow;
+    File file = null;
+    ObjectMapper objectMapper = null;
 
     public UserRepositoryImpl() {
         this.users = new HashMap<>();
         this.follow = new HashMap<>();
+        this.objectMapper = new ObjectMapper();
         List<User> userList = loadUsers();
+        this.follow = loadFollow();
         for (User user : userList) {
             users.put(user.getUserId(), user);
-            follow.put(user.getUserId(), new ArrayList<>());
         }
     }
 
@@ -54,16 +58,19 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public void followUser(User user, int userIdToFollow) {
-        List<User> followers = follow.get(userIdToFollow);
-        followers.add(user);
-        follow.put(userIdToFollow, followers);
+    public void followUser(int userId, int userIdToFollow) {
+        List<Integer> followers = follow.get(userIdToFollow);
+        if (!followers.contains(userId)){
+            followers.add(userId);
+            follow.put(userIdToFollow, followers);
+            updateJsonFollow(this.follow);
+        }
     }
 
     @Override
     public void UnfollowUser(int userId, int userIdToFollow) {
-        List<User> followers = follow.get(userIdToFollow);
-        followers.removeIf(e -> e.getUserId() == userId);
+        List<Integer> followers = follow.get(userIdToFollow);
+        followers.removeIf(e -> e == userId);
         follow.put(userIdToFollow, followers);
     }
 
@@ -73,31 +80,58 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public List<User> getFollowersByUserId(int userId) {
+    public List<Integer> getFollowersByUserId(int userId) {
         return follow.get(userId);
     }
 
     @Override
     public List<Integer> getFollowingByUserId(int userId) {
-        return users.keySet().stream().filter(e -> users.get(e).getUserId() == userId).collect(Collectors.toList());
+        return users.keySet().stream(). filter(e -> follow.get(e).contains(userId)).collect(Collectors.toList());
     }
 
     private List<User> loadUsers() {
-        File file = null;
         try {
-            file = ResourceUtils.getFile("classpath:users.json");
+            this.file = ResourceUtils.getFile("classpath:users.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<User>> typeRef = new TypeReference<>() {
         };
         List<User> users = null;
         try {
-            users = objectMapper.readValue(file, typeRef);
+            users = this.objectMapper.readValue(file, typeRef);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return users;
+    }
+
+    private Map<Integer,List<Integer>> loadFollow() {
+        try {
+            this.file = ResourceUtils.getFile("classpath:follow.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        TypeReference<Map<Integer, List<Integer>>> typeRef = new TypeReference<>() {
+        };
+        Map<Integer, List<Integer>> follow = null;
+        try {
+            follow = this.objectMapper.readValue(this.file, typeRef);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return follow;
+    }
+
+    private void updateJsonFollow(Map<Integer, List<Integer>> follow){
+        try{
+            String jsonString = this.objectMapper.writeValueAsString(follow);
+
+            FileWriter myWriter = new FileWriter("src/main/resources/follow.json", false);
+            myWriter.write(jsonString);
+            myWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
