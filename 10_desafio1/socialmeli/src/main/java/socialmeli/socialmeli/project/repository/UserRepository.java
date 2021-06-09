@@ -22,7 +22,9 @@ import java.util.List;
 public class UserRepository implements IUserRepository{
         public static List<User> listUsers = new ArrayList<>();
         private static HashMap<Integer, ArrayList<User>> mapUsersFollowers= new HashMap<>(); //Map to save users and their followers list
+        private static HashMap<Integer, ArrayList<User>> mapUsersFollowed= new HashMap<>(); //Map to save users and their users followed list
 
+       @Override
         public void loadDataBase() {
             File file = null;
 
@@ -46,12 +48,16 @@ public class UserRepository implements IUserRepository{
                 this.listUsers.add(u);
             }
         }
+
+    @Override
         public void instanceMapUsersFollowers(){
             for (User u: listUsers) {
                 mapUsersFollowers.put(u.getUserId(),new ArrayList<>());
+                mapUsersFollowed.put(u.getUserId(),new ArrayList<>());
             }
         }
 
+    @Override
         public ArrayList<User> getUserFollowersList (Integer userId) throws IdNotFoundException {
             if (mapUsersFollowers.get(userId)==null){
                 throw new IdNotFoundException(userId.toString());
@@ -59,7 +65,16 @@ public class UserRepository implements IUserRepository{
             return mapUsersFollowers.get(userId);
         }
 
-        public User findUserById (Integer userId) throws IdNotFoundException {
+    @Override
+    public ArrayList<User> getUserFollowedList(Integer userId) throws IdNotFoundException {
+        if (mapUsersFollowed.get(userId)==null){
+            throw new IdNotFoundException(userId.toString());
+        }
+        return mapUsersFollowed.get(userId);
+    }
+
+    @Override
+    public User findUserById (Integer userId) throws IdNotFoundException {
             return listUsers.stream()
                     .filter(user -> user.getUserId() == userId)
                     .findFirst().orElseThrow(()-> new IdNotFoundException(userId.toString()));

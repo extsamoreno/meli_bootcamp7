@@ -9,5 +9,8 @@ public interface IUserRepository {
     public void loadDataBase();
     public void instanceMapUsersFollowers();
     public ArrayList<User> getUserFollowersList (Integer userId) throws IdNotFoundException;
+    public ArrayList<User> getUserFollowedList(Integer userId) throws IdNotFoundException;
     public User findUserById (Integer userId) throws IdNotFoundException;
+
+
 }

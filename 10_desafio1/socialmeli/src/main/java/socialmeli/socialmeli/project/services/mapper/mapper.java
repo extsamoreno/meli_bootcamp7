@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import socialmeli.socialmeli.project.models.User;
+import socialmeli.socialmeli.project.services.Dto.FollowedListResponseDto;
 import socialmeli.socialmeli.project.services.Dto.FollowersListResponseDto;
 import socialmeli.socialmeli.project.services.Dto.FollowersResponseDto;
 import socialmeli.socialmeli.project.services.Dto.UserRequestDto;
@@ -21,9 +22,16 @@ public static FollowersResponseDto toFollowersResponseDto(User u, Integer i){
     return new FollowersResponseDto(u.getUserId(),u.getUserName(),i);
 }
 
-    public static FollowersListResponseDto toFollowersListResponseDto(User u, ArrayList<User> arrayListFollowers) {
+        public static FollowersListResponseDto toFollowersListResponseDto(User u, ArrayList<User> arrayListFollowers) {
+            ArrayList<User> listDto = new ArrayList<>();
+            listDto.addAll(arrayListFollowers);
+        return new FollowersListResponseDto(u.getUserId(),u.getUserName(),listDto);
+    }
+
+    public static FollowedListResponseDto toFollowedListResponseDto(User u, ArrayList<User> arrayListFollowers) {
         ArrayList<User> listDto = new ArrayList<>();
         listDto.addAll(arrayListFollowers);
-    return new FollowersListResponseDto(u.getUserId(),u.getUserName(),listDto);
-}
+        return new FollowedListResponseDto(u.getUserId(),u.getUserName(),listDto);
+    }
+
 }

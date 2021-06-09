@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import socialmeli.socialmeli.project.exceptions.FollowAlreadyException;
 import socialmeli.socialmeli.project.exceptions.FollowMyselfException;
 import socialmeli.socialmeli.project.exceptions.IdNotFoundException;
+import socialmeli.socialmeli.project.services.Dto.FollowedListResponseDto;
 import socialmeli.socialmeli.project.services.Dto.FollowersListResponseDto;
 import socialmeli.socialmeli.project.services.Dto.FollowersResponseDto;
 import socialmeli.socialmeli.project.services.Dto.UserRequestDto;
@@ -24,7 +25,7 @@ public class UserController {
     public ResponseEntity<?> followUser(@PathVariable Integer userId,@PathVariable Integer userIdToFollow) throws IdNotFoundException, FollowMyselfException, FollowAlreadyException {
         UserRequestDto userRequestDto = new UserRequestDto(userId,userIdToFollow);
         iUserService.followUser(userRequestDto);
-       ArrayList<String> response = new ArrayList<>();
+        ArrayList<String> response = new ArrayList<>();
         response.add("UserId: " + userId + " has succesfully followed userIdToFollow: " + userIdToFollow);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -39,7 +40,9 @@ public class UserController {
         return new ResponseEntity<>(iUserService.getFollowersById(userId.toString()),HttpStatus.OK);
     }
 
-/*    @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<FollowedUsersResponseDto> getFollowedUsers ();*/
+    @GetMapping("/users/{userId}/followed/list")
+    public ResponseEntity<FollowedListResponseDto> getFollowedUsers (@PathVariable Integer userId) throws IdNotFoundException {
+        return new ResponseEntity<>(iUserService.getFollowedById(userId.toString()),HttpStatus.OK);
+    }
 
 }
