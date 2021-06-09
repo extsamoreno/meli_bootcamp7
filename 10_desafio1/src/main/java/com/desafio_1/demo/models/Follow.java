@@ -4,14 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Follow {
     private int id;
-    private String userName;
-    private ArrayList<User> followed;
-    private ArrayList<User> followers;
+    private int followerId;
+    private int followedId;
 }

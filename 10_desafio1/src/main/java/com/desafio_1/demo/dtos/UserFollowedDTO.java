@@ -9,14 +9,14 @@ import java.util.ArrayList;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserFollowDTO extends UserResponseDTO{
+public class UserFollowedDTO extends UserResponseDTO{
     private ArrayList<UserResponseDTO> followed;
 
-    public UserFollowDTO(Integer id, String userName) {
+    public UserFollowedDTO(int id, String userName) {
         super(id, userName);
     }
 
-    public UserFollowDTO(Integer id, String userName, ArrayList<UserResponseDTO> followed) {
+    public UserFollowedDTO(int id, String userName, ArrayList<UserResponseDTO> followed) {
         super(id, userName);
         this.followed = followed;
     }

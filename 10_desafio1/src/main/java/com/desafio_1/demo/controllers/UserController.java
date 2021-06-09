@@ -1,6 +1,6 @@
 package com.desafio_1.demo.controllers;
 
-import com.desafio_1.demo.dtos.UserFollowDTO;
+import com.desafio_1.demo.dtos.UserFollowedDTO;
 import com.desafio_1.demo.dtos.UserFollowerCountDTO;
 import com.desafio_1.demo.dtos.UserFollowerDTO;
 import com.desafio_1.demo.exceptions.UnhandledException;
@@ -21,19 +21,22 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<UserFollowDTO> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
+    public ResponseEntity<UserFollowedDTO> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
         return new ResponseEntity<>(userService.addFollowUser(userId, userIdToFollow), HttpStatus.OK);
     }
 
     @GetMapping("{userId}/followers/count")
-    public ResponseEntity<UserFollowerCountDTO> findFollowersCount(@PathVariable Integer userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
+    public ResponseEntity<UserFollowerCountDTO> findFollowersCount(@PathVariable int userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
         return new ResponseEntity<>(userService.findFollowersCount(userId), HttpStatus.OK);
     }
 
     @GetMapping("{userId}/followers/list")
-    public ResponseEntity<UserFollowerDTO> findFollowersByUserId(@PathVariable Integer userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
+    public ResponseEntity<UserFollowerDTO> findFollowersByUserId(@PathVariable int userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
         return new ResponseEntity<>(userService.findFollowersByUserId(userId), HttpStatus.OK);
     }
 
-
+    @GetMapping("{userId}/followed/list")
+    public ResponseEntity<UserFollowedDTO> findFollowedByUserId(@PathVariable int userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
+        return new ResponseEntity<>(userService.findFollowedByUserId(userId), HttpStatus.OK);
+    }
 }
