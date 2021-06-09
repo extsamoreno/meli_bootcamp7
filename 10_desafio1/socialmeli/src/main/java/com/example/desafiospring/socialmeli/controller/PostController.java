@@ -17,7 +17,7 @@ public class PostController {
     IPostService IPostService;
 
     @PostMapping("/newpost") //post de newpost, 0005
-    public ResponseEntity<Void> newPost(@RequestBody Post post) throws UserNotFoundException{
+    public ResponseEntity<Void> newPost(@RequestBody Post post) throws UserNotFoundException {
         IPostService.newPost(post); //chusmear porque queda en rojo
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -25,6 +25,7 @@ public class PostController {
     @GetMapping("/followed/{userId}/list") //get 0006
     public ResponseEntity<PostListDTO> getFollowedPostList(@PathVariable Integer userId) throws UserNotFoundException {
         return new ResponseEntity<>(
-                IPostService.getFollowedPostList(userId),HttpStatus.OK
+                IPostService.getFollowedPostList(userId), HttpStatus.OK
         );
+    }
 }

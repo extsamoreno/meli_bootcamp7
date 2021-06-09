@@ -8,5 +8,5 @@ import java.util.List;
 @AllArgsConstructor
 public class PostListDTO {
     int userId;
-    List<PostDTO> posts;
+    List<PostDTO> post;
 }
