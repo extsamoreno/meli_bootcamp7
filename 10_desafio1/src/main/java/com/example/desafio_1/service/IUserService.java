@@ -21,4 +21,5 @@ public interface IUserService {
 
     void checkInstance(int userId, String instanceType) throws UserExceptionWrongType, UserExceptionNotFound;
 
+    User getUserById(int userId) throws UserExceptionNotFound;
 }

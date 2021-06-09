@@ -123,7 +123,8 @@ public class UserService implements IUserService {
         return true;
     }
 
-    private User getUserById(int userId) throws UserExceptionNotFound {
+    @Override
+    public User getUserById(int userId) throws UserExceptionNotFound {
 
         User user = userRepository.getById(userId);
 

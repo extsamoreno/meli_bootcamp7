@@ -15,7 +15,7 @@ public class PostMapper implements IGenericMapper<Post, PostDTO, Object> {
 
     @Override
     public PostDTO toDto(Post model) {
-        return new PostDTO(model.getId(), model.getUserId(), model.getCreatedDate().toString(), model.getCategoryId(), model.getPrice(), productMapper.toDto(model.getDetail()));
+        return new PostDTO(model.getId(), model.getUserId(), new SimpleDateFormat("dd-MM-yyyy").format(model.getCreatedDate()), model.getCategoryId(), model.getPrice(), productMapper.toDto(model.getDetail()));
     }
 
     @Override
