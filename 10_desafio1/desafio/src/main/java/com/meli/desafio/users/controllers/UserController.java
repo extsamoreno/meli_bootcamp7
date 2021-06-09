@@ -29,7 +29,7 @@ public class UserController {
 
     //-----------------------------------//
     //    LE FALTA QUE TOME UN STRING    //
-    //-----------------------------------//
+    //-----------------------------------// pero funciona :D
     //followers count of user
     @GetMapping(value = {"/{userId}{userName}/followers/count"})
     public ResponseEntity<ResponseUserCountFollowers> showCountFollowers(
@@ -40,8 +40,6 @@ public class UserController {
     }
 
 
-
-    //TENGO QUE HACER LO MISMO QUE CON EL DE ARRIBA (CUANDO FUNCIONE)
     //Followers list of user
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<ResponseUserListFollowers> showAllFollowers(
