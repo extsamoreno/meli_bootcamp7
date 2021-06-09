@@ -90,6 +90,25 @@ public class UserService implements IUserService {
         return userDTO;
     }
 
+    //Medio duplicado esto
+    @Override
+    public UserDTO getFollowingList(int userId) throws UserExceptionWrongType, UserExceptionNotFound {
+        User user = getUserById(userId);
+
+        checkInstance(user, "buyer");
+
+        UserDTO userDTO = userMapper.toDto(user);
+        //Maybe extract to method
+
+        Collection<Seller> following = ((Buyer) user).getFollowing().values();
+
+        List<UserDTO> followingListDTO = following.stream().map(x -> userMapper.toDto(x)).collect(Collectors.toList());
+
+        userDTO.setFollowing(followingListDTO);
+
+        return userDTO;
+    }
+
     public boolean existsUser(int userId) {
         return userRepository.getById(userId) == null;
     }

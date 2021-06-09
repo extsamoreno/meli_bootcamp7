@@ -11,4 +11,6 @@ public interface IUserService {
     UserDTO getFollowersCount(int userId) throws UserExceptionNotFound, UserExceptionWrongType;
 
     UserDTO getFollowersList(int userId) throws UserExceptionWrongType, UserExceptionNotFound;
+
+    UserDTO getFollowingList(int userId) throws UserExceptionWrongType, UserExceptionNotFound;
 }

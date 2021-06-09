@@ -32,4 +32,9 @@ public class UserController {
     public ResponseEntity<UserDTO> followersList(@PathVariable int userId) throws UserExceptionNotFound, UserExceptionWrongType {
         return new ResponseEntity<UserDTO>(userService.getFollowersList(userId), HttpStatus.OK);
     }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<UserDTO> followingList(@PathVariable int userId) throws UserExceptionNotFound, UserExceptionWrongType {
+        return new ResponseEntity<UserDTO>(userService.getFollowingList(userId), HttpStatus.OK);
+    }
 }

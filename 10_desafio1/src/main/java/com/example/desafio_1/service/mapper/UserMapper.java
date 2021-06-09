@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class UserMapper implements IGenericMapper<User, UserDTO, Object> {
     @Override
     public UserDTO toDto(User model) {
-        return new UserDTO(model.getId(), model.getName(), 0, new ArrayList<>());
+        return new UserDTO(model.getId(), model.getName(), 0, new ArrayList<>(), new ArrayList<>());
     }
 
     @Override
