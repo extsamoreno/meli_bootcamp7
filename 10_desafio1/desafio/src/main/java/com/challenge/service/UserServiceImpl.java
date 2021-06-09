@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException {
+        userRepository.unfollow(userId, userToUnfollow);
+    }
+
+    @Override
     public Integer getFollowersCount(Integer userId) throws UserIdNotFoundException {
         return userRepository.getFollowersCount(userId);
     }

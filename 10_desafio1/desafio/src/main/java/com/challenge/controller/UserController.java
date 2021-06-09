@@ -22,6 +22,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException {
+        userService.unfollow(userId, userIdToUnfollow);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity getFollowersCount(@PathVariable Integer userId) throws UserIdNotFoundException {
         return ResponseEntity.ok(userService.getFollowersCount(userId));

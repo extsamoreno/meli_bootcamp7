@@ -52,6 +52,14 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
+    @Override
+    public void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException {
+        checkIfExists(userId);
+        checkIfExists(userToUnfollow);
+        follows.get(userId).remove(userToUnfollow);
+        followedBy.get(userToUnfollow).remove(userId);
+    }
+
     public List<User> getFollowers(Integer userId) throws UserIdNotFoundException {
         checkIfExists(userId);
         List<Integer> followersIds = (List<Integer>) followedBy.get(userId);

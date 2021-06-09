@@ -15,5 +15,6 @@ public interface UserRepository {
     List<User> getFollowers(Integer userId) throws UserIdNotFoundException;
     List<User> getFollows(Integer userId) throws UserIdNotFoundException;
     List<Integer> getFollowedIds(Integer userId) throws UserIdNotFoundException;
+    void unfollow(Integer userId, Integer userToUnfollow) throws UserIdNotFoundException;
 
 }
