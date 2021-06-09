@@ -1,5 +1,6 @@
 package com.example.desafio1.repositories;
 
+import com.example.desafio1.exceptions.FollowingDoesNotExistException;
 import com.example.desafio1.models.Following;
 import com.example.desafio1.models.MeliUser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -63,6 +65,12 @@ public class UserRepository implements IUserRepository{
     @Override
     public boolean doesFollowingExist(int userId, int userIdFollowed){
         return followingsList.stream().anyMatch(elem -> elem.getUserIdFollower() == userId && elem.getUserIdFollowed() == userIdFollowed);
+    }
+
+    @Override
+    public void removeFollowing(int userId, int userIdToUnfollow) throws FollowingDoesNotExistException {
+        Optional<Following> fol = followingsList.stream().filter(elem -> elem.getUserIdFollowed() == userIdToUnfollow && elem.getUserIdFollower() == userId).findFirst();
+        fol.ifPresent(following -> followingsList.remove(following));
     }
 
     private ArrayList<MeliUser> loadDatabase() {

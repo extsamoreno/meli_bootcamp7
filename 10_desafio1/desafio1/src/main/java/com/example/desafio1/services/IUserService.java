@@ -4,6 +4,7 @@ import com.example.desafio1.dtos.FollowedDTO;
 import com.example.desafio1.dtos.FollowersCountDTO;
 import com.example.desafio1.dtos.FollowersDTO;
 import com.example.desafio1.exceptions.FollowingAlreadyExistsException;
+import com.example.desafio1.exceptions.FollowingDoesNotExistException;
 import com.example.desafio1.exceptions.UserIdNotValidException;
 
 public interface IUserService {
@@ -11,4 +12,5 @@ public interface IUserService {
     FollowersCountDTO getFollowersCount(int userId);
     FollowersDTO getFollowers(int userId);
     FollowedDTO getFollowed(int userId);
+    void processUnfollow(int userId, int userIdToFollow) throws UserIdNotValidException, FollowingDoesNotExistException;
 }

@@ -15,4 +15,16 @@ public class ProductMapper {
 
         return prod;
     }
+
+    public static ProductDTO toDTO(Product product){
+        ProductDTO prodDTO = new ProductDTO();
+        prodDTO.setProductId(product.getProductId());
+        prodDTO.setProductName(product.getProductName());
+        prodDTO.setBrand(product.getBrand());
+        prodDTO.setColor(product.getColor());
+        prodDTO.setNotes(product.getNotes());
+        prodDTO.setType(product.getType());
+
+        return prodDTO;
+    }
 }

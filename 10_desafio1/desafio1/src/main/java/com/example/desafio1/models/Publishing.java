@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -12,7 +13,7 @@ import java.util.Date;
 public class Publishing {
     private int userId;
     private int idPost;
-    private Date date;
+    private LocalDate date;
     private Product detail;
     private int category;
     private double price;

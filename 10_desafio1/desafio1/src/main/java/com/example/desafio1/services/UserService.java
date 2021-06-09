@@ -4,6 +4,7 @@ import com.example.desafio1.dtos.FollowedDTO;
 import com.example.desafio1.dtos.FollowersCountDTO;
 import com.example.desafio1.dtos.FollowersDTO;
 import com.example.desafio1.exceptions.FollowingAlreadyExistsException;
+import com.example.desafio1.exceptions.FollowingDoesNotExistException;
 import com.example.desafio1.exceptions.UserIdNotValidException;
 import com.example.desafio1.repositories.IUserRepository;
 import com.example.desafio1.services.mappers.MeliUserMapper;
@@ -22,7 +23,7 @@ public class UserService implements IUserService{
             throw new UserIdNotValidException(userId);
         if(iUserRepository.getUserById(userIdToFollow) == null)
             throw new UserIdNotValidException(userIdToFollow);
-        //Then check if the following between these users already exists
+        //Then check if the user A already follows user B
         if(iUserRepository.doesFollowingExist(userId,userIdToFollow))
             throw new FollowingAlreadyExistsException();
 
@@ -57,5 +58,19 @@ public class UserService implements IUserService{
         followed.setFollowed(MeliUserMapper.toDTOList(iUserRepository.getFollowed(userId)));
 
         return followed;
+    }
+
+    @Override
+    public void processUnfollow(int userId, int userIdToUnfollow) throws UserIdNotValidException, FollowingDoesNotExistException {
+        //First check both user Ids are valid and exist
+        if(iUserRepository.getUserById(userId) == null)
+            throw new UserIdNotValidException(userId);
+        if(iUserRepository.getUserById(userIdToUnfollow) == null)
+            throw new UserIdNotValidException(userIdToUnfollow);
+        //Then check if the user A already follows user B
+        if(!iUserRepository.doesFollowingExist(userId,userIdToUnfollow))
+            throw new FollowingDoesNotExistException();
+
+        iUserRepository.removeFollowing(userId,userIdToUnfollow);
     }
 }

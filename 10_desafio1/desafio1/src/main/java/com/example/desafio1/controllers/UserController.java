@@ -4,6 +4,7 @@ import com.example.desafio1.dtos.FollowedDTO;
 import com.example.desafio1.dtos.FollowersCountDTO;
 import com.example.desafio1.dtos.FollowersDTO;
 import com.example.desafio1.exceptions.FollowingAlreadyExistsException;
+import com.example.desafio1.exceptions.FollowingDoesNotExistException;
 import com.example.desafio1.exceptions.UserIdNotValidException;
 import com.example.desafio1.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,12 @@ public class UserController {
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedDTO> getFollowed(@PathVariable int userId){
         return new ResponseEntity<>(iUserService.getFollowed(userId), HttpStatus.OK);
+    }
+
+    @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
+    @ResponseStatus(HttpStatus.OK)
+    public String postUnfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserIdNotValidException, FollowingDoesNotExistException {
+        iUserService.processUnfollow(userId,userIdToUnfollow);
+        return "User unfollowed successfully!";
     }
 }
