@@ -3,6 +3,7 @@ package com.example.desafio1.controllers;
 import com.example.desafio1.dtos.ResponseFollowerCountDTO;
 import com.example.desafio1.dtos.ResponseFollowerListDTO;
 import com.example.desafio1.exceptions.InvalidUserIdException;
+import com.example.desafio1.exceptions.UserException;
 import com.example.desafio1.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,11 +62,16 @@ public class UserController {
     // Parameters
     // @userId,  number that identifies the actual user
     // Response 200 / 400 -> if the user does not exists
-    // Example: /users/1/followers/list
+    // Example:
+    // /users/1/followers/list
+    // /users/1/followers/list?order=name_asc
+    // /users/1/followers/list?order=name_des
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<ResponseFollowerListDTO> getFollowers(@PathVariable int userId)
-            throws InvalidUserIdException {
-        return new ResponseEntity(iUserService.getFollowers(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseFollowerListDTO> getFollowers(@PathVariable int userId,
+                                                                @RequestParam(required = false,
+                                                                        defaultValue = "") String order)
+            throws UserException {
+        return new ResponseEntity(iUserService.getFollowersList(userId, order), HttpStatus.OK);
     }
 
     // Get the sellers that the user follows
@@ -74,8 +80,10 @@ public class UserController {
     // Response 200 / 400 -> if the user does not exists
     // Example: /users/1/followed/list
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<ResponseFollowerListDTO> getFollowedSellers(@PathVariable int userId)
-            throws InvalidUserIdException {
-        return new ResponseEntity(iUserService.getFollowedSellers(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseFollowerListDTO> getFollowedSellers(@PathVariable int userId,
+                                                                      @RequestParam(required = false,
+                                                                              defaultValue = "") String order)
+            throws UserException {
+        return new ResponseEntity(iUserService.getFollowedSellers(userId, order), HttpStatus.OK);
     }
 }

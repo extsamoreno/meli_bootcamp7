@@ -4,7 +4,9 @@ import com.example.desafio1.dtos.ResponseFollowedSellerDTO;
 import com.example.desafio1.dtos.ResponseFollowerCountDTO;
 import com.example.desafio1.dtos.ResponseFollowerListDTO;
 import com.example.desafio1.dtos.UserDTO;
+import com.example.desafio1.exceptions.InvalidOrderUserException;
 import com.example.desafio1.exceptions.InvalidUserIdException;
+import com.example.desafio1.exceptions.UserException;
 import com.example.desafio1.mappers.UserMapper;
 import com.example.desafio1.models.Post;
 import com.example.desafio1.models.User;
@@ -12,10 +14,15 @@ import com.example.desafio1.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
 public class UserService implements IUserService {
+    // A to Z
+    private final Comparator<UserDTO> COMPARATOR_NAME_ASC = (a, b)->a.getUserName().compareTo(b.getUserName());
+    // Z to A
+    private final Comparator<UserDTO> COMPARATOR_NAME_DES = (a, b)->b.getUserName().compareTo(a.getUserName());
 
     @Autowired
     IUserRepository iUserRepository;
@@ -59,22 +66,26 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseFollowerListDTO getFollowers(int userId) throws InvalidUserIdException {
+    public ResponseFollowerListDTO getFollowersList(int userId, String order) throws UserException {
         User user = iUserRepository.getUserById(userId);
         ResponseFollowerListDTO responseFollowerListDTO = new ResponseFollowerListDTO();
+        List<UserDTO> listFollowers = user.getFollowers();
+        orderUserDTO(order, listFollowers);
         responseFollowerListDTO.setUserId(user.getUserId());
         responseFollowerListDTO.setUserName(user.getUserName());
-        responseFollowerListDTO.setFollowers(user.getFollowers());
+        responseFollowerListDTO.setFollowers(listFollowers);
         return responseFollowerListDTO;
     }
 
     @Override
-    public ResponseFollowedSellerDTO getFollowedSellers(int userId) throws InvalidUserIdException {
+    public ResponseFollowedSellerDTO getFollowedSellers(int userId, String order) throws UserException {
         User user = iUserRepository.getUserById(userId);
         ResponseFollowedSellerDTO responseFollowedSellerDTO = new ResponseFollowedSellerDTO();
+        List<UserDTO> listFollowed = user.getFollowed();
+        orderUserDTO(order, listFollowed);
         responseFollowedSellerDTO.setUserId(user.getUserId());
         responseFollowedSellerDTO.setUserName(user.getUserName());
-        responseFollowedSellerDTO.setFollowed(user.getFollowed());
+        responseFollowedSellerDTO.setFollowed(listFollowed);
         return responseFollowedSellerDTO;
     }
 
@@ -88,5 +99,15 @@ public class UserService implements IUserService {
     public List<Post> getPostsList(int userId) throws InvalidUserIdException {
         User user = iUserRepository.getUserById(userId);
         return user.getPosts();
+    }
+
+    public void orderUserDTO(String order, List<UserDTO> list) throws InvalidOrderUserException {
+        if(order.equals("name_asc")) {
+            list.sort(COMPARATOR_NAME_ASC);
+        } else if(order.equals("name_des")) {
+            list.sort(COMPARATOR_NAME_DES);
+        } else if(!order.equals("")) {
+            throw new InvalidOrderUserException(order);
+        }
     }
 }

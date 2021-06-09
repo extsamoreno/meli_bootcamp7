@@ -5,6 +5,7 @@ import com.example.desafio1.dtos.ResponseFollowerCountDTO;
 import com.example.desafio1.dtos.ResponseFollowerListDTO;
 import com.example.desafio1.dtos.UserDTO;
 import com.example.desafio1.exceptions.InvalidUserIdException;
+import com.example.desafio1.exceptions.UserException;
 import com.example.desafio1.models.Post;
 import com.example.desafio1.models.User;
 
@@ -17,8 +18,8 @@ public interface IUserService {
     String followUser(int userId, int userIdToFollow) throws InvalidUserIdException;
     String unfollowUser(int userId, int userIdToUnfollow) throws InvalidUserIdException;
     ResponseFollowerCountDTO getFollowersCount(int userId) throws InvalidUserIdException;
-    ResponseFollowerListDTO getFollowers(int userId) throws InvalidUserIdException;
-    ResponseFollowedSellerDTO getFollowedSellers(int userId) throws InvalidUserIdException;
+    ResponseFollowerListDTO getFollowersList(int userId, String order) throws UserException;
+    ResponseFollowedSellerDTO getFollowedSellers(int userId, String order) throws UserException;
     List<UserDTO> getFollowedList(int userId) throws InvalidUserIdException;
     List<Post> getPostsList(int userId) throws InvalidUserIdException;
 }
