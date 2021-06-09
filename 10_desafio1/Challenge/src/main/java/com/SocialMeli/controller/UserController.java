@@ -1,21 +1,39 @@
-package com.SocialMeli.controllers;
+package com.SocialMeli.controller;
 
-
-import com.SocialMeli.entities.User;
-import com.SocialMeli.services.SocialMeliServices;
+import com.SocialMeli.repositories.IUserRepository;
+import com.SocialMeli.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.SocialMeli.mappers.*;
-import com.SocialMeli.repositories.*;
-import java.util.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.SocialMeli.controller.UserExceptionController;
 
 @RestController
-public class UsersControllers {
+@RequestMapping
+
+public class UserController {
+
+    @Autowired
+    IUserRepository userRepository;
+
+    @PostMapping("{userId}/follow/{userIdToFollow}")
+    public ResponseEntity followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
+        return new ResponseEntity<>(userService.addFollowUser(userId, userIdToFollow), HttpStatus.OK);
+    }
+
+    @GetMapping("{userId}/followers/count")
+    public ResponseEntity findFollowersCount(@PathVariable Integer userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
+        return new ResponseEntity<>(userService.findFollowersCount(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("{userId}/followers/list")
+    public ResponseEntity findFollowersByUserId(@PathVariable Integer userId) throws UserIdInvalidException, UserNotFoundException, UnhandledException {
+        return new ResponseEntity<>(userService.findFollowersByUserId(userId), HttpStatus.OK);
+    }
+
+}
+
+/*
 
     @Autowired
     private SocialMeliServices sc;
@@ -85,8 +103,4 @@ public class UsersControllers {
             search = "";
         List ar = sc.feed(username, search);
         ArrayList<Tweet> foll = new ArrayList<Tweet>(ar);
-        return foll;
-
-    }
-
-}
+        return foll; */
