@@ -3,6 +3,7 @@ package com.bootcamp.socialmeli.controller;
 import com.bootcamp.socialmeli.DTO.UserAmountFollowersDTO;
 import com.bootcamp.socialmeli.DTO.UserFollowedListDTO;
 import com.bootcamp.socialmeli.DTO.UserFollowersListDTO;
+import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.model.User;
 import com.bootcamp.socialmeli.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<Void> follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) {
+    public ResponseEntity<Void> follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdNotFoundException {
 
         userService.follow(userId, userIdToFollow);
 
@@ -28,17 +29,17 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<UserAmountFollowersDTO> getAmountUserFollowers(@PathVariable Integer userId) {
+    public ResponseEntity<UserAmountFollowersDTO> getAmountUserFollowers(@PathVariable Integer userId) throws UserIdNotFoundException {
         return new ResponseEntity<>(userService.getAmountUserFollowers(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserFollowersListDTO> getListUserFollowers(@PathVariable Integer userId) {
+    public ResponseEntity<UserFollowersListDTO> getListUserFollowers(@PathVariable Integer userId) throws UserIdNotFoundException {
         return new ResponseEntity<>(userService.getListUserFollowers(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserFollowedListDTO> getListUserFollowed(@PathVariable Integer userId) {
+    public ResponseEntity<UserFollowedListDTO> getListUserFollowed(@PathVariable Integer userId) throws UserIdNotFoundException {
         return new ResponseEntity<>(userService.getListUserFollowed(userId), HttpStatus.OK);
     }
 

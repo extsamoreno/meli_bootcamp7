@@ -1,7 +1,5 @@
 package com.bootcamp.socialmeli.DTO;
 
-import com.bootcamp.socialmeli.model.Product;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +11,8 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRequestDTO {
-    private int userId;
-    private int postId;
-    @JsonFormat(pattern = "dd-MM-yyyy")
+public class PostFollowedDTO {
+    private Integer id_postId;
     private LocalDate date;
     private ProductDTO detail;
     private String category;
