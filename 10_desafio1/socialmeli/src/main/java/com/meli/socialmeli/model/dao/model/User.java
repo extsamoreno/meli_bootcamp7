@@ -14,7 +14,7 @@ public class User {
     private ArrayList<User> usersFollowed = new ArrayList<>();
     private int cantFollowed = 0;
     private static int counterId = 1;
-    private ArrayList<Integer> post = new ArrayList<>();
+    private ArrayList<Post> post = new ArrayList<>();
 
     public User(String userName, boolean isSeller) {
         this.userName = userName;
@@ -22,4 +22,6 @@ public class User {
         this.userId = User.counterId;
         User.counterId++;
     }
+
+
 }

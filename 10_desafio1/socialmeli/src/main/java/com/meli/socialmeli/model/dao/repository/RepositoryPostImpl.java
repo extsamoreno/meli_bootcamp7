@@ -27,16 +27,9 @@ public class RepositoryPostImpl implements RepositoryPost {
         return postReturn;
     }
 
-    public boolean createNewPost(Post post) {
+    public void createNewPost(Post post) {
         User user = repositoryUsers.getUserById(post.getUserId());
-        if (user == null) {
-            return false;
-        }
-        if (getPostById(post.getIdPost()) != null) {
-            return false;
-        }
         dataBasePost.add(post);
-        user.getPost().add(post.getIdPost());
-        return true;
+        user.getPost().add(post);
     }
 }
