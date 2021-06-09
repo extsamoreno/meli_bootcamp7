@@ -4,6 +4,6 @@ import org.springframework.http.HttpStatus;
 
 public class PostNotFoundException extends PostException{
     public PostNotFoundException(int productId) {
-        super("Product: "+productId+" not found", HttpStatus.BAD_REQUEST);
+        super("Product: "+productId+" not found", HttpStatus.NOT_FOUND);
     }
 }

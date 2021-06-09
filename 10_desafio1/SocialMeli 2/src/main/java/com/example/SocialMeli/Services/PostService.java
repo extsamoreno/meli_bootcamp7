@@ -13,10 +13,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class PostService extends com.example.SocialMeli.Services.Service implements iPostService{
+public class PostService implements iPostService{
 
     @Autowired
     iDataRepository iDataRepository;
@@ -89,10 +90,6 @@ public class PostService extends com.example.SocialMeli.Services.Service impleme
     @Override
     public List<PostDTO> getFollowedPost(int userId, String order) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
 
-
-
-        String orderType = this.getOrderType(order);
-
         User user = iDataRepository.getUserByID(userId);
 
         List<PostDTO> output = new ArrayList<>();
@@ -107,16 +104,38 @@ public class PostService extends com.example.SocialMeli.Services.Service impleme
             }
 
         }
+
+        Comparator<PostDTO> compatator = this.getComparator(order);
+
+
         this.filterPostByDate(output, LocalDate.now().minusWeeks(2), LocalDate.now());
-        this.orderPostDTOs(output, orderType);
+        this.orderPostDTOs(output, compatator);
         return output;
     }
 
+    private Comparator<PostDTO> getComparator(String order){
+        Comparator<PostDTO> comparator;
+        String orderBy = this.getOrderBy(order);
+        String orderType = this.getOrderBy(order);
 
+        switch (orderBy){
+            case "date": comparator = Comparator.comparing(PostDTO::getDate);
+            default: comparator = Comparator.comparing(PostDTO::getDate);;
+
+        }
+
+        switch (orderType){
+            case "desc" : comparator = comparator.reversed();
+
+        }
+
+        return comparator;
+
+    }
     private void filterPostByDate(List<PostDTO> posts ,LocalDate from, LocalDate until){
 
         for (int i = 0; i < posts.size(); i++) {
-            LocalDate postDate = LocalDate.parse(posts.get(i).getDate());
+            LocalDate postDate = posts.get(i).getDate();
             Boolean biggerThanUntil = (postDate.isAfter(from) || postDate.isEqual(from));
             Boolean smallerThanFrom = (postDate.isBefore(until) || postDate.isEqual(until));
 
@@ -127,18 +146,44 @@ public class PostService extends com.example.SocialMeli.Services.Service impleme
         }
 
     }
-    private void orderPostDTOs(List<PostDTO> posts, String order){
 
-        Boolean condition = (order.equals("asc")) ? true : false;
+    String getOrderType(String order){
+        String standarOrder = "desc";
+        if(order != null){
+            String[] orderArray = order.split("_");
+            String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
+
+            return orderType;
+        }
+        else{
+            return standarOrder;
+        }
+
+    }
+    String getOrderBy(String order){
+        String standarOrder = "name";
+        if(order != null){
+            String[] orderArray = order.split("_");
+            String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
+
+            return orderType;
+        }
+        else{
+            return standarOrder;
+        }
+
+    }
+
+    private void orderPostDTOs(List<PostDTO> posts, Comparator<PostDTO> comparator){
+
+
         for (int i = 0; i < posts.size(); i++) {
             for(int j=0;j<posts.size()-1;j++)
             {
-                LocalDate postDate = LocalDate.parse(posts.get(j+1).getDate());
-                LocalDate previousPostDate = LocalDate.parse(posts.get(j).getDate());
 
-                if(previousPostDate.isAfter(postDate) == condition)
+                if(comparator.compare(posts.get(j+1),posts.get(j)) < 0)
                 {
-                    PostDTO aux = new PostDTO(posts.get(j).getUserId(),posts.get(j).getPostId(),posts.get(j).getDate(),posts.get(j).getDetail(),posts.get(j).getCategory(),posts.get(j).getPrice());
+                    PostDTO aux = new PostDTO(posts.get(j).getUserId(),posts.get(j).getPostId(),posts.get(j).getDate().toString(),posts.get(j).getDetail(),posts.get(j).getCategory(),posts.get(j).getPrice());
                     posts.set(j, posts.get(j+1));
                     posts.set(j+1, aux);
                 }

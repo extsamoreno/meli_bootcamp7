@@ -22,6 +22,7 @@ public class PostDTO {
 
 
 
+
     public PostDTO(int userId, int postId, String date, ProductDTO detail, String category, double price) throws DateTimeParseException {
 
         this.userId = userId;
@@ -31,5 +32,9 @@ public class PostDTO {
         this.category = category;
         this.price = price;
 
+    }
+
+    public LocalDate getDate(){
+        return LocalDate.parse(this.date);
     }
 }

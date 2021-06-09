@@ -21,7 +21,7 @@ public class PostMapper {
         return new PostDTO(post.getUserId(), post.getId(), post.getDate(),ProductMapper.toDTO(detail), post.getCategory(), post.getPrice());
     }
     public static Post toPost(PostDTO postDTO){
-        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice());
+        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate().toString(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice());
     }
 
 

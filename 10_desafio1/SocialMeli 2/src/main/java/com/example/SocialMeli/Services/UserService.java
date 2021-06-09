@@ -6,13 +6,12 @@ import com.example.SocialMeli.Repositories.iDataRepository;
 import com.example.SocialMeli.Services.DTOs.*;
 import com.example.SocialMeli.Services.Mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.SocialMeli.Services.Service;
 
-import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @org.springframework.stereotype.Service
-public class UserService extends Service implements iUserService{
+public class UserService implements iUserService{
 
     @Autowired
     iDataRepository iDataRepository;
@@ -73,7 +72,8 @@ public class UserService extends Service implements iUserService{
 
         List<UserDTO> userDTOs = UserMapper.toDTOs(follower);
 
-        this.orderUsersDTOs(userDTOs, orderType);
+        Comparator<UserDTO> compatator = this.getComparator(order);
+        this.orderUsersDTOs(userDTOs, compatator);
 
         return new FollowersDTO(user.getId(), user.getName(), userDTOs);
     }
@@ -81,14 +81,14 @@ public class UserService extends Service implements iUserService{
     @Override
     public FollowedDTO getFollowed(int userId, String order) throws UserNotFoundException{
 
-        String orderType = this.getOrderType(order);
+
 
         User user = iDataRepository.getUserByID(userId);
         List<User> followed = iDataRepository.getUsersByIds(user.getFollowing());
 
         List<UserDTO> userDTOs = UserMapper.toDTOs(followed);
-
-        this.orderUsersDTOs(userDTOs, orderType);
+        Comparator<UserDTO> compatator = this.getComparator(order);
+        this.orderUsersDTOs(userDTOs, compatator);
 
         return new FollowedDTO(user.getId(), user.getName(), userDTOs);
     }
@@ -115,15 +115,65 @@ public class UserService extends Service implements iUserService{
 
         return new FollowDTO(follower.getId(),followed.getId(), "Unfollow");
     }
+    String getOrderType(String order){
+        String standarOrder = "desc";
+        if(order != null){
+            String[] orderArray = order.split("_");
+            String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
 
-    private void orderUsersDTOs(List<UserDTO> users, String order){
+            return orderType;
+        }
+        else{
+            return standarOrder;
+        }
 
-        Boolean condition = (order.equals("asc")) ? true : false;
+    }
+    String getOrderBy(String order){
+        String standarOrder = "desc";
+        if(order != null){
+            String[] orderArray = order.split("_");
+            String orderType = (orderArray.length == 2) ? orderArray[1] : standarOrder;
+
+            return orderType;
+        }
+        else{
+            return standarOrder;
+        }
+
+    }
+    private Comparator<UserDTO> getComparator(String order){
+        Comparator<UserDTO> comparator;
+        String orderBy = this.getOrderBy(order);
+        String orderType = this.getOrderBy(order);
+
+        switch (orderBy){
+            case "name": comparator = Comparator.comparing(UserDTO::getUserName);
+            default: comparator = Comparator.comparing(UserDTO::getUserName);
+
+        }
+
+        switch (orderType){
+            case "desc" : comparator = comparator.reversed();
+
+
+        }
+
+        return comparator;
+
+    }
+    private void orderUsersDTOs(List<UserDTO> users, Comparator<UserDTO> comparator){
+        System.out.println(users.get(0).getUserName());
+        System.out.println(users.get(1).getUserName());
+        System.out.println(comparator.compare(users.get(0),users.get(1)));
+        comparator = comparator.reversed();
+
+        System.out.println(comparator.compare(users.get(0),users.get(1)));
+
         for (int i = 0; i < users.size(); i++) {
             for(int j=0;j<users.size()-1;j++)
             {
 
-                if((users.get(j).getUserName().compareTo(users.get(j+1).getUserName()) > 0) == condition)
+                if(comparator.compare(users.get(j+1),users.get(j)) > 0)
                 {
                     UserDTO aux = new UserDTO(users.get(j).getUserID(),users.get(j).getUserName());
                     users.set(j, users.get(j+1));
