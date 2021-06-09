@@ -18,4 +18,5 @@ public class PostDTO {
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
     int category;
     double price;
+
 }

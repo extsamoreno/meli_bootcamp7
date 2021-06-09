@@ -5,6 +5,7 @@ import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.services.PostService;
 import com.socialmeli.socialmeli.services.dtos.ListPostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostDTO;
+import com.socialmeli.socialmeli.services.dtos.PostPromoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,12 @@ public class PostController {
     @PostMapping("/newpost")
     public ResponseEntity<Void> newPost(@RequestBody PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
         postService.newPost(post);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity<Void> newPromoPost(@RequestBody PostPromoDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
+        postService.newPromoPost(post);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

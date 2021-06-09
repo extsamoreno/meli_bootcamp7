@@ -7,7 +7,7 @@ import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
 import com.socialmeli.socialmeli.services.dtos.ListPostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostDTO;
-import com.socialmeli.socialmeli.services.dtos.UserFollowDTO;
+import com.socialmeli.socialmeli.services.dtos.PostPromoDTO;
 import com.socialmeli.socialmeli.services.mappers.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,14 @@ public class PostServiceImpl implements PostService{
     @Override
     public void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
         userRepository.insertPost(
-                PostMapper.getPost(post)
+                PostMapper.getPostFromPostDTO(post)
+        );
+    }
+
+    @Override
+    public void newPromoPost(PostPromoDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
+        userRepository.insertPost(
+                PostMapper.getPostFromPostPromoDTO(post)
         );
     }
 
@@ -40,7 +47,7 @@ public class PostServiceImpl implements PostService{
             for (Post post: userFollowed.getPosts()
                  ) {
                 followedPostDTOList.add(
-                        PostMapper.getPostDTO(post)
+                        PostMapper.getPostDTOFromPost(post)
                 );
             }
         }
