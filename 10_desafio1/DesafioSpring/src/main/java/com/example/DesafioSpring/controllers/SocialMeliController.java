@@ -21,7 +21,7 @@ public class SocialMeliController {
     @Autowired
     IuserService iUserService;
 //punto1
-    @GetMapping("{userId}/follow/{userIdToFollow}")
+    @PostMapping("{userId}/follow/{userIdToFollow}")
     public ResponseEntity<FollowDTO> followSeller (@PathVariable String userId, @PathVariable String userIdToFollow) throws UserNotFoundException {
         return new ResponseEntity<>(iUserService.followSeller(userId,userIdToFollow),HttpStatus.OK);
     }
