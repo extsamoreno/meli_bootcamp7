@@ -16,3 +16,4 @@ public class UserException extends Exception{
         this.status = status; //el status
     }
 }
+//lo dejo por las dudas

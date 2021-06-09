@@ -4,9 +4,9 @@ import com.example.desafiospring.socialmeli.exception.DateIsNotValidException;
 import com.example.desafiospring.socialmeli.exception.PostIdAlreadyExistException;
 //import com.example.desafiospring.socialmeli.exception.UserException;
 import com.example.desafiospring.socialmeli.exception.UserNotFoundException;
-import com.example.desafiospring.socialmeli.help.ValidDate;
 import com.example.desafiospring.socialmeli.model.Post;
 import com.example.desafiospring.socialmeli.model.User;
+import com.example.desafiospring.socialmeli.model.ValidDate;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +35,13 @@ public class UserRepositoryImpl implements IUserRepository{
             throw new UserNotFoundException("El user no existe"); //exception para cuando el user no existe
         }
         return users.get(userId);
+    }
+
+    @Override
+    public void removeFollowerToUser(int userId, int userIdToUnFollow) throws UserNotFoundException {
+        User user1 = getUserById(userId);
+        User user2 = getUserById(userIdToUnFollow);
+        users.get(userId).getFollowed().remove(user2);
     }
 
     @Override

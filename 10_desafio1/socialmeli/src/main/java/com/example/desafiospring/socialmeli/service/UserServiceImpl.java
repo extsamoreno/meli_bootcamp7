@@ -2,6 +2,7 @@ package com.example.desafiospring.socialmeli.service;
 
 import com.example.desafiospring.socialmeli.exception.UserNotFoundException;
 import com.example.desafiospring.socialmeli.model.User;
+import com.example.desafiospring.socialmeli.service.IUserService;
 import com.example.desafiospring.socialmeli.repository.IUserRepository;
 import com.example.desafiospring.socialmeli.service.DTO.UserDTO;
 import com.example.desafiospring.socialmeli.service.DTO.UserFollowDTO;
@@ -13,20 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService{
 
     @Autowired
-    IUserRepository userRepository;
+    IUserRepository IUserRepository;
 
     @Override
     public void followUser(int userId, int userIdToFollow) throws UserNotFoundException {
-        userRepository.addFollowerToUser(userId, userIdToFollow);
+        IUserRepository.addFollowerToUser(userId, userIdToFollow);
     }
 
     @Override
     public UserDTO getUserFollowersCount(int userId) throws UserNotFoundException {
-        User user = userRepository.getUserById(userId);
-        int followersCount = userRepository.getFollowersCount(userId);
+        User user = IUserRepository.getUserById(userId);
+        int followersCount = IUserRepository.getFollowersCount(userId);
         return new UserDTO(
                 user.getUserId(),
                 user.getUserName(),
@@ -36,7 +37,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO getUserFollowers(int userId) throws UserNotFoundException {
-        User user = userRepository.getUserById(userId);
+        User user = IUserRepository.getUserById(userId);
         List<UserFollowDTO> userFollowersDTOS = new ArrayList<>();
 
         for (User user1 : user.getFollowed() //revisar porque sale en rojo
@@ -53,7 +54,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO getUserFollowed(int userId) throws UserNotFoundException {
-        User user = userRepository.getUserById(userId);
+        User user = IUserRepository.getUserById(userId);
         List<UserFollowDTO> userFollowedDTOS = new ArrayList<>();
 
         for (User user1 : user.getFollowers()

@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
+//fecha de cdo se sube el producto, valid
 public class ValidDate {
     public static boolean validateDate(String strDate)
     {

@@ -8,7 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
     int userId;     //filtrar los parametros, como identificamos a cada user
-    String userName;
+    String userName;  //los param de user que devolveria
     List<User> followers;
     List<User> followed;
     List<Post> posts;

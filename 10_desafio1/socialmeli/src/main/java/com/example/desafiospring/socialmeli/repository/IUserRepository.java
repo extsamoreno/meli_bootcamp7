@@ -9,4 +9,5 @@ public interface IUserRepository {
     public User getUserById(int userId) throws UserNotFoundException; //encontrar al user por id, not found
     public int getFollowersCount(int userId); //contar seguidores
     public void insertPost(Post post) throws UserNotFoundException; //not found, cuando post
+    public void removeFollowerToUser(int userId,int userIdToUnFollow) throws UserNotFoundException;
 }

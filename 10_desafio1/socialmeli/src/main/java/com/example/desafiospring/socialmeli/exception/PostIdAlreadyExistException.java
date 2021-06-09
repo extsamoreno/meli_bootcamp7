@@ -8,3 +8,4 @@ public class PostIdAlreadyExistException extends CustomException {
     }
 }
 
+//exception mensaje con status notfound
