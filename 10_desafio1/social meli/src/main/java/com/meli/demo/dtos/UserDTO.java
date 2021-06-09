@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CantidadUsuariosDTO {
-
-    private Integer userid;
+public class UserDTO {
+    private int userId;
     private String userName;
-    private Integer followers_count;
 }

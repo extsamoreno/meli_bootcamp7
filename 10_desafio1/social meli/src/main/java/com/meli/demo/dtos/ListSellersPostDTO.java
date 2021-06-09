@@ -6,11 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 
-@Data
-@AllArgsConstructor@NoArgsConstructor
-public class ListadoUsuariosResponseDTO {
-
+@Data@AllArgsConstructor@NoArgsConstructor
+public class ListSellersPostDTO {
     private int id;
-    private String nombre;
-    private ArrayList<UsuarioDTO> usuarios;
+    private ArrayList<PostDTO> publicacions;
 }
