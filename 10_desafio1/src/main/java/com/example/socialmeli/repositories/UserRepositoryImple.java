@@ -9,6 +9,7 @@ import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.FollowSellerResponseDTO;
 import com.example.socialmeli.models.dtos.response.FollowersCountResponseDTO;
+import com.example.socialmeli.models.dtos.response.ListFollowersResponseDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -111,6 +112,19 @@ public class UserRepositoryImple implements UserRepository {
 
         return followersCountResponseDTO;
     }
+
+    @Override
+    public ListFollowersResponseDTO listFollowers(int userId) throws InexistentUserException{
+        User user = getUserById(userId);
+        ListFollowersResponseDTO listFollowersResponseDTO = new ListFollowersResponseDTO();
+
+        listFollowersResponseDTO.setUserId(userId);
+        listFollowersResponseDTO.setUserName(user.getUserName());
+        listFollowersResponseDTO.setFollowers(user.getFollowers());
+
+        return listFollowersResponseDTO;
+    }
+
 
     /*private List<User> loadDateBase() {
         File file = null;

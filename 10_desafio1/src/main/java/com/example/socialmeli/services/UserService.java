@@ -6,6 +6,7 @@ import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.FollowSellerResponseDTO;
 import com.example.socialmeli.models.dtos.response.FollowersCountResponseDTO;
+import com.example.socialmeli.models.dtos.response.ListFollowersResponseDTO;
 import com.example.socialmeli.models.dtos.response.NewUserResponseDTO;
 import com.example.socialmeli.exceptions.ExistentUserException;
 import org.springframework.stereotype.Service;
@@ -15,4 +16,5 @@ public interface UserService {
     NewUserResponseDTO addUser(NewUserRequestDTO newUserRequestDTO) throws ExistentUserException;
     FollowSellerResponseDTO followSeller(int userId, int userIdToFollow) throws InexistentUserException, ExistentFollowerException;
     FollowersCountResponseDTO countFollowers(int userId) throws InexistentUserException;
+    ListFollowersResponseDTO listFollowers(int userId) throws InexistentUserException;
 }

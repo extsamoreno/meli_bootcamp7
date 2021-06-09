@@ -7,6 +7,7 @@ import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.FollowSellerResponseDTO;
 import com.example.socialmeli.models.dtos.response.FollowersCountResponseDTO;
+import com.example.socialmeli.models.dtos.response.ListFollowersResponseDTO;
 import com.example.socialmeli.models.dtos.response.NewUserResponseDTO;
 import com.example.socialmeli.exceptions.ExistentUserException;
 import com.example.socialmeli.services.UserService;
@@ -37,4 +38,8 @@ public class UserController {
         return new ResponseEntity<>(userService.countFollowers(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}/followers/list")
+    public ResponseEntity<ListFollowersResponseDTO> listFollowers (@PathVariable int userId) throws InexistentUserException {
+        return new ResponseEntity<>(userService.listFollowers(userId), HttpStatus.OK);
+    }
 }
