@@ -2,6 +2,7 @@ package com.meli.socialmeli.service;
 
 import com.meli.socialmeli.exception.*;
 import com.meli.socialmeli.model.Post;
+import com.meli.socialmeli.model.PromotionPost;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IPostRepository;
 import com.meli.socialmeli.repository.IUserRepository;
@@ -65,7 +66,30 @@ public class PostService implements IPostService {
         return response;
     }
 
+    @Override
+    public HttpStatus addNewPromotionPost(PromotionPost promoPost) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
+        if (!isAValidPost(promoPost)){
+            throw new MissingDataException(promoPost);
+        }
+        if(iUserRepository.getUserById(promoPost.getUserId())==null){
+            throw new UserNotFoundException(promoPost.getUserId());
+        }
+        if(iPostRepository.getPostById(promoPost.getId_post())!=null){
+            throw new PostIdAlreadyExistException(promoPost);
+        }
+        iPostRepository.savePost(promoPost);
+        return HttpStatus.OK;
+    }
+
     public boolean isAValidPost(Post post)  {
+        if (post.getDate()==null || post.getDetail()==null){
+            return false;
+        } else{
+            return true;
+        }
+    }
+
+    public boolean isAValidPost(PromotionPost post)  {
         if (post.getDate()==null || post.getDetail()==null){
             return false;
         } else{

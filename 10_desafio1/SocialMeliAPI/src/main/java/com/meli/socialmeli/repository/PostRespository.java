@@ -2,6 +2,7 @@ package com.meli.socialmeli.repository;
 
 import com.meli.socialmeli.exception.OverActualDateException;
 import com.meli.socialmeli.model.Post;
+import com.meli.socialmeli.model.PromotionPost;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -47,6 +48,5 @@ public class PostRespository implements IPostRepository{
         }
         return requestedPosts;
     }
-
 
 }

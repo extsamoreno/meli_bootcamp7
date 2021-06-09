@@ -3,7 +3,6 @@ package com.meli.socialmeli.repository;
 import com.meli.socialmeli.exception.OverActualDateException;
 import com.meli.socialmeli.model.Post;
 
-import java.util.Comparator;
 import java.util.List;
 
 public interface IPostRepository {
