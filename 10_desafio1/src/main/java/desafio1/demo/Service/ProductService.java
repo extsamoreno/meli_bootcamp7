@@ -2,6 +2,7 @@ package desafio1.demo.Service;
 
 import desafio1.demo.Exception.DuplicatePostIdException;
 import desafio1.demo.Exception.UserNotFoundException;
+import desafio1.demo.Helper.HelperComparator;
 import desafio1.demo.Model.DTO.NewPostDTO;
 import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
 import desafio1.demo.Model.Entity.Post;
@@ -32,14 +33,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public PostListFromFollowedDTO getPostListFromFollowed(int userId) throws UserNotFoundException {
+    public PostListFromFollowedDTO getPostListFromFollowed(int userId, String order) throws UserNotFoundException {
         var users = iRepository.getUserById(userId).getFollowedUsersList();
         var postStream = Stream.<Post>empty();
         for (User u: users) {
             postStream = Stream.concat(postStream,u.getPostList().stream()
-                    .filter(post -> post.getDate().plusDays(12).isAfter(LocalDate.now())));
+                    .filter(post -> post.getDate().plusDays(12).isAfter(LocalDate.now()))            );
         }
-        var postList = postStream.sorted(Comparator.comparing(Post::getDate).reversed())
+        var postList = postStream.sorted(HelperComparator.postDateComparatorDescDefault(order))
                 .map(post -> modelMapper.map(post,NewPostDTO.class))
                 .collect(Collectors.toList());
 

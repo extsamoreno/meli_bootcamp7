@@ -7,5 +7,5 @@ import desafio1.demo.Model.DTO.PostListFromFollowedDTO;
 
 public interface IProductService{
     void addNewPost(NewPostDTO newPostDTO) throws DuplicatePostIdException, UserNotFoundException;
-    PostListFromFollowedDTO getPostListFromFollowed(int userId) throws UserNotFoundException;
+    PostListFromFollowedDTO getPostListFromFollowed(int userId, String order) throws UserNotFoundException;
 }

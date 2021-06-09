@@ -1,5 +1,6 @@
 package desafio1.demo.Helper;
 
+import desafio1.demo.Model.Entity.Post;
 import desafio1.demo.Model.Entity.User;
 
 import java.util.Comparator;
@@ -13,6 +14,16 @@ public class HelperComparator {
                 return u2.getUserName().compareTo(u1.getUserName());
             }
             return 0;
+        };
+    }
+
+    public static Comparator<Post> postDateComparatorDescDefault(String order){
+        return (p1,p2)-> {
+            if ("date_asc".equals(order)) {
+                return p1.getDate().compareTo(p2.getDate());
+            } else {
+                return p2.getDate().compareTo(p1.getDate());
+            }
         };
     }
 }
