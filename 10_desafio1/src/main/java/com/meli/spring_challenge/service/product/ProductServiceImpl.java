@@ -7,7 +7,6 @@ import com.meli.spring_challenge.model.Post;
 import com.meli.spring_challenge.model.Product;
 import com.meli.spring_challenge.model.User;
 import com.meli.spring_challenge.repository.newpost.NewPostRepository;
-import com.meli.spring_challenge.repository.product.ProductRepository;
 import com.meli.spring_challenge.repository.user.UserRepository;
 import com.meli.spring_challenge.service.dto.FollowedSellerCountDto;
 import com.meli.spring_challenge.service.dto.FollowedSellerDto;
@@ -24,15 +23,16 @@ public class ProductServiceImpl implements ProductService {
     NewPostRepository newPostRepository;
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    ProductRepository productRepository;
 
-    //TODO - Agregar control de Excepciones de Post,Product
+
     @Override
     public void createNewPost(Post post) throws UserNotFoundException, PostAlreadyExistException, ProductIDAlreadyExistException {
         User user = userRepository.getUserByID(post.getUserID());
         Post postExists = newPostRepository.getPostById(post.getPostID());
-        Product productExists = productRepository.findProductByID(post.getDetail().getProductID());
+        Post productExists = newPostRepository.getAll().stream()
+                .filter(post1 -> post1.getDetail().getProductID() == post.getDetail().getProductID())
+                .findFirst()
+                .orElse(null);
 
         if(user == null)
             throw new UserNotFoundException(post.getUserID());
@@ -40,13 +40,14 @@ public class ProductServiceImpl implements ProductService {
         if(postExists != null)
             throw new PostAlreadyExistException(postExists.getPostID());
 
-        if(productExists == null)
+        if(productExists != null)
             throw new ProductIDAlreadyExistException(post.getDetail().getProductID());
 
 
         newPostRepository.create(post);
     }
 
+    
     @Override
     public FollowedSellerDto getFollowedSellerByID(int userID, String order) throws UserNotFoundException {
         User user = userRepository.getUserByID(userID);

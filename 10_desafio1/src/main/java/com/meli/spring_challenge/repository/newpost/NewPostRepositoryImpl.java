@@ -26,6 +26,11 @@ public class NewPostRepositoryImpl implements NewPostRepository{
     }
 
     @Override
+    public List<Post> getAll() {
+        return newPostList;
+    }
+
+    @Override
     public List<Post> getPostsByUserID(int userID) {
         return this.newPostList.stream()
                 .filter(post -> post.getUserID() == userID)

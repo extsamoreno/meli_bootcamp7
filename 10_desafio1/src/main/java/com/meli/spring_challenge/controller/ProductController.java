@@ -1,6 +1,7 @@
 package com.meli.spring_challenge.controller;
 
 import com.meli.spring_challenge.exception.PostAlreadyExistException;
+import com.meli.spring_challenge.exception.ProductIDAlreadyExistException;
 import com.meli.spring_challenge.exception.user.UserNotFoundException;
 import com.meli.spring_challenge.model.Post;
 import com.meli.spring_challenge.service.dto.FollowedSellerCountDto;
@@ -21,7 +22,7 @@ public class ProductController {
     //US 0005 - US 0010
     @PostMapping("/newpost")
     @ResponseStatus(HttpStatus.OK)
-    public void createNewPost(@RequestBody Post post) throws UserNotFoundException, PostAlreadyExistException {
+    public void createNewPost(@RequestBody Post post) throws UserNotFoundException, PostAlreadyExistException, ProductIDAlreadyExistException {
         productService.createNewPost(post);
     }
 
