@@ -12,6 +12,7 @@ import java.util.List;
 public interface UserService {
     List<UserModel> getAllUsers();
     HttpStatus setFollower(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException;
+    HttpStatus removeFollower(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException;
     UserFollowersCounterDTO getFollowersCounter (int userId) throws UserIdNotFoundException;
     UserFollowersListDTO getFollowersList(int userId) throws UserIdNotFoundException;
     UserFollowedListDTO  getFollowedList(int userId) throws UserIdNotFoundException;

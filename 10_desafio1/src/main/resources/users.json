@@ -8,8 +8,8 @@
   {
     "userId": 1,
     "userName": "Juan Abal",
-    "followers": [4, 1, 5],
-    "followed": [2,1,3]
+    "followers": [],
+    "followed": []
   },
   {
     "userId": 2,

@@ -32,11 +32,28 @@ public class UserServiceImpl implements UserService{
         UserModel user = userRepository.findUserById(userId);
         UserModel userToFollow = userRepository.findUserById(userIdToFollow);
 
-        user.getFollowed().add(userIdToFollow);
-        userToFollow.getFollowers().add(userId);
+        if (!user.getFollowed().contains(userIdToFollow)) {
+            user.getFollowed().add(userIdToFollow);
+            userToFollow.getFollowers().add(userId);
+        }
 
-        // Falta validación de si ya se están siguiendo
         userRepository.saveChangesDb(user, userToFollow);
+        return HttpStatus.OK;
+    }
+
+    @Override
+    public HttpStatus removeFollower(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException {
+        UserModel user = userRepository.findUserById(userId);
+        UserModel userToUnfollow = userRepository.findUserById(userIdToUnfollow);
+
+        for (int i = 0; i < user.getFollowed().size(); i++) {
+            if (user.getFollowed().get(i) == userIdToUnfollow) user.getFollowed().remove(i);
+        }
+        for (int i = 0; i < userToUnfollow.getFollowers().size(); i++) {
+            if (userToUnfollow.getFollowers().get(i) == userId) userToUnfollow.getFollowers().remove(i);
+        }
+
+        userRepository.saveChangesDb(user, userToUnfollow);
         return HttpStatus.OK;
     }
 

@@ -20,15 +20,20 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    // Prueba seed JSON
     @GetMapping()
     public List<UserModel> allUsers (){
-        List<UserModel> allUsers = userService.getAllUsers();
-        return allUsers;
+        return userService.getAllUsers();
     }
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
     public HttpStatus followUser (@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdNotFoundException {
         return userService.setFollower(userId, userIdToFollow);
+    }
+
+    @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
+    public HttpStatus unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException {
+        return userService.removeFollower(userId, userIdToUnfollow);
     }
 
     @GetMapping("/{userId}/followers/count")
