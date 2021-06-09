@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/products") //mapping de 0005, products
 public class PostController {
 
     @Autowired
     IPostService ipostService;
 
-    @PostMapping("/newpost")
+    @PostMapping("/newpost") //post de newpost, 0005
     public ResponseEntity<Void> newPost(@RequestBody Post post) throws UserNotFoundException{
-        ipostService.newPost(Post);
+        ipostService.newPost(post); //chusmear porque queda en rojo
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

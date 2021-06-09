@@ -13,11 +13,11 @@ public class ValidDate {
         }
         else
         {
-            SimpleDateFormat sdfrmt = new SimpleDateFormat("dd-MM-yyyy");
-            sdfrmt.setLenient(false);
+            SimpleDateFormat sdformat = new SimpleDateFormat("dd-MM-yyyy");
+            sdformat.setLenient(false);
             try
             {
-                Date javaDate = sdfrmt.parse(strDate);
+                Date javaDate = sdformat.parse(strDate);
             }
             catch (ParseException e)
             {

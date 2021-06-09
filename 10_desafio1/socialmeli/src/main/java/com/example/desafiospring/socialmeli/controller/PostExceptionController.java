@@ -12,7 +12,7 @@ public class PostExceptionController {
 
     @ExceptionHandler(PostIdAlreadyExistException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(PostIdAlreadyExistException e){
-        return new ResponseEntity<>(e.getError(),e.getStatus());
+        return new ResponseEntity<>(e.getError(),e.getStatus()); //exception handler, nos devuelve el ERROR de dto
     }
 
     @ExceptionHandler(DateIsNotValidException.class)

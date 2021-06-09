@@ -12,7 +12,7 @@ public class CustomException extends Exception{
     public CustomException(String message,HttpStatus status){
         this.error = new ErrorDTO();
         this.error.setMessage(message);
-        this.error.setName(this.getClass().getSimpleName());
+        this.error.setName(this.getClass().getSimpleName());  //setea namey  message, arroja status..
         this.status = status;
     }
 }
