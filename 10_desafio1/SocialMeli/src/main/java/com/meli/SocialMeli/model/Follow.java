@@ -12,4 +12,12 @@ public class Follow {
     private int id;
     private int followerId;
     private int followedId;
+    private boolean active;
+
+    public Follow(int id, int followerId, int followedId) {
+        this.id = id;
+        this.followerId = followerId;
+        this.followedId = followedId;
+        active=true;
+    }
 }

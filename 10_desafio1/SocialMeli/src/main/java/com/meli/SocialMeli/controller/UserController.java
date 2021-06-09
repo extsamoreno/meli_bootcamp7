@@ -4,8 +4,10 @@ import com.meli.SocialMeli.dto.UserFollowedListDto;
 import com.meli.SocialMeli.dto.UserFollowerCountDto;
 import com.meli.SocialMeli.dto.UserFollowerListDto;
 import com.meli.SocialMeli.dto.UserNewDto;
+import com.meli.SocialMeli.exception.FollowNotFoundUserException;
 import com.meli.SocialMeli.exception.InvalidUserIdException;
 import com.meli.SocialMeli.exception.InvalidUserNameException;
+import com.meli.SocialMeli.exception.RepeatedFollowUserException;
 import com.meli.SocialMeli.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/user")
+@RequestMapping(path = "/users")
 public class UserController {
 
     @Autowired
@@ -26,9 +28,15 @@ public class UserController {
     }
 
     @PostMapping(path = "/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<String> follow(@PathVariable("userId") int followerId, @PathVariable("userIdToFollow") int followedId) throws InvalidUserIdException {
+    public ResponseEntity<String> follow(@PathVariable("userId") int followerId, @PathVariable("userIdToFollow") int followedId) throws InvalidUserIdException, RepeatedFollowUserException {
         iUserService.follow(followerId,followedId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<String> unfollow(@PathVariable("userId") int followerId, @PathVariable("userIdToUnfollow") int followedId) throws FollowNotFoundUserException {
+        iUserService.unfollow(followerId,followedId);
+        return new ResponseEntity<>("The seller has been unfollowed succesfully", HttpStatus.OK);
     }
 
     @GetMapping(path = "/{userId}/followers/count")

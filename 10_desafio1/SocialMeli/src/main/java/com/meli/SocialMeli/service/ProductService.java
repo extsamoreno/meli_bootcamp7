@@ -16,7 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class ProductService implements IProductService{
@@ -44,6 +49,8 @@ public class ProductService implements IProductService{
         for(User user : iUserRepository.getFolloweds(userId)){
             postList.addAll(iProductRepository.getPostByUser(user.getUserId()));
         }
+        postList=sortPostByDate(postList);
+        postList=trimByDays(postList,14);
         ArrayList<PostResDto> postDtoList = new ArrayList<>();
         for(Post post : postList){
             postDtoList.add(ProductMapper.postToResDto(post,iProductRepository.getProductById(post.getProductId())));
@@ -74,5 +81,39 @@ public class ProductService implements IProductService{
         if(iUserRepository.getUserById(id)==null){
             throw new InvalidUserIdException();
         }
+    }
+
+    public ArrayList<Post> sortPostByDate(ArrayList<Post> postList) {
+        for (int i = 0; i < postList.size()-1; i++) {
+            for (int j = 0; j < postList.size() - 1; j++) {
+                if (comparePost(postList.get(j),postList.get(j+1))) {
+                    Post tmp = postList.get(j);
+                    postList.set(j,postList.get(j+1));
+                    postList.set(j+1,tmp);
+                }
+            }
+        }
+        return postList;
+    }
+
+    private boolean comparePost(Post post, Post post1) {
+        if (post.getDate().before(post1.getDate())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private ArrayList<Post> trimByDays(ArrayList<Post> postList,int days){
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        LocalDate localDate = LocalDate.now();
+        Date curDate = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
+
+        for (int i = 0; i < postList.size(); i++) {
+            if(ChronoUnit.DAYS.between(postList.get(i).getDate().toInstant(),curDate.toInstant())>days){
+                postList=new ArrayList<>(postList.subList(0,i));
+            }
+        }
+        return postList;
     }
 }

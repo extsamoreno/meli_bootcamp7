@@ -1,7 +1,5 @@
 package com.meli.SocialMeli.repository;
 
-import com.meli.SocialMeli.dto.UserNewDto;
-import com.meli.SocialMeli.mapper.UserMapper;
 import com.meli.SocialMeli.model.Follow;
 import com.meli.SocialMeli.model.User;
 import org.springframework.stereotype.Repository;
@@ -21,6 +19,11 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
+    public void editFollow(Follow follow) {
+        Tables.editFollow(follow);
+    }
+
+    @Override
     public User getUserById(int id) {
         return Tables.getUserById(id);
     }
@@ -33,5 +36,10 @@ public class UserRepository implements IUserRepository{
     @Override
     public ArrayList<User> getFolloweds(int id) {
         return Tables.getFolloweds(id);
+    }
+
+    @Override
+    public Follow getFollow(int idFollower, int idFollowed) {
+        return Tables.getFollow(idFollower,idFollowed);
     }
 }

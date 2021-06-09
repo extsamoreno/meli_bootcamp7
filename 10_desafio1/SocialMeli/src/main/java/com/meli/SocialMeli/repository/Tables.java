@@ -1,5 +1,6 @@
 package com.meli.SocialMeli.repository;
 
+import com.meli.SocialMeli.exception.RepeatedFollowUserException;
 import com.meli.SocialMeli.model.Follow;
 import com.meli.SocialMeli.model.Post;
 import com.meli.SocialMeli.model.Product;
@@ -22,6 +23,14 @@ public class Tables {
     public static void follow(Follow follow){
         follow.setId(nextFollowId());
         followList.add(follow);
+    }
+
+    public static void editFollow(Follow follow){
+        for (int i = 0; i < followList.size(); i++) {
+            if(followList.get(i).getId()==follow.getId()){
+                followList.set(i,follow);
+            }
+        }
     }
 
     private static int nextUserId(){
@@ -52,7 +61,7 @@ public class Tables {
     public static ArrayList<User> getFollowers(int id) {
         ArrayList<User> followerList = new ArrayList<>();
         for(Follow follow : followList){
-            if(follow.getFollowedId()==id){
+            if(follow.getFollowedId()==id && follow.isActive()){
                 followerList.add(getUserById(follow.getFollowerId()));
             }
         }
@@ -62,11 +71,20 @@ public class Tables {
     public static ArrayList<User> getFolloweds(int id) {
         ArrayList<User> followedList = new ArrayList<>();
         for(Follow follow : followList){
-            if(follow.getFollowerId()==id){
+            if(follow.getFollowerId()==id && follow.isActive()){
                 followedList.add(getUserById(follow.getFollowedId()));
             }
         }
         return followedList;
+    }
+
+    public static Follow getFollow(int idFollower, int idFollowed){
+        for(Follow check : followList){
+            if(check.getFollowerId()==idFollower && check.getFollowedId()==idFollowed && check.isActive()){
+                return check;
+            }
+        }
+        return null;
     }
 
     public static void newPost(Post post) {

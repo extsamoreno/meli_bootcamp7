@@ -11,9 +11,13 @@ public interface IUserRepository {
 
     void follow(Follow follow);
 
+    void editFollow(Follow follow);
+
     User getUserById(int id);
 
     ArrayList<User> getFollowers(int id);
 
     ArrayList<User> getFolloweds(int id);
+
+    Follow getFollow(int idFollower, int idFollowed);
 }

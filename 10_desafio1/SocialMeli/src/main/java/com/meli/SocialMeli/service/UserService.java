@@ -1,8 +1,10 @@
 package com.meli.SocialMeli.service;
 
 import com.meli.SocialMeli.dto.*;
+import com.meli.SocialMeli.exception.FollowNotFoundUserException;
 import com.meli.SocialMeli.exception.InvalidUserIdException;
 import com.meli.SocialMeli.exception.InvalidUserNameException;
+import com.meli.SocialMeli.exception.RepeatedFollowUserException;
 import com.meli.SocialMeli.model.Follow;
 import com.meli.SocialMeli.repository.IUserRepository;
 import com.meli.SocialMeli.mapper.UserMapper;
@@ -24,7 +26,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void follow(int followerId, int followedId) throws InvalidUserIdException {
+    public void follow(int followerId, int followedId) throws InvalidUserIdException, RepeatedFollowUserException {
         Follow follow = new Follow(-1, followerId,followedId);
         validateFollow(follow);
         iUserRepository.follow(follow);
@@ -55,6 +57,15 @@ public class UserService implements IUserService{
         return userDto;
     }
 
+    @Override
+    public void unfollow(int followerId, int followedId) throws FollowNotFoundUserException {
+        Follow follow=iUserRepository.getFollow(followerId,followedId);
+        if(follow!=null){
+            follow.setActive(false);
+            iUserRepository.editFollow(follow);
+        }else throw new FollowNotFoundUserException();
+    }
+
     private void validateNewUser(UserNewDto userNewDto) throws InvalidUserNameException {
         if(userNewDto.getUserName().equals("")) throw new InvalidUserNameException();
     }
@@ -65,11 +76,15 @@ public class UserService implements IUserService{
         }
     }
 
-    private void validateFollow(Follow follow) throws InvalidUserIdException {
+    private void validateFollow(Follow follow) throws InvalidUserIdException, RepeatedFollowUserException {
         if(follow.getFollowerId()== follow.getFollowedId()){
             throw new InvalidUserIdException();
         }
         validateId(follow.getFollowerId());
         validateId(follow.getFollowedId());
+        System.out.println(iUserRepository.getFollow(follow.getFollowerId(),follow.getFollowedId()));
+        if(iUserRepository.getFollow(follow.getFollowerId(),follow.getFollowedId())!=null){
+            throw new RepeatedFollowUserException();
+        }
     }
 }
