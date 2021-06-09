@@ -38,12 +38,7 @@ public class PostService implements IPostService{
             throw new UserIdNotFoundException(userId);
         }
 
-        List<User> followed = iUserRepository.getUserFollowed(userId);
-
-        //primero obtengo todos los usuarios a los que sigue el usuario
-        //luego obtengo todos los posteos de esos usuarios
-        //luego filtro por las ultimas dos semanas
-
+        List<User> followed = iUserRepository.getUserFollowed(userId,null);
         return new FollowedPostsDTO(userId, iPostRepository.getFollowedPosts(followed));
     }
 }

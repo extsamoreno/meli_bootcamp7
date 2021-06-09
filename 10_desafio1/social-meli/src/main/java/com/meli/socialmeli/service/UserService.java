@@ -37,36 +37,36 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowersCountDTO followersCount(Integer userId) throws UserIdNotFoundException {
+    public FollowersCountDTO getFollowersCount(Integer userId) throws UserIdNotFoundException {
         User user = iUserRepository.findUserById(userId);
 
         if(user == null) {
             throw new UserIdNotFoundException(userId);
         }
 
-        return new FollowersCountDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowers(userId).size());
+        return new FollowersCountDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowers(userId,null).size());
     }
 
     @Override
-    public UserFollowersDTO userFollowers(Integer userId) throws UserIdNotFoundException {
+    public UserFollowersDTO getUserFollowers(Integer userId, String order) throws UserIdNotFoundException {
         User user = iUserRepository.findUserById(userId);
 
         if(user == null) {
             throw new UserIdNotFoundException(userId);
         }
 
-        return new UserFollowersDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowers(userId));
+        return new UserFollowersDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowers(userId,order));
     }
 
     @Override
-    public UserFollowedDTO userFollowed(Integer userId) throws UserIdNotFoundException {
+    public UserFollowedDTO getUserFollowed(Integer userId, String order) throws UserIdNotFoundException {
         User user = iUserRepository.findUserById(userId);
 
         if(user == null) {
             throw new UserIdNotFoundException(userId);
         }
 
-        return new UserFollowedDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowed(userId));
+        return new UserFollowedDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowed(userId,order));
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 public interface IUserRepository {
     User findUserById(Integer userId);
     void addFollower(User userTo, User userFrom);
-    List<User> getUserFollowers(Integer userId);
-    List<User> getUserFollowed(Integer userId);
+    List<User> getUserFollowers(Integer userId, String order);
+    List<User> getUserFollowed(Integer userId, String order);
     void deleteFollower(Integer userId, Integer userIdToUnfollow);
 }

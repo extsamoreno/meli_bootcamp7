@@ -27,19 +27,19 @@ public class UserController {
     //Requirement US 0002
     @GetMapping("/{userId}/followers/count/")
     public ResponseEntity<FollowersCountDTO> getUserFollowersCount(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iUserService.followersCount(userId),HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowersCount(userId),HttpStatus.OK);
     }
 
-    //Requirement US 0003
+    //Requirement US 0003/008
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserFollowersDTO> getUserFollowers(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iUserService.userFollowers(userId),HttpStatus.OK);
+    public ResponseEntity<UserFollowersDTO> getUserFollowers(@PathVariable Integer userId, @RequestParam(required = false) String order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iUserService.getUserFollowers(userId,order),HttpStatus.OK);
     }
 
-    //Requirement US 0004
+    //Requirement US 0004/008
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserFollowedDTO> getUserFollowed(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iUserService.userFollowed(userId), HttpStatus.OK);
+    public ResponseEntity<UserFollowedDTO> getUserFollowed(@PathVariable Integer userId, @RequestParam(required = false) String order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iUserService.getUserFollowed(userId,order), HttpStatus.OK);
     }
 
     //Requirement US 0007
@@ -48,4 +48,5 @@ public class UserController {
         iUserService.unfollowUser(userId,userIdToUnfollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,7 +48,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public List<User> getUserFollowers(Integer userId) {
+    public List<User> getUserFollowers(Integer userId, String order) {
         List<Follow> fs = this.follows.stream().filter(i -> i.getUserTo().getUserId().equals(userId)).collect(Collectors.toList());
         List<User> followers = new ArrayList<>();
 
@@ -55,17 +56,29 @@ public class UserRepository implements IUserRepository {
             followers.add(f.getUserFrom());
         }
 
+        if(order != null && order.equals("name_asc"))
+            followers.sort(Comparator.comparing(User::getUserName));
+
+        if(order != null && order.equals("name_desc"))
+            followers.sort((f1, f2) -> f2.getUserName().compareTo(f1.getUserName()));
+
         return followers;
     }
 
     @Override
-    public List<User> getUserFollowed(Integer userId) {
+    public List<User> getUserFollowed(Integer userId, String order) {
         List<Follow> fs = this.follows.stream().filter(i -> i.getUserFrom().getUserId().equals(userId)).collect(Collectors.toList());
         List<User> followed = new ArrayList<>();
 
         for (Follow f : fs) {
             followed.add(f.getUserTo());
         }
+
+        if(order != null && order.equals("name_asc"))
+            followed.sort(Comparator.comparing(User::getUserName));
+
+        if(order != null && order.equals("name_desc"))
+            followed.sort((f1, f2) -> f2.getUserName().compareTo(f1.getUserName()));
 
         return followed;
     }
