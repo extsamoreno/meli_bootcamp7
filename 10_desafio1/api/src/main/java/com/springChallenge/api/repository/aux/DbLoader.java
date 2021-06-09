@@ -3,20 +3,21 @@ package com.springChallenge.api.repository.aux;
 import com.springChallenge.api.repository.entity.Product;
 import com.springChallenge.api.repository.entity.User;
 
+import java.util.ArrayList;
+
 public class DbLoader {
-    public static User[] loadUsers(){
-        return new User[]{
-                new User(1, "user1"),
-                new User(2, "user2"),
-                new User(3, "user3"),
-                new User(4, "user4"),
-                new User(5, "user5"),
-                new User(6, "seller1"),
-                new User(7, "seller2"),
-                new User(8, "seller3"),
-                new User(9, "seller4"),
-                new User(10, "seller5")
-        };
+    public static ArrayList<User> loadUsers(){
+        ArrayList<User> list = new ArrayList<>();
+
+        list.add(new User(1, "user1"));
+        list.add(new User(2, "user2"));
+        list.add(new User(3, "user3"));
+        list.add(new User(4, "user4"));
+        list.add(new User(5, "seller1"));
+        list.add(new User(6, "seller2"));
+        list.add(new User(7, "seller3"));
+
+        return list;
     }
 
     public static Product[] loadProducts(){

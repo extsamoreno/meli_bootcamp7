@@ -29,8 +29,18 @@ public class User {
         this.sellersFollowed.add(user);
     }
 
+    public void removeSellerFollowed(User user) {this.sellersFollowed.remove(user);}
+
     public void addFollower(User user) {
         this.followers.add(user);
+    }
+
+    public void removeFollower(User user) {
+        this.followers.remove(user);
+    }
+
+    public void addPost(Post post){
+        this.posts.add(post);
     }
 
     public void copyAll(User user){

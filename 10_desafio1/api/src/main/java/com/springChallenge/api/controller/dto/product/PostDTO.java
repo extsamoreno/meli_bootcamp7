@@ -10,6 +10,7 @@ import java.util.Date;
 @Getter @Setter
 @AllArgsConstructor
 public class PostDTO {
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int userId;
     @JsonProperty("id_post")
     private int idPost;

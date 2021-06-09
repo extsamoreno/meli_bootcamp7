@@ -7,9 +7,12 @@ import lombok.Setter;
 
 @Getter @Setter
 @AllArgsConstructor
-public class FollowerCountDTO {
-    private int userId;
-    private String userName;
+public class FollowerCountDTO extends UserDTO{
     @JsonProperty("followers_count")
     private int followersCount;
+
+    public FollowerCountDTO(Integer userId, String userName, Integer followersCount){
+        super(userId, userName);
+        this.followersCount = followersCount;
+    }
 }

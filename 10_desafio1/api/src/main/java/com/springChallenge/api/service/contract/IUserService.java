@@ -3,6 +3,7 @@ package com.springChallenge.api.service.contract;
 import com.springChallenge.api.controller.dto.user.FollowedListDTO;
 import com.springChallenge.api.controller.dto.user.FollowerCountDTO;
 import com.springChallenge.api.controller.dto.user.FollowerListDTO;
+import com.springChallenge.api.controller.exception.user.OwnFollowException;
 import com.springChallenge.api.controller.exception.user.UserNotFoundException;
 import com.springChallenge.api.controller.exception.user.UserValidationsException;
 
@@ -14,4 +15,6 @@ public interface IUserService {
     FollowerListDTO getFollowerList(Integer userId) throws UserNotFoundException;
 
     FollowedListDTO getFollowedList(Integer userId) throws UserNotFoundException;
+
+    void unfollow(Integer userId, Integer userIdToUnfollow) throws UserValidationsException;
 }
