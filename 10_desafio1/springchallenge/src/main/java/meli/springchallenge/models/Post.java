@@ -12,12 +12,20 @@ import java.util.Date;
 public class Post {
 
     private int userId;
-    private int id_post;
+    private int postId;
     private Date date;
-    private ProductDTO detail;
+    private int productId;
     private int category;
     private double price;
     private boolean hasPromo;
     private double discount;
 
+    public Post(int userId, int postId, Date date, int productId, int category, double price) {
+        this.userId = userId;
+        this.postId = postId;
+        this.date = date;
+        this.productId = productId;
+        this.category = category;
+        this.price = price;
+    }
 }

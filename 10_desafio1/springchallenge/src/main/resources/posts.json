@@ -1,8 +1,8 @@
 [
   {
     "userId": 2,
-    "idPost" : 1,
-    "date" : "29-04-2021",
+    "postId" : 1,
+    "date" : "2021-04-20",
     "productId" : 1,
     "category" : 100,
     "price" : 1500.50,
@@ -11,8 +11,8 @@
   },
   {
     "userId": 3,
-    "idPost" : 2,
-    "date" : "29-04-2021",
+    "postId" : 2,
+    "date" : "2021-04-20",
     "productId" : 2,
     "category" : 100,
     "price" : 1500.50,
