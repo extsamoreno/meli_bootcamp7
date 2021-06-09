@@ -27,6 +27,6 @@ public class Post {
         this.date=post.getDate();
         this.detail=post.getDetail();
         this.category=post.getCategory();
-        this.price=getPrice();
+        this.price=post.getPrice();
     }
 }
