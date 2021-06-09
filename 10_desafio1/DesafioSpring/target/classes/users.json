@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "name": "Antonella Le",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  },
+  {
+    "id": "2",
+    "name": "Uusario1",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  },
+  {
+    "id": "3",
+    "name": "Uusario2",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  },
+  {
+    "id": "4",
+    "name": "UusarioOtro",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  },
+  {
+    "id": "5",
+    "name": "Patricio Penia",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  },
+  {
+    "id": "6",
+    "name": "Felipe Cortez",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  },
+  {
+    "id": "7",
+    "name": "Felipe Verde",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  },
+  {
+    "id": "8",
+    "name": "Felipe Rojo",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  },
+  {
+    "id": "9",
+    "name": "Felipe Manual",
+    "followers": [],
+    "followedBy": [],
+    "posts":[]
+  }
+]

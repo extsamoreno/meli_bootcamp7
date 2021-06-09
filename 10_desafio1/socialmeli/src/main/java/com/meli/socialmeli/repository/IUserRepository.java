@@ -1,6 +1,7 @@
 package com.meli.socialmeli.repository;
 
-import com.meli.socialmeli.dto.UserResponseDTO;
+import com.meli.socialmeli.dto.UserFollowerDTO;
+import com.meli.socialmeli.dto.UserResponseCountDTO;
 import com.meli.socialmeli.model.UserMeli;
 
 public interface IUserRepository {
@@ -10,8 +11,8 @@ public interface IUserRepository {
 
     void saveUser(int userId, String userName);
 
-    UserMeli ListUser(int userId);
+    UserFollowerDTO ListUser(int userId);
 
-    UserResponseDTO getFollowersById(Integer userId);
+    UserResponseCountDTO getFollowersById(int userId);
 
 }

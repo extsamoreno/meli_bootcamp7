@@ -1,7 +1,7 @@
 package com.meli.socialmeli.Service;
 
-import com.meli.socialmeli.dto.UserResponseDTO;
-import com.meli.socialmeli.exception.UserException;
+import com.meli.socialmeli.dto.UserFollowerDTO;
+import com.meli.socialmeli.dto.UserResponseCountDTO;
 import com.meli.socialmeli.exception.UserInvalidException;
 import com.meli.socialmeli.model.UserMeli;
 import com.meli.socialmeli.repository.IUserRepository;
@@ -26,13 +26,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserMeli getFollowersList(int userId) {
+    public UserFollowerDTO getFollowersList(int userId) {
 
         return iUserRepository.ListUser(userId);
     }
 
     @Override
-    public UserResponseDTO getFollowers(Integer userId) {
+    public UserResponseCountDTO getFollowers(int userId) {
         //UserResponseDTO userResponseDTO = new UserResponseDTO(userId, ,iUserRepository.getFollowersById(userId));
         return iUserRepository.getFollowersById(userId);
     }

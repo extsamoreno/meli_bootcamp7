@@ -1,9 +1,13 @@
 package com.meli.socialmeli.repository;
 
+import com.meli.socialmeli.dto.UserFollowerDTO;
+import com.meli.socialmeli.dto.UserResponseCountDTO;
 import com.meli.socialmeli.dto.UserResponseDTO;
+import com.meli.socialmeli.mapper.UserMapper;
 import com.meli.socialmeli.model.UserMeli;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Repository
@@ -22,7 +26,7 @@ public class UserRepository implements IUserRepository {
     @Override
     public void follow(int userId, int userIdToFollow) {
         if (!users.get(userId).getFollowers().contains(users.get(userIdToFollow))) {
-            users.get(userId).getFollowers().add(users.get(userIdToFollow));
+            users.get(userId).getFollowers().add(users.get(userIdToFollow).getUserId());
         }
 //        if (!users.get(userIdToFollow).getFollowed().contains(users.get(userId))) {
 //            users.get(userIdToFollow).getFollowed().add(users.get(userId));
@@ -36,14 +40,25 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public UserMeli ListUser(int userId) {
-        return users.get(userId);
+    public UserFollowerDTO ListUser(int userId) {
+        ArrayList<Integer> followers= users.get(userId).getFollowers();
+        ArrayList<UserResponseDTO> followersList= null;
+        for (Integer urd: users.get(followers).getFollowers()
+                          ) {
+            followersList.add(UserMapper.toDTO(users.get(followers)));
+        }
+        return new UserFollowerDTO(users.get(userId).getUserId(), users.get(userId).getUserName(), followersList );
     }
 
+//    @Override
+//    public UserResponseCountDTO getFollowersById(int userId) {
+//        return null;
+//    }
+
     @Override
-    public UserResponseDTO getFollowersById(Integer userId) {
-        //return new UserResponseDTO(44, "jjjj", 4);//
-        return new UserResponseDTO(users.get(userId).getUserId(), "users.get(userId).getUserName()", 55);// users.get(userId).getFollowed().size());
+    public UserResponseCountDTO getFollowersById(int userId) {
+        //return new UserResponseDTO(44, users.get(userId).getUserName(), 4);//
+        return new UserResponseCountDTO(users.get(userId).getUserId(), users.get(userId).getUserName(), 55);
 
     }
 }
