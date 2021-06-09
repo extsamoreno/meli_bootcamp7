@@ -1,12 +1,13 @@
 package meli.springchallenge.services;
 
 import meli.springchallenge.dtos.PostDTO;
-import meli.springchallenge.dtos.followedPostDTO;
+import meli.springchallenge.dtos.FollowedPostDTO;
+import meli.springchallenge.exceptions.UserNotValidException;
 
 public interface IProductService {
 
     void createPost(PostDTO post);
 
-    followedPostDTO getFollowedPosts(int userId);
+    FollowedPostDTO getFollowedPosts(int userId, String order);
 }
 

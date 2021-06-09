@@ -32,7 +32,6 @@ public class ProductRepository implements IProductRepository{
     @Override
     public void createPost(Post post) {
         this.posts.add(post);
-        System.out.println("post.toString() = " + post.toString());
     }
 
     @Override
@@ -46,6 +45,17 @@ public class ProductRepository implements IProductRepository{
             }
         }
         return posts;
+    }
+
+    @Override
+    public Product getProductById(int productId) {
+
+        for(Product p:products){
+            if (p.getProductId() == productId){
+                return p;
+            }
+        }
+        return null;
     }
 
 

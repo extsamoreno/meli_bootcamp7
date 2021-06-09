@@ -1,8 +1,13 @@
 package meli.springchallenge.dtos;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 
-public class followedPostDTO {
+@Data
+@AllArgsConstructor
+public class FollowedPostDTO {
 
     private int userId;
     private List<PostDTO> posts;

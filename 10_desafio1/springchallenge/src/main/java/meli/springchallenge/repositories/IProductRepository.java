@@ -12,4 +12,6 @@ public interface IProductRepository {
     void createPost (Post post);
 
     List<Post> getPostByUserId(int userId);
+
+    Product getProductById(int productId);
 }

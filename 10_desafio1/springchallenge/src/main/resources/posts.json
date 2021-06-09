@@ -2,17 +2,62 @@
   {
     "userId": 2,
     "postId" : 1,
-    "date" : "2021-04-20",
+    "date" : "2021-06-01",
     "productId" : 1,
     "category" : 100,
     "price" : 1500.50,
     "hasPromo": true,
     "discount": 0.25
+  },  {
+    "userId": 2,
+    "postId" : 2,
+    "date" : "2021-06-03",
+    "productId" : 2,
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": false,
+    "discount": 0
+  },  {
+    "userId": 2,
+    "postId" : 3,
+    "date" : "2021-06-04",
+    "productId" : 2,
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": false,
+    "discount": 0
+  },  {
+    "userId": 2,
+    "postId" : 4,
+    "date" : "2021-05-05",
+    "productId" : 2,
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": false,
+    "discount": 0
+  },  {
+    "userId": 2,
+    "postId" : 5,
+    "date" : "2021-06-06",
+    "productId" : 2,
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": false,
+    "discount": 0
   },
   {
     "userId": 3,
-    "postId" : 2,
-    "date" : "2021-04-20",
+    "postId" : 6,
+    "date" : "2021-06-07",
+    "productId" : 2,
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": false,
+    "discount": 0
+  }, {
+    "userId": 4,
+    "postId" : 7,
+    "date" : "2021-06-08",
     "productId" : 2,
     "category" : 100,
     "price" : 1500.50,

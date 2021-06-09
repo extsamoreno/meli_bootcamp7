@@ -1,7 +1,8 @@
 package meli.springchallenge.controllers;
 
 import meli.springchallenge.dtos.PostDTO;
-import meli.springchallenge.dtos.followedPostDTO;
+import meli.springchallenge.dtos.FollowedPostDTO;
+import meli.springchallenge.exceptions.UserNotValidException;
 import meli.springchallenge.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,8 @@ public class ProductsControler {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<followedPostDTO> getFollowedPosts(@PathVariable int UserId){
-        return new ResponseEntity<followedPostDTO>(productService.getFollowedPosts(UserId),HttpStatus.OK);
+    public ResponseEntity<FollowedPostDTO> getFollowedPosts(@PathVariable int userId, @RequestParam(defaultValue = "date_desc") String order)  {
+        return new ResponseEntity<FollowedPostDTO>(productService.getFollowedPosts(userId, order),HttpStatus.OK);
     }
 
 
