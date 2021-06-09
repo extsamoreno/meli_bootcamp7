@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IPostRepository {
     public List<Npost> getListaPosts();
+    public void setListaPosts(Npost npost);
 
 }

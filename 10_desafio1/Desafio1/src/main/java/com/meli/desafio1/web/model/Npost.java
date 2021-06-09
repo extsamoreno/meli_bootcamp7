@@ -13,7 +13,7 @@ import java.util.Date;
 public class Npost {
     private int userId;
     private int id_post;
-    private Date date;
+    private String date;
     private Producto detail;
     private String category;
     private float price;

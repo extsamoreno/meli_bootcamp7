@@ -1,7 +1,7 @@
 [
   {"userId": 1,
   "id_post": 1,
-    "date": "2021-04-29",
+    "date": "01-06-2021",
     "detail": {
       "product_id": 1,
       "productName": "Silla Gamer",
@@ -16,7 +16,7 @@
   },
   {"userId": 1,
     "id_post": 2,
-    "date": "2021-04-30",
+    "date": "30-04-2021",
     "detail": {
       "product_id": 1,
       "productName": "Silla",
@@ -31,7 +31,7 @@
   },
   {"userId": 5,
     "id_post": 3,
-    "date": "2021-05-28",
+    "date": "02-06-2021",
     "detail": {
       "product_id": 1,
       "productName": "Headphones",

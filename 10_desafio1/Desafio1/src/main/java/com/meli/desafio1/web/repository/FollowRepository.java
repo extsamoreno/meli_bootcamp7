@@ -2,8 +2,10 @@ package com.meli.desafio1.web.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.meli.desafio1.web.dto.FollowDTO;
 import com.meli.desafio1.web.model.Follow;
 import com.meli.desafio1.web.model.Npost;
+import com.meli.desafio1.web.service.FollowMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,9 +32,16 @@ public class FollowRepository implements IFollowRepository{
     }
 
     @Override
-    public String methodTest(){
-        return "Hizo algo";
+    public FollowDTO getFollowById(int userId) {
+
+        for(Follow follow:this.followList){
+            if(follow.getUserId()==userId){
+                return FollowMapper.toDTO(follow);
+            }
+        }
+        return null;
     }
+
 
     private List<Follow> loadDataFollow() {
         File file = null;

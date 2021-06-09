@@ -35,12 +35,26 @@ public class UsersController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<List<UserDTO>> ListFollowersResponse(@PathVariable("userId") int userId){
-        return new ResponseEntity<>(iUserService.followersByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> ListFollowersResponse(@RequestParam(value = "order", required = false,defaultValue = "") String order,@PathVariable("userId") int userId){
+        return new ResponseEntity<>(iUserService.followersByUserId(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<List<UserDTO>> ListFollowedResponse(@PathVariable("userId") int userId){
-        return new ResponseEntity<>(iUserService.followedByUserId(userId), HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> ListFollowedResponse(@RequestParam(value = "order", required = false, defaultValue = "") String order,@PathVariable("userId") int userId){
+        return new ResponseEntity<>(iUserService.followedByUserId(userId,order), HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Integer> unFollowResponse(@PathVariable("userId") int userId, @PathVariable("userIdToUnfollow") int userIdToUnfollow){
+
+        int respuesta = iUserService.unFollow(userId,userIdToUnfollow);
+        HttpStatus status;
+        if(respuesta == 1) {
+            status = HttpStatus.CREATED;
+        }else{
+            status = HttpStatus.BAD_REQUEST;
+        }
+
+        return new ResponseEntity<>(respuesta, status);
     }
 }

@@ -19,6 +19,9 @@ public class PostRepository implements IPostRepository{
     public List <Npost> getListaPosts(){
         return listaPosts;
     }
+    public void setListaPosts(Npost npost){
+        this.listaPosts.add(npost);
+    }
     private List<Npost> loadDataPosts() {
         File file = null;
         try{
