@@ -10,8 +10,11 @@ public class ProductMapper {
     public static ProductResponseDTO toDTO(Product product){
 
         return new ProductResponseDTO(
+                product.getUserId(),
+                product.getIdPost(),
                 product.getDate(),
                 ProductDetailMapper.toDTO(product.getDetail()),
+                product.getCategory(),
                 product.getPrice()
         );
     }

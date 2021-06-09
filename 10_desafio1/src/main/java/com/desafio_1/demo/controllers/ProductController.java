@@ -1,5 +1,6 @@
 package com.desafio_1.demo.controllers;
 
+import com.desafio_1.demo.dtos.ProductFollowedDTO;
 import com.desafio_1.demo.dtos.ProductRequestDTO;
 import com.desafio_1.demo.dtos.ProductResponseDTO;
 import com.desafio_1.demo.exceptions.*;
@@ -19,6 +20,11 @@ public class ProductController {
     @PostMapping("/newpost")
     public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody ProductRequestDTO product) throws UserIdInvalidException, ProductCategoryInvalidException, ProductPriceInvalidException, UserNotFoundException, UnhandledException, ProductDetailRequiredException, ProductDateInvalidException, ProductIdPostInvalidException, ProductDetailIdInvalidException, ProductDetailNameRequiredException, ProductDetailBrandRequiredException, ProductDetailColorRequiredException, ProductDetailTypeRequiredException {
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
+    }
+
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<ProductFollowedDTO> findProductsByFollowedId(@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException, UserIdInvalidException, UnhandledException {
+        return new ResponseEntity<>(productService.findProductsByFollowedId(userId, order), HttpStatus.OK);
     }
 
 }

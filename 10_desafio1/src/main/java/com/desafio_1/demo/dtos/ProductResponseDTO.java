@@ -1,5 +1,7 @@
 package com.desafio_1.demo.dtos;
 
+import com.desafio_1.demo.models.ProductDetail;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductResponseDTO {
+    private int userId;
+    @JsonProperty("id_post")
+    private int idPost;
     private LocalDate date;
     private ProductDetailDTO detail;
+    private int category;
     private double price;
 }
