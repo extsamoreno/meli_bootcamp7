@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class User {
+public class User  {
     private Integer id;
     private String userName;
     private List<UserDTO> followed;

@@ -50,6 +50,50 @@
       {
         "id": 2,
         "userName": "user2"
+      },
+      {
+        "id": 10,
+        "userName": "aUser"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "userName": "aUser",
+    "followed": [
+      {
+        "id": 1,
+        "userName": "user1"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "userName": "abUser",
+    "followed": [
+      {
+        "id": 1,
+        "userName": "user1"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "userName": "bUser",
+    "followed": [
+      {
+        "id": 1,
+        "userName": "user1"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "userName": "aaUser",
+    "followed": [
+      {
+        "id": 1,
+        "userName": "user1"
       }
     ]
   }

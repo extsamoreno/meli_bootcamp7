@@ -16,5 +16,5 @@ public interface IPostService {
 
     ResponseListPostsDto getPostList(Integer userId) throws UserNotFoundException;
 
-    List<ResponseListPostsDto> getPostListForUsersFollowed(Integer userId) throws UserNotFoundException;
+    List<ResponseListPostsDto> getPostListForUsersFollowed(Integer userId, String order) throws UserNotFoundException;
 }

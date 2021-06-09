@@ -7,9 +7,11 @@ import com.meli.desafio.users.models.dto.ResponseUserCountFollowers;
 import com.meli.desafio.users.models.dto.ResponseUserListFollowers;
 import com.meli.desafio.users.models.dto.UserDTO;
 import com.meli.desafio.users.repositories.IUserRepository;
+import com.meli.desafio.utils.SortUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -43,16 +45,26 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseUserListFollowers showAllFollowers(Integer userId) throws UserNotFoundException {
+    public ResponseUserListFollowers showAllFollowers(Integer userId, String order) throws UserNotFoundException {
         User user = userRepository.getById(userId);
         ResponseUserListFollowers userDTO = UserMapper.userToResponseList(user);
         userDTO.setFollowersList(userRepository.getFollowersTo(user));
+
+        Collections.sort(userDTO.getFollowersList());
+        if(order.equalsIgnoreCase("name_desc"))
+                Collections.reverse(userDTO.getFollowersList());
         return userDTO;
     }
 
     @Override
-    public User showAllFollowed(Integer userId) throws UserNotFoundException {
-        return userRepository.getById(userId);
+    public User showAllFollowed(Integer userId, String order) throws UserNotFoundException {
+        User user = userRepository.getById(userId);
+
+        Collections.sort(user.getFollowed());
+        if(order.equalsIgnoreCase("name_desc"))
+            Collections.reverse(user.getFollowed());
+
+        return user;
     }
 
     @Override

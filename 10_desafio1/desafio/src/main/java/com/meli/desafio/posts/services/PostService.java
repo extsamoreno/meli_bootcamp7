@@ -14,8 +14,7 @@ import com.meli.desafio.utils.SortUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,26 +45,33 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public List<ResponseListPostsDto> getPostListForUsersFollowed(Integer userId) throws UserNotFoundException {
+    public List<ResponseListPostsDto> getPostListForUsersFollowed(Integer userId, String order) throws UserNotFoundException {
         List<ResponseListPostsDto> listPostsDtos = new ArrayList<>();
         List<UserDTO> listUsers = userService.getById(userId).getFollowed();
 
-        //----------------------//
-        // REVISAR ORDENAMIENTO //
-        //----------------------//
         for(UserDTO u : listUsers){
-            List<Post> listPosts = postRepository.getAllByUserId(userId);
-            listPosts.sort((a, b) -> SortUtil.sortByDate(a.getDate(), b.getDate()));
+            List<Post> listPosts = postRepository.getAllByUserId(userId)
+                    .stream().filter(p -> p.getDate().after(getDateBeforeTwoWeeks())).collect(Collectors.toList());
+            Collections.sort(listPosts);
+            if(order.equalsIgnoreCase("date_desc"))
+                Collections.reverse(listPosts);
             listPostsDtos.add(createlistPostDTO(listPosts, u.getId()));
         }
 
         return listPostsDtos;
     }
 
+    private Date getDateBeforeTwoWeeks() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.getTime();
+        calendar.add(Calendar.DATE, -14);
+        return calendar.getTime();
+    }
+
     private ResponseListPostsDto createlistPostDTO(List<Post> posts, Integer userId){
         return ResponseListPostsDto.builder()
                 .userId(userId)
-                .posts(PostMapper.postToDTOList(postRepository.getAllByUserId(userId)))
+                .posts(PostMapper.postToDTOList(posts))
                 .build();
     }
 }

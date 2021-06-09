@@ -13,9 +13,9 @@ public interface IUserService {
 
     ResponseUserCountFollowers showCountFollowers(Optional<Integer> userId, Optional<String> userName) throws UserNotFoundException;
 
-    ResponseUserListFollowers showAllFollowers(Integer userId) throws UserNotFoundException;
+    ResponseUserListFollowers showAllFollowers(Integer userId, String order) throws UserNotFoundException;
 
-    User showAllFollowed(Integer userId) throws UserNotFoundException;
+    User showAllFollowed(Integer userId, String order) throws UserNotFoundException;
 
     boolean userExist(Integer userId);
 

@@ -34,8 +34,7 @@ public class UserController {
     @GetMapping(value = {"/{userId}{userName}/followers/count"})
     public ResponseEntity<ResponseUserCountFollowers> showCountFollowers(
             @PathVariable Optional<Integer> userId,
-            @PathVariable Optional<String> userName,
-            @RequestParam(required = false) String order
+            @PathVariable Optional<String> userName
     ) throws UserNotFoundException {
         return new ResponseEntity<>(userService.showCountFollowers(userId, userName), HttpStatus.OK);
     }
@@ -45,18 +44,27 @@ public class UserController {
     //TENGO QUE HACER LO MISMO QUE CON EL DE ARRIBA (CUANDO FUNCIONE)
     //Followers list of user
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<ResponseUserListFollowers> showAllFollowers(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<>(userService.showAllFollowers(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseUserListFollowers> showAllFollowers(
+            @PathVariable Integer userId,
+            @RequestParam(required = false, defaultValue = "name_asc") String order
+    ) throws UserNotFoundException {
+        return new ResponseEntity<>(userService.showAllFollowers(userId, order), HttpStatus.OK);
     }
 
     //followed list of user
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<User> showAllFollowed(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<>(userService.showAllFollowed(userId), HttpStatus.OK);
+    public ResponseEntity<User> showAllFollowed(
+            @PathVariable Integer userId,
+            @RequestParam(required = false, defaultValue = "name_asc"
+    ) String order) throws UserNotFoundException {
+        return new ResponseEntity<>(userService.showAllFollowed(userId, order), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<String> removeFollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserNotFoundException {
+    public ResponseEntity<String> removeFollow(
+            @PathVariable Integer userId,
+            @PathVariable Integer userIdToUnfollow
+    ) throws UserNotFoundException {
         userService.removeFollow(userId, userIdToUnfollow);
         return new ResponseEntity<>(URLBuilder.buildURL("users", userId, "followed/list"), HttpStatus.OK);
     }
