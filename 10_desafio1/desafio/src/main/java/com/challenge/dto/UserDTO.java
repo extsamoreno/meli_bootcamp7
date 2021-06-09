@@ -2,12 +2,14 @@ package com.challenge.dto;
 
 import com.challenge.entity.Post;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
+    @JsonProperty("user_id")
     private Integer userId;
     private String username;
     private List<Post> posts;

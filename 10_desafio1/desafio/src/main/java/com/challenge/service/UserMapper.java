@@ -2,7 +2,6 @@ package com.challenge.service;
 
 import com.challenge.dto.UserDTO;
 import com.challenge.entity.User;
-import org.apache.catalina.LifecycleState;
 
 import java.util.ArrayList;
 import java.util.List;

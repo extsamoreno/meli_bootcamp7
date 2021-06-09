@@ -1,30 +1,41 @@
-package com.challenge.entity;
+package com.challenge.dto;
+
+import com.challenge.entity.Product;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-public class Post {
+public class NewPostRequest {
 
-    private Integer postId;
-    private LocalDate date;
+    @JsonProperty("user_id")
     private Integer userId;
+    @JsonProperty("post_id")
+    private Integer postId;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate date;
     private Product detail;
     private Integer category;
     private Double price;
-    private Boolean hasPromo;
-    private Double discount;
 
-    public Post(Integer postId, LocalDate date, Integer userId, Product detail, Integer category, Double price, Boolean hasPromo, Double discount) {
+    public NewPostRequest(Integer userId, Integer postId, LocalDate date, Product detail, Integer category, Double price) {
+        this.userId = userId;
         this.postId = postId;
         this.date = date;
-        this.userId = userId;
         this.detail = detail;
         this.category = category;
         this.price = price;
-        this.hasPromo = hasPromo;
-        this.discount = discount;
     }
 
-    public Post() {
+    public NewPostRequest() {
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getPostId() {
@@ -41,14 +52,6 @@ public class Post {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Product getDetail() {
@@ -73,21 +76,5 @@ public class Post {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Boolean getHasPromo() {
-        return hasPromo;
-    }
-
-    public void setHasPromo(Boolean hasPromo) {
-        this.hasPromo = hasPromo;
-    }
-
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
     }
 }
