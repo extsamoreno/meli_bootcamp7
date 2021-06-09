@@ -8,6 +8,7 @@ import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowedPostsResponseDTO;
 import com.example.socialmeli.models.dtos.response.NewPostResponseDTO;
+import com.example.socialmeli.models.dtos.response.SellerPromoProductsCountResponseDTO;
 import com.example.socialmeli.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,13 @@ public class ProductServiceImple implements ProductService{
         productRepository.addPromoPost(newPromoPostRequestDTO);
 
         return "Se ha agregado un nuevo producto en promoción al repositorio";
+    }
+
+    @Override
+    public SellerPromoProductsCountResponseDTO countPromoProducts(int userId) throws InexistentUserException{
+        SellerPromoProductsCountResponseDTO promoProducts = productRepository.countPromoProducts(userId);
+
+        return promoProducts;
     }
 
 }

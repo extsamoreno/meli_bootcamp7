@@ -43,4 +43,29 @@ public class SocialMeliExceptionController {
     public ResponseEntity<ErrorDTO> handleInexistentOrderException(InexistentNameOrderException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
+
+    @ExceptionHandler(ProductException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalProductException(ProductException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(ExistentProductException.class)
+    public ResponseEntity<ErrorDTO> handleExistentProductException(ExistentProductException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(ExistentPromoProductException.class)
+    public ResponseEntity<ErrorDTO> handleExistentPromoProductException(ExistentPromoProductException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(PostException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalPostException(PostException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(ExistentPostException.class)
+    public ResponseEntity<ErrorDTO> handleExistentExistentPostException(ExistentPostException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
 }

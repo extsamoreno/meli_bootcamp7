@@ -1,6 +1,7 @@
 package com.example.socialmeli.repositories;
 
 import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.models.Post;
 import com.example.socialmeli.models.User;
 import com.example.socialmeli.models.dtos.PostDTO;
 import com.example.socialmeli.models.dtos.UserDTO;
@@ -8,6 +9,7 @@ import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowedPostsResponseDTO;
 import com.example.socialmeli.models.dtos.response.NewPostResponseDTO;
+import com.example.socialmeli.models.dtos.response.SellerPromoProductsCountResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -88,5 +90,26 @@ public class ProductRepositoryImple implements ProductRepository{
         post.setDiscount(newPromoPostRequestDTO.getDiscount());
 
         user.addPost(post);
+    }
+
+    @Override
+    public SellerPromoProductsCountResponseDTO countPromoProducts(int userId) throws InexistentUserException {
+        User user = userRepository.getUserById(userId);
+        SellerPromoProductsCountResponseDTO promoProducts = new SellerPromoProductsCountResponseDTO();
+        int promoProductsCount = 0;
+
+        for (int i = 0; i < user.getPosts().size(); i++) {
+            PostDTO post = user.getPosts().get(i);
+
+            if(post.isHasPromo()){
+                promoProductsCount++;
+            }
+        }
+
+        promoProducts.setUserId(userId);
+        promoProducts.setUserName(user.getUserName());
+        promoProducts.setPromoProductsCount(promoProductsCount);
+
+        return promoProducts;
     }
 }

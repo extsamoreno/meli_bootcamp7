@@ -5,6 +5,7 @@ import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowedPostsResponseDTO;
 import com.example.socialmeli.models.dtos.response.NewPostResponseDTO;
+import com.example.socialmeli.models.dtos.response.SellerPromoProductsCountResponseDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -12,4 +13,5 @@ public interface ProductRepository {
     NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException;
     ListFollowedPostsResponseDTO listPosts(int idUser) throws InexistentUserException;
     void addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException;
+    SellerPromoProductsCountResponseDTO countPromoProducts(int userId) throws InexistentUserException;
 }
