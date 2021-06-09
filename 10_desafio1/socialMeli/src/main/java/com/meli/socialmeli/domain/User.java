@@ -59,4 +59,8 @@ public class User {
     public boolean isFollowing(User userToFollow) {
         return followed.stream().map(User::getUserId).collect(Collectors.toList()).contains(userToFollow.getUserId());
     }
+
+    public boolean isTheSameUser(User userToFollow) {
+        return userId.equals(userToFollow.getUserId());
+    }
 }

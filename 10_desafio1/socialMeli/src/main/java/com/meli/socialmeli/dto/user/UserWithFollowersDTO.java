@@ -11,8 +11,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserWithFollowersDTO {
-    private Integer userId;
-    private String username;
+public class UserWithFollowersDTO extends UserDTO {
     private List<UserDTO> followers;
+
+    public UserWithFollowersDTO(Integer userId, String username, List<UserDTO> followers) {
+        super(userId, username);
+        this.followers = followers;
+    }
 }

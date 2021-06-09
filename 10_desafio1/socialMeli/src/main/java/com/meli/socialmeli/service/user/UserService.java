@@ -27,7 +27,8 @@ public class UserService implements IUserService {
     }
 
     private void sendToFollow(User user, User userToFollow) throws CanNotFollowException {
-        if (user.isFollowing(userToFollow)) throw new CanNotFollowException(user.getUserId(), userToFollow.getUserId());
+        if (user.isFollowing(userToFollow) || user.isTheSameUser(userToFollow))
+            throw new CanNotFollowException(user.getUserId(), userToFollow.getUserId());
         user.startToFollow(userToFollow);
     }
 

@@ -2,6 +2,7 @@ package com.meli.socialmeli.domain;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -11,7 +12,7 @@ import java.util.Date;
 public class Publication {
     private Integer userId;
     private Integer id_post;
-    private Date date;
+    private LocalDate date;
     private Product detail;
     private Integer category;
     private double price;
