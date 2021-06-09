@@ -61,7 +61,7 @@ public class UserService implements IUserService {
         ResponseFollowerCountDTO responseFollowerCountDTO = new ResponseFollowerCountDTO();
         responseFollowerCountDTO.setUserId(user.getUserId());
         responseFollowerCountDTO.setUserName(user.getUserName());
-        responseFollowerCountDTO.setFollowers_count(user.getFollowers().size());
+        responseFollowerCountDTO.setFollowersCount(user.getFollowers().size());
         return responseFollowerCountDTO;
     }
 

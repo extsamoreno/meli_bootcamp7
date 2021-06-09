@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class ResponseFollowerCountDTO {
     private int userId;
     private String userName;
-    private int followers_count;
+    private int followersCount;
 }

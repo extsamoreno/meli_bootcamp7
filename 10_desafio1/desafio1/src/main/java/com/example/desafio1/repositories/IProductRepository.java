@@ -5,5 +5,5 @@ import com.example.desafio1.models.Post;
 import com.example.desafio1.models.User;
 
 public interface IProductRepository {
-    String addNewPost(User user, Post post) throws InvalidUserIdException;
+    void addNewPost(User user, Post post) throws InvalidUserIdException;
 }

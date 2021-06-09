@@ -1,6 +1,5 @@
 package com.example.desafio1.mappers;
 
-
 import com.example.desafio1.dtos.PostDTO;
 import com.example.desafio1.dtos.PostPromoDTO;
 import com.example.desafio1.models.Post;

@@ -45,7 +45,7 @@ public class UserRepository implements IUserRepository {
 
     private List<User> loadDateBase() {
         File file = null;
-        try {                                           // need to change to user.json
+        try {
             file = ResourceUtils.getFile("classpath:users.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -98,9 +98,7 @@ public class UserRepository implements IUserRepository {
         followers3.add(new UserDTO(1, "Alvarez Jorge"));
         String dateString = "26-05-2021";
         String[] st = dateString.split("-");
-        StringBuilder sb = new StringBuilder();
-        sb.append(st[2]).append("-").append(st[1]).append("-").append(st[0]);
-        posts3.add(new Post(30, LocalDate.parse(sb.toString()), new Product(2,
+        posts3.add(new Post(30, LocalDate.parse(st[2] + "-" + st[1] + "-" + st[0]), new Product(2,
                 "Headset Gamer", "Gamer", "Racer", "Red & Black",
                 "Special Edition"), 101, 3000.00));
         u = new User(4, "Rojas Macarena", followed3, followers3, posts3);
@@ -112,16 +110,12 @@ public class UserRepository implements IUserRepository {
         followers4.add(new UserDTO(1, "Alvarez Jorge"));
         dateString = "25-05-2021";
         st = dateString.split("-");
-        StringBuilder sb1 = new StringBuilder();
-        sb1.append(st[2]).append("-").append(st[1]).append("-").append(st[0]);
-        posts4.add(new Post(20, LocalDate.parse(sb1.toString()), new Product(100,
+        posts4.add(new Post(20, LocalDate.parse(st[2] + "-" + st[1] + "-" + st[0]), new Product(100,
                 "Keyboard Gamer", "Gamer", "Racer", "Red & Black",
                 "Special Edition"), 101, 3000.00));
         dateString = "27-05-2021";
         st = dateString.split("-");
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append(st[2]).append("-").append(st[1]).append("-").append(st[0]);
-        posts4.add(new Post(40, LocalDate.parse(sb2.toString()), new Product(3,
+        posts4.add(new Post(40, LocalDate.parse(st[2] + "-" + st[1] + "-" + st[0]), new Product(3,
                 "Mouse Gamer", "Gamer", "Racer", "Red & Black", "Special Edition"),
                 101, 3000.00));
         u = new User(5, "Gomez Marcos", followed4, followers4, posts4);

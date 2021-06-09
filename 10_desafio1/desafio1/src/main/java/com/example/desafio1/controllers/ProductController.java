@@ -26,11 +26,11 @@ public class ProductController {
     /*
         {
             "userId": 1235,
-            "id_post": 18,
+            "idPost": 18,
             "date": "29-04-2021",
             "detail" :
                         {
-                        "product_id": 1,
+                        "productId": 1,
                         "productName": "Silla Gamer",
                         "type": "Gamer",
                         "brand": "Racer",
@@ -55,11 +55,11 @@ public class ProductController {
     /*
         {
             "userId": 1235,
-            "id_post": 18,
+            "idPost": 18,
             "date": "29-04-2021",
             "detail" :
                         {
-                        "product_id": 1,
+                        "productId": 1,
                         "productName": "Silla Gamer",
                         "type": "Gamer",
                         "brand": "Racer",

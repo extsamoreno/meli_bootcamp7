@@ -32,7 +32,7 @@ public class ProductService implements IProductService {
     public String addNewPost(PostDTO postDTO) throws InvalidUserIdException {
         iProductRepository.addNewPost(iUserService.getUserById(postDTO.getUserId()),
                 PostMapper.PostDTOToPost(postDTO));
-        return "Se ha agregado el producto con id: " + postDTO.getDetail().getProduct_id() +
+        return "Se ha agregado el producto con id: " + postDTO.getDetail().getProductId() +
                 " al usuario con id: " + postDTO.getUserId();
     }
 
@@ -45,7 +45,7 @@ public class ProductService implements IProductService {
         }
         iProductRepository.addNewPost(iUserService.getUserById(postPromoDTO.getUserId()),
                 PostMapper.PostPromoDTOToPost(postPromoDTO));
-        return "Se ha agregado el producto en PROMOCION con id: " + postPromoDTO.getDetail().getProduct_id() +
+        return "Se ha agregado el producto en PROMOCION con id: " + postPromoDTO.getDetail().getProductId() +
                 " al usuario con id: " + postPromoDTO.getUserId();
     }
 

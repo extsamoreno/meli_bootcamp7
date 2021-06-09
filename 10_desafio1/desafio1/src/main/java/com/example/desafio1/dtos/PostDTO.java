@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PostDTO {
     private int userId;
-    private int id_post;
+    private int idPost;
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate date;
     private Product detail;
@@ -23,7 +23,7 @@ public class PostDTO {
 
     public PostDTO(Post post) {
         this.userId = 0;
-        this.id_post = post.getId_post();
+        this.idPost = post.getIdPost();
         this.date = post.getDate();
         this.detail = post.getDetail();
         this.category = post.getCategory();

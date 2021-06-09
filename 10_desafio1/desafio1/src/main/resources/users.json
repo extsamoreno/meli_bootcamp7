@@ -82,11 +82,11 @@
                  ],
     "posts": [
                 {
-                  "id_post": 30,
+                  "idPost": 30,
                   "date": "25-05-2021",
                   "detail" :
                             {
-                              "product_id": 3,
+                              "productId": 3,
                               "productName": "Mouse Gamer",
                               "type": "Gamer",
                               "brand": "Racer",
@@ -111,11 +111,11 @@
                  ],
     "posts": [
                 {
-                  "id_post": 20,
+                  "idPost": 20,
                   "date": "24-05-2021",
                   "detail" :
                             {
-                              "product_id": 2,
+                              "productId": 2,
                               "productName": "Headset Gamer",
                               "type": "Gamer",
                               "brand": "Racer",
@@ -126,11 +126,11 @@
                   "price": 3000.00
                 },
                 {
-                  "id_post": 40,
+                  "idPost": 40,
                   "date": "26-05-2021",
                   "detail" :
                             {
-                              "product_id": 100,
+                              "productId": 100,
                               "productName": "Keyboard Gamer",
                               "type": "Gamer",
                               "brand": "Racer",

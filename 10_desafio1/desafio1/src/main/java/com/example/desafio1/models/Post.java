@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 public class Post {
-    private int id_post;
+    private int idPost;
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate date;
     private Product detail;
@@ -20,8 +20,8 @@ public class Post {
     private boolean hasPromo;
     private double discount;
 
-    public Post(int id_post, LocalDate date, Product detail, int category, double price) {
-        this.id_post = id_post;
+    public Post(int idPost, LocalDate date, Product detail, int category, double price) {
+        this.idPost = idPost;
         this.date = date;
         this.detail = detail;
         this.category = category;
@@ -31,7 +31,7 @@ public class Post {
     }
 
     public Post(PostDTO postDTO) {
-        this.id_post = postDTO.getId_post();
+        this.idPost = postDTO.getIdPost();
         this.date = postDTO.getDate();
         this.detail = postDTO.getDetail();
         this.category = postDTO.getCategory();
@@ -41,7 +41,7 @@ public class Post {
     }
 
     public Post(PostPromoDTO postPromoDTO) {
-        this.id_post = postPromoDTO.getId_post();
+        this.idPost = postPromoDTO.getIdPost();
         this.date = postPromoDTO.getDate();
         this.detail = postPromoDTO.getDetail();
         this.category = postPromoDTO.getCategory();
