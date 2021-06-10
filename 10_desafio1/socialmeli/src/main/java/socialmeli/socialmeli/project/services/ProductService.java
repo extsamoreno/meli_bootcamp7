@@ -8,11 +8,14 @@ import socialmeli.socialmeli.project.exceptions.ProductExceptions.NoPostsFoundEx
 import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostAlreadyExistsException;
 import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostPromoFoundException;
 import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostPromoNotFoundException;
+import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
 import socialmeli.socialmeli.project.models.Post;
 import socialmeli.socialmeli.project.models.User;
 import socialmeli.socialmeli.project.repository.IProductRepository;
+import socialmeli.socialmeli.project.repository.IUserRepository;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostArrayDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostDto;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoDto;
 import socialmeli.socialmeli.project.services.mapper.mapper;
 
 import java.util.ArrayList;
@@ -26,21 +29,23 @@ public class ProductService implements IProductService{
 
     @Autowired
     IProductRepository iProductRepository;
+    IUserRepository iUserRepository;
 
     @Override
-    public void addNewPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoFoundException {
+    public void addNewPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoFoundException, IdNotFoundException {
         if(postDto.isHasPromo()==true){
             throw new PostPromoFoundException(postDto);
         }
+        if(iUserRepository.findUserById(postDto.getUserId())!=null)
         iProductRepository.save(mapper.dtoToPost(postDto));
     }
 
     @Override
-    public void addNewPromoPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoNotFoundException {
+    public void addNewPromoPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoNotFoundException, IdNotFoundException {
         if(postDto.isHasPromo()!=true){
             throw new PostPromoNotFoundException(postDto);
         }
-
+        if(iUserRepository.findUserById(postDto.getUserId())!=null)
         iProductRepository.save(mapper.dtoToPost(postDto));
     }
 
@@ -61,6 +66,12 @@ public class ProductService implements IProductService{
         return mapper.postArrayToDto(postArrayList);
     }
 
+    @Override
+    public PostPromoDto getCountPromo(Integer userId) throws IdNotFoundException {
+        ArrayList<Post> promoArr = iProductRepository.getArrayPromoPostById(userId);
+        User user = iUserRepository.findUserById(userId);
+        return mapper.postArrayPromoToDto(user.getUserId(),user.getUserName(),promoArr);
+    }
 
 
 }

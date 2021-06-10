@@ -13,4 +13,6 @@ public interface IProductRepository {
     boolean alreadyExists(Post post);
 
     ArrayList<Post> getArrayPostById(Integer userId) throws NoPostsFoundException;
+
+    ArrayList<Post> getArrayPromoPostById(Integer userId);
 }

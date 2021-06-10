@@ -61,6 +61,13 @@ public class ProductRepository implements IProductRepository {
         return previousTwoWeeksPostsArr;
     }
 
-
+    @Override
+    public ArrayList<Post> getArrayPromoPostById(Integer userId){
+        ArrayList<Post> promoArr = (ArrayList<Post>) postArrayList
+                .stream()
+                .filter(x -> x.getUserId() == userId && x.isHasPromo()==true).sorted()
+                .collect(Collectors.toList());
+        return promoArr;
+    }
 
 }
