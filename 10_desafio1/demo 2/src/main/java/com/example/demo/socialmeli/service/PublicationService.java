@@ -7,6 +7,8 @@ import com.example.demo.socialmeli.exception.UserNotFoundException;
 import com.example.demo.socialmeli.models.Publication;
 import com.example.demo.socialmeli.models.User;
 import com.example.demo.socialmeli.repository.UserRepository;
+import com.example.demo.socialmeli.service.dto.CountFollowersDTO;
+import com.example.demo.socialmeli.service.dto.CountPromoDTO;
 import com.example.demo.socialmeli.service.dto.PublicationListDTO;
 import com.example.demo.socialmeli.service.dto.PublicationRequestDTO;
 import org.springframework.stereotype.Service;
@@ -92,5 +94,24 @@ public class PublicationService implements IPublicationService {
         }
         publicationListDTO.setPosts(arrayList1);
         return publicationListDTO;
+    }
+    @Override
+    public CountPromoDTO countPromo (int userId) throws UserNotFoundException{
+        User user = userRepository.getUserById(userId);
+        CountPromoDTO countPromoDTO = new CountPromoDTO();
+        countPromoDTO.setUserId(user.getUserId());
+        countPromoDTO.setUserName(user.getUserName());
+        countPromoDTO.setPromoproducts_count(this.getCountPromo(userId));
+        return countPromoDTO;
+    }
+    @Override
+    public int getCountPromo(int id) throws UserNotFoundException {
+        PublicationListDTO publicationListDTOS = this.getPublicationList(id,null);
+        int count=0;
+        for (int i=0;i<publicationListDTOS.getPosts().size();i++) {
+            if (publicationListDTOS.getPosts().get(i).isHasPromo())
+                count++;
+        }
+        return count;
     }
 }

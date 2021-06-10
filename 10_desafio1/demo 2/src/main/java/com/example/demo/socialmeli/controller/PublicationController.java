@@ -5,6 +5,7 @@ import com.example.demo.socialmeli.exception.MissingParameterException;
 import com.example.demo.socialmeli.exception.PublicationExistingException;
 import com.example.demo.socialmeli.exception.UserNotFoundException;
 import com.example.demo.socialmeli.service.IPublicationService;
+import com.example.demo.socialmeli.service.dto.CountPromoDTO;
 import com.example.demo.socialmeli.service.dto.PublicationListDTO;
 import com.example.demo.socialmeli.service.dto.PublicationRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,7 @@ public class PublicationController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
     @GetMapping("/{userId}/countPromo/")
-    public ResponseEntity<Void> newPromoPost (@PathVariable int userId) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException {
-
-        return new ResponseEntity<Void>(HttpStatus.OK);
+    public ResponseEntity<CountPromoDTO> newPromoPost (@PathVariable int userId) throws UserNotFoundException{
+        return new ResponseEntity<CountPromoDTO>(iPublicationService.countPromo(userId),HttpStatus.OK);
     }
 }
