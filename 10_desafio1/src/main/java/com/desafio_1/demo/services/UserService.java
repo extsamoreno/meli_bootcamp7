@@ -27,7 +27,7 @@ public class UserService implements IUserService{
     public void addFollowUser(int userId, int userIdToFollow) throws UnhandledException, BadRequestException {
 
         if(userId == userIdToFollow)
-            throw new BadRequestException("El id de seguidor no puede ser el mismo de seguido.");
+            throw new BadRequestException("El id de seguidor no puede ser el mismo de seguido");
 
         User user = userRepository.findUserById(userId);
         User userToFollow = userRepository.findUserById(userIdToFollow);
@@ -80,7 +80,7 @@ public class UserService implements IUserService{
     public void unfollowUser(int userId, int userIdToUnfollow) throws UnhandledException, BadRequestException {
 
         if(userId == userIdToUnfollow)
-            throw new BadRequestException("El id de seguidor no puede ser el mismo de seguido.");
+            throw new BadRequestException("El id de seguidor no puede ser el mismo de seguido");
 
         User user = userRepository.findUserById(userId);
         User userToUnfollow = userRepository.findUserById(userIdToUnfollow);

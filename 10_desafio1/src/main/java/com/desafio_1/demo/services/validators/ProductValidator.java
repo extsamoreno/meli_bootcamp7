@@ -12,23 +12,23 @@ public class ProductValidator extends AbstractValidator<ProductRequestDTO> {
 
         ruleFor(ProductRequestDTO::getDate)
                 .must(Objects::nonNull)
-                    .withMessage("La fecha es requerida.");
+                    .withMessage("La fecha es requerida");
 
         ruleFor(ProductRequestDTO::getDetail)
                 .must(Objects::nonNull)
-                    .withMessage("El detalle de producto es requerido.");
+                    .withMessage("El detalle de producto es requerido");
 
         ruleFor(ProductRequestDTO::getCategory)
                 .must(greaterThanOrEqual(1))
-                    .withMessage("El id de categoria es invalido.");
+                    .withMessage("El id de categoria es invalido");
 
         ruleFor(ProductRequestDTO::getPrice)
                 .must(greaterThanOrEqual(1.0))
-                    .withMessage("El precio debe ser mayor a 0.");
+                    .withMessage("El precio debe ser mayor a 0");
 
         ruleFor(ProductRequestDTO::getIdPost)
                 .must(greaterThanOrEqual(1))
-                    .withMessage("El id de post invalido.");
+                    .withMessage("El id de post invalido");
 
     }
 

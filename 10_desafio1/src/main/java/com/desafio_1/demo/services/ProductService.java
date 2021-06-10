@@ -105,10 +105,10 @@ public class ProductService implements IProductService{
         }
 
         if(product.isHasPromo() && product.getDiscount() <= 0)
-            throw new BadRequestException("Para añadir un producto en promocion, el descuento debe ser mayor a 0.");
+            throw new BadRequestException("Para añadir un producto en promocion, el descuento debe ser mayor a 0");
 
         if(!product.isHasPromo() && product.getDiscount() > 0)
-            throw new BadRequestException("Para añadir un producto en promocion con descuento, hasPromo debe ser true.");
+            throw new BadRequestException("Para añadir un producto en promocion con descuento, hasPromo debe ser true");
 
         return true;
     }
