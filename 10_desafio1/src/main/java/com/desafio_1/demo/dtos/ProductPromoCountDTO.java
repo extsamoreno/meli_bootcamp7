@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductPromoCountDTO {
+    @JsonProperty("user_id")
     private int userId;
+    @JsonProperty("user_name")
     private String userName;
     @JsonProperty("promoproducts_count")
     private int promoProductsCount;

@@ -14,7 +14,6 @@ import java.util.Date;
 public class Product {
 
     private int userId;
-    @JsonProperty("id_post")
     private int idPost;
     private LocalDate date;
     private ProductDetail detail;

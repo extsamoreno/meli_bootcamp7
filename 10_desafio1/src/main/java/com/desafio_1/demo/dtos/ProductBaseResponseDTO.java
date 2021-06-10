@@ -13,6 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductBaseResponseDTO {
+    @JsonProperty("user_id")
     private int userId;
     @JsonProperty("id_post")
     private int idPost;
@@ -20,6 +21,7 @@ public class ProductBaseResponseDTO {
     private ProductDetailDTO detail;
     private int category;
     private double price;
+    @JsonProperty("has_promo")
     private boolean hasPromo;
     private double discount;
 }
