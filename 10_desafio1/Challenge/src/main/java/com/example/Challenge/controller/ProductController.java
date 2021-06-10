@@ -22,7 +22,7 @@ public class ProductController {
     @PostMapping("/newpost")
     public ResponseEntity<String> newPost(@RequestBody Product product)throws ProgramException {
         iProductService.newPost(product);
-        return new ResponseEntity<>("Producto agregado", HttpStatus.OK);
+        return new ResponseEntity<>("added product", HttpStatus.OK);
     }
     @GetMapping("/list/{idUser}")
     public ResponseEntity<List<Product>> getAllProduct(@PathVariable Integer idUser) throws ProgramException {
@@ -36,7 +36,7 @@ public class ProductController {
     @PostMapping("/newpromopost")
     public ResponseEntity<String> newPromoPost(@RequestBody Product product) throws ProgramException {
         iProductService.newPromoPost(product);
-        return new ResponseEntity<>("Producto promo agregado", HttpStatus.OK);
+        return new ResponseEntity<>("added product promo", HttpStatus.OK);
     }
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<ProductCountPromoDTO> getCountProductPromo(@PathVariable Integer userId) throws ProgramException {
