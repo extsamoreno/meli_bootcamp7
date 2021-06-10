@@ -5,6 +5,7 @@ import com.meli.demo.dtos.*;
 import com.meli.demo.exceptions.FollowException;
 import com.meli.demo.exceptions.PostDiscountException;
 import com.meli.demo.exceptions.PostException;
+import com.meli.demo.exceptions.UnFollowException;
 import com.meli.demo.services.SocialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -82,7 +83,7 @@ public class SocialController {
     //POST http://localhost:8080/social/users/101/unfollow/1001
     //Punto 7 Dejar de seguir un vendedor
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
-    public  ResponseEntity<String>   unFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws FollowException {
+    public  ResponseEntity<String>   unFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UnFollowException {
         return new ResponseEntity(FollowService.unFollow(userId,userIdToUnfollow),HttpStatus.OK);
     }
 
@@ -120,7 +121,7 @@ public class SocialController {
         return new ResponseEntity<>(FollowService.countDiscount(userId),HttpStatus.OK);
     }
 
-    //GET http://localhost:8080/social//products/1002/list/
+    //GET http://localhost:8080/social/products/1002/list/
     // Punto 12 listado de todos los productos en promoción de un determinado
     //vendedor
     @GetMapping("/products/{userId}/list/")

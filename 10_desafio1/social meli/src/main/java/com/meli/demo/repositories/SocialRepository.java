@@ -17,5 +17,6 @@ public interface SocialRepository {
     boolean unFollow(int iduser, int id_vendedor);
     boolean newPostDiscount(Post publi);
     Seller getVendedor(int userId);
+    User getUser(int userId);
 
 }

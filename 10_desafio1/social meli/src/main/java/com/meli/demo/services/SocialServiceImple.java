@@ -5,8 +5,10 @@ import com.meli.demo.dtos.*;
 import com.meli.demo.exceptions.FollowException;
 import com.meli.demo.exceptions.PostDiscountException;
 import com.meli.demo.exceptions.PostException;
+import com.meli.demo.exceptions.UnFollowException;
 import com.meli.demo.models.Post;
 import com.meli.demo.models.Seller;
+import com.meli.demo.models.User;
 import com.meli.demo.repositories.SocialRepository;
 import com.meli.demo.services.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,12 +145,39 @@ public class SocialServiceImple implements SocialService {
     //Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
 
     @Override
-    public String unFollow(int userid, int usertofollow) throws FollowException {
-        if(FollowRepository.unFollow(userid,usertofollow)){
-            return "todo OK";
+    public String unFollow(int userid, int usertofollow) throws UnFollowException {
+
+        boolean Exist=false;
+        Seller sel = new Seller();
+        User user = new User();
+        sel= (FollowRepository.getVendedor(usertofollow));
+        user= (FollowRepository.getUser(userid));
+        if(sel.getNombre()==null | user.getUserName()==null){
+            throw new UnFollowException();
         }
         else{
-            throw new FollowException();
+
+            for (int i = 0; i <sel.getUsuarios().size() ; i++) {
+
+                if(sel.getUsuarios().get(i).getUserId()==userid){
+                    Exist=true;
+                }
+
+            }
+
+        }
+
+        if(Exist){
+
+            if(FollowRepository.unFollow(userid,usertofollow)){
+                return "todo OK";
+            }
+            else{
+                throw new UnFollowException();
+            }
+
+        }else{
+            throw new UnFollowException();
         }
     }
     //Ordenar la fecha de forma ascendente o descendente
@@ -221,6 +250,7 @@ public class SocialServiceImple implements SocialService {
     public ListSellersPostDTO orderAscDescArrayDate(ListSellersPostDTO list, String order){
 
         ListSellersPostDTO lis= new ListSellersPostDTO();
+        lis.setUserId(list.getUserId());
 
         List<String> dateArray = new ArrayList<String>();
         List<String> dateArray2 = new ArrayList<String>();

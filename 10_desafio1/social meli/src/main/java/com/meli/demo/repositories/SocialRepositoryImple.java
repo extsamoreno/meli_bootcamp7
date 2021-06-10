@@ -1,12 +1,9 @@
 package com.meli.demo.repositories;
 
 import com.meli.demo.dtos.*;
-import com.meli.demo.models.CountUser;
-import com.meli.demo.models.ListSeller;
-import com.meli.demo.models.Post;
-import com.meli.demo.models.Seller;
-import com.meli.demo.models.ListSellerPost;
+import com.meli.demo.models.*;
 import com.meli.demo.services.mappers.PostMapper;
+import com.meli.demo.services.mappers.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -257,29 +254,23 @@ public class SocialRepositoryImple implements SocialRepository {
     @Override
     public boolean unFollow(int iduser, int id_vendedor) {
         UserDTO usuario1 = new UserDTO();
-        for (int i = 0; i < UserDTO.size(); i++) {
 
-            if(UserDTO.get(i).getUserId()==iduser){
-                usuario1.setUserName(UserDTO.get(i).getUserName());
-                usuario1.setUserId(UserDTO.get(i).getUserId());
-            }
-        }
         for (int i = 0; i < Sellers.size(); i++) {
 
             if(Sellers.get(i).getId()==id_vendedor){
 
-                if(usuario1.getUserName().isEmpty()){
-                    return false;
-                }else{
-                    Sellers.get(i).getUsuarios().remove(i);
-                    return true;
+                for (int j = 0; j < Sellers.get(i).getUsuarios().size(); j++) {
+                    if(Sellers.get(i).getUsuarios().get(j).getUserId()==iduser){
+
+                        Sellers.get(i).getUsuarios().remove(j);
+
+                        return true;
+                    }
+
                 }
-            }else{
-                return false;
 
             }
         }
-
         return true;
     }
 //Añadimos la nueva publicaciòn con descuento
@@ -306,6 +297,20 @@ public class SocialRepositoryImple implements SocialRepository {
             }
         }
         return vendedor;
+    }
+
+    //Obtenemos el vendedor deacuerdo al id
+    @Override
+    public User getUser(int userId) {
+
+        User user = new User();
+        for (int i = 0; i < UserDTO.size(); i++) {
+            if(UserDTO.get(i).getUserId()==userId){
+                user= UserMapper.toSeller(UserDTO.get(i));
+
+            }
+        }
+        return user;
     }
 
 }
