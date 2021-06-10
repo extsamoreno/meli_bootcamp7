@@ -1,5 +1,6 @@
 package com.example.demo.DTO;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public class ResponseListSellerDTO {
 
     private int userId;
     private String username;
-    private List<UserDTO> followers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<UserDTO> followed;
 
 }

@@ -1,6 +1,6 @@
 package com.example.demo.entities;
 
-import com.example.demo.DTO.UserDTO;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +13,6 @@ import java.util.List;
 public class User {
     private int userId;
     private String userName;
-    private List<UserDTO> followers;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<User> followers;
 }

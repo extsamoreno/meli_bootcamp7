@@ -24,13 +24,26 @@
       {
         "userId": 3,
         "userName": "Pablo"
+      },
+      {
+        "userId": 4,
+        "userName": "Estela",
+        "followers": [
+          {
+            "userId": 3,
+            "userName": "Pedro"
+          },
+          {
+            "userId": 1,
+            "userName": "Santiago"
+          }
+        ]
       }
     ]
   },
   {
     "userId": 3,
-    "userName": "Pablo",
-    "followers": null
+    "userName": "Pablo"
   },
   {
     "userId": 4,

@@ -90,7 +90,7 @@ public class PostRepository implements IPostRepository {
         }
         result = sortByCriteria(result, order);
 
-        return Mappers.mapperToPostDTO(result);
+        return Mappers.toPostDTO(result);
     }
 
     private Date getDateRange() {
@@ -129,7 +129,7 @@ public class PostRepository implements IPostRepository {
                 .filter(post -> post.isHasPromo())
                 .collect(Collectors.toList());
 
-        return Mappers.mapperToPostPromoDTO(postWithPromo);
+        return Mappers.toPostPromoDTO(postWithPromo);
     }
 
 

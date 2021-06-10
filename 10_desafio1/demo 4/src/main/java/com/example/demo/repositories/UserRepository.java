@@ -10,8 +10,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -74,15 +73,20 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<User> getSellersFollowedByUser(User user) {
+        List<User> items = new ArrayList<>();
 
-        List<User> items = users.stream()
-                .filter(userAux -> userAux.getFollowers().contains(user)).collect(Collectors.toList());
+        for (User seller : users) {
+            if(seller.getFollowers() != null){
+                User userSeller = seller.getFollowers().stream().filter(userAux -> userAux.getUserId() == user.getUserId()).findAny().orElse(null);
+                if(userSeller!= null){items.add(seller);};
+            }
+        }
         return items;
     }
 
     @Override
     public void unFollowSeller(User user, User seller) {
-        UserDTO userToDelete = seller.getFollowers().stream()
+        User userToDelete = seller.getFollowers().stream()
                 .filter(userAux -> userAux.getUserId() == user.getUserId())
                 .findAny().orElse(null);
 

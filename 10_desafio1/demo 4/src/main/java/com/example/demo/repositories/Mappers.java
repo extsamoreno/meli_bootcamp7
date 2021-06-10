@@ -6,12 +6,13 @@ import com.example.demo.DTO.UserDTO;
 import com.example.demo.entities.Post;
 import com.example.demo.entities.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Mappers {
 
-    public static List<PostPromoDTO> mapperToPostPromoDTO(List<Post> list) {
+    public static List<PostPromoDTO> toPostPromoDTO(List<Post> list) {
         List<PostPromoDTO> result = new ArrayList<>();
 
         for (Post post : list) {
@@ -29,7 +30,7 @@ public class Mappers {
         return result;
     }
 
-    public static List<PostDTO> mapperToPostDTO(List<Post> list) {
+    public static List<PostDTO> toPostDTO(List<Post> list) {
         List<PostDTO> result = new ArrayList<>();
 
         for (Post post : list) {
@@ -46,10 +47,24 @@ public class Mappers {
         return result;
     }
 
-    public static UserDTO mapperToFollowDTO(User user) {
+    public static UserDTO toUserDTO(User user) {
         UserDTO userDto = new UserDTO();
         userDto.setUserId(user.getUserId());
         userDto.setUserName(user.getUserName());
         return userDto;
+    }
+
+    public static List<UserDTO> toUserDTOlist(List<User> users) {
+
+        List<UserDTO> result = new ArrayList<>();
+        for (User user : users) {
+            if (user != null) {
+                UserDTO userDto = new UserDTO();
+                userDto.setUserId(user.getUserId());
+                userDto.setUserName(user.getUserName());
+                result.add(userDto);
+            }
+        }
+        return result;
     }
 }
