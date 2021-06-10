@@ -1,13 +1,16 @@
-package com.meli.SocialMeli.Repository;
-import com.meli.SocialMeli.DTO.CreateUserDTO;
-import com.meli.SocialMeli.DTO.UserDTO;
+package com.meli.SocialMeli.repository;
+
+import com.meli.SocialMeli.dto.CreateUserDto;
+import com.meli.SocialMeli.models.User;
 
 import java.util.List;
 
 public interface IUserRepository {
-    UserDTO searchUserById(int userId);
+    List<User> CreateUser(CreateUserDto createUserDto);
 
-    boolean followSeller(int userId, int userIdToFollow);
+    public User SearchIdUser(int idUser);
+    public void UpdateUserList(User user);
 
-    List<UserDTO> createUser(CreateUserDTO createUserDTO);
+    List<User> getUsers();
+    int FollowUser(int userId, int userIdToFollow);
 }

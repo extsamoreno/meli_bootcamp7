@@ -1,59 +1,57 @@
-package com.meli.SocialMeli.Repository;
+package com.meli.SocialMeli.repository;
 
-import com.meli.SocialMeli.DTO.CreateUserDTO;
-import com.meli.SocialMeli.DTO.UserDTO;
+import com.meli.SocialMeli.dto.CreateUserDto;
+import com.meli.SocialMeli.models.User;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UserRepository implements IUserRepository{
+    private List<User> userList;
 
-    // Atributos
-    private List<UserDTO> userList;
-
-    public UserRepository(){
+    public UserRepository (){
         this.userList = new ArrayList<>();
     }
 
     @Override
-    public List<UserDTO> createUser(CreateUserDTO createUserDTO) {
-        this.userList = createUserDTO.getUserDTOList();
+    public List<User> CreateUser(CreateUserDto createUserDto) {
+        this.userList = createUserDto.getCreateDto();
+        return userList;
+    }
+
+    @Override
+    public User SearchIdUser(int idUser) {
+        for (int i = 0; i < userList.size(); i++) {
+            User user = userList.get(i);
+            if (idUser == user.getIdUser()) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+
+    @Override
+    public void UpdateUserList(User user){
+        int index;
+        index = userList.indexOf(user);
+        userList.set(index, user);
+    }
+
+    @Override
+    public List<User> getUsers() {
         return this.userList;
     }
 
     @Override
-    public UserDTO searchUserById(int userId) {
-        return userList.stream()
-                .filter(user -> user.getUserId() == userId)
-                .findFirst()
-                .orElse(null);
+    public int FollowUser(int userId, int userIdToFollow) {
+        return 0;
     }
 
-    @Override
-    public boolean followSeller(int userId, int userIdToFollow) {
-        UserDTO buyer = this.searchUserById(userId);
-        UserDTO seller = this.searchUserById(userIdToFollow);
-
-        if(buyer == null || seller == null){
-            return false;
-        }
-
-        // Agrego el seller a la lista de seguidos del buyer
-        List<UserDTO> followed = buyer.getFollowed();
-        followed.add(seller);
-        buyer.setFollowed(followed);
-        this.userList.set(this.userList.indexOf(buyer), buyer);
-
-        // Agrego el buyer a la lista de seguidores del seller
-        List<UserDTO> followers = seller.getFollowers();
-        followers.add(buyer);
-        seller.setFollowers(followers);
-        this.userList.set(this.userList.indexOf(seller), seller);
-
-        return true;
+    public List<User> getFollowersCount(){
+        return this.userList;
     }
 
 }
