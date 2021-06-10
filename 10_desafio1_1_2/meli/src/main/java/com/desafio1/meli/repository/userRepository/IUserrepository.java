@@ -8,7 +8,7 @@ public interface IUserrepository {
     void loadRepository();
     User findUserById(Integer id);
     Integer countFollower(Integer userId) throws NotExistUser;
-    boolean follow(RequestFollowUserToUser requestFollowUserToUser);
+    boolean follow(RequestFollowUserToUser requestFollowUserToUser) throws NotExistUser;
     boolean unFollow(RequestUnFollowUserToUser requestUnFollowUserToUser);
     ResponseFollowersListDTO listFollower(Integer userId) throws NotExistUser;
     ResponseFollowsListDTO listFollow(Integer userId) throws NotExistUser;

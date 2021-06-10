@@ -5,6 +5,7 @@ import com.desafio1.meli.model.*;
 import com.desafio1.meli.service.DTO.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -13,8 +14,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -37,7 +40,7 @@ public class UserRepositoy implements IUserrepository {
 
 
     @Override
-    public boolean follow(RequestFollowUserToUser requestFollowUserToUser){
+    public boolean follow(RequestFollowUserToUser requestFollowUserToUser) throws NotExistUser{
         try{
             // If follow list is empty
             if (this.follow.isEmpty()){
@@ -51,7 +54,14 @@ public class UserRepositoy implements IUserrepository {
                     this.follower.put(requestFollowUserToUser.getUser().getId(), userList);
                 }else {
                     User getUser = findUserById(requestFollowUserToUser.getUserFollower().getId());
-                    this.follow.get(requestFollowUserToUser.getUser().getId()).add(getUser);
+                    if (this.follow.get(requestFollowUserToUser.getUser().getId()).stream().
+                            filter(user -> user.getId().equals(getUser.getId())).count() < 1){
+                        this.follow.get(requestFollowUserToUser.getUser().getId()).add(getUser);
+                    }else{
+                        throw new NotExistUser(requestFollowUserToUser.getUser().getId());
+                    }
+
+
                 }
 
             }

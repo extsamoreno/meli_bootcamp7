@@ -101,7 +101,7 @@ public class ProductRepositoy implements IProductrepository {
             ArrayList<User> listFollowUser =  iUserrepository.listFollow(userId).getFollow();
             requestFollowedProductList.setUserId(userId);
             requestFollowedProductList.setPosts((ArrayList<Publication>) this.publications.stream()
-                    .filter(publication -> publication.getUser().getId() == userId)
+                    .filter(publication -> publication.getUser().getId().equals(userId))
                     .filter(publication -> publication.getHasPromo().equals(true))
                     .collect(Collectors.toList()));
 
