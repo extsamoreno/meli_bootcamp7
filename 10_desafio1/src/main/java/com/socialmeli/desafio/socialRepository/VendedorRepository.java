@@ -14,11 +14,11 @@ import java.util.HashMap;
 @Data
 public class VendedorRepository implements IVendedorRepository {
 
-    private static HashMap<Integer, VendedorModel> dataBaseVendedor = new HashMap<>();
+    private static HashMap<Integer, VendedorModel> dataBaseVendedor = new HashMap<>();  //dataBaseSeller
 
 
 
-    public void altaVendedor(String userName){
+    public void altaVendedor(String userName){  //newSeller
 
         int idNext= dataBaseVendedor.size()+1;
         VendedorModel user =new VendedorModel(idNext,userName,new ArrayList<PublicacionModel>(),new ArrayList<UsuarioModel>());
@@ -26,14 +26,14 @@ public class VendedorRepository implements IVendedorRepository {
     }
 
 
-    public void listarVendedores(){
+    public void listarVendedores(){ //listSellers
         for (int i = 1; i < dataBaseVendedor.size() ; i++) {
             System.out.println(dataBaseVendedor.get(i).getUserName());
         }
     }
 
 
-    public VendedorModel getVendedorById(int id){  //busco vendedor por ID y lo retorna
+    public VendedorModel getVendedorById(int id){  //getSellerById
         return dataBaseVendedor.get(id);
 
     }

@@ -16,12 +16,14 @@ import java.util.Date;
 public class PublicacionModel {
 
     private int userId;
-    private int id_post;   //modificar a un mismo criterio.
+    private int postId;
     @JsonFormat(pattern = "dd-MM-yyyy")
-    //@DateTimeFormat(pattern = "dd-MM-yyyy 00:00:00")
     private Date date;
     private DetailModel detail;
     private int category;
     private double price;
+    private boolean hasPromo= false;
+    private double discount;
+
 
 }

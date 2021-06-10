@@ -3,19 +3,10 @@ package com.socialmeli.desafio.socialRepository;
 import com.socialmeli.desafio.Exception.SeguidorYaRegistradoException;
 import com.socialmeli.desafio.Exception.UserIdNotFoundException;
 import com.socialmeli.desafio.Exception.VendedorIdNotFoundException;
-import com.socialmeli.desafio.model.DetailModel;
-import com.socialmeli.desafio.model.PublicacionModel;
-import com.socialmeli.desafio.model.VendedorModel;
 import com.socialmeli.desafio.service.ISocialService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 @Repository
@@ -23,7 +14,7 @@ import java.util.GregorianCalendar;
 public class InitRepository implements IInitRepository{
 
     @Autowired
-    IUsuarioRepository iUsuarioRepository;
+    IUserRepository iUserRepository;
 
     @Autowired
     IVendedorRepository iVendedorRepository;
@@ -36,13 +27,13 @@ public class InitRepository implements IInitRepository{
    public void altaUsuarios(){
 
 
-       iUsuarioRepository.altaUsuario("Usuario 1");
-       iUsuarioRepository.altaUsuario("Usuario 2");
-       iUsuarioRepository.altaUsuario("Usuario 3");
-       iUsuarioRepository.altaUsuario("Usuario 4");
-       iUsuarioRepository.altaUsuario("Usuario 5");
-       iUsuarioRepository.altaUsuario("Usuario 6");
-       iUsuarioRepository.altaUsuario("Usuario 7");
+       iUserRepository.altaUsuario("Usuario 1");
+       iUserRepository.altaUsuario("Usuario 2");
+       iUserRepository.altaUsuario("Usuario 3");
+       iUserRepository.altaUsuario("Usuario 4");
+       iUserRepository.altaUsuario("Usuario 5");
+       iUserRepository.altaUsuario("Usuario 6");
+       iUserRepository.altaUsuario("Usuario 7");
 
 
     }

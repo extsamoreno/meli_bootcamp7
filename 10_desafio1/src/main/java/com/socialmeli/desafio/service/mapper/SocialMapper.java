@@ -5,7 +5,6 @@ import com.socialmeli.desafio.model.PublicacionModel;
 import com.socialmeli.desafio.model.UsuarioModel;
 import com.socialmeli.desafio.model.VendedorModel;
 import com.socialmeli.desafio.service.ISocialService;
-import com.socialmeli.desafio.service.SocialService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class SocialMapper {
          PublicacionDTO publicacionDTO = new PublicacionDTO();
 
          publicacionDTO.setUserId(publicacion.getUserId());
-         publicacionDTO.setId_post(publicacion.getId_post());
+         publicacionDTO.setId_post(publicacion.getPostId());
          publicacionDTO.setDate(publicacion.getDate());
          publicacionDTO.setDetail(publicacion.getDetail());
          publicacionDTO.setCategory(publicacion.getCategory());

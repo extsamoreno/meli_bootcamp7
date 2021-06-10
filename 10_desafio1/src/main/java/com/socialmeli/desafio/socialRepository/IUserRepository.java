@@ -2,13 +2,13 @@ package com.socialmeli.desafio.socialRepository;
 
 import com.socialmeli.desafio.model.UsuarioModel;
 
-public interface IUsuarioRepository {
+public interface IUserRepository {
 
-     void altaUsuario(String userName);
+    void altaUsuario(String userName);
 
    void listarUsuarios();
 
-    public UsuarioModel getUsuarioById(int id);
+   UsuarioModel getUsuarioById(int id);
 
 
 }

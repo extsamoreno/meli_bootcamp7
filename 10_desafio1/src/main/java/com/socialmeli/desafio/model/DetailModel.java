@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DetailModel {
 
-    private int product_id;
+    private int productId;
     private String productName;
     private String type;
     private String brand;

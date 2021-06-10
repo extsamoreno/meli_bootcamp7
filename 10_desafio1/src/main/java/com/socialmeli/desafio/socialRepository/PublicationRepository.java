@@ -1,15 +1,14 @@
 package com.socialmeli.desafio.socialRepository;
 
 import com.socialmeli.desafio.model.PublicacionModel;
-import com.socialmeli.desafio.model.VendedorModel;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 
 @Repository
-public class PublicacionRepository {
+public class PublicationRepository implements IPublicationRepository {
 
-    private static HashMap<Integer, PublicacionModel> dataBasePublicacion = new HashMap<>();
+    private static HashMap<Integer, PublicacionModel> publicationDataBase = new HashMap<>();
 
 
 

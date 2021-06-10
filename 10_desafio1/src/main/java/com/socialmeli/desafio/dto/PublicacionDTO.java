@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -18,6 +19,7 @@ public class PublicacionDTO {
 
     private int userId;
     private int id_post;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;
     private DetailModel detail;
     private int category;

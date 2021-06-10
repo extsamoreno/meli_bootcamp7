@@ -32,6 +32,11 @@ public class ProductController {
         return new ResponseEntity<>(iSocialService.publicacionesVendedoresSeguidosDosSemanas(userId,order),HttpStatus.OK);
     }
 
-
+  /*  @PostMapping("/newpost")  //CU0010
+    public ResponseEntity<HttpStatus> newPromoPost(@RequestBody PublicacionModel publicacion) throws VendedorIdNotFoundException, UserIdNotFoundException {
+        iSocialService.createPost(publicacion);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+*/
 
 }

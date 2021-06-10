@@ -10,25 +10,19 @@ import com.socialmeli.desafio.dto.FollowersListDTO;
 import com.socialmeli.desafio.model.VendedorModel;
 import com.socialmeli.desafio.service.ISocialService;
 import com.socialmeli.desafio.socialRepository.IInitRepository;
-import com.socialmeli.desafio.socialRepository.IUsuarioRepository;
+import com.socialmeli.desafio.socialRepository.IUserRepository;
 import com.socialmeli.desafio.socialRepository.IVendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.util.Date;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
-
 @RestController
 @RequestMapping("/users")
 public class UsersController {
 
     @Autowired
-    IUsuarioRepository iUsuarioRepository;
+    IUserRepository iUserRepository;
 
     @Autowired
     IInitRepository iInitRepository;
@@ -54,7 +48,7 @@ public class UsersController {
 
     @PostMapping("/listar")    //Se listan las BD, prueba para verificar que funciona ok
     public void listar()  {
-       iUsuarioRepository.listarUsuarios();
+       iUserRepository.listarUsuarios();
        iVendedorRepository.listarVendedores();
 
 

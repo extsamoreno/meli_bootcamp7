@@ -1,6 +1,5 @@
 package com.socialmeli.desafio.service;
 
-
 import com.socialmeli.desafio.Exception.SeguidorNoRegistradoException;
 import com.socialmeli.desafio.Exception.SeguidorYaRegistradoException;
 import com.socialmeli.desafio.Exception.UserIdNotFoundException;
@@ -10,7 +9,7 @@ import com.socialmeli.desafio.model.PublicacionModel;
 import com.socialmeli.desafio.model.UsuarioModel;
 import com.socialmeli.desafio.model.VendedorModel;
 import com.socialmeli.desafio.service.mapper.SocialMapper;
-import com.socialmeli.desafio.socialRepository.IUsuarioRepository;
+import com.socialmeli.desafio.socialRepository.IUserRepository;
 import com.socialmeli.desafio.socialRepository.IVendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,14 +22,14 @@ import java.util.Collections;
 public class SocialService implements ISocialService {
 
     @Autowired
-    IUsuarioRepository iUsuarioRepository;
+    IUserRepository iUserRepository;
     @Autowired
     IVendedorRepository iVendedorRepository;
 
 
     public void follow(int idUsuario, int idVendedor) throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorYaRegistradoException {
 
-        UsuarioModel usuario = iUsuarioRepository.getUsuarioById(idUsuario);
+        UsuarioModel usuario = iUserRepository.getUsuarioById(idUsuario);
         VendedorModel vendedor = iVendedorRepository.getVendedorById(idVendedor);
 
         if (usuario == null) {
@@ -45,14 +44,14 @@ public class SocialService implements ISocialService {
 
         }
 
-        usuario.agregarFollow(vendedor);
-        vendedor.agregarFollower(usuario);
+        usuario.addFollow(vendedor);
+        vendedor.addFollower(usuario);
 
     }
 
     public void unfollow(int idUsuario, int idVendedor) throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorNoRegistradoException {
 
-        UsuarioModel usuario = iUsuarioRepository.getUsuarioById(idUsuario);
+        UsuarioModel usuario = iUserRepository.getUsuarioById(idUsuario);
         VendedorModel vendedor = iVendedorRepository.getVendedorById(idVendedor);
 
         if (usuario == null) {
@@ -62,24 +61,19 @@ public class SocialService implements ISocialService {
             throw new VendedorIdNotFoundException(idVendedor);
         }
 
-        if (!usuario.getFollows().contains(vendedor)){
-            throw new SeguidorNoRegistradoException(idUsuario,idVendedor);
+        if (!usuario.getFollows().contains(vendedor)) {
+            throw new SeguidorNoRegistradoException(idUsuario, idVendedor);
 
         }
-
-
         usuario.quitarFollow(vendedor);
-        vendedor.quitarFollower(usuario);
-
-
+        vendedor.removeFollower(usuario);
     }
 
-    public FollowersCountDTO getCountFollowers(int id) throws VendedorIdNotFoundException{ //CU002
+    public FollowersCountDTO getCountFollowers(int id) throws VendedorIdNotFoundException { //CU002
         VendedorModel vendedor = iVendedorRepository.getVendedorById(id);
         if (vendedor == null) {
             throw new VendedorIdNotFoundException(id);
         }
-
         return SocialMapper.toFollowerCountDTO(vendedor);
     }
 
@@ -117,14 +111,13 @@ public class SocialService implements ISocialService {
         if (vendedor == null) {
             throw new VendedorIdNotFoundException(publicacion.getUserId());
         }
-        System.out.println(publicacion.getUserId());
         vendedor.addPost(publicacion);
     }
 
 
     //Devuelve lista de publicaciones seguidos por un usuario en las ultimas 2 semanas
     public PublicacionesVendedoresSeguidosDTO publicacionesVendedoresSeguidosDosSemanas(int id, String order) throws UserIdNotFoundException{
-        UsuarioModel usuario = iUsuarioRepository.getUsuarioById(id);
+        UsuarioModel usuario = iUserRepository.getUsuarioById(id);
         if (usuario == null) {
             throw new UserIdNotFoundException(id);
         }
@@ -154,7 +147,7 @@ public class SocialService implements ISocialService {
     //Devuelve lista de vendedores seguidos por un usuario
     //Sobrecargado
     public FollowedListDTO getFollowedList(int id, String order)throws UserIdNotFoundException {
-        UsuarioModel usuario = iUsuarioRepository.getUsuarioById(id);
+        UsuarioModel usuario = iUserRepository.getUsuarioById(id);
         if (usuario == null) {
             throw new UserIdNotFoundException(id);
         }

@@ -19,7 +19,7 @@ public class VendedorModel {
     private ArrayList<PublicacionModel> posts;
     private ArrayList<UsuarioModel> followers;
 
-    public void agregarFollower (UsuarioModel follower){  //Agrego un usuario que sigue a este vendedor
+    public void addFollower(UsuarioModel follower){  //Agrego un usuario que sigue a este vendedor
         this.followers.add(follower);
 
     }
@@ -29,7 +29,7 @@ public class VendedorModel {
     }
 
 
-    public void quitarFollower (UsuarioModel follower){
+    public void removeFollower(UsuarioModel follower){
         this.followers.remove(follower);
 
     }

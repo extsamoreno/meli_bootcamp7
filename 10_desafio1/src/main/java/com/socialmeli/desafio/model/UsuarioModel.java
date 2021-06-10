@@ -20,7 +20,7 @@ public class UsuarioModel {
 
 
 
-    public void agregarFollow (VendedorModel follow){//Agrego un vendedor seguido a la lista de "seguidos"
+    public void addFollow(VendedorModel follow){//Agrego un vendedor seguido a la lista de "seguidos"
         this.follows.add(follow);
 
     }
