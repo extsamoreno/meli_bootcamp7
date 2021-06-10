@@ -1,14 +1,14 @@
-#Desafio Práctico con Spring
+# Desafio Práctico con Spring
 
-##ATTENTION!
+## ATTENTION!
 Before running any endpoint you must run the endpoint that loads the data into memory. (New Endpoint #1)
 
-##New Endpoints:
+## New Endpoints:
 
-###(#1) localhost:8081/users/load
+### (#1) localhost:8081/users/load
 
-####Used to load data into memory.
+Used to load data into memory.
 
-###(#2) localhost:8081/users/newUser/Ascacibar Pedro
+### (#2) localhost:8081/users/newUser/Ascacibar Pedro
 
-####It is used to add a new user, the name must be passed through the endpoint.
+It is used to add a new user, the name must be passed through the endpoint.
