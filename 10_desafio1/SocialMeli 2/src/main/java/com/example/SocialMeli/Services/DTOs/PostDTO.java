@@ -19,6 +19,8 @@ public class PostDTO{
     private ProductDTO detail;
     private String category;
     private double price;
+    private Boolean hasPromo;
+    private double discount;
 
     public PostDTO(PostDTO postDTO){
 
@@ -28,8 +30,10 @@ public class PostDTO{
         this.detail = postDTO.getDetail();
         this.category = postDTO.getCategory();
         this.price = postDTO.getPrice();
+        this.hasPromo = postDTO.getHasPromo();
+        this.discount = postDTO.getDiscount();
     }
-    public PostDTO(int userId, int postId, String date, ProductDTO detail, String category, double price) throws DateTimeParseException {
+    public PostDTO(int userId, int postId, String date, ProductDTO detail, String category, double price, Boolean hasPromo, double discount) throws DateTimeParseException {
 
         this.userId = userId;
         this.postId = postId;
@@ -37,6 +41,8 @@ public class PostDTO{
         this.detail = detail;
         this.category = category;
         this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
 
     }
 

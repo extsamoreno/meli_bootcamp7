@@ -42,7 +42,7 @@ public class PostController {
         return new ResponseEntity<>(iPostService.getPromPostsCant(userId) ,HttpStatus.OK);
     }
     @GetMapping("/products/{userId}/list")
-    public ResponseEntity<List<PromoPostDTO>> getUserPromPosts (@PathVariable int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
+    public ResponseEntity<List<PostDTO>> getUserPromPosts (@PathVariable int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
         return new ResponseEntity<>(iPostService.getPromPostsByUser(userId) ,HttpStatus.OK);
     }
 }

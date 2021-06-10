@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class PostService extends Ordenable<PostDTO> implements iPostService{
@@ -31,15 +32,15 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
         return new PostCountDTO(user.getId(), user.getName(), this.getPromPostsByUser(userId).size());
 
     }
-    public List<PromoPostDTO> getPromPostsByUser(int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
+    public List<PostDTO> getPromPostsByUser(int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
 
         User user = iDataRepository.getUserByID(userId);
-        List<PromoPostDTO> output = new ArrayList<>();
+        List<PostDTO> output = new ArrayList<>();
         List<Post> posts = iDataRepository.getPostsByIds(user.getPosts());
         for (int j = 0; j < posts.size(); j++) {
             if (posts.get(j).getHasPromo()){
                 Product product = iDataRepository.getProductByID(posts.get(j).getProductId());
-                output.add( PostMapper.toPromDTO(posts.get(j),product));
+                output.add( PostMapper.toDTO(posts.get(j),product));
             }
         }
 
@@ -93,7 +94,8 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
     @Override
     public void makePost(NonPromoPostDTO postDTO) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException {
 
-        savePostInformation(PostMapper.toPost(postDTO), postDTO.getDetail());
+        Post post = PostMapper.toPost(postDTO);
+        savePostInformation(post, postDTO.getDetail());
 
     }
 
@@ -114,7 +116,8 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
     @Override
     public void makePost(PromoPostDTO postDTO) throws ProductIdInUseException, PostIdInUseException, UserNotFoundException {
 
-        savePostInformation(PostMapper.toPost(postDTO), postDTO.getDetail());
+        Post post = PostMapper.toPost(postDTO);
+        savePostInformation(post, postDTO.getDetail());
 
     }
     @Override
@@ -126,15 +129,13 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
             User followed = iDataRepository.getUserByID(user.getFollowing().get(i));
             List<Post> posts = iDataRepository.getPostsByIds(followed.getPosts());
             for (int j = 0; j < posts.size(); j++) {
-                if(!posts.get(j).getHasPromo()){
-                    Product product = iDataRepository.getProductByID(posts.get(j).getProductId());
-                    output.add( PostMapper.toDTO(posts.get(j),product));
-                }
+                Product product = iDataRepository.getProductByID(posts.get(j).getProductId());
+                output.add( PostMapper.toDTO(posts.get(j),product));
             }
         }
-        Comparator<PostDTO> compatator = this.getComparator(order);
+
         this.filterPostByDate(output, LocalDate.now().minusWeeks(2), LocalDate.now());
-        this.bubbleOrder(output, compatator);
+        this.orderByBubble(output, this.getComparator(order));
         return output;
     }
 

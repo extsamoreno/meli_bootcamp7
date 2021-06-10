@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
 @Getter @Setter @NoArgsConstructor
 public class NonPromoPostDTO extends PostDTO{
 
-
     public NonPromoPostDTO(NonPromoPostDTO promoPostDTO){
 
         super(promoPostDTO);
@@ -18,7 +17,8 @@ public class NonPromoPostDTO extends PostDTO{
     }
     public NonPromoPostDTO(int userId, int postId, String date, ProductDTO detail, String category, double price) throws DateTimeParseException {
 
-        super(userId, postId, date,detail, category, price);
+        super(userId, postId, date,detail, category, price, false, 0.0);
+
 
     }
 

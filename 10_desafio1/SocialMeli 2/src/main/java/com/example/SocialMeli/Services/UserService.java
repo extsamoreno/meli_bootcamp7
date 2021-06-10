@@ -68,11 +68,9 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
 
         User user = iDataRepository.getUserByID(userId);
         List<User> follower = iDataRepository.getUsersByIds(user.getFollowers());
-
         List<UserDTO> userDTOs = UserMapper.toDTOs(follower);
 
-        Comparator<UserDTO> compatator = this.getComparator(order);
-        this.bubbleOrder(userDTOs, compatator);
+        this.orderByBubble(userDTOs, this.getComparator(order));
 
         return new FollowersDTO(user.getId(), user.getName(), userDTOs);
     }
@@ -80,14 +78,12 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
     @Override
     public FollowedDTO getFollowed(int userId, String order) throws UserNotFoundException{
 
-
-
         User user = iDataRepository.getUserByID(userId);
         List<User> followed = iDataRepository.getUsersByIds(user.getFollowing());
 
         List<UserDTO> userDTOs = UserMapper.toDTOs(followed);
         Comparator<UserDTO> compatator = this.getComparator(order);
-        this.bubbleOrder(userDTOs, compatator);
+        this.orderByBubble(userDTOs, compatator);
 
         return new FollowedDTO(user.getId(), user.getName(), userDTOs);
     }

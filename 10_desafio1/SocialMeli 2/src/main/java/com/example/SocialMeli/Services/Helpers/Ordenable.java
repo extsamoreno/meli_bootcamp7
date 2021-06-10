@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Ordenable<T> {
 
-    public void bubbleOrder(List<T> ts, Comparator<T> comparator){
+    public void orderByBubble(List<T> ts, Comparator<T> comparator){
 
         for (int i = 0; i < ts.size(); i++) {
             for(int j=0;j<ts.size()-1;j++)
