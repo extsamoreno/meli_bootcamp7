@@ -1,6 +1,5 @@
 package com.example.socialmeli.models;
 
-import com.example.socialmeli.models.dtos.PostDTO;
 import com.example.socialmeli.models.dtos.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,9 +13,9 @@ import java.util.ArrayList;
 public class User {
     private int userId;
     private String userName;
-    private ArrayList<UserDTO> followers;
-    private ArrayList<UserDTO> followed;
-    private ArrayList<PostDTO> posts;
+    private ArrayList<UserList> followers;
+    private ArrayList<UserList> followed;
+    private ArrayList<Post> posts;
 
     public User(UserDTO userDTO) {
         this.userId = userDTO.getUserId();
@@ -26,23 +25,28 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
-    public void addFollower (UserDTO user){
+    public User(int userId, String userName){
+        this.userId = userId;
+        this.userName = userName;
+    }
+
+    public void addFollower (UserList user){
         this.followers.add(user);
     }
 
-    public void addFollowed (UserDTO user){
+    public void addFollowed (UserList user){
         this.followed.add(user);
     }
 
-    public void deleteFollower (UserDTO user) {
+    public void deleteFollower (UserList user) {
         this.followers.remove(user);
     }
 
-    public void deleteFollowed (UserDTO user) {
+    public void deleteFollowed (UserList user) {
         this.followed.remove(user);
     }
 
-    public void addPost(PostDTO post){
+    public void addPost(Post post){
         this.posts.add(post);
     }
 }

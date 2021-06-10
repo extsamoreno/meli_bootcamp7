@@ -23,6 +23,10 @@ public class SocialMeliExceptionController {
     public ResponseEntity<ErrorDTO> handleInexistentUserException(InexistentUserException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
+    @ExceptionHandler(InvalidUserException.class)
+    public ResponseEntity<ErrorDTO> handleInvalidUserException(InvalidUserException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
 
     @ExceptionHandler(ExistentFollowerException.class)
     public ResponseEntity<ErrorDTO> handleExistentFollowerException(ExistentFollowerException e){

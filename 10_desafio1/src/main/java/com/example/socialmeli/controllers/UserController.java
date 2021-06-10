@@ -17,7 +17,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/addOne")
-    public ResponseEntity<NewUserResponseDTO> addUser (@RequestBody NewUserRequestDTO newUser) throws ExistentUserException {
+    public ResponseEntity<NewUserResponseDTO> addUser (@RequestBody NewUserRequestDTO newUser) throws ExistentUserException, InvalidUserException {
         return new ResponseEntity<>(userService.addUser(newUser), HttpStatus.CREATED);
     }
 

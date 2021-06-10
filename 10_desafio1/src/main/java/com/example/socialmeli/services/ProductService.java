@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ProductService {
-    String addPost(PostDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException;
+    NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException;
     ListFollowedPostsResponseDTO listPosts( int idUser, String order) throws InexistentUserException, InexistentDateOrderException;
-    String addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException;
+    NewPostResponseDTO addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException;
     SellerPromoProductsCountResponseDTO countPromoProducts(int userId) throws InexistentUserException;
     ListSellerPromoProductsDTO listPromoProducts(int userId) throws InexistentUserException;
 }

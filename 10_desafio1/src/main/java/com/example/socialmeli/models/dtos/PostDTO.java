@@ -2,6 +2,7 @@ package com.example.socialmeli.models.dtos;
 
 import com.example.socialmeli.models.Post;
 import com.example.socialmeli.models.Product;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,8 @@ import java.time.LocalDate;
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
 public class PostDTO {
-    private int userId;
     private int postId;
+    @JsonFormat(pattern="dd-mm-yyyy")
     private LocalDate date;
     private Product detail;
     private int category;
@@ -22,7 +23,6 @@ public class PostDTO {
     private double discount;
 
     public PostDTO(Post post) {
-        this.postId = post.getPostId();
         this.date = post.getDate();
         this.detail = post.getDetail();
         this.category = post.getCategory();

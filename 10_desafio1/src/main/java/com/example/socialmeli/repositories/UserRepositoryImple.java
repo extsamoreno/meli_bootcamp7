@@ -1,25 +1,17 @@
 package com.example.socialmeli.repositories;
 
-import com.example.socialmeli.exceptions.ExistentFollowerException;
-import com.example.socialmeli.exceptions.ExistentUserException;
-import com.example.socialmeli.exceptions.InexistentFollowerException;
-import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.exceptions.*;
 import com.example.socialmeli.mappers.UserMapper;
 import com.example.socialmeli.models.User;
+import com.example.socialmeli.models.UserList;
 import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.FollowSellerResponseDTO;
 import com.example.socialmeli.models.dtos.response.FollowersCountResponseDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowedResponseDTO;
 import com.example.socialmeli.models.dtos.response.ListFollowersResponseDTO;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,36 +42,25 @@ public class UserRepositoryImple implements UserRepository {
     }
 
     @Override
-    public FollowSellerResponseDTO followSeller(int userId, int userIdToFollow) throws InexistentUserException, ExistentFollowerException {
+    public void followSeller(int userId, int userIdToFollow) throws InexistentUserException, ExistentFollowerException {
         User user = getUserById(userId);
         User userToFollow = getUserById(userIdToFollow);
-        FollowSellerResponseDTO modifiedUser = new FollowSellerResponseDTO();
 
-        for (int i = 0; i < users.size(); i++) {
-            User dbUser = users.get(i);
+        if(!(user.getFollowed() == null)){
+            for (int j = 0; j < user.getFollowed().size(); j++) {
+                UserList followed = user.getFollowed().get(j);
 
-            if(dbUser.getUserId() == userId){
-                for (int j = 0; j < dbUser.getFollowed().size(); j++) {
-                    UserDTO followed = dbUser.getFollowed().get(j);
-
-                    if(followed.getUserId() == userIdToFollow){
-                        throw new ExistentFollowerException(userId, userIdToFollow);
-                    }
+                if(followed.getUserId() == userIdToFollow){
+                    throw new ExistentFollowerException(userId, userIdToFollow);
                 }
-                break;
-            } else {
-                continue;
             }
         }
 
-        user.addFollowed(UserMapper.UserToDTO(userToFollow));
-        userToFollow.addFollower(UserMapper.UserToDTO(user));
+        UserList follower = new UserList(user.getUserId(), user.getUserName());
+        UserList followed = new UserList(userToFollow.getUserId(), userToFollow.getUserName());
 
-        modifiedUser.setUserId(user.getUserId());
-        modifiedUser.setUserName(user.getUserName());
-        modifiedUser.setFollowed(user.getFollowed());
-
-        return modifiedUser;
+        user.addFollowed(followed);
+        userToFollow.addFollower(follower);
     }
     
     @Override
@@ -120,10 +101,16 @@ public class UserRepositoryImple implements UserRepository {
     public ListFollowersResponseDTO listFollowers(int userId) throws InexistentUserException{
         User user = getUserById(userId);
         ListFollowersResponseDTO listFollowersResponseDTO = new ListFollowersResponseDTO();
+        List<UserDTO> followers = null;
+
+        for(UserList follower : user.getFollowers()){
+            UserDTO followerDTO = new UserDTO(follower.getUserId(),follower.getUserName());
+            followers.add(followerDTO);
+        }
 
         listFollowersResponseDTO.setUserId(userId);
         listFollowersResponseDTO.setUserName(user.getUserName());
-        listFollowersResponseDTO.setFollowers(user.getFollowers());
+        listFollowersResponseDTO.setFollowers(followers);
 
         return listFollowersResponseDTO;
     }
@@ -132,45 +119,34 @@ public class UserRepositoryImple implements UserRepository {
     public ListFollowedResponseDTO listFollowed (int userId) throws InexistentUserException{
         User user = getUserById(userId);
         ListFollowedResponseDTO listFollowedResponseDTO = new ListFollowedResponseDTO();
+        List<UserDTO> followedList = null;
+
+        for(UserList followed : user.getFollowed()){
+            UserDTO followedDTO = new UserDTO(followed.getUserId(),followed.getUserName());
+            followedList.add(followedDTO);
+        }
 
         listFollowedResponseDTO.setUserId(userId);
         listFollowedResponseDTO.setUserName(user.getUserName());
-        listFollowedResponseDTO.setFollowed(user.getFollowed());
+        listFollowedResponseDTO.setFollowed(followedList);
 
         return listFollowedResponseDTO;
     }
 
     @Override
-    public FollowSellerResponseDTO unfollowSeller(int userId, int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException{
+    public void unfollowSeller(int userId, int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException{
         User user = getUserById(userId);
         User userToUnfollow = getUserById(userIdToUnfollow);
-        UserDTO followedUser = null;
-        UserDTO followerUser = null;
-        FollowSellerResponseDTO modifiedUser = new FollowSellerResponseDTO();
         boolean followerNotFound = true;
 
-        for (int i = 0; i < users.size(); i++) {
-            User dbUser = users.get(i);
+        if(!(user.getFollowed() == null)){
+            for (int j = 0; j < user.getFollowed().size(); j++) {
+                UserList followed = user.getFollowed().get(j);
 
-            if(dbUser.getUserId() == userId){
-                for (int j = 0; j < dbUser.getFollowed().size(); j++) {
-                    followedUser = dbUser.getFollowed().get(j);
-
-                    if(followedUser.getUserId() == userIdToUnfollow){
-                        for (int k = 0; k < userToUnfollow.getFollowers().size(); k++) {
-                            followerUser = userToUnfollow.getFollowers().get(k);
-
-                            if(followerUser.getUserId() == userId){
-                                followerNotFound = false;
-                                break;
-                            }
-                        }
-                        break;
-                    }
+                if(followed.getUserId() == userIdToUnfollow){
+                    followerNotFound = false;
+                    break;
                 }
-                break;
-            } else {
-                continue;
             }
         }
 
@@ -178,14 +154,10 @@ public class UserRepositoryImple implements UserRepository {
             throw new InexistentFollowerException(userId, userIdToUnfollow);
         }
 
-        user.deleteFollowed(followedUser);
-        userToUnfollow.deleteFollower(followerUser);
+        UserList follower = new UserList(user.getUserId(), user.getUserName());
+        UserList followed = new UserList(userToUnfollow.getUserId(), userToUnfollow.getUserName());
 
-        modifiedUser.setUserId(user.getUserId());
-        modifiedUser.setUserName(user.getUserName());
-        modifiedUser.setFollowed(user.getFollowed());
-
-        return modifiedUser;
+        user.deleteFollowed(followed);
+        userToUnfollow.deleteFollower(follower);
     }
-
 }

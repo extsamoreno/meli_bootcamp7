@@ -26,10 +26,12 @@ public class ProductServiceImple implements ProductService{
     ProductRepository productRepository;
 
     @Override
-    public String addPost(PostDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException {
+    public NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException {
         productRepository.addPost(newPostRequestDTO);
 
-        return "Se ha agregado un nuevo producto al repositorio";
+        NewPostResponseDTO response = new NewPostResponseDTO(200,"Se ha agregado un nuevo producto al repositorio");
+
+        return response;
     }
 
     @Override
@@ -54,10 +56,13 @@ public class ProductServiceImple implements ProductService{
     }
 
     @Override
-    public String addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException {
+    public NewPostResponseDTO addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException {
         productRepository.addPromoPost(newPromoPostRequestDTO);
 
-        return "Se ha agregado un nuevo producto en promoción al repositorio";
+        NewPostResponseDTO response = new NewPostResponseDTO(200,"Se ha agregado un nuevo producto en promoción al repositorio");
+
+
+        return response;
     }
 
     @Override

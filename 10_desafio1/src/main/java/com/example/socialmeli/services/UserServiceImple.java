@@ -1,6 +1,7 @@
 package com.example.socialmeli.services;
 
 import com.example.socialmeli.exceptions.*;
+import com.example.socialmeli.models.UserList;
 import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewUserRequestDTO;
 import com.example.socialmeli.models.dtos.response.*;
@@ -18,7 +19,11 @@ public class UserServiceImple implements UserService{
     UserRepository userRepository;
 
     @Override
-    public NewUserResponseDTO addUser(NewUserRequestDTO newUserRequestDTO) throws ExistentUserException {
+    public NewUserResponseDTO addUser(NewUserRequestDTO newUserRequestDTO) throws ExistentUserException, InvalidUserException {
+        if(newUserRequestDTO.getUserName().isEmpty()){
+            throw new InvalidUserException();
+        }
+
         NewUserResponseDTO createdUser = new NewUserResponseDTO();
         UserDTO createdUserRespository = userRepository.addUser(newUserRequestDTO);
 
@@ -34,9 +39,11 @@ public class UserServiceImple implements UserService{
             throw new InvalidFollowerException();
         }
 
-        FollowSellerResponseDTO modifiedUser = userRepository.followSeller(userId, userIdToFollow);
+        FollowSellerResponseDTO response = new FollowSellerResponseDTO(200,"El usuario con ID " + userId + " ha comenzado a seguir al usuario con ID " + userIdToFollow);
 
-        return modifiedUser;
+        userRepository.followSeller(userId, userIdToFollow);
+
+        return response;
     }
 
     @Override
@@ -89,9 +96,11 @@ public class UserServiceImple implements UserService{
 
     @Override
     public FollowSellerResponseDTO unfollowSeller(int userId, int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException{
-        FollowSellerResponseDTO modifiedUser = userRepository.unfollowSeller(userId, userIdToUnfollow);
+        userRepository.unfollowSeller(userId, userIdToUnfollow);
 
-        return modifiedUser;
+        FollowSellerResponseDTO response = new FollowSellerResponseDTO(200, "El usuario con ID " + userId + " ha dejado de seguir al usuario con ID " + userIdToUnfollow);
+
+        return response;
     }
 
 }

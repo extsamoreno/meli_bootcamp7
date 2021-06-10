@@ -1,4 +1,4 @@
-package com.example.socialmeli.models.dtos.response;
+package com.example.socialmeli.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter
-public class NewPostResponseDTO {
-    private int status;
-    private String message;
+public class UserList {
+    private int userId;
+    private String userName;
 }
