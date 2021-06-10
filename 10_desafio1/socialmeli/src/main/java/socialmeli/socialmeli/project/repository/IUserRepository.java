@@ -4,13 +4,12 @@ import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundExcepti
 import socialmeli.socialmeli.project.models.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public interface IUserRepository {
-    public void loadDataBase();
-    public void instanceMapUsersFollowers();
-    public ArrayList<User> getUserFollowersList (Integer userId) throws IdNotFoundException;
-    public ArrayList<User> getUserFollowedList(Integer userId) throws IdNotFoundException;
-    public User findUserById (Integer userId) throws IdNotFoundException;
 
-
+    ArrayList<User> getUserFollowersList (Integer userId) throws IdNotFoundException;
+     ArrayList<User> getUserFollowedList(Integer userId) throws IdNotFoundException;
+     User findUserById (Integer userId) throws IdNotFoundException;
 }

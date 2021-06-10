@@ -1,5 +1,6 @@
 package socialmeli.socialmeli.project.services.Dto.ProductDto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Date;
 public class PostDto implements Comparable<PostDto> {
     private Integer userId;
     private Integer idPost;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date date;
     private Product detail;
     private Integer category;

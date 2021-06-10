@@ -1,0 +1,146 @@
+[
+  {
+    "userId": 1,
+    "idPost": 1,
+    "date": "04-06-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Silla gamer",
+      "type": "Gamer",
+      "brand": "Racer",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": false,
+    "discount": 0.5
+
+  },
+  {
+    "userId": 1,
+    "idPost": 2,
+    "date": "07-06-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Mouse gamer",
+      "type": "Gamer",
+      "brand": "Racer",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": false,
+    "discount": 0.5
+
+  },
+  {
+    "userId": 1,
+    "idPost": 3,
+    "date": "06-06-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Cascos gamer",
+      "type": "Gamer",
+      "brand": "Racer",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": false,
+    "discount": 0.5
+
+  },
+  {
+    "userId": 1,
+    "idPost": 3,
+    "date": "06-06-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Alcohol",
+      "type": "Etilico",
+      "brand": "Vital",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": true,
+    "discount": 0.5
+
+  },
+  {
+    "userId": 1,
+    "idPost": 4,
+    "date": "22-05-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Pintura",
+      "type": "test",
+      "brand": "test",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": true,
+    "discount": 0.5
+
+  },
+  {
+    "userId": 2,
+    "idPost": 11,
+    "date": "06-06-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Mesada",
+      "type": "test",
+      "brand": "test",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": true,
+    "discount": 0.5
+
+  },
+  {
+    "userId": 1,
+    "idPost": 121,
+    "date": "06-06-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Mesada",
+      "type": "test",
+      "brand": "test",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": true,
+    "discount": 0.5
+
+  },
+  {
+    "userId": 1,
+    "idPost": 121,
+    "date": "09-06-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Camion",
+      "type": "test",
+      "brand": "test",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": false,
+    "discount": 0.5
+
+  }
+]

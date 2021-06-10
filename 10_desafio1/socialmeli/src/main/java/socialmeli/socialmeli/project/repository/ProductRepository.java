@@ -5,10 +5,9 @@ import lombok.Data;
 import org.springframework.stereotype.Repository;
 import socialmeli.socialmeli.project.exceptions.ProductExceptions.NoPostsFoundException;
 import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostAlreadyExistsException;
-import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
 import socialmeli.socialmeli.project.models.Post;
+import socialmeli.socialmeli.project.utils.Database;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Repository
 public class ProductRepository implements IProductRepository {
-    public static ArrayList<Post> postArrayList = new ArrayList<>();
+    public static ArrayList<Post> postArrayList = (ArrayList<Post>) Database.listPosts;
 
     @Override
     public void save(Post post) throws PostAlreadyExistsException {

@@ -2,9 +2,11 @@ package socialmeli.socialmeli.project.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product implements Comparable<Product>{
   private Integer productId;
   private String productName;

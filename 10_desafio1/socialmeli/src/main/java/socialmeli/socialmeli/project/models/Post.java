@@ -14,6 +14,7 @@ import java.util.Date;
     public class Post implements Comparable<Post>{
         private Integer userId;
         private Integer idPost;
+        @JsonFormat(pattern="dd-MM-yyyy")
         private Date date;
         private Product detail;
         private Integer category;

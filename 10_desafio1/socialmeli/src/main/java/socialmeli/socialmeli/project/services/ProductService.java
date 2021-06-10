@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import socialmeli.socialmeli.project.exceptions.ProductExceptions.NoPostsFoundException;
-import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostAlreadyExistsException;
-import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostPromoFoundException;
-import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostPromoNotFoundException;
+import socialmeli.socialmeli.project.exceptions.ProductExceptions.*;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
 import socialmeli.socialmeli.project.models.Post;
 import socialmeli.socialmeli.project.models.Product;
@@ -20,6 +17,8 @@ import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoListDto;
 import socialmeli.socialmeli.project.services.mapper.mapper;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,10 +34,15 @@ public class ProductService implements IProductService{
     IUserRepository iUserRepository;
 
     @Override
-    public void addNewPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoFoundException, IdNotFoundException {
-        if(postDto.isHasPromo()){
+    public void addNewPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoFoundException, IdNotFoundException, InvalidPostDateException {
+        if(postDto.isHasPromo())
             throw new PostPromoFoundException(postDto);
-        }
+
+        LocalDate localDate = postDto.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localDateNow = LocalDate.now();
+        if(!localDate.isBefore(localDateNow))
+            throw new InvalidPostDateException(postDto);
+
         if(iUserRepository.findUserById(postDto.getUserId())!=null)
         iProductRepository.save(mapper.dtoToPost(postDto));
     }
