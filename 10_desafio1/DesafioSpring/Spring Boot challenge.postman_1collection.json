@@ -1,0 +1,290 @@
+{
+	"info": {
+		"_postman_id": "67202f13-c30d-4660-a3ea-f334bf67f4e1",
+		"name": "Spring Boot challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8097/users/1/unfollow/7",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \t \"userId\": 1,\n   \t     \"id_post\" : 18 ,\n          \"date\" : \"29-04-2021\",\n    \t  \"detail\":\n        \t{ \n               \"product_id\" : 33333,\n               \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Game\",\n               \"brand\" : \"Raer\",\n               \"color\" : \"Red & lack\",\n               \"notes\" : \"Specal Edition\"\n        \t},\n     \t\"category\" : 100,\n     \t\"price\" : 1500.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8097/users/1/unfollow/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"users",
+						"1",
+						"unfollow",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/users/1/follow/7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \t \"userId\": 1,\n   \t     \"id_post\" : 18 ,\n          \"date\" : \"29-04-2021\",\n    \t  \"detail\":\n        \t{ \n               \"product_id\" : 33333,\n               \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Game\",\n               \"brand\" : \"Raer\",\n               \"color\" : \"Red & lack\",\n               \"notes\" : \"Specal Edition\"\n        \t},\n     \t\"category\" : 100,\n     \t\"price\" : 1500.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8097/users/7/followers/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"users",
+						"7",
+						"followers",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/users/7/followers/count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8097/users/7/followers/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"users",
+						"7",
+						"followers",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/users/7/followers/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8097/users/7/followers/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"users",
+						"7",
+						"followers",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/users/1/followed/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8097/users/1/followed/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"users",
+						"1",
+						"followed",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/products/newpost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \t\"userId\": 1,\n   \t     \"id_post\" : 18,\n         \"date\" : \"29-04-2021\",\n    \t \"detail\" :\n        \t{ \n                \"product_id\" : 5,\n                 \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n     \t\"category\" : 100,\n     \t\"price\" : 1500.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8097/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/products/followed/7/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8097/products/followed/7/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"products",
+						"followed",
+						"7",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/users/7/followers/list?order=name_asc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8097/users/7/followers/list?order=name_asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"users",
+						"7",
+						"followers",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/products/newpromopost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \t\"userId\": 2,\n   \t\"id_post\" : 34,\n\"date\" : \"29-04-2021\",\n    \t \"detail\" :\n        \t{ \"product_id\" : 456,\n   \"productName\" : \"Silla \",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & \",\n               \"notes\" : \"Special Edition\"\n        \t},\n     \t\"category\" : \"100\",\n     \t\"price\" : 1500.50,\n     \t\"hasPromo\": true,\n     \t\"discount\": 0.25\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8097/products/newpromopost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"products",
+						"newpromopost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/products/1/countPromo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8097/products/1/countPromo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"products",
+						"1",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8097/products/1/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8097/products/1/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8097",
+					"path": [
+						"products",
+						"1",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

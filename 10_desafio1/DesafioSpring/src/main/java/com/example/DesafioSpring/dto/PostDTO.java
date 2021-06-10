@@ -1,5 +1,7 @@
 package com.example.DesafioSpring.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,24 +12,16 @@ import java.time.format.DateTimeParseException;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PostDTO {
     private int userId;
     private int postId;
-    private String date;
+    @JsonFormat(pattern="dd-MM-yyyy")
+    private LocalDate date;
     private ProductDTO detail;
     private String category;
     private double price;
+    private Boolean hasPromo;
+    private double discount;
 
-
-
-    public PostDTO(int userId, int postId, String date, ProductDTO detail, String category, double price) throws DateTimeParseException {
-
-        this.userId = userId;
-        this.postId = postId;
-        this.date = LocalDate.parse(date).toString();
-        this.detail = detail;
-        this.category = category;
-        this.price = price;
-
-    }
 }

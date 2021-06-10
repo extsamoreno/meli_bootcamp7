@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter@Getter@AllArgsConstructor@NoArgsConstructor
-public abstract class Following {
-    private int userId;
-    private String userName;
+
+@Getter@Setter@NoArgsConstructor
+public class NoPromoDTO extends PostDTO {
+
 }

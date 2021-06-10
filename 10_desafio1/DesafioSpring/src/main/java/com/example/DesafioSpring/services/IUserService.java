@@ -5,16 +5,15 @@ import com.example.DesafioSpring.dto.FollowedByDTO;
 import com.example.DesafioSpring.dto.FollowersDTO;
 import com.example.DesafioSpring.dto.FollowersCountDTO;
 import com.example.DesafioSpring.exceptions.UserNotFoundException;
-import com.example.DesafioSpring.models.User;
 
-import java.util.List;
 
 
 public interface IUserService {
+    public FollowedByDTO bringFollowedBy(int userId, String order) throws UserNotFoundException;
     public FollowDTO unfollow(int followerId, int followedId) throws UserNotFoundException;
     public FollowDTO followSeller(int followerId, int followedId) throws UserNotFoundException;
     public FollowersCountDTO getFollowersCount(int userId) throws UserNotFoundException;
-    public FollowersDTO getFollowers(int userid, String order) throws UserNotFoundException;
-    public FollowedByDTO getFollowed(int userid, String order) throws UserNotFoundException;
-    public List<User> getUserDatabase();
+    public FollowersDTO getFollowers(int userId, String order) throws UserNotFoundException;
+
+
 }

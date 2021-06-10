@@ -22,18 +22,7 @@ public class UserRepository implements IUserRepository {
     private List<Post> posts= new ArrayList<>();
     private List<Product> products= new ArrayList<>();
 
-    public List<Post> getPosts() {
-        return this.posts;
-    }
 
-    public List<Product> getProducts() {
-        return this.products;
-    }
-
-    public List<User> getUsers(){
-
-        return this.users;
-    }
 
     public void addPostToUser(int userId, Post post) throws UserNotFoundException {
 
@@ -132,5 +121,17 @@ public class UserRepository implements IUserRepository {
         }
 
         return users;
+    }
+    public List<Post> getPosts() {
+        return this.posts;
+    }
+
+    public List<Product> getProducts() {
+        return this.products;
+    }
+
+    public List<User> getUsers(){
+
+        return this.users;
     }
 }

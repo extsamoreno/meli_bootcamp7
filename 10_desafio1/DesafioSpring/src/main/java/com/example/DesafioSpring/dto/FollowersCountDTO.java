@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter@Setter
-public class FollowersCountDTO extends Following {
+public class FollowersCountDTO extends UserDTO {
     private int followers_count;
 
     public FollowersCountDTO(int userId, String userName, int followers_count){

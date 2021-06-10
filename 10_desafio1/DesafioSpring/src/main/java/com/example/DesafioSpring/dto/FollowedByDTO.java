@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Setter@Getter
-public class FollowedByDTO extends Following{
+public class FollowedByDTO extends UserDTO{
     private List<UserDTO> followed;
 
     public FollowedByDTO(int userId, String userName, List <UserDTO> followed){
