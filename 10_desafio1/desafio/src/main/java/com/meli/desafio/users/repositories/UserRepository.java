@@ -1,5 +1,6 @@
 package com.meli.desafio.users.repositories;
 
+import com.meli.desafio.users.exceptions.UserNotFollowed;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
 import com.meli.desafio.users.mappers.UserMapper;
 import com.meli.desafio.users.models.User;
@@ -54,9 +55,11 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException {
+    public void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException, UserNotFollowed {
         User user = this.getById(userId);
         List<Integer> list = user.getFollowed();
+        if(!list.contains(userIdToUnfollow))
+            throw new UserNotFollowed(userIdToUnfollow);
         user.setFollowed(list.stream().filter(u -> u != userIdToUnfollow).collect(Collectors.toList()));
     }
 }

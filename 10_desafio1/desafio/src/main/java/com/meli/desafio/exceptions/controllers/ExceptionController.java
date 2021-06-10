@@ -3,6 +3,7 @@ package com.meli.desafio.exceptions.controllers;
 import com.meli.desafio.exceptions.models.dto.ErrorDTO;
 import com.meli.desafio.posts.exceptions.PostErrorException;
 import com.meli.desafio.posts.exceptions.PostNotExistException;
+import com.meli.desafio.posts.exceptions.PostNotPromoException;
 import com.meli.desafio.users.exceptions.UserAlredyFollowedException;
 import com.meli.desafio.users.exceptions.UserFollowYourselfException;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
@@ -35,6 +36,11 @@ public class ExceptionController {
 
     @ExceptionHandler(UserAlredyFollowedException.class)
     public ResponseEntity<ErrorDTO> UserAlredyFollowedException(UserAlredyFollowedException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(PostNotPromoException.class)
+    public ResponseEntity<ErrorDTO> PostNotPromoException(PostNotPromoException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }

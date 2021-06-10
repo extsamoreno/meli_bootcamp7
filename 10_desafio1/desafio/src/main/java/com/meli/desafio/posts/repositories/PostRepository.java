@@ -3,6 +3,7 @@ package com.meli.desafio.posts.repositories;
 import com.meli.desafio.posts.exceptions.PostErrorException;
 import com.meli.desafio.posts.exceptions.PostNotExistException;
 import com.meli.desafio.posts.models.Post;
+import com.meli.desafio.utils.ChallengeUtils;
 import com.meli.desafio.utils.DataBase;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +35,15 @@ public class PostRepository implements IPostRepository{
 
     @Override
     public List<Post> getAllByUserId(Integer userId) {
-        List<Post> list = listPosts.stream().filter(p -> p.getUserId() == userId).collect(Collectors.toList());
+        List<Post> list = listPosts.stream().filter(p -> p.getUserId() == userId)
+                .filter(p -> p.getDate()
+                        .after(ChallengeUtils.getDateBeforeTwoWeeks()))
+                .sorted().collect(Collectors.toList());
         return list;
+    }
+
+    @Override
+    public List<Post> getAllPromosByUserId(Integer userId) {
+        return this.getAllByUserId(userId).stream().filter(p -> p.isHasPromo()).collect(Collectors.toList());
     }
 }

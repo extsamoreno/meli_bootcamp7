@@ -1,5 +1,6 @@
 package com.meli.desafio.users.repositories;
 
+import com.meli.desafio.users.exceptions.UserNotFollowed;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
 import com.meli.desafio.users.models.User;
 import com.meli.desafio.users.models.dto.UserDTO;
@@ -15,5 +16,5 @@ public interface IUserRepository {
 
     boolean userExist(Integer userId);
 
-    void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException;
+    void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException, UserNotFollowed;
 }

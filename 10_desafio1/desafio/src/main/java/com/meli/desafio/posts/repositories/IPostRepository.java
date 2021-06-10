@@ -13,4 +13,6 @@ public interface IPostRepository {
     Post getById(Integer postId) throws PostNotExistException;
 
     List<Post> getAllByUserId(Integer userId);
+
+    List<Post> getAllPromosByUserId(Integer userId);
 }

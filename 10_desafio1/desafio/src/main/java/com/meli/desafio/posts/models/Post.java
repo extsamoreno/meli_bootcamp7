@@ -12,12 +12,14 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class Post implements Comparable<Post>{
-    Integer userId;
-    Integer postId;
-    Date date;
-    Product detail;
-    Integer category;
-    double price;
+    private Integer userId;
+    private Integer postId;
+    private Date date;
+    private Product detail;
+    private Integer category;
+    private double price;
+    private boolean hasPromo = false;
+    private double discount = 0.00;
 
     @Override
     public int compareTo(Post o) {

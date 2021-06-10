@@ -2,15 +2,17 @@ package com.meli.desafio.posts.services;
 
 import com.meli.desafio.posts.exceptions.PostErrorException;
 import com.meli.desafio.posts.exceptions.PostNotExistException;
+import com.meli.desafio.posts.exceptions.PostNotPromoException;
 import com.meli.desafio.posts.mappers.PostMapper;
 import com.meli.desafio.posts.models.Post;
-import com.meli.desafio.posts.models.dto.PostDTO;
-import com.meli.desafio.posts.models.dto.ResponseListPostsDto;
+import com.meli.desafio.posts.models.dto.*;
 import com.meli.desafio.posts.repositories.IPostRepository;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
 import com.meli.desafio.users.mappers.UserMapper;
+import com.meli.desafio.users.models.User;
 import com.meli.desafio.users.models.dto.UserDTO;
 import com.meli.desafio.users.services.IUserService;
+import com.meli.desafio.utils.ChallengeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +36,8 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public PostDTO getById(Integer postId) throws PostNotExistException {
-        return PostMapper.postToDto(postRepository.getById(postId));
+    public PostPromoDTO getById(Integer postId) throws PostNotExistException {
+        return PostMapper.postToPromoDto(postRepository.getById(postId));
     }
 
     @Override
@@ -55,8 +57,7 @@ public class PostService implements IPostService{
         }
 
         for(UserDTO u : listUsers){
-            List<Post> listPosts = postRepository.getAllByUserId(u.getId())
-                    .stream().filter(p -> p.getDate().after(getDateBeforeTwoWeeks())).sorted().collect(Collectors.toList());
+            List<Post> listPosts = postRepository.getAllByUserId(u.getId());
 
             if(order.equalsIgnoreCase("date_desc")) {
                 Collections.reverse(listPosts);
@@ -68,11 +69,28 @@ public class PostService implements IPostService{
         return listPostsDtos;
     }
 
-    private Date getDateBeforeTwoWeeks() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.getTime();
-        calendar.add(Calendar.DATE, -14);
-        return calendar.getTime();
+    @Override
+    public Integer addNewPromoPot(PostPromoDTO postPromoDTO) throws PostErrorException, PostNotPromoException {
+        if(!postPromoDTO.isHasPromo()){
+            throw new PostNotPromoException();
+        }
+        Post post = PostMapper.promoDTOToPost(postPromoDTO);
+        postRepository.save(post);
+        return post.getPostId();
+    }
+
+    @Override
+    public PromoCountDTO getCountPromos(Integer userId) throws UserNotFoundException {
+        User user = userService.getById(userId);
+        List<Post> list = postRepository.getAllPromosByUserId(userId);
+        return PostMapper.postToCountDTO(user, list.size());
+    }
+
+    @Override
+    public PostPromoListDTO getListPromos(Integer userId) throws UserNotFoundException {
+        User user = userService.getById(userId);
+        List<Post> list = postRepository.getAllPromosByUserId(userId);
+        return PostMapper.postListToPromoListDTO(user, list);
     }
 
     private ResponseListPostsDto createlistPostDTO(List<Post> posts, Integer userId){

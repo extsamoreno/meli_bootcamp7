@@ -7,5 +7,4 @@ public class UserAlredyFollowedException extends ExceptionModel {
     public UserAlredyFollowedException() {
         super("you already follow this user", HttpStatus.BAD_REQUEST);
     }
-
 }

@@ -43,5 +43,56 @@
     },
     "category": 100,
     "price": 1500.50
+  },
+  {
+    "userId": 1,
+    "postId" : 18,
+    "date" : "2021-06-02T13:26:20.110+00:00",
+    "detail" : {
+      "productId" : 4,
+      "productName" : "Silla Gamer",
+      "type" : "Gamer",
+      "brand" : "Racer",
+      "color" : "Red & Black",
+      "notes" : "Special Edition"
+    },
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": true,
+    "discount": 0.25
+  },
+  {
+    "userId": 2,
+    "postId" : 19,
+    "date" : "2021-05-27T13:26:20.110+00:00",
+    "detail" : {
+      "productId" : 4,
+      "productName" : "Silla Gamer",
+      "type" : "Gamer",
+      "brand" : "Racer",
+      "color" : "Red & Black",
+      "notes" : "Special Edition"
+    },
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": true,
+    "discount": 0.25
+  },
+  {
+    "userId": 5,
+    "postId" : 20,
+    "date" : "2021-05-24T13:26:20.110+00:00",
+    "detail" : {
+      "productId" : 4,
+      "productName" : "Silla Gamer",
+      "type" : "Gamer",
+      "brand" : "Racer",
+      "color" : "Red & Black",
+      "notes" : "Special Edition"
+    },
+    "category" : 100,
+    "price" : 1500.50,
+    "hasPromo": true,
+    "discount": 0.25
   }
 ]

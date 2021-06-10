@@ -2,6 +2,7 @@ package com.meli.desafio.users.services;
 
 import com.meli.desafio.users.exceptions.UserAlredyFollowedException;
 import com.meli.desafio.users.exceptions.UserFollowYourselfException;
+import com.meli.desafio.users.exceptions.UserNotFollowed;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
 import com.meli.desafio.users.models.User;
 import com.meli.desafio.users.models.dto.ResponseUserCountFollowers;
@@ -24,5 +25,5 @@ public interface IUserService {
 
     User getById(Integer userId) throws UserNotFoundException;
 
-    void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException;
+    void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException, UserNotFollowed;
 }

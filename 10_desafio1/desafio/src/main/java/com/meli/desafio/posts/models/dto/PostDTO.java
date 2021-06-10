@@ -9,10 +9,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class PostDTO {
-    Integer userId;
-    Integer postId;
-    String date;
-    Product detail;
-    Integer category;
-    double price;
+    private Integer userId;
+    private Integer postId;
+    private String date;
+    private Product detail;
+    private Integer category;
+    private double price;
 }

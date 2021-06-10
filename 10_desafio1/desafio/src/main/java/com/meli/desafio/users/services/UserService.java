@@ -2,6 +2,7 @@ package com.meli.desafio.users.services;
 
 import com.meli.desafio.users.exceptions.UserAlredyFollowedException;
 import com.meli.desafio.users.exceptions.UserFollowYourselfException;
+import com.meli.desafio.users.exceptions.UserNotFollowed;
 import com.meli.desafio.users.exceptions.UserNotFoundException;
 import com.meli.desafio.users.mappers.UserMapper;
 import com.meli.desafio.users.models.User;
@@ -28,6 +29,8 @@ public class UserService implements IUserService {
     public void addNewFollow(Integer userId, Integer userIdToFollow)
             throws UserNotFoundException, UserFollowYourselfException, UserAlredyFollowedException {
         if(userId == userIdToFollow) throw new UserFollowYourselfException();
+
+        if(!userRepository.userExist(userIdToFollow)) throw new UserNotFoundException(userIdToFollow);
 
         User userFollower = userRepository.getById(userId);
         if(userFollower.getFollowed().contains(userIdToFollow)) throw new UserAlredyFollowedException();
@@ -92,7 +95,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException {
+    public void removeFollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException, UserNotFollowed {
         userRepository.removeFollow(userId, userIdToUnfollow);
     }
 }
