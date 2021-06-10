@@ -14,7 +14,7 @@ public class PostMapper {
         PostDTO postDTO = new PostDTO();
 
         postDTO.setUserId(post.getUserId());
-        postDTO.setIdPost(postId);
+        postDTO.setPostId(postId);
         postDTO.setDate(post.getDate());
         postDTO.setDetail(mapToProductDetailDTO(post.getDetail()));
         postDTO.setCategory(post.getCategory());

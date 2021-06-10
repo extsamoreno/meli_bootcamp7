@@ -2,9 +2,11 @@ package com.meli.socialmeli.service;
 
 import com.meli.socialmeli.dto.PostCollectionDTO;
 import com.meli.socialmeli.dto.PostDTO;
+import com.meli.socialmeli.dto.PromoPostsDTO;
 import com.meli.socialmeli.dto.UserDTO;
 import com.meli.socialmeli.exception.InvalidIdException;
 import com.meli.socialmeli.exception.PostIdAlreadyExistsException;
+import com.meli.socialmeli.mapper.PostMapper;
 import com.meli.socialmeli.models.Post;
 import com.meli.socialmeli.repository.PostRepository;
 import com.meli.socialmeli.repository.UserRepository;
@@ -39,11 +41,11 @@ public class ProductService {
             throw new InvalidIdException();
         }
 
-        if (postRepository.postIdAlreadyExists(postDTO.getIdPost())) {
+        if (postRepository.postIdAlreadyExists(postDTO.getPostId())) {
             throw new PostIdAlreadyExistsException();
         }
 
-        postRepository.insertNewPost(postDTO.getIdPost(), mapToPost(postDTO));
+        postRepository.insertNewPost(postDTO.getPostId(), mapToPost(postDTO));
     }
 
     public List<PostCollectionDTO> getFollowedMerchantsPosts(int userId, String order) throws InvalidIdException {
@@ -83,14 +85,48 @@ public class ProductService {
             throw new InvalidIdException();
         }
 
-        if (postRepository.postIdAlreadyExists(postDTO.getIdPost())) {
+        if (postRepository.postIdAlreadyExists(postDTO.getPostId())) {
             throw new PostIdAlreadyExistsException();
         }
 
-        postRepository.insertNewPost(postDTO.getIdPost(), mapToPost(postDTO));
-
+        postRepository.insertNewPost(postDTO.getPostId(), mapToPost(postDTO));
     }
 
+    public PromoPostsDTO getMerchantNumberOfPromoPosts(int userId) throws InvalidIdException {
+
+        if (userRepository.userIdIsNotValid(userId)) {
+            throw new InvalidIdException();
+        }
+
+        PromoPostsDTO promoPostsDTO = new PromoPostsDTO();
+
+        promoPostsDTO.setUserId(userId);
+        promoPostsDTO.setPromoProductsCount(postRepository.getNumberOfPostsById(userId));
+        promoPostsDTO.setUserName(userRepository.getUserById(userId).getUserName());
+
+        return promoPostsDTO;
+    }
+
+    public PostCollectionDTO getMerchantPromoPosts(int userId) throws InvalidIdException {
+
+        if (userRepository.userIdIsNotValid(userId)) {
+            throw new InvalidIdException();
+        }
+
+        PostCollectionDTO merchantPromoPosts = new PostCollectionDTO();
+        List<PostDTO> postDTOList = new ArrayList<>();
+
+        Map<Integer, Post> promoPosts = postRepository.getPromoPostsById(userId);
+
+        for (Map.Entry<Integer, Post> entry : promoPosts.entrySet()) {
+            postDTOList.add(PostMapper.mapToPostDTO(entry.getKey(), entry.getValue()));
+        }
+
+        merchantPromoPosts.setUserId(userId);
+        merchantPromoPosts.setPosts(postDTOList);
+
+        return merchantPromoPosts;
+    }
 
 }
 

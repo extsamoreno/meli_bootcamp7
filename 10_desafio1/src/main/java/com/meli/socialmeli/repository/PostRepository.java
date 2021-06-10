@@ -1,16 +1,11 @@
 package com.meli.socialmeli.repository;
 
 import com.meli.socialmeli.models.Post;
-import com.meli.socialmeli.models.ProductDetail;
 import org.springframework.stereotype.Repository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.meli.socialmeli.util.ProductUtil.toLocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class PostRepository {
@@ -36,4 +31,36 @@ public class PostRepository {
         }
         return merchantPosts;
     }
+
+    public int getNumberOfPostsById(int userId) {
+
+        AtomicInteger promoProductsCount = new AtomicInteger();
+
+        posts.forEach((k, v) -> {
+            if (v.getUserId() == userId) {
+                if (v.isHasPromo()) {
+                    promoProductsCount.getAndIncrement();
+                    {
+                    }
+                }
+            }
+        });
+        return promoProductsCount.get();
+    }
+
+    public Map<Integer, Post> getPromoPostsById(int userId) {
+
+        Map<Integer, Post> promoPosts = new HashMap<>();
+
+        for (Map.Entry<Integer, Post> entry : posts.entrySet()) {
+
+            if (entry.getValue().getUserId() == userId) {
+                if (entry.getValue().isHasPromo()) {
+                    promoPosts.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+        return promoPosts;
+    }
 }
+

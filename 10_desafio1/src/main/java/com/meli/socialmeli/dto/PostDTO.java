@@ -11,7 +11,7 @@ import java.util.Date;
 public class PostDTO {
 
     private int userId;
-    private int idPost;
+    private int postId;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;
