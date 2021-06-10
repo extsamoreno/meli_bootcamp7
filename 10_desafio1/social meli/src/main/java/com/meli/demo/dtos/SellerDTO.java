@@ -13,7 +13,7 @@ public class SellerDTO {
     private int id;
     private String nombre;
     private ArrayList<PostDTO> publicacions;
-    private ArrayList<PostDiscountDTO> postDto;
+   // private ArrayList<PostDiscountDTO> postDto;
     private ArrayList<UserDTO> usuarios;
     //private ArrayList<DateUserFollowDTO> dateFollow;
 }

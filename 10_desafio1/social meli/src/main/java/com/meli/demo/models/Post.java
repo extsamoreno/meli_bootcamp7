@@ -1,13 +1,13 @@
-package com.meli.demo.dtos;
+package com.meli.demo.models;
 
+import com.meli.demo.dtos.DetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class PostDTO {
+@AllArgsConstructor@NoArgsConstructor
+public class Post {
 
     private int userId;
     private int id_post;
@@ -18,7 +18,8 @@ public class PostDTO {
     private boolean hasPromo;
     private Double discount;
 
-    public PostDTO(int userId, int id_post, String date, DetailDTO detail, Integer category, Double price) {
+
+    public Post(int userId, int id_post, String date, DetailDTO detail, Integer category, Double price) {
         this.userId = userId;
         this.id_post = id_post;
         this.date = date;
@@ -26,5 +27,6 @@ public class PostDTO {
         this.category = category;
         this.price = price;
     }
-}
 
+
+}

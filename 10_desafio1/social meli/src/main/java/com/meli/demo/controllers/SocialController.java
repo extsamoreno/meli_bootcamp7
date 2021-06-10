@@ -64,7 +64,7 @@ public class SocialController {
     //POST http://localhost:8080/social/products/newpost
 
     @PostMapping("/products/newpost")
-    public ResponseEntity<String> newPost(@RequestBody PostDTO pubtDTO) throws PostException {
+    public ResponseEntity<String> newPost(@RequestBody PostResponseDTO pubtDTO) throws PostException {
         return new ResponseEntity<>(FollowService.newPost(pubtDTO), HttpStatus.OK);
     }
 
@@ -78,7 +78,6 @@ public class SocialController {
     //POST http://localhost:8080/social/users/101/unfollow/1001
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
     public  ResponseEntity<String>   unFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws FollowException {
-        ;
         return new ResponseEntity(FollowService.unFollow(userId,userIdToUnfollow),HttpStatus.OK);
     }
 
@@ -105,8 +104,8 @@ public class SocialController {
     //POST http://localhost:8080/social/products/newpromopost
 
     @PostMapping("/products/newpromopost")
-    public ResponseEntity<String> newPost(@RequestBody PostDiscountDTO postDiscountDTO) throws  PostDiscountException {
-        return new ResponseEntity<>(FollowService.newPostDiscount(postDiscountDTO), HttpStatus.OK);
+    public ResponseEntity<String> newPost(@RequestBody PostDTO postResponseDTO) throws  PostDiscountException {
+        return new ResponseEntity<>(FollowService.newPostDiscount(postResponseDTO), HttpStatus.OK);
     }
 
     //GET http://localhost:8080/social/products/1002/countPromo/
@@ -124,8 +123,6 @@ public class SocialController {
         return new ResponseEntity<>(FollowService.listDiscount(userId),HttpStatus.OK);
     }
 
-    //http://localhost:8080/social/products/1002/list/name_desc
-    //http://localhost:8080/social/products/1002/list/name_asc
 
 
 }

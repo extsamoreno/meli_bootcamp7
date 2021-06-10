@@ -5,12 +5,12 @@ import com.meli.demo.dtos.*;
 import com.meli.demo.exceptions.FollowException;
 import com.meli.demo.exceptions.PostDiscountException;
 import com.meli.demo.exceptions.PostException;
+import com.meli.demo.models.Post;
 import com.meli.demo.repositories.SocialRepository;
+import com.meli.demo.services.mappers.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,8 +51,10 @@ public class SocialServiceImple implements SocialService {
     }
 
     @Override
-    public String newPost(PostDTO poubli) throws PostException {
-        if(FollowRepository.newPost(poubli)){
+    public String newPost(PostResponseDTO publi) throws PostException {
+
+        ;
+        if(FollowRepository.newPost(PostMapper.ResponsetoDTOPost(publi))){
             return "todo OK";
         }
         else{
@@ -64,11 +66,8 @@ public class SocialServiceImple implements SocialService {
     public ListSellersPostDTO listPostVendedors(int iduser) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
         lis=FollowRepository.getListPostVendedors(iduser);
-        System.out.println(lis);
-
-
         List<String> dateArray = new ArrayList<String>();
-        ArrayList<PostDTO> post = new ArrayList<>();
+        ArrayList<PostResponseDTO> post = new ArrayList<>();
 
         for (int i = 0; i < lis.getPosts().size(); i++) {
 
@@ -174,7 +173,7 @@ public class SocialServiceImple implements SocialService {
         Calendar date = new Calendar.Builder().build();
         List<Date> dates = new ArrayList<>();
         List<Date> dates1 = new ArrayList<Date>();
-        ArrayList<PostDTO> post = new ArrayList<>();
+        ArrayList<PostResponseDTO> post = new ArrayList<>();
         if(order.equals("date_desc")){
 
             for (int i = 0; i < list.getPosts().size(); i++) {
@@ -237,7 +236,7 @@ public class SocialServiceImple implements SocialService {
         ListSellersPostDTO lis= new ListSellersPostDTO();
 
         List<String> nameArray = new ArrayList<String>();
-        ArrayList<PostDTO> post = new ArrayList<>();
+        ArrayList<PostResponseDTO> post = new ArrayList<>();
 
         lis.setUserId(list.getUserId());
         if(order.equals("name_desc")){
@@ -291,9 +290,9 @@ public class SocialServiceImple implements SocialService {
     }
 
     @Override
-    public String newPostDiscount(PostDiscountDTO poubli) throws PostDiscountException {
+    public String newPostDiscount(PostDTO poubli) throws PostDiscountException {
 
-        if(FollowRepository.newPostDiscount(poubli)){
+        if(FollowRepository.newPostDiscount(PostMapper.toPostDiscount(poubli))){
             return "ok";
         }
         else{
@@ -309,7 +308,13 @@ public class SocialServiceImple implements SocialService {
         vendedor=FollowRepository.getVendedor(idUser);
         count.setUserId(vendedor.getId());
         count.setUserName(vendedor.getNombre());
-        count.setPromoproducts_count(vendedor.getPostDto().size());
+        Integer contador =0;
+        for (int i = 0; i < vendedor.getPublicacions().size(); i++) {
+            if(vendedor.getPublicacions().get(i).isHasPromo()){
+                contador+=1;
+            }
+        }
+        count.setPromoproducts_count(contador);
 
         return count;
     }
@@ -317,11 +322,18 @@ public class SocialServiceImple implements SocialService {
     @Override
     public ListDiscountDTO listDiscount(int iduser) {
         ListDiscountDTO list = new ListDiscountDTO();
+        ArrayList<PostDTO> postDiscount = new ArrayList<>();
         SellerDTO vendedor = new SellerDTO();
         vendedor=FollowRepository.getVendedor(iduser);
         list.setId(vendedor.getId());
         list.setUserName(vendedor.getNombre());
-        list.setPosts(vendedor.getPostDto());
+
+        for (int i = 0; i < vendedor.getPublicacions().size(); i++) {
+            if(vendedor.getPublicacions().get(i).isHasPromo()){
+                postDiscount.add(vendedor.getPublicacions().get(i));
+            }
+        }
+        list.setPosts(postDiscount);
 
         return list;
     }
@@ -338,7 +350,7 @@ public class SocialServiceImple implements SocialService {
         ListDiscountDTO lis= new ListDiscountDTO();
 
         List<String> nameArray = new ArrayList<>();
-        ArrayList<PostDiscountDTO> post = new ArrayList<>();
+        ArrayList<PostDTO> post = new ArrayList<>();
 
         lis.setUserName(list.getUserName());
         lis.setId(list.getId());

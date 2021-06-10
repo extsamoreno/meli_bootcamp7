@@ -1,6 +1,8 @@
 package com.meli.demo.repositories;
 
 import com.meli.demo.dtos.*;
+import com.meli.demo.models.Post;
+import com.meli.demo.services.mappers.PostMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,21 +36,21 @@ public class SocialRepositoryImple implements SocialRepository {
     ArrayList<PostDTO> Arraypost3 = new ArrayList<>();
     ArrayList<UserDTO> UserDTO = new ArrayList<>();
 
-    ArrayList<PostDiscountDTO> postDto1 = new ArrayList<>();
-    ArrayList<PostDiscountDTO> postDto2 = new ArrayList<>();
-    ArrayList<PostDiscountDTO> postDto3 = new ArrayList<>();
+    ArrayList<PostResponseDTO> postDto1 = new ArrayList<>();
+    ArrayList<PostResponseDTO> postDto2 = new ArrayList<>();
+    ArrayList<PostResponseDTO> postDto3 = new ArrayList<>();
     public static String formatearCalendar(Calendar c) {
         DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
         return df.format(c.getTime());
     }
     public void cargarDatos(){
 
-        Calendar c = Calendar.getInstance();
+        /*Calendar c = Calendar.getInstance();
 
         System.out.println("Fecha original: " + formatearCalendar(c));
 
         c.add(Calendar.DAY_OF_YEAR, -2);
-        System.out.println("-2 días: " + formatearCalendar(c));
+        System.out.println("-2 días: " + formatearCalendar(c));*/
 
         UserDTO user1 = new UserDTO(101,"Comprador Juanito");
         UserDTO user2 = new UserDTO(102,"Comprador Maria");
@@ -114,17 +116,21 @@ public class SocialRepositoryImple implements SocialRepository {
         DetailDTO Detail05 = new DetailDTO(2,"Walmart test","tienda","Test5","rojo","Test5");
         DetailDTO Detail06 = new DetailDTO(2,"Angulo test","regla","Test6","rojo","Test6");
 
-        PostDTO post1 = new PostDTO(401,201,"01-05-2021",Detail01,100,1500.0);
-        PostDTO post2 = new PostDTO(402,202,"20-12-2021",Detail02,100,1202.0);
-        PostDTO post3 = new PostDTO(403,203,"10-07-2021",Detail03,100,1530.0);
-        PostDTO post4 = new PostDTO(404,204,"12-01-2020",Detail04,200,400.0);
-        PostDTO post5 = new PostDTO(405,205,"12-07-2020",Detail05,200,100.0);
-        PostDTO post6 = new PostDTO(406,206,"13-06-2020",Detail06,200,420.0);
+        PostDTO post1 = new PostDTO(401,201,"01-05-2021",Detail01,100,1500.0,false,0.0);
+        PostDTO post2 = new PostDTO(402,202,"20-12-2021",Detail02,100,1202.0,false,0.0);
+        PostDTO post3 = new PostDTO(403,203,"10-07-2021",Detail03,100,1530.0,false,0.0);
+        PostDTO post4 = new PostDTO(404,204,"12-01-2020",Detail04,200,400.0,false,0.0);
+        PostDTO post5 = new PostDTO(405,205,"12-07-2020",Detail05,200,100.0,false,0.0);
+        PostDTO post6 = new PostDTO(406,206,"13-06-2020",Detail06,200,420.0,false,0.0);
+        PostDTO post7 = new PostDTO(501,301,"21-05-2021",Detail01,100,1500.0,true,1.0);
+        PostDTO post8 = new PostDTO(502,302,"27-02-2021",Detail02,200,1400.0,true,23.0);
+        PostDTO post9 = new PostDTO(503,303,"29-05-2019",Detail03,100,1450.0,true,8.0);
+        PostDTO post10 = new PostDTO(504,304,"30-07-2021",Detail04,200,300.0,true,6.0);
 
-        PostDiscountDTO postDto1D = new PostDiscountDTO(501,301,"01-05-2021",Detail01,100,1500.0,true,1.0);
+        /*PostDiscountDTO postDto1D = new PostDiscountDTO(501,301,"01-05-2021",Detail01,100,1500.0,true,1.0);
         PostDiscountDTO postDto2D = new PostDiscountDTO(502,302,"10-02-2021",Detail02,200,1400.0,true,23.0);
         PostDiscountDTO postDto3D = new PostDiscountDTO(503,303,"12-05-2019",Detail03,100,1450.0,true,8.0);
-        PostDiscountDTO postDto4D = new PostDiscountDTO(504,304,"24-07-2021",Detail04,200,300.0,true,6.0);
+        PostDiscountDTO postDto4D = new PostDiscountDTO(504,304,"24-07-2021",Detail04,200,300.0,true,6.0);*/
 
 
         Arraypost1.add(post1);
@@ -133,17 +139,18 @@ public class SocialRepositoryImple implements SocialRepository {
         Arraypost3.add(post4);
         Arraypost3.add(post5);
         Arraypost3.add(post6);
-
-        postDto1.add(postDto1D);
-        postDto1.add(postDto2D);
-        postDto2.add(postDto3D);
-        postDto3.add(postDto4D);
-
+        Arraypost1.add(post7);
+        Arraypost1.add(post8);
+        Arraypost2.add(post9);
+        Arraypost3.add(post10);
 
 
-        SellerDTO sell1 = new SellerDTO(1001,"Vendedor Pepito perez",Arraypost1,postDto1,userAsigned1);
-        SellerDTO sell2 = new SellerDTO(1002,"Vendedor Maria perez",Arraypost2,postDto2,userAsigned2);
-        SellerDTO sell3 = new SellerDTO(1003,"Vendedor Juan cans",Arraypost3,postDto3,userAsigned3);
+
+
+
+        SellerDTO sell1 = new SellerDTO(1001,"Vendedor Pepito perez",Arraypost1,userAsigned1);
+        SellerDTO sell2 = new SellerDTO(1002,"Vendedor Maria perez",Arraypost2,userAsigned2);
+        SellerDTO sell3 = new SellerDTO(1003,"Vendedor Juan cans",Arraypost3,userAsigned3);
         Sellers.add(sell1);
         Sellers.add(sell2);
         Sellers.add(sell3);
@@ -160,9 +167,16 @@ public class SocialRepositoryImple implements SocialRepository {
                 usuario1.setUserId(UserDTO.get(i).getUserId());
             }
         }
+
+
         for (int i = 0; i < Sellers.size(); i++) {
             if(Sellers.get(i).getId()==id_vendedor){
 
+                for (int j = 0; j < Sellers.get(i).getUsuarios().size(); j++) {
+                    if(Sellers.get(i).getUsuarios().get(j).getUserId()==iduser){
+                        return false;
+                    }
+                }
                 if(usuario1.getUserName().isEmpty()){
                     return false;
                 }else{
@@ -234,10 +248,11 @@ public class SocialRepositoryImple implements SocialRepository {
     }
 
     @Override
-    public boolean newPost(PostDTO publi) {
+    public boolean newPost(Post publi) {
         for (int i = 0; i < Sellers.size(); i++) {
             if(Sellers.get(i).getId()==publi.getUserId()){
-                Sellers.get(i).getPublicacions().add(publi);
+
+                Sellers.get(i).getPublicacions().add(PostMapper.toDTO(publi));
                 return true;
             }
         }
@@ -248,17 +263,16 @@ public class SocialRepositoryImple implements SocialRepository {
     public ListSellersPostDTO getListPostVendedors(int iduser) {
 
         ListSellersPostDTO response= new ListSellersPostDTO();
-        ArrayList<PostDTO> post = new ArrayList<>();
+        ArrayList<PostResponseDTO> post = new ArrayList<>();
         for (int i = 0; i < UserDTO.size(); i++) {
             if(UserDTO.get(i).getUserId()==iduser){
                 response.setUserId(UserDTO.get(i).getUserId());
                 for (int j = 0; j < Sellers.size(); j++) {
                     for (int t = 0; t < Sellers.get(j).getUsuarios().size(); t++) {
-                        System.out.println(Sellers.get(j).getUsuarios().get(t).getUserId());
                         if(Sellers.get(j).getUsuarios().get(t).getUserId()==iduser){
                             for (int l = 0; l < Sellers.get(j).getPublicacions().size(); l++) {
 
-                                post.add(Sellers.get(j).getPublicacions().get(l));
+                                post.add(PostMapper.toPostResponse(Sellers.get(j).getPublicacions().get(l)));
                             }
                         }
 
@@ -304,10 +318,10 @@ public class SocialRepositoryImple implements SocialRepository {
     }
 
     @Override
-    public boolean newPostDiscount(PostDiscountDTO publi) {
+    public boolean newPostDiscount(Post publi) {
         for (int i = 0; i < Sellers.size(); i++) {
             if(Sellers.get(i).getId()==publi.getUserId()){
-                Sellers.get(i).getPostDto().add(publi);
+                Sellers.get(i).getPublicacions().add(PostMapper.toDTO(publi));
                 return true;
             }
         }
@@ -326,26 +340,4 @@ public class SocialRepositoryImple implements SocialRepository {
         return vendedor;
     }
 
-
-
-
-    /*public List<StarwarsjDTO> cargarBaseDeDatos() {
-        File baseDeDatos = null;
-        try {
-            baseDeDatos = ResourceUtils.getFile("classpath:starwars.json");
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<StarwarsjDTO>> typeReference = new TypeReference<>() {};
-        List<StarwarsjDTO> personasRepositories = null;
-        try{
-            personasRepositories = objectMapper.readValue(baseDeDatos, typeReference);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
-        return personasRepositories;
-    }*/
 }

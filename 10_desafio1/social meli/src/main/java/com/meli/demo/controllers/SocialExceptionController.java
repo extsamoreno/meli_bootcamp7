@@ -1,7 +1,6 @@
 package com.meli.demo.controllers;
 
 import com.meli.demo.dtos.ErrorDTO;
-import com.meli.demo.dtos.PostDiscountDTO;
 import com.meli.demo.exceptions.FollowException;
 import com.meli.demo.exceptions.PostDiscountException;
 import com.meli.demo.exceptions.PostException;

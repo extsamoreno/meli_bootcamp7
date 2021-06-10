@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostDiscountDTO {
+public class PostResponseDTO {
 
     private int userId;
     private int id_post;
@@ -15,8 +15,6 @@ public class PostDiscountDTO {
     private DetailDTO detail;
     private Integer category;
     private Double price;
-    private boolean hasPromo;
-    private Double discount;
 
 }
 

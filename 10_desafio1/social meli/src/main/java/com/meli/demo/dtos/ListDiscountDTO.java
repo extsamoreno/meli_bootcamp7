@@ -11,5 +11,5 @@ import java.util.ArrayList;
 public class ListDiscountDTO {
     private int id;
     private String userName;
-    private ArrayList<PostDiscountDTO> posts;
+    private ArrayList<PostDTO> posts;
 }

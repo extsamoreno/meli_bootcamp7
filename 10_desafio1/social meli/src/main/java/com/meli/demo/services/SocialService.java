@@ -12,12 +12,12 @@ public interface SocialService {
     CountUsersDTO countUsers(int iduser);
     LisUsersResponseDTO listUsers(int iduser);
     ListSellersResponseDTO listVendedores(int iduser);
-    String newPost(PostDTO post) throws  PostException;
+    String newPost(PostResponseDTO post) throws  PostException;
     ListSellersPostDTO listPostVendedors(int iduser);
     String unFollow(int userid, int  usertofollow) throws FollowException;
     ListSellersPostDTO orderDateAscDesc(int UserID, String order);
     ListSellersPostDTO orderNameAscDesc(int UserID, String order);
-    String newPostDiscount(PostDiscountDTO poubli) throws PostDiscountException ;
+    String newPostDiscount(PostDTO poubli) throws PostDiscountException ;
     CountDiscountSelleDTO countDiscount(int ioUser);
 
     ListDiscountDTO listDiscount(int iduser);

@@ -9,5 +9,5 @@ import java.util.ArrayList;
 @Data@AllArgsConstructor@NoArgsConstructor
 public class ListSellersPostDTO {
     private int userId;
-    private ArrayList<PostDTO> posts;
+    private ArrayList<PostResponseDTO> posts;
 }

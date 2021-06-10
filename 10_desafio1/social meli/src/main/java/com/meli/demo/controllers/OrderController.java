@@ -21,7 +21,6 @@ public class OrderController {
 
     @GetMapping("/users/{UserID}/followers/list")
     public ResponseEntity<ListSellersPostDTO> orderNameDesc(@PathVariable int UserID, @RequestParam(required = false) String order) {
-        System.out.println("Hola mund2");
         return new ResponseEntity<>(FollowService.orderNameAscDesc(UserID,order), HttpStatus.OK);
     }
 
@@ -31,8 +30,6 @@ public class OrderController {
 
     @GetMapping("/products/followed/{userId}/list")
     public  ResponseEntity<ListSellersPostDTO>   orderDateDesc(@PathVariable int userId,@RequestParam(required = false) String order) {
-
-        System.out.println("Hola mund");
         return new ResponseEntity<>(FollowService.orderDateAscDesc(userId,order), HttpStatus.OK);
     }
 

@@ -2,6 +2,7 @@ package com.meli.demo.repositories;
 
 
 import com.meli.demo.dtos.*;
+import com.meli.demo.models.Post;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -11,10 +12,10 @@ public interface SocialRepository {
     CountUsersDTO countUsers(int iduser);
     LisUsersResponseDTO listUsers(int iduser);
     ListSellersResponseDTO listVendedores(int iduser);
-    boolean newPost(PostDTO publi);
+    boolean newPost(Post publi);
     ListSellersPostDTO getListPostVendedors(int iduser);
     boolean unFollow(int iduser, int id_vendedor);
-    boolean newPostDiscount(PostDiscountDTO publi);
+    boolean newPostDiscount(Post publi);
     SellerDTO getVendedor(int userId);
 
 }
