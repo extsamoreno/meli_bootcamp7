@@ -20,16 +20,16 @@ public class ExceptionController {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> returnError(MethodArgumentTypeMismatchException e) {
-        return new ResponseEntity<>("Please verify that you are using the correct data types for this endpoint. " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Please verify that you are using the correct data types for this endpoint. " + e.getMostSpecificCause() , HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> returnError(HttpMessageNotReadableException e) {
-        return new ResponseEntity<>("The JSON that you are providing can not be parsed. Please check the values. " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("The JSON that you are providing can not be parsed. Please check the values. " +e.getMostSpecificCause() , HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<String> returnError(Exception e) {
-        return new ResponseEntity<>("Internal Server Error " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>("Internal Server Error ", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -12,6 +12,6 @@ public class GetUserDTO {
     private String name;
     private List<UserDTO> followed;
     private List<UserDTO> followers;
-    private List<PostDTO> posts;
+    private List<PostPromotionDTO> posts;
 
 }

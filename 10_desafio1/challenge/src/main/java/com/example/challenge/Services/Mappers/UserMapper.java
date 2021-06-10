@@ -42,9 +42,9 @@ public class UserMapper {
     }
 
     public GetUserDTO userToGetUser(User user) {
-        List<PostDTO> postDTOList = new ArrayList<>();
+        List<PostPromotionDTO> postDTOList = new ArrayList<>();
         for (Post p : user.getPosts()) {
-            postDTOList.add(PostMapper.postToPostDTO(p));
+            postDTOList.add(PostMapper.postToPostPromotionDTO(p));
         }
         GetUserDTO getUserDTO = new GetUserDTO(user.getId(), user.getName(), new ArrayList<>(), new ArrayList<>(), postDTOList);
         for (User u : user.getFollowed()) {

@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @JsonPropertyOrder({"userId", "id", "date", "product", "categoryId", "price", "hasPromo", "discount"})
 public class PostPromotionDTO {
 
-
     private int userId;
     @JsonProperty("id_post")
     private int id;
