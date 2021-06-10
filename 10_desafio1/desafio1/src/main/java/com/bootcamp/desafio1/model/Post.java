@@ -14,7 +14,6 @@ public class Post {
 
     private int userId;
     private int postId;
-    @JsonFormat(pattern="dd-MM-yyyy")
     private Date date;
     private int productId;
     private int category;
