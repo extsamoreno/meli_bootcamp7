@@ -31,7 +31,7 @@ public class UserController {
     *   An user follow a user
     *   @param userId  number that identifies the actual user
     *   @param userIdToFollow  number that identifies the user to follow
-    *   @return which userId follow another userId
+    *   @return String which userId follow another userId
     *   Response
     *   200 -> OK
     *   400
@@ -51,7 +51,7 @@ public class UserController {
      * An user UNfollow a user
      * @param userId  number that identifies the actual user
      * @param userIdToUnfollow  number that identifies the user to unfollow
-     * @return which userId unfollow another userId
+     * @return String which userId unfollow another userId
      * Response
      * 200 -> OK
      * 400
@@ -70,7 +70,7 @@ public class UserController {
     /**
      * Get the number of followers that user has
      * @param userId  number that identifies the actual user
-     * @return userId, username, and quantity of followers
+     * @return ResponseFollowerCountDTO that contains userId, username, and quantity of followers
      * Response 200 -> OK
      * 400 -> if the user does not exists
      * Example: /users/1/followers/count/
@@ -86,7 +86,8 @@ public class UserController {
      * Get the followers of the user
      * @param userId  number that identifies the actual user
      * @param order not required through request param must be name_asc or name_des
-     * @return userId, username, and a list of followers each has userId and username
+     * @return ResponseFollowerListDTO that contains
+     * userId, username, and a list of followers each has userId and username
      * Response
      * 200 -> OK
      * 400
@@ -110,7 +111,8 @@ public class UserController {
      * Get the sellers that the user follows
      * @param userId  number that identifies the actual user
      * @param order not required through request param must be name_asc or name_des
-     * @return userId, username, and a list of followed each has userId and username
+     * @return ResponseFollowedSellerDTO that contains
+     * userId, username, and a list of followed each has userId and username
      * Response
      * 200 -> OK
      * 400
