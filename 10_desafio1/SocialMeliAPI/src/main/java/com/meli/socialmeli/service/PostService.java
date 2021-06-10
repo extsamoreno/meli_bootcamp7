@@ -111,8 +111,8 @@ public class PostService implements IPostService {
     /**
      * Method that return if a post is valid or not, considering valid as if
      * the date or the detail are null
-     * @param post -> the post to be analyzed
-     * @return -> true if is valid, false ifs not
+     * @param post the post to be analyzed
+     * @return true if is valid, false ifs not
      */
     public boolean isAValidPost(Post post)  {
         return post.getDate() != null && post.getDetail() != null;
@@ -121,9 +121,9 @@ public class PostService implements IPostService {
     /**
      * Method that take a list of post and a comparator, sort an array
      * extracted from the list and return the list sorted
-     * @param postList -> the list to be sorted
-     * @param c -> a comparator who is gonna define the kind of sort
-     * @return -> the list sorted
+     * @param postList the list to be sorted
+     * @param c a comparator who is gonna define the kind of sort
+     * @return the list sorted
      */
     public List<Post> sortPosts(List<Post> postList, Comparator c){
         Post[] arrPostList=postList.toArray(new Post[postList.size()]); // get an array from the list, the array to be ordered

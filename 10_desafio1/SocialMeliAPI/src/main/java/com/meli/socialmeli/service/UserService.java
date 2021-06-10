@@ -146,9 +146,9 @@ public class UserService implements IUserService{
     /**
      * Method that take a List of users and a comparator, sort an array extracted from the list
      * and return a new sorted list
-     * @param userList -> the user list to be sorted
-     * @param c -> the comparator who is going to define the kind of sorting
-     * @return -> the list sorted
+     * @param userList the user list to be sorted
+     * @param c the comparator who is going to define the kind of sorting
+     * @return the list sorted
      */
     public List<User> sortUsers(List<User> userList, Comparator c){
         User[] arrUserList=userList.toArray(new User[userList.size()]); //Se convierte a arreglo para ordenarlo

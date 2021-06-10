@@ -19,11 +19,11 @@ public class QuickSort{
     public void quicksortDate(Post[] arr, Comparator<Date> c, int izq, int der){
 
         Post pivote=arr[izq]; // tomamos primer elemento como pivote
-        int i=izq;         // i realiza la búsqueda de izquierda a derecha
-        int j=der;         // j realiza la búsqueda de derecha a izquierda
+        int i=izq;         // i realiza la busqueda de izquierda a derecha
+        int j=der;         // j realiza la busqueda de derecha a izquierda
         Post aux;
 
-        while(i < j){                          // mientras no se crucen las búsquedas
+        while(i < j){                          // mientras no se crucen las busquedas
             while(c.compare(arr[i].getDate(), pivote.getDate()) <=0 && i < j) i++; // busca elemento mayor que pivote
             while(c.compare(arr[j].getDate(), pivote.getDate())>0) j--;           // busca elemento menor que pivote
             if (i < j) {                        // si no se han cruzado
@@ -46,11 +46,11 @@ public class QuickSort{
     public void quicksortName(User[] arr, Comparator<String> c, int izq, int der){
 
         User pivote=arr[izq]; // tomamos primer elemento como pivote
-        int i=izq;         // i realiza la búsqueda de izquierda a derecha
-        int j=der;         // j realiza la búsqueda de derecha a izquierda
+        int i=izq;         // i realiza la busqueda de izquierda a derecha
+        int j=der;         // j realiza la busqueda de derecha a izquierda
         User aux;
 
-        while(i < j){                          // mientras no se crucen las búsquedas
+        while(i < j){                          // mientras no se crucen las busquedas
             while(c.compare(arr[i].getUserName(), pivote.getUserName()) <=0 && i < j) i++; // busca elemento mayor que pivote
             while(c.compare(arr[j].getUserName(), pivote.getUserName())>0) j--;           // busca elemento menor que pivote
             if (i < j) {                        // si no se han cruzado

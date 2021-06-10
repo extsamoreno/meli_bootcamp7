@@ -1,0 +1,9 @@
+com.meli.socialmeli
+com.meli.socialmeli.controller
+com.meli.socialmeli.exception
+com.meli.socialmeli.model
+com.meli.socialmeli.repository
+com.meli.socialmeli.service
+com.meli.socialmeli.service.dto
+com.meli.socialmeli.service.mapper
+com.meli.socialmeli.service.util

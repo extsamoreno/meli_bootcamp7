@@ -17,8 +17,8 @@ public class PostRespository implements IPostRepository{
 
     /**
      * Method that save a post into the hashmap
-     * @param post -> the post to be saved
-     * @throws OverActualDateException -> if the date included in the post
+     * @param post the post to be saved
+     * @throws OverActualDateException if the date included in the post
      * is over the actual date
      */
     @Override
@@ -38,8 +38,8 @@ public class PostRespository implements IPostRepository{
     /**
      * Method that get all the posts of an specific user id with an
      * antiquity of 2 weeks ago
-     * @param userId -> the user id by which you are going to get his posts
-     * @return -> The list of filtered posts by antiquity and user id
+     * @param userId the user id by which you are going to get his posts
+     * @return The list of filtered posts by antiquity and user id
      */
     @Override
     public List<Post> getPostsByUserId(int userId) {
@@ -62,8 +62,8 @@ public class PostRespository implements IPostRepository{
 
     /**
      * Method that return all the post with an special promotion included
-     * @param userId -> the seller id included in the post
-     * @return -> a list of promotion posts
+     * @param userId the seller id included in the post
+     * @return a list of promotion posts
      */
     @Override
     public List<Post> getPromotionPostByUserId(int userId) {

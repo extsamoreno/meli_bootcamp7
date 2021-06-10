@@ -19,15 +19,15 @@ public class PostController {
     /**
      * This is the US 0005 Endpoint, which enable the option to register
      * a new post
-     * @param post -> the complete post with user id, id post, date, detail,
+     * @param post the complete post with user id, id post, date, detail,
      *             category and price. Its mapped for an post request
-     * @return -> an OK status if all is correct, BAD_REQUEST if not
-     * @throws MissingDataException -> If detail or date are null values
-     * @throws UserNotFoundException -> If the user id included in the post
+     * @return an OK status if all is correct, BAD_REQUEST if not
+     * @throws MissingDataException If detail or date are null values
+     * @throws UserNotFoundException If the user id included in the post
      * hasn't been found
-     * @throws PostIdAlreadyExistException -> If the post id is already
+     * @throws PostIdAlreadyExistException If the post id is already
      * used on a different post
-     * @throws OverActualDateException -> If the date included in the post
+     * @throws OverActualDateException If the date included in the post
      * is over the actual date
      */
     @PostMapping("/products/newpost")
@@ -39,10 +39,10 @@ public class PostController {
     /**
      * This is the US 0006/0009 Endpoint, which enable the option to get a list of
      * the post made by the followed sellers with a maximum antiquity of 2 weeks ago
-     * @param userId -> the id of the user to get his followed sellers
-     * @param order -> Optional parameter which allows the user to choose a sort order
-     * @return -> the user id and a list of followed post sorted by desc by default
-     * @throws IncorrectOrderTypeException
+     * @param userId the id of the user to get his followed sellers
+     * @param order Optional parameter which allows the user to choose a sort order
+     * @return the user id and a list of followed post sorted by desc by default
+     * @throws IncorrectOrderTypeException if the order defined was an unknown sorting type
      */
     @GetMapping("/products/followed/{userId}/list")
     public ResponseEntity<PostDTOFollowedList> getFollowedUserPosts(@PathVariable int userId, @RequestParam(required = false) String order) throws IncorrectOrderTypeException {
@@ -52,15 +52,15 @@ public class PostController {
     /**
      * This is the US 0010 Endpoint, which enable the option to register a new promotion
      * post
-     * @param post -> the complete post with user id, id post, date, detail,
+     * @param post the complete post with user id, id post, date, detail,
      *             category and price. Its mapped for an post request
-     * @return -> an OK status if all is correct, BAD_REQUEST if not
-     * @throws MissingDataException -> If detail or date are null values
-     * @throws UserNotFoundException -> If the user id included in the post
+     * @return an OK status if all is correct, BAD_REQUEST if not
+     * @throws MissingDataException If detail or date are null values
+     * @throws UserNotFoundException If the user id included in the post
      * hasn't been found
-     * @throws PostIdAlreadyExistException -> If the post id is already
+     * @throws PostIdAlreadyExistException If the post id is already
      * used on a different post
-     * @throws OverActualDateException -> If the date included in the post
+     * @throws OverActualDateException If the date included in the post
      * is over the actual date
      */
     @PostMapping("/products/newpromopost")
@@ -72,10 +72,10 @@ public class PostController {
     /**
      * This is the US 0011 Endpoint, which enable the option to get the promotion
      * posts count of an specific seller
-     * @param userId -> the id of the seller
-     * @return -> the seller id (as userId), the seller name (as userName) and
+     * @param userId the id of the seller
+     * @return the seller id (as userId), the seller name (as userName) and
      * the promotion posts count
-     * @throws UserNotFoundException -> If the user id hasn't been found
+     * @throws UserNotFoundException If the user id hasn't been found
      */
     @GetMapping("/products/{userId}/countPromo")
     public ResponseEntity<PostDTOPromoCount> getPostPromoCount(@PathVariable int userId) throws UserNotFoundException {
@@ -85,10 +85,10 @@ public class PostController {
     /**
      * This is the US 0012 Endpoint, which enable the option to get a list of all
      * promotion posts of an specific seller
-     * @param userId -> the id of the seller
-     * @return -> the seller id (as userId), the seller name (as userName) and
+     * @param userId the id of the seller
+     * @return the seller id (as userId), the seller name (as userName) and
      * a list of all his promotion posts
-     * @throws UserNotFoundException
+     * @throws UserNotFoundException If the user was not found
      */
     @GetMapping("/products/{userId}/list")
     public ResponseEntity<PostDTOAllPostList> getAllPromotionPost(@PathVariable int userId) throws UserNotFoundException {
