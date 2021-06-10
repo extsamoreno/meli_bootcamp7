@@ -75,6 +75,46 @@ public class SocialMapper {
     }
 
 
+    //Recibe un publicacion y la convierte a su DTO
+    public static PostPromoDTO toPromoDto (PublicacionModel publicacion){
+        PostPromoDTO postPromoDTO = new PostPromoDTO();
+
+        postPromoDTO.setUserId(publicacion.getUserId());
+        postPromoDTO.setId_post(publicacion.getPostId());
+        postPromoDTO.setDate(publicacion.getDate());
+        postPromoDTO.setDetail(publicacion.getDetail());
+        postPromoDTO.setCategory(publicacion.getCategory());
+        postPromoDTO.setPrice(publicacion.getPrice());
+        postPromoDTO.setHasPromo(publicacion.isHasPromo());
+        postPromoDTO.setDiscount(publicacion.getDiscount());
+
+        return postPromoDTO;
+    }
+
+
+
+    public static CountPromoDTO countPromoDTO (VendedorModel vendedor,int count){
+        CountPromoDTO countPromoDTO= new CountPromoDTO();
+
+        countPromoDTO.setUserId(vendedor.getUserId());
+        countPromoDTO.setUserName(vendedor.getUserName());
+        countPromoDTO.setPromoProductsCount(count);
+
+        return countPromoDTO;
+    }
+
+
+    public static PromoListVendedorDTO toPromoListVendedorDTO (VendedorModel vendedor,ArrayList<PostPromoDTO> posts){
+        PromoListVendedorDTO promoListVendedorDTO = new PromoListVendedorDTO();
+
+        promoListVendedorDTO.setUserId(vendedor.getUserId());
+        promoListVendedorDTO.setUserName(vendedor.getUserName());
+        promoListVendedorDTO.setPosts(posts);
+
+        return promoListVendedorDTO;
+
+
+    }
 
 
 }

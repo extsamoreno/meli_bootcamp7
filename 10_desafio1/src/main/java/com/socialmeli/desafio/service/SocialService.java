@@ -39,11 +39,9 @@ public class SocialService implements ISocialService {
             throw new VendedorIdNotFoundException(idVendedor);
         }
 
-        if (usuario.getFollows().contains(vendedor)){
+        if (usuario.getFollows().contains(vendedor)) {
             throw new SeguidorYaRegistradoException(idUsuario);
-
         }
-
         usuario.addFollow(vendedor);
         vendedor.addFollower(usuario);
 
@@ -63,7 +61,6 @@ public class SocialService implements ISocialService {
 
         if (!usuario.getFollows().contains(vendedor)) {
             throw new SeguidorNoRegistradoException(idUsuario, idVendedor);
-
         }
         usuario.quitarFollow(vendedor);
         vendedor.removeFollower(usuario);
@@ -78,7 +75,7 @@ public class SocialService implements ISocialService {
     }
 
 
-    public FollowersListDTO getFollowersList(int id, String order) throws VendedorIdNotFoundException{  //CU0003
+    public FollowersListDTO getFollowersList(int id, String order) throws VendedorIdNotFoundException {  //CU0003
         VendedorModel vendedor = iVendedorRepository.getVendedorById(id);
 
         if (vendedor == null) {
@@ -98,15 +95,13 @@ public class SocialService implements ISocialService {
         } else if (order.equals("name_desc")) {
             sortUsuariosDescendentes(followers);
         }
-
         FollowersListDTO followerList = SocialMapper.toFollowersListDto(vendedor, followers);
-
 
         return followerList;  //No es una lista
     }
 
 
-    public void createPost(PublicacionModel publicacion)throws VendedorIdNotFoundException {
+    public void createPost(PublicacionModel publicacion) throws VendedorIdNotFoundException {
         VendedorModel vendedor = iVendedorRepository.getVendedorById(publicacion.getUserId());
         if (vendedor == null) {
             throw new VendedorIdNotFoundException(publicacion.getUserId());
@@ -116,7 +111,8 @@ public class SocialService implements ISocialService {
 
 
     //Devuelve lista de publicaciones seguidos por un usuario en las ultimas 2 semanas
-    public PublicacionesVendedoresSeguidosDTO publicacionesVendedoresSeguidosDosSemanas(int id, String order) throws UserIdNotFoundException{
+    //Devuelve un objeto que adelanto tiene una lista de publicaciones
+    public PublicacionesVendedoresSeguidosDTO publicacionesVendedoresSeguidosDosSemanas(int id, String order) throws UserIdNotFoundException {
         UsuarioModel usuario = iUserRepository.getUsuarioById(id);
         if (usuario == null) {
             throw new UserIdNotFoundException(id);
@@ -125,7 +121,6 @@ public class SocialService implements ISocialService {
         ArrayList<PublicacionModel> publicacionesUltimasDosSemanas;
         ArrayList<PublicacionModel> publicacionesDelVendedor = new ArrayList<>();
         ArrayList<PublicacionDTO> publicacionesDTO = new ArrayList<>();
-
 
         for (int v = 0; v < vendedores.size(); v++) {
             publicacionesUltimasDosSemanas = getPublicacionesVendedorDosSemanas(vendedores.get(v));
@@ -146,13 +141,13 @@ public class SocialService implements ISocialService {
 
     //Devuelve lista de vendedores seguidos por un usuario
     //Sobrecargado
-    public FollowedListDTO getFollowedList(int id, String order)throws UserIdNotFoundException {
+    public FollowedListDTO getFollowedList(int id, String order) throws UserIdNotFoundException {
         UsuarioModel usuario = iUserRepository.getUsuarioById(id);
+
         if (usuario == null) {
             throw new UserIdNotFoundException(id);
         }
         ArrayList<VendedorDTO> followed = new ArrayList<>();
-
 
         for (int i = 0; i < usuario.getFollows().size(); i++) {
             VendedorModel vendedor = usuario.getFollows().get(i);
@@ -216,8 +211,8 @@ public class SocialService implements ISocialService {
 
         Collections.sort(aSortear, new Comparator<UsuarioDTO>() {
             @Override
-            public int compare(UsuarioDTO o2, UsuarioDTO o1) {
-                return o1.getUserName().compareTo(o2.getUserName());
+            public int compare(UsuarioDTO o1, UsuarioDTO o2) {
+                return o2.getUserName().compareTo(o1.getUserName());
             }
         });
     }
@@ -238,13 +233,13 @@ public class SocialService implements ISocialService {
 
         Collections.sort(aSortear, new Comparator<VendedorDTO>() {
             @Override
-            public int compare(VendedorDTO o2, VendedorDTO o1) {
-                return o1.getUserName().compareTo(o2.getUserName());
+            public int compare(VendedorDTO o1, VendedorDTO o2) {
+                return o2.getUserName().compareTo(o1.getUserName());
             }
         });
     }
 
-    public void sortPublicacionesAscendente(ArrayList<PublicacionDTO> aSortear){
+    public void sortPublicacionesAscendente(ArrayList<PublicacionDTO> aSortear) {
 
         Collections.sort(aSortear, new Comparator<PublicacionDTO>() {
             @Override
@@ -254,7 +249,7 @@ public class SocialService implements ISocialService {
         });
     }
 
-    public void sortPublicacionesDescendente(ArrayList<PublicacionDTO> aSortear){
+    public void sortPublicacionesDescendente(ArrayList<PublicacionDTO> aSortear) {
 
         Collections.sort(aSortear, new Comparator<PublicacionDTO>() {
             @Override
@@ -262,7 +257,75 @@ public class SocialService implements ISocialService {
                 return o1.getDate().compareTo(o2.getDate());
             }
         });
+    }
 
+
+    public void sortPromoAsc(ArrayList<PostPromoDTO> aSortear) {
+
+        Collections.sort(aSortear, new Comparator<PostPromoDTO>() {
+            @Override
+            public int compare(PostPromoDTO o1, PostPromoDTO o2) {
+                return o1.getDetail().getProductName().compareTo(o2.getDetail().getProductName());
+            }
+        });
+    }
+
+
+    public void sortPromoDesc(ArrayList<PostPromoDTO> aSortear) {
+
+        Collections.sort(aSortear, new Comparator<PostPromoDTO>() {
+            @Override
+            public int compare(PostPromoDTO o1, PostPromoDTO o2) {
+                return o2.getDetail().getProductName().compareTo(o1.getDetail().getProductName());
+            }
+        });
+    }
+
+
+    public CountPromoDTO countPromoBySeller(int sellerId) throws VendedorIdNotFoundException {
+
+        VendedorModel seller = iVendedorRepository.getVendedorById(sellerId);
+        int count = 0;
+
+        if (seller == null) {
+            throw new VendedorIdNotFoundException(sellerId);
+        }
+
+        for (int i = 0; i < seller.getPosts().size(); i++) {
+            PublicacionModel publicacion = seller.getPosts().get(i);
+
+            if (publicacion.isHasPromo()) {
+                count++;
+            }
+        }
+        return SocialMapper.countPromoDTO(seller, count);
+    }
+
+
+    public PromoListVendedorDTO listPromo(int sellerId, String order) throws VendedorIdNotFoundException {  //CU0012
+        ArrayList<PostPromoDTO> posts = new ArrayList<>();
+
+        VendedorModel seller = iVendedorRepository.getVendedorById(sellerId);
+
+        if (seller == null) {
+            throw new VendedorIdNotFoundException(sellerId);
+        }
+
+        for (int i = 0; i < seller.getPosts().size(); i++) {
+            PublicacionModel publicacion = seller.getPosts().get(i);
+
+            if (publicacion.isHasPromo()) {
+                posts.add(SocialMapper.toPromoDto(publicacion));
+            }
+        }
+
+        if (order.equals("name_asc")) {
+            sortPromoAsc(posts);
+
+        } else if (order.equals("name_desc")) {
+            sortPromoDesc(posts);
+        }
+        return SocialMapper.toPromoListVendedorDTO(seller, posts);
     }
 
 
