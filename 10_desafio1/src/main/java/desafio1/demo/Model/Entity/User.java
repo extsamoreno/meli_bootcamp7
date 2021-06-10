@@ -10,8 +10,8 @@ import java.util.List;
 public class User {
     int userId;
     String userName;
-    List<User> followedUsersList = new ArrayList<User>();
-    List<Post> postList = new ArrayList<Post>();
+    List<User> followedUsersList = new ArrayList<>();
+    List<Post> postList = new ArrayList<>();
 
     public User(int userId, String userName, List<User> followedUsersList) {
         this.userId = userId;

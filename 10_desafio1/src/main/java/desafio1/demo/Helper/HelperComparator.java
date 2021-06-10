@@ -5,6 +5,7 @@ import desafio1.demo.Model.Entity.User;
 
 import java.util.Comparator;
 
+//Class where all the comparators of the application are located
 public class HelperComparator {
     public static Comparator<User> userNameComparator(String order){
         return (u1,u2)-> {

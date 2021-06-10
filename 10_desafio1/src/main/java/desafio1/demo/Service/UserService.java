@@ -9,13 +9,8 @@ import desafio1.demo.Model.DTO.FollowedListDTO;
 import desafio1.demo.Model.DTO.FollowersCountDTO;
 import desafio1.demo.Model.DTO.FollowersListDTO;
 import desafio1.demo.Model.DTO.UserDTO;
-import desafio1.demo.Model.Entity.Post;
-import desafio1.demo.Model.Entity.User;
 import desafio1.demo.Repository.IRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Comparator;
-import java.util.stream.Stream;
 
 @Service
 public class UserService implements IUserService{

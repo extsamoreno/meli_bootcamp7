@@ -6,7 +6,7 @@ import lombok.Data;
 public class FollowersCountDTO {
     int userId;
     String userName;
-    long followers_count = 0;
+    long followers_count;
 
     public FollowersCountDTO(int userId, String userName, long followers_count) {
         this.userId = userId;

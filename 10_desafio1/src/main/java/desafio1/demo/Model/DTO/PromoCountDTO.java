@@ -6,7 +6,7 @@ import lombok.Data;
 public class PromoCountDTO {
     int userId;
     String userName;
-    long promoproducts_count = 0;
+    long promoproducts_count;
 
     public PromoCountDTO(int userId, String userName, long promoproducts_count) {
         this.userId = userId;

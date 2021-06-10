@@ -4,7 +4,6 @@ import desafio1.demo.Exception.DuplicatePostIdException;
 import desafio1.demo.Exception.PromoPostWithoutPromoException;
 import desafio1.demo.Exception.UserNotFoundException;
 import desafio1.demo.Model.DTO.*;
-import org.springframework.web.bind.annotation.PathVariable;
 
 public interface IProductService{
     void addNewPost(NewPostRequestDTO newPostRequestDTO) throws DuplicatePostIdException, UserNotFoundException;

@@ -9,9 +9,9 @@ import desafio1.demo.Model.DTO.FollowersCountDTO;
 import desafio1.demo.Model.DTO.FollowersListDTO;
 
 public interface IUserService {
-    public void followUser(int userId, int userIdToFollow) throws UserNotFoundException, UserAlreadyFollowsException, UserCantFollowHimselfException;
+    void followUser(int userId, int userIdToFollow) throws UserNotFoundException, UserAlreadyFollowsException, UserCantFollowHimselfException;
     void unfollowUser(int userId, int userIdToUnfollow) throws UserNotFoundException, UserDoesNotFollowException;
-    public FollowersCountDTO getFollowersCountById(int userId) throws UserNotFoundException;
-    public FollowersListDTO getFollowersListById(int userId, String order) throws UserNotFoundException;
-    public FollowedListDTO getFollowedListById(int userId, String order) throws UserNotFoundException;
+    FollowersCountDTO getFollowersCountById(int userId) throws UserNotFoundException;
+    FollowersListDTO getFollowersListById(int userId, String order) throws UserNotFoundException;
+    FollowedListDTO getFollowedListById(int userId, String order) throws UserNotFoundException;
 }

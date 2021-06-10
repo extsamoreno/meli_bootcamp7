@@ -15,14 +15,14 @@ public class ApplicationConfig {
     public ModelMapper modelMapper(){
         var modelMapper = new ModelMapper();
 
-        Provider<LocalDate> localDateProvider = new AbstractProvider<LocalDate>() {
+        Provider<LocalDate> localDateProvider = new AbstractProvider<>() {
             @Override
             public LocalDate get() {
                 return LocalDate.now();
             }
         };
 
-        Converter<String, LocalDate> toStringDate = new AbstractConverter<String, LocalDate>() {
+        Converter<String, LocalDate> toStringDate = new AbstractConverter<>() {
             @Override
             protected LocalDate convert(String source) {
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("d-M-y");
@@ -34,7 +34,7 @@ public class ApplicationConfig {
         modelMapper.addConverter(toStringDate);
         modelMapper.getTypeMap(String.class, LocalDate.class).setProvider(localDateProvider);
 
-        Converter<LocalDate,String> toDateString = new AbstractConverter<LocalDate, String>() {
+        Converter<LocalDate,String> toDateString = new AbstractConverter<>() {
             @Override
             protected String convert(LocalDate localDate) {
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("d-M-y");

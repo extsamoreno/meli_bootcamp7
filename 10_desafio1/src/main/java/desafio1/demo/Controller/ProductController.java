@@ -35,7 +35,7 @@ public class ProductController {
     @GetMapping
     @RequestMapping("/followed/{userId}/list")
     public ResponseEntity<PostListFromFollowedDTO> getPostListFromFollowed (@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException {
-        return new ResponseEntity<PostListFromFollowedDTO>(iProductService.getPostListFromFollowed(userId, order),HttpStatus.OK);
+        return new ResponseEntity<>(iProductService.getPostListFromFollowed(userId, order), HttpStatus.OK);
     }
 
     @GetMapping

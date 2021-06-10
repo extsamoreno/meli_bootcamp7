@@ -18,7 +18,7 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<String> returnError(MethodArgumentTypeMismatchException e){
-        return new ResponseEntity<String>("Please verify that you are using the correct data types for this endpoint", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Please verify that you are using the correct data types for this endpoint", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
