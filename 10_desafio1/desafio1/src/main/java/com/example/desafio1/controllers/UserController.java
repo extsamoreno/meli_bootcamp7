@@ -20,7 +20,7 @@ public class UserController {
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     @ResponseStatus(HttpStatus.OK)
     public String postFollow(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException, RepeatedUsersIdException {
-        iUserService.processNewFollowing(userId,userIdToFollow);
+        iUserService.processNewFollowing(userId, userIdToFollow);
         return "Following has been set up successfully!";
     }
 
@@ -30,19 +30,19 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getFollowers(@PathVariable int userId,@RequestParam(required = false) String order) throws OrderNotValidException {
-        return new ResponseEntity<>(iUserService.getFollowers(userId,order), HttpStatus.OK);
+    public ResponseEntity<FollowersDTO> getFollowers(@PathVariable int userId, @RequestParam(required = false) String order) throws OrderNotValidException {
+        return new ResponseEntity<>(iUserService.getFollowers(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedDTO> getFollowed(@PathVariable int userId,@RequestParam(required = false) String order) throws OrderNotValidException {
-        return new ResponseEntity<>(iUserService.getFollowed(userId,order), HttpStatus.OK);
+    public ResponseEntity<FollowedDTO> getFollowed(@PathVariable int userId, @RequestParam(required = false) String order) throws OrderNotValidException {
+        return new ResponseEntity<>(iUserService.getFollowed(userId, order), HttpStatus.OK);
     }
 
-    @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     @ResponseStatus(HttpStatus.OK)
     public String postUnfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserIdNotValidException, FollowingDoesNotExistException {
-        iUserService.processUnfollow(userId,userIdToUnfollow);
+        iUserService.processUnfollow(userId, userIdToUnfollow);
         return "User unfollowed successfully!";
     }
 }

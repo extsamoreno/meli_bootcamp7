@@ -16,7 +16,7 @@ public class UserService implements IUserService {
 
     @Override
     public void processNewFollowing(int userId, int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException, RepeatedUsersIdException {
-        if(userId == userIdToFollow)
+        if (userId == userIdToFollow)
             throw new RepeatedUsersIdException();
         //First check both user Ids are valid and exist
         if (iUserRepository.getUserById(userId) == null)

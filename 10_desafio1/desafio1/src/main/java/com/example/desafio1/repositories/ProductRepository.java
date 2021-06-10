@@ -32,4 +32,12 @@ public class ProductRepository implements IProductRepository{
                 .filter(Post::isHasPromo)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Post getPostById(int postId) {
+        return postList.stream()
+                .filter(post -> post.getIdPost() == postId)
+                .findFirst().orElse(null);
+    }
+
 }

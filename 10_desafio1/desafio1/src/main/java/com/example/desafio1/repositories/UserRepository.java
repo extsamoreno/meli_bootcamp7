@@ -4,6 +4,7 @@ import com.example.desafio1.exceptions.FollowingDoesNotExistException;
 import com.example.desafio1.exceptions.OrderNotValidException;
 import com.example.desafio1.models.Following;
 import com.example.desafio1.models.MeliUser;
+import com.example.desafio1.services.utils.UserUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -39,8 +40,9 @@ public class UserRepository implements IUserRepository{
             if(follow.getUserIdFollowed() == userId)
                 followers.add(getUserById(follow.getUserIdFollower()));
         }
+        UserUtil.sort(followers,order);
 
-        return orderIfNeeded(followers, order);
+        return followers;
     }
 
     @Override
@@ -51,8 +53,9 @@ public class UserRepository implements IUserRepository{
             if(follow.getUserIdFollower() == userId)
                 followed.add(getUserById(follow.getUserIdFollowed()));
         }
+        UserUtil.sort(followed, order);
 
-        return orderIfNeeded(followed, order);
+        return followed;
     }
 
     @Override
@@ -66,22 +69,6 @@ public class UserRepository implements IUserRepository{
         fol.ifPresent(following -> followingsList.remove(following));
     }
 
-    private List<MeliUser> orderIfNeeded(List<MeliUser> meliUserList, String order) throws OrderNotValidException {
-        if(order == null)
-            return meliUserList;
-
-        switch (order){
-            case "name_asc":
-                meliUserList.sort((a,b)->a.getUserName().compareTo(b.getUserName()));
-                break;
-            case "name_desc":
-                meliUserList.sort((a,b)->b.getUserName().compareTo(a.getUserName()));
-                break;
-            default:
-                throw new OrderNotValidException(order);
-        }
-        return meliUserList;
-    }
     private ArrayList<MeliUser> loadDatabase() {
         File file = null;
         try {

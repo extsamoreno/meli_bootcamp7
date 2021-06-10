@@ -9,4 +9,5 @@ public interface IProductRepository {
     void addPost(Post post);
     List<Post> getPosts(int userId, LocalDate dateFrom, LocalDate dateTo);
     List<Post> getPromoPosts(int userId);
+    Post getPostById(int postId);
 }

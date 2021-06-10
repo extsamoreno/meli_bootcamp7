@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 public class OrderNotValidException extends ResponseException {
-    public OrderNotValidException(String order){
-        super("The order \"" + order + "\" requested is NOT valid", HttpStatus.BAD_REQUEST);
+    public OrderNotValidException(String order) {
+        super("The order '" + order + "' requested is NOT valid", HttpStatus.BAD_REQUEST);
     }
 }
