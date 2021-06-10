@@ -1,6 +1,8 @@
-package com.meli.socialmeli.model;
+package com.meli.socialmeli.service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.meli.socialmeli.model.Post;
+import com.meli.socialmeli.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class PostDTOWithoutPromotion {
     private int userId;
     private int id_post;
     @JsonFormat(pattern = "dd-MM-yyyy")
@@ -20,17 +22,13 @@ public class Post {
     private Product detail;
     private int category;
     private double price;
-    private boolean hasPromo;
-    private double discount;
 
-    public Post(Post post){
+    public PostDTOWithoutPromotion(Post post){
         this.userId=post.getUserId();
         this.id_post=post.getId_post();
         this.date=post.getDate();
         this.detail=post.getDetail();
         this.category=post.getCategory();
         this.price=post.getPrice();
-        this.hasPromo=post.isHasPromo();
-        this.discount=post.getDiscount();
     }
 }

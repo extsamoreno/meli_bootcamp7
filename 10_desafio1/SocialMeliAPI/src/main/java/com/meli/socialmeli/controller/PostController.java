@@ -2,8 +2,8 @@ package com.meli.socialmeli.controller;
 
 import com.meli.socialmeli.exception.*;
 import com.meli.socialmeli.model.Post;
-import com.meli.socialmeli.model.PromotionPost;
 import com.meli.socialmeli.service.IPostService;
+import com.meli.socialmeli.service.dto.PostDTOAllPostList;
 import com.meli.socialmeli.service.dto.PostDTOFollowedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,14 @@ public class PostController {
     }
 
     @PostMapping("/products/newpromopost")
-    public ResponseEntity<HttpStatus> addNewPromotionPost(@RequestBody PromotionPost promoPost) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
-        HttpStatus status= iPostService.addNewPromotionPost(promoPost);
+    public ResponseEntity<HttpStatus> addNewPromotionPost(@RequestBody Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
+        HttpStatus status= iPostService.addNewPromotionPost(post);
         return new ResponseEntity<>(status, status);
     }
+
+    @GetMapping("/products/{userId}/list")
+    public ResponseEntity<PostDTOAllPostList> getAllPromotionPost(@PathVariable int userId) throws UserNotFoundException {
+        return new ResponseEntity<>(iPostService.getAllPromotionPost(userId),HttpStatus.OK);
+    }
+
 }

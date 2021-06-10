@@ -2,10 +2,10 @@ package com.meli.socialmeli.service;
 
 import com.meli.socialmeli.exception.*;
 import com.meli.socialmeli.model.Post;
-import com.meli.socialmeli.model.PromotionPost;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IPostRepository;
 import com.meli.socialmeli.repository.IUserRepository;
+import com.meli.socialmeli.service.dto.PostDTOAllPostList;
 import com.meli.socialmeli.service.dto.PostDTOFollowedList;
 import com.meli.socialmeli.service.util.QuickSort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,29 +67,35 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public HttpStatus addNewPromotionPost(PromotionPost promoPost) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
-        if (!isAValidPost(promoPost)){
-            throw new MissingDataException(promoPost);
+    public HttpStatus addNewPromotionPost(Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
+        if (!isAValidPost(post)){
+            throw new MissingDataException(post);
         }
-        if(iUserRepository.getUserById(promoPost.getUserId())==null){
-            throw new UserNotFoundException(promoPost.getUserId());
+        if(iUserRepository.getUserById(post.getUserId())==null){
+            throw new UserNotFoundException(post.getUserId());
         }
-        if(iPostRepository.getPostById(promoPost.getId_post())!=null){
-            throw new PostIdAlreadyExistException(promoPost);
+        if(iPostRepository.getPostById(post.getId_post())!=null){
+            throw new PostIdAlreadyExistException(post);
         }
-        iPostRepository.savePost(promoPost);
+        iPostRepository.savePost(post);
         return HttpStatus.OK;
     }
 
-    public boolean isAValidPost(Post post)  {
-        if (post.getDate()==null || post.getDetail()==null){
-            return false;
-        } else{
-            return true;
+    @Override
+    public PostDTOAllPostList getAllPromotionPost(int userId) throws UserNotFoundException {
+        User user= iUserRepository.getUserById(userId);
+        if (user==null){
+            throw new UserNotFoundException(userId);
         }
+        List<Post> postList=iPostRepository.getPromotionPostByUserId(userId);
+        PostDTOAllPostList requestList= new PostDTOAllPostList();
+        requestList.setUserId(userId);
+        requestList.setUserName(user.getUserName());
+        requestList.setPosts(postList);
+        return requestList;
     }
 
-    public boolean isAValidPost(PromotionPost post)  {
+    public boolean isAValidPost(Post post)  {
         if (post.getDate()==null || post.getDetail()==null){
             return false;
         } else{

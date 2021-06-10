@@ -2,7 +2,6 @@ package com.meli.socialmeli.repository;
 
 import com.meli.socialmeli.exception.OverActualDateException;
 import com.meli.socialmeli.model.Post;
-import com.meli.socialmeli.model.PromotionPost;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -47,6 +46,14 @@ public class PostRespository implements IPostRepository{
             }
         }
         return requestedPosts;
+    }
+
+    @Override
+    public List<Post> getPromotionPostByUserId(int userId) {
+        List<Post> postList = new ArrayList<>();
+        posts.forEach((k,v) -> {if(v.getUserId()==userId && v.isHasPromo()==true){postList.add(v);}});//Se traen todos los posts del usuario
+        List<Post> requestedPosts= new ArrayList<>(); //Aqui se guardaran las fechas ordenadas con 2 semanas de antiguedad
+        return postList;
     }
 
 }

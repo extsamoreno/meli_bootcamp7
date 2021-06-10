@@ -1,10 +1,8 @@
 package com.meli.socialmeli.service.mapper;
 
+import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.User;
-import com.meli.socialmeli.service.dto.UserDTOFollowedList;
-import com.meli.socialmeli.service.dto.UserDTOFollowersCount;
-import com.meli.socialmeli.service.dto.UserDTOFollowersList;
-import com.meli.socialmeli.service.dto.UserDTOSimpleUser;
+import com.meli.socialmeli.service.dto.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,4 +47,11 @@ public class UserMapper {
         responseUser.setUserName(user.getUserName());
         return responseUser;
     }
+
+    public static PostDTOWithoutPromotion toSimplePost(Post post){
+        PostDTOWithoutPromotion responsePost= new PostDTOWithoutPromotion(post);
+        return responsePost;
+    }
+
+
 }
