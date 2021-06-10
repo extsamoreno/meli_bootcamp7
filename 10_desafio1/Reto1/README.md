@@ -41,7 +41,7 @@ id : 1236, name : "Jenny Angarita"
 
 **Output:**
 ```
-User create nicoll id: 1571
+User created nicoll id: 1571
 ```
 
 # Requirements API rest:
