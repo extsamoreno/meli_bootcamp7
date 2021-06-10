@@ -4,6 +4,7 @@ import com.bootcamp.socialmeli.DTO.response.UserAmountFollowersDTOres;
 import com.bootcamp.socialmeli.DTO.response.UserFollowedListDTOres;
 import com.bootcamp.socialmeli.DTO.response.UserFollowersListDTOres;
 import com.bootcamp.socialmeli.exception.FollowYourselfException;
+import com.bootcamp.socialmeli.exception.UnfollowYourselfException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.model.User;
 import com.bootcamp.socialmeli.service.IUserService;
@@ -42,6 +43,12 @@ public class UserController {
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<UserFollowedListDTOres> getListUserFollowed(@PathVariable Integer userId) throws UserIdNotFoundException {
         return new ResponseEntity<>(userService.getListUserFollowed(userId), HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Void> unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException, UnfollowYourselfException {
+        userService.unfollow(userId, userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/list")

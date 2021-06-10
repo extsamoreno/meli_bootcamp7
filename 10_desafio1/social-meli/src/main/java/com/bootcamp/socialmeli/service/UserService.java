@@ -4,6 +4,7 @@ import com.bootcamp.socialmeli.DTO.response.UserAmountFollowersDTOres;
 import com.bootcamp.socialmeli.DTO.response.UserFollowedListDTOres;
 import com.bootcamp.socialmeli.DTO.response.UserFollowersListDTOres;
 import com.bootcamp.socialmeli.exception.FollowYourselfException;
+import com.bootcamp.socialmeli.exception.UnfollowYourselfException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.mapper.UserMapper;
 import com.bootcamp.socialmeli.model.User;
@@ -41,6 +42,27 @@ public class UserService implements IUserService{
         //Agrego
         if(!userToFollow.getFollowers().contains(userId)) {
             userToFollow.getFollowers().add(userId);
+        }
+    }
+
+    @Override
+    public void unfollow(Integer userId, Integer userIdToUnfollow) throws UnfollowYourselfException, UserIdNotFoundException {
+        //Controlo que los id no sean iguales
+        if (userId == userIdToUnfollow) {
+            throw new UnfollowYourselfException();
+        }
+
+        User user = dataRepository.findUserById(userId);
+        User userToUnfollow = dataRepository.findUserById(userIdToUnfollow);
+
+        //Elimino el usuario de la lista de seguidos si es que este ya se encontraba en la misma
+        if (user.getFollowed().contains(userIdToUnfollow)) {
+            user.getFollowed().removeIf(u -> u == userIdToUnfollow);
+        }
+
+        //Elimino el usuario de la lista de seguidores si es que este se encuentra en ella
+        if(userToUnfollow.getFollowers().contains(userId)) {
+            userToUnfollow.getFollowers().removeIf(u -> u == userId);
         }
     }
 

@@ -3,6 +3,7 @@ package com.bootcamp.socialmeli.controller;
 import com.bootcamp.socialmeli.DTO.ErrorDTO;
 import com.bootcamp.socialmeli.exception.FollowYourselfException;
 import com.bootcamp.socialmeli.exception.PostAlreadyRegisteredException;
+import com.bootcamp.socialmeli.exception.UnfollowYourselfException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,11 @@ public class ControllerException {
 
     @ExceptionHandler(FollowYourselfException.class)
     public ResponseEntity<ErrorDTO> handleFollowYourSelf(FollowYourselfException e) {
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
+
+    @ExceptionHandler(UnfollowYourselfException.class)
+    public ResponseEntity<ErrorDTO> handleUnfollowYourSelf(UnfollowYourselfException e) {
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 
