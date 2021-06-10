@@ -107,24 +107,6 @@ public class UserRepository implements IUserRepository {
 
     //me dejan de seguir
     private void removeFollowMe(int userId, int userIdToUnfollow) throws UnfollowException { //eliminar quien me sigue
-      //  List<UserSaveDTO> listFollowMe = new ArrayList<>();
-       // listFollowMe = user.getFollowMeList();
-       // int flag = -1;
-
-       /* if(listFollowMe != null){
-            for(int i=0 ; i<listFollowMe.size() ; i++) {
-                if (listFollowMe.get(i).getUserId() == userToUnfollow.getUserId()) {
-                    for (int j = 0; j <= listUser.size() - 1; j++) {
-                        if (listUser.get(j).getUserId() == user.getUserId()) {
-                            flag = 1;
-                            //no lo elimina
-                            listUser.get(j).getFollowMeList().remove(i);
-                        }
-                    }
-                }
-            }
-            //if(flag == -1) throw new UnfollowException(userToUnfollow.getUserId());
-        }*/
 
         User use = listUser.stream().filter(x -> x.getUserId()==userIdToUnfollow).findFirst().orElseThrow(
                 () -> new UnfollowException(userIdToUnfollow)
@@ -140,29 +122,11 @@ public class UserRepository implements IUserRepository {
 
     //dejar de seguir
     private void removeFollow(int userId, int userIdToUnfollow) throws UnfollowException, ValidateSellerException, UserNotFoundException { //eliminar quien sigo
-        //List<UserSaveDTO> listFollow = new ArrayList<>();
-        //listFollow = user.getFollowList();
-        //UserSaveDTO flag = new UserSaveDTO();
-
         //validar que es un vendedor a quien dejo de seguir
         if(findUserById(userIdToUnfollow).getIsSeller()==0) {  //Valido si quien voy a dejar de seguir es un vendedor (si es 0 es un usuario comun)
             throw new ValidateSellerException(findUserById(userIdToUnfollow).getUserId()); //OJO CAMBIE ALGO
         }
 
-      /*  if(listFollow != null){
-            for(int i=0 ; i<listFollow.size() ; i++){
-                if(listFollow.get(i).getUserId() == userToUnfollow.getUserId()){
-                    for(int j=0 ; j<=listUser.size()-1 ; j++){
-                        if(listUser.get(j).getUserId() == user.getUserId()){
-                            flag = listUser.get(j).getFollowList().remove(i);
-                        }
-                    }
-                }
-            }
-           // if(flag == -1)
-        }*/
-
-        //listUser<List seller>>
         User use = listUser.stream().filter(x -> x.getUserId()==userId).findFirst().orElseThrow(
                 () -> new UnfollowException(userId)
         );

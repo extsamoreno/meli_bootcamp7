@@ -2,6 +2,8 @@ package desafio1.desafio1.service.productService;
 
 import desafio1.desafio1.domain.Publications;
 import desafio1.desafio1.domain.User;
+import desafio1.desafio1.exception.publicationException.PublicatiosException;
+import desafio1.desafio1.exception.userException.UnfollowException;
 import desafio1.desafio1.exception.userException.UserNotFoundException;
 import desafio1.desafio1.exception.userException.ValidateSellerException;
 import desafio1.desafio1.repository.IUserRepository;
@@ -22,8 +24,15 @@ public class ProductService implements IProductService {
     IUserRepository userRepository;
 
     @Override
-    public User newPost(PublicationDTO publicationDTO) throws UserNotFoundException, ValidateSellerException {
+    public User newPost(PublicationDTO publicationDTO) throws UserNotFoundException, ValidateSellerException, PublicatiosException {
+
         User user = userRepository.findUserById(publicationDTO.getUserId()); //usuario que voy a manipilar
+
+        //valido que la publicacion no este cargada ya
+       if(!user.getPublicationsList().isEmpty()) {
+           user.getPublicationsList().stream().filter(x -> x.getId_post() != publicationDTO.getId_post()).findFirst().orElseThrow(
+                   () -> new PublicatiosException(publicationDTO.getId_post()));
+       }
 
         Publications publications = new Publications();
 
@@ -37,6 +46,7 @@ public class ProductService implements IProductService {
         publications.setDetail(publicationDTO.getDetail()); //ojo porque estoy creando una nueva instancia y le seteo el producto que viene en el objeto por parametro
         publications.setCategory(publicationDTO.getCategory());
         publications.setPrice(publicationDTO.getPrice());
+
 
         //le agregago esa publicaicon al vendedor
         user.getPublicationsList().add(publications);
