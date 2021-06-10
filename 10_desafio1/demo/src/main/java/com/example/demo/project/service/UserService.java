@@ -24,17 +24,17 @@ public class UserService implements IUserService {
     UserMapper userMapper;
 
     @Override
-    public void follow(int userid, int useridtofollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
-        if (userid != useridtofollow) {
+    public void follow(int user_id, int user_id_to_follow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
+        if (user_id != user_id_to_follow) {
 
-            User user = iDataRepository.getUserById(userid);
-            if (user == null) throw new UserIdNotFoundException(userid);
+            User user = iDataRepository.getUserById(user_id);
+            if (user == null) throw new UserIdNotFoundException(user_id);
 
-            User seller = iDataRepository.getUserById(useridtofollow);
-            if (seller == null) throw new UserIdNotFoundException(useridtofollow);
+            User seller = iDataRepository.getUserById(user_id_to_follow);
+            if (seller == null) throw new UserIdNotFoundException(user_id_to_follow);
 
-            addFollowing(user, useridtofollow);
-            addFollower(seller, userid);
+            addFollowing(user, user_id_to_follow);
+            addFollower(seller, user_id);
             iDataRepository.persistUserDataBase();
         } else {
             throw new UsersCantFollowThemselvesException();
@@ -42,17 +42,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void unfollow(int userid, int useridtounfollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
-        if (userid != useridtounfollow) {
+    public void unfollow(int user_id, int user_id_to_unfollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
+        if (user_id != user_id_to_unfollow) {
 
-            User user = iDataRepository.getUserById(userid);
-            if (user == null) throw new UserIdNotFoundException(userid);
+            User user = iDataRepository.getUserById(user_id);
+            if (user == null) throw new UserIdNotFoundException(user_id);
 
-            User seller = iDataRepository.getUserById(useridtounfollow);
-            if (seller == null) throw new UserIdNotFoundException(useridtounfollow);
+            User seller = iDataRepository.getUserById(user_id_to_unfollow);
+            if (seller == null) throw new UserIdNotFoundException(user_id_to_unfollow);
 
-            removeFollowing(user, useridtounfollow);
-            removeFollower(seller, userid);
+            removeFollowing(user, user_id_to_unfollow);
+            removeFollower(seller, user_id);
             iDataRepository.persistUserDataBase();
         } else {
             throw new UsersCantFollowThemselvesException();
@@ -60,14 +60,14 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public SellerDTO getFollowerCount(int userid) throws UserIdNotFoundException {
-        User user = iDataRepository.getUserById(userid);
+    public SellerDTO getFollowerCount(int user_id) throws UserIdNotFoundException {
+        User user = iDataRepository.getUserById(user_id);
         return userMapper.toSellerDTO(user);
     }
 
     @Override
-    public SellerDTO getFollowers(int userid, Optional<String> order) throws UserIdNotFoundException {
-        User user = iDataRepository.getUserById(userid);
+    public SellerDTO getFollowers(int user_id, Optional<String> order) throws UserIdNotFoundException {
+        User user = iDataRepository.getUserById(user_id);
         List<User> followers = new ArrayList<>();
         for (Integer follower_id: user.getFollowers()) {
             followers.add(iDataRepository.getUserById(follower_id));
@@ -94,50 +94,50 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO getFollowingCount(int userid) throws UserIdNotFoundException {
-        User user = iDataRepository.getUserById(userid);
+    public UserDTO getFollowingCount(int user_id) throws UserIdNotFoundException {
+        User user = iDataRepository.getUserById(user_id);
         return userMapper.toUserWithFollowingDTO(user);
     }
 
     @Override
-    public UserDTO getFollowing(int userid, Optional<String> order) throws UserIdNotFoundException {
-        User user = iDataRepository.getUserById(userid);
+    public UserDTO getFollowing(int user_id, Optional<String> order) throws UserIdNotFoundException {
+        User user = iDataRepository.getUserById(user_id);
         List<User> following = new ArrayList<>();
-        for (Integer following_id: user.getFollowing()) {
+        for (Integer following_id: user.getFollowed()) {
             following.add(iDataRepository.getUserById(following_id));
         }
 
         UserDTO userDTO = userMapper.toUserWithFollowingDTO(user, following);
 
-        if (order.isPresent()) orderUserDTOList(((UserWithFollowingListDTO)userDTO).getFollowing(), order.get());
+        if (order.isPresent()) orderUserDTOList(((UserWithFollowingListDTO)userDTO).getFollowed(), order.get());
 
         return userDTO;
     }
 
-    public void addFollowing(User user, int userid) {
-        if (!user.getFollowing().contains(userid)) {
-            user.getFollowing().add(userid);
-            user.setFollowing_count(user.getFollowing_count()+1);
+    public void addFollowing(User user, int user_id) {
+        if (!user.getFollowed().contains(user_id)) {
+            user.getFollowed().add(user_id);
+            user.setFollowed_count(user.getFollowed_count()+1);
         }
     }
 
-    public void removeFollowing(User user, int userid) {
-        if (user.getFollowing().contains(userid)) {
-            user.getFollowing().remove((Object)userid);
-            user.setFollowing_count(user.getFollowing_count()-1);
+    public void removeFollowing(User user, int user_id) {
+        if (user.getFollowed().contains(user_id)) {
+            user.getFollowed().remove((Object)user_id);
+            user.setFollowed_count(user.getFollowed_count()-1);
         }
     }
 
-    public void addFollower(User user, int userid) {
-        if (!user.getFollowers().contains(userid)) {
-            user.getFollowers().add(userid);
+    public void addFollower(User user, int user_id) {
+        if (!user.getFollowers().contains(user_id)) {
+            user.getFollowers().add(user_id);
             user.setFollowers_count(user.getFollowers_count()+1);
         }
     }
 
-    public void removeFollower(User user, int userid) {
-        if (user.getFollowers().contains(userid)) {
-            user.getFollowers().remove((Object)userid);
+    public void removeFollower(User user, int user_id) {
+        if (user.getFollowers().contains(user_id)) {
+            user.getFollowers().remove((Object)user_id);
             user.setFollowers_count(user.getFollowers_count()-1);
         }
     }

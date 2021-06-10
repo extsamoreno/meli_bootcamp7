@@ -10,5 +10,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Product {
     private int product_id;
-    private String productName, type, brand, color, notes;
+    private String product_name, type, brand, color, notes;
 }

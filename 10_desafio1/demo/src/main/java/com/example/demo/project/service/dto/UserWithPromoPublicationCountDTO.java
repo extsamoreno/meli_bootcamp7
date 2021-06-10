@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter @Getter
 @NoArgsConstructor
 public class UserWithPromoPublicationCountDTO extends UserDTO {
-    private int publicproducts_count;
+    private int promoproducts_count;
 
-    public UserWithPromoPublicationCountDTO(String name, int id, int publicproducts_count) {
+    public UserWithPromoPublicationCountDTO(String name, int id, int promoproducts_count) {
         super(name, id);
-        this.publicproducts_count = publicproducts_count;
+        this.promoproducts_count = promoproducts_count;
     }
 }

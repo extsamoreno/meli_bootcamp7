@@ -11,18 +11,17 @@ import java.time.LocalDate;
 @Getter @Setter
 @AllArgsConstructor
 public class Publication {
-    private int id_post, id_user;
-
+    private int post_id, user_id;
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate date;
     private Product detail;
     private int category;
     private double price;
-    private Boolean hasPromo;
+    private Boolean has_promo;
     private double discount;
 
     public Publication() {
-        this.hasPromo = false;
+        this.has_promo = false;
         this.discount = 0;
     }
 }

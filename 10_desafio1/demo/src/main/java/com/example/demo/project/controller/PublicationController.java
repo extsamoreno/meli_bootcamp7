@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -25,36 +26,36 @@ public class PublicationController {
 
     //US 0005
     @PostMapping("/newpost")
-    public ResponseEntity<Void> newPost(@RequestBody PublicationDTO publicationDTO) throws DuplicatedPublicationIdException, UserIdNotFoundException, PublicationIsNotPromoException, CantInsertDateGreaterThanToday {
+    public ResponseEntity<Void> newPost(@Valid @RequestBody PublicationDTO publicationDTO) throws DuplicatedPublicationIdException, UserIdNotFoundException, PublicationIsNotPromoException, CantInsertDateGreaterThanToday {
         iPublicationService.newPost(publicationDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //US 0006
-    @GetMapping("/followed/{userid}/list")
-    public ResponseEntity<FollowedPublicationsDTO> followedPublications(@PathVariable int userid, @RequestParam Optional<String> order) throws UserIdNotFoundException {
-        FollowedPublicationsDTO returnDTO =  iPublicationService.getFollowedPost(userid, order);
+    @GetMapping("/followed/{user_id}/list")
+    public ResponseEntity<FollowedPublicationsDTO> followedPublications(@PathVariable int user_id, @RequestParam Optional<String> order) throws UserIdNotFoundException {
+        FollowedPublicationsDTO returnDTO =  iPublicationService.getFollowedPost(user_id, order);
         return new ResponseEntity<>(returnDTO, HttpStatus.OK);
     }
 
     //US 0010
     @PostMapping("/newpromopost")
-    public ResponseEntity<Void> newPromoPost(@RequestBody PublicationPromoDTO publicationDTO) throws DuplicatedPublicationIdException, UserIdNotFoundException, PublicationIsNotPromoException, CantInsertDateGreaterThanToday {
+    public ResponseEntity<Void> newPromoPost(@Valid @RequestBody PublicationPromoDTO publicationDTO) throws DuplicatedPublicationIdException, UserIdNotFoundException, PublicationIsNotPromoException, CantInsertDateGreaterThanToday {
         iPublicationService.newPost(publicationDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //US 0011
-    @GetMapping("/{userId}/countPromo")
-    public ResponseEntity<UserWithPromoPublicationCountDTO> promoPublicationsCount(@PathVariable int userId) throws UserIdNotFoundException {
-        UserWithPromoPublicationCountDTO userDTO =  iPublicationService.getPromoPublications(userId);
+    @GetMapping("/{user_id}/countPromo")
+    public ResponseEntity<UserWithPromoPublicationCountDTO> promoPublicationsCount(@PathVariable int user_id) throws UserIdNotFoundException {
+        UserWithPromoPublicationCountDTO userDTO =  iPublicationService.getPromoPublications(user_id);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     //US 0012
-    @GetMapping("/{userId}/list")
-    public ResponseEntity<FollowedPublicationsDTO> promoPublicationsList(@PathVariable int userId, @RequestParam Optional<String> order) throws UserIdNotFoundException {
-        FollowedPublicationsDTO returnDTO =  iPublicationService.getPromoPublications(userId, order);
+    @GetMapping("/{user_id}/list")
+    public ResponseEntity<FollowedPublicationsDTO> promoPublicationsList(@PathVariable int user_id, @RequestParam Optional<String> order) throws UserIdNotFoundException {
+        FollowedPublicationsDTO returnDTO =  iPublicationService.getPromoPublications(user_id, order);
         return new ResponseEntity<>(returnDTO, HttpStatus.OK);
     }
 }

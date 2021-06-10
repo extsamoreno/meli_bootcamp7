@@ -9,10 +9,10 @@ import java.util.List;
 @Setter @Getter
 @NoArgsConstructor
 public class UserWithFollowingListDTO extends UserWithFollowingCountDTO{
-    private List<UserDTO> following;
+    private List<UserDTO> followed;
 
-    public UserWithFollowingListDTO(String name, int id, int following_count, List<UserDTO> following) {
+    public UserWithFollowingListDTO(String name, int id, int following_count, List<UserDTO> followed) {
         super(name, id, following_count);
-        this.following = following;
+        this.followed = followed;
     }
 }

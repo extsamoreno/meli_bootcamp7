@@ -9,10 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserWithFollowingCountDTO extends UserDTO{
-    private int following_count;
+    private int followed_count;
 
-    public UserWithFollowingCountDTO(String name, int id, int following_count) {
+    public UserWithFollowingCountDTO(String name, int id, int followed_count) {
         super(name, id);
-        this.following_count = following_count;
+        this.followed_count = followed_count;
     }
 }

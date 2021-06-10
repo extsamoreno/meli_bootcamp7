@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface IPublicationService {
 
     void newPost(PublicationDTO publicationDTO) throws DuplicatedPublicationIdException, UserIdNotFoundException, PublicationIsNotPromoException, CantInsertDateGreaterThanToday;
-    FollowedPublicationsDTO getFollowedPost(int userid, Optional<String> order) throws UserIdNotFoundException;
+    FollowedPublicationsDTO getFollowedPost(int user_id, Optional<String> order) throws UserIdNotFoundException;
     UserWithPromoPublicationCountDTO getPromoPublications(int userid) throws UserIdNotFoundException;
-    FollowedPublicationsDTO getPromoPublications(int userid, Optional<String> order) throws UserIdNotFoundException;
+    FollowedPublicationsDTO getPromoPublications(int user_id, Optional<String> order) throws UserIdNotFoundException;
 }

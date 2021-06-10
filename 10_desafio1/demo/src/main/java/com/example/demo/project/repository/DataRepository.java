@@ -37,10 +37,10 @@ public class DataRepository implements IDataRepository {
 
     @Override
     public void addPublication(Publication publication) throws DuplicatedPublicationIdException, UserIdNotFoundException {
-        if (publications.containsKey(publication.getId_post())) throw new DuplicatedPublicationIdException(publication.getId_post());
-        if (!users.containsKey(publication.getId_user())) throw new UserIdNotFoundException(publication.getId_user());
-        publications.put(publication.getId_post(), publication);
-        users.get(publication.getId_user()).getPublications().add(publication.getId_post());
+        if (publications.containsKey(publication.getPost_id())) throw new DuplicatedPublicationIdException(publication.getPost_id());
+        if (!users.containsKey(publication.getUser_id())) throw new UserIdNotFoundException(publication.getUser_id());
+        publications.put(publication.getPost_id(), publication);
+        users.get(publication.getUser_id()).getPublications().add(publication.getPost_id());
         persistPublicationDataBase();
         persistUserDataBase();
     }
@@ -81,7 +81,7 @@ public class DataRepository implements IDataRepository {
         List<Publication> publications_list = publications
                 .stream()
                 .map(user_id-> getPublicationById(user_id))
-                .filter(publication -> publication.getHasPromo())
+                .filter(publication -> publication.getHas_promo())
                 .collect(Collectors.toList());
 
         return publications_list;
@@ -131,7 +131,7 @@ public class DataRepository implements IDataRepository {
 
         Hashtable<Integer, Publication> publications = new Hashtable<>();
         for (Publication publication: publications_list) {
-            publications.put(publication.getId_post(), publication);
+            publications.put(publication.getPost_id(), publication);
         }
 
         return publications;

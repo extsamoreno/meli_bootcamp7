@@ -10,12 +10,12 @@ import java.util.Optional;
 
 public interface IUserService {
 
-    void follow(int userid, int useridtofollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException;
-    void unfollow(int userid, int useridtounfollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException;
-    SellerDTO getFollowerCount(int userid) throws UserIdNotFoundException;
-    SellerDTO getFollowers(int userid, Optional<String> order) throws UserIdNotFoundException;
+    void follow(int userid, int user_id_to_follow) throws UserIdNotFoundException, UsersCantFollowThemselvesException;
+    void unfollow(int userid, int user_id_to_unfollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException;
+    SellerDTO getFollowerCount(int user_id) throws UserIdNotFoundException;
+    SellerDTO getFollowers(int user_id, Optional<String> order) throws UserIdNotFoundException;
 
-    UserDTO getFollowingCount(int userid) throws UserIdNotFoundException;
-    UserDTO getFollowing(int userid, Optional<String> order) throws UserIdNotFoundException;
+    UserDTO getFollowingCount(int user_id) throws UserIdNotFoundException;
+    UserDTO getFollowing(int user_id, Optional<String> order) throws UserIdNotFoundException;
 
 }

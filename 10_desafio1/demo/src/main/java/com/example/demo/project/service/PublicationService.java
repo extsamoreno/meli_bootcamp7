@@ -36,7 +36,7 @@ public class PublicationService implements IPublicationService{
         if (publicationDTO.getDate().isAfter(LocalDate.now()))
             throw new CantInsertDateGreaterThanToday(publicationDTO.getDate());
 
-        if (publicationDTO instanceof PublicationPromoDTO && (((PublicationPromoDTO) publicationDTO).getHasPromo() == null || ((PublicationPromoDTO) publicationDTO).getHasPromo() == false))
+        if (publicationDTO instanceof PublicationPromoDTO && (((PublicationPromoDTO) publicationDTO).getHas_promo() == null || ((PublicationPromoDTO) publicationDTO).getHas_promo() == false))
             throw new PublicationIsNotPromoException();
 
         Publication publication = publicationMapper.toPublication(publicationDTO);
@@ -44,11 +44,11 @@ public class PublicationService implements IPublicationService{
     }
 
     @Override
-    public FollowedPublicationsDTO getFollowedPost(int userid, Optional<String> order) throws UserIdNotFoundException {
-        User user = iDataRepository.getUserById(userid);
-        if (user == null) throw new UserIdNotFoundException(userid);
+    public FollowedPublicationsDTO getFollowedPost(int user_id, Optional<String> order) throws UserIdNotFoundException {
+        User user = iDataRepository.getUserById(user_id);
+        if (user == null) throw new UserIdNotFoundException(user_id);
 
-        List<Publication> publications = iDataRepository.getFollowedPublications(user.getFollowing());
+        List<Publication> publications = iDataRepository.getFollowedPublications(user.getFollowed());
 
         UserDTO userDTO = userMapper.toUserDTO(user);
         FollowedPublicationsDTO pubDTO = publicationMapper.toFollowedPublicationsDTO(userDTO, publications);
@@ -59,9 +59,9 @@ public class PublicationService implements IPublicationService{
 
 
     @Override
-    public UserWithPromoPublicationCountDTO getPromoPublications(int userid) throws UserIdNotFoundException {
-        User user = iDataRepository.getUserById(userid);
-        if (user == null) throw new UserIdNotFoundException(userid);
+    public UserWithPromoPublicationCountDTO getPromoPublications(int user_id) throws UserIdNotFoundException {
+        User user = iDataRepository.getUserById(user_id);
+        if (user == null) throw new UserIdNotFoundException(user_id);
 
         List<Publication> publications = iDataRepository.getPromoPublications(user.getPublications());
 
@@ -70,9 +70,9 @@ public class PublicationService implements IPublicationService{
     }
 
     @Override
-    public FollowedPublicationsDTO getPromoPublications(int userid, Optional<String> order) throws UserIdNotFoundException {
-        User user = iDataRepository.getUserById(userid);
-        if (user == null) throw new UserIdNotFoundException(userid);
+    public FollowedPublicationsDTO getPromoPublications(int user_id, Optional<String> order) throws UserIdNotFoundException {
+        User user = iDataRepository.getUserById(user_id);
+        if (user == null) throw new UserIdNotFoundException(user_id);
 
         List<Publication> publications = iDataRepository.getPromoPublications(user.getPublications());
 
@@ -95,11 +95,11 @@ public class PublicationService implements IPublicationService{
                 publicationList.sort(publicationDateComparatorRev);
                 break;
             case "name_asc":
-                Comparator<PublicationDTO> publicationNameComparator = Comparator.comparing(p -> p.getDetail().getProductName().toUpperCase());
+                Comparator<PublicationDTO> publicationNameComparator = Comparator.comparing(p -> p.getDetail().getProduct_name().toUpperCase());
                 publicationList.sort(publicationNameComparator);
                 break;
             case "name_desc":
-                Comparator<PublicationDTO> publicationNameComparatorRev = Comparator.comparing(p -> p.getDetail().getProductName().toUpperCase());
+                Comparator<PublicationDTO> publicationNameComparatorRev = Comparator.comparing(p -> p.getDetail().getProduct_name().toUpperCase());
                 publicationList.sort(publicationNameComparatorRev.reversed());
                 break;
             default:

@@ -6,6 +6,6 @@ import java.time.LocalDate;
 
 public class CantInsertDateGreaterThanToday extends PublicationException {
     public CantInsertDateGreaterThanToday(LocalDate date) {
-        super("La a fecha: "+date+" no es valida", HttpStatus.BAD_REQUEST);
+        super("La fecha: "+date+" no es valida", HttpStatus.BAD_REQUEST);
     }
 }

@@ -29,11 +29,11 @@ public class UserMapper {
             followingDTO.add(toUserDTO(follow));
         }
 
-        return new UserWithFollowingListDTO(user.getName(), user.getId(), user.getFollowing_count(), followingDTO);
+        return new UserWithFollowingListDTO(user.getName(), user.getId(), user.getFollowed_count(), followingDTO);
     }
 
     public UserDTO toUserWithFollowingDTO(User user){
-        return new UserWithFollowingCountDTO(user.getName(), user.getId(), user.getFollowing_count());
+        return new UserWithFollowingCountDTO(user.getName(), user.getId(), user.getFollowed_count());
     }
 
     public UserWithPromoPublicationCountDTO toUserWithPromoPublicationsDTO(User user, int pubs){
