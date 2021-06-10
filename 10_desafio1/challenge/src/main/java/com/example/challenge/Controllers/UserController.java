@@ -6,7 +6,6 @@ import com.example.challenge.Services.DTOs.FollowerCountDTO;
 import com.example.challenge.Services.DTOs.FollowersDTO;
 import com.example.challenge.Services.DTOs.GetUserDTO;
 import com.example.challenge.Services.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +16,11 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
     IUserService iUserService;
+
+    public UserController(IUserService iUserService) {
+        this.iUserService = iUserService;
+    }
 
     //Load HardCode Data
     @PostMapping("/load")
@@ -26,17 +28,11 @@ public class UserController {
         return new ResponseEntity<>(iUserService.loadUser(), HttpStatus.OK);
     }
 
-    // Get a list with all the users (usefull to check changes)
+    // Get a list with all the users (useful to check changes)
     @GetMapping
     public ResponseEntity<List<GetUserDTO>> getUsers() {
 
         return new ResponseEntity<>(iUserService.getUsers(), HttpStatus.OK);
-    }
-
-    @PostMapping("/create/{userName}")
-    public ResponseEntity<String> create(@PathVariable String userName) throws Exception {
-
-        return new ResponseEntity<>(iUserService.addUser(userName), HttpStatus.OK);
     }
 
     @PostMapping("/{followerId}/follow/{followedID}")
@@ -66,13 +62,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowersDTO> getFollowed(@PathVariable int userId ,@RequestParam(required = false,
+    public ResponseEntity<FollowersDTO> getFollowed(@PathVariable int userId, @RequestParam(required = false,
             defaultValue = "") String order) throws UserNotFoundException, InvalidOrderException {
 
         return new ResponseEntity<>(iUserService.getFollowed(userId, order), HttpStatus.OK);
 
     }
-
 
 
 }

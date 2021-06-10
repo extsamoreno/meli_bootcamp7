@@ -12,8 +12,6 @@ public interface IUserService {
 
     List<GetUserDTO> getUsers();
 
-    String addUser(String userName);
-
     FollowDTO followUser(int follower, int followed) throws UserNotFoundException, UserAlreadyFollowException, UserSameIdException;
 
     FollowerCountDTO getFollowersCount(int userId) throws UserNotFoundException;

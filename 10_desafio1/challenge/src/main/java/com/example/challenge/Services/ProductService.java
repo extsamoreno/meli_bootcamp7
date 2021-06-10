@@ -1,6 +1,7 @@
 package com.example.challenge.Services;
 
 import com.example.challenge.Exceptions.InvalidOrderException;
+import com.example.challenge.Exceptions.NotPromoPostException;
 import com.example.challenge.Exceptions.UserNotFoundException;
 import com.example.challenge.Models.Post;
 import com.example.challenge.Models.User;
@@ -9,7 +10,6 @@ import com.example.challenge.Repositories.IUserRepository;
 import com.example.challenge.Services.DTOs.*;
 import com.example.challenge.Services.Mappers.PostMapper;
 import com.example.challenge.Services.Mappers.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,11 +20,9 @@ import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
-    @Autowired
+
     IProductRepository iProductRepository;
-    @Autowired
     IUserRepository iUserRepository;
-    @Autowired
     IUserService iUserService;
 
     UserMapper um = new UserMapper();
@@ -33,6 +31,12 @@ public class ProductService implements IProductService {
 
     private final Comparator<Post> COMPARATOR_DATE_DES = (a, b) -> b.getDate().compareTo(a.getDate());
 
+    public ProductService(IProductRepository iProductRepository, IUserRepository iUserRepository, IUserService iUserService) {
+        this.iProductRepository = iProductRepository;
+        this.iUserRepository = iUserRepository;
+        this.iUserService = iUserService;
+    }
+
     @Override
     public String addNewPost(PostDTO postDTO) throws UserNotFoundException {
         return iProductRepository.addNewPost(PostMapper.postDtoToPost(postDTO),
@@ -40,7 +44,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public String addNewPromoPost(PostPromotionDTO postPromoDTO) throws UserNotFoundException {
+    public String addNewPromoPost(PostPromotionDTO postPromoDTO) throws UserNotFoundException, NotPromoPostException {
+       if(!postPromoDTO.getHasPromo())
+           throw new NotPromoPostException(postPromoDTO.getId());
         return iProductRepository.addNewPromoPost(PostMapper.postPromotionDtoToPost(postPromoDTO),
                 iUserService.getUserById(postPromoDTO.getUserId()));
     }
@@ -62,13 +68,13 @@ public class ProductService implements IProductService {
                 posts.add(p);
             }
         }
-        if (order == "")
-            sortPostByDate("date_des", posts);
+        if (order.equals(""))
+            sortPostByDate("date_desc", posts);
         else
             sortPostByDate(order, posts);
-        List<PostDTO> postsDTO = new ArrayList<>();
+        List<PostPromotionDTO> postsDTO = new ArrayList<>();
         for (Post p : posts) {
-            PostDTO postDTO = PostMapper.postToPostDTO(p);
+            PostPromotionDTO postDTO = PostMapper.postToPostPromotionDTO(p);
             postsDTO.add(postDTO);
         }
         ResponseFollowedPostDTO responseFollowedPostDTO = new ResponseFollowedPostDTO();

@@ -8,8 +8,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ResponsePromotionListDTO {
-   private int userId;
-   private String userName;
-   private List<PostPromotionDTO> posts;
+    private int userId;
+    private String userName;
+    private List<PostPromotionDTO> posts;
 
 }

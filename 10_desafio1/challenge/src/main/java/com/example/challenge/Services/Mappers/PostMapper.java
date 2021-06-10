@@ -5,18 +5,16 @@ import com.example.challenge.Models.Product;
 import com.example.challenge.Services.DTOs.PostDTO;
 import com.example.challenge.Services.DTOs.PostPromotionDTO;
 import com.example.challenge.Services.DTOs.ProductDTO;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDate;
 
 public class PostMapper {
 
-    public static Product productDTOToProduct(ProductDTO productDTO){
-        return new Product(productDTO.getId(), productDTO.getName(), productDTO.getType(), productDTO.getBrand(),productDTO.getColor(), productDTO.getNotes());
+    public static Product productDTOToProduct(ProductDTO productDTO) {
+        return new Product(productDTO.getId(), productDTO.getName(), productDTO.getType(), productDTO.getBrand(), productDTO.getColor(), productDTO.getNotes());
     }
 
-    public static ProductDTO productToProductDTO(Product product){
-        return new ProductDTO(product.getId(), product.getName(), product.getType(), product.getBrand(),product.getColor(), product.getNotes());
+    public static ProductDTO productToProductDTO(Product product) {
+        return new ProductDTO(product.getId(), product.getName(), product.getType(), product.getBrand(), product.getColor(), product.getNotes());
     }
 
     public static Post postDtoToPost(PostDTO postDTO) {

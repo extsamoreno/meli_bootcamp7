@@ -1,15 +1,10 @@
 package com.example.challenge.Models;
 
-import com.example.challenge.Services.DTOs.UserDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -21,37 +16,22 @@ public class User {
     private List<Post> posts;
 
     public void addFollower(User u) {
-        boolean exist = false;
-        for (User usr : this.followers) {
-            if (usr == u) {
-                exist = true;
-            }
-        }
-        if (!exist)
+        if (!this.followers.contains(u))
             this.followers.add(u);
     }
 
     public void addFollowed(User u) {
-        boolean exist = false;
-        for (User usr : this.followed) {
-            if (usr == u) {
-                exist = true;
-            }
-        }
-        if (!exist)
+        if (!this.followed.contains(u))
             this.followed.add(u);
     }
 
-    public boolean addNewPost(Post post){
-        boolean exist = false;
+    public boolean addNewPost(Post post) {
         for (Post p : this.posts) {
             if (p.getId() == post.getId()) {
-                exist = true;
+                return false;
             }
         }
-        if (!exist)
-            this.posts.add(post);
-
-        return !exist;
+        this.posts.add(post);
+        return true;
     }
 }

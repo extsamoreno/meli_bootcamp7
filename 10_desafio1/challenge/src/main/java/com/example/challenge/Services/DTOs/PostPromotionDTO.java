@@ -2,20 +2,24 @@ package com.example.challenge.Services.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonPropertyOrder({"userId", "id", "date", "product", "categoryId", "price", "hasPromo", "discount"})
 public class PostPromotionDTO {
+
 
     private int userId;
     @JsonProperty("id_post")
     private int id;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     @JsonProperty("detail")
     private ProductDTO product;
@@ -25,16 +29,6 @@ public class PostPromotionDTO {
     private Boolean hasPromo;
     private double discount;
 
-    public PostPromotionDTO(int userId, int id, LocalDate date, ProductDTO product, int categoryId, double price){
-        this.userId = userId;
-        this.id = id;
-        this.date = date;
-        this.product = product;
-        this.categoryId = categoryId;
-        this.price = price;
-        this.hasPromo = false;
-        this.discount = 0;
-    }
 }
 
 

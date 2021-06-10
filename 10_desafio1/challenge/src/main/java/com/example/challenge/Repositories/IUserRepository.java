@@ -6,22 +6,21 @@ import com.example.challenge.Models.Post;
 import com.example.challenge.Models.User;
 import com.example.challenge.Services.DTOs.FollowDTO;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface IUserRepository {
 
-     String addUser(String userName);
+    List<User> getUsers();
 
-     FollowDTO follow(int follower, int followed) throws UserNotFoundException;
+    void loadData() throws UserNotFoundException, PostDuplicateException;
 
-     List<User> getUsers();
+    User findUserById(int userId) throws UserNotFoundException;
 
-     User findUserById(int userId) throws UserNotFoundException;
-
-     void loadData() throws UserNotFoundException, PostDuplicateException;
-
-     void addPost(Post post) throws UserNotFoundException, PostDuplicateException;
+    FollowDTO follow(int follower, int followed) throws UserNotFoundException;
 
     FollowDTO unfollow(int follower, int followed) throws UserNotFoundException;
+
+    void addPost(Post post) throws UserNotFoundException, PostDuplicateException;
+
+
 }

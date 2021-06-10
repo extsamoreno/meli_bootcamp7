@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class Post {
     private int userId;
     private int id;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     private Product product;
     private int categoryId;
@@ -21,7 +21,7 @@ public class Post {
     private Boolean hasPromo;
     private double discount;
 
-    public Post(int userId, int id, LocalDate date, Product product, int categoryId, double price){
+    public Post(int userId, int id, LocalDate date, Product product, int categoryId, double price) {
         this.userId = userId;
         this.id = id;
         this.date = date;

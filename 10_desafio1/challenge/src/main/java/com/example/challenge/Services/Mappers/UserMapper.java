@@ -31,19 +31,19 @@ public class UserMapper {
     }
 
     public ResponsePromotionListDTO userToResponsePromo(User user) {
-        ResponsePromotionListDTO responsePromotionListDTODTO = new ResponsePromotionListDTO(user.getId(), user.getName(),new ArrayList<>() );
+        ResponsePromotionListDTO responsePromotionListDTODTO = new ResponsePromotionListDTO(user.getId(), user.getName(), new ArrayList<>());
         List<PostPromotionDTO> posts = responsePromotionListDTODTO.getPosts();
         for (Post p : user.getPosts()) {
             if (p.getHasPromo())
                 posts.add(PostMapper.postToPostPromotionDTO(p));
         }
-       // responsePromotionListDTODTO.setPosts(posts);
+        // responsePromotionListDTODTO.setPosts(posts);
         return responsePromotionListDTODTO;
     }
 
     public GetUserDTO userToGetUser(User user) {
         List<PostDTO> postDTOList = new ArrayList<>();
-        for(Post p : user.getPosts()){
+        for (Post p : user.getPosts()) {
             postDTOList.add(PostMapper.postToPostDTO(p));
         }
         GetUserDTO getUserDTO = new GetUserDTO(user.getId(), user.getName(), new ArrayList<>(), new ArrayList<>(), postDTOList);

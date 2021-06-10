@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -15,7 +14,7 @@ public class PostDTO {
     private int userId;
     @JsonProperty("id_post")
     private int id;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     @JsonProperty("detail")
     private ProductDTO product;

@@ -5,13 +5,14 @@ import com.example.challenge.Services.DTOs.ErrorDTO;
 import lombok.*;
 import org.springframework.http.HttpStatus;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class ApiException extends Exception{
+public class ApiException extends Exception {
 
     private ErrorDTO error;
     private HttpStatus status;
 
-    public ApiException(String message, HttpStatus status){
+    public ApiException(String message, HttpStatus status) {
 
         this.error = new ErrorDTO();
         this.error.setMessage(message);

@@ -12,5 +12,5 @@ import java.util.List;
 public class ResponseFollowedPostDTO {
 
     private int userId;
-    private List<PostDTO> posts;
+    private List<PostPromotionDTO> posts;
 }

@@ -2,8 +2,7 @@ package com.example.challenge.Services.DTOs;
 
 import lombok.*;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class FollowDTO {

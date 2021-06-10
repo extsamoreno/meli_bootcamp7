@@ -5,7 +5,6 @@ import com.example.challenge.Models.User;
 import com.example.challenge.Repositories.IUserRepository;
 import com.example.challenge.Services.DTOs.*;
 import com.example.challenge.Services.Mappers.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,15 +14,16 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
 
-    // A to Z
     private final Comparator<User> COMPARATOR_NAME_ASC = Comparator.comparing(User::getName);
-    // Z to A
     private final Comparator<User> COMPARATOR_NAME_DES = (a, b) -> b.getName().compareTo(a.getName());
 
-    @Autowired
     IUserRepository iUserRepository;
 
     UserMapper um = new UserMapper();
+
+    public UserService(IUserRepository iUserRepository) {
+        this.iUserRepository = iUserRepository;
+    }
 
     @Override
     public String loadUser() throws UserNotFoundException, PostDuplicateException {
@@ -51,11 +51,6 @@ public class UserService implements IUserService {
             res.add(um.userToGetUser(u));
         }
         return res;
-    }
-
-    @Override
-    public String addUser(String userName) {
-        return iUserRepository.addUser(userName);
     }
 
     @Override
@@ -100,7 +95,7 @@ public class UserService implements IUserService {
     public void sortUserDTOByName(String order, List<User> list) throws InvalidOrderException {
         if (order.equals("name_asc")) {
             list.sort(COMPARATOR_NAME_ASC);
-        } else if (order.equals("name_des")) {
+        } else if (order.equals("name_desc")) {
             list.sort(COMPARATOR_NAME_DES);
         } else if (!order.equals("")) {
             throw new InvalidOrderException(order);
