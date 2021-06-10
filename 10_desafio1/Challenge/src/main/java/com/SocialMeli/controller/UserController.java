@@ -1,15 +1,15 @@
 package com.SocialMeli.controller;
 
-import com.SocialMeli.dtos.FollowedUserDTO;
 import com.SocialMeli.dtos.FollowersCountDTO;
-import com.SocialMeli.dtos.F
+import com.SocialMeli.dtos.FollowersListDTO;
 import com.SocialMeli.dtos.UserDTO;
+import com.SocialMeli.exceptions.UserIdNotFoundException;
+import com.SocialMeli.exceptions.UsersCantFollowThemselvesException;
 import com.SocialMeli.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.SocialMeli.exceptions.*;
 
 @RestController
 @RequestMapping("/users")
@@ -37,80 +37,18 @@ public class UserController {
     //-----Lista de seguidores------
 
     @GetMapping("/{id}/followers/list")
-    public ResponseEntity<UserDTO> followers(@PathVariable Integer id, @RequestParam Optional<String>  order) throws UserIdNotFoundException {
-        return new ResponseEntity<userid, useridtofollow>(iuserService.getFollowers(id, order), HttpStatus.OK);
+    public ResponseEntity<FollowersListDTO> followers(@PathVariable Integer id, @RequestParam Optional<String>  order) throws UserIdNotFoundException {
+        return new ResponseEntity<userid, useridtofollow>(iUserService.getFollowers(id, order), HttpStatus.OK);
     }
 
     @GetMapping("/{id}/following/count")
     public ResponseEntity<UserDTO> followingCount(@PathVariable Integer id) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iuserService.getFollowingCount(id), HttpStatus.OK);
+        return new ResponseEntity<UserDTO>(iUserService.getFollowingCount(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/following/list")
-    public ResponseEntity<UserDTO> following(@PathVariable Integer id, @RequestParam Optional<String> order) throws UserIdNotFoundException {
-        return new ResponseEntity<>(iuserService.getFollowing(id, order), HttpStatus.OK);
+    // Lista de los seguidos
+   @GetMapping("/{id}/following/list")
+    public ResponseEntity<FollowersListDTO> following(@PathVariable Integer id, @RequestParam Optional<String> order) throws UserIdNotFoundException {
+        return new ResponseEntity<FollowersListDTO>(iUserService.getFollowing(id, order), HttpStatus.OK);
     }
 }
-
-/*
-
-
-    @RequestMapping(value = "/following", method = RequestMethod.GET)
-    public ArrayList<User> following(@RequestParam(value="name", defaultValue="unknown") String name) {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (name.contains("unknown"))
-            name = username;
-        List ar = sc.following(name);
-        ArrayList<User> foll = new ArrayList<User>(ar);
-        return foll;
-    }
-
-    @RequestMapping(value = "/followers", method = RequestMethod.GET)
-    public ArrayList<User> followers(@RequestParam(value="name", defaultValue="unknown") String name) {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (name.contains("unknown"))
-            name = username;
-        List ar = sc.followers(name);
-        ArrayList<User> foll = new ArrayList<User>(ar);
-        return foll;
-    }
-
-    @RequestMapping(value = "/follow", method = { RequestMethod.PUT, RequestMethod.POST })
-    public String follow(@RequestParam(value="name", required=true) String name) {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (sc.follow(name, username) == 1)
-            return "{\"status\": \"Success\", \"message\": \"Estas siguiendo al Vendedor\"} ";
-        else if (sc.follow(name, username) == 2)
-            return "{\"status\": \"Error\", \"message\": \"No puedes seguirte a ti mismo\"}";
-        else if (sc.follow(name, username) == 0)
-            return "{\"status\": \"Error\", \"message\": \"Ya sigues a este Vendedor :)\"}";
-        else
-            return "{\"status\": \"Error\", \"message\": \"None\"}";
-    }
-
-    @RequestMapping(value = "/unfollow", method = RequestMethod.PUT)
-    public String unfollow(@RequestParam(value="name", required=true) String name) {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (ts.unfollow(name, username) == 1)
-            return "{\"status\": \"Success\", \"message\": \"Ya no estás siguiendo a este vendedor\"} ";
-        else if (ts.follow(name, username) == 2)
-            return "{\"status\": \"Error\", \"message\": \"No puedes seguirte a ti mismo\"}";
-        else if (ts.follow(name, username) == 0)
-            return "{\"status\": \"Error\", \"message\": \"Necesitas seguir a este usuario para dejar de seguirlo\"}";
-        else
-            return "{\"status\": \"Error\", \"message\": \"None\"}";
-    }
-
-    @RequestMapping(value="/feed", method = RequestMethod.GET)
-    public ArrayList<Tweet> feed(@RequestParam(value="search", defaultValue="not_given") String search) {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (search.contains("not_given"))
-            search = "";
-        List ar = sc.feed(username, search);
-        ArrayList<Tweet> foll = new ArrayList<Tweet>(ar);
-        return foll; */

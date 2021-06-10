@@ -1,6 +1,9 @@
  package com.SocialMeli.controller;
 
+import com.SocialMeli.dtos.FollowedUserDTO;
+import com.SocialMeli.dtos.FollowersCountDTO;
 import com.SocialMeli.exceptions.UserIdNotFoundException;
+import com.SocialMeli.exceptions.UsersCantFollowThemselvesException;
 import jdk.jshell.spi.ExecutionControl;
 import com.SocialMeli.exceptions.ErrorDTO;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,7 @@ public class UserExceptionController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(ExecutionControl.UserException e){
-        return new ResponseEntity<>(e.getError(),e.getStatus());
+        return new ResponseEntity<FollowersCountDTO>(e.getError(),e.getStatus());
     }
 
     @ExceptionHandler(UserIdNotFoundException.class)
@@ -22,6 +25,6 @@ public class UserExceptionController {
 
     @ExceptionHandler(UsersCantFollowThemselvesException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(UsersCantFollowThemselvesException e){
-        return new ResponseEntity<>(e.getError(),e.getStatus());
+        return new ResponseEntity<FollowedUserDTO>(e.getError(),e.getStatus());
     }
 }
