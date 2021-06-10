@@ -49,13 +49,6 @@ public class SocialRepositoryImple implements SocialRepository {
     }
     public void cargarDatos(){
 
-        /*Calendar c = Calendar.getInstance();
-
-        System.out.println("Fecha original: " + formatearCalendar(c));
-
-        c.add(Calendar.DAY_OF_YEAR, -2);
-        System.out.println("-2 días: " + formatearCalendar(c));*/
-
         UserDTO user1 = new UserDTO(101,"Comprador Juanito");
         UserDTO user2 = new UserDTO(102,"Comprador Maria");
         UserDTO user3 = new UserDTO(103,"Comprador Pedro");
@@ -111,9 +104,9 @@ public class SocialRepositoryImple implements SocialRepository {
         PostDTO post1 = new PostDTO(401,201,"01-05-2021",Detail01,100,1500.0,false,0.0);
         PostDTO post2 = new PostDTO(402,202,"20-12-2021",Detail02,100,1202.0,false,0.0);
         PostDTO post3 = new PostDTO(403,203,"10-07-2021",Detail03,100,1530.0,false,0.0);
-        PostDTO post4 = new PostDTO(404,204,"12-01-2020",Detail04,200,400.0,false,0.0);
-        PostDTO post5 = new PostDTO(405,205,"12-07-2020",Detail05,200,100.0,false,0.0);
-        PostDTO post6 = new PostDTO(406,206,"13-06-2020",Detail06,200,420.0,false,0.0);
+        PostDTO post4 = new PostDTO(404,204,"09-06-2021",Detail04,200,400.0,false,0.0);
+        PostDTO post5 = new PostDTO(405,205,"07-06-2021",Detail05,200,100.0,false,0.0);
+        PostDTO post6 = new PostDTO(406,206,"03-06-2021",Detail06,200,420.0,false,0.0);
         PostDTO post7 = new PostDTO(501,301,"21-05-2021",Detail01,100,1500.0,true,1.0);
         PostDTO post8 = new PostDTO(502,302,"27-02-2021",Detail02,200,1400.0,true,23.0);
         PostDTO post9 = new PostDTO(503,303,"29-05-2019",Detail03,100,1450.0,true,8.0);

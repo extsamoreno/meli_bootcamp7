@@ -12,6 +12,7 @@ import com.meli.demo.services.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -68,26 +69,54 @@ public class SocialServiceImple implements SocialService {
             throw new PostException();
         }
     }
+    public static String formatearCalendar(Calendar c) {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
+        return df.format(c.getTime());
+    }
 
     @Override
     public ListSellersPostDTO listPostVendedors(int iduser) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
         lis= ListSellerPostMapper.toDTO(FollowRepository.getListPostVendedors(iduser));
         List<String> dateArray = new ArrayList<String>();
+        List<String> dateArray2 = new ArrayList<String>();
+        Calendar date = new Calendar.Builder().build();
+        List<Date> dates = new ArrayList<>();
+        List<Date> dates1 = new ArrayList<Date>();
+        List<Date> dates2 = new ArrayList<Date>();
         ArrayList<PostResponseDTO> post = new ArrayList<>();
+        Calendar c = Calendar.getInstance();
+        Date Today=c.getTime();
+        c.add(Calendar.DAY_OF_YEAR, -14);
+        Date TwoWeeks=c.getTime();
+        Date test2=c.getTime();
 
         for (int i = 0; i < lis.getPosts().size(); i++) {
 
             dateArray.add(lis.getPosts().get(i).getDate());
 
         }
-        Collections.sort(dateArray);
+        for (int i = 0; i <dateArray.size() ; i++) {
+            String[] parts = dateArray.get(i).split("-");
+            date.set(Integer.parseInt(parts[2]), (Integer.parseInt(parts[1])-1), Integer.parseInt(parts[0]));
+            dates.add(date.getTime());
+        }
 
-        for (int i = 0; i < dateArray.size(); i++) {
+
+        for (int i = 0; i < dates.size(); i++) {
+            if(Today.compareTo(dates.get(i)) * dates.get(i).compareTo(TwoWeeks) >= 0){
+                dates2.add(dates.get(i));
+            }
+        }
+
+        dates1 =dates2.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        dateArray2=modifyDate(dates1);
+
+        for (int i = 0; i < dateArray2.size(); i++) {
 
             for (int j = 0; j < lis.getPosts().size(); j++) {
 
-                if(dateArray.get(i).equals(lis.getPosts().get(j).getDate())){
+                if(dateArray2.get(i).equals(lis.getPosts().get(j).getDate())){
                     post.add(lis.getPosts().get(j));
                 }
 
