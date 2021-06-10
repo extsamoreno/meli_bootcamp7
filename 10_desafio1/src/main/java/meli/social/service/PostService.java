@@ -13,5 +13,5 @@ import java.util.List;
 public interface PostService {
     List<PostModel> getAllPosts();
     void addPost(PostModel post) throws UserIdNotFoundException;
-    List<PostListUserDTO> getPostsOfFollowed(int userId) throws UserIdNotFoundException;
+    PostListUserDTO getPostsOfFollowed(int userId, String order) throws UserIdNotFoundException;
 }

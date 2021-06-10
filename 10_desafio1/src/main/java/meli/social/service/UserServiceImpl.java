@@ -68,9 +68,9 @@ public class UserServiceImpl implements UserService{
             followers.add(new UserDTO(idFollower, nameFollower));
         }
         // Ordena la lista alfabeticamente por su nombre
-        Comparator<UserDTO> userComparator = Comparator.comparing(u -> u.getUserName().toLowerCase());
-        if (order.equals("name_asc")) followers.sort(userComparator);
-        if (order.equals("name_desc")) followers.sort(userComparator.reversed());
+        Comparator<UserDTO> nameComparator = Comparator.comparing(u -> u.getUserName().toLowerCase());
+        if (order.equals("name_asc")) followers.sort(nameComparator);
+        if (order.equals("name_desc")) followers.sort(nameComparator.reversed());
 
         return UserMapper.toFollowersListDto(user, followers);
     }

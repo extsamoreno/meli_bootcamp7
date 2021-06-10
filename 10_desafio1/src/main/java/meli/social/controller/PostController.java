@@ -35,8 +35,9 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public List<PostListUserDTO> postsOfFollowed (@PathVariable int userId) throws UserIdNotFoundException {
-        return postService.getPostsOfFollowed(userId);
+    public PostListUserDTO
+    postsOfFollowed (@PathVariable int userId, @RequestParam (defaultValue = "") String order) throws UserIdNotFoundException {
+        return postService.getPostsOfFollowed(userId, order);
     }
 
 }
