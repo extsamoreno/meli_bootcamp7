@@ -3,10 +3,7 @@ package com.example.desafio1.controllers;
 import com.example.desafio1.dtos.FollowedDTO;
 import com.example.desafio1.dtos.FollowersCountDTO;
 import com.example.desafio1.dtos.FollowersDTO;
-import com.example.desafio1.exceptions.FollowingAlreadyExistsException;
-import com.example.desafio1.exceptions.FollowingDoesNotExistException;
-import com.example.desafio1.exceptions.OrderNotValidException;
-import com.example.desafio1.exceptions.UserIdNotValidException;
+import com.example.desafio1.exceptions.*;
 import com.example.desafio1.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +19,7 @@ public class UserController {
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     @ResponseStatus(HttpStatus.OK)
-    public String postFollow(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException {
+    public String postFollow(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException, RepeatedUsersIdException {
         iUserService.processNewFollowing(userId,userIdToFollow);
         return "Following has been set up successfully!";
     }

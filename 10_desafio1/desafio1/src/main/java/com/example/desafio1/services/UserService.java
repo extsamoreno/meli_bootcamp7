@@ -3,10 +3,7 @@ package com.example.desafio1.services;
 import com.example.desafio1.dtos.FollowedDTO;
 import com.example.desafio1.dtos.FollowersCountDTO;
 import com.example.desafio1.dtos.FollowersDTO;
-import com.example.desafio1.exceptions.FollowingAlreadyExistsException;
-import com.example.desafio1.exceptions.FollowingDoesNotExistException;
-import com.example.desafio1.exceptions.OrderNotValidException;
-import com.example.desafio1.exceptions.UserIdNotValidException;
+import com.example.desafio1.exceptions.*;
 import com.example.desafio1.repositories.IUserRepository;
 import com.example.desafio1.services.mappers.MeliUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +15,9 @@ public class UserService implements IUserService {
     IUserRepository iUserRepository;
 
     @Override
-    public void processNewFollowing(int userId, int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException {
+    public void processNewFollowing(int userId, int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException, RepeatedUsersIdException {
         if(userId == userIdToFollow)
-            throw new UserIdNotValidException()
+            throw new RepeatedUsersIdException();
         //First check both user Ids are valid and exist
         if (iUserRepository.getUserById(userId) == null)
             throw new UserIdNotValidException(userId);
