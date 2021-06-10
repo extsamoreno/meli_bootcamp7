@@ -59,6 +59,8 @@ Software Developer: Diego Banfi
   
   (If the import of the collection through the link does not work, the collection is also attached in the file "Meli Challenge 1 - SocialMeli.postman_collection.json" located in the resources package)
 
+- Inside the resources package, the generated javadoc documentation is also attached
+
 ### Requirements
 
 1. To be able to carry out the action of “Follow” a certain seller
