@@ -39,6 +39,10 @@ public class PostServiceImpl implements IPostService {
     private final Comparator<PostDTO> comparatorDateDesc = Comparator.comparing(PostDTO::getDate);
     private final Comparator<PostDTO> comparatorDateAsc = (a, b) -> b.getDate().compareTo(a.getDate());
 
+    /*
+    Not need post id and product id
+    Date is optional
+     */
     @Override
     public void addPost(PostDTO post) throws PostDateBeforeToday, PostAlreadyExists, UserNotExistsException {
         userService.userExists(post.getUserId());
@@ -48,6 +52,9 @@ public class PostServiceImpl implements IPostService {
         postRepository.addPost(PostMapper.DTOToModel(post));
     }
 
+    /*
+    Update previous post
+     */
     @Override
     public void updatePost(PostDTO post) throws PostNotExistsException, PostDateBeforeToday {
         if (!existsPost(post.getPostId())) throw new PostNotExistsException(post.getPostId());
@@ -57,6 +64,9 @@ public class PostServiceImpl implements IPostService {
 
     }
 
+    /*
+    Create new post or update previous post
+     */
     @Override
     public void addPromoPost(PostDTO post) throws PostDateBeforeToday, PostNotExistsException, PostAlreadyExists, UserNotExistsException {
         if (post.getPostId() != null && existsPost(post.getPostId())) {

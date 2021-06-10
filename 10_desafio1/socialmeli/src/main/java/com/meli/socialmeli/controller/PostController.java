@@ -40,7 +40,7 @@ public class PostController {
     }
 
     @GetMapping("/{userId}/list")
-    public ResponseEntity<ProductsUserDTO> getListPromoPostByUserId(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "date_desc") String order) throws MissingParameterException, UserNotExistsException {
+    public ResponseEntity<ProductsUserDTO> getListPromoPostByUserId(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "date_desc") String order) throws UserNotExistsException {
         return new ResponseEntity<>(postService.getProductsPromoPostByUserId(userId, order), HttpStatus.OK);
     }
 
