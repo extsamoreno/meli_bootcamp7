@@ -53,7 +53,7 @@ public class FollowController {
 
     /**
      *
-     * @param UserID
+     * @param userId
      * @param order
      * @return UserDTOFollowers  [user with followers, Order ASC default value]
      * @throws UserNotFollowException
@@ -61,28 +61,28 @@ public class FollowController {
      * @throws OrderNotFoundException
      */
 
-    @GetMapping("/users/{UserID}/followers/list")
-    public ResponseEntity<UserDTOFollowers> orderFollowerList(@PathVariable int UserID,
+    @GetMapping("/users/{userId}/followers/list")
+    public ResponseEntity<UserDTOFollowers> orderFollowerList(@PathVariable int userId,
                                                               @RequestParam(required = false,defaultValue = "name_asc") String order)
                                                                 throws UserNotFollowException, UserIdNotFoundException, OrderNotFoundException {
-        return new ResponseEntity(iFollowService.orderListFollowers(order, UserID), HttpStatus.OK);
+        return new ResponseEntity(iFollowService.orderListFollowers(order, userId), HttpStatus.OK);
     }
 
 
     /**
      *
-     * @param UserID
+     * @param userId
      * @param order
      * @return UserDTOFolloweds [ Who I follow, Order ASC default value]
      * @throws UserIdNotFoundException
      * @throws UserNotFollowException
      * @throws OrderNotFoundException
      */
-    @GetMapping("/users/{UserID}/followed/list")
-    public ResponseEntity<UserDTOFolloweds> listFolloweds(@PathVariable int UserID,
+    @GetMapping("/users/{userId}/followed/list")
+    public ResponseEntity<UserDTOFolloweds> listFolloweds(@PathVariable int userId,
                                                           @RequestParam(required = false,defaultValue = "name_asc") String order)
             throws UserIdNotFoundException, UserNotFollowException, OrderNotFoundException {
-        return new ResponseEntity<>(iFollowService.orderListFolloweds(order, UserID), HttpStatus.OK);
+        return new ResponseEntity<>(iFollowService.orderListFolloweds(order, userId), HttpStatus.OK);
     }
 
     /**

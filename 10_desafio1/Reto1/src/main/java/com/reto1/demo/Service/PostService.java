@@ -54,7 +54,7 @@ public class PostService implements IPostService{
 
 
     /**
-    * post and Promopost 2 weeks ago
+    * posts and Promopost of seller 2 weeks ago that user follow
     * */
     @Override
     public LastPostDTO lastPosts(int userId) throws UserIdNotFoundException, UserNotFollowException {
@@ -106,13 +106,17 @@ public class PostService implements IPostService{
     * */
     public ArrayList<Post> recent(User user, LocalDate last2weeks){
         ArrayList<Post> recentPost = new ArrayList<>();
-        for (Post post: user.getPosts()) {
-            LocalDate datePost = Util.toLocalDate(post.getDate());
-            if (last2weeks.isBefore(datePost) ||
-                    last2weeks.isEqual(datePost)){
-                recentPost.add(post);
+        for (User followed: user.getFollowed()){
+            for (Post post: followed.getPosts()) {
+                LocalDate datePost = Util.toLocalDate(post.getDate());
+                //check date if 2 before or equals today
+                if (last2weeks.isBefore(datePost) ||
+                        last2weeks.isEqual(datePost)){
+                    recentPost.add(post);
+                }
             }
         }
+
         return recentPost;
     }
 

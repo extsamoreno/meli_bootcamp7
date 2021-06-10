@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class User implements IUser {
     int id;
     String name;
-    ArrayList<IUser> followers = new ArrayList<>();
-    ArrayList<IUser> followed = new ArrayList<>();
+    ArrayList<User> followers = new ArrayList<>();
+    ArrayList<User> followed = new ArrayList<>();
     ArrayList<Post> posts = new ArrayList<>();
 
     public User(int id, String name){
@@ -22,12 +22,12 @@ public class User implements IUser {
     }
 
     @Override
-    public void followPages(IUser iuser) {
-        followed.add(iuser);
+    public void followPages(User page) {
+        followed.add(page);
     }
 
     @Override
-    public void addFollower(IUser follower) {
+    public void addFollower(User follower) {
         followers.add(follower);
     }
 

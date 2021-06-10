@@ -40,7 +40,9 @@ public class PostMapper {
 
 
     public static UserPromoPostListDTO toPromoPostDTO(User user) {
-        List promopost = Collections.singletonList(user.getPosts().stream().filter(post -> post instanceof PromoPost));
+        //Filter the promo post, and then cover to PromoPOSTDTO
+        List promopost = Collections.singletonList(user.getPosts().stream().filter(post -> post instanceof PromoPost)
+                                                    .map(post-> toPromoPostDTO((PromoPost) post)));
         return new UserPromoPostListDTO(user.getId(), user.getName(), promopost);
     }
 }
