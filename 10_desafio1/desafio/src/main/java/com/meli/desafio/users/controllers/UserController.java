@@ -9,8 +9,7 @@ import com.meli.desafio.users.models.dto.ResponseUserListFollowed;
 import com.meli.desafio.users.models.dto.ResponseUserListFollowers;
 import com.meli.desafio.users.services.IUserService;
 import com.meli.desafio.utils.URLBuilder;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,13 +27,12 @@ public class UserController {
 
     //user follow user2
     @PostMapping("{userId}/follow/{userIdToFollow}")
-    @Operation(summary = "Alta de cliente")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Alta de cliente exitosa",
-                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = String.class))}),
-            @ApiResponse(responseCode = "400", description = "BAD REQUEST, Verificar JSON",
-                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = String.class))}),
-    })
+    @Operation(summary = "add new follower to user")
+    @ApiResponse(code = 200, message = "Ok", response = String.class, examples = @Example(
+            value = {
+                    @ExampleProperty(value = "localhost:8080/users/1/followed/list", mediaType = "string")
+            }
+    ))
     public ResponseEntity<String> addNewFollow(
             @PathVariable Integer userId,
             @PathVariable Integer userIdToFollow
@@ -45,6 +43,10 @@ public class UserController {
 
     //followers count of user
     @GetMapping(value = {"/{userId}/followers/count"})
+    @Operation(summary = "get the count followers of user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = ResponseUserCountFollowers.class)
+    })
     public ResponseEntity<ResponseUserCountFollowers> showCountFollowers(
             @PathVariable Integer userId
     ) throws UserNotFoundException {
@@ -54,15 +56,23 @@ public class UserController {
 
     //Followers list of user
     @GetMapping("/{userId}/followers/list")
+    @Operation(summary = "get the list followers of user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = ResponseUserListFollowers.class)
+    })
     public ResponseEntity<ResponseUserListFollowers> showAllFollowers(
             @PathVariable Integer userId,
-            @RequestParam(required = false, defaultValue = "name_asc") String order
+            @ApiParam(value = "order")@RequestParam(required = false, defaultValue = "name_asc") String order
     ) throws UserNotFoundException {
         return new ResponseEntity<>(userService.showAllFollowers(userId, order), HttpStatus.OK);
     }
 
     //followed list of user
     @GetMapping("/{userId}/followed/list")
+    @Operation(summary = "get the list followed of user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = ResponseUserListFollowed.class)
+    })
     public ResponseEntity<ResponseUserListFollowed> showAllFollowed(
             @PathVariable Integer userId,
             @RequestParam(required = false, defaultValue = "name_asc") String order
@@ -72,6 +82,12 @@ public class UserController {
 
     //user unfollow user2
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    @Operation(summary = "get the list followed of user")
+    @ApiResponse(code = 200, message = "Ok", response = String.class, examples = @Example(
+            value = {
+                    @ExampleProperty(value = "localhost:8080/users/1/followed/list", mediaType = "string")
+            }
+    ))
     public ResponseEntity<String> removeFollow(
             @PathVariable Integer userId,
             @PathVariable Integer userIdToUnfollow
