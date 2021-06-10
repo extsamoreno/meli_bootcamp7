@@ -1,6 +1,7 @@
 package com.spring.desafioSpring.Services;
 
 import com.spring.desafioSpring.DTOs.*;
+import com.spring.desafioSpring.Exceptions.AlreadyFollowException;
 import com.spring.desafioSpring.Exceptions.FollowYourselfException;
 import com.spring.desafioSpring.Exceptions.PropertyNotFoundException;
 import com.spring.desafioSpring.Exceptions.UserNotFoundException;
@@ -20,7 +21,7 @@ public class UserService implements IUserService{
     IUserRepository iUserRepository;
 
     @Override
-    public void follow(int userId, int userIdToFollow) throws UserNotFoundException, FollowYourselfException {
+    public void follow(int userId, int userIdToFollow) throws UserNotFoundException, FollowYourselfException, AlreadyFollowException {
         if(userId != userIdToFollow)
             iUserRepository.follow(userId, userIdToFollow);
         else

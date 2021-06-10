@@ -1,5 +1,6 @@
 package com.spring.desafioSpring.Repositories;
 
+import com.spring.desafioSpring.Exceptions.AlreadyFollowException;
 import com.spring.desafioSpring.Exceptions.UserNotFoundException;
 import com.spring.desafioSpring.Models.User;
 import org.springframework.stereotype.Repository;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class UserRepository implements IUserRepository{
@@ -56,12 +58,26 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public void follow(int userId, int userIdToFollow) throws UserNotFoundException {
+    public void follow(int userId, Integer userIdToFollow) throws UserNotFoundException, AlreadyFollowException {
         User user = getUser(userId);
         User userToFollow = getUser(userIdToFollow);
 
-        user.getFollowed().add(userToFollow);
-        userToFollow.getFollowers().add(user);
+        boolean alreadyFollow= false;
+
+        for (User u : user.getFollowed()) {
+            Integer uID = u.getUserId();
+            if(uID == userIdToFollow)
+                alreadyFollow = true;
+        }
+
+        //Optional<User> checkFollowUser = user.getFollowed().stream().filter(x -> x.getUserId().equals(userToFollow)).findFirst();
+
+        if(alreadyFollow == true){
+            throw new AlreadyFollowException(userIdToFollow);
+        }else{
+            user.getFollowed().add(userToFollow);
+            userToFollow.getFollowers().add(user);
+        }
     }
 
     @Override

@@ -29,5 +29,10 @@ public class GlobalExceptionsController {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
+    @ExceptionHandler(AlreadyFollowException.class)
+    public ResponseEntity<ErrorDTO> alreadyFollowException(AlreadyFollowException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
 
 }

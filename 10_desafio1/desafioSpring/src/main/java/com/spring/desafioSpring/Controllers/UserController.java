@@ -24,7 +24,7 @@ public class UserController {
      */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<?> follow(@PathVariable() int userId, @PathVariable() int userIdToFollow)
-            throws UserNotFoundException, FollowYourselfException {
+            throws UserNotFoundException, FollowYourselfException, AlreadyFollowException {
 
         iUserService.follow(userId, userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
