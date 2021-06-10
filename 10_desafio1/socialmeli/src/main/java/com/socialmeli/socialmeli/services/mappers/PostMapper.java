@@ -5,6 +5,9 @@ import com.socialmeli.socialmeli.services.dtos.PostPromoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 public class PostMapper {
@@ -47,6 +50,17 @@ public class PostMapper {
                 post.isHasPromo(),
                 post.getDiscount()
         );
+    }
+
+    public static List<PostPromoDTO> getPostPromoListFromPostList(List<Post> postList){
+        List<PostPromoDTO> postPromoDTOList = new ArrayList<>();
+        for (Post post: postList
+             ) {
+            postPromoDTOList.add(
+                    getPostPromoDTOFromPost(post)
+            );
+        }
+        return postPromoDTOList;
     }
 
     public static Post getPostFromPostPromoDTO(PostPromoDTO postPromoDTO){

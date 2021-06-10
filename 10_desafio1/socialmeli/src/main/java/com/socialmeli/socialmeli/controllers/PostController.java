@@ -3,10 +3,7 @@ import com.socialmeli.socialmeli.exceptions.DateIsNotValidException;
 import com.socialmeli.socialmeli.exceptions.PostIdAlreadyExistException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.services.PostService;
-import com.socialmeli.socialmeli.services.dtos.ListPostDTO;
-import com.socialmeli.socialmeli.services.dtos.PostDTO;
-import com.socialmeli.socialmeli.services.dtos.PostPromoDTO;
-import com.socialmeli.socialmeli.services.dtos.ProductUserPromoDTO;
+import com.socialmeli.socialmeli.services.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +35,13 @@ public class PostController {
     public ResponseEntity<ProductUserPromoDTO> getPromoProductsCount(@PathVariable Integer userId) throws UserNotFoundException {
         return new ResponseEntity<>(
                 postService.getProductPromoCount(userId),HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<ListPostPromoDTO> getPromoProducts(@PathVariable Integer userId) throws UserNotFoundException {
+        return new ResponseEntity<>(
+                postService.getProductsPromo(userId),HttpStatus.OK
         );
     }
 

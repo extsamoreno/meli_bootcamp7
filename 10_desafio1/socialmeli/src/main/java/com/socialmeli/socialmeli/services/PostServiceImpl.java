@@ -5,10 +5,7 @@ import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.models.Post;
 import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
-import com.socialmeli.socialmeli.services.dtos.ListPostDTO;
-import com.socialmeli.socialmeli.services.dtos.PostDTO;
-import com.socialmeli.socialmeli.services.dtos.PostPromoDTO;
-import com.socialmeli.socialmeli.services.dtos.ProductUserPromoDTO;
+import com.socialmeli.socialmeli.services.dtos.*;
 import com.socialmeli.socialmeli.services.mappers.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService{
@@ -76,6 +74,17 @@ public class PostServiceImpl implements PostService{
                 user.getUserName(),
                 count
         );
+    }
+
+    @Override
+    public ListPostPromoDTO getProductsPromo(int userId) throws UserNotFoundException {
+        User user = userRepository.getUserById(userId);
+        return new ListPostPromoDTO(
+                userId,
+                user.getUserName(),
+                PostMapper.getPostPromoListFromPostList(
+                        user.getPosts().stream().filter(Post::isHasPromo).collect(Collectors.toList())
+                ));
     }
 
 
