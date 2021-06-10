@@ -2,6 +2,7 @@ package com.socialmeli.socialmeli.repositories;
 import com.socialmeli.socialmeli.exceptions.DateIsNotValidException;
 import com.socialmeli.socialmeli.exceptions.PostIdAlreadyExistException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
+import com.socialmeli.socialmeli.exceptions.UserSameIdException;
 import com.socialmeli.socialmeli.models.Post;
 import com.socialmeli.socialmeli.models.User;
 import org.springframework.stereotype.Repository;
@@ -38,7 +39,7 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public User getUserById(int userId) throws UserNotFoundException {
         if(users.get(userId) == null){
-            throw new UserNotFoundException("El usuario no existe");
+            throw new UserNotFoundException("El usuario" +userId + "no existe");
         }
         return users.get(userId);
     }
@@ -57,7 +58,7 @@ public class UserRepositoryImpl implements UserRepository{
         ).findAny().orElse(null);
 
         if(checkPost != null){
-            throw new PostIdAlreadyExistException("el post id ya existe");
+            throw new PostIdAlreadyExistException("el post id " +post.getId_post() + "ya existe");
         }
 
         if(post.getDate() == null){

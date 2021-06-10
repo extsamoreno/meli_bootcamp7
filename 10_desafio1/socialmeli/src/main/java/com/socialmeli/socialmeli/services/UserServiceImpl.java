@@ -1,5 +1,7 @@
 package com.socialmeli.socialmeli.services;
+import com.socialmeli.socialmeli.exceptions.UserAlreadyFollowedException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
+import com.socialmeli.socialmeli.exceptions.UserSameIdException;
 import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
 import com.socialmeli.socialmeli.services.dtos.UserDTO;
@@ -17,7 +19,17 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
 
     @Override
-    public void followUser(int userId, int userIdToFollow) throws UserNotFoundException {
+    public void followUser(int userId, int userIdToFollow) throws UserNotFoundException, UserSameIdException, UserAlreadyFollowedException {
+        if(userId == userIdToFollow){
+            throw new UserSameIdException("los id son iguales");
+        }
+        User user = userRepository.getUserById(userId);
+
+        if(user.getFollowed().stream().findAny().isPresent()){
+            if(user.getFollowed().stream().findAny().get().getUserId() == userIdToFollow){
+                throw new UserAlreadyFollowedException("el id "+userId+" a sigue al id "+userIdToFollow);
+            }
+        }
         userRepository.addFollowerToUser(userId,userIdToFollow);
     }
 

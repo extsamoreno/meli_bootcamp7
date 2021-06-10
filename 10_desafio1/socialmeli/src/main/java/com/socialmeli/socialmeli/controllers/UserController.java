@@ -1,5 +1,7 @@
 package com.socialmeli.socialmeli.controllers;
+import com.socialmeli.socialmeli.exceptions.UserAlreadyFollowedException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
+import com.socialmeli.socialmeli.exceptions.UserSameIdException;
 import com.socialmeli.socialmeli.services.UserService;
 import com.socialmeli.socialmeli.services.dtos.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity followUser(@PathVariable Integer userId , @PathVariable Integer userIdToFollow) throws UserNotFoundException {
+    public ResponseEntity followUser(@PathVariable Integer userId , @PathVariable Integer userIdToFollow) throws UserNotFoundException, UserSameIdException, UserAlreadyFollowedException {
         userService.followUser(userId,userIdToFollow);
         return new ResponseEntity(HttpStatus.OK);
     }
