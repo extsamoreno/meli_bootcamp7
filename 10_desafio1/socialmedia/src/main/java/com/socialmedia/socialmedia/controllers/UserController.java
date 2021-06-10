@@ -1,7 +1,6 @@
 package com.socialmedia.socialmedia.controllers;
 
-import com.socialmedia.socialmedia.exceptions.UserExistAsFollowerException;
-import com.socialmedia.socialmedia.exceptions.UserNotFoundException;
+import com.socialmedia.socialmedia.exceptions.*;
 import com.socialmedia.socialmedia.services.IUserService;
 import com.socialmedia.socialmedia.services.dtos.UserCountFollowerDTO;
 import com.socialmedia.socialmedia.services.dtos.UserWithFollowedDTO;
@@ -19,7 +18,8 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<Void> followToUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotFoundException, UserExistAsFollowerException {
+    public ResponseEntity<Void> followToUser(@PathVariable int userId, @PathVariable int userIdToFollow)
+            throws UserNotFoundException, UserExistAsFollowerException, UserDistinctTypeException, ObjectNotFoundException {
 
         userService.followToUser(userId, userIdToFollow);
 
@@ -27,7 +27,8 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToFollow}")
-    public ResponseEntity<Void> unfollowToUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotFoundException, UserExistAsFollowerException {
+    public ResponseEntity<Void> unfollowToUser(@PathVariable int userId, @PathVariable int userIdToFollow)
+            throws ObjectNotFoundException, UserNotFoundException, UserNotExistAsFollowerException {
 
         userService.unfollowToUser(userId, userIdToFollow);
 
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<UserCountFollowerDTO> getCountFollowersByUser(@PathVariable int userId) throws UserNotFoundException {
+    public ResponseEntity<UserCountFollowerDTO> getCountFollowersByUser(@PathVariable int userId) throws ObjectNotFoundException, UserDistinctTypeException {
 
         UserCountFollowerDTO userCountFollowerDTO = userService.getCountFollowersByUser(userId);
 
@@ -43,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/{UserID}/followers/list")
-    public ResponseEntity<UserWithFollowersDTO> getFollowersByUser(@PathVariable("UserID") int userId) throws UserNotFoundException {
+    public ResponseEntity<UserWithFollowersDTO> getFollowersByUser(@PathVariable("UserID") int userId) throws ObjectNotFoundException, UserDistinctTypeException {
 
         UserWithFollowersDTO userWithFollowersDTO = userService.getFollowersByUser(userId);
 
@@ -51,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping("/{UserID}/followed/list")
-    public ResponseEntity<UserWithFollowedDTO> getFollowedByUser(@PathVariable("UserID") int userId) throws UserNotFoundException {
+    public ResponseEntity<UserWithFollowedDTO> getFollowedByUser(@PathVariable("UserID") int userId) throws ObjectNotFoundException, UserDistinctTypeException {
 
         UserWithFollowedDTO userWithFollowedDTO = userService.getFollowedByUser(userId);
 

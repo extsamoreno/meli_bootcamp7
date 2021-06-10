@@ -16,6 +16,7 @@ import java.util.Date;
 public class Post {
     private int id;
     private int userId;
+    private int postId;
     private int productId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;

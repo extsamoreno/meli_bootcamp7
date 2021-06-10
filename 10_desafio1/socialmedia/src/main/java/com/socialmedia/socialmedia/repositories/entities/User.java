@@ -19,5 +19,4 @@ public class User {
     private String surname;
     private String email;
     private int userType;
-    private List<Follower> followers;
 }

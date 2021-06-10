@@ -2,6 +2,7 @@ package com.socialmedia.socialmedia.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.socialmedia.socialmedia.exceptions.ObjectNotFoundException;
 import com.socialmedia.socialmedia.repositories.entities.Follower;
 import com.socialmedia.socialmedia.repositories.entities.Post;
 import com.socialmedia.socialmedia.repositories.entities.Product;
@@ -16,36 +17,11 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository implements IProductRepository {
-
-    @Override
-    public int addNewProduct(Product product) {
-        var results = loadDatabaseProducts();
-        int newId = results.size()+1;
-        product.setId(newId);
-
-        results.add(product);
-
-        updateDatabaseProducts(results);
-
-        return newId;
-    }
-
-    @Override
-    public int addNewPost(Post post) {
-        var results = loadDatabasePosts();
-        int newId = results.size()+1;
-        post.setId(newId);
-
-        results.add(post);
-
-        updateDatabasePosts(results);
-
-        return newId;
-    }
 
     @Override
     public List<Post> getPostsByUser(int id) {
@@ -53,12 +29,13 @@ public class ProductRepository implements IProductRepository {
         c.add(Calendar.DATE, -14);
         Date twoWeeks = c.getTime();
 
+        /*
         List<Post> postsByUser = loadDatabasePosts()
                 .stream()
                 .filter(post -> post.getUserId() == id && !post.getDate().before(twoWeeks))
                 .collect(Collectors.toList());
-
-        return postsByUser;
+        */
+        return null;
     }
 
     private List<Product> loadDatabaseProducts() {
@@ -84,28 +61,7 @@ public class ProductRepository implements IProductRepository {
         return products;
     }
 
-    private List<Post> loadDatabasePosts() {
-        File file = null;
 
-        try {
-            file = ResourceUtils.getFile("classpath:posts.json");
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-            file = null;
-        }
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        TypeReference<List<Post>> typeReference = new TypeReference<>() {
-        };
-        List<Post> posts = null;
-        try {
-            posts = objectMapper.readValue(file, typeReference);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return posts;
-    }
 
     private void updateDatabaseProducts(List<Product> products) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -122,18 +78,43 @@ public class ProductRepository implements IProductRepository {
         }
     }
 
-    private void updateDatabasePosts(List<Post> posts) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String jsonString = objectMapper.writeValueAsString(posts);
+    @Override
+    public int add(Product object) {
+        List<Product> products = loadDatabaseProducts();
+        int newId = products.size() + 1;
 
-            FileWriter myWriter = new FileWriter("src/main/resources/posts.json", false);
-            myWriter.write(jsonString);
-            myWriter.close();
+        object.setId(newId);
 
-        } catch (Exception ex) {
-            System.out.println("Error al convertir a json");
-            ex.printStackTrace();
-        }
+        products.add(object);
+
+        updateDatabaseProducts(products);
+
+        return newId;
+    }
+
+    @Override
+    public Product update(Product object) throws ObjectNotFoundException {
+        List<Product> products = loadDatabaseProducts();
+
+        Product productTemp = getById(object.getId());
+
+        products.set(products.indexOf(productTemp), object);
+
+        updateDatabaseProducts(products);
+
+        return object;
+    }
+
+    @Override
+    public Product getById(int id) throws ObjectNotFoundException {
+        List<Product> products = loadDatabaseProducts();
+
+        Product result = products.stream()
+                .filter(follower -> follower.getId() == id)
+                .findFirst().get();
+
+        if (Objects.isNull(result)) throw new ObjectNotFoundException(id);
+
+        return result;
     }
 }

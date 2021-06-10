@@ -4,29 +4,5 @@
     "userId": 1,
     "followerId": 2,
     "follow": true
-  },
-  {
-    "id": 2,
-    "userId": 1,
-    "followerId": 4,
-    "follow": true
-  },
-  {
-    "id": 3,
-    "userId": 3,
-    "followerId": 4,
-    "follow": true
-  },
-  {
-    "id": 4,
-    "userId": 3,
-    "followerId": 2,
-    "follow": true
-  },
-  {
-    "id": 5,
-    "userId": 3,
-    "followerId": 5,
-    "follow": false
   }
 ]

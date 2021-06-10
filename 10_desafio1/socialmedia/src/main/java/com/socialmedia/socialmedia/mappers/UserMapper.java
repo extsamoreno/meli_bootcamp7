@@ -1,10 +1,7 @@
 package com.socialmedia.socialmedia.mappers;
 
 import com.socialmedia.socialmedia.repositories.entities.User;
-import com.socialmedia.socialmedia.services.dtos.UserCountFollowerDTO;
-import com.socialmedia.socialmedia.services.dtos.UserDTO;
-import com.socialmedia.socialmedia.services.dtos.UserWithFollowedDTO;
-import com.socialmedia.socialmedia.services.dtos.UserWithFollowersDTO;
+import com.socialmedia.socialmedia.services.dtos.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +12,6 @@ public class UserMapper {
 
         result.setId(user.getId());
         result.setUsername(user.getNickname());
-        result.setFollowers(user.getFollowers().size());
 
         return result;
     }
@@ -51,6 +47,16 @@ public class UserMapper {
         result.setId(user.getId());
         result.setUsername(user.getNickname());
         result.setFollowed(followedDTOs);
+
+        return result;
+    }
+
+    public static UserWithFollowedPostsDTO UserToUserWithFollowedPostsDTO(User user) {
+        UserWithFollowedPostsDTO result = new UserWithFollowedPostsDTO();
+
+        result.setId(user.getId());
+        result.setUsername(user.getNickname());
+        result.setPosts(new ArrayList<>());
 
         return result;
     }

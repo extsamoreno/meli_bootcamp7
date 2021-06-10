@@ -2,6 +2,7 @@ package com.socialmedia.socialmedia.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.socialmedia.socialmedia.exceptions.ObjectNotFoundException;
 import com.socialmedia.socialmedia.exceptions.UserNotFoundException;
 import com.socialmedia.socialmedia.repositories.entities.Follower;
 import com.socialmedia.socialmedia.repositories.entities.User;
@@ -12,74 +13,50 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
-public class UserRepository implements IUserRepository {
-    @Override
-    public int followToUser(int userId, int userIdToFollow) {
-        List<Follower> followers = loadDatabaseFollowers();
-
-        followers.add(new Follower(followers.size() + 1, userIdToFollow, userId, true));
-
-        updateDatabaseFollowers(followers);
-
-        return 0;
-    }
+public class UserRepository implements IUserRepository, IRepository<User> {
 
     @Override
-    public void unfollowToUser(Follower follower) {
-        List<Follower> followers = loadDatabaseFollowers();
-
-        followers.stream().filter(follower1 -> follower1.getId() == follower.getId())
-                .findFirst().get().setFollow(false);
-
-        updateDatabaseFollowers(followers);
-    }
-
-    @Override
-    public User getUserById(int userId) throws UserNotFoundException {
+    public int add(User object) {
         List<User> users = loadDatabaseUsers();
-        List<Follower> followers = loadDatabaseFollowers();
+        int newId = users.size() + 1;
 
-        var userOptional = users.stream().filter(user -> user.getId() == userId).findFirst();
+        object.setId(newId);
 
-        if (userOptional.isEmpty()) throw new UserNotFoundException(userId);
+        users.add(object);
 
-        var userResult = userOptional.get();
-
-        List<Follower> followersByUser = followers.stream()
-                .filter(follower -> follower.getUserId() == userId && follower.isFollow()).collect(Collectors.toList());
-
-        userResult.setFollowers(followersByUser);
-
-        return userResult;
-    }
-
-    public List<User> getFollowersByUser(int userId) throws UserNotFoundException {
-        List<User> results = new ArrayList<>();
-        User user = getUserById(userId);
-
-        for (Follower follower : user.getFollowers()) {
-            results.add(getUserById(follower.getFollowerId()));
-        }
-
-        return results;
+        return newId;
     }
 
     @Override
-    public List<User> getFollowedByUser(int id) throws UserNotFoundException {
-        List<User> results = new ArrayList<>();
+    public User update(User object) throws ObjectNotFoundException {
+        List<User> users = loadDatabaseUsers();
 
-        var followerList = loadDatabaseFollowers().stream()
-                .filter(follower -> follower.getFollowerId() == id)
-                .collect(Collectors.toList());
+        User userTemp = getById(object.getId());
 
-        for (Follower follower : followerList) {
-            results.add(getUserById(follower.getUserId()));
-        }
+        users.set(users.indexOf(userTemp), object);
 
-        return results;
+        updateDatabaseUsers(users);
+
+        return object;
+    }
+
+    @Override
+    public User getById(int id) throws ObjectNotFoundException {
+        List<User> users = loadDatabaseUsers();
+
+        Optional<User> result = users.stream()
+                .filter(user -> user.getId() == id)
+                .findFirst();
+
+        if (!result.isPresent()) throw new ObjectNotFoundException(id);
+
+        var resultObject = result.get();
+
+        return resultObject;
     }
 
     private List<User> loadDatabaseUsers() {
@@ -105,35 +82,12 @@ public class UserRepository implements IUserRepository {
         return users;
     }
 
-    private List<Follower> loadDatabaseFollowers() {
-        File file = null;
-
-        try {
-            file = ResourceUtils.getFile("classpath:followers.json");
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-            file = null;
-        }
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        TypeReference<List<Follower>> typeReference = new TypeReference<>() {
-        };
-        List<Follower> followers = null;
-        try {
-            followers = objectMapper.readValue(file, typeReference);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return followers;
-    }
-
-    private void updateDatabaseFollowers(List<Follower> followers) {
+    private void updateDatabaseUsers(List<User> followers) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String jsonString = objectMapper.writeValueAsString(followers);
 
-            FileWriter myWriter = new FileWriter("src/main/resources/followers.json", false);
+            FileWriter myWriter = new FileWriter("src/main/resources/users.json", false);
             myWriter.write(jsonString);
             myWriter.close();
 

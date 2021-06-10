@@ -1,58 +1,87 @@
 package com.socialmedia.socialmedia.services;
 
-import com.socialmedia.socialmedia.exceptions.PostInsertException;
-import com.socialmedia.socialmedia.exceptions.ProductInsertException;
-import com.socialmedia.socialmedia.exceptions.UserNotFoundException;
+import com.socialmedia.socialmedia.exceptions.*;
+import com.socialmedia.socialmedia.mappers.PostMapper;
 import com.socialmedia.socialmedia.mappers.ProductMapper;
+import com.socialmedia.socialmedia.mappers.UserMapper;
+import com.socialmedia.socialmedia.repositories.IFollowerRepository;
 import com.socialmedia.socialmedia.repositories.IProductRepository;
-import com.socialmedia.socialmedia.repositories.entities.Post;
-import com.socialmedia.socialmedia.repositories.entities.Product;
+import com.socialmedia.socialmedia.repositories.IUserRepository;
+import com.socialmedia.socialmedia.repositories.entities.*;
 import com.socialmedia.socialmedia.services.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductService implements IProductService {
 
     @Autowired
     private IProductRepository productRepository;
-
     @Autowired
-    private IUserService userService;
+    private IPostRepository postRepository;
+    @Autowired
+    private IUserRepository userRepository;
+    @Autowired
+    private IFollowerRepository followerRepository;
 
     @Override
-    public void addNewProductWithPost(PostDTO postDTO) throws ProductInsertException, PostInsertException {
+    public void addNewProductWithPost(PostDTO postDTO) throws ProductInsertException, PostInsertException, ObjectNotFoundException, ObjectExistException {
+        Post post = PostMapper.postDtoToPost(postDTO);
         Product product = ProductMapper.productDtoToProduct(postDTO.getDetail());
-        //TODO: refact to product and post
-        //TODO: Validate exist user
-        //TODO: Validate exist product
-        postDTO.setPostId(productRepository.addNewProduct(product));
 
-        if (postDTO.getPostId() == 0) throw new ProductInsertException();
+        var existPost = postRepository.getByPostId(post.getPostId());
+        if (!Objects.isNull(existPost)) throw new ObjectExistException(existPost.getId(), "Post");
+        var existUser = userRepository.getById(post.getUserId());
+        if (!Objects.isNull(existUser)) throw new ObjectExistException(existUser.getId(), "User");
+        var existProduct = productRepository.getById(product.getId());
+        if (!Objects.isNull(existProduct)) throw new ObjectExistException(existProduct.getId(), "Product");
 
-        Post post = ProductMapper.postDtoToPost(postDTO);
+        int idProduct = productRepository.add(product);
 
-        int idPost = productRepository.addNewPost(post);
+        if (idProduct == 0) throw new ProductInsertException();
+
+        post.setPostId(idProduct);
+
+        int idPost = postRepository.add(post);
 
         if (idPost == 0) throw new PostInsertException();
     }
 
     @Override
-    public UserWithFollowedPostsDTO getFollowedPostsByUser(int userId) throws UserNotFoundException {
-        UserWithFollowedDTO userWithFollowed = userService.getFollowedByUser(userId);
+    public UserWithFollowedPostsDTO getFollowedPostsByUser(int userId) throws ObjectNotFoundException {
+        User userResult = userRepository.getById(userId);
+        List<Follower> followedByUser = followerRepository.getFollowersByFollowerId(userId);
 
-        List<Post> allPostsFollowed = new ArrayList<>();
+        var result = UserMapper.UserToUserWithFollowedPostsDTO(userResult);
 
-        for (UserDTO followedDTO : userWithFollowed.getFollowed()) {
-            List<Post> postsByFollowed = productRepository.getPostsByUser(followedDTO.getId());
+        List<PostDTO> postDTOList = new ArrayList<>();
 
-            allPostsFollowed.addAll(postsByFollowed);
+        for (Follower followed : followedByUser) {
+            var postsByFollowed = postRepository.getByUserForTwoWeeksId(followed.getUserId());
+
+            for (Post postByFollowed: postsByFollowed) {
+                Product productByPost = productRepository.getById(postByFollowed.getProductId());
+
+                ProductDTO productResult = ProductMapper.productToProductDTO(productByPost);
+
+                PostDTO postResult = PostMapper.postToPostDTO(postByFollowed);
+
+                postResult.setDetail(productResult);
+
+                postDTOList.add(postResult);
+            }
         }
-        var result = ProductMapper.userAndPostsToUserWithFollowedPostsDTO(userWithFollowed, allPostsFollowed);
-        //TODO: add post to array detail in result
+
+        orderByDate(postDTOList);
+
+        result.setPosts(postDTOList);
+
         return result;
+    }
+    private void orderByDate(List<PostDTO> postDTOList) {
     }
 }

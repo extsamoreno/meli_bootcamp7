@@ -37,45 +37,4 @@ public class ProductMapper {
 
         return productDTO;
     }
-
-    public static Post postDtoToPost(PostDTO postDTO) {
-        Post post = new Post();
-
-        post.setId(postDTO.getPostId());
-        post.setProductId(postDTO.getDetail().getProductId());
-        post.setCategory(postDTO.getCategory());
-        post.setPrice(postDTO.getPrice());
-        post.setDate(postDTO.getDate());
-        post.setUserId(postDTO.getUserId());
-
-        return post;
-    }
-
-    public static UserWithFollowedPostsDTO userAndPostsToUserWithFollowedPostsDTO(UserWithFollowedDTO user, List<Post> posts) {
-        var result = new UserWithFollowedPostsDTO();
-        result.setId(user.getId());
-        result.setUsername(user.getUsername());
-
-        result.setPosts(postsToPostDTOs(posts));
-        return result;
-    }
-    public static List<PostDTO> postsToPostDTOs(List<Post> posts) {
-        List<PostDTO> postDTOS = new ArrayList<>();
-        for (Post post: posts) {
-            postDTOS.add(postToPostDTO(post));
-        }
-        return postDTOS;
-    }
-
-    public static PostDTO postToPostDTO(Post post) {
-        PostDTO result = new PostDTO();
-
-        result.setPostId(post.getId());
-        result.setDate(post.getDate());
-        result.setCategory(post.getCategory());
-        result.setPrice(post.getPrice());
-        result.setUserId(post.getUserId());
-
-        return result;
-    }
 }

@@ -14,4 +14,9 @@ public class Follower {
     private int userId;
     private int followerId;
     private boolean follow;
+
+    public Follower(int userId, int followerId) {
+        this.userId = userId;
+        this.followerId = followerId;
+    }
 }

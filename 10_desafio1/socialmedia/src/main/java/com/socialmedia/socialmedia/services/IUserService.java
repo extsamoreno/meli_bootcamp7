@@ -1,16 +1,15 @@
 package com.socialmedia.socialmedia.services;
 
-import com.socialmedia.socialmedia.exceptions.UserExistAsFollowerException;
-import com.socialmedia.socialmedia.exceptions.UserNotFoundException;
+import com.socialmedia.socialmedia.exceptions.*;
 import com.socialmedia.socialmedia.services.dtos.UserCountFollowerDTO;
 import com.socialmedia.socialmedia.services.dtos.UserWithFollowedDTO;
 import com.socialmedia.socialmedia.services.dtos.UserWithFollowersDTO;
 
 public interface IUserService {
 
-    void followToUser(int userId, int userIdToFollow) throws UserNotFoundException, UserExistAsFollowerException;
-    void unfollowToUser(int userId, int userIdToFollow) throws UserNotFoundException, UserExistAsFollowerException;
-    UserCountFollowerDTO getCountFollowersByUser(int userId) throws UserNotFoundException;
-    UserWithFollowersDTO getFollowersByUser(int userId) throws UserNotFoundException;
-    UserWithFollowedDTO getFollowedByUser(int userId) throws UserNotFoundException;
+    void followToUser(int userId, int userIdToFollow) throws UserNotFoundException, UserExistAsFollowerException, ObjectNotFoundException, UserDistinctTypeException;
+    void unfollowToUser(int userId, int userIdToFollow) throws UserNotFoundException, ObjectNotFoundException, UserNotExistAsFollowerException;
+    UserCountFollowerDTO getCountFollowersByUser(int userId) throws ObjectNotFoundException, UserDistinctTypeException;
+    UserWithFollowersDTO getFollowersByUser(int userId) throws ObjectNotFoundException, UserDistinctTypeException;
+    UserWithFollowedDTO getFollowedByUser(int userId) throws ObjectNotFoundException, UserDistinctTypeException;
 }
