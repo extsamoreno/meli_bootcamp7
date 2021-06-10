@@ -269,7 +269,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": 5,\n    \"id_post\" : 4, \n    \"date\" : \"31-05-2021\", \n    \"detail\" :{\n            \"product_id\" : 2,\n            \"productName\" : \"Silla Gamer\",\n            \"type\" : \"Gamer\",\n            \"brand\" : \"Racer\",\n            \"color\" : \"Red & Black\",\n            \"notes\" : \"Special Edition\"\n            },\n    \"category\" : 100,\n    \"price\" : 1500.50\n}",
+					"raw": "{\n    \"userId\": 5,\n    \"id_post\" : 5, \n    \"date\" : \"31-05-2021\", \n    \"detail\" :{\n            \"product_id\" : 2,\n            \"productName\" : \"Silla Gamer\",\n            \"type\" : \"Gamer\",\n            \"brand\" : \"Racer\",\n            \"color\" : \"Red & Black\",\n            \"notes\" : \"Special Edition\"\n            },\n    \"category\" : 100,\n    \"price\" : 1500.50\n}",
 					"options": {
 						"raw": {
 							"language": "json"
