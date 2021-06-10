@@ -8,6 +8,7 @@ import com.socialmeli.socialmeli.repositories.UserRepository;
 import com.socialmeli.socialmeli.services.dtos.ListPostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostPromoDTO;
+import com.socialmeli.socialmeli.services.dtos.ProductUserPromoDTO;
 import com.socialmeli.socialmeli.services.mappers.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,10 +62,20 @@ public class PostServiceImpl implements PostService{
                     break;
             }
         }
-
         followedPostDTOList.sort(postDateComparator);
 
         return new ListPostDTO(userId,followedPostDTOList);
+    }
+
+    @Override
+    public ProductUserPromoDTO getProductPromoCount(int userId) throws UserNotFoundException {
+        User user = userRepository.getUserById(userId);
+        int count = (int) user.getPosts().stream().filter(Post::isHasPromo).count();
+        return new ProductUserPromoDTO(
+                userId,
+                user.getUserName(),
+                count
+        );
     }
 
 

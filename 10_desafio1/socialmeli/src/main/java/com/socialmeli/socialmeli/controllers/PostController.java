@@ -6,6 +6,7 @@ import com.socialmeli.socialmeli.services.PostService;
 import com.socialmeli.socialmeli.services.dtos.ListPostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostPromoDTO;
+import com.socialmeli.socialmeli.services.dtos.ProductUserPromoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,13 @@ public class PostController {
     public ResponseEntity<Void> newPromoPost(@RequestBody PostPromoDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
         postService.newPromoPost(post);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<ProductUserPromoDTO> getPromoProductsCount(@PathVariable Integer userId) throws UserNotFoundException {
+        return new ResponseEntity<>(
+                postService.getProductPromoCount(userId),HttpStatus.OK
+        );
     }
 
     @GetMapping("/followed/{userId}/list")

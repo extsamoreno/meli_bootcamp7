@@ -5,6 +5,7 @@ import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.services.dtos.ListPostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostDTO;
 import com.socialmeli.socialmeli.services.dtos.PostPromoDTO;
+import com.socialmeli.socialmeli.services.dtos.ProductUserPromoDTO;
 
 import java.text.ParseException;
 import java.util.List;
@@ -14,4 +15,5 @@ public interface PostService {
     public void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException;
     public void newPromoPost(PostPromoDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException;
     public ListPostDTO getFollowedPostList(int userId, Optional<String> order) throws UserNotFoundException;
+    public ProductUserPromoDTO getProductPromoCount(int userId) throws UserNotFoundException;
 }
