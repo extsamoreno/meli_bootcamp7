@@ -2,6 +2,9 @@ package com.desafio.socialMeli.service;
 
 import com.desafio.socialMeli.service.dto.PostDTO;
 import org.springframework.stereotype.Service;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -53,7 +56,7 @@ class OrderService implements IOrderService{
             }
 
             for(int i = 0; i<datesAux.size();i++)
-                stringArrayListAux.add(datesAux.get(i).toString());
+                stringArrayListAux.add(dateToString(datesAux.get(i)));
 
 
             stringArrayList.clear();
@@ -82,6 +85,11 @@ class OrderService implements IOrderService{
         return arrayListPostDTO;
     }
 
+    private String dateToString(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String strDate = dateFormat.format(date);
+        return strDate;
+    }
 
     private static Date getDateBeforeTwoWeeks() {
         Calendar calendar = Calendar.getInstance();

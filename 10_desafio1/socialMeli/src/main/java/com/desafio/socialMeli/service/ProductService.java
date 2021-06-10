@@ -48,7 +48,7 @@ public class ProductService implements IProductService {
 
         for (User followed : userFollowedList.getFollowedList()) {
             postsByFollowed = iSocialMeliRepository.getPostDTOListByUserId(followed.getId());
-            allPostsDTOFollowed.addAll(iOrderService.orderPostByDate(postsByFollowed, "date_asc"));
+            allPostsDTOFollowed.addAll(iOrderService.orderPostByDate(postsByFollowed, "date_asc_2W"));
         }
 
         UserFollowedPostsDTO userFollowedPostsDTO = PostMapper.toUserFollowedPostsDTO(allPostsDTOFollowed);
