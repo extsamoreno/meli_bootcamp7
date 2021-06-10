@@ -1,3 +1,5 @@
+DESAFIO 1 - MELI_BOOTCAMP7
+
 1) File "desafio1.postman_collection.json" which contains Postman Tests is attached to be used.
 
 2) The project loads automatically "users.json" and "posts.json" (ubicated in resources folder) from Database class for test purposes.
