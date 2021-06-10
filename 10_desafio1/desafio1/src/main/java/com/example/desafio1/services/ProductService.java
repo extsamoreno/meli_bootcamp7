@@ -1,6 +1,7 @@
 package com.example.desafio1.services;
 
 import com.example.desafio1.dtos.*;
+import com.example.desafio1.exceptions.product.InvalidDateInPostException;
 import com.example.desafio1.exceptions.product.InvalidDiscountException;
 import com.example.desafio1.exceptions.product.ProductException;
 import com.example.desafio1.exceptions.product.SameIdPostException;
@@ -33,9 +34,10 @@ public class ProductService implements IProductService {
     IUserService iUserService;
 
     @Override
-    public String addNewPost(PostDTO postDTO) throws InvalidUserIdException, SameIdPostException {
+    public String addNewPost(PostDTO postDTO) throws InvalidUserIdException, ProductException {
         User user = iUserService.getUserById(postDTO.getUserId());
         checkIfIdPostExists(user.getPosts(), postDTO.getIdPost());
+        checkIfDateIsValid(postDTO.getDate());
         iProductRepository.addNewPost(user,
                 PostMapper.PostDTOToPost(postDTO));
         return "Se ha agregado el producto con id: " + postDTO.getDetail().getProductId() +
@@ -51,6 +53,7 @@ public class ProductService implements IProductService {
         }
         User user = iUserService.getUserById(postPromoDTO.getUserId());
         checkIfIdPostExists(user.getPosts(), postPromoDTO.getIdPost());
+        checkIfDateIsValid(postPromoDTO.getDate());
         iProductRepository.addNewPost(user, PostMapper.PostPromoDTOToPost(postPromoDTO));
         return "Se ha agregado el producto en PROMOCION con id: " + postPromoDTO.getDetail().getProductId() +
                 " al usuario con id: " + postPromoDTO.getUserId();
@@ -126,6 +129,15 @@ public class ProductService implements IProductService {
             if(p.getIdPost() == idPost) {
                 throw new SameIdPostException(idPost);
             }
+        }
+    }
+
+    private void checkIfDateIsValid(LocalDate date) throws InvalidDateInPostException {
+        LocalDate now = LocalDate.now();
+        long daysBetween = ChronoUnit.DAYS.between(date, now);
+        System.out.println("DAYS= " + daysBetween);
+        if(daysBetween < 0) {
+            throw new InvalidDateInPostException(date);
         }
     }
 }

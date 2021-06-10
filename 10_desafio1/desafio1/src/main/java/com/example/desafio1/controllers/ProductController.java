@@ -1,7 +1,6 @@
 package com.example.desafio1.controllers;
 
 import com.example.desafio1.dtos.*;
-import com.example.desafio1.exceptions.product.InvalidDiscountException;
 import com.example.desafio1.exceptions.product.ProductException;
 import com.example.desafio1.exceptions.product.SameIdPostException;
 import com.example.desafio1.exceptions.user.InvalidUserIdException;
@@ -28,13 +27,14 @@ public class ProductController {
      * 400
      * if the user does not exists
      * if the user already has a post with the same idPost
+     * if date of the post > today
      * Example: /products/newpost
      * Body example:
 
         {
-            "userId": 1235,
+            "userId": 1,
             "idPost": 18,
-            "date": "29-04-2021",
+            "date": "01-06-2021",
             "detail" :
                         {
                         "productId": 1,
@@ -52,7 +52,7 @@ public class ProductController {
     */
     @PostMapping("/newpost")
     public ResponseEntity<String> addNewPost(@RequestBody PostDTO postDTO) throws InvalidUserIdException,
-            SameIdPostException {
+            ProductException {
         return new ResponseEntity<>(iProductService.addNewPost(postDTO), HttpStatus.OK);
     }
 
@@ -65,14 +65,15 @@ public class ProductController {
      * 400
      * if the user does not exists
      * if the user already has a post with the same idPost
+     * if date of the post > today
      * if discount is < 0.00 or >  1.00
      * Example: /products/newpromopost
      * Body example:
 
         {
-            "userId": 1235,
+            "userId": 5,
             "idPost": 18,
-            "date": "29-04-2021",
+            "date": "01-06-2021",
             "detail" :
                         {
                         "productId": 1,

@@ -2,6 +2,7 @@ package com.example.desafio1.controllers.exceptions;
 
 import com.example.desafio1.dtos.ErrorDTO;
 import com.example.desafio1.exceptions.product.InvalidDiscountException;
+import com.example.desafio1.exceptions.product.InvalidDateInPostException;
 import com.example.desafio1.exceptions.product.SameIdPostException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,6 +18,11 @@ public class ProductExceptionController {
 
     @ExceptionHandler(SameIdPostException.class)
     public ResponseEntity<ErrorDTO> handlerSameIdPostException(SameIdPostException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(InvalidDateInPostException.class)
+    public ResponseEntity<ErrorDTO> handlerInvalidDateInPostException(InvalidDateInPostException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }
