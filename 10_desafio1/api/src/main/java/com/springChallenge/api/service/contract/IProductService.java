@@ -9,7 +9,7 @@ import com.springChallenge.api.controller.exception.user.UserNotFoundException;
 public interface IProductService {
     void createNewPost(PostDTO postDTO) throws UserNotFoundException, IDPostAlreadyUsed;
 
-    PostsListDTO getPostsByUserId(Integer userId, String order) throws UserNotFoundException;
+    PostsListDTO getPostsByFollowed(Integer userId, String order) throws UserNotFoundException;
 
     CountPromoDTO getCountPromo(Integer userId) throws UserNotFoundException;
 

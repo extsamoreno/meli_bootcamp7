@@ -17,33 +17,57 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements IProductService {
     @Autowired
     IUserRepository iUserRepository;
 
+    /**
+     * create a new post and add it to an user
+     * @param postDTO
+     * @throws UserNotFoundException
+     * @throws IDPostAlreadyUsed
+     */
     @Override
     public void createNewPost(PostDTO postDTO) throws UserNotFoundException, IDPostAlreadyUsed {
         var post = PostMapper.toEntity(postDTO);
         addPostToUser(post);
     }
 
+    /**
+     * search for the user given his id and add the post
+     * @param post
+     * @throws UserNotFoundException
+     * @throws IDPostAlreadyUsed
+     */
     private void addPostToUser(Post post) throws UserNotFoundException, IDPostAlreadyUsed {
         var user = iUserRepository.getByUserId(post.getUserId());
         user.addPost(post);
         iUserRepository.save(user);
     }
 
+    /**
+     * Gets all the posts by sellers followed by an user given his id, can order by post Date
+     * @param userId
+     * @param order
+     * @return
+     * @throws UserNotFoundException
+     */
     @Override
-    public PostsListDTO getPostsByUserId(Integer userId, String order) throws UserNotFoundException {
+    public PostsListDTO getPostsByFollowed(Integer userId, String order) throws UserNotFoundException {
         ArrayList<Post> posts = iUserRepository.getFollowedPosts(userId);
         if (!order.isEmpty())
             orderList(posts, order);
         return PostsListMapper.toDTO(userId, posts);
     }
 
+    /**
+     * returns the promo posts total by an user given his id
+     * @param userId
+     * @return
+     * @throws UserNotFoundException
+     */
     @Override
     public CountPromoDTO getCountPromo(Integer userId) throws UserNotFoundException {
         User user = iUserRepository.getByUserId(userId);
@@ -51,12 +75,23 @@ public class ProductService implements IProductService {
         return CountPromoMapper.toCountPromoDTO(user, (int) promoPostsCount);
     }
 
+    /**
+     * gets all the posts that includes promo (hasPromo == true)
+     * @param userId
+     * @return
+     * @throws UserNotFoundException
+     */
     @Override
     public PostsListDTO getPromoPostsById(Integer userId) throws UserNotFoundException {
         ArrayList<Post> posts = iUserRepository.getPromoPostsById(userId);
         return PostsListMapper.toDTO(userId, posts);
     }
 
+    /**
+     * order posts by postDate
+     * @param posts
+     * @param order
+     */
     private void orderList(ArrayList<Post> posts, String order) {
         if (order.equals("date_asc")) {
             Collections.sort(posts);

@@ -21,6 +21,12 @@ public class UserService implements IUserService {
     @Autowired
     IUserRepository iUserRepository;
 
+    /**
+     * add a sellerFollowed to an user, adding himself to the list of followers of the latter user
+     * @param userId
+     * @param userIdToFollow
+     * @throws UserValidationsException
+     */
     @Override
     public void follow(Integer userId, Integer userIdToFollow) throws UserValidationsException {
         checkNotSelfFollow(userId, userIdToFollow);
@@ -37,12 +43,25 @@ public class UserService implements IUserService {
         iUserRepository.save(userToFollow);
     }
 
+    /**
+     * gets the total of followers of a given user by his id
+     * @param userId
+     * @return
+     * @throws UserNotFoundException
+     */
     @Override
     public FollowerCountDTO getFollowerCount(Integer userId) throws UserNotFoundException {
         User user = iUserRepository.getByUserId(userId);
         return FollowerCountMapper.mapToDTO(user);
     }
 
+    /**
+     * gets the list of followers of a given user by his id
+     * @param userId
+     * @param order
+     * @return
+     * @throws UserNotFoundException
+     */
     @Override
     public FollowerListDTO getFollowerList(Integer userId, String order) throws UserNotFoundException {
         User user = iUserRepository.getByUserId(userId);
@@ -51,6 +70,11 @@ public class UserService implements IUserService {
         return FollowerListMapper.mapToDTO(user);
     }
 
+    /**
+     * order the user list by userName
+     * @param list
+     * @param order
+     */
     private void orderUserList(ArrayList<User> list, String order) {
         if (order.equals("name_asc")) {
             Collections.sort(list);
@@ -59,6 +83,13 @@ public class UserService implements IUserService {
         }
     }
 
+    /**
+     * gets the list of followed users by an user given his id
+     * @param userId
+     * @param order
+     * @return
+     * @throws UserNotFoundException
+     */
     @Override
     public FollowedListDTO getFollowedList(Integer userId, String order) throws UserNotFoundException {
         User user = iUserRepository.getByUserId(userId);
@@ -67,6 +98,12 @@ public class UserService implements IUserService {
         return FollowedListMapper.mapToDTO(user);
     }
 
+    /**
+     * remove a sellerFollowed to an user, removing himself from the followers list of the latter
+     * @param userId
+     * @param userIdToUnfollow
+     * @throws UserValidationsException
+     */
     @Override
     public void unfollow(Integer userId, Integer userIdToUnfollow) throws UserValidationsException {
         checkNotSelfFollow(userId, userIdToUnfollow);
@@ -83,16 +120,34 @@ public class UserService implements IUserService {
         iUserRepository.save(userToUnfollow);
     }
 
+    /**
+     * checks if the user is not following the other user
+     * @param user
+     * @param userToUnfollow
+     * @throws NotFollowedException
+     */
     private void checkFollowed(User user, User userToUnfollow) throws NotFollowedException {
         if (!userToUnfollow.getFollowers().contains(user))
             throw new NotFollowedException(userToUnfollow.getUserId(), user.getUserId());
     }
 
+    /**
+     * checks if the two params are the same
+     * @param userId
+     * @param userIdToFollow
+     * @throws OwnFollowException
+     */
     private void checkNotSelfFollow(Integer userId, Integer userIdToFollow) throws OwnFollowException {
         if (userId.equals(userIdToFollow))
             throw new OwnFollowException();
     }
 
+    /**
+     * checks if the user is already following the other user
+     * @param user
+     * @param userToFollow
+     * @throws AlreadyFollowedException
+     */
     private void checkNotFollowed(User user, User userToFollow) throws AlreadyFollowedException {
         if (userToFollow.getFollowers().contains(user)){
             throw new AlreadyFollowedException(userToFollow.getUserId(), user.getUserId());
