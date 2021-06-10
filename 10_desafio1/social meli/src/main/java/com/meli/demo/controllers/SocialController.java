@@ -91,7 +91,7 @@ public class SocialController {
             "detail":
         {
             "product_id":1,
-                "productName":"Silla gamner",
+                "productName":"TES2 gam",
                 "type":"gamer",
                 "brand":"Racer",
                 "color":"red $ black",
@@ -102,6 +102,7 @@ public class SocialController {
         "hasPromo":true,
         "discount":0.25
     }*/
+    //POST http://localhost:8080/social/products/newpromopost
 
     @PostMapping("/products/newpromopost")
     public ResponseEntity<String> newPost(@RequestBody PostDiscountDTO postDiscountDTO) throws  PostDiscountException {
@@ -116,7 +117,7 @@ public class SocialController {
         return new ResponseEntity<>(FollowService.countDiscount(userId),HttpStatus.OK);
     }
 
-    //http://localhost:8080/social//products/1002/list/
+    //GET http://localhost:8080/social//products/1002/list/
 
     @GetMapping("/products/{userId}/list/")
     public ResponseEntity<ListDiscountDTO> listDiscount(@PathVariable int userId){
@@ -126,11 +127,5 @@ public class SocialController {
     //http://localhost:8080/social/products/1002/list/name_desc
     //http://localhost:8080/social/products/1002/list/name_asc
 
-
-    @GetMapping("/products/{userId}/list/{order}")
-    public  ResponseEntity<ListDiscountDTO>   orderDtoNameDesc(@PathVariable int userId,@PathVariable String order) {
-        return new ResponseEntity<>(FollowService.orderDtoNameDesc(userId,order), HttpStatus.OK);
-
-    }
 
 }

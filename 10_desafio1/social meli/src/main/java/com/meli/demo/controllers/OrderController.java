@@ -38,7 +38,7 @@ public class OrderController {
 
 
     //http://localhost:8080/order/products/1002/list?order=name_desc
-    //http://localhost:8080/oder/products/1002/list?order=name_asc
+    //http://localhost:8080/order/products/1002/list?order=name_asc
     @GetMapping("/products/{userId}/list")
     public  ResponseEntity<ListDiscountDTO>   orderDtoNameDesc(@PathVariable int userId,@RequestParam(required = false) String order) {
         return new ResponseEntity<>(FollowService.orderDtoNameDesc(userId,order), HttpStatus.OK);
