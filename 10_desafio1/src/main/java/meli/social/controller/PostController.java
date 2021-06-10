@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class PostController {
 
     @GetMapping("/followed/{userId}/list")
     public PostListUserDTO
-    postsOfFollowed (@PathVariable int userId, @RequestParam (defaultValue = "") String order) throws UserIdNotFoundException {
+    postsOfFollowed (@PathVariable int userId, @RequestParam (defaultValue = "") String order)
+            throws UserIdNotFoundException, ParseException {
         return postService.getPostsOfFollowed(userId, order);
     }
 
