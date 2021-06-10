@@ -20,10 +20,10 @@ public class UserController {
     IUserService iUserService;
 
     /**
-     * Create database of users
+     * Load database of users
      * @author Sapaya Nicolás Martín
      */
-    @PostMapping("/create")
+    @PostMapping("/load")
     public ResponseEntity<String> followSeller() {
         return new ResponseEntity<>(iUserService.createDB(), HttpStatus.OK);
     }

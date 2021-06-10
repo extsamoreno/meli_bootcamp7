@@ -135,7 +135,6 @@ public class ProductService implements IProductService {
     private void checkIfDateIsValid(LocalDate date) throws InvalidDateInPostException {
         LocalDate now = LocalDate.now();
         long daysBetween = ChronoUnit.DAYS.between(date, now);
-        System.out.println("DAYS= " + daysBetween);
         if(daysBetween < 0) {
             throw new InvalidDateInPostException(date);
         }

@@ -24,12 +24,6 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public String createDB() {
-        /*
-        List<User> users = loadDateBase();
-        for(User u : users) {
-            this.users.put(u.getUserId(), u);
-        }
-        */
         users = loadDateBaseManually();
         return "Base de datos inicializada";
     }
@@ -52,24 +46,6 @@ public class UserRepository implements IUserRepository {
             throw new InvalidUserIdException(userId);
         }
         return user;
-    }
-
-    private List<User> loadDateBase() {
-        File file = null;
-        try {
-            file = ResourceUtils.getFile("classpath:users.json");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<User>> typeRef = new TypeReference<>(){};
-        List<User>  userList = null;
-        try {
-            userList = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return userList;
     }
 
     private HashMap<Integer, User> loadDateBaseManually() {
