@@ -129,11 +129,6 @@ public class SocialRepositoryImple implements SocialRepository {
 
     }
 
-
-
-
-
-
     @Override
     public boolean Follow(int iduser, int id_vendedor) {
 
@@ -174,16 +169,13 @@ public class SocialRepositoryImple implements SocialRepository {
                 cantidad.setUserid(Sellers.get(i).getId());
                 cantidad.setUserName(Sellers.get(i).getNombre());
                 cantidad.setFollowers_count(Sellers.get(i).getUsuarios().size());
-
             }
         }
-
         return cantidad;
     }
 
     public LisUsersResponseDTO listUsers(int iduser){
         LisUsersResponseDTO list=  new LisUsersResponseDTO();
-        System.out.println(iduser);
         for (int i = 0; i < Sellers.size(); i++) {
 
             if(Sellers.get(i).getId()==iduser){
@@ -191,7 +183,6 @@ public class SocialRepositoryImple implements SocialRepository {
                 list.setId(Sellers.get(i).getId());
                 list.setNombre(Sellers.get(i).getNombre());
                 list.setUsuarios(Sellers.get(i).getUsuarios());
-
             }
         }
 
@@ -219,15 +210,8 @@ public class SocialRepositoryImple implements SocialRepository {
 
                         }
                     }
-
-
-
                 }
-
             }
-
-
-
         }
         listVen.setFollowed(vendedores);
         return listVen;
@@ -260,8 +244,6 @@ public class SocialRepositoryImple implements SocialRepository {
 
                                 post.add(Sellers.get(j).getPublicacions().get(l));
                             }
-
-
                         }
 
                     }
@@ -291,7 +273,6 @@ public class SocialRepositoryImple implements SocialRepository {
             if(Sellers.get(i).getId()==id_vendedor){
 
                 if(usuario1.getUserName().isEmpty()){
-                    System.out.println("hola");
                     return false;
                 }else{
                     Sellers.get(i).getUsuarios().remove(i);

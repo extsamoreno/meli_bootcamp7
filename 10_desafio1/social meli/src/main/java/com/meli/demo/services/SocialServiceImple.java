@@ -117,47 +117,89 @@ public class SocialServiceImple implements SocialService {
         return orderAscDescArrayName(lis,order);
     }
 
+    public static List<String> modifyDate( List<Date> dates1){
+        List<String> dateArray2 = new ArrayList<String>();
+
+        for (int i = 0; i <dates1.size() ; i++) {
+            String[] dateSplit = dates1.get(i).toString().split(" ");
+
+            switch (dateSplit[1].toString()){
+                case"Jan":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"01"+"-"+dateSplit[5].toString());
+                    break;
+                case"Feb":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"02"+"-"+dateSplit[5].toString());
+                    break;
+                case"Mar":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"03"+"-"+dateSplit[5].toString());
+                    break;
+                case"Apr":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"04"+"-"+dateSplit[5].toString());
+                    break;
+                case"May":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"05"+"-"+dateSplit[5].toString());
+                    break;
+                case"Jun":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"06"+"-"+dateSplit[5].toString());
+                    break;
+                case"Jul":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"07"+"-"+dateSplit[5].toString());
+                    break;
+                case"Aug":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"08"+"-"+dateSplit[5].toString());
+                    break;
+                case"Sep":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"09"+"-"+dateSplit[5].toString());
+                    break;
+                case"Oct":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"10"+"-"+dateSplit[5].toString());
+                    break;
+                case"Nov":
+                    dateArray2.add(dateSplit[2].toString()+"-"+"11"+"-"+dateSplit[5].toString());
+                    break;
+                default:
+                    dateArray2.add(dateSplit[2].toString()+"-"+"12"+"-"+dateSplit[5].toString());
+
+            }
+        }
+        return dateArray2;
+    }
+
 
     public ListSellersPostDTO orderAscDescArrayDate(ListSellersPostDTO list, String order){
 
         ListSellersPostDTO lis= new ListSellersPostDTO();
 
         List<String> dateArray = new ArrayList<String>();
+        List<String> dateArray2 = new ArrayList<String>();
+        Calendar date = new Calendar.Builder().build();
+        List<Date> dates = new ArrayList<>();
+        List<Date> dates1 = new ArrayList<Date>();
         ArrayList<PostDTO> post = new ArrayList<>();
         if(order.equals("date_desc")){
 
             for (int i = 0; i < list.getPublicacions().size(); i++) {
 
                 dateArray.add(list.getPublicacions().get(i).getDate());
-
             }
 
-            for (int i = 0; i < dateArray.size(); i++) {
-                System.out.println(dateArray.get(i));
+            for (int i = 0; i <dateArray.size() ; i++) {
+                String[] parts = dateArray.get(i).split("-");
+                date.set(Integer.parseInt(parts[2]), (Integer.parseInt(parts[1])-1), Integer.parseInt(parts[0]));
+                dates.add(date.getTime());
             }
+            dates1 =dates.stream().sorted().collect(Collectors.toList());
+            dateArray2=modifyDate(dates1);
 
-            System.out.println("antes");
-
-
-            Collections.sort(dateArray);
-
-
-
-            for (int i = 0; i < dateArray.size(); i++) {
+            for (int i = 0; i < dateArray2.size(); i++) {
                 for (int j = 0; j < list.getPublicacions().size(); j++) {
-                    if(dateArray.get(i).equals(list.getPublicacions().get(j).getDate())){
-
-
+                    if(dateArray2.get(i).equals(list.getPublicacions().get(j).getDate())){
                         post.add(list.getPublicacions().get(j));
 
                     }
 
                 }
-
-
             }
-
-
             lis.setPublicacions(post);
 
         }else{
@@ -168,28 +210,23 @@ public class SocialServiceImple implements SocialService {
                 dateArray.add(list.getPublicacions().get(i).getDate());
 
             }
-
-
-            Collections.sort(dateArray);
-
-
-            dateArray.sort(Collections.reverseOrder());
-
-
-            for (int i = 0; i < dateArray.size(); i++) {
+            for (int i = 0; i <dateArray.size() ; i++) {
+                String[] parts = dateArray.get(i).split("-");
+                date.set(Integer.parseInt(parts[2]), (Integer.parseInt(parts[1])-1), Integer.parseInt(parts[0]));
+                dates.add(date.getTime());
+            }
+            dates1 =dates.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+            dateArray2=modifyDate(dates1);
+            for (int i = 0; i < dateArray2.size(); i++) {
 
                 for (int j = 0; j < list.getPublicacions().size(); j++) {
 
-                    if(dateArray.get(i).equals(list.getPublicacions().get(j).getDate())){
+                    if(dateArray2.get(i).equals(list.getPublicacions().get(j).getDate())){
                         post.add(list.getPublicacions().get(j));
                     }
-
                 }
-
-
             }
             lis.setPublicacions(post);
-
         }
 
         return lis;
