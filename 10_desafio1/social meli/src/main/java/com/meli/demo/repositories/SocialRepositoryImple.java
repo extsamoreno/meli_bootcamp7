@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.text.DateFormat;
 import java.util.*;
 
 @Repository
@@ -36,8 +37,18 @@ public class SocialRepositoryImple implements SocialRepository {
     ArrayList<PostDiscountDTO> postDto1 = new ArrayList<>();
     ArrayList<PostDiscountDTO> postDto2 = new ArrayList<>();
     ArrayList<PostDiscountDTO> postDto3 = new ArrayList<>();
-
+    public static String formatearCalendar(Calendar c) {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
+        return df.format(c.getTime());
+    }
     public void cargarDatos(){
+
+        Calendar c = Calendar.getInstance();
+
+        System.out.println("Fecha original: " + formatearCalendar(c));
+
+        c.add(Calendar.DAY_OF_YEAR, -2);
+        System.out.println("-2 días: " + formatearCalendar(c));
 
         UserDTO user1 = new UserDTO(101,"Comprador Juanito");
         UserDTO user2 = new UserDTO(102,"Comprador Maria");
@@ -54,6 +65,16 @@ public class SocialRepositoryImple implements SocialRepository {
         UserDTO user13 = new UserDTO(113,"Comprador Bogota");
         UserDTO user14 = new UserDTO(114,"Comprador Suirt");
         UserDTO user15 = new UserDTO(115,"Comprador Claudia");
+
+        /*DateUserFollowDTO Duser1 = new DateUserFollowDTO(101,new Date());
+        DateUserFollowDTO Duser2 = new DateUserFollowDTO(101,new Date());
+        DateUserFollowDTO Duser3 = new DateUserFollowDTO(101,new Date());
+        DateUserFollowDTO Duser4 = new DateUserFollowDTO(101,new Date());
+        DateUserFollowDTO Duser5 = new DateUserFollowDTO(101,new Date());
+        DateUserFollowDTO Duser6 = new DateUserFollowDTO(101,new Date());
+        DateUserFollowDTO Duser7 = new DateUserFollowDTO(101,new Date());
+        DateUserFollowDTO Duser8 = new DateUserFollowDTO(101,new Date());
+        DateUserFollowDTO Duser9 = new DateUserFollowDTO(101,new Date());*/
 
         UserDTO.add(user1);
         UserDTO.add(user2);
@@ -140,7 +161,6 @@ public class SocialRepositoryImple implements SocialRepository {
             }
         }
         for (int i = 0; i < Sellers.size(); i++) {
-
             if(Sellers.get(i).getId()==id_vendedor){
 
                 if(usuario1.getUserName().isEmpty()){
@@ -149,9 +169,6 @@ public class SocialRepositoryImple implements SocialRepository {
                     Sellers.get(i).getUsuarios().add(usuario1);
                     return true;
                 }
-            }else{
-                return false;
-
             }
         }
 
@@ -165,7 +182,6 @@ public class SocialRepositoryImple implements SocialRepository {
         for (int i = 0; i < Sellers.size(); i++) {
 
             if(Sellers.get(i).getId()==iduser){
-
                 cantidad.setUserid(Sellers.get(i).getId());
                 cantidad.setUserName(Sellers.get(i).getNombre());
                 cantidad.setFollowers_count(Sellers.get(i).getUsuarios().size());
@@ -180,9 +196,9 @@ public class SocialRepositoryImple implements SocialRepository {
 
             if(Sellers.get(i).getId()==iduser){
 
-                list.setId(Sellers.get(i).getId());
-                list.setNombre(Sellers.get(i).getNombre());
-                list.setUsuarios(Sellers.get(i).getUsuarios());
+                list.setUserId(Sellers.get(i).getId());
+                list.setUserName(Sellers.get(i).getNombre());
+                list.setFollowers(Sellers.get(i).getUsuarios());
             }
         }
 
@@ -229,16 +245,16 @@ public class SocialRepositoryImple implements SocialRepository {
     }
 
     @Override
-    public ListSellersPostDTO listPostVendedors(int iduser) {
+    public ListSellersPostDTO getListPostVendedors(int iduser) {
 
         ListSellersPostDTO response= new ListSellersPostDTO();
         ArrayList<PostDTO> post = new ArrayList<>();
         for (int i = 0; i < UserDTO.size(); i++) {
             if(UserDTO.get(i).getUserId()==iduser){
-                response.setId(UserDTO.get(i).getUserId());
+                response.setUserId(UserDTO.get(i).getUserId());
                 for (int j = 0; j < Sellers.size(); j++) {
                     for (int t = 0; t < Sellers.get(j).getUsuarios().size(); t++) {
-
+                        System.out.println(Sellers.get(j).getUsuarios().get(t).getUserId());
                         if(Sellers.get(j).getUsuarios().get(t).getUserId()==iduser){
                             for (int l = 0; l < Sellers.get(j).getPublicacions().size(); l++) {
 
@@ -253,7 +269,7 @@ public class SocialRepositoryImple implements SocialRepository {
             }
 
         }
-        response.setPublicacions(post);
+        response.setPosts(post);
 
         return response;
     }

@@ -27,7 +27,7 @@ public class SocialServiceImple implements SocialService {
         FollowRepository.cargarDatos();
 
         if(FollowRepository.Follow(userid,usertofollow)){
-            return "ok";
+            return "todo OK";
         }
         else{
             throw new FollowException();
@@ -53,7 +53,7 @@ public class SocialServiceImple implements SocialService {
     @Override
     public String newPost(PostDTO poubli) throws PostException {
         if(FollowRepository.newPost(poubli)){
-            return "ok";
+            return "todo OK";
         }
         else{
             throw new PostException();
@@ -63,39 +63,38 @@ public class SocialServiceImple implements SocialService {
     @Override
     public ListSellersPostDTO listPostVendedors(int iduser) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
-        lis=FollowRepository.listPostVendedors(iduser);
+        lis=FollowRepository.getListPostVendedors(iduser);
+        System.out.println(lis);
 
 
         List<String> dateArray = new ArrayList<String>();
         ArrayList<PostDTO> post = new ArrayList<>();
 
-        for (int i = 0; i < lis.getPublicacions().size(); i++) {
+        for (int i = 0; i < lis.getPosts().size(); i++) {
 
-            dateArray.add(lis.getPublicacions().get(i).getDate());
+            dateArray.add(lis.getPosts().get(i).getDate());
 
         }
         Collections.sort(dateArray);
 
         for (int i = 0; i < dateArray.size(); i++) {
 
-            for (int j = 0; j < lis.getPublicacions().size(); j++) {
+            for (int j = 0; j < lis.getPosts().size(); j++) {
 
-                if(dateArray.get(i).equals(lis.getPublicacions().get(j).getDate())){
-                    post.add(lis.getPublicacions().get(j));
+                if(dateArray.get(i).equals(lis.getPosts().get(j).getDate())){
+                    post.add(lis.getPosts().get(j));
                 }
 
             }
-
-
         }
-       lis.setPublicacions(post);
+       lis.setPosts(post);
         return lis;
     }
 
     @Override
-    public void unFollow(int userid, int usertofollow) throws FollowException {
+    public String unFollow(int userid, int usertofollow) throws FollowException {
         if(FollowRepository.unFollow(userid,usertofollow)){
-
+            return "todo OK";
         }
         else{
             throw new FollowException();
@@ -105,7 +104,7 @@ public class SocialServiceImple implements SocialService {
     @Override
     public ListSellersPostDTO orderDateAscDesc(int UserID, String order) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
-        lis=FollowRepository.listPostVendedors(UserID);
+        lis=FollowRepository.getListPostVendedors(UserID);
 
 
         return orderAscDescArrayDate(lis,order);
@@ -113,7 +112,7 @@ public class SocialServiceImple implements SocialService {
     @Override
     public ListSellersPostDTO orderNameAscDesc(int UserID, String order) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
-        lis=FollowRepository.listPostVendedors(UserID);
+        lis=FollowRepository.getListPostVendedors(UserID);
         return orderAscDescArrayName(lis,order);
     }
 
@@ -178,9 +177,9 @@ public class SocialServiceImple implements SocialService {
         ArrayList<PostDTO> post = new ArrayList<>();
         if(order.equals("date_desc")){
 
-            for (int i = 0; i < list.getPublicacions().size(); i++) {
+            for (int i = 0; i < list.getPosts().size(); i++) {
 
-                dateArray.add(list.getPublicacions().get(i).getDate());
+                dateArray.add(list.getPosts().get(i).getDate());
             }
 
             for (int i = 0; i <dateArray.size() ; i++) {
@@ -192,22 +191,22 @@ public class SocialServiceImple implements SocialService {
             dateArray2=modifyDate(dates1);
 
             for (int i = 0; i < dateArray2.size(); i++) {
-                for (int j = 0; j < list.getPublicacions().size(); j++) {
-                    if(dateArray2.get(i).equals(list.getPublicacions().get(j).getDate())){
-                        post.add(list.getPublicacions().get(j));
+                for (int j = 0; j < list.getPosts().size(); j++) {
+                    if(dateArray2.get(i).equals(list.getPosts().get(j).getDate())){
+                        post.add(list.getPosts().get(j));
 
                     }
 
                 }
             }
-            lis.setPublicacions(post);
+            lis.setPosts(post);
 
         }else{
 
 
-            for (int i = 0; i < list.getPublicacions().size(); i++) {
+            for (int i = 0; i < list.getPosts().size(); i++) {
 
-                dateArray.add(list.getPublicacions().get(i).getDate());
+                dateArray.add(list.getPosts().get(i).getDate());
 
             }
             for (int i = 0; i <dateArray.size() ; i++) {
@@ -219,14 +218,14 @@ public class SocialServiceImple implements SocialService {
             dateArray2=modifyDate(dates1);
             for (int i = 0; i < dateArray2.size(); i++) {
 
-                for (int j = 0; j < list.getPublicacions().size(); j++) {
+                for (int j = 0; j < list.getPosts().size(); j++) {
 
-                    if(dateArray2.get(i).equals(list.getPublicacions().get(j).getDate())){
-                        post.add(list.getPublicacions().get(j));
+                    if(dateArray2.get(i).equals(list.getPosts().get(j).getDate())){
+                        post.add(list.getPosts().get(j));
                     }
                 }
             }
-            lis.setPublicacions(post);
+            lis.setPosts(post);
         }
 
         return lis;
@@ -240,32 +239,32 @@ public class SocialServiceImple implements SocialService {
         List<String> nameArray = new ArrayList<String>();
         ArrayList<PostDTO> post = new ArrayList<>();
 
-        lis.setId(list.getId());
+        lis.setUserId(list.getUserId());
         if(order.equals("name_desc")){
-            for (int i = 0; i < list.getPublicacions().size(); i++) {
+            for (int i = 0; i < list.getPosts().size(); i++) {
 
-                nameArray.add(list.getPublicacions().get(i).getDetail().getProductName());
+                nameArray.add(list.getPosts().get(i).getDetail().getProductName());
 
             }
             Collections.sort(nameArray);
 
 
             for (int i = 0; i < nameArray.size(); i++) {
-                for (int j = 0; j < list.getPublicacions().size(); j++) {
-                    if(nameArray.get(i).equals(list.getPublicacions().get(j).getDetail().getProductName())){
-                        post.add(list.getPublicacions().get(j));
+                for (int j = 0; j < list.getPosts().size(); j++) {
+                    if(nameArray.get(i).equals(list.getPosts().get(j).getDetail().getProductName())){
+                        post.add(list.getPosts().get(j));
                     }
                 }
             }
-            lis.setPublicacions(post);
+            lis.setPosts(post);
 
 
         }else{
 
 
-            for (int i = 0; i < list.getPublicacions().size(); i++) {
+            for (int i = 0; i < list.getPosts().size(); i++) {
 
-                nameArray.add(list.getPublicacions().get(i).getDetail().getProductName());
+                nameArray.add(list.getPosts().get(i).getDetail().getProductName());
 
             }
             Collections.sort(nameArray);
@@ -273,17 +272,17 @@ public class SocialServiceImple implements SocialService {
 
             for (int i = 0; i < nameArray.size(); i++) {
 
-                for (int j = 0; j < list.getPublicacions().size(); j++) {
+                for (int j = 0; j < list.getPosts().size(); j++) {
 
-                    if(nameArray.get(i).equals(list.getPublicacions().get(j).getDetail().getProductName())){
-                        post.add(list.getPublicacions().get(j));
+                    if(nameArray.get(i).equals(list.getPosts().get(j).getDetail().getProductName())){
+                        post.add(list.getPosts().get(j));
                     }
 
                 }
 
 
             }
-            lis.setPublicacions(post);
+            lis.setPosts(post);
 
         }
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @AllArgsConstructor@NoArgsConstructor
 public class LisUsersResponseDTO {
 
-    private int id;
-    private String nombre;
-    private ArrayList<UserDTO> usuarios;
+    private int userId;
+    private String userName;
+    private ArrayList<UserDTO> followers;
 }

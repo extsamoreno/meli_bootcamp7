@@ -12,7 +12,7 @@ public interface SocialRepository {
     LisUsersResponseDTO listUsers(int iduser);
     ListSellersResponseDTO listVendedores(int iduser);
     boolean newPost(PostDTO publi);
-    ListSellersPostDTO listPostVendedors(int iduser);
+    ListSellersPostDTO getListPostVendedors(int iduser);
     boolean unFollow(int iduser, int id_vendedor);
     boolean newPostDiscount(PostDiscountDTO publi);
     SellerDTO getVendedor(int userId);

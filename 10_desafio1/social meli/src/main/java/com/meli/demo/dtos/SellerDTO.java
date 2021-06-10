@@ -15,4 +15,5 @@ public class SellerDTO {
     private ArrayList<PostDTO> publicacions;
     private ArrayList<PostDiscountDTO> postDto;
     private ArrayList<UserDTO> usuarios;
+    //private ArrayList<DateUserFollowDTO> dateFollow;
 }

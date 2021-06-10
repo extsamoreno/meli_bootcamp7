@@ -14,7 +14,7 @@ public interface SocialService {
     ListSellersResponseDTO listVendedores(int iduser);
     String newPost(PostDTO post) throws  PostException;
     ListSellersPostDTO listPostVendedors(int iduser);
-    void unFollow(int userid, int  usertofollow) throws FollowException;
+    String unFollow(int userid, int  usertofollow) throws FollowException;
     ListSellersPostDTO orderDateAscDesc(int UserID, String order);
     ListSellersPostDTO orderNameAscDesc(int UserID, String order);
     String newPostDiscount(PostDiscountDTO poubli) throws PostDiscountException ;

@@ -17,7 +17,7 @@ public class SocialController {
 
     @Autowired
     SocialService FollowService;
-    //POST http://localhost:8080/social/users/111/follow/1001
+    //POST http://localhost:8080/social/users/101/follow/1002
     @PostMapping("/users/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> Follow(@PathVariable int userId, @PathVariable int userIdToFollow) throws FollowException {
         return new ResponseEntity<>(FollowService.Follow(userId,userIdToFollow), HttpStatus.OK);
@@ -61,6 +61,8 @@ public class SocialController {
 }
      */
 
+    //POST http://localhost:8080/social/products/newpost
+
     @PostMapping("/products/newpost")
     public ResponseEntity<String> newPost(@RequestBody PostDTO pubtDTO) throws PostException {
         return new ResponseEntity<>(FollowService.newPost(pubtDTO), HttpStatus.OK);
@@ -74,11 +76,10 @@ public class SocialController {
     }
 
     //POST http://localhost:8080/social/users/101/unfollow/1001
-
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
-    public  ResponseEntity  unFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws FollowException {
-        FollowService.unFollow(userId,userIdToUnfollow);
-        return new ResponseEntity(HttpStatus.OK);
+    public  ResponseEntity<String>   unFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws FollowException {
+        ;
+        return new ResponseEntity(FollowService.unFollow(userId,userIdToUnfollow),HttpStatus.OK);
     }
 
 

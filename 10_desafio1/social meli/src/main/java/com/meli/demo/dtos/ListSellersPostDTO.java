@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 @Data@AllArgsConstructor@NoArgsConstructor
 public class ListSellersPostDTO {
-    private int id;
-    private ArrayList<PostDTO> publicacions;
+    private int userId;
+    private ArrayList<PostDTO> posts;
 }
