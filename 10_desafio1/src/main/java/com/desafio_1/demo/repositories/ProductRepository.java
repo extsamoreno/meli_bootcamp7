@@ -3,12 +3,11 @@ package com.desafio_1.demo.repositories;
 import com.desafio_1.demo.exceptions.UnhandledException;
 import com.desafio_1.demo.models.Product;
 import com.desafio_1.demo.models.ProductDetail;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -35,10 +34,11 @@ public class ProductRepository implements IProductRepository{
     @Override
     public ArrayList<Product> findProductsByFollowedId(List<Integer> followedIds, Comparator<LocalDate> c) throws UnhandledException {
         try{
+
             ArrayList<Product> products = new ArrayList<>();
 
             List<Product> productsFind = listProducts.stream()
-                    .filter(p -> followedIds.contains(p.getUserId()))
+                    .filter(p -> followedIds.contains(p.getUserId()) && p.getDate().isAfter(LocalDate.now().minusDays(14)))
                     .sorted((a, b) -> c.compare(a.getDate(), b.getDate()))
                     .collect(Collectors.toList());
 
