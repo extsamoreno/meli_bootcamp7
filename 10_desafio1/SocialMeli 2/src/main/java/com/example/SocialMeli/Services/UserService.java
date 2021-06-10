@@ -129,9 +129,4 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
         return comparator;
     }
 
-
-
-    public List<User> getdb(){
-        return iDataRepository.getUsers();
-    }
 }

@@ -53,10 +53,4 @@ public class UserController {
         return new ResponseEntity<>(iUserService.getFollowed(userId, order), HttpStatus.OK);
     }
 
-
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> follow (){
-
-        return new ResponseEntity<>(iUserService.getdb(), HttpStatus.OK);
-    }
 }
