@@ -3,8 +3,6 @@ package com.example.desafio1.repository;
 import com.example.desafio1.exception.post.PostAlreadyExistException;
 import com.example.desafio1.exception.user.UserNotFoundException;
 import com.example.desafio1.model.Post;
-import com.example.desafio1.model.User;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +11,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-import static JavaUtils.JavaUtils.convertToLocalDate;
-import static JavaUtils.JavaUtils.orderByDateASC;
+import static JavaUtils.JavaUtils.*;
 
 @Repository
 public class PostRepository implements iPostRepository {
@@ -44,8 +41,8 @@ public class PostRepository implements iPostRepository {
     }
 
     @Override
-    // Search posts created up "weeksToFind" weeks ago
-    public ArrayList<Post> findWeeksPosts(int weeksToFind) {
+    // Search posts created up "weeksToFind" ago
+    public ArrayList<Post> findNewerPosts(int weeksToFind) {
 
         // New list to return
         ArrayList<Post> listPosts = new ArrayList<>();
@@ -67,18 +64,15 @@ public class PostRepository implements iPostRepository {
             }
         }
 
-        // Order posts by Date ASC
-        orderByDateASC(listPosts);
-
         return listPosts;
     }
 
     @Override
     // Search posts created up "weeksToFind" ago by userId
-    public ArrayList<Post> findWeeksPostsByUserId(Integer id, Integer weeksToFind) throws UserNotFoundException {
+    public ArrayList<Post> findNewerPostsByUserId(Integer id, Integer weeksToFind) throws UserNotFoundException {
 
         // List with the last posts (filtered by weeks)
-        ArrayList<Post> listPostsWeeks = findWeeksPosts(weeksToFind);
+        ArrayList<Post> listPostsWeeks = findNewerPosts(weeksToFind);
 
         // List to return filtered by id and weeks
         ArrayList<Post> listPostsFiltered = new ArrayList<>();

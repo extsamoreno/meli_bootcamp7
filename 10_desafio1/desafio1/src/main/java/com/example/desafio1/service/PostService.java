@@ -1,5 +1,6 @@
 package com.example.desafio1.service;
 
+import JavaUtils.JavaUtils;
 import com.example.desafio1.exception.post.PostAlreadyExistException;
 import com.example.desafio1.exception.user.UserNotFoundException;
 import com.example.desafio1.model.Post;
@@ -11,6 +12,8 @@ import com.example.desafio1.service.dto.post.ResponseListPostDTO;
 import com.example.desafio1.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class PostService implements iPostService {
@@ -27,9 +30,9 @@ public class PostService implements iPostService {
         iPostRepository.savePost(post);
     }
 
-    // Get a list of the posts made by the sellers that a user follows (post made last weeks)
+    // Returns a list of the posts made by the sellers that a user follows (post made last weeks)
     @Override
-    public ResponseListFollowedSellers listPostsFollowed(Integer userId) throws UserNotFoundException {
+    public ResponseListFollowedSellers listPostsFollowed(Integer userId, String order) throws UserNotFoundException {
 
         ResponseListFollowedSellers listFollowedSellerDTO = new ResponseListFollowedSellers();
         User followerUser = iUserRepository.findUserById(userId);
@@ -37,16 +40,32 @@ public class PostService implements iPostService {
         // Creating list with sellers followed
         for (User seller : followerUser.getFollows()) {
 
-            ResponseListPostDTO listPostDTO = new ResponseListPostDTO();
-            listPostDTO.setUserId(seller.getUserId());
-
-            // Creating list with seller posts
-            for (Post p : iPostRepository.findWeeksPostsByUserId(seller.getUserId(), 2)) {
-                listPostDTO.getPosts().add(PostMapper.postToDto(p));
-            }
-
+            // Get last sellers posts
+            ResponseListPostDTO listPostDTO = lastSellerPosts(seller.getUserId(), order);
             listFollowedSellerDTO.getListFollowersPosts().add(listPostDTO);
         }
         return listFollowedSellerDTO;
+    }
+
+    // Returns a list with last seller posts (weeksToFind is a filter)
+    @Override
+    public ResponseListPostDTO lastSellerPosts(Integer userId, String order) throws UserNotFoundException {
+
+        User sellerUser = iUserRepository.findUserById(userId);
+        ResponseListPostDTO sellerPosts = new ResponseListPostDTO();
+
+        // Creating list with last seller posts
+        for (Post p : iPostRepository.findNewerPostsByUserId(sellerUser.getUserId(), 2)) {
+            sellerPosts.getPosts().add(PostMapper.postToDto(p));
+        }
+
+        // Order posts by date (asc/desc)
+        if(order.equals("date_asc")){
+            JavaUtils.orderByDateAsc(sellerPosts.getPosts());
+        }else if(order.equals("date_desc")) {
+            JavaUtils.orderByDateDesc(sellerPosts.getPosts());
+        }
+
+        return sellerPosts;
     }
 }

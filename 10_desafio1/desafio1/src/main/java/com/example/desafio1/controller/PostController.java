@@ -24,8 +24,8 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<ResponseListFollowedSellers> listPostsFollowed(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iPostService.listPostsFollowed(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseListFollowedSellers> listPostsFollowed(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "date_desc") String order) throws UserNotFoundException {
+        return new ResponseEntity<>(iPostService.listPostsFollowed(userId, order), HttpStatus.OK);
     }
 }
 

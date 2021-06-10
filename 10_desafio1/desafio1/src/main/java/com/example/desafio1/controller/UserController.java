@@ -35,22 +35,20 @@ public class UserController {
 
     // User followers list
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<ResponseListFollowersDTO> listFollowers(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.listFollowers(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseListFollowersDTO> listFollowers(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws UserNotFoundException {
+        return new ResponseEntity<>(iUserService.listFollowers(userId, order), HttpStatus.OK);
     }
 
-    // User followed list
+    // User followed list / order ASC by default
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<ResponseListFollowedDTO> listFollowed(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<>(iUserService.listFollowed(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseListFollowedDTO> listFollowed(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order)  throws UserNotFoundException {
+        return new ResponseEntity<>(iUserService.listFollowed(userId, order), HttpStatus.OK);
     }
 
-    // Unfollow a user
+    // Unfollow a user / order ASC by default
     @PostMapping("/{userId}/unfollow/{userIdToUnFollow}")
     public ResponseEntity<Void> unFollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnFollow) throws UserNotFoundException, UserNotFollowException {
         iUserService.unFollowUser(userId, userIdToUnFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }

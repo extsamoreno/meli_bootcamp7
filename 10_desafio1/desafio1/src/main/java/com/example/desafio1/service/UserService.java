@@ -1,5 +1,6 @@
 package com.example.desafio1.service;
 
+import JavaUtils.JavaUtils;
 import com.example.desafio1.exception.user.UserAlreadyFollowException;
 import com.example.desafio1.exception.user.UserFollowEqualsFollowerException;
 import com.example.desafio1.exception.user.UserNotFollowException;
@@ -57,17 +58,33 @@ public class UserService implements iUserService {
 
     // User list followers
     @Override
-    public ResponseListFollowersDTO listFollowers(Integer userId) throws UserNotFoundException {
+    public ResponseListFollowersDTO listFollowers(Integer userId, String order) throws UserNotFoundException {
 
         User followedUser = iUserRepository.findUserById(userId);
+
+        // Order list by name (asc/desc)
+        if(order.equals("name_asc")) {
+            JavaUtils.orderByUserNameAsc(followedUser.getFollowers());
+        }else if(order.equals("name_desc")){
+            JavaUtils.orderByUserNameDesc(followedUser.getFollowers());
+        }
+
         return UserMapper.toResponseListFollowersDTO(followedUser);
     }
 
     // User list followed
     @Override
-    public ResponseListFollowedDTO listFollowed(Integer userId) throws UserNotFoundException {
+    public ResponseListFollowedDTO listFollowed(Integer userId, String order) throws UserNotFoundException {
 
         User followerUser = iUserRepository.findUserById(userId);
+
+        // Order users by name (asc/desc)
+        if(order.equals("name_asc")) {
+            JavaUtils.orderByUserNameAsc(followerUser.getFollows());
+        }else if(order.equals("name_desc")){
+            JavaUtils.orderByUserNameDesc(followerUser.getFollows());
+        }
+
         return UserMapper.toResponseListFollowedDTO(followerUser);
     }
 
