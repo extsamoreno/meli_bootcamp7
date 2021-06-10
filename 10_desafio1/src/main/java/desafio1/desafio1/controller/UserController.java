@@ -2,6 +2,7 @@ package desafio1.desafio1.controller;
 
 
 import desafio1.desafio1.domain.User;
+import desafio1.desafio1.exception.productException.UnfollowException;
 import desafio1.desafio1.exception.userException.UserNotFoundException;
 import desafio1.desafio1.exception.userException.ValidateSellerException;
 import desafio1.desafio1.exception.userException.ValidateUserException;
@@ -43,5 +44,10 @@ public class UserController {
     }
 
 
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Void> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException, UnfollowException, ValidateSellerException {
+        userService.unfollow(userId, userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

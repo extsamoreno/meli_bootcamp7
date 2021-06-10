@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import desafio1.desafio1.domain.Publications;
 import desafio1.desafio1.domain.User;
+import desafio1.desafio1.exception.productException.UnfollowException;
 import desafio1.desafio1.exception.userException.UserNotFoundException;
+import desafio1.desafio1.exception.userException.ValidateSellerException;
 import desafio1.desafio1.service.userService.dto.UserSaveDTO;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
@@ -87,11 +89,67 @@ public class UserRepository implements IUserRepository {
 
     }
 
-    @Override
+   @Override
     public List<Publications> findPublicationByUserID(int userId) throws UserNotFoundException {
         return findUserById(userId).getPublicationsList();
     }
 
+    @Override
+    public void unfollow(int userId, int userIdToUnfollow) throws UserNotFoundException, UnfollowException, ValidateSellerException {
+        User user = findUserById(userId);
+        User userToUnfollow = findUserById(userIdToUnfollow);
+
+        removeFollowMe(user, userToUnfollow);
+        removeFollow(user, userToUnfollow);
+
+    }
+
+    private void removeFollowMe(User user, User userToUnfollow) throws UnfollowException { //eliminar quien me sigue
+        List<UserSaveDTO> listFollowMe = new ArrayList<>();
+        listFollowMe = user.getFollowMeList();
+        boolean flag = false;
+
+        if(listFollowMe != null){
+            for(int i=0 ; i<listFollowMe.size() ; i++){
+                if(listFollowMe.get(i).getUserId() == userToUnfollow.getUserId()){
+                    for(int j=0 ; j<listUser.size() ; j++){
+                        if(listUser.get(j).getUserId() == user.getUserId()){
+                            flag = true;
+                            listUser.get(j).getFollowMeList().remove(userToUnfollow);
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+
+    private void removeFollow(User user, User userToUnfollow) throws UnfollowException, ValidateSellerException { //eliminar quien sigo
+        List<UserSaveDTO> listFollow = new ArrayList<>();
+        listFollow = user.getFollowList();
+        boolean flag = false; //se que esta feo
+
+        //validar que es un vendedor a quien dejo de seguir
+
+        if (!userToUnfollow.getUserName().contains("vendedor")) {  //Valido si quien voy a dejar de seguir es un vendedor
+            throw new ValidateSellerException(user.getUserId());
+        }
+
+        if(listFollow != null){
+            for(int i=0 ; i<listFollow.size() ; i++){
+                if(listFollow.get(i).getUserId() == userToUnfollow.getUserId()){
+                    for(int j=0 ; j<listUser.size() ; j++){
+                        if(listUser.get(j).getUserId() == user.getUserId()){
+                            flag = true;
+                            listUser.get(j).getFollowMeList().remove(userToUnfollow);
+                        }
+                    }
+                }
+            }
+            if(flag == false) throw new UnfollowException(userToUnfollow.getUserId());
+        }
+    }
 
     private List<User> loadDataBase() {
         File file = null;

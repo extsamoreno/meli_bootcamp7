@@ -1,6 +1,7 @@
 package desafio1.desafio1.service.userService;
 
 import desafio1.desafio1.domain.User;
+import desafio1.desafio1.exception.productException.UnfollowException;
 import desafio1.desafio1.exception.userException.UserNotFoundException;
 import desafio1.desafio1.exception.userException.ValidateSellerException;
 import desafio1.desafio1.exception.userException.ValidateUserException;
@@ -95,5 +96,10 @@ public class UsersService implements IUsersService {
 
         return userListDTO;
 
+    }
+
+    @Override
+    public void unfollow(int userId, int userIdToUnfollow) throws UserNotFoundException, UnfollowException, ValidateSellerException {
+        userRepository.unfollow(userId,userIdToUnfollow);
     }
 }

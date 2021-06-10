@@ -90,23 +90,4 @@ public class ProductService implements IProductService {
     }
 
 
-/*
-
-    public PostListDTO getPostList(Integer userId) {
-        List<UserDTO> listFollowed= repository.followedList(userId);
-        List<PostDTO> listPost = new ArrayList<>();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.WEEK_OF_YEAR, -2);
-
-        for (UserDTO user: listFollowed) {
-            listPost = Stream.concat(listPost.stream(), repository.findPostByUserId(user.getUserId()).stream())
-                    .filter(post -> post.getDate().after(calendar.getTime()))
-                    .sorted(Comparator.comparing(PostDTO::getDate).reversed())
-                    .collect(Collectors.toList());
-        }
-
-        return new PostListDTO(userId,listPost);
-    }*/
-
 }
