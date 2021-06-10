@@ -8,11 +8,15 @@ import com.bootcamp.socialmeli.mapper.PostMapper;
 import com.bootcamp.socialmeli.model.Post;
 import com.bootcamp.socialmeli.model.User;
 import com.bootcamp.socialmeli.repository.IDataRepository;
+import com.bootcamp.socialmeli.util.DateUtilities;
+import com.bootcamp.socialmeli.util.SortUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService implements IPostService {
@@ -22,6 +26,9 @@ public class PostService implements IPostService {
 
     @Autowired
     PostMapper postMapper;
+
+    @Autowired
+    SortUtilities sortUtilities;
 
     @Override
     public void newPost(PostDTOreq postDTOreq) throws PostAlreadyRegisteredException, UserIdNotFoundException {
@@ -48,7 +55,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public ListOfFollowedPostsDTOres getFollowedPost(Integer userId) throws UserIdNotFoundException {
+    public ListOfFollowedPostsDTOres getFollowedPost(Integer userId, Optional<String> order) throws UserIdNotFoundException {
 
         User user = dataRepository.findUserById(userId);
         List<Integer> followed = user.getFollowed();
@@ -62,7 +69,13 @@ public class PostService implements IPostService {
             }
         }
 
-        postFollowed.sort((p1, p2) -> p2.getDate().compareTo(p1.getDate()));
+        sortUtilities.sortListOfPosts(postFollowed, order);
+
+        //Filtro los post si son posteriores a dos semanas
+        postFollowed = postFollowed
+                .stream()
+                .filter(p -> p.getDate().isAfter(DateUtilities.twoWeeksAgo))
+                .collect(Collectors.toList());
 
         return postMapper.toListOfFollowedPostDTO(postFollowed, userId);
     }

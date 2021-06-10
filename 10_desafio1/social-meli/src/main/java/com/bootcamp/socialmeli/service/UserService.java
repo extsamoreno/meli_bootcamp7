@@ -9,10 +9,12 @@ import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.mapper.UserMapper;
 import com.bootcamp.socialmeli.model.User;
 import com.bootcamp.socialmeli.repository.IDataRepository;
+import com.bootcamp.socialmeli.util.SortUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService{
@@ -22,6 +24,9 @@ public class UserService implements IUserService{
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    SortUtilities sortUtilities;
 
     @Override
     public void follow(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException, FollowYourselfException {
@@ -74,17 +79,25 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public UserFollowersListDTOres getListUserFollowers(Integer id) throws UserIdNotFoundException {
+    public UserFollowersListDTOres getListUserFollowers(Integer id, Optional<String> order) throws UserIdNotFoundException {
         User user = dataRepository.findUserById(id);
 
-        return userMapper.toListUserFollowersDTO(user, dataRepository.getUserFollowers(id));
+        List<User> userFollowers = dataRepository.getUserFollowers(id);
+
+        sortUtilities.sortListOfUsers(userFollowers, order);
+
+        return userMapper.toListUserFollowersDTO(user, userFollowers);
     }
 
     @Override
-    public UserFollowedListDTOres getListUserFollowed(Integer id) throws UserIdNotFoundException {
+    public UserFollowedListDTOres getListUserFollowed(Integer id, Optional<String> order) throws UserIdNotFoundException {
         User user = dataRepository.findUserById(id);
 
-        return userMapper.toListUserFollowedDTO(user, dataRepository.getUserFollowed(id));
+        List<User> userFollowed = dataRepository.getUserFollowed(id);
+
+        sortUtilities.sortListOfUsers(userFollowed, order);
+
+        return userMapper.toListUserFollowedDTO(user, userFollowed );
     }
 
     @Override

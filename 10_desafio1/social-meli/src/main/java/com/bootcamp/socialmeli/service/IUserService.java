@@ -9,6 +9,7 @@ import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserService {
     void follow(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException, FollowYourselfException;
@@ -17,9 +18,9 @@ public interface IUserService {
 
     UserAmountFollowersDTOres getAmountUserFollowers(Integer id) throws UserIdNotFoundException;
 
-    UserFollowersListDTOres getListUserFollowers(Integer id) throws UserIdNotFoundException;
+    UserFollowersListDTOres getListUserFollowers(Integer id, Optional<String> order) throws UserIdNotFoundException;
 
-    UserFollowedListDTOres getListUserFollowed(Integer id) throws UserIdNotFoundException;
+    UserFollowedListDTOres getListUserFollowed(Integer id, Optional<String> order) throws UserIdNotFoundException;
 
     void unfollow(Integer userId, Integer userIdToUnfollow) throws UnfollowYourselfException, UserIdNotFoundException;
 }

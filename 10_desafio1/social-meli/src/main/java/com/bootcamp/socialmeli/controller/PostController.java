@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -29,7 +30,8 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<ListOfFollowedPostsDTOres> getFollowedPosts(@PathVariable Integer userId) throws UserIdNotFoundException {
-        return new ResponseEntity<>(productService.getFollowedPost(userId), HttpStatus.OK);
+    public ResponseEntity<ListOfFollowedPostsDTOres> getFollowedPosts(
+            @PathVariable Integer userId, @RequestParam Optional<String> order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(productService.getFollowedPost(userId, order), HttpStatus.OK);
     }
 }
