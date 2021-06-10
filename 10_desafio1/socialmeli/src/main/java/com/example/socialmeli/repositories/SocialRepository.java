@@ -1,11 +1,10 @@
 package com.example.socialmeli.repositories;
 
-import com.example.socialmeli.dtos.*;
+import com.example.socialmeli.dtos.user.*;
 import com.example.socialmeli.exceptions.FollowAlreadyExistException;
 import com.example.socialmeli.exceptions.MerchantNotFoundException;
 import com.example.socialmeli.exceptions.UserNotFoundException;
-import com.example.socialmeli.mappers.SocialMapper;
-import com.example.socialmeli.models.Post;
+import com.example.socialmeli.services.mappers.SocialMapper;
 import com.example.socialmeli.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -47,6 +46,13 @@ public class SocialRepository implements ISocialRepository{
         return merchantsMap.get(merchantId);
     }
 
+    /**
+     * This method do the unfollow
+     * @param userId
+     * @param userIdToUnfollow
+     * @throws MerchantNotFoundException
+     * @throws UserNotFoundException
+     */
     @Override
     public void unfollow(Integer userId, Integer userIdToUnfollow) throws MerchantNotFoundException, UserNotFoundException {
         FollowedByMeListDTO myFollowed = usersWithMerchMap.get(userId);
@@ -64,6 +70,14 @@ public class SocialRepository implements ISocialRepository{
         }
     }
 
+    /**
+     * NOTE: This method also create a user in usersMap
+     * @param userid
+     * @param merchantId
+     * @return MerchantDTO with information of the merchant (id, name, count of followers and list of user that follow him)
+     * @throws MerchantNotFoundException
+     * @throws FollowAlreadyExistException
+     */
     @Override
     public MerchantDTO followMerchant(Integer userid, Integer merchantId) throws MerchantNotFoundException, FollowAlreadyExistException {
 
@@ -115,6 +129,13 @@ public class SocialRepository implements ISocialRepository{
         throw new MerchantNotFoundException("MerchantID does not exist", HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     *
+     * @param merchantid
+     * @param name
+     * @return FollowersCountDTO with the count of followes that the merchant have
+     * @throws MerchantNotFoundException
+     */
     @Override
     public FollowersCountDTO followersCount(Integer merchantid, String name) throws MerchantNotFoundException {
         FollowersCountDTO followersCountDTO = new FollowersCountDTO();
@@ -127,11 +148,24 @@ public class SocialRepository implements ISocialRepository{
 
         followersCountDTO.setId(merchantid);
         followersCountDTO.setCount(merchantDTO.getFollowCount());
-        followersCountDTO.setName(name);
+
+        if (!name.equals("")){
+            followersCountDTO.setName(name);
+        }  else{
+            followersCountDTO.setName(merchantDTO.getName());
+        }
 
         return followersCountDTO;
     }
 
+    /**
+     *
+     * @param merchantid
+     * @param name
+     * @param order
+     * @return FollowersListDTO with the followers that the merchantid have
+     * @throws MerchantNotFoundException
+     */
     @Override
     public FollowersListDTO followersList(Integer merchantid, String name, String order) throws MerchantNotFoundException {
         FollowersListDTO followersListDTO = new FollowersListDTO();
@@ -144,7 +178,12 @@ public class SocialRepository implements ISocialRepository{
 
         followersListDTO.setId(merchantid);
         followersListDTO.setFollowers(merchantDTO.getUsers());
-        followersListDTO.setName(name);
+
+        if (!name.equals("")){
+            followersListDTO.setName(name);
+        }  else{
+            followersListDTO.setName(merchantDTO.getName());
+        }
 
         if (followersListDTO.getFollowers() == null){
             return followersListDTO;
@@ -159,6 +198,13 @@ public class SocialRepository implements ISocialRepository{
         return followersListDTO;
     }
 
+    /**
+     *
+     * @param merchantid
+     * @param name
+     * @return FollowedByMeListDTO with the list of merchants that the userid follow
+     * @throws UserNotFoundException
+     */
     @Override
     public FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws UserNotFoundException {
         FollowedByMeListDTO followedByMeListDTO = new FollowedByMeListDTO();
@@ -171,12 +217,24 @@ public class SocialRepository implements ISocialRepository{
 
         followedByMeListDTO.setId(merchantid);
         followedByMeListDTO.setFollowers(merchantDTO.getFollowers());
-        followedByMeListDTO.setName(name);
+
+        if (!name.equals("")){
+            followedByMeListDTO.setName(name);
+        }  else{
+            followedByMeListDTO.setName(merchantDTO.getName());
+        }
 
         return followedByMeListDTO;
     }
 
     //region private Methods
+
+    /**
+     *
+     * @param userId
+     * @param merchantId
+     * @return boolean (if the user already follow the merchant)
+     */
     private boolean alreadyFollow(Integer userId, Integer merchantId){
         MerchantDTO merchantDTO = merchantsMap.get(merchantId);
         List<UserDTO> merchantUser = merchantDTO.getUsers();
@@ -196,6 +254,9 @@ public class SocialRepository implements ISocialRepository{
         return false;
     }
 
+    /**
+     * add merchant on usersWithMerchMap
+     */
     private void addMerchantOnUser(Integer userId, Integer merchantId){
         FollowedByMeListDTO userDTO = usersWithMerchMap.get(userId);
 

@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "31a311fc-9502-41dd-8285-d179ad6376b5",
+		"name": "Bootcamp Chalenge1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Social Controller",
+			"item": [
+				{
+					"name": "Exercise 1 (add follow)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/social/users/1235/follow/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"social",
+								"users",
+								"1235",
+								"follow",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exercise 2 (followers count)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/social/user/1/followers/count/?name=juan",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"social",
+								"user",
+								"1",
+								"followers",
+								"count",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "juan"
+								}
+							]
+						},
+						"description": "Exercise 2"
+					},
+					"response": []
+				},
+				{
+					"name": "Exercise 3 (list followers)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/social/user/1/followers/list?name=juan",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"social",
+								"user",
+								"1",
+								"followers",
+								"list"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "juan"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exercise 4 (list followed)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/social/user/1235/followed/list",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"social",
+								"user",
+								"1235",
+								"followed",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exercise 7 (unfolow)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/social/user/1235/unfollow/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"social",
+								"user",
+								"1235",
+								"unfollow",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post Controller",
+			"item": [
+				{
+					"name": "Exercise 5 (new post)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"idPost\": 1,\n    \"date\": \"10-06-2021\",\n    \"detail\":\n        {\n            \"productId\": 1,\n            \"productname\": \"Silla Gamer\",\n            \"type\": \"Gamer\",\n            \"brand\": \"Racer\",\n            \"color\": \"Red and Black\",\n            \"notes\": \"Special Edition\"\n        },\n    \"category\": 100,\n    \"price\": 1500.50,\n    \"hasPromo\": true,\n    \"discount\": 120.33\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/post/products/newpost",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"products",
+								"newpost"
+							]
+						},
+						"description": "Add new Post"
+					},
+					"response": []
+				},
+				{
+					"name": "Exercise 6 (list post of followed 2week)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/post/products/followed/1235/list?order=date_desc",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"products",
+								"followed",
+								"1235",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bonus",
+			"item": [
+				{
+					"name": "Exercise 11 (count promo prod)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/post/products/1/countPromo/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"products",
+								"1",
+								"countPromo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exercise 12 (list promo products)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/post/products/1/list/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"post",
+								"products",
+								"1",
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,11 @@
+com.example.socialmeli
+com.example.socialmeli.controllers
+com.example.socialmeli.dtos
+com.example.socialmeli.dtos.post
+com.example.socialmeli.dtos.user
+com.example.socialmeli.exceptions
+com.example.socialmeli.exceptions.postExceptions
+com.example.socialmeli.models
+com.example.socialmeli.repositories
+com.example.socialmeli.services
+com.example.socialmeli.services.mappers

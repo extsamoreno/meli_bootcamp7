@@ -1,6 +1,9 @@
 package com.example.socialmeli.services;
 
-import com.example.socialmeli.dtos.*;
+import com.example.socialmeli.dtos.user.FollowedByMeListDTO;
+import com.example.socialmeli.dtos.user.FollowersCountDTO;
+import com.example.socialmeli.dtos.user.FollowersListDTO;
+import com.example.socialmeli.dtos.user.MerchantDTO;
 import com.example.socialmeli.exceptions.MerchantNotFoundException;
 import com.example.socialmeli.exceptions.UserNotFoundException;
 import com.example.socialmeli.repositories.ISocialRepository;
