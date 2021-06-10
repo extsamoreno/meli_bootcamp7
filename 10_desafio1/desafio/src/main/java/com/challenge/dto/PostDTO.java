@@ -3,6 +3,7 @@ package com.challenge.dto;
 import com.challenge.entity.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,7 @@ public class PostDTO {
     private Product detail;
     private Integer category;
     private Double price;
+    @JsonProperty("has_promo")
     private Boolean hasPromo;
     private Double discount;
 
