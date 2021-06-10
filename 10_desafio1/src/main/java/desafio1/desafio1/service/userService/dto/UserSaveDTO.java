@@ -7,9 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSaveDTO { //esta clase son los que se guardan en los seguidores de cada uno, para no guardar el objeto entero de usuario
+public class UserSaveDTO {
     private int userId;
     private String userName;
     private int isSeller;
+
+    /**
+     * this class are the ones that are saved in the followers of each one,
+     * so as not to save the entire user object
+     */
 }
 

@@ -13,8 +13,8 @@ public class UserDTO {
     private int userId;
     private String userName;
     private int isSeller;
-    private List<UserSaveDTO> followList; //quienes sigo yo
-    private List<UserSaveDTO> followMeList; //quienes me siguen
+    private List<UserSaveDTO> followList;
+    private List<UserSaveDTO> followMeList;
 
 
     public UserDTO() {

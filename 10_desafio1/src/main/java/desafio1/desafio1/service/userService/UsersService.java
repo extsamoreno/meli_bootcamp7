@@ -10,11 +10,9 @@ import desafio1.desafio1.service.userService.dto.UserListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UsersService implements IUsersService {
@@ -31,7 +29,7 @@ public class UsersService implements IUsersService {
             throw new FollowLoopException();
         }
 
-        //hago eso porque en el find se fija si existe y no tengo que validar de nuevo aca
+        //in findUserById is exception handling
         userSaveDTO.setUserId(userRepository.findUserById(userId).getUserId());
         userSaveDTO.setUserName(userRepository.findUserById(userId).getUserName());
         userSaveDTO.setIsSeller(userRepository.findUserById(userId).getIsSeller());
@@ -41,7 +39,7 @@ public class UsersService implements IUsersService {
         userSaveDTOFollow.setUserName(userRepository.findUserById(userIdToFollow).getUserName());
         userSaveDTOFollow.setIsSeller(userRepository.findUserById(userIdToFollow).getIsSeller());
 
-        //validar si ya lo sigo, si es asi, no deberia volver a agregarlo a la lista
+        //validate if I already follow it, if so, I shouldn't add it back to the list
         List<UserSaveDTO> userSaveDTOList = userRepository.findUserById(userId).getFollowList();
         Optional<UserSaveDTO> item = userSaveDTOList.stream().filter(
                 i -> i.getUserId() == userIdToFollow).findFirst();
@@ -66,7 +64,7 @@ public class UsersService implements IUsersService {
         sellerCountDTO.setUserName(user.getUserName());
         sellerCountDTO.setIsSeller(user.getIsSeller());
 
-        //valido que en la lista haya usuarios que siguen a este vendedor, y obtengo el tamaño
+        //I validate that in the list there are users who follow this seller, and I get the size
         sellerCountDTO.setFollowers_count(userRepository.filterFollowersMe(userId, 0).size());
 
         if(sellerCountDTO.getIsSeller() ==0){
@@ -87,7 +85,7 @@ public class UsersService implements IUsersService {
         sellerListDTO.setUserName(user.getUserName());
         sellerListDTO.setIsSeller(user.getIsSeller());
 
-        //obtengo lista de usuarios que siguen a este vendedor
+        //I find a list of users who follow this seller.
         sellerListDTO.setFollowMeList(userRepository.filterFollowersMe(userId, 0));
 
         if(sellerListDTO.getIsSeller()==0){  //Valido si yo soy un vendedor

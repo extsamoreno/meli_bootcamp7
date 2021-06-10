@@ -514,3 +514,12 @@ localhost:8080/products/followed/6/list?order=name_desc
     }
     ]
     }
+
+
+##Decisions:
+
+I only have one user class because at first I didn't need to have to separate it, but then I had to differentiate them, so I added an attribute to differentiate them.
+At first, to differentiate, I validated that the string "user" or the string "seller" exists in the name, but it didn't seem correct to me, so I changed it and wasted a lot of time correcting it, so I couldn't make the bonus.
+
+
+

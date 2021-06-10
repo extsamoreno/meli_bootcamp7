@@ -15,8 +15,8 @@ public class User {
     private int userId;
     private String userName;
     private int isSeller;
-    private List<UserSaveDTO> followList; //quienes sigo yo
-    private List<UserSaveDTO> followMeList; //quienes me siguen
+    private List<UserSaveDTO> followList; //who i follow
+    private List<UserSaveDTO> followMeList; //who follows me
     private List<Publications> publicationsList;
 
     public User() {
@@ -25,7 +25,9 @@ public class User {
         this.publicationsList = new ArrayList<>();
     }
 
-    //el usuario comun y el vendedor don el mismo tipo de objeto, cuando se tratae de un vendedor,
-    //tendra las listas de publicaciones, sino estará vacia, ademas el nombre será o usuario o vendedor
+    /**
+     * the common user and the seller are the same type of object,
+     * when it is a seller it will have the isSeller attribute at 1, otherwise it will be at 0.
+     */
 
 }

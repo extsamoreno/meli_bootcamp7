@@ -3,7 +3,6 @@ package desafio1.desafio1.service.productService;
 import desafio1.desafio1.domain.Publications;
 import desafio1.desafio1.domain.User;
 import desafio1.desafio1.exception.publicationException.PublicatiosException;
-import desafio1.desafio1.exception.userException.UnfollowException;
 import desafio1.desafio1.exception.userException.UserNotFoundException;
 import desafio1.desafio1.exception.userException.ValidateSellerException;
 import desafio1.desafio1.repository.IUserRepository;
@@ -13,7 +12,7 @@ import desafio1.desafio1.service.userService.dto.UserSaveDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,9 +25,9 @@ public class ProductService implements IProductService {
     @Override
     public User newPost(PublicationDTO publicationDTO) throws UserNotFoundException, ValidateSellerException, PublicatiosException {
 
-        User user = userRepository.findUserById(publicationDTO.getUserId()); //usuario que voy a manipilar
+        User user = userRepository.findUserById(publicationDTO.getUserId());
 
-        //valido que la publicacion no este cargada ya
+        //Valid that the publication is not loaded
        if(!user.getPublicationsList().isEmpty()) {
            user.getPublicationsList().stream().filter(x -> x.getId_post() != publicationDTO.getId_post()).findFirst().orElseThrow(
                    () -> new PublicatiosException(publicationDTO.getId_post()));
@@ -36,19 +35,20 @@ public class ProductService implements IProductService {
 
         Publications publications = new Publications();
 
-        if(user.getIsSeller()==0){  //Valido si yo soy un vendedor, sino no puedo cargar publicaciones
+       //Valid if I am a seller, otherwise I cannot upload publications.
+        if(user.getIsSeller()==0){
             throw new ValidateSellerException(user.getUserId());
         }
 
-        //armo la publicacion que dio de alta el vendedor
+        //I build the post that the seller posted.
         publications.setId_post(publicationDTO.getId_post());
         publications.setDate(publicationDTO.getDate());
-        publications.setDetail(publicationDTO.getDetail()); //ojo porque estoy creando una nueva instancia y le seteo el producto que viene en el objeto por parametro
+        publications.setDetail(publicationDTO.getDetail());
         publications.setCategory(publicationDTO.getCategory());
         publications.setPrice(publicationDTO.getPrice());
 
 
-        //le agregago esa publicaicon al vendedor
+        //I add that publication to the seller
         user.getPublicationsList().add(publications);
 
         return user;
@@ -57,12 +57,12 @@ public class ProductService implements IProductService {
 
     @Override
     public PostsDTO listPublication(int userId, String order) throws UserNotFoundException {
-        //Obtengo la lista de vendedores TDO a los que sigue el usuario
+        //I get the list of TDO sellers that the user follows
         List<UserSaveDTO> sellersTDO= userRepository.filterFollowers(userId, 1);
         List<User> sellers = new ArrayList<>();
         PostsDTO postsDTO = new PostsDTO();
 
-        //obtengo la lista de objetos completo de seller, estos tienen la lista de publicaciones
+        //I look for the list of complete seller objects, this has the list of publications
         for(int i=0 ; i< sellersTDO.size(); i++){
             sellers.add(userRepository.findUserById(sellersTDO.get(i).getUserId()));
         }

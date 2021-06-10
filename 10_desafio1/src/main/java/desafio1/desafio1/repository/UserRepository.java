@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository {
-
-    private List<User> listUser = null; //esto lo cambie de lugar porque me recomendaron hacerlo como atributo de clase y no de metodo
+    //I moved this around because I was recommended to do it as a class attribute and not as a method
+    private List<User> listUser = null;
 
     public UserRepository() {
         this.listUser = loadDataBase();
@@ -49,11 +49,11 @@ public class UserRepository implements IUserRepository {
         return userResult;
     }
 
-    //criterio va a ser 1 si es vendedor o 0 si es usuario entonces todos los userSaveTDO que sean de un tipo se va a guardar en la lista que voy a devolver
-    //filtra los que sigo
+    //criteria will be 1 if it is a seller or 0 if it is a user then all the userSaveTDO that are of a type will be saved in the list that I am going to return
+    // filter the ones I follow
     @Override
     public List<UserSaveDTO> filterFollowers(int userId, int criterio) throws UserNotFoundException {
-        //User user = findUserById(userId);
+
         List<UserSaveDTO> listFollowers = new ArrayList<>();
         List<UserSaveDTO> listUserSaveDTO = findUserById(userId).getFollowList();
 
@@ -65,31 +65,23 @@ public class UserRepository implements IUserRepository {
                     listFollowers.add(u);
                 }
             }
-
-            /* listFollowers = listUserSaveDTO.stream().filter(
-                    x -> x.getUserName().toLowerCase().contains(criterio.toLowerCase())).collect(Collectors.toList());*/
         }
-
-
         return listFollowers;
-
     }
-    //filtra los que me siguen a mi
+
+
+    //filter those who follow me
     @Override
     public List<UserSaveDTO> filterFollowersMe(int userId, int criterio) throws UserNotFoundException {
         User user = findUserById(userId);
-        List<UserSaveDTO> listFollowersMe = new ArrayList<>(); //ACA HABIA UN NULL, LO CAMBIE PORQUE EN EL METODO DE ARRIBA TIRABA ERROR, SI NO ANDA LO PONGO EN NULL DE NUEVO
+        List<UserSaveDTO> listFollowersMe = new ArrayList<>();
         List<UserSaveDTO> listUserSaveDTO = user.getFollowMeList();
 
         if(listUserSaveDTO != null){
             listFollowersMe = listUserSaveDTO.stream().filter(
                     x -> x.getIsSeller() == criterio).collect(Collectors.toList());
-
         }
-
-
         return listFollowersMe;
-
     }
 
    @Override
@@ -105,7 +97,7 @@ public class UserRepository implements IUserRepository {
 
     }
 
-    //me dejan de seguir
+    //they stop following me
     private void removeFollowMe(int userId, int userIdToUnfollow) throws UnfollowException { //eliminar quien me sigue
 
         User use = listUser.stream().filter(x -> x.getUserId()==userIdToUnfollow).findFirst().orElseThrow(
@@ -120,11 +112,11 @@ public class UserRepository implements IUserRepository {
 
     }
 
-    //dejar de seguir
+    //I stop following them
     private void removeFollow(int userId, int userIdToUnfollow) throws UnfollowException, ValidateSellerException, UserNotFoundException { //eliminar quien sigo
-        //validar que es un vendedor a quien dejo de seguir
-        if(findUserById(userIdToUnfollow).getIsSeller()==0) {  //Valido si quien voy a dejar de seguir es un vendedor (si es 0 es un usuario comun)
-            throw new ValidateSellerException(findUserById(userIdToUnfollow).getUserId()); //OJO CAMBIE ALGO
+        //validate that it is a seller whom I unfollow
+        if(findUserById(userIdToUnfollow).getIsSeller()==0) {
+            throw new ValidateSellerException(findUserById(userIdToUnfollow).getUserId());
         }
 
         User use = listUser.stream().filter(x -> x.getUserId()==userId).findFirst().orElseThrow(
