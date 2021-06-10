@@ -57,9 +57,14 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public PostArrayDto getArrayPostById(Integer userId, String order) throws NoPostsFoundException {
+    public PostArrayDto getArrayPostById(Integer userId, String order) throws NoPostsFoundException, IdNotFoundException {
+        ArrayList<User> userFollowedList =iUserRepository.getUserFollowedList(userId);
+
         ArrayList<Post> postArrayList = new ArrayList<>();
-        postArrayList.addAll(iProductRepository.getArrayPostById(userId));
+
+        for (User userFollowed:userFollowedList) {
+            postArrayList.addAll(iProductRepository.getArrayPostById(userFollowed.getUserId()));
+        }
 
         Collections.sort(postArrayList, Comparator.comparing(Post::getDate));
         if(order.equals("date_desc"))

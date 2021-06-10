@@ -21,6 +21,7 @@ public class ProductController {
     @Autowired
     IProductService iProductService;
 
+    //Create a new post
     @PostMapping("/newpost")
     public ResponseEntity<?> addPost (@RequestBody PostDto postDto) throws PostAlreadyExistsException, PostPromoFoundException, IdNotFoundException, InvalidPostDateException {
         iProductService.addNewPost(postDto);
@@ -29,11 +30,13 @@ public class ProductController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    //Get post list from a userId
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostArrayDto> getPostList(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "date_asc") String order) throws NoPostsFoundException {
+    public ResponseEntity<PostArrayDto> getPostList(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "date_asc") String order) throws NoPostsFoundException, IdNotFoundException {
        return new ResponseEntity<>(iProductService.getArrayPostById(userId,order), HttpStatus.OK);
     }
 
+    //Create a new promo post
     @PostMapping("/newpromopost")
     public ResponseEntity<?> newPromoPost(@RequestBody PostDto postDto) throws PostAlreadyExistsException, PostPromoNotFoundException, IdNotFoundException {
         iProductService.addNewPromoPost(postDto);
@@ -41,6 +44,7 @@ public class ProductController {
         response.add("The promo post id: "+postDto.getIdPost()+" has been succesfully created by "+postDto.getUserId());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<PostPromoDto> getCountPromo(@PathVariable Integer userId) throws IdNotFoundException {

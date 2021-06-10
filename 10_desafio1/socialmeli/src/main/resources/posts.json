@@ -108,7 +108,7 @@
 
   },
   {
-    "userId": 1,
+    "userId": 2,
     "idPost": 121,
     "date": "06-06-2021",
     "detail":
@@ -128,6 +128,24 @@
   {
     "userId": 1,
     "idPost": 121,
+    "date": "09-06-2021",
+    "detail":
+    {"productId": 1,
+      "productName": "Camion",
+      "type": "test",
+      "brand": "test",
+      "color": "Red",
+      "notes": "Special edition"
+    },
+    "category":100,
+    "price":1500.50,
+    "hasPromo": false,
+    "discount": 0.5
+
+  },
+  {
+    "userId": 3,
+    "idPost": 1221,
     "date": "09-06-2021",
     "detail":
     {"productId": 1,
