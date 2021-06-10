@@ -15,7 +15,7 @@ public class PostPromoDTOreq extends PostDTOreq{
     private boolean hasPromo;
     private double discount;
 
-    public PostPromoDTOreq(int userId, int postId, LocalDate date, ProductDTO detail, String category, double price, boolean hasPromo, double discount) {
+    public PostPromoDTOreq(int userId, int postId, LocalDate date, ProductDTO detail, int category, double price, boolean hasPromo, double discount) {
         super(userId, postId, date, detail, category, price);
         this.hasPromo = hasPromo;
         this.discount = discount;

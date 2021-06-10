@@ -2,7 +2,7 @@
   {
     "userId": 1,
     "userName": "Adidas",
-    "followers": [2],
+    "followers": [],
     "followed": [],
     "posts": []
   },
@@ -10,7 +10,7 @@
     "userId": 2,
     "userName": "Juan Abal",
     "followers": [],
-    "followed": [1],
+    "followed": [],
     "posts": []
   },
   {
@@ -24,13 +24,13 @@
     "userId": 4,
     "userName": "Mariano González",
     "followers": [],
-    "followed": [5],
+    "followed": [],
     "posts": []
   },
   {
     "userId": 5,
     "userName": "Apple",
-    "followers": [4],
+    "followers": [],
     "followed": [],
     "posts": []
   }

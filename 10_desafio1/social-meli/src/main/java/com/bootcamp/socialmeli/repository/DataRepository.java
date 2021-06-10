@@ -1,5 +1,6 @@
 package com.bootcamp.socialmeli.repository;
 
+import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.model.Post;
 import com.bootcamp.socialmeli.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -30,8 +31,11 @@ public class DataRepository implements IDataRepository {
     }
 
     @Override
-    public List<User> getUserFollowers(Integer id) {
+    public List<User> getUserFollowers(Integer id) throws UserIdNotFoundException {
         User user = findUserById(id);
+        if (user == null) {
+            throw new UserIdNotFoundException(id);
+        }
 
         return user.getFollowers().stream()
                 .map(i -> findUserById(i))
@@ -39,8 +43,11 @@ public class DataRepository implements IDataRepository {
     }
 
     @Override
-    public List<User> getUserFollowed(Integer id) {
+    public List<User> getUserFollowed(Integer id) throws UserIdNotFoundException {
         User user = findUserById(id);
+        if (user == null) {
+            throw new UserIdNotFoundException(id);
+        }
 
         return user.getFollowed().stream()
                 .map(i -> findUserById(i))

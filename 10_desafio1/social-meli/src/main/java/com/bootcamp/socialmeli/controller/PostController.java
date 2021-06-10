@@ -24,7 +24,7 @@ public class PostController {
     IPostService productService;
 
     @PostMapping("/newpost")
-    public ResponseEntity<Void> newPost(@Valid @RequestBody PostDTOreq post)
+    public ResponseEntity<Void> newPost(@RequestBody PostDTOreq post)
             throws UserIdNotFoundException, PostAlreadyRegisteredException {
 
         productService.newPost(post);

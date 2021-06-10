@@ -115,6 +115,6 @@ public class PostService implements IPostService {
             throw new UserIdNotFoundException(userId);
         }
 
-        return postMapper.toListOfPostWithUsernameDTO(dataRepository.getPostWithPromoByUserId(userId), user) ;
+        return postMapper.toListOfPostWithUsernameDTO(dataRepository.getPostWithPromoByUserId(userId), user);
     }
 }

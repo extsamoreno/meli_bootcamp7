@@ -18,7 +18,7 @@ public class PostDTOres {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     private ProductDTO detail;
-    private String category;
+    private int category;
     private double price;
     private boolean hasPromo;
     private double discount;

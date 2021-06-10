@@ -10,9 +10,9 @@ public interface IDataRepository {
 
     User findUserById(Integer id);
 
-    List<User> getUserFollowers(Integer id);
+    List<User> getUserFollowers(Integer id) throws UserIdNotFoundException;
 
-    List<User> getUserFollowed(Integer id);
+    List<User> getUserFollowed(Integer id) throws UserIdNotFoundException;
 
     List<Post> getAllPosts();
 

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
     @Autowired
     IDataRepository dataRepository;
@@ -30,7 +30,6 @@ public class UserService implements IUserService{
 
     @Override
     public void follow(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException, FollowYourselfException {
-
         //Controlo que los id no sean iguales
         if (userId == userIdToFollow) {
             throw new FollowYourselfException();
@@ -52,7 +51,7 @@ public class UserService implements IUserService{
         }
 
         //Agrego
-        if(!userToFollow.getFollowers().contains(userId)) {
+        if (!userToFollow.getFollowers().contains(userId)) {
             userToFollow.getFollowers().add(userId);
         }
     }
@@ -80,7 +79,7 @@ public class UserService implements IUserService{
         }
 
         //Elimino el usuario de la lista de seguidores si es que este se encuentra en ella
-        if(userToUnfollow.getFollowers().contains(userId)) {
+        if (userToUnfollow.getFollowers().contains(userId)) {
             userToUnfollow.getFollowers().removeIf(u -> u == userId);
         }
     }
@@ -97,30 +96,20 @@ public class UserService implements IUserService{
 
     @Override
     public UserFollowersListDTOres getListUserFollowers(Integer id, Optional<String> order) throws UserIdNotFoundException {
-        User user = dataRepository.findUserById(id);
-        if (user == null) {
-            throw new UserIdNotFoundException(id);
-        }
-
         List<User> userFollowers = dataRepository.getUserFollowers(id);
 
         sortUtilities.sortListOfUsers(userFollowers, order);
 
-        return userMapper.toListUserFollowersDTO(user, userFollowers);
+        return userMapper.toListUserFollowersDTO(dataRepository.findUserById(id), userFollowers);
     }
 
     @Override
     public UserFollowedListDTOres getListUserFollowed(Integer id, Optional<String> order) throws UserIdNotFoundException {
-        User user = dataRepository.findUserById(id);
-        if (user == null) {
-            throw new UserIdNotFoundException(id);
-        }
-
         List<User> userFollowed = dataRepository.getUserFollowed(id);
 
         sortUtilities.sortListOfUsers(userFollowed, order);
 
-        return userMapper.toListUserFollowedDTO(user, userFollowed );
+        return userMapper.toListUserFollowedDTO(dataRepository.findUserById(id), userFollowed);
     }
 
 }
