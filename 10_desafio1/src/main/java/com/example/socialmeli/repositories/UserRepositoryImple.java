@@ -101,7 +101,7 @@ public class UserRepositoryImple implements UserRepository {
     public ListFollowersResponseDTO listFollowers(int userId) throws InexistentUserException{
         User user = getUserById(userId);
         ListFollowersResponseDTO listFollowersResponseDTO = new ListFollowersResponseDTO();
-        List<UserDTO> followers = null;
+        List<UserDTO> followers = new ArrayList<>();
 
         for(UserList follower : user.getFollowers()){
             UserDTO followerDTO = new UserDTO(follower.getUserId(),follower.getUserName());
@@ -119,7 +119,7 @@ public class UserRepositoryImple implements UserRepository {
     public ListFollowedResponseDTO listFollowed (int userId) throws InexistentUserException{
         User user = getUserById(userId);
         ListFollowedResponseDTO listFollowedResponseDTO = new ListFollowedResponseDTO();
-        List<UserDTO> followedList = null;
+        List<UserDTO> followedList = new ArrayList<>();
 
         for(UserList followed : user.getFollowed()){
             UserDTO followedDTO = new UserDTO(followed.getUserId(),followed.getUserName());
