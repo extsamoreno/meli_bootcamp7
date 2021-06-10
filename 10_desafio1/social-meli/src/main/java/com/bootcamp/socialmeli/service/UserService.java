@@ -30,7 +30,6 @@ public class UserService implements IUserService {
 
     @Override
     public void follow(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException, FollowYourselfException {
-        //Controlo que los id no sean iguales
         if (userId == userIdToFollow) {
             throw new FollowYourselfException();
         }
@@ -45,12 +44,12 @@ public class UserService implements IUserService {
             throw new UserIdNotFoundException(userIdToFollow);
         }
 
-        //Agrego el usuario a seguir si éste no se encontraba antes
+        //Add the user to the following list, if it was not found before
         if (!user.getFollowed().contains(userIdToFollow)) {
             user.getFollowed().add(userIdToFollow);
         }
 
-        //Agrego
+        //add the user to the followers list, if it was not found before
         if (!userToFollow.getFollowers().contains(userId)) {
             userToFollow.getFollowers().add(userId);
         }
@@ -58,7 +57,6 @@ public class UserService implements IUserService {
 
     @Override
     public void unfollow(Integer userId, Integer userIdToUnfollow) throws UnfollowYourselfException, UserIdNotFoundException {
-        //Controlo que los id no sean iguales
         if (userId == userIdToUnfollow) {
             throw new UnfollowYourselfException();
         }
@@ -73,12 +71,12 @@ public class UserService implements IUserService {
             throw new UserIdNotFoundException(userIdToUnfollow);
         }
 
-        //Elimino el usuario de la lista de seguidos si es que este ya se encontraba en la misma
+        //Remove the user from the followed list if he was in it
         if (user.getFollowed().contains(userIdToUnfollow)) {
             user.getFollowed().removeIf(u -> u == userIdToUnfollow);
         }
 
-        //Elimino el usuario de la lista de seguidores si es que este se encuentra en ella
+        //Remove the user from the followers list if he was in it
         if (userToUnfollow.getFollowers().contains(userId)) {
             userToUnfollow.getFollowers().removeIf(u -> u == userId);
         }

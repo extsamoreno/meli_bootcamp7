@@ -49,7 +49,7 @@ public class PostService implements IPostService {
 
         Post post;
 
-        //Controlo si el post tiene promo o no según la clase de la instancia
+        //Control if the post has promo or not according to the class of the instance
         if (postDTOreq instanceof PostPromoDTOreq) {
             post = postMapper.toPost((PostPromoDTOreq) postDTOreq);
         } else {
@@ -58,14 +58,13 @@ public class PostService implements IPostService {
 
         List<Post> posts = dataRepository.getAllPosts();
 
-        //Controlo si ya existe un post con ese id
         if (dataRepository.findPostById(post.getPostId()) != null) {
             throw new PostAlreadyRegisteredException(post.getPostId());
         }
 
         posts.add(post);
 
-        //Agrego el nuevo post a los post del usuario si es que este no existe
+        //Add the new post to the user's posts if it does not exist
         if (!user.getPosts().contains(post.getPostId())) {
             user.getPosts().add(post.getPostId());
         }
@@ -80,6 +79,7 @@ public class PostService implements IPostService {
         List<User> usersFollowed = dataRepository.getUserFollowed(userId);
         List<Post> postFollowed = new ArrayList<>();
 
+        //For each user followed, I get their posts and add them to the general post list
         for (User userAux : usersFollowed) {
             for (Integer p : userAux.getPosts()) {
                 postFollowed.add(dataRepository.findPostById(p));
@@ -88,7 +88,7 @@ public class PostService implements IPostService {
 
         sortUtilities.sortListOfPosts(postFollowed, order);
 
-        //Filtro los post si son posteriores a dos semanas
+        //Filter posts if they are after two weeks
         postFollowed = postFollowed
                 .stream()
                 .filter(p -> p.getDate().isAfter(dateUtilities.getTwoWeeksAgo()))

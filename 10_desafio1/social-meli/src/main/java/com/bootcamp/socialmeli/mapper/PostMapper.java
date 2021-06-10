@@ -74,7 +74,6 @@ public class PostMapper {
     }
 
     public PostDTOres toPostDTO(Post post) {
-
         return new PostDTOres(
                 post.getPostId(),
                 post.getDate(),

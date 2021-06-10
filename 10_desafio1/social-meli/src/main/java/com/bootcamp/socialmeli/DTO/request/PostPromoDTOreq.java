@@ -1,7 +1,6 @@
 package com.bootcamp.socialmeli.DTO.request;
 
 import com.bootcamp.socialmeli.DTO.ProductDTO;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
