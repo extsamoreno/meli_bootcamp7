@@ -72,4 +72,9 @@ public class SocialMeliExceptionController {
     public ResponseEntity<ErrorDTO> handleInvalidPromoPostException(InvalidPromoPostException e){
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
+
+    @ExceptionHandler(InvalidDatePostException.class)
+    public ResponseEntity<ErrorDTO> handleInvalidDatePostException(InvalidDatePostException e){
+        return new ResponseEntity<>(e.getError(), e.getHttpStatus());
+    }
 }

@@ -34,7 +34,7 @@ public class ProductController {
      */
 
     @PostMapping("/newpost")
-    public ResponseEntity<NewPostResponseDTO> addPost (@RequestBody NewPostRequestDTO newPost) throws InexistentUserException, ExistentPostException {
+    public ResponseEntity<NewPostResponseDTO> addPost (@RequestBody NewPostRequestDTO newPost) throws InexistentUserException, ExistentPostException, InvalidDatePostException {
         return new ResponseEntity<>(productService.addPost (newPost), HttpStatus.OK);
     }
 
@@ -64,7 +64,7 @@ public class ProductController {
      */
 
     @PostMapping("/newpromopost")
-    public ResponseEntity<NewPostResponseDTO> addPromoPost (@RequestBody NewPromoPostRequestDTO newPost) throws InexistentUserException, ExistentPromoPostException, InvalidPromoPostException {
+    public ResponseEntity<NewPostResponseDTO> addPromoPost (@RequestBody NewPromoPostRequestDTO newPost) throws InexistentUserException, ExistentPromoPostException, InvalidPromoPostException, InvalidDatePostException {
         return new ResponseEntity<>(productService.addPromoPost (newPost), HttpStatus.OK);
     }
 

@@ -13,6 +13,7 @@ import com.example.socialmeli.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -23,7 +24,11 @@ public class ProductServiceImple implements ProductService{
     ProductRepository productRepository;
 
     @Override
-    public NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException {
+    public NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException, InvalidDatePostException {
+        if(newPostRequestDTO.getDate().isAfter(LocalDate.now())){
+            throw new InvalidDatePostException();
+        }
+
         productRepository.addPost(newPostRequestDTO);
 
         NewPostResponseDTO response = new NewPostResponseDTO(200,"Se ha agregado un nuevo producto al repositorio");
@@ -53,9 +58,13 @@ public class ProductServiceImple implements ProductService{
     }
 
     @Override
-    public NewPostResponseDTO addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException, InvalidPromoPostException {
+    public NewPostResponseDTO addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException, InvalidPromoPostException, InvalidDatePostException {
         if(!newPromoPostRequestDTO.isHasPromo()){
             throw new InvalidPromoPostException();
+        }
+
+        if(newPromoPostRequestDTO.getDate().isAfter(LocalDate.now())){
+            throw new InvalidDatePostException();
         }
 
         productRepository.addPromoPost(newPromoPostRequestDTO);
