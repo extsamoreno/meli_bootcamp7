@@ -64,7 +64,7 @@ public class SocialMeliController {
         return new ResponseEntity<>(socialMeliServiceImple.US011(userId), HttpStatus.OK);
     }
 
-    //US 0012: Post list with promotion
+    //US 0012: User posts list with promotion
     @GetMapping("/products/{userId}/list/")
     public ResponseEntity<PostPromoDTO> US012(@PathVariable int userId) throws Exception {
         return new ResponseEntity<>(socialMeliServiceImple.US012(userId), HttpStatus.OK);

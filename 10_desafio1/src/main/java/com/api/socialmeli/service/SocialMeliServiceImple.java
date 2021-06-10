@@ -249,7 +249,7 @@ PostRepositoryImple postRepositoryImple;
         return countPromoDTO;
     }
 
-    @Override //US 0012: Post list with promotion
+    @Override //US 0012: User Posts list with promotion
     public PostPromoDTO US012(int userId) throws Exception{
 
         if (userRepositoryImple.getUsers().get(userId)==null) throw new NotFoundIdException(userId);
