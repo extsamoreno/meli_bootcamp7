@@ -106,13 +106,8 @@ public class PublicationService implements IPublicationService {
     }
     @Override
     public int getCountPromo(int id) throws UserNotFoundException {
-        PublicationListDTO publicationListDTOS = this.getPublicationList(id,null);
-        int count=0;
-        for (int i=0;i<publicationListDTOS.getPosts().size();i++) {
-            if (publicationListDTOS.getPosts().get(i).isHasPromo())
-                count++;
-        }
-        return count;
+        PublicationListDTO publicationListDTOS = this.getPublicationListPromo(id,null);
+        return publicationListDTOS.getPosts().size();
     }
     @Override
     public PublicationListDTO getPublicationListPromo(int id, String order) throws UserNotFoundException {
