@@ -1,6 +1,6 @@
-Api SocialMeli
+# Api SocialMeli
 
-The objective of the API is to manage the interactions between sellers and users.
+#### The objective of the API is to manage the interactions between sellers and users.
 
 The sellers are able to follow the users and viceversa, because are managed like the same domain entity.
 
