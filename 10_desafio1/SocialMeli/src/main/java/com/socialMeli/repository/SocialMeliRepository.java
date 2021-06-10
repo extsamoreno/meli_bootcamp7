@@ -11,6 +11,7 @@ import com.socialMeli.models.Post;
 import com.socialMeli.models.PromoPost;
 import com.socialMeli.models.Seller;
 import com.socialMeli.models.User;
+import lombok.Data;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Data
 @Repository
 public class SocialMeliRepository implements iSocialMeliRepository {
 
@@ -31,6 +33,10 @@ public class SocialMeliRepository implements iSocialMeliRepository {
 
     private AtomicInteger postId;
 
+    /**
+     * Repository constructor. Initializes ids and load data form .json into users and sellers HashMaps
+     * @throws FailLoadDatabase
+     */
     public SocialMeliRepository() throws FailLoadDatabase {
         this.userId = new AtomicInteger(1);
         this.postId = new AtomicInteger(1);
@@ -38,6 +44,12 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         loadSellersHashMap();
     }
 
+    /**
+     * Load objects in .json file into a List<User>
+     * @param pathFile
+     * @return List<User>
+     * @throws FailLoadDatabase
+     */
     @Override
     public List<User> loadDatabase(String pathFile) throws FailLoadDatabase {
         File file = null;
@@ -60,6 +72,12 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         return userJSON;
     }
 
+    /**
+     * Load users HashMap using the list from loadDatabase().
+     * Key --> AtomicInteger userId
+     * Value --> User
+     * @throws FailLoadDatabase
+     */
     @Override
     public void loadUsersHashmap() throws FailLoadDatabase {
         this.users = new HashMap<>();
@@ -67,6 +85,11 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         usersDB.stream().forEach(user -> this.users.put(this.userId.getAndIncrement(), user));
     }
 
+    /**
+     * Load sellers HashMap according the sellers that the users have.
+     * Key --> AtomicInteger userId
+     * Value --> Seller
+     */
     @Override
     public void loadSellersHashMap () {
         this.sellers = new HashMap<>();
@@ -75,6 +98,12 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         }
     }
 
+    /**
+     * Find a Seller on sellers HashMap
+     * @param id
+     * @return Seller --> ArrayList<UserDTO> followers, ArrayList<Post> posts, ArrayList<PromoPost> promoPosts
+     * @throws UserNotFoundException
+     */
     @Override
     public Seller findSellerById(Integer id) throws UserNotFoundException {
         if (this.sellers.get(id) == null)
@@ -82,6 +111,12 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         return sellers.get(id);
     }
 
+    /**
+     * Find a User on users HashMap
+     * @param id
+     * @return User --> string username, ArrayList<Seller> following
+     * @throws UserNotFoundException
+     */
     @Override
     public User findUserById(Integer id) throws UserNotFoundException {
         if (this.users.get(id) == null)
@@ -89,6 +124,12 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         return this.users.get(id);
     }
 
+    /**
+     * Find the userId from the user given on users and sellers HashMap
+     * @param user
+     * @return userId
+     * @throws UserIdNotFoundException
+     */
     @Override
     public Integer findByUser (Object user) throws UserIdNotFoundException {
         Integer result = null;
@@ -107,6 +148,11 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         return result;
     }
 
+    /**
+     * Create a new post
+     * @param newPost
+     * @throws FailCreatePostException
+     */
     @Override
     public void newPost(Post newPost) throws FailCreatePostException {
         try {
@@ -116,6 +162,11 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         }
     }
 
+    /**
+     * Create a new Promo post
+     * @param newPromoPost
+     * @throws FailCreatePostException
+     */
     @Override
     public void newPost(PromoPost newPromoPost) throws FailCreatePostException {
         try {

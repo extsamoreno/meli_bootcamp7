@@ -16,7 +16,7 @@ public class Seller extends User implements Comparable<Seller>{
     private ArrayList<Post> posts;
     private ArrayList<PromoPost> promoPosts;
 
-    //0 si son iguales, <0 si username va antes de o.username, >0 al reves
+    //0 if equals, < 0 if username goes beforeo.username, > 0 other case
     @Override
     public int compareTo(Seller o) {
         return (getUsername().compareTo(o.getUsername()));

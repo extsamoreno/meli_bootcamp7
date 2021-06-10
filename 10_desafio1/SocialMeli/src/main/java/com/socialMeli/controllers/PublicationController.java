@@ -22,26 +22,31 @@ public class PublicationController {
     @Autowired
     iPublicationService publicationService;
 
+    //0005
     @PostMapping("/newPost")
     public ResponseEntity<Void> newPost (@RequestBody Post newPost) throws FailCreatePostException, InvalidDateException {
         return (new ResponseEntity<>(publicationService.newPost(newPost), HttpStatus.OK));
     }
 
+    //0006 & 0009
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostsDTO> listPostFollowedSellers(@PathVariable Integer userId, @RequestParam(value = "order", defaultValue = "", required = false) String order) throws UserNotFoundException, WrongCriteriaOrderException {
         return (new ResponseEntity<>(publicationService.listPostFollowedSellers(userId, order), HttpStatus.OK));
     }
 
+    //00010
     @PostMapping("/newPromoPost")
     public ResponseEntity<Void> newPromoPost (@RequestBody PromoPost newPromoPost) throws FailCreatePostException, InvalidDateException {
         return (new ResponseEntity<>(publicationService.newPromoPost(newPromoPost), HttpStatus.OK));
     }
 
+    //00011
     @GetMapping("/{sellerId}/countPromo")
     public ResponseEntity<PromoPostsCountDTO> countPromoPosts(@PathVariable Integer sellerId) throws UserNotFoundException {
         return (new ResponseEntity<>(publicationService.countPromoPosts(sellerId), HttpStatus.OK));
     }
 
+    //00012
     @GetMapping("/{sellerId}/list")
     public ResponseEntity<PromoPostsListDTO> listPromoPosts(@PathVariable Integer sellerId) throws UserNotFoundException {
         return (new ResponseEntity<>(publicationService.listPromoPosts(sellerId), HttpStatus.OK));

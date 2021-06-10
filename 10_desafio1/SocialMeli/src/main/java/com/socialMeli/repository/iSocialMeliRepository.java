@@ -6,10 +6,12 @@ import com.socialMeli.models.PromoPost;
 import com.socialMeli.models.Seller;
 import com.socialMeli.models.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface iSocialMeliRepository {
 
+    HashMap<Integer, Seller> getSellers();
     List<User> loadDatabase(String pathFile) throws FailLoadDatabase;
     void loadUsersHashmap() throws FailLoadDatabase;
     void loadSellersHashMap ();

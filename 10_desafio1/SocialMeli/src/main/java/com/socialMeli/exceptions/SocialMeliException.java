@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SocialMeliException extends Exception{
+public abstract class SocialMeliException extends Exception{
 
     private ErrorDTO error;
     private HttpStatus status;

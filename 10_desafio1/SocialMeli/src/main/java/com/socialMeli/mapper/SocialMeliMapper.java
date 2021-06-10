@@ -18,21 +18,11 @@ public class SocialMeliMapper implements iSocialMeliMapper{
     @Autowired
     iSocialMeliRepository repository;
 
-    public ArrayList<UserDTO> mapUserToDTOList (ArrayList<User> users) {
-        return (ArrayList<UserDTO>) users.stream().map(user -> {
-            try {
-                return mapUserToDTO(user);
-            } catch (UserIdNotFoundException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).collect(Collectors.toList());
-    }
-
-    public UserDTO mapUserToDTO (User user) throws UserIdNotFoundException {
-        return (new UserDTO(repository.findByUser(user), user.getUsername()));
-    }
-
+    /**
+     * Map an ArrayList<Seller> into a ArrayList<UserDTO>
+     * @param sellers
+     * @return ArrayList<UserDTO>
+     */
     public ArrayList<UserDTO> mapSellerToUserDTOList (ArrayList<Seller> sellers) {
         return (ArrayList<UserDTO>) sellers.stream().map(seller -> {
             try {
@@ -44,15 +34,13 @@ public class SocialMeliMapper implements iSocialMeliMapper{
         }).collect(Collectors.toList());
     }
 
+    /**
+     * Map a Seller into a UserDTO
+     * @param seller
+     * @return UserDTO --> int userId, string username
+     * @throws UserIdNotFoundException
+     */
     public UserDTO mapSellertoUserDTO (Seller seller) throws UserIdNotFoundException {
         return (new UserDTO(repository.findByUser(seller), seller.getUsername()));
-    }
-
-    public List<User> mapObjectToUserList (List<Object> objects) {
-        return objects.stream().map(object -> mapObjectToUser(object)).collect(Collectors.toList());
-    }
-
-    public User mapObjectToUser (Object object) {
-        return ((User) object);
     }
 }
