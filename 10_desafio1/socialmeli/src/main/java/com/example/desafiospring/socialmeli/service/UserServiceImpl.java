@@ -67,14 +67,13 @@ public class UserServiceImpl implements IUserService {
 
     /**
      *005
-
      */
     @Override
-    public Void unfollow (Integer userId, Integer userIdToUnfollow) throws UserNotFoundException, UserNotFoundException {
+    public Void unfollow (Integer userId, Integer unFollowUser) throws UserNotFoundException, UserNotFoundException {
         User user = repository.findBy(userId);
-        Seller userToUnfollow = repository.findBy(userIdToUnfollow);
+        Seller userToUnfollow = repository.findBy(unFollowUser(););
 
-        if (user.getFollowing().stream().filter(seller -> seller.getUsername().equals(userToUnfollow.getUsername())).collect(Collectors.toList()).isEmpty())
+        if (user.getFollowing().stream().filter(seller -> seller.getUsername().equals(unFollowUser().getUsername())).collect(Collectors.toList()).isEmpty())
             throw new UserNotFoundException(user.getUsername());
         user.getFollowing().remove(userToUnfollow);
 

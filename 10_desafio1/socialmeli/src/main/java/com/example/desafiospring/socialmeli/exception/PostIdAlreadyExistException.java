@@ -8,4 +8,6 @@ public class PostIdAlreadyExistException extends SocialMeliException {
     }
 }
 
-//exception mensaje con status notfound
+/**
+ * message not found
+ */

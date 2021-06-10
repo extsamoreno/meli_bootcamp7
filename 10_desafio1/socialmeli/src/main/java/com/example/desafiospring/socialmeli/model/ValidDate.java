@@ -6,7 +6,9 @@ import java.util.Date;
 
 
 
-//fecha de cdo se sube el producto, valid
+/**
+ * the date of the validated product
+ */
 public class ValidDate {
     public static boolean validateDate(String strDate)
     {

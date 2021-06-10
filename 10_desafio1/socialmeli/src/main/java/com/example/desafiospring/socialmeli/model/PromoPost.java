@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * the promo post, discount
+ */
 public class PromoPost extends Post {
 
     private boolean hasPromo = true;

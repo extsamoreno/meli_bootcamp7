@@ -16,7 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/products") //mapping de 0005, products
+/**
+ * 0005 - mapping products
+ */
+@RequestMapping("/products")
 public class PublicationController {
 
     @Autowired
@@ -24,33 +27,49 @@ public class PublicationController {
     private Object post;
     private Object PostDTO;
 
-
-    @PostMapping("/newpost") //post de newpost, 0005
+    /**
+     * 0005 post the newpost
+     */
+    @PostMapping("/newpost")
     public ResponseEntity<Void> newPost(@RequestBody Post post) throws UserNotFoundException {
-        IPostService.newPost(post); //chusmear porque queda en rojo
+        IPostService.newPost(post); //
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @GetMapping("/followed/{userId}/list") //get 0006
+    /**
+     * 0006 - get
+     */
+    @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostListDTO> getFollowedPostList(@PathVariable Integer userId) throws UserNotFoundException {
         return new ResponseEntity<>(
                 IPostService.getFollowedPostList(userId), HttpStatus.OK
-        ); //0009
+        ); /**
+         * 0009
+         */
     }
-    @PostMapping("/newpromopost") //0010
+
+    /**
+     * 0010
+     */
+    @PostMapping("/newpromopost")
     public ResponseEntity<Void> newPromoPost(@RequestBody PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException, DateIsNotValidException {
         IPostService.newPost(post);
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
-    @GetMapping("/{userId}/countPromo") //0011
+
+    /**
+     * 0011
+     */
+    @GetMapping("/{userId}/countPromo")
     public ResponseEntity<PromoUserProductDTO> getPromoProductsCount(@PathVariable Integer userId) throws UserNotFoundException {
         return new ResponseEntity(
                 IPostService.getProductPost(userId),HttpStatus.OK
         );
     }
 
-    @GetMapping("/{userId}/list") //0012
+    /**
+     * 0012
+     */
+    @GetMapping("/{userId}/list")
     public ResponseEntity<PostListDTO> listPromoPosts(@PathVariable Integer sellerId) throws UserNotFoundException {
         return (new ResponseEntity(IUserService.PostList(sellerId), HttpStatus.OK));
     }

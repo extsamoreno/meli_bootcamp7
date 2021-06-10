@@ -11,7 +11,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
-
+    /**
+     * the post: date, detail, category, price
+     */
     private int sellerId;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;

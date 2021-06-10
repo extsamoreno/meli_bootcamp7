@@ -13,17 +13,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Seller extends User implements Comparable<Seller> {
-
+    /**
+     *SELLER
+     */
     private ArrayList<UserDTO> followers;
     private ArrayList<Post> posts;
 
-    public Seller(int userId, String userName, List<User> followers, List<User> followed, List<Post> posts) {
-        super(userId, userName, followers, followed, posts);
+    public Seller(int userId, String username, List<User> followers, List<User> followed, List<Post> posts) {
+        super(userId, username, followers, followed, posts);
     }
 
     //si son iguales devuelve 0
     @Override
     public int compareTo(Seller o) {
-        return (getUserName().compareTo(o.getUserName()));
+        return (getUsername().compareTo(o.getUsername()));
     }
 }

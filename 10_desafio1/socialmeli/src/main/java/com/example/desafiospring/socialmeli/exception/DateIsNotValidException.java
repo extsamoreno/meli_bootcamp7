@@ -2,7 +2,10 @@ package com.example.desafiospring.socialmeli.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class DateIsNotValidException extends SocialMeliException {  //excepcion en la date, extiende
+/**
+ * exception the date
+ */
+public class DateIsNotValidException extends SocialMeliException {
     public DateIsNotValidException(String message) {
         super(message, HttpStatus.NOT_FOUND);
     }

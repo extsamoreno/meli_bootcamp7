@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class UserExceptionController {
-
+    /**
+     * the exception handler throws this
+     */
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorDTO> handlerGlobalException(UserNotFoundException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus()); //EL HANDLER EXCEPTION ARROJA ESTO

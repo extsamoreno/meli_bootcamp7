@@ -10,7 +10,9 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-
+    /**
+     * USER
+     */
     private String username;
     private ArrayList<Seller> following;
 
@@ -18,11 +20,11 @@ public class User {
     }
 
     public User[] getFollowed() {
-        return followed;
+        return following;
     }
 
     public void setFollowed(User[] followed) {
-        this.followed = followed;
+        this.following = followed;
     }
 }
 
