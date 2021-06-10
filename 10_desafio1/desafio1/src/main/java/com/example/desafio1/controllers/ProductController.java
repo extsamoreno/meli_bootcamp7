@@ -2,6 +2,8 @@ package com.example.desafio1.controllers;
 
 import com.example.desafio1.dtos.*;
 import com.example.desafio1.exceptions.product.InvalidDiscountException;
+import com.example.desafio1.exceptions.product.ProductException;
+import com.example.desafio1.exceptions.product.SameIdPostException;
 import com.example.desafio1.exceptions.user.InvalidUserIdException;
 import com.example.desafio1.exceptions.user.UserException;
 import com.example.desafio1.services.IProductService;
@@ -23,7 +25,9 @@ public class ProductController {
      * @return String which idProduct was added to the userId
      * Response
      * 200 -> OK
-     * 400 -> if the user does not exists
+     * 400
+     * if the user does not exists
+     * if the user already has a post with the same idPost
      * Example: /products/newpost
      * Body example:
 
@@ -47,7 +51,8 @@ public class ProductController {
      *   @author Sapaya Nicolás Martín
     */
     @PostMapping("/newpost")
-    public ResponseEntity<String> addNewPost(@RequestBody PostDTO postDTO) throws InvalidUserIdException {
+    public ResponseEntity<String> addNewPost(@RequestBody PostDTO postDTO) throws InvalidUserIdException,
+            SameIdPostException {
         return new ResponseEntity<>(iProductService.addNewPost(postDTO), HttpStatus.OK);
     }
 
@@ -59,7 +64,8 @@ public class ProductController {
      * 200 -> OK
      * 400
      * if the user does not exists
-     * or if discount is < 0.00 or >  1.00
+     * if the user already has a post with the same idPost
+     * if discount is < 0.00 or >  1.00
      * Example: /products/newpromopost
      * Body example:
 
@@ -86,7 +92,7 @@ public class ProductController {
      */
     @PostMapping("/newpromopost")
     public ResponseEntity<String> addNewPromoPost(@RequestBody PostPromoDTO postPromoDTO)
-            throws InvalidUserIdException, InvalidDiscountException {
+            throws InvalidUserIdException, ProductException {
         return new ResponseEntity<>(iProductService.addNewPromoPost(postPromoDTO), HttpStatus.OK);
     }
 

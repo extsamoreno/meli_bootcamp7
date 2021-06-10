@@ -2,6 +2,8 @@ package com.example.desafio1.services;
 
 import com.example.desafio1.dtos.*;
 import com.example.desafio1.exceptions.product.InvalidDiscountException;
+import com.example.desafio1.exceptions.product.ProductException;
+import com.example.desafio1.exceptions.product.SameIdPostException;
 import com.example.desafio1.exceptions.user.InvalidOrderException;
 import com.example.desafio1.exceptions.user.InvalidUserIdException;
 import com.example.desafio1.exceptions.user.UserException;
@@ -31,8 +33,10 @@ public class ProductService implements IProductService {
     IUserService iUserService;
 
     @Override
-    public String addNewPost(PostDTO postDTO) throws InvalidUserIdException {
-        iProductRepository.addNewPost(iUserService.getUserById(postDTO.getUserId()),
+    public String addNewPost(PostDTO postDTO) throws InvalidUserIdException, SameIdPostException {
+        User user = iUserService.getUserById(postDTO.getUserId());
+        checkIfIdPostExists(user.getPosts(), postDTO.getIdPost());
+        iProductRepository.addNewPost(user,
                 PostMapper.PostDTOToPost(postDTO));
         return "Se ha agregado el producto con id: " + postDTO.getDetail().getProductId() +
                 " al usuario con id: " + postDTO.getUserId();
@@ -40,13 +44,14 @@ public class ProductService implements IProductService {
 
     // Discount must be between 0 and 1
     @Override
-    public String addNewPromoPost(PostPromoDTO postPromoDTO) throws InvalidUserIdException, InvalidDiscountException {
+    public String addNewPromoPost(PostPromoDTO postPromoDTO) throws InvalidUserIdException, ProductException {
         double discount = postPromoDTO.getDiscount();
         if(discount < 0.00 || discount > 1.00) {
             throw new InvalidDiscountException(discount);
         }
-        iProductRepository.addNewPost(iUserService.getUserById(postPromoDTO.getUserId()),
-                PostMapper.PostPromoDTOToPost(postPromoDTO));
+        User user = iUserService.getUserById(postPromoDTO.getUserId());
+        checkIfIdPostExists(user.getPosts(), postPromoDTO.getIdPost());
+        iProductRepository.addNewPost(user, PostMapper.PostPromoDTOToPost(postPromoDTO));
         return "Se ha agregado el producto en PROMOCION con id: " + postPromoDTO.getDetail().getProductId() +
                 " al usuario con id: " + postPromoDTO.getUserId();
     }
@@ -113,6 +118,14 @@ public class ProductService implements IProductService {
             list.sort(COMPARATOR_DATE_DES);
         } else if(!order.equals("")) {
             throw new InvalidOrderException(order);
+        }
+    }
+
+    private void checkIfIdPostExists(List<Post> posts, int idPost) throws SameIdPostException {
+        for(Post p : posts) {
+            if(p.getIdPost() == idPost) {
+                throw new SameIdPostException(idPost);
+            }
         }
     }
 }
