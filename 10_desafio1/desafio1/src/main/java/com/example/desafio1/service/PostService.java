@@ -4,7 +4,6 @@ import com.example.desafio1.exception.ProductInconsistencyException;
 import com.example.desafio1.exception.ProductNotFoundException;
 import com.example.desafio1.exception.PostIdAlreadyInUseException;
 import com.example.desafio1.exception.UserNotFoundException;
-import com.example.desafio1.model.Precedeable;
 import com.example.desafio1.model.Product;
 import com.example.desafio1.model.ProductPost;
 import com.example.desafio1.repository.IProductPostRepository;
@@ -12,6 +11,9 @@ import com.example.desafio1.repository.IUserRepository;
 import com.example.desafio1.service.dto.postdto.PostDTO;
 import com.example.desafio1.service.dto.postdto.UserPostListDTO;
 import com.example.desafio1.service.mapper.PostMapper;
+import com.example.desafio1.service.sortutil.CompareDateDesc;
+import com.example.desafio1.service.sortutil.QuickSort;
+import com.example.desafio1.service.sortutil.Sorter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,11 +98,10 @@ public class PostService implements IPostService{
 
     private ArrayList<ProductPost> sortPosts(ArrayList<ProductPost> posts)
     {
-        Precedeable<ProductPost>[] sellerPosts = posts.toArray(new ProductPost[0]);
+        ProductPost[] sellerPosts = posts.toArray(new ProductPost[0]);
         Sorter<ProductPost> sorter = new QuickSort();
-        //Comparator<ProductPost> c = (a, b) -> a.precedeA(b);
         Comparator<ProductPost> c = new CompareDateDesc();
         sorter.sort(sellerPosts, c);
-        return new ArrayList<>(Arrays.asList((ProductPost[]) sellerPosts));
+        return new ArrayList<>(Arrays.asList(sellerPosts));
     }
 }

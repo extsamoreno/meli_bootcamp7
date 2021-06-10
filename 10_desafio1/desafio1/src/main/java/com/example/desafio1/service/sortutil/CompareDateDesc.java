@@ -1,4 +1,4 @@
-package com.example.desafio1.service;
+package com.example.desafio1.service.sortutil;
 
 import com.example.desafio1.model.ProductPost;
 
@@ -16,4 +16,5 @@ public class CompareDateDesc implements Comparator<ProductPost> {
 
         return r;
     }
+
 }
