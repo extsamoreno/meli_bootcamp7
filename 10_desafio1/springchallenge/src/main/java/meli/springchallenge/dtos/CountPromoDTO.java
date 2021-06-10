@@ -11,6 +11,6 @@ public class CountPromoDTO {
 
     private int userId;
     private String UserName;
-    private int promoproducts_count;
+    private int promoProductsCount;
 
 }

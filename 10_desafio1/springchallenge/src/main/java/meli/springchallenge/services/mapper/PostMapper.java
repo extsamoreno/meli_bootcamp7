@@ -9,7 +9,7 @@ public class PostMapper {
 
     public static Product productToModel(ProductDTO prodDTO){
         return new Product(
-                prodDTO.getProduct_id(),
+                prodDTO.getProductId(),
                 prodDTO.getProductName(),
                 prodDTO.getType(),
                 prodDTO.getBrand(),
@@ -19,9 +19,9 @@ public class PostMapper {
     public static Post postToModel(PostDTO postDTO){
         return new Post(
                 postDTO.getUserId(),
-                postDTO.getId_post(),
+                postDTO.getPostId(),
                 postDTO.getDate(),
-                postDTO.getDetail().getProduct_id(),
+                postDTO.getDetail().getProductId(),
                 postDTO.getCategory(),
                 postDTO.getPrice(),
                 postDTO.isHasPromo(),

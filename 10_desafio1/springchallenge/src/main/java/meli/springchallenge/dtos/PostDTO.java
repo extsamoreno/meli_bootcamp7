@@ -13,7 +13,7 @@ import java.util.Date;
 public class PostDTO {
 
     private int userId;
-    private int id_post;
+    private int postId;
     @JsonFormat(pattern="dd-MM-yyyy", timezone="UTC")
     private Date date;
     private ProductDTO detail;

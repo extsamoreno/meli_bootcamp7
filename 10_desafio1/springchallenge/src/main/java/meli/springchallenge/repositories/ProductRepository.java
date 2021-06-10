@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductRepository implements IProductRepository{
@@ -78,7 +79,8 @@ public class ProductRepository implements IProductRepository{
 
     @Override
     public void deletePost(int postId) {
-        this.posts.remove(posts.stream().filter(p->p.getProductId()==postId).findFirst().get());
+        posts.remove(posts.stream().filter(p->p.getPostId()==postId).findFirst().get());
+
     }
 
     private boolean validatePostId(int postId) throws PostIdNotValidException {

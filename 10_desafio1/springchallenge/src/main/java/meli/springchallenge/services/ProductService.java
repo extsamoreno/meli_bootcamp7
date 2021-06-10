@@ -113,7 +113,7 @@ public class ProductService implements IProductService{
     private Date getDateBeforeTwoWeeks(Date date, int daysBefore) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.DATE, daysBefore * -1); //2 weeks
+        calendar.add(Calendar.DATE, daysBefore * -1);
         return calendar.getTime();
     }
 

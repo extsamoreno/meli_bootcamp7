@@ -2,17 +2,17 @@ package meli.springchallenge.services;
 
 import meli.springchallenge.dtos.FollowerCountDTO;
 import meli.springchallenge.dtos.FollowListDTO;
-import meli.springchallenge.dtos.UserDTO;
 import meli.springchallenge.exceptions.RelationNonExistentException;
 import meli.springchallenge.exceptions.RelationNotValidException;
 import meli.springchallenge.exceptions.UserNotValidException;
 import meli.springchallenge.models.User;
 import meli.springchallenge.repositories.IUserRepository;
+import meli.springchallenge.services.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class UserService implements IUserService{
@@ -49,7 +49,7 @@ public class UserService implements IUserService{
         FollowListDTO response = new FollowListDTO();
         response.setUserId(userId);
         response.setUserName(userName);
-        response.setRelateds(userMapper(followers));
+        response.setRelateds(UserMapper.toDTO(followers));
 
         return response;
     }
@@ -69,7 +69,7 @@ public class UserService implements IUserService{
         FollowListDTO response = new FollowListDTO();
         response.setUserId(userId);
         response.setUserName(userName);
-        response.setRelateds(userMapper(followed));
+        response.setRelateds(UserMapper.toDTO(followed));
 
         return response;
     }
@@ -85,9 +85,5 @@ public class UserService implements IUserService{
         return "Relation #" + relationId + " removed";
     }
 
-    private List<UserDTO> userMapper(List<User> users){
 
-        return  users.stream().map(u-> new UserDTO(u.getUserId(), u.getUserName())).collect(Collectors.toList());
-
-    }
 }
