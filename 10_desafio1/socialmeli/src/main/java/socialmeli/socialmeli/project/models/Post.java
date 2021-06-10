@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
     public class Post implements Comparable<Post>{
         private Integer userId;
@@ -17,6 +18,19 @@ import java.util.Date;
         private Product detail;
         private Integer category;
         private Double price;
+        private boolean hasPromo;
+        private double discount;
+
+    public Post(Integer userId, Integer idPost, Date date, Product detail, Integer category, Double price) {
+        this.userId = userId;
+        this.idPost = idPost;
+        this.date = date;
+        this.detail = detail;
+        this.category = category;
+        this.price = price;
+        this.hasPromo=false;
+        this.discount=0;
+    }
 
     @Override
     public int compareTo(Post o) {

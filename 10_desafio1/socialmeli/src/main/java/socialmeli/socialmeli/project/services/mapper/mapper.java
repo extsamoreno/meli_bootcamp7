@@ -42,7 +42,7 @@ public static FollowersResponseDto toFollowersResponseDto(User u, Integer i){
 
     public static Post dtoToPost(PostDto postDto)
     {
-        return new Post(postDto.getUserId(),postDto.getIdPost(),postDto.getDate(),postDto.getDetail(),postDto.getCategory(),postDto.getPrice());
+        return new Post(postDto.getUserId(),postDto.getIdPost(),postDto.getDate(),postDto.getDetail(),postDto.getCategory(),postDto.getPrice(), postDto.isHasPromo(), postDto.getDiscount());
     }
 
     public static PostArrayDto postArrayToDto (ArrayList<Post> arrayPost){

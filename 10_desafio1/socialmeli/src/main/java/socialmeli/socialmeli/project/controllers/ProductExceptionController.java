@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import socialmeli.socialmeli.project.exceptions.ProductExceptions.NoPostsFoundException;
 import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostAlreadyExistsException;
+import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostPromoFoundException;
+import socialmeli.socialmeli.project.exceptions.ProductExceptions.PostPromoNotFoundException;
 import socialmeli.socialmeli.project.services.Dto.ErrorDto;
 
 @ControllerAdvice
@@ -19,4 +21,14 @@ public class ProductExceptionController {
     public ResponseEntity<ErrorDto> handleGlobalException(NoPostsFoundException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
+
+    @ExceptionHandler(PostPromoNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleGlobalException(PostPromoNotFoundException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+    @ExceptionHandler(PostPromoFoundException.class)
+    public ResponseEntity<ErrorDto> handleGlobalException(PostPromoFoundException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
 }
