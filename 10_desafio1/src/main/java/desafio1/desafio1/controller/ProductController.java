@@ -23,9 +23,9 @@ public class ProductController {
         return new ResponseEntity<>(productService.newPost(publicationDTO), HttpStatus.OK);
     }
 
-    @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostsDTO> listPublication(@PathVariable int userId) throws UserNotFoundException {
-        return new ResponseEntity<>(productService.listPublication(userId), HttpStatus.OK);
+    @GetMapping("/followed/{userId}/list") //ver las publicaciones de 2 semanas para aca de sellers que sigo
+    public ResponseEntity<PostsDTO> listPublication(@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException {
+        return new ResponseEntity<>(productService.listPublication(userId, order), HttpStatus.OK);
     }
 
 

@@ -49,7 +49,7 @@ public class UserRepository implements IUserRepository {
         return userResult;
     }
 
-    //chiterio va a ser "vendedor" o "usuario" entonces todos los userSaveTDO que contengan en el nombre, uno de esos, se va a guardar en la lista que voy a devolver
+    //criterio va a ser "vendedor" o "usuario" entonces todos los userSaveTDO que contengan en el nombre, uno de esos, se va a guardar en la lista que voy a devolver
     //filtra los que sigo
     @Override
     public List<UserSaveDTO> filterFollowers(int userId, String criterio) throws UserNotFoundException {

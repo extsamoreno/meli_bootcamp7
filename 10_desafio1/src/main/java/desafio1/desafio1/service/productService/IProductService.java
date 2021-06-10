@@ -9,5 +9,5 @@ import desafio1.desafio1.service.productService.dto.PublicationDTO;
 public interface IProductService {
     User newPost(PublicationDTO publicationDTO) throws UserNotFoundException, ValidateSellerException;
 
-    PostsDTO listPublication(int userId) throws UserNotFoundException;
+    PostsDTO listPublication(int userId, String order) throws UserNotFoundException;
 }

@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,7 +46,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public PostsDTO listPublication(int userId) throws UserNotFoundException {
+    public PostsDTO listPublication(int userId, String order) throws UserNotFoundException {
         //Obtengo la lista de vendedores TDO a los que sigue el usuario
         List<UserSaveDTO> sellersTDO= userRepository.filterFollowers(userId, "vendedor");
         List<User> sellers = new ArrayList<>();
@@ -61,13 +58,14 @@ public class ProductService implements IProductService {
         }
 
         postsDTO.setUserId(userId);
-        postsDTO.setPosts(postsBefore(sellers));
+        postsDTO.setPosts(postsBefore(sellers, order));
+
 
         return postsDTO;
 
     }
 
-    private List<Publications> postsBefore(List<User> sellers) {
+    private List<Publications> postsBefore(List<User> sellers, String order) {
         Date dateMinusTwoWeeks = getDateBeforeTwoWeeks();
 
         List<Publications> posts = new ArrayList<>();
@@ -77,9 +75,18 @@ public class ProductService implements IProductService {
                     p -> p.getDate().after(dateMinusTwoWeeks)).collect(Collectors.toList());
         }
 
+        if(order == null)  return posts;
+        sortByDate(posts,order);
+
         return posts;
+
     }
 
+    private void sortByDate(List<Publications> list , String order){
+        if(order.equals("name_asc")) list.sort(Comparator.comparing(Publications::getDate));
+        else if(order.equals("name_desc")) list.sort(Comparator.comparing(Publications::getDate).reversed());
+
+    }
 
 
     private Date getDateBeforeTwoWeeks() {
