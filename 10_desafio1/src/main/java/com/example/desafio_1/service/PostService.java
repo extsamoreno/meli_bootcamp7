@@ -5,9 +5,7 @@ import com.example.desafio_1.models.Buyer;
 import com.example.desafio_1.models.Post;
 import com.example.desafio_1.models.User;
 import com.example.desafio_1.repository.IPostRepository;
-import com.example.desafio_1.service.dto.FollowedPostDTO;
-import com.example.desafio_1.service.dto.PostDTO;
-import com.example.desafio_1.service.dto.PostPromoDTO;
+import com.example.desafio_1.service.dto.*;
 import com.example.desafio_1.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,6 +95,26 @@ public class PostService implements IPostService {
         Post post = postMapper.toModel(postPromoDTO);
 
         this.createPost(post);
+    }
+
+    @Override
+    public PromoListDTO getPromoPostsByUserId(int userId) throws UserExceptionNotFound, UserExceptionWrongType {
+        User user = userService.getUserById(userId);
+        userService.checkInstance(user, "seller");
+
+        List<Post> promos = postRepository.getAllPostInPromoFromUserId(userId);
+
+        return new PromoListDTO(userId, user.getName(), promos.stream().map(x -> postMapper.toPostPromoDTO(x)).collect(Collectors.toList()));
+    }
+
+    @Override
+    public PromoCountDTO getPromoPostsCountByUserId(int userId) throws UserExceptionWrongType, UserExceptionNotFound {
+        User user = userService.getUserById(userId);
+        userService.checkInstance(user, "seller");
+
+        List<Post> promos = postRepository.getAllPostInPromoFromUserId(userId);
+
+        return new PromoCountDTO(userId, user.getName(), promos.size());
     }
 
     private void orderListOfPost(List<Post> posts, String order) throws WrongOrderFieldException {

@@ -7,4 +7,6 @@ import java.util.List;
 public interface IPostRepository extends IRepository<Post> {
 
     List<Post> getAllPostsBeforeTwoWeeksFromSellerId(int sellerId);
+
+    List<Post> getAllPostInPromoFromUserId(int userId);
 }

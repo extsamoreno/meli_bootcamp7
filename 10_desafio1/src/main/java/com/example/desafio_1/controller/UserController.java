@@ -2,6 +2,9 @@ package com.example.desafio_1.controller;
 
 import com.example.desafio_1.exception.*;
 import com.example.desafio_1.service.IUserService;
+import com.example.desafio_1.service.dto.FollowedListDTO;
+import com.example.desafio_1.service.dto.FollowerCountDTO;
+import com.example.desafio_1.service.dto.FollowerListDTO;
 import com.example.desafio_1.service.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,17 +31,17 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<UserDTO> followersCount(@PathVariable int userId) throws UserExceptionNotFound, UserExceptionWrongType {
-        return new ResponseEntity<UserDTO>(userService.getFollowersCount(userId), HttpStatus.OK);
+    public ResponseEntity<FollowerCountDTO> followersCount(@PathVariable int userId) throws UserExceptionNotFound, UserExceptionWrongType {
+        return new ResponseEntity<FollowerCountDTO>(userService.getFollowersCount(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserDTO> followersList(@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws UserExceptionNotFound, UserExceptionWrongType, WrongOrderFieldException {
-        return new ResponseEntity<UserDTO>(userService.getFollowersList(userId, order), HttpStatus.OK);
+    public ResponseEntity<FollowerListDTO> followersList(@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws UserExceptionNotFound, UserExceptionWrongType, WrongOrderFieldException {
+        return new ResponseEntity<FollowerListDTO>(userService.getFollowersList(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserDTO> followingList(@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws UserExceptionNotFound, UserExceptionWrongType, WrongOrderFieldException {
-        return new ResponseEntity<UserDTO>(userService.getFollowingList(userId, order), HttpStatus.OK);
+    public ResponseEntity<FollowedListDTO> followingList(@PathVariable int userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws UserExceptionNotFound, UserExceptionWrongType, WrongOrderFieldException {
+        return new ResponseEntity<FollowedListDTO>(userService.getFollowingList(userId, order), HttpStatus.OK);
     }
 }

@@ -3,9 +3,7 @@ package com.example.desafio_1.controller;
 import com.example.desafio_1.exception.*;
 import com.example.desafio_1.service.IPostService;
 import com.example.desafio_1.service.IProductService;
-import com.example.desafio_1.service.dto.FollowedPostDTO;
-import com.example.desafio_1.service.dto.PostDTO;
-import com.example.desafio_1.service.dto.PostPromoDTO;
+import com.example.desafio_1.service.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +36,14 @@ public class ProductController {
         return new ResponseEntity<FollowedPostDTO>(postService.getFollowedUsersPostsByUserId(userId, order), HttpStatus.OK);
     }
 
-    @GetMapping("/products/{userId}/list/")
-    public ResponseEntity<>
+    @GetMapping("/{userId}/list/")
+    public ResponseEntity<PromoListDTO> getPromoPosts(@PathVariable int userId) throws UserExceptionWrongType, UserExceptionNotFound {
+        return new ResponseEntity<PromoListDTO>(postService.getPromoPostsByUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/countPromo/")
+    public ResponseEntity<PromoCountDTO> getPromoPostsCount(@PathVariable int userId) throws UserExceptionWrongType, UserExceptionNotFound {
+        return new ResponseEntity<PromoCountDTO>(postService.getPromoPostsCountByUserId(userId), HttpStatus.OK);
+    }
 
 }

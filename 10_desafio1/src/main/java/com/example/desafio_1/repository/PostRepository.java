@@ -45,6 +45,15 @@ public class PostRepository implements IPostRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Post> getAllPostInPromoFromUserId(int sellerId) {
+        return posts.values()
+                .stream()
+                .filter(post -> post.getUserId() == sellerId)
+                .filter(post -> post.isHasPromo())
+                .collect(Collectors.toList());
+    }
+
     //Get the next available integer
     private int getNextAvailableId(int size) {
         int newId = size + 1;

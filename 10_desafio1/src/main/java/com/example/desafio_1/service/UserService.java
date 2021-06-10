@@ -5,6 +5,9 @@ import com.example.desafio_1.models.Buyer;
 import com.example.desafio_1.models.Seller;
 import com.example.desafio_1.models.User;
 import com.example.desafio_1.repository.IUserRepository;
+import com.example.desafio_1.service.dto.FollowedListDTO;
+import com.example.desafio_1.service.dto.FollowerCountDTO;
+import com.example.desafio_1.service.dto.FollowerListDTO;
 import com.example.desafio_1.service.dto.UserDTO;
 import com.example.desafio_1.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,27 +67,20 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO getFollowersCount(int userId) throws UserExceptionNotFound, UserExceptionWrongType {
+    public FollowerCountDTO getFollowersCount(int userId) throws UserExceptionNotFound, UserExceptionWrongType {
 
         User user = getUserById(userId);
 
         checkInstance(user, "seller");
 
-        UserDTO userDTO = userMapper.toDto(user);
-
-        userDTO.setFollowers_count(((Seller) user).getFollowers().size());
-
-        return userDTO;
+        return new FollowerCountDTO(user.getId(), user.getName(), ((Seller) user).getFollowers().size());
     }
 
     @Override
-    public UserDTO getFollowersList(int userId, String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException {
+    public FollowerListDTO getFollowersList(int userId, String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException {
         User user = getUserById(userId);
 
         checkInstance(user, "seller");
-
-        UserDTO userDTO = userMapper.toDto(user);
-        //Maybe extract to method
 
         Collection<Buyer> followers = ((Seller) user).getFollowers().values();
 
@@ -94,20 +90,15 @@ public class UserService implements IUserService {
             orderListOfUser(followerListDTO, order);
         }
 
-        userDTO.setFollowers(followerListDTO);
-
-        return userDTO;
+        return new FollowerListDTO(userId, user.getName(), followerListDTO);
     }
 
     //Medio duplicado esto
     @Override
-    public UserDTO getFollowingList(int userId, String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException {
+    public FollowedListDTO getFollowingList(int userId, String order) throws UserExceptionWrongType, UserExceptionNotFound, WrongOrderFieldException {
         User user = getUserById(userId);
 
         checkInstance(user, "buyer");
-
-        UserDTO userDTO = userMapper.toDto(user);
-        //Maybe extract to method
 
         Collection<Seller> following = ((Buyer) user).getFollowing().values();
 
@@ -117,9 +108,7 @@ public class UserService implements IUserService {
             orderListOfUser(followingListDTO, order);
         }
 
-        userDTO.setFollowing(followingListDTO);
-
-        return userDTO;
+        return new FollowedListDTO(userId, user.getName(), followingListDTO);
     }
 
     private void orderListOfUser(List<UserDTO> followingListDTO, String order) throws WrongOrderFieldException {
