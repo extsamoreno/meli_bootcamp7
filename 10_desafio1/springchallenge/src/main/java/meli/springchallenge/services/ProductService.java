@@ -43,7 +43,7 @@ public class ProductService implements IProductService{
         for(User u:followed){
             List<Post> posts = new ArrayList<>();
             try{
-                posts = productRepository.getPostByUserId(u.getUserId());
+                posts = productRepository.getPostsByUserId(u.getUserId());
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -70,7 +70,7 @@ public class ProductService implements IProductService{
         String userName = userRepository.getUserById(userId).getUserName();
         int countPost = 0;
         try{
-            List<Post> posts = productRepository.getPostByUserId(userId);
+            List<Post> posts = productRepository.getPostsByUserId(userId);
             for(Post p:posts) if (p.isHasPromo()) countPost++;
         }catch (Exception e){
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class ProductService implements IProductService{
         List<Post> filteredPosts = new ArrayList<>();
         List<PostDTO> postDTOs = new ArrayList<>();
         try{
-            List<Post>  posts = productRepository.getPostByUserId(userId);
+            List<Post>  posts = productRepository.getPostsByUserId(userId);
             if(filter.equals("hasPromo"))
                 filteredPosts = posts.stream().filter(Post::isHasPromo).collect(Collectors.toList());
             else filteredPosts = posts;
@@ -96,6 +96,18 @@ public class ProductService implements IProductService{
             postDTOs.add(PostMapper.postToDTO(p, product));
         }
         return new PostsListDTO( userId, userName, postDTOs);
+    }
+
+    @Override
+    public String deletePost(int postId) throws PostIdNotValidException {
+        Post post = productRepository.getPostById(postId);
+        if (post == null){
+            throw new PostIdNotValidException(postId);
+        }
+        productRepository.deleteProduct(post.getProductId());
+        productRepository.deletePost(postId);
+
+        return "Post #" + postId + "Successfully deleted";
     }
 
     private Date getDateBeforeTwoWeeks(Date date, int daysBefore) {

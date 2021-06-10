@@ -57,4 +57,9 @@ public class ProductsControler {
         return new ResponseEntity<PostsListDTO>(productService.getPostsByUserId(userId, filter),HttpStatus.OK);
     }
 
+    @DeleteMapping({"/delete/{postId}"})
+    public ResponseEntity<String> deletePost(@PathVariable int postId) throws PostIdNotValidException {
+        return new ResponseEntity<String>(productService.deletePost(postId),HttpStatus.OK);
+    }
+
 }

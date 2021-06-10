@@ -17,5 +17,7 @@ public interface IProductService {
     CountPromoDTO countPromoPost(int userId) throws UserNotValidException;
 
     PostsListDTO getPostsByUserId(int userId, String filter) throws UserNotValidException;
+
+    String deletePost(int postId) throws PostIdNotValidException;
 }
 

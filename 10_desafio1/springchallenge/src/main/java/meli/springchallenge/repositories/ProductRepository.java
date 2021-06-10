@@ -39,7 +39,16 @@ public class ProductRepository implements IProductRepository{
     }
 
     @Override
-    public List<Post> getPostByUserId(int userId) {
+    public Post getPostById(int postId) {
+        try{
+            return posts.stream().filter(p-> postId == p.getPostId()).findFirst().get();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public List<Post> getPostsByUserId(int userId) {
 
         List<Post> posts = new ArrayList<>();
 
@@ -60,6 +69,16 @@ public class ProductRepository implements IProductRepository{
             }
         }
         return null;
+    }
+
+    @Override
+    public void deleteProduct(int productId) {
+        this.products.remove(products.stream().filter(p->p.getProductId()==productId).findFirst().get());
+    }
+
+    @Override
+    public void deletePost(int postId) {
+        this.posts.remove(posts.stream().filter(p->p.getProductId()==postId).findFirst().get());
     }
 
     private boolean validatePostId(int postId) throws PostIdNotValidException {

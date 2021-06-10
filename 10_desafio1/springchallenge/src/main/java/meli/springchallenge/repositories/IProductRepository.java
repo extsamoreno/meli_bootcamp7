@@ -13,7 +13,13 @@ public interface IProductRepository {
 
     void createPost (Post post) throws PostIdNotValidException;
 
-    List<Post> getPostByUserId(int userId);
+    Post getPostById(int userId);
+
+    List<Post> getPostsByUserId(int userId);
 
     Product getProductById(int productId);
+
+    void deleteProduct(int productId);
+
+    void deletePost(int postId);
 }

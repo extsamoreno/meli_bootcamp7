@@ -2,6 +2,7 @@ package meli.springchallenge.controllers;
 
 import meli.springchallenge.dtos.ErrorDTO;
 import meli.springchallenge.exceptions.PostIdNotValidException;
+import meli.springchallenge.exceptions.ProductIdNotValidException;
 import meli.springchallenge.exceptions.SocialMeliException;
 import meli.springchallenge.exceptions.UserNotValidException;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,12 @@ public class ProductsExceptionsController {
     }
 
     @ExceptionHandler(PostIdNotValidException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(UserNotValidException e){
+    public ResponseEntity<ErrorDTO> handleGlobalException(PostIdNotValidException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(ProductIdNotValidException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductIdNotValidException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
