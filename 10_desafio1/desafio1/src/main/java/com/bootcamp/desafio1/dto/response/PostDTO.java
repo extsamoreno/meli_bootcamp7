@@ -1,4 +1,4 @@
-package com.bootcamp.desafio1.dto.request;
+package com.bootcamp.desafio1.dto.response;
 
 import com.bootcamp.desafio1.dto.ProductDTO;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,8 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-public class NewPostDTO {
+public class PostDTO {
 
-    private int userId;
     private int postId;
     private Date date;
     private ProductDTO detail;

@@ -11,9 +11,9 @@ import java.util.ArrayList;
 @Setter
 public class PromoListDTO extends UserDTO {
 
-    private ArrayList<NewPostDTO> posts;
+    private ArrayList<PostDTO> posts;
 
-    public PromoListDTO(int userId, String userName, ArrayList<NewPostDTO> posts) {
+    public PromoListDTO(int userId, String userName, ArrayList<PostDTO> posts) {
         super(userId, userName);
         this.posts = posts;
     }

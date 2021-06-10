@@ -1,11 +1,12 @@
 package com.bootcamp.desafio1.service;
 
+import com.bootcamp.desafio1.dto.ProductDTO;
 import com.bootcamp.desafio1.dto.request.NewPostDTO;
 import com.bootcamp.desafio1.dto.response.CountPromoDTO;
-import com.bootcamp.desafio1.exception.PostAlreadyExistsException;
-import com.bootcamp.desafio1.exception.PostNotFoundException;
-import com.bootcamp.desafio1.exception.ProductAlreadyExistsException;
-import com.bootcamp.desafio1.exception.UserNotFoundException;
+import com.bootcamp.desafio1.dto.response.PostDTO;
+import com.bootcamp.desafio1.dto.response.PostsFollowedListDTO;
+import com.bootcamp.desafio1.dto.response.PromoListDTO;
+import com.bootcamp.desafio1.exception.*;
 import com.bootcamp.desafio1.model.Post;
 import com.bootcamp.desafio1.model.Product;
 import com.bootcamp.desafio1.model.User;
@@ -67,6 +68,34 @@ public class ProductServiceImpl implements IProductService {
 
 
     @Override
+    public PostsFollowedListDTO listPostsFollowed(int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
+        User currentUser = userRepositoryImpl.getUserById(userId);
+        ArrayList<User> followed = currentUser.getFollowed();
+
+        // Generate the list of postId
+        ArrayList<Integer> postIdList = new ArrayList<>();
+        for (User x : followed) {
+            for (int postId : x.getPosts()) {
+                postIdList.add(postId);
+            }
+        }
+
+        // Bring the Posts and Products
+        ArrayList<PostDTO> finalList = new ArrayList<>();
+        for (int postId : postIdList) {
+            Post post = postRepositoryImpl.getPostById(postId);
+            Product product = productRepositoryImpl.getProductById(post.getProductId()) ;
+
+            // Generate the ProductDTO, PostDTO and add in the list
+            ProductDTO productDTO = Mapper.toProductDTO(product);
+            PostDTO postDTO = Mapper.toPostDTO(post, productDTO);
+            finalList.add(postDTO);
+        }
+        return Mapper.toPostsFollowedListDTO(currentUser, finalList);
+    }
+
+
+    @Override
     public CountPromoDTO promoCount(int userId) throws UserNotFoundException, PostNotFoundException {
         User currentUser = userRepositoryImpl.getUserById(userId);
         ArrayList<Integer> posts = currentUser.getPosts();
@@ -78,5 +107,28 @@ public class ProductServiceImpl implements IProductService {
         }
 
         return Mapper.toCountPromoDTO(currentUser, promoCount);
+    }
+
+
+    @Override
+    public PromoListDTO listPromos(int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
+        User currentUser = userRepositoryImpl.getUserById(userId);
+        ArrayList<Integer> postIdList = currentUser.getPosts();
+
+        // Bring the Posts and Products
+        ArrayList<PostDTO> finalList = new ArrayList<>();
+        for (int postId : postIdList) {
+            Post post = postRepositoryImpl.getPostById(postId);
+            Product product = productRepositoryImpl.getProductById(post.getProductId()) ;
+
+            // Generate the ProductDTO, PostDTO and add in the list
+            ProductDTO productDTO = Mapper.toProductDTO(product);
+            PostDTO postDTO = Mapper.toPostDTO(post, productDTO);
+
+            if(post.isHasPromo())
+                finalList.add(postDTO);
+        }
+
+        return Mapper.toPromoListDTO(currentUser, finalList);
     }
 }

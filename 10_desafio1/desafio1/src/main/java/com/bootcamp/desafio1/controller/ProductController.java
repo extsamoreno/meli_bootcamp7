@@ -1,14 +1,11 @@
 package com.bootcamp.desafio1.controller;
 
 import com.bootcamp.desafio1.dto.request.NewPostDTO;
-import com.bootcamp.desafio1.dto.response.CountFollowersDTO;
 import com.bootcamp.desafio1.dto.response.CountPromoDTO;
+import com.bootcamp.desafio1.dto.response.PostsFollowedListDTO;
 import com.bootcamp.desafio1.dto.response.PromoListDTO;
-import com.bootcamp.desafio1.exception.PostAlreadyExistsException;
-import com.bootcamp.desafio1.exception.PostNotFoundException;
-import com.bootcamp.desafio1.exception.ProductAlreadyExistsException;
+import com.bootcamp.desafio1.exception.*;
 
-import com.bootcamp.desafio1.exception.UserNotFoundException;
 import com.bootcamp.desafio1.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +27,13 @@ public class ProductController {
     }
 
 
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<PostsFollowedListDTO> listPostsFollowed(@PathVariable int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
+        PostsFollowedListDTO postsFollowedListDTO = productServiceImpl.listPostsFollowed(userId);
+        return new ResponseEntity(postsFollowedListDTO, HttpStatus.OK);
+    }
+
+
     @PostMapping("/newpromopost")
     @ResponseStatus(HttpStatus.OK)
     public void addNewPromoPost(@RequestBody NewPostDTO newPostDTO) throws PostAlreadyExistsException, ProductAlreadyExistsException, UserNotFoundException {
@@ -44,15 +48,11 @@ public class ProductController {
     }
 
 
-/*
+
     @GetMapping("/{userId}/list")
-    public ResponseEntity<PromoListDTO> listPromos(@PathVariable int userId) {
-        PromoListDTO promoListDTO = productServiceImpl;
+    public ResponseEntity<PromoListDTO> listPromos(@PathVariable int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
+        PromoListDTO promoListDTO = productServiceImpl.listPromos(userId);
         return new ResponseEntity(promoListDTO, HttpStatus.OK);
     }
-
- */
-
-
 
 }

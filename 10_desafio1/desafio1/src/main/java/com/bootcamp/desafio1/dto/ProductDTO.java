@@ -1,4 +1,4 @@
-package com.bootcamp.desafio1.dto.request;
+package com.bootcamp.desafio1.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
