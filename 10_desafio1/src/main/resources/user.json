@@ -46,8 +46,50 @@
     "publicationsList": []
   },
   {
+    "userId": 9,
+    "userName": "vendedor9",
+    "followList": [],
+    "followMeList": [],
+    "publicationsList": []
+  },
+  {
     "userId": 3,
     "userName": "usuario1",
+    "followList": [],
+    "followMeList": [],
+    "publicationsList": []
+  },
+  {
+    "userId": 4,
+    "userName": "usuario2",
+    "followList": [],
+    "followMeList": [],
+    "publicationsList": []
+  },
+  {
+    "userId": 5,
+    "userName": "usuario3",
+    "followList": [],
+    "followMeList": [],
+    "publicationsList": []
+  },
+  {
+    "userId": 6,
+    "userName": "usuario4",
+    "followList": [],
+    "followMeList": [],
+    "publicationsList": []
+  },
+  {
+    "userId": 10,
+    "userName": "vendedor10",
+    "followList": [],
+    "followMeList": [],
+    "publicationsList": []
+  },
+  {
+    "userId": 11,
+    "userName": "vendedor11",
     "followList": [],
     "followMeList": [],
     "publicationsList": []

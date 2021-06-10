@@ -11,9 +11,9 @@ public interface IUsersService {
 
     SellerCountDTO countFollowersUserById(int userId) throws UserNotFoundException, ValidateSellerException;
 
-    SellerListDTO listFollowersSeller(int userID) throws UserNotFoundException, ValidateSellerException;
+    SellerListDTO listFollowersSeller(int userID, String order) throws UserNotFoundException, ValidateSellerException;
 
-    UserListDTO listFollowedUser(int userId) throws UserNotFoundException, ValidateUserException;
+    UserListDTO listFollowedUser(int userId, String order) throws UserNotFoundException, ValidateUserException;
 
     void unfollow(int userId, int userIdToUnfollow) throws UserNotFoundException, UnfollowException, ValidateSellerException;
 }

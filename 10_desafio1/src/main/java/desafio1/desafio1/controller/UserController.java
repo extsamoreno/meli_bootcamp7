@@ -32,13 +32,13 @@ public class UserController {
     }
 
     @GetMapping("/{userID}/followers/list")
-    public ResponseEntity<SellerListDTO> listFollowersSeller(@PathVariable int userID) throws UserNotFoundException, ValidateSellerException {
-        return new ResponseEntity<>(userService.listFollowersSeller(userID), HttpStatus.OK);
+    public ResponseEntity<SellerListDTO> listFollowersSeller(@PathVariable int userID , @RequestParam(required = false) String order) throws UserNotFoundException, ValidateSellerException {
+        return new ResponseEntity<>(userService.listFollowersSeller(userID, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserListDTO> listFollowedUser(@PathVariable int userId) throws UserNotFoundException, ValidateUserException {
-        return new ResponseEntity<>(userService.listFollowedUser(userId), HttpStatus.OK);
+    public ResponseEntity<UserListDTO> listFollowedUser(@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException, ValidateUserException {
+        return new ResponseEntity<>(userService.listFollowedUser(userId, order), HttpStatus.OK);
     }
 
 
@@ -47,5 +47,7 @@ public class UserController {
         userService.unfollow(userId, userIdToUnfollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 
 }

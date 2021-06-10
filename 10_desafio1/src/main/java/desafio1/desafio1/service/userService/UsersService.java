@@ -10,6 +10,8 @@ import desafio1.desafio1.service.userService.dto.UserListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,7 +74,7 @@ public class UsersService implements IUsersService {
     }
 
     @Override
-    public SellerListDTO listFollowersSeller(int userId) throws UserNotFoundException, ValidateSellerException {
+    public SellerListDTO listFollowersSeller(int userId, String order) throws UserNotFoundException, ValidateSellerException {
         SellerListDTO sellerListDTO = new SellerListDTO();
 
         User user = new User();
@@ -88,12 +90,23 @@ public class UsersService implements IUsersService {
             throw new ValidateSellerException(sellerListDTO.getUserId());
         }
 
+        if(order == null) return sellerListDTO;
+
+        sortByName(sellerListDTO.getFollowMeList(), order);
+
         return sellerListDTO;
 
     }
 
+    private void sortByName(List<UserSaveDTO> list , String order){
+        if(order.equals("name_asc")) list.sort(Comparator.comparing(UserSaveDTO::getUserName));
+        else if(order.equals("name_desc")) list.sort(Comparator.comparing(UserSaveDTO::getUserName).reversed());
+
+    }
+
+
     @Override
-    public UserListDTO listFollowedUser(int userId) throws UserNotFoundException, ValidateUserException {
+    public UserListDTO listFollowedUser(int userId, String order) throws UserNotFoundException, ValidateUserException {
         UserListDTO userListDTO = new UserListDTO();
         User user = new User();
         user = userRepository.findUserById(userId);
@@ -106,6 +119,10 @@ public class UsersService implements IUsersService {
         if(!userListDTO.getUserName().contains("usuario")){
             throw new ValidateUserException(userListDTO.getUserId());
         }
+
+        if(order == null) return userListDTO;
+
+        sortByName(userListDTO.getFollowList(), order);
 
         return userListDTO;
 
