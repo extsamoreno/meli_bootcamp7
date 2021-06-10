@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void sortByUsername(SortingUserEnum sorting, List<UserDTO> result) {
-        if (sorting.equals(SortingUserEnum.name_desc)) {
+        if (sorting == null || sorting.equals(SortingUserEnum.name_desc)) {
             result.sort(Comparator.comparing(UserDTO::getUsername));
         } else {
             result.sort(Comparator.comparing(UserDTO::getUsername).reversed());
