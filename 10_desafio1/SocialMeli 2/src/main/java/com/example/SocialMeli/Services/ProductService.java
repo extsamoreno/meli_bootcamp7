@@ -27,10 +27,10 @@ public class ProductService extends Ordenable<PostDTO> implements iProductServic
     public PostCountDTO getPromPostsCant(int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
 
         User user = iDataRepository.getUserByID(userId);
-
         return new PostCountDTO(user.getId(), user.getName(), this.getPromPostsByUser(userId).getPosts().size());
 
     }
+    @Override
     public PostsDTO getPromPostsByUser(int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
 
         User user = iDataRepository.getUserByID(userId);
@@ -64,30 +64,18 @@ public class ProductService extends Ordenable<PostDTO> implements iProductServic
             return false;
         }
     }
-    public void saveProduct(Product product) throws ProductIdInUseException {
+    private void saveProduct(Product product){
         List<Product> products = iDataRepository.getProducts();
-
-        if(!this.isProductIdUsed(product.getId())){
-            products.add(product);
-        }
-        else{
-            throw new ProductIdInUseException(product.getId());
-        }
-
+        products.add(product);
     }
 
-    public void savePost(Post post) throws PostIdInUseException, UserNotFoundException {
+    private void savePost(Post post) throws UserNotFoundException {
 
         User user = iDataRepository.getUserByID(post.getUserId());
-
         List<Post> posts = iDataRepository.getPosts();
-        if(!this.isPostIdUsed(post.getId())){
-            user.getPosts().add(post.getId());
-            posts.add(post);
-        }
-        else{
-            throw new PostIdInUseException(post.getId());
-        }
+
+        user.getPosts().add(post.getId());
+        posts.add(post);
 
     }
     @Override
@@ -108,6 +96,7 @@ public class ProductService extends Ordenable<PostDTO> implements iProductServic
         if(this.isPostIdUsed(post.getId())){
             throw new PostIdInUseException(post.getId());
         }
+
         this.savePost(post);
         this.saveProduct(product);
     }
