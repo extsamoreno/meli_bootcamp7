@@ -6,7 +6,6 @@ import com.example.challenge.Exceptions.UserNotFoundException;
 import com.example.challenge.Models.Post;
 import com.example.challenge.Models.User;
 import com.example.challenge.Repositories.IProductRepository;
-import com.example.challenge.Repositories.IUserRepository;
 import com.example.challenge.Services.DTOs.*;
 import com.example.challenge.Services.Mappers.PostMapper;
 import com.example.challenge.Services.Mappers.UserMapper;
@@ -20,9 +19,8 @@ import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
-
+    final static private int daysToShowPost = 14;
     IProductRepository iProductRepository;
-    IUserRepository iUserRepository;
     IUserService iUserService;
 
     UserMapper um = new UserMapper();
@@ -31,9 +29,8 @@ public class ProductService implements IProductService {
 
     private final Comparator<Post> COMPARATOR_DATE_DES = (a, b) -> b.getDate().compareTo(a.getDate());
 
-    public ProductService(IProductRepository iProductRepository, IUserRepository iUserRepository, IUserService iUserService) {
+    public ProductService(IProductRepository iProductRepository, IUserService iUserService) {
         this.iProductRepository = iProductRepository;
-        this.iUserRepository = iUserRepository;
         this.iUserService = iUserService;
     }
 
@@ -45,8 +42,8 @@ public class ProductService implements IProductService {
 
     @Override
     public String addNewPromoPost(PostPromotionDTO postPromoDTO) throws UserNotFoundException, NotPromoPostException {
-       if(!postPromoDTO.getHasPromo())
-           throw new NotPromoPostException(postPromoDTO.getId());
+        if (!postPromoDTO.getHasPromo())
+            throw new NotPromoPostException(postPromoDTO.getId());
         return iProductRepository.addNewPromoPost(PostMapper.postPromotionDtoToPost(postPromoDTO),
                 iUserService.getUserById(postPromoDTO.getUserId()));
     }
@@ -64,7 +61,7 @@ public class ProductService implements IProductService {
         long daysBetween;
         for (Post p : temp) {
             daysBetween = ChronoUnit.DAYS.between(p.getDate(), now);
-            if (daysBetween <= 14) {
+            if (daysBetween <= daysToShowPost) {
                 posts.add(p);
             }
         }
@@ -86,13 +83,13 @@ public class ProductService implements IProductService {
 
     @Override
     public PromoCountDTO getCountPromo(int userId) throws UserNotFoundException {
-        User u = iUserRepository.findUserById(userId);
+        User u = iUserService.getUserById(userId);
         return um.userToPromoCount(u);
     }
 
     @Override
     public ResponsePromotionListDTO getPromotionsPost(int userId) throws UserNotFoundException {
-        User u = iUserRepository.findUserById(userId);
+        User u = iUserService.getUserById(userId);
         return um.userToResponsePromo(u);
     }
 
