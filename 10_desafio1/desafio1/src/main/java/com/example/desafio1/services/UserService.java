@@ -72,11 +72,8 @@ public class UserService implements IUserService {
     public ResponseFollowerListDTO getFollowersList(int userId, String order) throws UserException {
         User user = iUserRepository.getUserById(userId);
         ResponseFollowerListDTO responseFollowerListDTO = new ResponseFollowerListDTO();
-
         List<User> followers = getListOfUsersById(user.getFollowers());
         List<UserDTO> listFollowers = UserMapper.listUserToListUserDTO(followers);
-
-
         sortUserDTOByName(order, listFollowers);
         responseFollowerListDTO.setUserId(user.getUserId());
         responseFollowerListDTO.setUserName(user.getUserName());

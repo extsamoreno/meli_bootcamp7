@@ -18,22 +18,28 @@ public class UserController {
     @Autowired
     IUserService iUserService;
 
-    // Create database of users
+    /**
+     * Create database of users
+     * @author Sapaya Nicolás Martín
+     */
     @PostMapping("/create")
     public ResponseEntity<String> followSeller() {
         return new ResponseEntity<>(iUserService.createDB(), HttpStatus.OK);
     }
 
     /**
-    *    An user follow a user
-    *    Parameters
-    *    @userId,  number that identifies the actual user
-    *    @userIdToFollow,  number that identifies the user to follow
-    *    Response 200
-    *    400 -> if any of the users does not exists,
-    *    or want to follow a user that already follow
-    *    or want to follow himself/herself
-    *    Example: /users/5/follow/1
+    *   An user follow a user
+    *   @param userId  number that identifies the actual user
+    *   @param userIdToFollow  number that identifies the user to follow
+    *   @return which userId follow another userId
+    *   Response
+    *   200 -> OK
+    *   400
+    *   if any of the users does not exists
+    *   or want to follow a user that already follow
+    *   or want to follow himself/herself
+    *   Example: /users/5/follow/1
+    *   @author Sapaya Nicolás Martín
     */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> followUser(@PathVariable int userId,
@@ -41,40 +47,57 @@ public class UserController {
         return new ResponseEntity<>(iUserService.followUser(userId, userIdToFollow), HttpStatus.OK);
     }
 
-    // An user UNfollow a user
-    // Parameters
-    // @userId,  number that identifies the actual user
-    // @userIdToUnfollow,  number that identifies the user to unfollow
-    // Response 200
-    // 400 -> if any of the users does not exists
-    // or want to unfollow a user that is not following
-    // or want to unfollow himself/herself
-    // Example: /users/2/unfollow/1
+    /**
+     * An user UNfollow a user
+     * @param userId  number that identifies the actual user
+     * @param userIdToUnfollow  number that identifies the user to unfollow
+     * @return which userId unfollow another userId
+     * Response
+     * 200 -> OK
+     * 400
+     * if any of the users does not exists
+     * or want to unfollow a user that is not following
+     * or want to unfollow himself/herself
+     * Example: /users/2/unfollow/1
+     * @author Sapaya Nicolás Martín
+     */
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<String> unfollowUser(@PathVariable int userId,
                                              @PathVariable int userIdToUnfollow) throws UserException {
         return new ResponseEntity<>(iUserService.unfollowUser(userId, userIdToUnfollow), HttpStatus.OK);
     }
 
-    // Get the number of followers that user has
-    // Parameters
-    // @userId,  number that identifies the actual user
-    // Response 200 / 400 -> if the user does not exists
-    // Example: /users/1/followers/count/
+    /**
+     * Get the number of followers that user has
+     * @param userId  number that identifies the actual user
+     * @return userId, username, and quantity of followers
+     * Response 200 -> OK
+     * 400 -> if the user does not exists
+     * Example: /users/1/followers/count/
+     * @author Sapaya Nicolás Martín
+     */
     @GetMapping("/{userId}/followers/count/")
     public ResponseEntity<ResponseFollowerCountDTO> getFollowerCount(@PathVariable int userId)
             throws InvalidUserIdException {
         return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }
 
-    // Get the followers of the user
-    // Parameters
-    // @userId,  number that identifies the actual user
-    // Response 200 / 400 -> if the user does not exists
-    // Example:
-    // /users/1/followers/list
-    // /users/1/followers/list?order=name_asc   // sort alphabetically in ascending order
-    // /users/1/followers/list?order=name_des   // sort alphabetically in descending order
+    /**
+     * Get the followers of the user
+     * @param userId  number that identifies the actual user
+     * @param order not required through request param must be name_asc or name_des
+     * @return userId, username, and a list of followers each has userId and username
+     * Response
+     * 200 -> OK
+     * 400
+     * if the user does not exists
+     * if passed through request param, order is not name_asc or name_des
+     * Example:
+     * /users/1/followers/list
+     * /users/1/followers/list?order=name_asc   - sort alphabetically in ascending order
+     * /users/1/followers/list?order=name_des   - sort alphabetically in descending order
+     * @author Sapaya Nicolás Martín
+     */
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<ResponseFollowerListDTO> getFollowers(@PathVariable int userId,
                                                                 @RequestParam(required = false,
@@ -83,14 +106,22 @@ public class UserController {
         return new ResponseEntity<>(iUserService.getFollowersList(userId, order), HttpStatus.OK);
     }
 
-    // Get the sellers that the user follows
-    // Parameters
-    // @userId,  number that identifies the actual user
-    // Response 200 / 400 -> if the user does not exists
-    // Example:
-    // /users/1/followed/list
-    // /users/1/followed/list?order=name_asc    // sort alphabetically in ascending order
-    // /users/1/followed/list?order=name_asc    // sort alphabetically in descending order
+    /**
+     * Get the sellers that the user follows
+     * @param userId  number that identifies the actual user
+     * @param order not required through request param must be name_asc or name_des
+     * @return userId, username, and a list of followed each has userId and username
+     * Response
+     * 200 -> OK
+     * 400
+     * if the user does not exists
+     * if passed through request param, order is not name_asc or name_des
+     * Example:
+     * /users/1/followed/list
+     * /users/1/followed/list?order=name_asc    - sort alphabetically in ascending order
+     * /users/1/followed/list?order=name_asc    - sort alphabetically in descending order
+     * @author Sapaya Nicolás Martín
+     */
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<ResponseFollowedSellerDTO> getFollowedSellers(@PathVariable int userId,
                                                                         @RequestParam(required = false,
