@@ -27,7 +27,7 @@ public class UserController {
         return "Following has been set up successfully!";
     }
 
-    @GetMapping("/{userId}/followers/count/")
+    @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> getFollowersCount(@PathVariable int userId) throws OrderNotValidException {
         return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }

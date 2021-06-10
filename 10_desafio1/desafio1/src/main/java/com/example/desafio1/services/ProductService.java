@@ -39,15 +39,15 @@ public class ProductService implements IProductService{
         List<Post> postList = new ArrayList<>();
         List<MeliUser> userList = iUserRepository.getFollowed(userId,null);
         for (MeliUser user : userList) {
-            postList.addAll(iProductRepository.getPost(user.getUserId(), LocalDate.now().minusDays(14), LocalDate.now()));
+            postList.addAll(iProductRepository.getPosts(user.getUserId(), LocalDate.now().minusDays(14), LocalDate.now()));
         }
         //We apply order here after retrieving all the posts from each seller
         if(order != null) {
             switch (order){
-                case "order_asc":
+                case "date_asc":
                     postList.sort((a, b) -> a.getDate().compareTo(b.getDate()));
                     break;
-                case "order_desc":
+                case "date_desc":
                     postList.sort((a, b) -> b.getDate().compareTo(a.getDate()));
                     break;
                 default:
@@ -62,7 +62,7 @@ public class ProductService implements IProductService{
 
     @Override
     public List<PostDTO> getPromoPosts(int userId) {
-        return PostMapper.toDTOList(iProductRepository.getPromoPost(userId));
+        return PostMapper.toDTOList(iProductRepository.getPromoPosts(userId));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ProductService implements IProductService{
         PostPromoCountDTO promoCount = new PostPromoCountDTO();
         promoCount.setUserId(userId);
         promoCount.setUserName(iUserRepository.getUserById(userId).getUserName());
-        promoCount.setPromoproducts_count(iProductRepository.getPromoPost(userId).size());
+        promoCount.setPromoproducts_count(iProductRepository.getPromoPosts(userId).size());
 
         return promoCount;
     }

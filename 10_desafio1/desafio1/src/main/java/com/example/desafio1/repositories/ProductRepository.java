@@ -18,7 +18,7 @@ public class ProductRepository implements IProductRepository{
     }
 
     @Override
-    public List<Post> getPost(int userId, LocalDate dateFrom, LocalDate dateTo) {
+    public List<Post> getPosts(int userId, LocalDate dateFrom, LocalDate dateTo) {
         return postList.stream()
                 .filter(post -> post.getUserId() == userId)
                 .filter(post -> post.getDate().isAfter(dateFrom) && post.getDate().isBefore(dateTo))
@@ -26,7 +26,7 @@ public class ProductRepository implements IProductRepository{
     }
 
     @Override
-    public List<Post> getPromoPost(int userId) {
+    public List<Post> getPromoPosts(int userId) {
         return postList.stream()
                 .filter(post -> post.getUserId() == userId)
                 .filter(Post::isHasPromo)
