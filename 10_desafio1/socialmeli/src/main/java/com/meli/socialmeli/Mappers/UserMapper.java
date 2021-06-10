@@ -2,6 +2,7 @@ package com.meli.socialmeli.Mappers;
 
 import com.meli.socialmeli.dto.UserFollowDTO;
 import com.meli.socialmeli.dto.UserFollowerCount;
+import com.meli.socialmeli.dto.UserPostListDTO;
 import com.meli.socialmeli.dto.UserResponseDTO;
 import com.meli.socialmeli.models.UserMeli;
 
@@ -18,6 +19,10 @@ public class UserMapper {
 
     public static UserResponseDTO UserMeliToUSerResponseDTO(UserMeli userMeli){
         return new UserResponseDTO(userMeli.getUserId(), userMeli.getUserName());
+    }
+
+    public static UserPostListDTO UserMeliToUserPostListDTO(UserMeli userMeli){
+        return new UserPostListDTO(userMeli.getUserId(), userMeli.getPosts());
     }
 
 //    public static UserFollowerListDTO UserMeliToUserFollowerList(UserMeli userMeli){

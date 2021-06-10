@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +18,7 @@ public class UserMeli {
     private ArrayList<Integer> followedBy = new ArrayList<>();
 
     //private ArrayList<Integer> posts = new ArrayList<>();
-    private Post posts = new Post();
+    private List<Post> posts = new ArrayList<>();
 
     public UserMeli(int userId, String userName) {
         this.userId = userId;
@@ -27,6 +28,6 @@ public class UserMeli {
     public UserMeli(int userId, String userName, Post post) {
         this.userId = userId;
         this.userName = userName;
-        this.posts = post;
+        this.posts.add(post);
     }
 }

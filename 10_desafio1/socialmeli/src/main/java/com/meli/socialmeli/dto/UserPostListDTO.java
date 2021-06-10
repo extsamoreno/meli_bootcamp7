@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserPostListODT {
+public class UserPostListDTO {
     int userId;
     List<Post> posts;
 }

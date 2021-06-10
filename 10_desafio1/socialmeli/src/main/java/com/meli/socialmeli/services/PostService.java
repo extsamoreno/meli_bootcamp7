@@ -1,6 +1,7 @@
 package com.meli.socialmeli.services;
 
-import com.meli.socialmeli.dto.UserPostListODT;
+import com.meli.socialmeli.Mappers.UserMapper;
+import com.meli.socialmeli.dto.UserPostListDTO;
 import com.meli.socialmeli.models.Post;
 import com.meli.socialmeli.models.UserMeli;
 import com.meli.socialmeli.repositories.IPostRepository;
@@ -18,8 +19,9 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public UserPostListODT getListPosts(int userId) {
-        return null;
+    public UserPostListDTO getListPosts(int userId) {
+        //return UserMapper.UserMeliToUserPostListDTO(iPostRepository.getPostListById(userId));
+        return iPostRepository.getPostListById(userId);
     }
 
 }

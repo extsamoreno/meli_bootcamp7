@@ -1,5 +1,6 @@
 package com.meli.socialmeli.repositories;
 
+import ch.qos.logback.classic.pattern.DateConverter;
 import com.meli.socialmeli.Mappers.UserMapper;
 import com.meli.socialmeli.dto.UserFollowedByListDTO;
 import com.meli.socialmeli.dto.UserFollowerListDTO;
@@ -11,7 +12,9 @@ import com.meli.socialmeli.models.Product;
 import com.meli.socialmeli.models.UserMeli;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 @Repository
@@ -21,7 +24,10 @@ public class UserRespository implements IUserRepository{
 
     static {
         Product detail = new Product(123, "Silla Gamer", "Gamer", "Racer","Red & Black", "Special Edition");
-        Post post = new Post(1, 18, "29-04-2021", detail, 100, 1500.50);
+        Post post = new Post(1, 18, "05-06-2021", detail, 100, 1500.50);
+        Post post1 = new Post(1, 22, "30-05-2021", detail, 100, 1500.50);
+        Post post2 = new Post(1, 22, "04-04-2020", detail, 100, 1500.50);
+
 //        int product_id;         //: 1,
 //        String productName;     // : "Silla Gamer",
 //        String type;            // : "Gamer",,
@@ -37,6 +43,8 @@ public class UserRespository implements IUserRepository{
 //        double price;       // :1500.50
 
         users.put(1, new UserMeli(1, "comprador1", post));
+        users.get(1).getPosts().add(post1);
+        users.get(1).getPosts().add(post2);
         users.put(2, new UserMeli(2, "vendedor1"));
         users.put(3, new UserMeli(3, "comprador2"));
         users.put(4, new UserMeli(4, "vendedor"));
@@ -45,8 +53,8 @@ public class UserRespository implements IUserRepository{
     @Override
     public UserMeli followMerchant(int userId, int userIdToFollow) throws UserInvalidException {
         if (!users.get(userId).getFollowers().contains(users.get(userIdToFollow))) {
-            users.get(userId).getFollowers().add(users.get(userIdToFollow).getUserId());
-            users.get(userIdToFollow).getFollowedBy().add(users.get(userId).getUserId());
+            users.get(userId).getFollowedBy().add(users.get(userIdToFollow).getUserId());
+            users.get(userIdToFollow).getFollowers().add(users.get(userId).getUserId());
         } else {
             throw new UserInvalidException();
         }
@@ -94,7 +102,7 @@ public class UserRespository implements IUserRepository{
 
     @Override
     public UserMeli unfollowMerchant(int userId, int userIdToFollow) throws UserNotFoundException {
-        if (users.get(userId).getFollowers().contains(users.get(userIdToFollow))) {
+        if (users.get(userId).getFollowers().contains(users.get(userIdToFollow).getUserId())) {
             //int index = new Integer(users.get(userIdToFollow).getUserId());
             users.get(userId).getFollowers().remove(Integer.valueOf(users.get(userIdToFollow).getUserId()));
             users.get(userIdToFollow).getFollowedBy().remove(Integer.valueOf(users.get(userId).getUserId()));
