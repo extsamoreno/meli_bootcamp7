@@ -67,7 +67,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowersDTO getFollowed(int userId, String order) throws UserNotFoundException, InvalidOrderException {
+    public FollowedDTO getFollowed(int userId, String order) throws UserNotFoundException, InvalidOrderException {
         User u = iUserRepository.findUserById(userId);
         sortUserDTOByName(order, u.getFollowed());
         return um.userToFollowed(u);

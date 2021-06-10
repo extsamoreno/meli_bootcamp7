@@ -67,10 +67,10 @@ public class UserMapper {
         return followersDTO;
     }
 
-    public FollowersDTO userToFollowed(User user) {
-        FollowersDTO followersDTO = new FollowersDTO(user.getId(), user.getName(), new ArrayList<>());
+    public FollowedDTO userToFollowed(User user) {
+        FollowedDTO followersDTO = new FollowedDTO(user.getId(), user.getName(), new ArrayList<>());
         for (User u : user.getFollowed()) {
-            followersDTO.getFollowers().add(new UserDTO(u.getId(), u.getName()));
+            followersDTO.getFollowed().add(new UserDTO(u.getId(), u.getName()));
         }
         return followersDTO;
     }

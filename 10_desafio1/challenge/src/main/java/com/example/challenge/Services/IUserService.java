@@ -18,7 +18,7 @@ public interface IUserService {
 
     FollowersDTO getFollowers(int userId, String order) throws UserNotFoundException, InvalidOrderException;
 
-    FollowersDTO getFollowed(int userId, String order) throws UserNotFoundException, InvalidOrderException;
+    FollowedDTO getFollowed(int userId, String order) throws UserNotFoundException, InvalidOrderException;
 
     User getUserById(int userId) throws UserNotFoundException;
 

@@ -54,7 +54,7 @@ public class ProductService implements IProductService {
 
     @Override
     public ResponseFollowedPostDTO getMyFollowedPostList(int userId, String order) throws UserNotFoundException, InvalidOrderException {
-        List<UserDTO> followed = iUserService.getFollowed(userId, "").getFollowers();
+        List<UserDTO> followed = iUserService.getFollowed(userId, "").getFollowed();
         List<Post> posts = new ArrayList<>();
         List<Post> temp = new ArrayList<>();
         for (UserDTO u : followed) {
