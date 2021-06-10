@@ -4,7 +4,7 @@ import com.desafio.socialMeli.exceptions.RemoveFollowedException;
 import com.desafio.socialMeli.exceptions.RemoveFollowerException;
 import com.desafio.socialMeli.exceptions.RepositoryUnableException;
 import com.desafio.socialMeli.exceptions.UserNotFoundException;
-import com.desafio.socialMeli.repository.IUserRepository;
+import com.desafio.socialMeli.repository.ISocialMeliRepository;
 import com.desafio.socialMeli.repository.entities.User;
 import com.desafio.socialMeli.service.dto.UserDTO;
 import com.desafio.socialMeli.service.dto.UserFollowedDTO;
@@ -15,78 +15,80 @@ import com.desafio.socialMeli.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.desafio.socialMeli.repository.SocialMeliRepository.USERDTO_TABLE;
+
 @Service
 public class UserService implements IUserService {
 
     @Autowired
-    IUserRepository iUserRepository;
+    ISocialMeliRepository iSocialMeliRepository;
 
     @Override
     public String loadDatabaseDTO(){
-        iUserRepository.getOrCreateUserDTORepository();
-        for(User user: iUserRepository.getUserList()) {
+        iSocialMeliRepository.getOrCreateDTOTable(USERDTO_TABLE);
+        for(User user: iSocialMeliRepository.getUserList()) {
             UserDTO userDTOtoLoad = UserMapper.toUserDTO(user);
-            iUserRepository.updateUserDTORepository(userDTOtoLoad);
+            iSocialMeliRepository.updateDTORepository(userDTOtoLoad);
         }
         return "UserDTO database creada";
     }
 
     @Override
     public String followById(Integer userId, Integer userIdToFollow) throws UserNotFoundException, RepositoryUnableException {
-        if(!iUserRepository.repositoryStatus()) throw new RepositoryUnableException();
-        UserDTO userDTOtoFollow = getUserDTOById(userIdToFollow);
-        UserDTO userDTOFollower = getUserDTOById(userId);
+        if(!iSocialMeliRepository.tableInRepositoryStatus(USERDTO_TABLE)) throw new RepositoryUnableException();
+        UserDTO userDTOtoFollow = getUserDTOByIdService(userIdToFollow);
+        UserDTO userDTOFollower = getUserDTOByIdService(userId);
 
-        userDTOtoFollow.addFollower(iUserRepository.getUserById(userId));
-        userDTOFollower.addFollowed(iUserRepository.getUserById(userIdToFollow));
+        userDTOtoFollow.addFollower(iSocialMeliRepository.getUserById(userId));
+        userDTOFollower.addFollowed(iSocialMeliRepository.getUserById(userIdToFollow));
 
-        iUserRepository.updateUserDTORepository(userDTOtoFollow);
-        iUserRepository.updateUserDTORepository(userDTOFollower);
+        iSocialMeliRepository.updateDTORepository(userDTOtoFollow);
+        iSocialMeliRepository.updateDTORepository(userDTOFollower);
 
-        return ("el usuario " + iUserRepository.getUserById(userId).getName() + " ahora sigue a " + userDTOtoFollow.getName());
+        return ("el usuario " + iSocialMeliRepository.getUserById(userId).getName() + " ahora sigue a " + userDTOtoFollow.getName());
     }
 
 
     @Override
     public String unfollowById(Integer userId, Integer userIdToUnFollow) throws UserNotFoundException, RepositoryUnableException, RemoveFollowerException, RemoveFollowedException {
-        if(!iUserRepository.repositoryStatus()) throw new RepositoryUnableException();
-        UserDTO userDTOtoUnfollow = getUserDTOById(userIdToUnFollow); // usuario seguido
-        UserDTO userDTOFollower = getUserDTOById(userId);   // usuario seguidor
+        if(!iSocialMeliRepository.tableInRepositoryStatus(USERDTO_TABLE)) throw new RepositoryUnableException();
+        UserDTO userDTOtoUnfollow = getUserDTOByIdService(userIdToUnFollow); // usuario seguido
+        UserDTO userDTOFollower = getUserDTOByIdService(userId);   // usuario seguidor
 
-        if(!userDTOFollower.removeFollowed(iUserRepository.getUserById(userIdToUnFollow))) throw new RemoveFollowerException(userDTOtoUnfollow.getName());
-        if(!userDTOtoUnfollow.removeFollower(iUserRepository.getUserById(userId))) throw new RemoveFollowedException(userDTOFollower.getName());
+        if(!userDTOFollower.removeFollowed(iSocialMeliRepository.getUserById(userIdToUnFollow))) throw new RemoveFollowerException(userDTOtoUnfollow.getName());
+        if(!userDTOtoUnfollow.removeFollower(iSocialMeliRepository.getUserById(userId))) throw new RemoveFollowedException(userDTOFollower.getName());
 
-        iUserRepository.updateUserDTORepository(userDTOFollower);
-        iUserRepository.updateUserDTORepository(userDTOtoUnfollow);
+        iSocialMeliRepository.updateDTORepository(userDTOFollower);
+        iSocialMeliRepository.updateDTORepository(userDTOtoUnfollow);
 
         return ("el usuario " + userDTOFollower.getName() + " ahora dejo de seguir a " + userDTOtoUnfollow.getName());
     }
 
 
-    private UserDTO getUserDTOById(Integer userDTOId) throws UserNotFoundException{
-        UserDTO userDTOtoFollow = iUserRepository.getUserDTOById(userDTOId);
+    private UserDTO getUserDTOByIdService(Integer userDTOId) throws UserNotFoundException{
+        UserDTO userDTOtoFollow = iSocialMeliRepository.getDTOById(userDTOId, USERDTO_TABLE);
         if(userDTOtoFollow == null) throw new UserNotFoundException();
         return userDTOtoFollow;
     }
 
     @Override
     public UserFollowersCountDTO followersCount(Integer userId) throws  RepositoryUnableException, UserNotFoundException{
-        if(!iUserRepository.repositoryStatus()) throw new RepositoryUnableException();
-        UserDTO userDTO = getUserDTOById(userId);
+        if(!iSocialMeliRepository.tableInRepositoryStatus(USERDTO_TABLE)) throw new RepositoryUnableException();
+        UserDTO userDTO = getUserDTOByIdService(userId);
         return UserDTOMapper.toUserFollowersCountDTO(userDTO, userId);
     }
 
     @Override
     public UserFollowersDTO followersList(Integer userId) throws  RepositoryUnableException, UserNotFoundException{
-        if(!iUserRepository.repositoryStatus()) throw new RepositoryUnableException();
-        UserDTO userDTO = getUserDTOById(userId);
+        if(!iSocialMeliRepository.tableInRepositoryStatus(USERDTO_TABLE)) throw new RepositoryUnableException();
+        UserDTO userDTO = getUserDTOByIdService(userId);
         return UserDTOMapper.toUserFollowersDTO(userDTO, userId);
     }
 
     @Override
     public UserFollowedDTO followedList(Integer userId) throws  RepositoryUnableException, UserNotFoundException{
-        if(!iUserRepository.repositoryStatus()) throw new RepositoryUnableException();
-        UserDTO userDTO = getUserDTOById(userId);
+        if(!iSocialMeliRepository.tableInRepositoryStatus(USERDTO_TABLE)) throw new RepositoryUnableException();
+        UserDTO userDTO = getUserDTOByIdService(userId);
         return UserDTOMapper.toUserFollowedListDTO(userDTO, userId);
     }
 }

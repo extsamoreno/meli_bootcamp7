@@ -5,7 +5,6 @@ import com.desafio.socialMeli.exceptions.RemoveFollowerException;
 import com.desafio.socialMeli.exceptions.RepositoryUnableException;
 import com.desafio.socialMeli.exceptions.UserNotFoundException;
 import com.desafio.socialMeli.service.IUserService;
-import com.desafio.socialMeli.service.dto.UserDTO;
 import com.desafio.socialMeli.service.dto.UserFollowedDTO;
 import com.desafio.socialMeli.service.dto.UserFollowersCountDTO;
 import com.desafio.socialMeli.service.dto.UserFollowersDTO;
@@ -17,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-public class SocialMeliController {
+public class UserController {
 
     @Autowired
     IUserService iUserService;
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------
 
     @GetMapping("/loaddb")
     public ResponseEntity<String> loadDatabase() {

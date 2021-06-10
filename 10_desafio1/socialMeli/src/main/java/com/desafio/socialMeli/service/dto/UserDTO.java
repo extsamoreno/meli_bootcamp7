@@ -1,5 +1,6 @@
 package com.desafio.socialMeli.service.dto;
 
+import com.desafio.socialMeli.repository.entities.Product;
 import com.desafio.socialMeli.repository.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class UserDTO {
     private ArrayList<User> followerList;
     private ArrayList<User> followedList;
 
-    public UserDTO() {
+    public UserDTO() { //Integer userId, Integer id_post, String date, Product detail, String category, double price, boolean b, float discount
         this.name = "";
         this.followerList = new ArrayList<User>();
         this.followedList = new ArrayList<User>();

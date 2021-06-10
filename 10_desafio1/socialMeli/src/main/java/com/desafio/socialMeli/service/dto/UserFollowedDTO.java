@@ -27,4 +27,5 @@ public class UserFollowedDTO {
     public void setFollowedList(List<User> followedList) {
         this.followedList = followedList;
     }
+    public List<User> getFollowedList() { return this.followedList; }
 }
