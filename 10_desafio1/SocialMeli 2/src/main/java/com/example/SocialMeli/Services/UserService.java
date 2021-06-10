@@ -20,7 +20,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
     private void addFollowedToUser(User user, int followedId) throws UserNotFoundException {
         List<Integer> following = user.getFollowing();
 
-        if(following.indexOf(followedId) == -1){
+        if(following.indexOf(followedId) == -1 && user.getId() != followedId){
             following.add(followedId);
         }
 
@@ -29,7 +29,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
 
         List<Integer> followers = user.getFollowers();
 
-        if(followers.indexOf(followerId) == -1){
+        if(followers.indexOf(followerId) == -1 && user.getId() != followerId){
             followers.add(followerId);
         }
 
@@ -39,7 +39,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
         List<Integer> following = user.getFollowing();
 
         int index = following.indexOf(followedId);
-        if(index != -1){
+        if(index != -1 && user.getId() != followedId){
             following.remove(index);
         }
 
@@ -49,7 +49,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
         List<Integer> followers = user.getFollowers();
 
         int index = followers.indexOf(followerId);
-        if(index != -1){
+        if(index != -1 && user.getId() != followerId){
             followers.remove(index);
         }
 
