@@ -3,6 +3,7 @@ import com.socialmeli.socialmeli.exceptions.UserAlreadyFollowedException;
 import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.exceptions.UserSameIdException;
 import com.socialmeli.socialmeli.services.UserService;
+import com.socialmeli.socialmeli.services.dtos.UserCountDTO;
 import com.socialmeli.socialmeli.services.dtos.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<UserDTO> getUserFollowersCount(@PathVariable Integer userId) throws UserNotFoundException {
+    public ResponseEntity<UserCountDTO> getUserFollowersCount(@PathVariable Integer userId) throws UserNotFoundException {
         return new ResponseEntity<>(userService.getUserFollowersCount(userId),HttpStatus.OK);
     }
 

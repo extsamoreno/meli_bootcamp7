@@ -4,6 +4,7 @@ import com.socialmeli.socialmeli.exceptions.UserNotFoundException;
 import com.socialmeli.socialmeli.exceptions.UserSameIdException;
 import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
+import com.socialmeli.socialmeli.services.dtos.UserCountDTO;
 import com.socialmeli.socialmeli.services.dtos.UserDTO;
 import com.socialmeli.socialmeli.services.dtos.UserFollowDTO;
 import com.socialmeli.socialmeli.services.mappers.UserMapper;
@@ -39,10 +40,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDTO getUserFollowersCount(int userId) throws UserNotFoundException {
+    public UserCountDTO getUserFollowersCount(int userId) throws UserNotFoundException {
         User user = userRepository.getUserById(userId);
         int followersCount = userRepository.getFollowersCount(userId);
-        return new UserDTO(
+        return new UserCountDTO(
                 user.getUserId(),
                 user.getUserName(),
                 followersCount
