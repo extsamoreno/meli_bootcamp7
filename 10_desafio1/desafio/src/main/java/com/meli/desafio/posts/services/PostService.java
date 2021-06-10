@@ -87,9 +87,14 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public PostPromoListDTO getListPromos(Integer userId) throws UserNotFoundException {
+    public PostPromoListDTO getListPromos(Integer userId, String order) throws UserNotFoundException {
         User user = userService.getById(userId);
         List<Post> list = postRepository.getAllPromosByUserId(userId);
+
+        if(order.equalsIgnoreCase("date_desc")) {
+            Collections.reverse(list);
+        }
+
         return PostMapper.postListToPromoListDTO(user, list);
     }
 

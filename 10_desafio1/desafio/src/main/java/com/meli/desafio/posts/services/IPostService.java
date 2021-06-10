@@ -22,5 +22,5 @@ public interface IPostService {
 
     PromoCountDTO getCountPromos(Integer userId) throws UserNotFoundException;
 
-    PostPromoListDTO getListPromos(Integer userId) throws UserNotFoundException;
+    PostPromoListDTO getListPromos(Integer userId, String order) throws UserNotFoundException;
 }

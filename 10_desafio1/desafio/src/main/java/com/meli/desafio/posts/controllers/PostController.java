@@ -89,7 +89,10 @@ public class PostController {
     @GetMapping("/{userId}/listpromo")
     @Operation(summary = "get list of posts that are promoted by a user")
     @ApiResponse(code = 200, message = "Ok", response = PostPromoListDTO.class)
-    public ResponseEntity<PostPromoListDTO> getListPromos(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<>(postService.getListPromos(userId), HttpStatus.OK);
+    public ResponseEntity<PostPromoListDTO> getListPromos(
+            @PathVariable Integer userId,
+            @RequestParam(required = false, defaultValue = "date_asc") String order
+    ) throws UserNotFoundException {
+        return new ResponseEntity<>(postService.getListPromos(userId, order), HttpStatus.OK);
     }
 }
