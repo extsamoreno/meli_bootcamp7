@@ -39,6 +39,11 @@ id : 1236, name : "Jenny Angarita"
 }
 ```
 
+**Output:**
+```
+User create nicoll id: 1571
+```
+
 # Requirements API rest:
 
 ## **Follow to user**

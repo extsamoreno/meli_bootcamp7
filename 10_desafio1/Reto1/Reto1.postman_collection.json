@@ -6,6 +6,27 @@
 	},
 	"item": [
 		{
+			"name": "Create user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/1/follow/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"follow",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Follow other",
 			"request": {
 				"method": "GET",
