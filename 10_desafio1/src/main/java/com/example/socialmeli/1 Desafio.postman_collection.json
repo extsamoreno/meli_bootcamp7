@@ -1,0 +1,359 @@
+{
+	"info": {
+		"_postman_id": "212733a5-448e-4b08-8734-e79a796bff87",
+		"name": "1 Desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"mpomerantz\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/users/addOne",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"users",
+						"addOne"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/users/1/follow/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"users",
+						"1",
+						"follow",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Count User Followers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/users/0/followers/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"users",
+						"0",
+						"followers",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List User Followers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/users/0/followers/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"users",
+						"0",
+						"followers",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_asc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Followed Users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/users/1/followed/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"users",
+						"1",
+						"followed",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_desc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unfollow User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/users/1/unfollow/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"users",
+						"1",
+						"unfollow",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 0,\n    \"postId\": 0,\n    \"date\": \"03-06-2021\",\n    \"detail\": \n        {\n            \"productId\" : 1,\n            \"productName\": \"Silla Gamer\",\n            \"type\": \"Gamer\",\n            \"brand\": \"Racer\",\n            \"color\": \"red\",\n            \"notes\": \"Special Edition\"\n        },\n    \"category\": 100,\n    \"price\": 1500.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List last 2 weeks followed user's posts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/products/followed/1/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"products",
+						"followed",
+						"1",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "date_desc",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Promo Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 0,\n    \"postId\": 1,\n    \"date\": \"09-06-2021\",\n    \"detail\": \n        {\n            \"productId\" : 1,\n            \"productName\": \"Silla Gamer\",\n            \"type\": \"Gamer\",\n            \"brand\": \"Racer\",\n            \"color\": \"red\",\n            \"notes\": \"Special Edition\"\n        },\n    \"category\": 100,\n    \"price\": 1500.50,\n    \"hasPromo\": true,\n    \"discount\": 0.20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/products/newpromopost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"products",
+						"newpromopost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List User Promo Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/products/0/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"products",
+						"0",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Count User Promo Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/socialmeli/products/0/countPromo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"socialmeli",
+						"products",
+						"0",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
