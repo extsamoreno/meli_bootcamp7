@@ -12,7 +12,9 @@
       "notes": "Special Edition•"
     },
     "category": 100,
-    "price": 0.0
+    "price": 0.0,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "userId": 1004,
@@ -27,7 +29,9 @@
       "notes": "Special Edition•"
     },
     "category": 100,
-    "price": 0.0
+    "price": 0.0,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "userId": 1004,
@@ -42,7 +46,9 @@
       "notes": "Special Edition•"
     },
     "category": 100,
-    "price": 0.0
+    "price": 0.0,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "userId": 1003,
@@ -57,7 +63,9 @@
       "notes": "Special Edition•"
     },
     "category": 100,
-    "price": 0.0
+    "price": 0.0,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "userId": 1003,
@@ -72,6 +80,8 @@
       "notes": "Special Edition•"
     },
     "category": 100,
-    "price": 0.0
+    "price": 0.0,
+    "hasPromo": false,
+    "discount": 0.0
   }
 ]

@@ -29,7 +29,13 @@ public class Utils {
         SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
         Date fechaDate = null;
         try {
-            fechaDate = formato.parse(fecha);
+            if(fecha== null ||  fecha.isEmpty() ){
+                fechaDate= new Date();
+            }
+            else {
+                fechaDate = formato.parse(fecha);
+            }
+
         }
         catch (ParseException ex)
         {

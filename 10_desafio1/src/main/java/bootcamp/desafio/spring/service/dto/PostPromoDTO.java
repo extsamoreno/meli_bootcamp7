@@ -5,16 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import java.util.Date;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PostRequestDTO {
-
-    private Long userId;
-    private Long id_post;
-    private String date;
+public class PostPromoDTO {
+    private Long idPost;
+    private Date date;
     private Detail detail;
     private int category;
     private double price;

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+
 import java.util.Date;
 
 @NoArgsConstructor
@@ -18,6 +18,8 @@ public class Post {
     private Detail detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 
 }
 

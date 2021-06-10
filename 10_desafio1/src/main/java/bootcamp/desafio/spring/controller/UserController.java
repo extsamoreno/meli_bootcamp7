@@ -88,6 +88,10 @@ public class UserController {
         return new ResponseEntity<>(iUserService.getFollows(userId,order), HttpStatus.OK);
     }
 
+    /**
+     * method to get all post, it is used to update .json file
+     * @return
+     */
     @GetMapping()
     public ResponseEntity<ArrayList<User>> getAll(){
 
