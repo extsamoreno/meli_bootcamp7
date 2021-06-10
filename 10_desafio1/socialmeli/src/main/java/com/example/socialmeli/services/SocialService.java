@@ -25,8 +25,8 @@ public class SocialService implements  ISocialService{
     }
 
     @Override
-    public FollowersListDTO followersList(Integer merchantid, String name) throws MerchantNotFoundException {
-        return socialRepository.followersList(merchantid, name);
+    public FollowersListDTO followersList(Integer merchantid, String name, String order) throws MerchantNotFoundException {
+        return socialRepository.followersList(merchantid, name, order);
     }
 
     @Override

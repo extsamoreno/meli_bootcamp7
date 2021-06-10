@@ -9,5 +9,5 @@ import org.springframework.http.HttpStatus;
 
 public interface IPostService {
     HttpStatus newPost(Post post) throws MissingDataException, PostAlreadyExistException, UserNotFoundException;
-    PostListDTO getPostByUserId(Integer userId) throws UserNotFoundException;
+    PostListDTO getPostByUserId(Integer userId, String order) throws UserNotFoundException;
 }

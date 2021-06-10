@@ -23,8 +23,9 @@ public class PostController {
     }
 
     @GetMapping("/products/followed/{userId}/list")
-    public ResponseEntity<PostListDTO> postList(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<PostListDTO>(postService.getPostByUserId(userId),HttpStatus.OK);
+    public ResponseEntity<PostListDTO> postList(@PathVariable Integer userId,
+                                                @RequestParam(required = false) String order) throws UserNotFoundException {
+        return new ResponseEntity<PostListDTO>(postService.getPostByUserId(userId, order),HttpStatus.OK);
     }
 
 }

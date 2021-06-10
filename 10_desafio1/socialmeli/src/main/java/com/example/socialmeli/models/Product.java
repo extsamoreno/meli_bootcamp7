@@ -8,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 public class Product {
     private Integer productId;
-    private String productName, type, brand, color, notes;
+    private String productname, type, brand, color, notes;
 }

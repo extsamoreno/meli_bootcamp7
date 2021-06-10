@@ -5,11 +5,13 @@ import com.example.socialmeli.exceptions.FollowAlreadyExistException;
 import com.example.socialmeli.exceptions.MerchantNotFoundException;
 import com.example.socialmeli.exceptions.UserNotFoundException;
 import com.example.socialmeli.mappers.SocialMapper;
+import com.example.socialmeli.models.Post;
 import com.example.socialmeli.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,7 +133,7 @@ public class SocialRepository implements ISocialRepository{
     }
 
     @Override
-    public FollowersListDTO followersList(Integer merchantid, String name) throws MerchantNotFoundException {
+    public FollowersListDTO followersList(Integer merchantid, String name, String order) throws MerchantNotFoundException {
         FollowersListDTO followersListDTO = new FollowersListDTO();
 
         MerchantDTO merchantDTO = merchantsMap.get(merchantid);
@@ -143,6 +145,16 @@ public class SocialRepository implements ISocialRepository{
         followersListDTO.setId(merchantid);
         followersListDTO.setFollowers(merchantDTO.getUsers());
         followersListDTO.setName(name);
+
+        if (followersListDTO.getFollowers() == null){
+            return followersListDTO;
+        }
+
+        if (order!= null && order.equals("name_desc"))
+            followersListDTO.getFollowers().sort(Comparator.comparing(UserDTO::getName).reversed());
+
+        if (order!= null && order.equals("name_asc"))
+            followersListDTO.getFollowers().sort(Comparator.comparing(UserDTO::getName));
 
         return followersListDTO;
     }

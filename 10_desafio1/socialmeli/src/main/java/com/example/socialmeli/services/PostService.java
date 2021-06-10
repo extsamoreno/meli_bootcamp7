@@ -47,7 +47,7 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public PostListDTO getPostByUserId(Integer userId) throws UserNotFoundException {
+    public PostListDTO getPostByUserId(Integer userId, String order) throws UserNotFoundException {
         // get list of merchants that the user follow
         List<SimpleMerchantDTO> followed = socialRepository.followedByMe(userId,"").getFollowers();
         List<Post> postList;
@@ -57,7 +57,7 @@ public class PostService implements IPostService{
         LocalDate now = LocalDate.now();
 
         for (int i = 0; i < followed.size(); i++) {
-            postList = postRepository.getPostByUserId(followed.get(i).getId());
+            postList = postRepository.getPostByUserId(followed.get(i).getId(),order);
 
             for (int j = 0; j < postList.size(); j++) {
                 // if the date of postList is between the last 2 weeks add to final list

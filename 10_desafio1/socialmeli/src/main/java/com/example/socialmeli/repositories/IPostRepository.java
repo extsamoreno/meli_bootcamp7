@@ -8,6 +8,6 @@ import java.util.List;
 public interface IPostRepository {
     void newPost(Post post);
     Post getPostById(int postId);
-    List<Post> getPostByUserId(Integer userId);
+    List<Post> getPostByUserId(Integer userId, String order);
 
 }

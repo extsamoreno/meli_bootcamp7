@@ -29,13 +29,14 @@ public class SocialController {
 
     @GetMapping("/user/{merchantid}/followers/list")
     public ResponseEntity<FollowersListDTO> followersListById(@PathVariable Integer merchantid,
-                                                               @RequestParam(required = false, defaultValue = "") String name) throws MerchantNotFoundException {
-        return new ResponseEntity<FollowersListDTO>(socialService.followersList(merchantid, name),HttpStatus.OK);
+                                                              @RequestParam(required = false, defaultValue = "") String name,
+                                                              @RequestParam(required = false) String order) throws MerchantNotFoundException {
+        return new ResponseEntity<FollowersListDTO>(socialService.followersList(merchantid, name, order),HttpStatus.OK);
     }
 
     @GetMapping("/user/{userid}/followed/list")
     public ResponseEntity<FollowedByMeListDTO> myFollowsList(@PathVariable Integer userid,
-                                                           @RequestParam(required = false, defaultValue = "") String name) throws UserNotFoundException {
+                                                             @RequestParam(required = false, defaultValue = "") String name) throws UserNotFoundException {
         return new ResponseEntity<FollowedByMeListDTO>(socialService.followedByMe(userid, name),HttpStatus.OK);
     }
 

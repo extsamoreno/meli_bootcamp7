@@ -7,7 +7,7 @@ import com.example.socialmeli.exceptions.UserNotFoundException;
 public interface ISocialRepository {
     MerchantDTO followMerchant(Integer userid,Integer merchantid) throws Exception;
     FollowersCountDTO followersCount(Integer merchantid, String name) throws MerchantNotFoundException;
-    FollowersListDTO followersList(Integer merchantid, String name) throws MerchantNotFoundException;
+    FollowersListDTO followersList(Integer merchantid, String name, String order) throws MerchantNotFoundException;
     FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws UserNotFoundException;
     UserDTO getUserById(int userId);
     MerchantDTO getMerchantById(int merchantId);

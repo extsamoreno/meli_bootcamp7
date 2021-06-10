@@ -1,5 +1,6 @@
 package com.example.socialmeli.repositories;
 
+import com.example.socialmeli.dtos.UserDTO;
 import com.example.socialmeli.models.Post;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,7 @@ public class PostRepository implements IPostRepository{
     }
 
     @Override
-    public  List<Post> getPostByUserId(Integer userId) {
+    public  List<Post> getPostByUserId(Integer userId, String order) {
         List<Post> postList = postsMap.entrySet().stream().map(e -> e.getValue())
                 .filter(e -> e.getUserId() == userId)
                 .collect(Collectors.toList());
@@ -35,7 +36,11 @@ public class PostRepository implements IPostRepository{
                 postList.add(postsMap.get(i+1));
         }*/
 
-        postList.sort(Comparator.comparing(Post::getDate));
+        if (order != null && order.equals("date_asc")){
+            postList.sort(Comparator.comparing(Post::getDate));
+        }else{
+            postList.sort(Comparator.comparing(Post::getDate).reversed());
+        }
 
         return postList;
     }
