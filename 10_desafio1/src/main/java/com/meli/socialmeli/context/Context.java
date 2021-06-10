@@ -49,10 +49,9 @@ public class Context {
         PostRepository.posts.put(10, generatePost("30-05-2021", 2));
         PostRepository.posts.put(11, generatePost("06-06-2021", 2));
         PostRepository.posts.put(12, generatePost("29-05-2021", 2));
-        PostRepository.posts.put(13, generatePromoPost("01-06-2021", 1));
-        PostRepository.posts.put(14, generatePromoPost("04-06-2021", 1));
-        PostRepository.posts.put(15, generatePromoPost("31-05-2021", 1));
-
+        PostRepository.posts.put(13, generatePromoPost("02-06-2021", 2));
+        PostRepository.posts.put(14, generatePromoPost("04-06-2021", 2));
+        PostRepository.posts.put(15, generatePromoPost("31-05-2021", 2));
     }
 
     private static Post generatePost(String postDate, int userId) {
