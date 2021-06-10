@@ -14,9 +14,10 @@ public class User {
     // User can be seller and buyer
     private int userId;
     private String userName;
-    private boolean isSeller;
 
     // Lists with follows/follwers IDs
     ArrayList<User> follows = new ArrayList<>();
     ArrayList<User> followers = new ArrayList<>();
+
+
 }

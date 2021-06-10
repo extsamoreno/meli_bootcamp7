@@ -1,6 +1,8 @@
 package com.example.desafio1.repository;
 
+import com.example.desafio1.exception.user.UserNotFollowException;
 import com.example.desafio1.exception.user.UserNotFoundException;
+import com.example.desafio1.model.Post;
 import com.example.desafio1.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -36,13 +38,30 @@ public class UserRepository implements iUserRepository {
         return mapUsers.get(id);
     }
 
+    // Unfollow a user
     @Override
-    // Load default users
+    public void unFollowUser(Integer userId, Integer userIdToUnFollow) throws UserNotFoundException, UserNotFollowException {
+
+        User follower = findUserById(userId);
+        User followed = findUserById(userIdToUnFollow);
+
+        // Exception: follower doesn't follow that user
+        if(!followed.getFollowers().contains(follower)){
+            throw new UserNotFollowException(userId, userIdToUnFollow);
+        }
+
+        // Remove follower and followed from the lists
+        follower.getFollows().remove(followed);
+        followed.getFollowers().remove(follower);
+    }
+
+    @Override
+    // Load default users, all users can be sellers and buyers
     public void loadUsers() {
 
-        mapUsers.put(0, new User(0, "tomas", true, new ArrayList<User>(), new ArrayList<User>()));
-        mapUsers.put(1, new User(1, "carlos", true, new ArrayList<User>(), new ArrayList<User>()));
-        mapUsers.put(2, new User(2, "agustin", false, new ArrayList<User>(), new ArrayList<User>()));
-        mapUsers.put(3, new User(3, "mario", false, new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(0, new User(0, "tomas", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(1, new User(1, "carlos", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(2, new User(2, "agustin", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(3, new User(3, "mario", new ArrayList<User>(), new ArrayList<User>()));
     }
 }

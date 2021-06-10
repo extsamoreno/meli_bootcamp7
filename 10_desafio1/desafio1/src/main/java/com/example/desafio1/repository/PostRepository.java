@@ -4,6 +4,7 @@ import com.example.desafio1.exception.post.PostAlreadyExistException;
 import com.example.desafio1.exception.user.UserNotFoundException;
 import com.example.desafio1.model.Post;
 import com.example.desafio1.model.User;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -51,15 +52,17 @@ public class PostRepository implements iPostRepository {
 
         LocalDate today = LocalDate.now();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        LocalDate datePost;
 
         // Create a list with posts "weeksToFind" ago
         for (Map.Entry<Integer, Post> entry : mapPosts.entrySet()) {
 
-            datePost = convertToLocalDate(entry.getValue().getDate()).plusDays(1);
+            LocalDate datePost = convertToLocalDate(entry.getValue().getDate()).plusDays(1);
+
+            // number of weeks since post created
             long weeksPost = ChronoUnit.WEEKS.between(datePost, today);
 
-            if (weeksToFind >= weeksPost) {
+            // add posts with certain old (in weeks)
+            if (weeksToFind-1 >= weeksPost) {
                 listPosts.add(entry.getValue());
             }
         }

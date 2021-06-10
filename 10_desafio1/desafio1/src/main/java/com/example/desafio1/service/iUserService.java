@@ -2,6 +2,7 @@ package com.example.desafio1.service;
 
 import com.example.desafio1.exception.user.UserAlreadyFollowException;
 import com.example.desafio1.exception.user.UserFollowEqualsFollowerException;
+import com.example.desafio1.exception.user.UserNotFollowException;
 import com.example.desafio1.exception.user.UserNotFoundException;
 import com.example.desafio1.service.dto.user.ResponseCountFollowersDTO;
 import com.example.desafio1.service.dto.user.ResponseListFollowedDTO;
@@ -13,4 +14,5 @@ public interface iUserService {
     ResponseCountFollowersDTO countFollowers(Integer userId) throws UserNotFoundException;
     ResponseListFollowersDTO listFollowers(Integer userId) throws  UserNotFoundException;
     ResponseListFollowedDTO listFollowed(Integer userId) throws UserNotFoundException;
+    void unFollowUser(Integer userId, Integer userIdToUnFollow) throws UserNotFoundException, UserNotFollowException;
 }

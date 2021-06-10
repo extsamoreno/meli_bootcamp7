@@ -2,6 +2,7 @@ package com.example.desafio1.service;
 
 import com.example.desafio1.exception.user.UserAlreadyFollowException;
 import com.example.desafio1.exception.user.UserFollowEqualsFollowerException;
+import com.example.desafio1.exception.user.UserNotFollowException;
 import com.example.desafio1.exception.user.UserNotFoundException;
 import com.example.desafio1.model.User;
 import com.example.desafio1.repository.iUserRepository;
@@ -68,5 +69,11 @@ public class UserService implements iUserService {
 
         User followerUser = iUserRepository.findUserById(userId);
         return UserMapper.toResponseListFollowedDTO(followerUser);
+    }
+
+    // User unfollows another user
+    @Override
+    public void unFollowUser(Integer userId, Integer userIdToUnFollow) throws UserNotFoundException, UserNotFollowException {
+        iUserRepository.unFollowUser(userId, userIdToUnFollow);
     }
 }
