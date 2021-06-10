@@ -24,15 +24,20 @@ public class UserController {
         return new ResponseEntity<>(iUserService.createDB(), HttpStatus.OK);
     }
 
-    // An user follow a user
-    // Parameters
-    // @userId,  number that identifies the actual user
-    // @userIdToFollow,  number that identifies the user to follow
-    // Response 200 / 400 -> if any of the users does not exists
-    // Example: /users/5/follow/1
+    /**
+    *    An user follow a user
+    *    Parameters
+    *    @userId,  number that identifies the actual user
+    *    @userIdToFollow,  number that identifies the user to follow
+    *    Response 200
+    *    400 -> if any of the users does not exists,
+    *    or want to follow a user that already follow
+    *    or want to follow himself/herself
+    *    Example: /users/5/follow/1
+    */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> followUser(@PathVariable int userId,
-                                               @PathVariable int userIdToFollow) throws InvalidUserIdException {
+                                               @PathVariable int userIdToFollow) throws UserException {
         return new ResponseEntity<>(iUserService.followUser(userId, userIdToFollow), HttpStatus.OK);
     }
 
@@ -40,11 +45,14 @@ public class UserController {
     // Parameters
     // @userId,  number that identifies the actual user
     // @userIdToUnfollow,  number that identifies the user to unfollow
-    // Response 200 / 400 -> if any of the users does not exists
+    // Response 200
+    // 400 -> if any of the users does not exists
+    // or want to unfollow a user that is not following
+    // or want to unfollow himself/herself
     // Example: /users/2/unfollow/1
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<String> unfollowUser(@PathVariable int userId,
-                                             @PathVariable int userIdToUnfollow) throws InvalidUserIdException {
+                                             @PathVariable int userIdToUnfollow) throws UserException {
         return new ResponseEntity<>(iUserService.unfollowUser(userId, userIdToUnfollow), HttpStatus.OK);
     }
 

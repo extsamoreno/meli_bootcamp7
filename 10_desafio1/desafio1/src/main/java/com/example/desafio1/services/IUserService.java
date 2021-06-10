@@ -15,8 +15,8 @@ public interface IUserService {
 
     String createDB();
     User getUserById(int userId) throws InvalidUserIdException;
-    String followUser(int userId, int userIdToFollow) throws InvalidUserIdException;
-    String unfollowUser(int userId, int userIdToUnfollow) throws InvalidUserIdException;
+    String followUser(int userId, int userIdToFollow) throws UserException;
+    String unfollowUser(int userId, int userIdToUnfollow) throws UserException;
     ResponseFollowerCountDTO getFollowersCount(int userId) throws InvalidUserIdException;
     ResponseFollowerListDTO getFollowersList(int userId, String order) throws UserException;
     ResponseFollowedSellerDTO getFollowedSellers(int userId, String order) throws UserException;

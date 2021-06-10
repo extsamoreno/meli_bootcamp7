@@ -94,6 +94,7 @@ public class ProductService implements IProductService {
         return responsePromoListDTO;
     }
 
+    // Get a List of Post that hasPromo = true
     private List<Post> getListOfPromoProds(List<Post> posts) {
         List<Post> postPromoList = new ArrayList<>();
         for(Post p : posts) {
@@ -104,7 +105,8 @@ public class ProductService implements IProductService {
         return postPromoList;
     }
 
-    public void sortPostByDate(String order, List<Post> list) throws InvalidOrderException {
+    // Sort the List of Post by date ascending or descending
+    private void sortPostByDate(String order, List<Post> list) throws InvalidOrderException {
         if(order.equals("date_asc")) {
             list.sort(COMPARATOR_DATE_ASC);
         } else if(order.equals("date_des")) {

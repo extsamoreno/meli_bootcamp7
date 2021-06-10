@@ -4,9 +4,7 @@ import com.example.desafio1.dtos.ResponseFollowedSellerDTO;
 import com.example.desafio1.dtos.ResponseFollowerCountDTO;
 import com.example.desafio1.dtos.ResponseFollowerListDTO;
 import com.example.desafio1.dtos.UserDTO;
-import com.example.desafio1.exceptions.user.InvalidOrderException;
-import com.example.desafio1.exceptions.user.InvalidUserIdException;
-import com.example.desafio1.exceptions.user.UserException;
+import com.example.desafio1.exceptions.user.*;
 import com.example.desafio1.mappers.UserMapper;
 import com.example.desafio1.models.Post;
 import com.example.desafio1.models.User;
@@ -39,18 +37,22 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String followUser(int userId, int userIdToFollow) throws InvalidUserIdException {
+    public String followUser(int userId, int userIdToFollow) throws UserException {
+        checkSameUser(userId, userIdToFollow);
         User user = iUserRepository.getUserById(userId);
         User userToFollow = iUserRepository.getUserById(userIdToFollow);
+        checkIfFollowed(user, userToFollow.getUserId(), true);
         user.addFollowed(userToFollow.getUserId());
         userToFollow.addFollower(user.getUserId());
         return userId + " ha seguido a " + userIdToFollow;
     }
 
     @Override
-    public String unfollowUser(int userId, int userIdToUnfollow) throws InvalidUserIdException {
+    public String unfollowUser(int userId, int userIdToUnfollow) throws UserException {
+        checkSameUser(userId, userIdToUnfollow);
         User user = iUserRepository.getUserById(userId);
         User userToUnfollow = iUserRepository.getUserById(userIdToUnfollow);
+        checkIfFollowed(user, userToUnfollow.getUserId(), false);
         user.removeFollowed(userToUnfollow.getUserId());
         userToUnfollow.removeFollower(user.getUserId());
         return userId + " ha dejado de seguido a " + userIdToUnfollow;
@@ -107,6 +109,7 @@ public class UserService implements IUserService {
         return user.getPosts();
     }
 
+    // Sort the List of UserDTO by name ascending or descending
     private void sortUserDTOByName(String order, List<UserDTO> list) throws InvalidOrderException {
         if(order.equals("name_asc")) {
             list.sort(COMPARATOR_NAME_ASC);
@@ -117,11 +120,29 @@ public class UserService implements IUserService {
         }
     }
 
+    // Transforms a list of userIds to a list of User
     private List<User> getListOfUsersById(List<Integer> userIdList) throws InvalidUserIdException {
         List<User> userList = new ArrayList<>();
         for(Integer id : userIdList) {
             userList.add(getUserById(id));
         }
         return userList;
+    }
+
+    // If is the same user, throws self follow / unfollow exception
+    private void checkSameUser(int userId, int userIdToFollow) throws SelfFollowUnFollowException {
+        if(userId == userIdToFollow) {
+            throw new SelfFollowUnFollowException();
+        }
+    }
+
+    // If the user is already following and want to follow the userid throw already follow exception
+    // If the user is not following and want to unfollow the userid throw not followed exception
+    private void checkIfFollowed(User user, int userId, boolean isFollow) throws AlreadyFollowException, NotFollowedException {
+        if(user.getFollowed().contains(userId) && isFollow) {
+            throw new AlreadyFollowException(userId);
+        } else if(!user.getFollowed().contains(userId) && !isFollow) {
+            throw new NotFollowedException(userId);
+        }
     }
 }
