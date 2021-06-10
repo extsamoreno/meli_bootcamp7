@@ -102,9 +102,30 @@ public class UserServiceImpl implements IUserService{
                 user.getUserName(),
                 userFollowersDTO
         );
+    } //ordenamiento por fechas ascendente y descendente
+
+    @Override
+    public UserDTO getUserFollowed(int userId, Optional<String> order) throws UserNotFoundException {
+        User user = IUserRepository.getUserById(userId);
+        List<UserFollowDTO> userFollowedDTO = new ArrayList<>();
+
+        for (User user1: user.getFollowed()
+        ) {
+            userFollowedDTO.add(UserMapper.getUserFollowDTO(user1));
+        }
+
+        Comparator<UserFollowDTO> userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+        switch (order.get()){
+            case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+                break;
+            case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
+                break;
+        }
+        userFollowedDTO.sort(userNameComparator);
+        return new UserDTO(
+                user.getUserName(),
+                user.getUserId(),
+                userFollowedDTO
+        );
     }
-
-    //ordenamiento por fechas ascendente y descendente
-
-
 }

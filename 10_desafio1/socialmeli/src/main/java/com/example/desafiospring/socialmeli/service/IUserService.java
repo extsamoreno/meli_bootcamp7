@@ -13,4 +13,6 @@ public interface IUserService {
     public UserDTO getUserFollowed(int userId) throws UserNotFoundException;
 
     UserDTO getUserFollowers(int userId, Optional<String> order) throws UserNotFoundException;
+
+    UserDTO getUserFollowed(int userId, Optional<String> order) throws UserNotFoundException;
 }
