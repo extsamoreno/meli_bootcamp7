@@ -1,23 +1,25 @@
 package com.meli.desafio1.web.dto;
 
-import com.meli.desafio1.web.model.Producto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
+
 public class PostDTO {
 
     private int userId;
     private int id_post;
-    private String date;
-    private Producto detail;
+    @JsonFormat(pattern="dd-MM-yyyy")
+    private Date date;
+    private ProductDTO detail;
     private String category;
-    private float price;
+    private double price;
 }

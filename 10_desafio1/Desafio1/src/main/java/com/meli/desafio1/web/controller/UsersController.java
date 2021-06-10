@@ -4,6 +4,8 @@ import com.meli.desafio1.web.dto.UserDTO;
 import com.meli.desafio1.web.exception.UserException;
 import com.meli.desafio1.web.exception.UserNotFoundException;
 import com.meli.desafio1.web.response.CusersResponse;
+import com.meli.desafio1.web.response.FollowedListResponse;
+import com.meli.desafio1.web.response.FollowersListResponse;
 import com.meli.desafio1.web.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,6 @@ public class UsersController {
     IUserService iUserService;
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> followResponse(@PathVariable("userId") int userId, @PathVariable("userIdToFollow") int userIdToFollow) throws UserException {
-        System.out.println("Entró a el servicio");
         iUserService.follow(userId,userIdToFollow);
         return new ResponseEntity<>("todo OK",HttpStatus.OK);
     }
@@ -30,12 +31,12 @@ public class UsersController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<List<UserDTO>> ListFollowersResponse(@RequestParam(value = "order", required = false,defaultValue = "") String order,@PathVariable("userId") int userId) throws UserNotFoundException {
+    public ResponseEntity<FollowersListResponse> ListFollowersResponse(@RequestParam(value = "order", required = false,defaultValue = "") String order, @PathVariable("userId") int userId) throws UserException {
         return new ResponseEntity<>(iUserService.followersByUserId(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<List<UserDTO>> ListFollowedResponse(@RequestParam(value = "order", required = false, defaultValue = "") String order,@PathVariable("userId") int userId) throws UserNotFoundException {
+    public ResponseEntity<FollowedListResponse> ListFollowedResponse(@RequestParam(value = "order", required = false, defaultValue = "") String order, @PathVariable("userId") int userId) throws UserException {
         return new ResponseEntity<>(iUserService.followedByUserId(userId,order), HttpStatus.OK);
     }
 
@@ -43,8 +44,6 @@ public class UsersController {
     public ResponseEntity<String> unFollowResponse(@PathVariable("userId") int userId, @PathVariable("userIdToUnfollow") int userIdToUnfollow) throws UserException {
 
         iUserService.unFollow(userId,userIdToUnfollow);
-
-
         return new ResponseEntity<>("todo OK", HttpStatus.OK);
     }
 }

@@ -6,6 +6,6 @@ import org.springframework.http.HttpStatus;
 public class UserNotFoundException extends UserException {
 
     public UserNotFoundException(int message, HttpStatus status) {
-        super("The id: " + message + " does not match User.", HttpStatus.BAD_REQUEST);
+        super("The user: " + message + " does not exist.", HttpStatus.BAD_REQUEST);
     }
 }

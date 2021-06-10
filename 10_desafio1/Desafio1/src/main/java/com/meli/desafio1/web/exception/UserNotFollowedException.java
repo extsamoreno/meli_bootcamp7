@@ -4,6 +4,6 @@ import org.springframework.http.HttpStatus;
 
 public class UserNotFollowedException extends UserException{
     public UserNotFollowedException(int user, int followed,  HttpStatus status) {
-        super("The user with id: " + user + " does not follow user with id: "+ followed, HttpStatus.BAD_REQUEST);
+        super("The user: " + user + " does not follow user: "+ followed, HttpStatus.BAD_REQUEST);
     }
 }

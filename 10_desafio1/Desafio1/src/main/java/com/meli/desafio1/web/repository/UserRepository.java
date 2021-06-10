@@ -2,7 +2,6 @@ package com.meli.desafio1.web.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.desafio1.web.model.Npost;
 import com.meli.desafio1.web.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class UserRepository implements IUserRepository{
 
-    private List<User> listaUser = loadDataUser();
+    private List<User> UserList = loadDataUser();
         private List<User> loadDataUser() {
             File file = null;
             try{
@@ -42,12 +41,12 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public List<User> getUserList() {
-        return this.listaUser;
+        return this.UserList;
     }
 
     @Override
     public User getUserById(int userId) {
-            for(User user:listaUser){
+            for(User user: UserList){
                 if(user.getUserId()==userId){
                     return user;
                 }
@@ -56,7 +55,7 @@ public class UserRepository implements IUserRepository{
     }
     @Override
     public String userNameByUserId(int userId) {
-        for(User user:this.listaUser){
+        for(User user:this.UserList){
             if(user.getUserId()==userId){
                 return user.getUserName();
             }

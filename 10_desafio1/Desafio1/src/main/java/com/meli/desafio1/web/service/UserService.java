@@ -1,15 +1,15 @@
 package com.meli.desafio1.web.service;
 
 import com.meli.desafio1.web.dto.UserDTO;
-import com.meli.desafio1.web.exception.UserAlreadyFollowedException;
-import com.meli.desafio1.web.exception.UserException;
-import com.meli.desafio1.web.exception.UserNotFollowedException;
-import com.meli.desafio1.web.exception.UserNotFoundException;
+import com.meli.desafio1.web.exception.*;
 import com.meli.desafio1.web.model.Follow;
 import com.meli.desafio1.web.model.User;
 import com.meli.desafio1.web.repository.IFollowRepository;
 import com.meli.desafio1.web.repository.IUserRepository;
 import com.meli.desafio1.web.response.CusersResponse;
+import com.meli.desafio1.web.response.FollowedListResponse;
+import com.meli.desafio1.web.response.FollowersListResponse;
+import com.meli.desafio1.web.response.PostListResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,12 +25,18 @@ public class UserService implements IUserService {
     IFollowRepository iFollowRepository;
     @Autowired
     IUserRepository iUserRepository;
+    @Autowired
+    IUserService iUserService;
+
     @Override
 
     public void follow(int userId, int follow_id) throws UserException {
 
         Follow user = iFollowRepository.getFollowById(userId);
         Follow followedUser = iFollowRepository.getFollowById(follow_id);
+        if(userId == follow_id){
+            throw new FollowActionInvalidException(userId,HttpStatus.BAD_REQUEST);
+        }
         if(user == null){
             throw new UserNotFoundException(userId, HttpStatus.BAD_REQUEST);
         }
@@ -50,16 +56,19 @@ public class UserService implements IUserService {
         }
     }
 
-
+    @Override
     public void unFollow(int userId, int follow_id) throws UserException{
         Follow user = iFollowRepository.getFollowById(userId);
         Follow followedUser = iFollowRepository.getFollowById(follow_id);
         List<Integer> followListId = user.getFollows_id();
+        System.out.println(user);
         if(user==null){
             throw new UserNotFoundException(userId,HttpStatus.BAD_REQUEST);
         }
-        if(followedUser==null){
-            throw new UserNotFoundException(follow_id,HttpStatus.BAD_REQUEST);
+        else {
+            if (followedUser == null) {
+                throw new UserNotFoundException(follow_id, HttpStatus.BAD_REQUEST);
+            }
         }
         if (followListId.contains(follow_id)) {
 
@@ -97,24 +106,28 @@ public class UserService implements IUserService {
 
     @Override
     public void orderUserDTO(List<UserDTO> userDTOS, String order){
-        System.out.println("ingreso a order");
+
         Collections.sort(userDTOS, new Comparator<UserDTO>() {
             @Override
             public int compare(UserDTO o1, UserDTO o2) {
                 return o1.getUserName().compareTo(o2.getUserName());
             }
         });
-        System.out.println("luego de sort");
+
         if(order.equals("name_desc")){
             Collections.reverse(userDTOS);
         }
     }
 
     @Override
-    public List<UserDTO> followersByUserId(int userId, String order) throws UserNotFoundException{
+    public FollowersListResponse followersByUserId(int userId, String order) throws UserException{
         User user = iUserRepository.getUserById(userId);
         if(user == null){
             throw new UserNotFoundException(userId,HttpStatus.BAD_REQUEST);
+        }
+
+        if(!order.equals("") && !order.equals("name_desc") && !order.equals("name_asc")){
+            throw new UserOrderNotValidException(order,HttpStatus.BAD_REQUEST);
         }
         List<UserDTO> userDTOS = new ArrayList<>();
         List<User> users = iUserRepository.getUserList();
@@ -130,14 +143,17 @@ public class UserService implements IUserService {
         }
 
 
-        return userDTOS;
+        return new FollowersListResponse(userId,iUserRepository.userNameByUserId(userId),userDTOS);
     }
 
     @Override
-    public List<UserDTO> followedByUserId(int userId, String order) throws UserNotFoundException {
+    public FollowedListResponse followedByUserId(int userId, String order) throws UserException {
         Follow user = iFollowRepository.getFollowById(userId);
         if(user == null){
             throw new UserNotFoundException(userId,HttpStatus.BAD_REQUEST);
+        }
+        if(!order.equals("") && !order.equals("name_desc") && !order.equals("name_asc")){
+            throw new UserOrderNotValidException(order,HttpStatus.BAD_REQUEST);
         }
         List<UserDTO> userDTOS = new ArrayList<>();
         for(int followed:user.getFollows_id()){
@@ -147,8 +163,10 @@ public class UserService implements IUserService {
         if(order.equals("name_asc") || order.equals("name_desc")) {
             orderUserDTO(userDTOS, order);
         }
-        return userDTOS;
+        return new FollowedListResponse(userId,iUserRepository.userNameByUserId(userId),userDTOS);
     }
+
+
 
 
 

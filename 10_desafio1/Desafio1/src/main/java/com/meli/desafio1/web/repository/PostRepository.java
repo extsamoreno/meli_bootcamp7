@@ -9,19 +9,42 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class PostRepository implements IPostRepository{
 
-    private List<Npost> listaPosts = loadDataPosts();
+    private List<Npost> postList = loadDataPosts();
     @Override
-    public List <Npost> getListaPosts(){
-        return listaPosts;
+    public List <Npost> getPostList(){
+        return postList;
     }
-    public void setListaPosts(Npost npost){
-        this.listaPosts.add(npost);
+    public void setPostList(Npost npost){
+        this.postList.add(npost);
     }
+
+    @Override
+    public Npost getPostById(int postId) {
+        for(Npost npost: postList){
+            if(npost.getId_post()==postId){
+                return npost;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Npost> getPromoPostByUserId(int userId) {
+        List<Npost> nposts = new ArrayList<>();
+        for(Npost npost: postList){
+            if(npost.getUserId()==userId && npost.isHasPromo()){
+                nposts.add(npost);
+            }
+        }
+        return nposts;
+    }
+
     private List<Npost> loadDataPosts() {
         File file = null;
         try{
