@@ -113,6 +113,22 @@ The REST API to the example app is described below.
 
 `POST /products/newpost`
 
+    {
+    "userID" : 4,
+    "postID" : 67,
+    "date" : "29-05-2021",
+    "detail" : {
+    "productID" : 5,
+    "productName" : "Monitor 24'' 75hz IPS",
+    "type" : "Gamer",
+    "brand" : "Samsung",
+    "color" : "Grey & Black",
+    "notes" : "Rare Edition"
+    },
+    "category" : 100,
+    "price" : 25000
+    }
+
 ### Response
 
     Status: 200 OK
