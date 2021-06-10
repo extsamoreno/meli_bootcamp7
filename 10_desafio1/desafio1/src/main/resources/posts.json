@@ -5,7 +5,7 @@
 		"detail": 1,
 		"category": "100",
 		"price": 1500.50,
-		"hasPromo": true,
+		"hasPromo": false,
 		"discount": 0.25
 	},
 	{
@@ -23,7 +23,16 @@
 		"detail": 3,
 		"category": "300",
 		"price": 3500.50,
-		"hasPromo": true,
+		"hasPromo": false,
 		"discount": 0.75
+	},
+	{
+		"postID": 4,
+		"date": "14-09-2021",
+		"detail": 4,
+		"category": "300",
+		"price": 4500.50,
+		"hasPromo": true,
+		"discount": 1.0
 	}
 ]

@@ -22,5 +22,13 @@
 		"brand": "Corsair",
 		"color": "Negro",
 		"notes": "RGB"
+	},
+	{
+		"productID": 4,
+		"productName": "Audifonos Gamer",
+		"type": "Gamer",
+		"brand": "Cooler Master",
+		"color": "RGB",
+		"notes": "asdf"
 	}
 ]

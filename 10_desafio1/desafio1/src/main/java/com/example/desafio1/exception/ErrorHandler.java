@@ -9,22 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ErrorHandler {
 
 	@ExceptionHandler
-	public ResponseEntity<ErrorDTO> handleUserIDNotFoundException(UserIDNotFoundException e) {
+	public ResponseEntity<ErrorDTO> handleUserIDAllReadyInFollowsException(IDPresentAllReadyException e) {
 		return new ResponseEntity<>(e.getError(), e.getStatus());
 	}
 
 	@ExceptionHandler
-	public ResponseEntity<ErrorDTO> handleUserIDAllReadyInFollowsException(UserIDAllReadyInFollowsException e) {
-		return new ResponseEntity<>(e.getError(), e.getStatus());
-	}
-
-	@ExceptionHandler
-	public ResponseEntity<ErrorDTO> handleProductIDAllReadyInDatabase(ProductIDAllReadyInDatabaseException e) {
-		return new ResponseEntity<>(e.getError(), e.getStatus());
-	}
-
-	@ExceptionHandler
-	public ResponseEntity<ErrorDTO> handlePostIDAllReadyInDatabase(PostIDAllReadyInDatabaseException e) {
+	public ResponseEntity<ErrorDTO> handleIDNotFoundException(IDNotFoundException e) {
 		return new ResponseEntity<>(e.getError(), e.getStatus());
 	}
 }

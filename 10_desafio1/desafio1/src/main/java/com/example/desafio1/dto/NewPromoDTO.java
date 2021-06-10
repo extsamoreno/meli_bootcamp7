@@ -10,11 +10,14 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostDTO {
+public class NewPromoDTO {
+	int userID;
 	int postID;
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	Date date;
 	ProductDTO detail;
 	int category;
 	float price;
+	boolean hasPromo;
+	float discount;
 }

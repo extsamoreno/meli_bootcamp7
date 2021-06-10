@@ -10,7 +10,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostDTO {
+public class NewPostDTO {
+	int userID;
 	int postID;
 	@JsonFormat(pattern = "dd-MM-yyyy")
 	Date date;

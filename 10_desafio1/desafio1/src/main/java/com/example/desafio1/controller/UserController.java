@@ -1,8 +1,8 @@
 package com.example.desafio1.controller;
 
 import com.example.desafio1.dto.*;
-import com.example.desafio1.exception.UserIDAllReadyInFollowsException;
-import com.example.desafio1.exception.UserIDNotFoundException;
+import com.example.desafio1.exception.IDNotFoundException;
+import com.example.desafio1.exception.IDPresentAllReadyException;
 import com.example.desafio1.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class UserController {
 
 	// US0001
 	@PostMapping("/{userID}/follow/{userIDToFollow}")
-	ResponseEntity<HttpStatus> follow(@PathVariable Integer userID, @PathVariable Integer userIDToFollow) throws UserIDNotFoundException, UserIDAllReadyInFollowsException {
+	ResponseEntity<HttpStatus> follow(@PathVariable Integer userID, @PathVariable Integer userIDToFollow) throws IDPresentAllReadyException, IDNotFoundException {
 
 		return userService.follow(userID, userIDToFollow) ? new ResponseEntity<>(HttpStatus.OK)
 														  : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -42,14 +42,14 @@ public class UserController {
 
 	// US0002
 	@GetMapping("/{userID}/followers/count")
-	ResponseEntity<FollowerCountDTO> followersCount(@PathVariable Integer userID) throws UserIDNotFoundException {
+	ResponseEntity<FollowerCountDTO> followersCount(@PathVariable Integer userID) throws IDNotFoundException {
 		FollowerCountDTO count = userService.followerCount(userID);
 		return new ResponseEntity<>(count, HttpStatus.OK);
 	}
 
 	// US0003, US0008
 	@GetMapping("/{userID}/followers/list")
-	ResponseEntity<FollowersDTO> followersList(@PathVariable Integer userID, @RequestParam(required = false) String order) throws UserIDNotFoundException {
+	ResponseEntity<FollowersDTO> followersList(@PathVariable Integer userID, @RequestParam(required = false) String order) throws IDNotFoundException {
 
 		FollowersDTO followers = userService.followersList(userID);
 
@@ -72,9 +72,9 @@ public class UserController {
 		return new ResponseEntity<>(followers, HttpStatus.OK);
 	}
 
-	// US0004, US0009
+	// US0004, US0008
 	@GetMapping("/{userID}/followed/list")
-	ResponseEntity<FollowedDTO> followedList(@PathVariable Integer userID, @RequestParam(required = false) String order) throws UserIDNotFoundException {
+	ResponseEntity<FollowedDTO> followedList(@PathVariable Integer userID, @RequestParam(required = false) String order) throws IDNotFoundException {
 
 		FollowedDTO followed = userService.followedList(userID);
 
@@ -99,7 +99,9 @@ public class UserController {
 
 	// US0007
 	@PostMapping("/{userID}/unfollow/{userIDToUnfollow}")
-	ResponseEntity<FollowDTO> unfollow(@PathVariable Integer userID, @PathVariable Integer userIDToUnfollow) {
-		return new ResponseEntity<>(new FollowDTO(), HttpStatus.OK);
+	ResponseEntity<HttpStatus> unfollow(@PathVariable Integer userID, @PathVariable Integer userIDToUnfollow) throws IDNotFoundException, IDPresentAllReadyException {
+
+		return userService.unfollow(userID, userIDToUnfollow) ? new ResponseEntity<>(HttpStatus.OK)
+															  : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

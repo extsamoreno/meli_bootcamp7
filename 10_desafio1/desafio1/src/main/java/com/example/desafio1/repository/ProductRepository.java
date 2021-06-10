@@ -1,6 +1,7 @@
 package com.example.desafio1.repository;
 
-import com.example.desafio1.exception.ProductIDAllReadyInDatabaseException;
+import com.example.desafio1.exception.IDPresentAllReadyException;
+import com.example.desafio1.model.Post;
 import com.example.desafio1.model.Product;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository implements IRepository<Product> {
@@ -44,14 +46,24 @@ public class ProductRepository implements IRepository<Product> {
 		}
 	}
 
-	public void registerProduct(Product product) throws ProductIDAllReadyInDatabaseException {
+	public void registerProduct(Product product) throws IDPresentAllReadyException {
 		if (products.stream().filter(p -> p.getProductID() == product.getProductID())
 							 .findAny()
 							 .orElse(null) != null) {
 
-			throw new ProductIDAllReadyInDatabaseException(product.getProductID());
+			throw new IDPresentAllReadyException(product.getProductID());
 		}
 
 		products.add(product);
+	}
+
+	public List<Product> getProductsFromPosts(List<Post> posts) {
+		return posts.stream().map(p -> getProduct(p.getDetail())).collect(Collectors.toList());
+	}
+
+	public Product getProduct(int productID) {
+		return products.stream().filter(p -> p.getProductID() == productID)
+								.findAny()
+								.orElse(null);
 	}
 }

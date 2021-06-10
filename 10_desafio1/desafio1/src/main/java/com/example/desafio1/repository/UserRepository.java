@@ -1,7 +1,7 @@
 package com.example.desafio1.repository;
 
-import com.example.desafio1.exception.UserIDAllReadyInFollowsException;
-import com.example.desafio1.exception.UserIDNotFoundException;
+import com.example.desafio1.exception.IDNotFoundException;
+import com.example.desafio1.exception.IDPresentAllReadyException;
 import com.example.desafio1.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,8 +47,7 @@ public class UserRepository implements IRepository<User> {
 		}
 	}
 
-	public boolean registerFollow(int userID, int userIDToFollow) throws UserIDNotFoundException, UserIDAllReadyInFollowsException {
-		// List<User> users = loadDatabase();
+	public boolean registerFollow(int userID, int userIDToFollow) throws IDNotFoundException, IDPresentAllReadyException {
 
 		User user = users.stream().filter(u -> u.getUserID() == userID)
 								  .findAny()
@@ -59,55 +58,72 @@ public class UserRepository implements IRepository<User> {
 									 	  .orElse(null);
 
 		if (user == null)
-			throw new UserIDNotFoundException(userID);
+			throw new IDNotFoundException(userID);
 
 		if (userToFollow == null)
-			throw new UserIDNotFoundException(userIDToFollow);
+			throw new IDNotFoundException(userIDToFollow);
 
 		if (user.getFollows().contains(userIDToFollow))
-			throw new UserIDAllReadyInFollowsException(userIDToFollow);
+			throw new IDPresentAllReadyException(userIDToFollow);
 
 		user.getFollows().add(userIDToFollow);
-
-		System.out.println(user.getFollows());
 
 		return true;
 	}
 
-	public User getFollowerCount(int userID) throws UserIDNotFoundException {
+	public User getFollowerCount(int userID) throws IDNotFoundException {
 		User user = users.stream().filter(u -> u.getUserID() == userID)
 								  .findAny()
 								  .orElse(null);
 
 		if (user == null)
-			throw new UserIDNotFoundException(userID);
+			throw new IDNotFoundException(userID);
 
 		return user;
 	}
 
-	public List<User> getFollowers(int userID) throws UserIDNotFoundException {
+	public List<User> getFollowers(int userID) throws IDNotFoundException {
 		User user = getUser(userID);
 
 		if (user == null)
-			throw new UserIDNotFoundException(userID);
+			throw new IDNotFoundException(userID);
 
 		return users.stream().filter(u -> u.getFollows().contains(userID))
 							 .collect(Collectors.toList());
 	}
 
 	public User getUser(int userID) {
+
 		return users.stream().filter(u -> u.getUserID() == userID)
-							 .findAny()
-							 .orElse(null);
+											.findAny()
+											.orElse(null);
 	}
 
-	public List<User> getFollowed(Integer userID) throws UserIDNotFoundException {
+	public List<User> getFollowed(Integer userID) throws IDNotFoundException {
 		User user = getUser(userID);
 
 		if (user == null)
-			throw new UserIDNotFoundException(userID);
+			throw new IDNotFoundException(userID);
 
 		return user.getFollows().stream().map(this::getUser)
 										 .collect(Collectors.toList());
+	}
+
+	public boolean registerUnfollow(Integer userID, Integer userIDToUnfollow) throws IDNotFoundException, IDPresentAllReadyException {
+		User user = getUser(userID);
+		User userToUnfollow = getUser(userID);
+
+		if (user == null)
+			throw new IDNotFoundException(userID);
+
+		if (userToUnfollow == null)
+			throw new IDNotFoundException(userIDToUnfollow);
+
+		if (!user.getFollows().contains(userIDToUnfollow))
+			throw new IDPresentAllReadyException(userIDToUnfollow);
+
+		user.getFollows().remove(userIDToUnfollow);
+
+		return true;
 	}
 }
