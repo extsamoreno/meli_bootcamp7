@@ -13,30 +13,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository{
     List<Following> followingsList = new ArrayList<>();
 
     @Override
-    public boolean addFollowing(int userId, int userIdToFollow) {
+    public void addFollowing(int userId, int userIdToFollow) {
         followingsList.add(new Following(userIdToFollow,userId));
-        return true;
     }
 
     @Override
     public MeliUser getUserById(int userId) {
         ArrayList<MeliUser> users = loadDatabase();
         return users.stream().filter(user -> userId == user.getUserId()).findFirst().orElse(null);
-    }
-
-    @Override
-    public int getFollowersCount(int userId) {
-        return (int)followingsList.stream().filter(elem -> elem.getUserIdFollowed() == userId).count();
     }
 
     @Override

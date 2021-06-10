@@ -1,6 +1,7 @@
 package com.example.desafio1.controllers;
 
 import com.example.desafio1.dtos.PublishingDTO;
+import com.example.desafio1.dtos.PublishingPromoCountDTO;
 import com.example.desafio1.dtos.PublishingPromoDTO;
 import com.example.desafio1.exceptions.OrderNotValidException;
 import com.example.desafio1.services.IProductService;
@@ -25,8 +26,8 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<List<PublishingDTO>> getFollowedPublishings(@PathVariable int userId, @RequestParam(required = false) String order) throws OrderNotValidException {
-        return new ResponseEntity<>(iProductService.getFollowedPublishings(userId,order), HttpStatus.OK);
+    public ResponseEntity<List<PublishingDTO>> getFollowedPublishing(@PathVariable int userId, @RequestParam(required = false) String order) throws OrderNotValidException {
+        return new ResponseEntity<>(iProductService.getFollowedPublishing(userId,order), HttpStatus.OK);
     }
 
     @PostMapping("/newpromopost")
@@ -37,13 +38,13 @@ public class ProductController {
     }
 
     @GetMapping("/{userId}/countPromo/")
-    public ResponseEntity<Integer> getPromoPublishingsCount(@PathVariable int userId){
-        return new ResponseEntity<>(iProductService.getPromoPublishings(userId).size(),HttpStatus.OK);
+    public ResponseEntity<PublishingPromoCountDTO> getPromoPublishingCount(@PathVariable int userId){
+        return new ResponseEntity<>(iProductService.getPromoPublishingCount(userId),HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/list/")
-    public ResponseEntity<List<PublishingDTO>> getPromoPublishings(@PathVariable int userId){
-        return new ResponseEntity<>(iProductService.getPromoPublishings(userId),HttpStatus.OK);
+    public ResponseEntity<List<PublishingDTO>> getPromoPublishing(@PathVariable int userId){
+        return new ResponseEntity<>(iProductService.getPromoPublishing(userId),HttpStatus.OK);
     }
 
 }

@@ -32,11 +32,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowersCountDTO getFollowersCount(int userId) {
+    public FollowersCountDTO getFollowersCount(int userId) throws OrderNotValidException {
         FollowersCountDTO follCount = new FollowersCountDTO();
         follCount.setUserId(userId);
         follCount.setUserName(iUserRepository.getUserById(userId).getUserName());
-        follCount.setFollowersCount(iUserRepository.getFollowersCount(userId));
+        follCount.setFollowersCount(iUserRepository.getFollowers(userId, null).size());
 
         return follCount;
     }

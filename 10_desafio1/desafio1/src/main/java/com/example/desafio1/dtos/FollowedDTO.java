@@ -9,8 +9,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowedDTO {
-    private int userId;
-    private String userName;
+public class FollowedDTO extends ReportDTO{
     private List<MeliUserDTO> followed;
 }

@@ -10,8 +10,4 @@ import lombok.NoArgsConstructor;
 public class Following {
     private int userIdFollowed;
     private int userIdFollower;
-
-    public boolean equals(Following a){
-        return a.getUserIdFollower() == this.userIdFollower && a.getUserIdFollowed() == this.userIdFollowed;
-    }
 }

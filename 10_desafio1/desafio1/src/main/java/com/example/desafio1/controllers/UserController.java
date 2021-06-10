@@ -22,12 +22,13 @@ public class UserController {
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     @ResponseStatus(HttpStatus.OK)
-    public void postFollow(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException {
+    public String postFollow(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdNotValidException, FollowingAlreadyExistsException {
         iUserService.processNewFollowing(userId,userIdToFollow);
+        return "Following has been set up successfully!";
     }
 
     @GetMapping("/{userId}/followers/count/")
-    public ResponseEntity<FollowersCountDTO> getFollowersCount(@PathVariable int userId){
+    public ResponseEntity<FollowersCountDTO> getFollowersCount(@PathVariable int userId) throws OrderNotValidException {
         return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }
 

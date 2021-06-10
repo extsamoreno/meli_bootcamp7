@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowersCountDTO {
-    private int userId;
-    private String userName;
+public class FollowersCountDTO extends ReportDTO {
     private int followersCount;
 }

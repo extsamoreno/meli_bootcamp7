@@ -7,11 +7,9 @@ import com.example.desafio1.models.MeliUser;
 import java.util.List;
 
 public interface IUserRepository {
-    boolean addFollowing(int userId, int userIdToFollow);
+    void addFollowing(int userId, int userIdToFollow);
 
     MeliUser getUserById(int userId);
-
-    int getFollowersCount(int userId);
 
     List<MeliUser> getFollowers(int userId, String order) throws OrderNotValidException;
 
