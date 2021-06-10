@@ -1,9 +1,6 @@
 package com.example.socialmeli.controllers;
 
-import com.example.socialmeli.exceptions.ExistentPostException;
-import com.example.socialmeli.exceptions.ExistentPromoPostException;
-import com.example.socialmeli.exceptions.InexistentDateOrderException;
-import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.exceptions.*;
 import com.example.socialmeli.models.dtos.PostDTO;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
@@ -32,7 +29,7 @@ public class ProductController {
     }
 
     @PostMapping("/newpromopost")
-    public ResponseEntity<NewPostResponseDTO> addPromoPost (@RequestBody NewPromoPostRequestDTO newPost) throws InexistentUserException, ExistentPromoPostException {
+    public ResponseEntity<NewPostResponseDTO> addPromoPost (@RequestBody NewPromoPostRequestDTO newPost) throws InexistentUserException, ExistentPromoPostException, InvalidPromoPostException {
         return new ResponseEntity<>(productService.addPromoPost (newPost), HttpStatus.OK);
     }
 

@@ -1,9 +1,6 @@
 package com.example.socialmeli.services;
 
-import com.example.socialmeli.exceptions.ExistentPostException;
-import com.example.socialmeli.exceptions.ExistentPromoPostException;
-import com.example.socialmeli.exceptions.InexistentDateOrderException;
-import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.exceptions.*;
 import com.example.socialmeli.models.dtos.PostDTO;
 import com.example.socialmeli.models.dtos.UserDTO;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
@@ -56,7 +53,11 @@ public class ProductServiceImple implements ProductService{
     }
 
     @Override
-    public NewPostResponseDTO addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException {
+    public NewPostResponseDTO addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException, InvalidPromoPostException {
+        if(!newPromoPostRequestDTO.isHasPromo()){
+            throw new InvalidPromoPostException();
+        }
+
         productRepository.addPromoPost(newPromoPostRequestDTO);
 
         NewPostResponseDTO response = new NewPostResponseDTO(200,"Se ha agregado un nuevo producto en promoción al repositorio");

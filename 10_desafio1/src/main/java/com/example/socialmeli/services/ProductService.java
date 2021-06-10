@@ -1,9 +1,6 @@
 package com.example.socialmeli.services;
 
-import com.example.socialmeli.exceptions.ExistentPostException;
-import com.example.socialmeli.exceptions.ExistentPromoPostException;
-import com.example.socialmeli.exceptions.InexistentDateOrderException;
-import com.example.socialmeli.exceptions.InexistentUserException;
+import com.example.socialmeli.exceptions.*;
 import com.example.socialmeli.models.dtos.PostDTO;
 import com.example.socialmeli.models.dtos.request.NewPostRequestDTO;
 import com.example.socialmeli.models.dtos.request.NewPromoPostRequestDTO;
@@ -17,7 +14,7 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
     NewPostResponseDTO addPost(NewPostRequestDTO newPostRequestDTO) throws InexistentUserException, ExistentPostException;
     ListFollowedPostsResponseDTO listPosts( int idUser, String order) throws InexistentUserException, InexistentDateOrderException;
-    NewPostResponseDTO addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException;
+    NewPostResponseDTO addPromoPost(NewPromoPostRequestDTO newPromoPostRequestDTO) throws InexistentUserException, ExistentPromoPostException, InvalidPromoPostException;
     SellerPromoProductsCountResponseDTO countPromoProducts(int userId) throws InexistentUserException;
     ListSellerPromoProductsDTO listPromoProducts(int userId) throws InexistentUserException;
 }
