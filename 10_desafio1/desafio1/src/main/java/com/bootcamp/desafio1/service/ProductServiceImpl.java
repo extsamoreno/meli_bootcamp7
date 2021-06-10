@@ -141,7 +141,6 @@ public class ProductServiceImpl implements IProductService {
             if(post.isHasPromo())
                 finalList.add(postDTO);
         }
-
         return Mapper.toPromoListDTO(currentUser, finalList);
     }
 
