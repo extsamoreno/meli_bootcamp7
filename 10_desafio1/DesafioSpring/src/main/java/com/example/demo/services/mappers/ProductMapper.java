@@ -15,4 +15,13 @@ public class ProductMapper {
         );
     }
 
+    public static DetailDTO toDetailDTO(Product product){
+        return new DetailDTO(product.getProduct_id()
+                ,product.getProductName()
+                ,product.getType()
+                ,product.getBrand()
+                ,product.getColor()
+                ,product.getNotes()
+        );
+    }
 }

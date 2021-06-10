@@ -12,11 +12,17 @@ public class ProductRepositoryImple implements ProductRepository{
     UserRepositoryImple userRepositoryImple;
     private ArrayList<Product> productsList = new ArrayList<>();
 
-    Product product = new Product(1,"Silla Gamer","Gamer","Racer"
+    Product product1 = new Product(1,"Silla Gamer","Gamer","Racer"
             ,"Red & Black","Especial Edition");
+    Product product2 = new Product(2,"Pulsefire FPS Pro","Mouse","Hyperx"
+            ,"Black with RGB","Pro Edition");
+    Product product3 = new Product(62,"Headset RGB Inalambrico","Gamer","Razer"
+            ,"Green with RGB","Sin Bateria");
 
     public void addProducts(){
-        productsList.add(product);
+        productsList.add(product1);
+        productsList.add(product2);
+        productsList.add(product3);
     }
 
     @Override

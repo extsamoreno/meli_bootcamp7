@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "ae2fff9a-cd3c-41b3-bffe-ed95aef45144",
+		"name": "DesafioSpring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DesafioSpring",
+			"item": [
+				{
+					"name": "POST LoadData",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"add"
+							]
+						},
+						"description": "Cargo la base de datos.\nSe cargan 3 usuarios, se encuentran en una lista y 3 productos en una lista en los repositorios correspondientes."
+					},
+					"response": []
+				},
+				{
+					"name": "POST follow",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1/follow/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"follow",
+								"2"
+							]
+						},
+						"description": "Un usuario sigue a otro usuario.\nAmbos deben existir sino tira una excepción.\nUn usuario no puede seguirse a si mismo sino tira una excepción.\nUn usuario no puede seguir a otro usuario que ya sigue, sino tira una excepción."
+					},
+					"response": []
+				},
+				{
+					"name": "POST unfollow",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1/unfollow/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"unfollow",
+								"2"
+							]
+						},
+						"description": "Ambos usuarios deben existir.\nUn usuario deja de seguir a otro.\nUn usuario no puede dejar de seguir a un usuario que no sigue, sino tira una excepción."
+					},
+					"response": []
+				},
+				{
+					"name": "GET FollowersCount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1/followers/count/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"followers",
+								"count",
+								""
+							]
+						},
+						"description": "Se muestra la cantidad de seguidores que tiene un usuario.\nEl usuario debe existir."
+					},
+					"response": []
+				},
+				{
+					"name": "GET FollowersList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null,
+						"description": "Se muestra la lista seguidores de un determinado usuario.\nSe puede ordenar la lista por nombre de forma ascendente o descendente. Por default es ascendente.\nEl usuario seguido debe existir."
+					},
+					"response": []
+				},
+				{
+					"name": "GET FollowedList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null,
+						"description": "Se muestra la lista de usuarios que sigue un determinado usuario.\nSe puede ordenar la lista por nombre de forma ascendente o descendente. Por default es ascendente.\nEl usuario debe existir."
+					},
+					"response": []
+				},
+				{
+					"name": "POST Post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"userId\" : 2,\n    \"id_post\": 18,\n    \"date\": \"4-06-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\":\"Gamer\",\n        \"brand\":\"Racer\",\n        \"color\":\"Red & Black\",\n        \"notes\": \"Especial Edition\"\n    },\n    \"category\":100,\n    \"price\": 1500.50\n\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/newpost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"newpost"
+							]
+						},
+						"description": "Un usuario realiza una publicación sin promocion de un producto.\nEl usuario debe existir.\nEl producto debe existir.\nLa categoria debe existir."
+					},
+					"response": []
+				},
+				{
+					"name": "POST PostWithProm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/newprompost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"newprompost"
+							]
+						},
+						"description": "Un usuario realiza una publicacion con promocion de un producto.\nEl usuario debe existir.\nEl producto debe existir.\nLa categoria debe existir."
+					},
+					"response": []
+				},
+				{
+					"name": "GET FollowedPostList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/followed/1/list?order=date_desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"followed",
+								"1",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PostWithPromCount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null,
+						"description": "Se muestra la cantidad de publicaciones con promocion de un determinado usuario.\nEl usuario debe existir."
+					},
+					"response": []
+				},
+				{
+					"name": "GET PostWithPromList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/2/list/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"2",
+								"list",
+								""
+							]
+						},
+						"description": "Se muestra la lista de publicaciones con promocion que realizo un usuario.\nEl usuario debe existir."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

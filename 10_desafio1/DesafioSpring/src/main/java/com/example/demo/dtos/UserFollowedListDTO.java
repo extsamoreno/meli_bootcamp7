@@ -13,5 +13,5 @@ import java.util.ArrayList;
 public class UserFollowedListDTO {
     private int userId;
     private String userName;
-    private ArrayList<UserResponseDTO> followed;
+    private ArrayList<UserResponseDTO> followed=new ArrayList<>();
 }

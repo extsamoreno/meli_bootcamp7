@@ -14,6 +14,6 @@ public class UserFollowerListDTO {
 
     private int userId;
     private String userName;
-    private ArrayList<UserResponseDTO> followers;
+    private ArrayList<UserResponseDTO> followers=new ArrayList<>();
 
 }

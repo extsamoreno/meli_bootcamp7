@@ -11,22 +11,34 @@ public class UserExceptionController {
 
     @ExceptionHandler(UserAlreadyFollowException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(UserAlreadyFollowException e){
-
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
-    @ExceptionHandler(UserDoesntExistException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(UserDoesntExistException e){
 
+    @ExceptionHandler(UserDontFoundException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(UserDontFoundException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
-    @ExceptionHandler(ProductDoesntExistException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDoesntExistException e){
 
+    @ExceptionHandler(ProductDontFoundException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDontFoundException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
+
     @ExceptionHandler(CategoryDoesntExistException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(CategoryDoesntExistException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
 
+    @ExceptionHandler(InvalidDateFormatException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(InvalidDateFormatException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+    @ExceptionHandler(CantAutofollowException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(CantAutofollowException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+    @ExceptionHandler(CantUnfollowException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(CantUnfollowException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 }

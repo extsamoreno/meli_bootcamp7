@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -13,5 +15,5 @@ import java.util.List;
 @NoArgsConstructor
 public class FollowedPostListResponseDTO {
     private int userId;
-    private List<Post> posts;
+    private List<PostDTO> posts=new ArrayList<>();
 }
