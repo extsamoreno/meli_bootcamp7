@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public HttpStatus setFollower(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException {
+    public void setFollower(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException {
         UserModel user = dataRepository.findUserById(userId);
         UserModel userToFollow = dataRepository.findUserById(userIdToFollow);
 
@@ -35,13 +35,11 @@ public class UserServiceImpl implements UserService{
             user.getFollowed().add(userIdToFollow);
             userToFollow.getFollowers().add(userId);
         }
-
         dataRepository.saveUserDb(user, userToFollow);
-        return HttpStatus.OK;
     }
 
     @Override
-    public HttpStatus removeFollower(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException {
+    public void removeFollower(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException {
         UserModel user = dataRepository.findUserById(userId);
         UserModel userToUnfollow = dataRepository.findUserById(userIdToUnfollow);
 
@@ -53,7 +51,6 @@ public class UserServiceImpl implements UserService{
         }
 
         dataRepository.saveUserDb(user, userToUnfollow);
-        return HttpStatus.OK;
     }
 
     @Override

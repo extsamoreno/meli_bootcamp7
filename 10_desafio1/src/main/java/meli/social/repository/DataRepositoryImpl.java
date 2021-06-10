@@ -44,6 +44,19 @@ public class DataRepositoryImpl implements DataRepository {
         return foundUser;
     }
 
+    @Override
+    public PostModel findPostById(int postId) {
+        PostModel foundPost = null;
+        if(allPosts != null) {
+            try{
+                foundPost = allPosts.get(postId);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return foundPost;
+    }
+
     // ------------------------------ CARGANDO USUARIOS ------------------------------
     private List<UserModel> loadUserDb() {
         File file = null;

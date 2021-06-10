@@ -4,6 +4,7 @@ import meli.social.exception.UserIdNotFoundException;
 import meli.social.model.PostModel;
 import meli.social.model.UserModel;
 import meli.social.service.PostService;
+import meli.social.service.dto.PostListUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,13 @@ public class PostController {
 
     @PostMapping("/newpost")
     public HttpStatus newPost (@RequestBody PostModel post) throws UserIdNotFoundException {
-        return postService.addPost(post);
+        postService.addPost(post);
+        return HttpStatus.OK;
+    }
+
+    @GetMapping("/followed/{userId}/list")
+    public List<PostListUserDTO> postsOfFollowed (@PathVariable int userId) throws UserIdNotFoundException {
+        return postService.getPostsOfFollowed(userId);
     }
 
 }

@@ -33,12 +33,14 @@ public class UserController {
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
     public HttpStatus followUser (@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdNotFoundException {
-        return userService.setFollower(userId, userIdToFollow);
+        userService.setFollower(userId, userIdToFollow);
+        return HttpStatus.OK;
     }
 
     @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
     public HttpStatus unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException {
-        return userService.removeFollower(userId, userIdToUnfollow);
+        userService.removeFollower(userId, userIdToUnfollow);
+        return HttpStatus.OK;
     }
 
     @GetMapping("/{userId}/followers/count")
