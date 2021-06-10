@@ -10,4 +10,8 @@ public class Product {  //el producto que devolveria
     String brand;
     String color;
     String notes;
+
+    public boolean getHasPromo(){
+        return false;
+    }
 }

@@ -15,5 +15,8 @@ public class UserException extends Exception{
         this.error.setName(this.getClass().getSimpleName()); //error name
         this.status = status; //el status
     }
+
+    public UserException(ErrorDTO errorDTO, HttpStatus badRequest) {
+    }
 }
 //lo dejo por las dudas

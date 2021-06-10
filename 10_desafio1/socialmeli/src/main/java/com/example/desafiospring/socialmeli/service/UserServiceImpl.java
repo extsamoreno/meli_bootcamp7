@@ -1,131 +1,145 @@
 package com.example.desafiospring.socialmeli.service;
 
 import com.example.desafiospring.socialmeli.exception.UserNotFoundException;
+import com.example.desafiospring.socialmeli.model.Seller;
 import com.example.desafiospring.socialmeli.model.User;
 import com.example.desafiospring.socialmeli.repository.IUserRepository;
 import com.example.desafiospring.socialmeli.service.DTO.UserDTO;
-import com.example.desafiospring.socialmeli.service.DTO.UserFollowDTO;
-import com.example.desafiospring.socialmeli.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements IUserService{
+public class UserServiceImpl implements iUserService {
 
     @Autowired
-    IUserRepository IUserRepository;
+    IUserRepository repository;
+    @Autowired
+    iSocialMeliMapper mapper;
 
+    /**
+     * 0001 - Follows certain seller
+     * @param userId
+     * @param userIdToFollow
+     * @return
+     * @throws UserNotFoundException
+     */
     @Override
-    public void followUser(int userId, int userIdToFollow) throws UserNotFoundException {
-        IUserRepository.addFollowerToUser(userId, userIdToFollow);
+    public Void follow (Integer userId, Integer userIdToFollow) throws UserNotFoundException, AlreadyFollowingException {
+        User user = repository.findUserById(userId);
+        Seller userToFollow = repository.findSellerById(userIdToFollow);
+
+        if (!user.getFollowing().stream().filter(seller -> seller.getUsername().equals(userToFollow.getUsername())).collect(Collectors.toList()).isEmpty())
+            throw new AlreadyFollowingException(user.getUsername());
+
+        user.getFollowing().add(userToFollow);
+        return null;
     }
 
+    /**
+     *0002 - Gets the amount of users that follows a certain seller
+     * @param userId
+     * @return FollowersCountDTO--> int userId, string username, int followersCount
+     * @throws UserNotFoundException
+     */
     @Override
-    public void unFollowUser(int userId, int userIdToUnFollow) throws UserNotFoundException {
-        IUserRepository.removeFollowerToUser(userId,userIdToUnFollow);
+    public FollowersCountDTO countFollowers (Integer userId) throws UserNotFoundException {
+        Seller seller = repository.findSellerById(userId);
+        return (new FollowersCountDTO(userId, seller.getUsername(), seller.getFollowers().size()));
     }
 
+    /**
+     * 0003 - Gets a list of the users that follow a certain seller
+     * @param userId
+     * @return FollowListDTO--> int userId, string username, arrayList<UserDTO> followList;
+     * @throws UserNotFoundException
+     */
     @Override
-    public UserDTO getUserFollowersCount(int userId) throws UserNotFoundException {
-        User user = IUserRepository.getUserById(userId);
-        int followersCount = IUserRepository.getFollowersCount(userId);
-        return new UserDTO(
-                user.getUserId(),
-                user.getUserName(),
-                followersCount
-        );
+    public FollowListDTO listFollowers (Integer userId) throws UserNotFoundException {
+        Seller seller = repository.findSellerById(userId);
+        return (new FollowListDTO(userId, seller.getUsername(), seller.getFollowers()));
     }
 
+    /**
+     * 0004 - Gets a list of the sellers followed by a certain user
+     * @param userId
+     * @return FollowListDTO--> int userId, string username, arrayList<UserDTO> followList;
+     * @throws UserNotFoundException
+     */
     @Override
-    public UserDTO getUserFollowers(int userId) throws UserNotFoundException {
-        User user = IUserRepository.getUserById(userId);
-        List<UserFollowDTO> userFollowersDTOS = new ArrayList<>();
-
-        for (User user1 : user.getFollowed() //revisar porque sale en rojo
-        ) {
-            userFollowersDTOS.add(UserMapper.getUserFollowDTO(user1));
-        }
-
-        return new UserDTO(
-                user.getUserId(),
-                user.getUserName(),
-                userFollowersDTOS
-        );
+    public FollowListDTO listFollowed (Integer userId) throws UserNotFoundException {
+        User user = repository.findUserById(userId);
+        return (new FollowListDTO(userId, user.getUsername(), mapper.mapSellerToUserDTOList(user.getFollowing())));
     }
 
+    /**
+     *
+     * @param userId
+     * @param userIdToUnfollow
+     * @return
+     * @throws UserNotFoundException
+     * @throws NotFollowingException
+     */
     @Override
-    public UserDTO getUserFollowed(int userId) throws UserNotFoundException {
-        User user = IUserRepository.getUserById(userId);
-        List<UserFollowDTO> userFollowedDTOS = new ArrayList<>();
+    public Void unfollow (Integer userId, Integer userIdToUnfollow) throws UserNotFoundException, NotFollowingException {
+        User user = repository.findUserById(userId);
+        Seller userToUnfollow = repository.findSellerById(userIdToUnfollow);
 
-        for (User user1 : user.getFollowers()
-        ) {
-            userFollowedDTOS.add(UserMapper.getUserFollowDTO(user1));
-        }
-        return new UserDTO(
-                user.getUserName(),
-                user.getUserId(),
-                userFollowedDTOS
-        );
+        if (user.getFollowing().stream().filter(seller -> seller.getUsername().equals(userToUnfollow.getUsername())).collect(Collectors.toList()).isEmpty())
+            throw new NotFollowingException(user.getUsername());
+        user.getFollowing().remove(userToUnfollow);
+
+        return null;
     }
 
-    //0008 - ordenar de manera alfabetica ascendente y descendente.
-
+    /**
+     * 0008 - Orders followers by name (asc or desc)
+     * @param sellerId
+     * @param order
+     * @return ArrayList<UserDTO> (UserDto--> int userId, string username)
+     * @throws UserNotFoundException
+     * @throws WrongCriteriaOrderException
+     */
     @Override
-    public UserDTO getUserFollowers(int userId, Optional<String> order) throws UserNotFoundException {
-        User user = IUserRepository.getUserById(userId);
-        List<UserFollowDTO> userFollowersDTO = new ArrayList<>();
+    public ArrayList<UserDTO> orderFollowersByName(Integer sellerId, String order) throws UserNotFoundException, WrongCriteriaOrderException {
+        Seller seller = repository.findSellerById(sellerId);
 
-        for (User user1: user.getFollowers()
-        ) {
-            userFollowersDTO.add(UserMapper.getUserFollowDTO(user1));
-        }
-
-        Comparator<UserFollowDTO> userNameComparator = Comparator.comparing()(UserFollowDTO::getUserName);
-        switch (order.get()){
-            case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+        switch (order){
+            case "name_asc":
+                Collections.sort(seller.getFollowers());
                 break;
-            case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
+            case "name_desc":
+                Collections.sort(seller.getFollowers(), Collections.reverseOrder());
                 break;
+            default:
+                throw new WrongCriteriaOrderException();
         }
-        //uso del comparator para comparar y ordenar.
+        return seller.getFollowers();
+    }
 
-        userFollowersDTO.sort(userNameComparator);
-
-        return new UserDTO(
-                user.getUserId(),
-                user.getUserName(),
-                userFollowersDTO
-        );
-    } //ordenamiento por fechas ascendente y descendente
-
+    /**
+     * 0008 - Orders followed by name (asc or desc)
+     * @param userId
+     * @param order
+     * @return ArrayList<Seller>
+     * @throws UserNotFoundException
+     * @throws WrongCriteriaOrderException
+     */
     @Override
-    public UserDTO getUserFollowed(int userId, Optional<String> order) throws UserNotFoundException {
-        User user = IUserRepository.getUserById(userId);
-        List<UserFollowDTO> userFollowedDTO = new ArrayList<>();
+    public ArrayList<Seller> orderFollowedByName(Integer userId, String order) throws UserNotFoundException, WrongCriteriaOrderException {
+        User user = repository.findUserById(userId);
 
-        for (User user1: user.getFollowed()
-        ) {
-            userFollowedDTO.add(UserMapper.getUserFollowDTO(user1));
-        }
-
-        Comparator<UserFollowDTO> userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
-        switch (order.get()){
-            case "name_asc": userNameComparator = Comparator.comparing(UserFollowDTO::getUserName);
+        switch (order){
+            case "name_asc":
+                Collections.sort(user.getFollowing());
                 break;
-            case "name_desc" : userNameComparator = Comparator.comparing(UserFollowDTO::getUserName).reversed();
+            case "name_desc":
+                Collections.sort(user.getFollowing(), Collections.reverseOrder());
                 break;
+            default:
+                throw new WrongCriteriaOrderException();
         }
-        userFollowedDTO.sort(userNameComparator);
-        return new UserDTO(
-                user.getUserName(),
-                user.getUserId(),
-                userFollowedDTO
-        );
+        return user.getFollowing();
     }
 }

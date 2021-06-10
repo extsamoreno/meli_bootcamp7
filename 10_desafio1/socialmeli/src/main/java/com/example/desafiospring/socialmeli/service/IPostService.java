@@ -13,4 +13,6 @@ public interface IPostService {
     public void newPost(PostDTO post) throws UserNotFoundException;
 
     public PostListDTO getFollowedPostList(int userId) throws UserNotFoundException;
+
+    Object getProductPost(Integer userId);
 }

@@ -6,9 +6,9 @@ import com.example.desafiospring.socialmeli.model.User;
 import com.example.desafiospring.socialmeli.repository.IUserRepository;
 import com.example.desafiospring.socialmeli.service.DTO.PostDTO;
 import com.example.desafiospring.socialmeli.service.DTO.PostListDTO;
-import com.example.desafiospring.socialmeli.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,10 +33,10 @@ public class PostServiceImpl implements IPostService{
 
         for (User userFollowed: user.getFollowed()
         ) {
-            for (Post post: userFollowed.getPosts()
+            for (Post post: userFollowed.getPost()
             ) {
                 followedPostDTOList.add(
-                        PostMapper.getPostDTO(post)
+                        PostMapping.getPostDTO(post)
                 );
             }
         }
