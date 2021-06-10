@@ -3,8 +3,12 @@ package com.desafio1.meli.service;
 import com.desafio1.meli.model.*;
 import com.desafio1.meli.repository.userRepository.IUserrepository;
 import com.desafio1.meli.service.DTO.*;
+import com.desafio1.meli.service.orderType.UserOrderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Comparator;
 
 @Service
 public class UserService implements IUserService {
@@ -42,20 +46,35 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseFollowersListDTO listFollowerUser (Integer userId){
+    public ResponseFollowersListDTO listFollowerUser (Integer userId, UserOrderType order){
         ResponseFollowersListDTO responseFollowersListDTO = new ResponseFollowersListDTO();
         if (iUserrepository.findUserById(userId) != null) {
+            sortByName(iUserrepository.listFollower(userId).getFollowers(), order);
             responseFollowersListDTO = iUserrepository.listFollower(userId);
         }
         return (responseFollowersListDTO) ;
     }
 
     @Override
-    public ResponseFollowsListDTO listFollowUser (Integer userId){
+    public ResponseFollowsListDTO listFollowUser (Integer userId,UserOrderType order){
         ResponseFollowsListDTO responseFollowListDTO = new ResponseFollowsListDTO();
         if (iUserrepository.findUserById(userId) != null) {
+            sortByName(iUserrepository.listFollow(userId).getFollow(), order);
             responseFollowListDTO = iUserrepository.listFollow(userId);
         }
         return (responseFollowListDTO) ;
+    }
+
+    private void sortByName(ArrayList<User> list, UserOrderType order) {
+        if (order.equals(UserOrderType.name_desc)) sortByNameDesc(list);
+        else if (order.equals(UserOrderType.name_asc)) sortByNameAsc(list);
+    }
+
+    private void sortByNameAsc(ArrayList<User> list) {
+        list.sort(Comparator.comparing(User::getName));
+    }
+
+    private void sortByNameDesc(ArrayList<User> list) {
+        list.sort(Comparator.comparing(User::getName).reversed());
     }
 }

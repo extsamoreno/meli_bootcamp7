@@ -2,6 +2,7 @@ package com.desafio1.meli.controller;
 
 import com.desafio1.meli.service.DTO.*;
 import com.desafio1.meli.service.IUserService;
+import com.desafio1.meli.service.orderType.UserOrderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,16 +34,16 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list/")
-    public ResponseEntity<ResponseFollowersListDTO> getFollower(@PathVariable Integer userId) {
+    public ResponseEntity<ResponseFollowersListDTO> getFollower(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_desc") UserOrderType order) {
 
-        ResponseFollowersListDTO status = iUserService.listFollowerUser(userId);
+        ResponseFollowersListDTO status = iUserService.listFollowerUser(userId, order);
         return new ResponseEntity<ResponseFollowersListDTO>(status, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/follow/list/")
-    public ResponseEntity<ResponseFollowsListDTO> getFollow(@PathVariable Integer userId) {
+    public ResponseEntity<ResponseFollowsListDTO> getFollow(@PathVariable Integer userId,  @RequestParam(required = false, defaultValue = "name_desc") UserOrderType order) {
 
-        ResponseFollowsListDTO status = iUserService.listFollowUser(userId);
+        ResponseFollowsListDTO status = iUserService.listFollowUser(userId, order);
         return new ResponseEntity<ResponseFollowsListDTO>(status, HttpStatus.OK);
     }
     @GetMapping("/{userId}/unfollow/{userIdToUnFollow}/")

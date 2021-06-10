@@ -3,6 +3,7 @@ package com.desafio1.meli.controller;
 import com.desafio1.meli.service.DTO.RequestFollowedProductList;
 import com.desafio1.meli.service.DTO.RequestNewProduct;
 import com.desafio1.meli.service.DTO.ResponseFollowersListDTO;
+import com.desafio1.meli.service.orderType.PublicationOrderType;
 import com.desafio1.meli.service.productService.IProductservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +28,9 @@ public class ProductController{
 
     }
     @GetMapping("/followed/{userId}/list/")
-    public ResponseEntity<RequestFollowedProductList> getFollower(@PathVariable Integer userId) {
+    public ResponseEntity<RequestFollowedProductList> getFollower(@PathVariable Integer userId, @RequestParam(required = false) PublicationOrderType order) {
 
-        RequestFollowedProductList status = iProductservice.listProductFollowerUser(userId);
+        RequestFollowedProductList status = iProductservice.listProductFollowerUser(userId, order);
         return new ResponseEntity<RequestFollowedProductList>(status, HttpStatus.OK);
     }
 }
