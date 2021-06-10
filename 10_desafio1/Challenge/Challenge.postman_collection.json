@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "04f5b01a-68ef-4a56-9e4d-f3d5ee9c480e",
+		"name": "Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "R1 Follow",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/follow/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"follow",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R2 CountFollowers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/6/followers/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6",
+						"followers",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R3 ListFollewers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/6/followers/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6",
+						"followers",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R4 ListFollowed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/followed/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"followed",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R5 Newpost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 8,\n   \t\"idPost\" : 12,\n    \"date\" : \"29/05/2021\",\n    \"detail\":\n        \t{ \"productId\" : 1,\n              \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n     \t\"category\" : 100,\n     \t\"price\" : 1500.50\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R6 sellersPost",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/followed/1/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"followed",
+						"1",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R7 Unfollow",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/unfollow/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"unfollow",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R8 ListFollowers order",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "order",
+						"value": "name_desc",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/users/6/followers/list?order=name_desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"6",
+						"followers",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R9 List followed post order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/followed/1/list?order=date_desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"followed",
+						"1",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "date_asc",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "date_desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R10 Add PromoPost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 6,\n   \t\"idPost\" : 29,\n    \"date\" : \"02/06/2021\",\n    \"detail\":\n        \t{ \"productId\" : 1,\n              \"productName\" : \"Silla Gamer 2\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n     \t\"category\" : 100,\n     \t\"price\" : 1500.50,\n        \"hasPromo\": true,\n        \"discount\":0.25\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/newpromopost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpromopost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R11 CountPromoproduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/6/countPromo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"6",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R12 listPromoProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/6/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"6",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
