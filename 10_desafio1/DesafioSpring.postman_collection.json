@@ -14,7 +14,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/add",
+							"raw": "http://localhost:8080/users/load",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -22,7 +22,7 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"add"
+								"load"
 							]
 						},
 						"description": "Cargo la base de datos.\nSe cargan 3 usuarios, se encuentran en una lista y 3 productos en una lista en los repositorios correspondientes."
@@ -81,7 +81,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/users/1/followers/count/",
+							"raw": "http://localhost:8080/users/2/followers/count/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -89,7 +89,7 @@
 							"port": "8080",
 							"path": [
 								"users",
-								"1",
+								"2",
 								"followers",
 								"count",
 								""
@@ -104,7 +104,26 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null,
+						"url": {
+							"raw": "http://localhost:8080/users/2/followers/list?order=name_desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"2",
+								"followers",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_desc"
+								}
+							]
+						},
 						"description": "Se muestra la lista seguidores de un determinado usuario.\nSe puede ordenar la lista por nombre de forma ascendente o descendente. Por default es ascendente.\nEl usuario seguido debe existir."
 					},
 					"response": []
@@ -114,19 +133,49 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null,
+						"url": {
+							"raw": "http://localhost:8080/users/1/followed/list?order=name_desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"followed",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_desc"
+								}
+							]
+						},
 						"description": "Se muestra la lista de usuarios que sigue un determinado usuario.\nSe puede ordenar la lista por nombre de forma ascendente o descendente. Por default es ascendente.\nEl usuario debe existir."
 					},
 					"response": []
 				},
 				{
 					"name": "POST Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\n    \"userId\" : 2,\n    \"id_post\": 18,\n    \"date\": \"4-06-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\":\"Gamer\",\n        \"brand\":\"Racer\",\n        \"color\":\"Red & Black\",\n        \"notes\": \"Especial Edition\"\n    },\n    \"category\":100,\n    \"price\": 1500.50\n\n\n}",
+							"raw": "{\n    \"userId\": 2,\n    \"id_post\": 21,\n    \"date\": \"02-06-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Especial Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -154,8 +203,17 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\" : 2,\n    \"id_post\": 20,\n    \"date\": \"01-06-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\":\"Gamer\",\n        \"brand\":\"Racer\",\n        \"color\":\"Red & Black\",\n        \"notes\": \"Especial Edition\"\n    },\n    \"category\":100,\n    \"price\": 1500.50,\n    \"hasPromo\": true,\n    \"discount\":0.25\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/products/newprompost",
+							"raw": "http://localhost:8080/products/newpromopost",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -163,7 +221,7 @@
 							"port": "8080",
 							"path": [
 								"products",
-								"newprompost"
+								"newpromopost"
 							]
 						},
 						"description": "Un usuario realiza una publicacion con promocion de un producto.\nEl usuario debe existir.\nEl producto debe existir.\nLa categoria debe existir."
@@ -203,7 +261,20 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null,
+						"url": {
+							"raw": "http://localhost:8080/products/2/countPromo/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"2",
+								"countPromo",
+								""
+							]
+						},
 						"description": "Se muestra la cantidad de publicaciones con promocion de un determinado usuario.\nEl usuario debe existir."
 					},
 					"response": []
