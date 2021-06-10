@@ -7,9 +7,11 @@ import com.socialmeli.socialmeli.models.User;
 import com.socialmeli.socialmeli.repositories.UserRepository;
 import com.socialmeli.socialmeli.services.dtos.*;
 import com.socialmeli.socialmeli.services.mappers.PostMapper;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -43,7 +45,9 @@ public class PostServiceImpl implements PostService{
 
         for (User userFollowed: user.getFollowed()
              ) {
-            for (Post post: userFollowed.getPosts()
+            for (Post post: userFollowed.getPosts().stream().filter(
+                    post -> post.getDate().isAfter(LocalDate.now().minusWeeks(2))
+            ).collect(Collectors.toList())
                  ) {
                 followedPostDTOList.add(
                         PostMapper.getPostDTOFromPost(post)
