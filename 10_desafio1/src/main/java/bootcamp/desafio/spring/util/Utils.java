@@ -10,6 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
+    /**
+     * metodo para obtener los dias entre una fecha dada y la actualidad
+     * @param date
+     * @return
+     */
      public static long getDaysMinusNow(Date date){
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         Date now = new Date();
