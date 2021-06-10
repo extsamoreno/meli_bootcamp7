@@ -13,12 +13,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
 
     @Autowired
     IUserRepository userRepository;
 
-    public void addFollow(int userId, int sellerId) throws Exception {
+    @Override
+    public void addFollow(int userId, int sellerId) throws NotFoundException,BadRequestException {
 
         User user = userRepository.getById(userId);
         User seller = userRepository.getById(sellerId);
@@ -38,6 +39,7 @@ public class UserService {
 
     }
 
+    @Override
     public ResponseCountFollowersDTO countFollowers(int sellerId) throws Exception {
 
         User user = userRepository.getById(sellerId);
@@ -52,7 +54,8 @@ public class UserService {
         );
     }
 
-    public ResponseListFollowersDTO listFollowers(int sellerId, String order) throws Exception {
+    @Override
+    public ResponseListFollowersDTO listFollowers(int sellerId, String order) throws NotFoundException {
 
         User seller = userRepository.getById(sellerId);
         if (seller == null) {
@@ -65,14 +68,15 @@ public class UserService {
         return new ResponseListFollowersDTO(
                 seller.getUserId(),
                 seller.getUserName(),
-                userRepository.sortByCriteria(
+                sortByCriteria(
                         Mappers.toUserDTOlist(seller.getFollowers()),
                         order == null ? "date_desc" : order)
 
         );
     }
 
-    public ResponseListSellerDTO listSellers(int userId, String order) throws Exception {
+    @Override
+    public ResponseListSellerDTO listSellers(int userId, String order) throws NotFoundException {
 
         User user = userRepository.getById(userId);
         if (user == null) {
@@ -84,14 +88,15 @@ public class UserService {
         return new ResponseListSellerDTO(
                 user.getUserId(),
                 user.getUserName(),
-                userRepository.sortByCriteria(
+                sortByCriteria(
                         Mappers.toUserDTOlist(sellersByUser),
                         order == null ? "date_desc" : order)
 
         );
     }
 
-    public void unFolLowSeller(int idUser, int sellerId) throws Exception {
+    @Override
+    public void unFolLowSeller(int idUser, int sellerId) throws NotFoundException {
 
         User user = userRepository.getById(idUser);
         User seller = userRepository.getById(sellerId);
@@ -104,5 +109,15 @@ public class UserService {
         }
         userRepository.unFollowSeller(user, seller);
         userRepository.saveUsers();
+    }
+
+    private List<UserDTO> sortByCriteria(List<UserDTO> list, String order) {
+
+        if (order.equals("name_desc")) {
+            list.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+        } else {
+            list.sort(Comparator.comparing(UserDTO::getUserName));
+        }
+        return list;
     }
 }

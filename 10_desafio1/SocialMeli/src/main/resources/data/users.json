@@ -1,0 +1,26 @@
+[
+  {
+    "userId": 1,
+    "userName": "Santiago",
+    "followers": [
+      {
+        "userId": 3,
+        "userName": "Pablo"
+      }
+    ]
+  },
+  {
+    "userId": 2,
+    "userName": "Matias",
+    "followers": [
+      {
+        "userId": 1,
+        "userName": "Santiago"
+      }
+    ]
+  },
+  {
+    "userId": 3,
+    "userName": "Pablo"
+  }
+]

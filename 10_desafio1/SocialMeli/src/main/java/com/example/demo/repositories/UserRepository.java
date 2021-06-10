@@ -2,6 +2,7 @@ package com.example.demo.repositories;
 
 import com.example.demo.entities.User;
 import com.example.demo.DTO.UserDTO;
+import com.example.demo.exceptions.NotFoundException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -72,9 +73,12 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public List<User> getSellersFollowedByUser(User user) {
+    public List<User> getSellersFollowedByUser(User user) throws NotFoundException {
         List<User> items = new ArrayList<>();
 
+        if (users == null) {
+            throw new NotFoundException("Users not exists");
+        }
         for (User seller : users) {
             if(seller.getFollowers() != null){
                 User userSeller = seller.getFollowers().stream().filter(userAux -> userAux.getUserId() == user.getUserId()).findAny().orElse(null);
@@ -85,23 +89,19 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void unFollowSeller(User user, User seller) {
+    public void unFollowSeller(User user, User seller) throws NotFoundException{
+
+        if (users == null) {
+            throw new NotFoundException("Users not exists");
+        }
+        if (user == null) {
+            throw new NotFoundException("User not exists");
+        }
         User userToDelete = seller.getFollowers().stream()
                 .filter(userAux -> userAux.getUserId() == user.getUserId())
                 .findAny().orElse(null);
 
         seller.getFollowers().remove(userToDelete);
-    }
-
-    @Override
-    public List<UserDTO> sortByCriteria(List<UserDTO> list, String order) {
-
-        if (order.equals("name_desc")) {
-            list.sort((name1, name2) -> name2.getUserName().compareTo(name1.getUserName()));
-        } else {
-            list.sort(Comparator.comparing(UserDTO::getUserName));
-        }
-        return list;
     }
 
 }

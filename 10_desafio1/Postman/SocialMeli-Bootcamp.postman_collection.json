@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "a440d4a9-6f1d-4e20-8572-d317e46f1dda",
+		"name": "SocialMeli-Bootcamp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users/{userId}/follow/{userIdToFollow}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/2/follow/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"2",
+						"follow",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/{userId}/followers/count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/1/followers/count",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"1",
+						"followers",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/{userId}/followers/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/1/followers/list",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"1",
+						"followers",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/{userId}/followed/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/1/followed/list",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"1",
+						"followed",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/newpost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 3,\n    \"id_post\": 7,\n    \"date\": \"09-06-2021\",\n    \"detail\": {\n      \"product_id\": 6,\n      \"productName\": \"Cargador\",\n      \"type\": \"Oficina\",\n      \"brand\": \"Durasol\",\n      \"color\": \"Gris\",\n      \"notes\": \"La mejor calidad\"\n    },\n    \"category\": 1,\n    \"price\": 800.0\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/products/newpost",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/followed/{userId}/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/products/followed/3/list",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products",
+						"followed",
+						"3",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/{userId}/unfollow/{userIdToUnfollow}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/sers/4/unfollow/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"sers",
+						"4",
+						"unfollow",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users/{userId}/followers/list?order=name_asc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users/2/followers/list?order=name_asc",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users",
+						"2",
+						"followers",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/newpromopost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 1,\n    \"id_post\": 7,\n    \"date\": 1628467200000,\n    \"detail\": {\n      \"product_id\": 3,\n      \"productName\": \"Celular\",\n      \"type\": \"Tecnologia\",\n      \"brand\": \"lg\",\n      \"color\": \"gris\",\n      \"notes\": \"\"\n    },\n    \"category\": 1,\n    \"price\": 98765.0,\n    \"hasPromo\": true,\n    \"discount\": 20.0\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/products/newpromopost",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products",
+						"newpromopost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/{userId}/countPromo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/products/1/countPromo",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products",
+						"1",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/{userId}/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/products/1/list",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"products",
+						"1",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080"
+		}
+	]
+}

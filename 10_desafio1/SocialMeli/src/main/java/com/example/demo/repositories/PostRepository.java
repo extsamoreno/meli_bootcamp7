@@ -4,6 +4,7 @@ import com.example.demo.DTO.PostPromoDTO;
 import com.example.demo.entities.Post;
 import com.example.demo.entities.User;
 import com.example.demo.DTO.PostDTO;
+import com.example.demo.exceptions.NotFoundException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -22,9 +23,12 @@ public class PostRepository implements IPostRepository {
 
     List<Post> posts = loadPost();
 
+    public PostRepository() throws IOException {
+    }
+
 
     @Override
-    public List<Post> loadPost() {
+    public List<Post> loadPost() throws IOException{
         File file = null;
         try {
             file = ResourceUtils.getFile(postPathFile);
@@ -44,7 +48,7 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public void savePosts() {
+    public void savePosts() throws IOException{
         File file = null;
         try {
             file = ResourceUtils.getFile(postPathFile);
@@ -73,24 +77,27 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public void addPost(Post post) {
+    public void addPost(Post post) throws IOException{
         posts.add(post);
         savePosts();
     }
 
     @Override
-    public List<PostDTO> getPostOfLasWeek(List<User> seller, String order) {
+    public List<Post> getPostOfLasWeek(List<User> seller) throws NotFoundException {
         List<Post> result = new ArrayList<Post>();
 
+        if (seller == null) {
+            throw new NotFoundException("Has not followed");
+        }
         Date validDate = getDateRange();
         for (User user : seller) {
             List<Post> postOfSeller = posts.stream().filter(post -> post.getUserId() == user.getUserId()).collect(Collectors.toList());
 
             result.addAll(postOfSeller.stream().filter(post -> post.getDate().after(validDate)).collect(Collectors.toList()));
         }
-        result = sortByCriteria(result, order);
+        result = result;
 
-        return Mappers.toPostDTO(result);
+        return result;
     }
 
     private Date getDateRange() {
@@ -101,19 +108,12 @@ public class PostRepository implements IPostRepository {
         return calendar.getTime();
     }
 
-    private List<Post> sortByCriteria(List<Post> list, String order) {
-
-        if (order.equals("date_desc")) {
-            list.sort((date1, date2) -> date2.getDate().compareTo(date1.getDate()));
-        } else {
-            list.sort(Comparator.comparing(Post::getDate));
-        }
-        return list;
-    }
-
     @Override
-    public int getCountPromosByUser(int userId) {
+    public int getCountPromosByUser(int userId) throws NotFoundException {
 
+        if (posts == null) {
+            throw new NotFoundException("Not exist any post");
+        }
         List<Post> postWithPromo = posts.stream()
                 .filter(post -> post.getUserId() == userId)
                 .filter(post -> post.isHasPromo())
@@ -123,13 +123,16 @@ public class PostRepository implements IPostRepository {
         return postWithPromo.size();
     }
 
-    public List<PostPromoDTO> getListPromosByUser(int userId) {
+    public List<Post> getListPromosByUser(int userId) throws NotFoundException{
+        if (posts == null) {
+            throw new NotFoundException("Not exist any post");
+        }
         List<Post> postWithPromo = posts.stream()
                 .filter(post -> post.getUserId() == userId)
                 .filter(post -> post.isHasPromo())
                 .collect(Collectors.toList());
 
-        return Mappers.toPostPromoDTO(postWithPromo);
+        return postWithPromo;
     }
 
 

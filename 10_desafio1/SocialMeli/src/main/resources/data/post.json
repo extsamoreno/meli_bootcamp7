@@ -30,7 +30,7 @@
     },
     "category": 1,
     "price": 400.0,
-    "hasPromo": false,
+    "hasPromo": true,
     "discount": 0.0
   },
   {
@@ -64,7 +64,7 @@
     },
     "category": 1,
     "price": 800.0,
-    "hasPromo": false,
+    "hasPromo": true,
     "discount": 0.0
   },
   {
@@ -99,23 +99,6 @@
     "category": 1,
     "price": 800.0,
     "hasPromo": false,
-    "discount": 0.0
-  },
-  {
-    "userId": 1,
-    "id_post": 3434,
-    "date": "09-08-2021",
-    "detail": {
-      "product_id": 3,
-      "productName": "holis",
-      "type": "holis",
-      "brand": "holis",
-      "color": "holis",
-      "notes": "holis"
-    },
-    "category": 1,
-    "price": 98765.0,
-    "hasPromo": true,
     "discount": 0.0
   }
 ]

@@ -11,10 +11,12 @@ import com.example.demo.DTO.ResponseGetPostsFollowedDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class PostService {
+public class PostService implements IPostService {
 
     @Autowired
     IPostRepository postRepository;
@@ -23,6 +25,7 @@ public class PostService {
     IUserRepository userRepository;
 
 
+    @Override
     public void addPost(Post post) throws Exception {
         if (postRepository.postExists(post)) {
             throw new NotFoundException("this post already exists");
@@ -30,18 +33,22 @@ public class PostService {
         postRepository.addPost(post);
     }
 
-    public ResponseGetPostsFollowedDTO getPostsFollowed(int userId, String order) throws Exception {
+    @Override
+    public ResponseGetPostsFollowedDTO getPostsFollowed(int userId, String order) throws NotFoundException {
         User user = userRepository.getById(userId);
         if (user == null) {
             throw new NotFoundException("User not exist");
         }
         List<User> sellerFollowed = userRepository.getSellersFollowedByUser(user);
-        List<PostDTO> filteredList = postRepository.getPostOfLasWeek(sellerFollowed, order == null ? "date_desc" : order);
+        List<Post> filteredList = postRepository.getPostOfLasWeek(sellerFollowed);
 
-        return new ResponseGetPostsFollowedDTO(userId, filteredList);
+        return new ResponseGetPostsFollowedDTO(
+                userId,
+                Mappers.toPostDTO(sortByCriteria(filteredList, order == null ? "date_desc" : order)));
     }
 
-    public ResponseCountPromosDTO promosByUser(int userId) {
+    @Override
+    public ResponseCountPromosDTO promosByUser(int userId) throws NotFoundException {
         User user = userRepository.getById(userId);
         return new ResponseCountPromosDTO(
                 user.getUserId(),
@@ -50,13 +57,23 @@ public class PostService {
         );
     }
 
-    public ResponseListPromosDTO listPromosByUser(int userId) {
+    @Override
+    public ResponseListPromosDTO listPromosByUser(int userId) throws NotFoundException {
         User user = userRepository.getById(userId);
         return new ResponseListPromosDTO(
                 user.getUserId(),
                 user.getUserName(),
-                postRepository.getListPromosByUser(userId)
+                Mappers.toPostPromoDTO(postRepository.getListPromosByUser(userId))
         );
     }
 
+    private List<Post> sortByCriteria(List<Post> list, String order) {
+
+        if (order.equals("date_desc")) {
+            list.sort(Comparator.comparing(Post::getDate).reversed());
+        } else {
+            list.sort(Comparator.comparing(Post::getDate));
+        }
+        return list;
+    }
 }
