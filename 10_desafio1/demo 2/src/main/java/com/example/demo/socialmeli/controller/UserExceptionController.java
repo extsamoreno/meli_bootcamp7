@@ -1,6 +1,7 @@
 package com.example.demo.socialmeli.controller;
 import com.example.demo.socialmeli.exception.FollowedExistingException;
 import com.example.demo.socialmeli.exception.FollowedNotExistingException;
+import com.example.demo.socialmeli.exception.InvalidDiscountException;
 import com.example.demo.socialmeli.exception.UserNotFoundException;
 import com.example.demo.socialmeli.service.dto.ErrorDTO;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,10 @@ public class UserExceptionController {
     }
     @ExceptionHandler(FollowedNotExistingException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(FollowedNotExistingException e) {
+        return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
+    }
+    @ExceptionHandler(InvalidDiscountException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(InvalidDiscountException e) {
         return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
     }
 }

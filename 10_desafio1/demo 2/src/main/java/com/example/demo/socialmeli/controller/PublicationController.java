@@ -1,9 +1,6 @@
 package com.example.demo.socialmeli.controller;
 
-import com.example.demo.socialmeli.exception.InvalidityDateException;
-import com.example.demo.socialmeli.exception.MissingParameterException;
-import com.example.demo.socialmeli.exception.PublicationExistingException;
-import com.example.demo.socialmeli.exception.UserNotFoundException;
+import com.example.demo.socialmeli.exception.*;
 import com.example.demo.socialmeli.service.IPublicationService;
 import com.example.demo.socialmeli.service.dto.CountPromoDTO;
 import com.example.demo.socialmeli.service.dto.PublicationListDTO;
@@ -19,7 +16,7 @@ public class PublicationController {
     @Autowired
     IPublicationService iPublicationService;
     @PostMapping("/newpost")
-    public ResponseEntity<Void> newPost (@RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException {
+    public ResponseEntity<Void> newPost (@RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException, InvalidDiscountException {
         iPublicationService.addNewPost(publicationRequestDTO);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
@@ -28,7 +25,7 @@ public class PublicationController {
         return new ResponseEntity<PublicationListDTO>(iPublicationService.getPublicationList(userId, order),HttpStatus.OK);
     }
     @PostMapping("/newpromopost")
-    public ResponseEntity<Void> newPromoPost (@RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException {
+    public ResponseEntity<Void> newPromoPost (@RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException, InvalidDiscountException{
         iPublicationService.addNewPost(publicationRequestDTO);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

@@ -1,9 +1,6 @@
 package com.example.demo.socialmeli.service;
 
-import com.example.demo.socialmeli.exception.InvalidityDateException;
-import com.example.demo.socialmeli.exception.MissingParameterException;
-import com.example.demo.socialmeli.exception.PublicationExistingException;
-import com.example.demo.socialmeli.exception.UserNotFoundException;
+import com.example.demo.socialmeli.exception.*;
 import com.example.demo.socialmeli.models.Publication;
 import com.example.demo.socialmeli.models.User;
 import com.example.demo.socialmeli.repository.UserRepository;
@@ -24,8 +21,7 @@ public class PublicationService implements IPublicationService {
     }
 
     @Override
-    public void addNewPost(PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException,PublicationExistingException,MissingParameterException, InvalidityDateException
-    {
+    public void addNewPost(PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException, InvalidDiscountException {
         int id = publicationRequestDTO.getUserId();
         User user = userRepository.getUserById(id);
         List<Publication> publications = userRepository.getAllPublication();
@@ -57,7 +53,7 @@ public class PublicationService implements IPublicationService {
         publication.setPrice(publicationRequestDTO.getPrice());
         publication.setHasPromo(publicationRequestDTO.isHasPromo());
         if (publicationRequestDTO.getDiscount()>1)
-            throw new MissingParameterException("discount");
+            throw new InvalidDiscountException(publicationRequestDTO.getDiscount());
         publication.setDiscount(publicationRequestDTO.getDiscount());
         userRepository.refreshPublications(publication);
     }
