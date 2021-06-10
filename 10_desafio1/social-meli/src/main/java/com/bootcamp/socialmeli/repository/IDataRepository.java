@@ -1,7 +1,5 @@
 package com.bootcamp.socialmeli.repository;
 
-import com.bootcamp.socialmeli.DTO.PostRequestDTO;
-import com.bootcamp.socialmeli.exception.PostAlreadyRegisteredException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.model.Post;
 import com.bootcamp.socialmeli.model.User;
@@ -20,7 +18,7 @@ public interface IDataRepository {
 
     List<User> getUserFollowed(Integer id) throws UserIdNotFoundException;
 
-    void newPost(Post post) throws UserIdNotFoundException, PostAlreadyRegisteredException;
-
     Post findPostById(Integer id);
+
+    List<Post> getAllPost();
 }

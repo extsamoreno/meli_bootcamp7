@@ -17,4 +17,15 @@ public class ProductMapper {
                 productDTO.getNotes()
         );
     }
+
+    public ProductDTO toProductDTO(Product product) {
+        return new ProductDTO(
+                product.getProductId(),
+                product.getProductName(),
+                product.getType(),
+                product.getBrand(),
+                product.getColor(),
+                product.getNotes()
+        );
+    }
 }

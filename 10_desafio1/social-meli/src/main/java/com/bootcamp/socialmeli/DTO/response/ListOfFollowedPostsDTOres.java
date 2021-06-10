@@ -1,4 +1,4 @@
-package com.bootcamp.socialmeli.DTO;
+package com.bootcamp.socialmeli.DTO.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListFollowedPostDTO {
+public class ListOfFollowedPostsDTOres {
     private Integer userId;
-    private List<PostFollowedDTO> posts;
+    private List<FollowedPostDTOres> posts;
 }

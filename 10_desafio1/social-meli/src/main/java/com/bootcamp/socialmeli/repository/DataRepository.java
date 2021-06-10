@@ -1,6 +1,5 @@
 package com.bootcamp.socialmeli.repository;
 
-import com.bootcamp.socialmeli.exception.PostAlreadyRegisteredException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.model.Post;
 import com.bootcamp.socialmeli.model.Product;
@@ -72,27 +71,10 @@ public class DataRepository implements IDataRepository {
                 .collect(Collectors.toList());
     }
 
+
     @Override
-    public void newPost(Post post) throws UserIdNotFoundException, PostAlreadyRegisteredException {
-        User user = findUserById(post.getUserId());
-
-        //Controlo si ya existe un post con ese id
-        Post postControl = posts.stream()
-                .filter(postAux -> postAux.getPostId() == post.getPostId())
-                .findFirst()
-                .orElse(null);
-
-        if (postControl != null) {
-            throw new PostAlreadyRegisteredException(post.getPostId());
-        }
-
-        posts.add(post);
-
-        //Agrego el nuevo post a los post del usuario si es que este no existe
-        if (!user.getPosts().contains(post.getPostId())) {
-            user.getPosts().add(post.getPostId());
-        }
-
+    public List<Post> getAllPost() {
+        return posts;
     }
 
     @Override

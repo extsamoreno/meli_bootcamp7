@@ -1,13 +1,14 @@
 package com.bootcamp.socialmeli.mapper;
 
-import com.bootcamp.socialmeli.DTO.ListFollowedPostDTO;
-import com.bootcamp.socialmeli.DTO.PostFollowedDTO;
-import com.bootcamp.socialmeli.DTO.PostRequestDTO;
+import com.bootcamp.socialmeli.DTO.response.ListOfFollowedPostsDTOres;
+import com.bootcamp.socialmeli.DTO.response.FollowedPostDTOres;
+import com.bootcamp.socialmeli.DTO.request.PostDTOreq;
 import com.bootcamp.socialmeli.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class PostMapper {
@@ -15,26 +16,38 @@ public class PostMapper {
     @Autowired
     ProductMapper productMapper;
 
-    public Post toPost(PostRequestDTO postRequestDTO) {
+    public Post toPost(PostDTOreq postDTOreq) {
         return new Post(
-                postRequestDTO.getUserId(),
-                postRequestDTO.getPostId(),
-                postRequestDTO.getDate(),
-                productMapper.toProdcut(postRequestDTO.getDetail()),
-                postRequestDTO.getCategory(),
-                postRequestDTO.getPrice()
+                postDTOreq.getUserId(),
+                postDTOreq.getPostId(),
+                postDTOreq.getDate(),
+                productMapper.toProdcut(postDTOreq.getDetail()),
+                postDTOreq.getCategory(),
+                postDTOreq.getPrice()
         );
     }
 
-    public ListFollowedPostDTO toListFollowedPostDTO(List<Post> postFollowed, Integer userId) {
-        ListFollowedPostDTO listFollowedPost = new ListFollowedPostDTO();
+    public ListOfFollowedPostsDTOres toListOfFollowedPostDTO(List<Post> postFollowed, Integer userId) {
+        ListOfFollowedPostsDTOres listFollowedPost = new ListOfFollowedPostsDTOres();
         listFollowedPost.setUserId(userId);
 
+        List<FollowedPostDTOres> listPost = postFollowed.stream()
+                .map(p -> toFollowedPostDTO(p))
+                .collect(Collectors.toList());
 
-        return null;
+        listFollowedPost.setPosts(listPost);
+
+        return listFollowedPost;
     }
 
-    PostFollowedDTO toPostFollowedDTO(Post post) {
-        return null;
+    FollowedPostDTOres toFollowedPostDTO(Post post) {
+
+        return new FollowedPostDTOres(
+                post.getPostId(),
+                post.getDate(),
+                productMapper.toProductDTO(post.getDetail()),
+                post.getCategory(),
+                post.getPrice()
+        );
     }
 }

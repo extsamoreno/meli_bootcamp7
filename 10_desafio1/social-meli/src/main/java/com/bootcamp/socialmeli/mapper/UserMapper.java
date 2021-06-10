@@ -1,9 +1,9 @@
 package com.bootcamp.socialmeli.mapper;
 
-import com.bootcamp.socialmeli.DTO.UserAmountFollowersDTO;
-import com.bootcamp.socialmeli.DTO.UserDTO;
-import com.bootcamp.socialmeli.DTO.UserFollowedListDTO;
-import com.bootcamp.socialmeli.DTO.UserFollowersListDTO;
+import com.bootcamp.socialmeli.DTO.response.UserAmountFollowersDTOres;
+import com.bootcamp.socialmeli.DTO.response.UserDTOres;
+import com.bootcamp.socialmeli.DTO.response.UserFollowedListDTOres;
+import com.bootcamp.socialmeli.DTO.response.UserFollowersListDTOres;
 import com.bootcamp.socialmeli.model.User;
 import org.springframework.stereotype.Component;
 
@@ -13,25 +13,25 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
 
-    public UserAmountFollowersDTO toUserAmountFollowersDTO(User user) {
-        return new UserAmountFollowersDTO(user.getUserId(), user.getUserName(), user.getFollowers().size());
+    public UserAmountFollowersDTOres toUserAmountFollowersDTO(User user) {
+        return new UserAmountFollowersDTOres(user.getUserId(), user.getUserName(), user.getFollowers().size());
     }
 
-    public UserFollowersListDTO toListUserFollowersDTO(User user, List<User> followers) {
+    public UserFollowersListDTOres toListUserFollowersDTO(User user, List<User> followers) {
 
-        List<UserDTO> followersDTO = followers
-                .stream().map(elem -> new UserDTO(elem.getUserId(), elem.getUserName()))
+        List<UserDTOres> followersDTO = followers
+                .stream().map(elem -> new UserDTOres(elem.getUserId(), elem.getUserName()))
                 .collect(Collectors.toList());
 
-        return new UserFollowersListDTO(user.getUserId(), user.getUserName(), followersDTO);
+        return new UserFollowersListDTOres(user.getUserId(), user.getUserName(), followersDTO);
     }
 
-    public UserFollowedListDTO toListUserFollowedDTO(User user, List<User> followed) {
+    public UserFollowedListDTOres toListUserFollowedDTO(User user, List<User> followed) {
 
-        List<UserDTO> followedDTO = followed
-                .stream().map(elem -> new UserDTO(elem.getUserId(), elem.getUserName()))
+        List<UserDTOres> followedDTO = followed
+                .stream().map(elem -> new UserDTOres(elem.getUserId(), elem.getUserName()))
                 .collect(Collectors.toList());
 
-        return new UserFollowedListDTO(user.getUserId(), user.getUserName(), followedDTO);
+        return new UserFollowedListDTOres(user.getUserId(), user.getUserName(), followedDTO);
     }
 }

@@ -1,7 +1,7 @@
 package com.bootcamp.socialmeli.controller;
 
-import com.bootcamp.socialmeli.DTO.ListFollowedPostDTO;
-import com.bootcamp.socialmeli.DTO.PostRequestDTO;
+import com.bootcamp.socialmeli.DTO.response.ListOfFollowedPostsDTOres;
+import com.bootcamp.socialmeli.DTO.request.PostDTOreq;
 import com.bootcamp.socialmeli.exception.PostAlreadyRegisteredException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.service.IPostService;
@@ -20,7 +20,7 @@ public class PostController {
     IPostService productService;
 
     @PostMapping("/newpost")
-    public ResponseEntity<Void> newPost(@Valid @RequestBody PostRequestDTO post)
+    public ResponseEntity<Void> newPost(@Valid @RequestBody PostDTOreq post)
             throws UserIdNotFoundException, PostAlreadyRegisteredException {
 
         productService.newPost(post);
@@ -28,8 +28,8 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/followed/{userId}/list")
-    public ResponseEntity<ListFollowedPostDTO> getFollowedPosts(@PathVariable Integer userId) throws UserIdNotFoundException {
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<ListOfFollowedPostsDTOres> getFollowedPosts(@PathVariable Integer userId) throws UserIdNotFoundException {
         return new ResponseEntity<>(productService.getFollowedPost(userId), HttpStatus.OK);
     }
 }

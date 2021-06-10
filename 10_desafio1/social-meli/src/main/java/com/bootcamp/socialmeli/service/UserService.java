@@ -1,8 +1,9 @@
 package com.bootcamp.socialmeli.service;
 
-import com.bootcamp.socialmeli.DTO.UserAmountFollowersDTO;
-import com.bootcamp.socialmeli.DTO.UserFollowedListDTO;
-import com.bootcamp.socialmeli.DTO.UserFollowersListDTO;
+import com.bootcamp.socialmeli.DTO.response.UserAmountFollowersDTOres;
+import com.bootcamp.socialmeli.DTO.response.UserFollowedListDTOres;
+import com.bootcamp.socialmeli.DTO.response.UserFollowersListDTOres;
+import com.bootcamp.socialmeli.exception.FollowYourselfException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.mapper.UserMapper;
 import com.bootcamp.socialmeli.model.User;
@@ -22,10 +23,14 @@ public class UserService implements IUserService{
     UserMapper userMapper;
 
     @Override
-    public void follow(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException {
+    public void follow(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException, FollowYourselfException {
+
+        //Controlo que los id no sean iguales
+        if (userId == userIdToFollow) {
+            throw new FollowYourselfException();
+        }
 
         User user = dataRepository.findUserById(userId);
-
         User userToFollow = dataRepository.findUserById(userIdToFollow);
 
         //Agrego el usuario a seguir si éste no se encontraba antes
@@ -40,21 +45,21 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public UserAmountFollowersDTO getAmountUserFollowers(Integer id) throws UserIdNotFoundException {
+    public UserAmountFollowersDTOres getAmountUserFollowers(Integer id) throws UserIdNotFoundException {
         User user = dataRepository.findUserById(id);
 
         return userMapper.toUserAmountFollowersDTO(user);
     }
 
     @Override
-    public UserFollowersListDTO getListUserFollowers(Integer id) throws UserIdNotFoundException {
+    public UserFollowersListDTOres getListUserFollowers(Integer id) throws UserIdNotFoundException {
         User user = dataRepository.findUserById(id);
 
         return userMapper.toListUserFollowersDTO(user, dataRepository.getUserFollowers(id));
     }
 
     @Override
-    public UserFollowedListDTO getListUserFollowed(Integer id) throws UserIdNotFoundException {
+    public UserFollowedListDTOres getListUserFollowed(Integer id) throws UserIdNotFoundException {
         User user = dataRepository.findUserById(id);
 
         return userMapper.toListUserFollowedDTO(user, dataRepository.getUserFollowed(id));

@@ -1,4 +1,4 @@
-package com.bootcamp.socialmeli.DTO;
+package com.bootcamp.socialmeli.DTO.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserAmountFollowersDTO {
-    private int userId;
+public class UserDTOres {
+    private Integer userID;
     private String userName;
-    private Integer followersCount;
 }
