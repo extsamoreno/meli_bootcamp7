@@ -19,7 +19,7 @@ public class UserRepository implements IUserRepository{
     public static HashMap<Integer, ArrayList<User>> mapUsersFollowers = Database.mapUsersFollowers; //Map to save usersId and their followers list
     public static HashMap<Integer, ArrayList<User>> mapUsersFollowed= Database.mapUsersFollowed; //Map to save usersId and their users followed list
 
-
+    //Get user followers list
     @Override
         public ArrayList<User> getUserFollowersList (Integer userId) throws IdNotFoundException {
             if (mapUsersFollowers.get(userId)==null){
@@ -28,6 +28,7 @@ public class UserRepository implements IUserRepository{
             return mapUsersFollowers.get(userId);
         }
 
+    //Get user followed list
     @Override
     public ArrayList<User> getUserFollowedList(Integer userId) throws IdNotFoundException {
         if (mapUsersFollowed.get(userId)==null){
@@ -36,6 +37,7 @@ public class UserRepository implements IUserRepository{
         return mapUsersFollowed.get(userId);
     }
 
+    //Find user by userId
     @Override
     public User findUserById (Integer userId) throws IdNotFoundException {
             return listUsers.stream()

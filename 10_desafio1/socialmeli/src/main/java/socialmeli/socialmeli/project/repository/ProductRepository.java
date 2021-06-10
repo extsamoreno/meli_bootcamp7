@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class ProductRepository implements IProductRepository {
     public static ArrayList<Post> postArrayList = (ArrayList<Post>) Database.listPosts;
 
+    //Save a post
     @Override
     public void save(Post post) throws PostAlreadyExistsException {
         if(alreadyExists(post))
@@ -26,11 +27,13 @@ public class ProductRepository implements IProductRepository {
         postArrayList.add(post);
     }
 
+    // If the post alreadyExists
     @Override
     public boolean alreadyExists(Post post) {
       return postArrayList.stream().anyMatch(x -> x.getIdPost().equals(post.getIdPost()));
     }
 
+    //Get post array by userId
     @Override
     public ArrayList<Post> getArrayPostById(Integer userId) throws NoPostsFoundException {
         if(!postArrayList.stream().anyMatch(x -> x.getUserId() == userId))
@@ -64,6 +67,7 @@ public class ProductRepository implements IProductRepository {
         return previousTwoWeeksPostsArr;
     }
 
+    //get promo post array by userId
     @Override
     public ArrayList<Post> getArrayPromoPostById(Integer userId){
         ArrayList<Post> promoArr = (ArrayList<Post>) postArrayList

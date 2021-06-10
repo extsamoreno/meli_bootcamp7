@@ -45,12 +45,13 @@ public class ProductController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
+    //Get count number of promos
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<PostPromoDto> getCountPromo(@PathVariable Integer userId) throws IdNotFoundException {
         return new ResponseEntity<>(iProductService.getCountPromo(userId),HttpStatus.OK);
     }
 
+    //Get Post promo list by userId
     @GetMapping("/{userId}/list")
     public ResponseEntity<PostPromoListDto> getPostPromoList (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "productname_asc") String order){
         return new ResponseEntity<>(iProductService.getPostPromoList(userId, order),HttpStatus.OK);

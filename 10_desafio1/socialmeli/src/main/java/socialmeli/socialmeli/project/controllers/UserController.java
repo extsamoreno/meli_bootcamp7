@@ -21,6 +21,7 @@ public class UserController {
     @Autowired
     IUserService iUserService;
 
+    //Follow user
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<?> followUser(@PathVariable Integer userId,@PathVariable Integer userIdToFollow) throws IdNotFoundException, FollowMyselfException, FollowAlreadyException {
         UserRequestDto userRequestDto = new UserRequestDto(userId,userIdToFollow);
@@ -30,21 +31,25 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    //Get followers count
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersResponseDto> getFollowersCount (@PathVariable Integer userId) throws IdNotFoundException {
         return new ResponseEntity<>(iUserService.getFollowersCountById(userId.toString()),HttpStatus.OK);
     }
 
+    //Get followers list
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersListResponseDto> getFollowersList (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws IdNotFoundException {
         return new ResponseEntity<>(iUserService.getFollowersById(userId.toString(), order),HttpStatus.OK);
     }
 
+    //Get followed users list
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedListResponseDto> getFollowedUsers (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws IdNotFoundException {
         return new ResponseEntity<>(iUserService.getFollowedById(userId.toString(), order),HttpStatus.OK);
     }
 
+    //Unfollow user
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<?> unfollowUser (@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws IdNotFoundException, UnfollowException {
         UserUnfollowRequestDto userUnfollowRequestDto = new UserUnfollowRequestDto(userId,userIdToUnfollow);

@@ -33,60 +33,66 @@ public class ProductService implements IProductService{
     IProductRepository iProductRepository;
     IUserRepository iUserRepository;
 
+
+    //Add a new post
     @Override
     public void addNewPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoFoundException, IdNotFoundException, InvalidPostDateException {
-        if(postDto.isHasPromo())
+        if(postDto.isHasPromo()) //If post has a promo
             throw new PostPromoFoundException(postDto);
 
         LocalDate localDate = postDto.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localDateNow = LocalDate.now();
-        if(!localDate.isBefore(localDateNow))
+        if(!localDate.isBefore(localDateNow)) //If post date is after than actual date
             throw new InvalidPostDateException(postDto);
 
-        if(iUserRepository.findUserById(postDto.getUserId())!=null)
+        if(iUserRepository.findUserById(postDto.getUserId())!=null) //If userId does not exists in repository
         iProductRepository.save(mapper.dtoToPost(postDto));
     }
 
+    //Add a new promo post
     @Override
     public void addNewPromoPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoNotFoundException, IdNotFoundException {
-        if(!postDto.isHasPromo()){
+        if(!postDto.isHasPromo()){ //If post has not a promo
             throw new PostPromoNotFoundException(postDto);
         }
-        if(iUserRepository.findUserById(postDto.getUserId())!=null)
+        if(iUserRepository.findUserById(postDto.getUserId())!=null) //If userId does not exists in repository
         iProductRepository.save(mapper.dtoToPost(postDto));
     }
 
+    //Get Post array by userId
     @Override
     public PostArrayDto getArrayPostById(Integer userId, String order) throws NoPostsFoundException, IdNotFoundException {
-        ArrayList<User> userFollowedList =iUserRepository.getUserFollowedList(userId);
+        ArrayList<User> userFollowedList =iUserRepository.getUserFollowedList(userId); //Get userId followed list
 
         ArrayList<Post> postArrayList = new ArrayList<>();
 
-        for (User userFollowed:userFollowedList) {
+        for (User userFollowed:userFollowedList) { //Foreach userFollowed, get their list of posts
             postArrayList.addAll(iProductRepository.getArrayPostById(userFollowed.getUserId()));
         }
 
-        Collections.sort(postArrayList, Comparator.comparing(Post::getDate));
+        Collections.sort(postArrayList, Comparator.comparing(Post::getDate)); //Sort asc
         if(order.equals("date_desc"))
-            Collections.reverse(postArrayList);
+            Collections.reverse(postArrayList); //Sort desc
 
         return mapper.postArrayToDto(postArrayList);
     }
 
+    //Get count number of promos
     @Override
     public PostPromoDto getCountPromo(Integer userId) throws IdNotFoundException {
-        ArrayList<Post> promoArr = iProductRepository.getArrayPromoPostById(userId);
+        ArrayList<Post> promoArr = iProductRepository.getArrayPromoPostById(userId); //Get userId promo postlist
         User user = iUserRepository.findUserById(userId);
         return mapper.postArrayPromoToDto(user.getUserId(),user.getUserName(),promoArr);
     }
 
+    //Get Post promo list by userId
     @Override
     public PostPromoListDto getPostPromoList(Integer userId, String order){
-        ArrayList<Post> promoArr = iProductRepository.getArrayPromoPostById(userId);
+        ArrayList<Post> promoArr = iProductRepository.getArrayPromoPostById(userId); //Get userId promo postlist
 
-        Collections.sort(promoArr, Comparator.comparing(Post::getDetail));
+        Collections.sort(promoArr, Comparator.comparing(Post::getDetail)); //Sort asc
         if(order.equals("productname_desc"))
-         Collections.reverse(promoArr);
+         Collections.reverse(promoArr); //Sort desc
 
         return mapper.postArrayPromoToListDto(promoArr);
     }
