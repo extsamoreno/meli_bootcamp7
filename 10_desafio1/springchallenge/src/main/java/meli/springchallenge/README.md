@@ -10,6 +10,21 @@ Como forma de modularize el proyecto se pensó al ``post`` y al ``product`` como
 
 Tanto el ``post``, como el ``promoPost`` son tratados como las mismas entidades, no se hace 
 
-En el endPoint myFollowedPost (US006), se agregó la posibilidad de pasar por parámetro la cantidad de dias anteriores para que una publicación sea devuelta. Por default se deja 14 dias para cumplir con la consigna
+En el EndPoint myFollowedPost (US006), se agregó la posibilidad de pasar por parámetro la cantidad de dias anteriores para que una publicación sea devuelta. Por default se deja 14 dias para cumplir con la consigna
 
 En el EndPoint Pomolist (US012) se agregó un parámetro filter. Si no se pasa devuelve los posts en promotion (tal como pide la consigna), pero si se pasa 'all' devuelven todos los post de ese usuario
+
+Se agregró un nuevo EndPoint que permite borrar un post:
+
+
+| Method    | Sign                                       |
+|-----------|--------------------------------------------|
+| DELETE    | /products/delete/{postId}                  |       
+| Response  | Status 200 (OK), Status 400 (Bad Requests) |
+             
+
+|Parámetros |  Tipo | Descripción Ejemplo          |
+|-----------|-------|------------------------------|
+|postId     | Int   | Numero que identifica un post|
+
+
