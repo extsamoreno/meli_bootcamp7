@@ -16,7 +16,6 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public Optional<User> findUserById(Integer userId) {
-        if (userList.isEmpty()) loadDatabase();
         return userList.stream().filter(u -> u.getUserId().equals(userId)).findFirst();
     }
 
@@ -25,6 +24,7 @@ public class UserRepository implements IUserRepository {
         if (alreadyExists(user)) this.update(user);
         else this.create(user);
     }
+
 
     private boolean alreadyExists(User user) {
         return this.findUserById(user.getUserId()).isPresent();
@@ -42,7 +42,8 @@ public class UserRepository implements IUserRepository {
         cont++;
     }
 
-    private void loadDatabase() {
+    @Override
+    public void loadDatabase() {
         User u1569 = new User(1569, "vendedor1");
         User u4698 = new User(4698, "usuario1");
         User u1536 = new User(1536, "usuario2");

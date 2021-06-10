@@ -8,4 +8,6 @@ public interface IUserRepository {
     Optional<User> findUserById(Integer userId);
 
     void save(User user);
+
+    void loadDatabase();
 }

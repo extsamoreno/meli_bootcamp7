@@ -27,8 +27,8 @@ public class ProductRepository implements IProductRepository {
         return postList.stream().filter(p -> p.getUserId().equals(userId)).collect(Collectors.toList());
     }
 
+
     private void create(Publication post) {
-        if (postList.isEmpty()) loadDatabase();
         postList.add(post);
     }
 
@@ -36,7 +36,8 @@ public class ProductRepository implements IProductRepository {
         return postList.stream().anyMatch(x -> x.getIdPost().equals(post.getIdPost()));
     }
 
-    private void loadDatabase() {
+    @Override
+    public void loadDatabase() {
         //1569 6932 6631 1456 1578
         //Post created with id starting in 66
         LocalDate oldDate = LocalDate.now().minusWeeks(3);

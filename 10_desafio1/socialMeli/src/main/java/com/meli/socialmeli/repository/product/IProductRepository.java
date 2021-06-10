@@ -9,4 +9,6 @@ public interface IProductRepository {
     void save(Publication post) throws CanNotCreatePostException;
 
     List<Publication> findByUserId(Integer userId);
+
+    void loadDatabase();
 }
