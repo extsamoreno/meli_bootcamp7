@@ -13,7 +13,7 @@
 
 The REST API to the example app is described below.
 
-## US 0001 
+## US 0001 - To be able to carry out the action of "Follow" to a certain seller
 
 ### Request
 
@@ -21,7 +21,6 @@ The REST API to the example app is described below.
 
 ### Response
 
-    Date: Thu, 10 Jun 2021 16:19:44 GMT
     Status: 200 OK
     Connection: keep-alive
     Content-Type: application/json
@@ -29,24 +28,211 @@ The REST API to the example app is described below.
 
     1
 
-## US 0002
+## US 0002 - Obtain the result of the number of users who follow a certain seller
 
 ### Request
 
-`GET /users/2/followers/count/`
+`GET /users/4/followers/count/`
 
 ### Response
 
-    Date: Thu, 10 Jun 2021 16:21:23 GMT
     Status: 200 OK
     Connection: keep-alive
     Content-Type: application/json
-    Content-Length: 36
 
     {
     "userID": 2,
     "userName": "Eduardo",
     "seller": false,
-    "followers_count": 1
+    "followers_count": 2
     }
 
+## US 0003 - Get a list of all users who follow a certain seller (Who's following me?)
+
+### Request
+
+`GET /users/4/followers/list/`
+
+### Response
+
+    Status: 200 OK
+    Connection: keep-alive
+    Content-Type: application/json
+
+    {
+    "userID": 4,
+    "userName": "Danilo",
+    "seller": true,
+    "followed": [
+        {
+            "userID": 2,
+            "userName": "Eduardo",
+            "seller": false
+        },
+        {
+            "userID": 3,
+            "userName": "Franco",
+            "seller": false
+        }
+        ]
+    }
+
+## US 0004 - Get a list of all sellers that are followed by a certain user (Who am I following?)
+
+### Request
+
+`GET /users/3/followed/list/`
+
+### Response
+
+    Status: 200 OK
+    Connection: keep-alive
+    Content-Type: application/json
+
+    {
+    "userID": 3,
+    "userName": "Franco",
+    "seller": false,
+    "followed": [
+        {
+            "userID": 1,
+            "userName": "Matias",
+            "seller": true
+        },
+        {
+            "userID": 4,
+            "userName": "Danilo",
+            "seller": true
+        }
+        ]
+    }
+
+## US 0005 - Register a new publication
+
+### Request
+
+`POST /products/newpost`
+
+### Response
+
+    Status: 200 OK
+    Connection: keep-alive
+    Content-Type: application/json
+    Content-Length: 0    
+
+    1
+
+## US 0006 - Obtain a list of the publications made by the sellers that a user follows in the last two weeks (for this take into account sort by date, latest posts first).
+
+### Request
+
+`GET /products/followed/3/list`
+
+### Response
+
+    Status: 200 OK
+    Connection: keep-alive
+    Content-Type: application/json
+    Content-Length: 0    
+
+    {
+    "userID": 3,
+    "userName": "Franco",
+    "seller": false,
+    "posts": [
+        {
+            "userID": 1,
+            "postID": 5,
+            "date": "09-06-2021",
+            "detail": {
+                "productID": 3,
+                "productName": "Auriculares Gamer HyperX",
+                "type": "Metal y Acrilico",
+                "brand": "HyperX",
+                "color": "Black",
+                "notes": "Special Edition"
+            },
+            "category": 100,
+            "price": 17000.0
+        },
+        {
+            "userID": 4,
+            "postID": 2,
+            "date": "30-05-2021",
+            "detail": {
+                "productID": 2,
+                "productName": "Escritorio en L",
+                "type": "Melamina",
+                "brand": "Platinium",
+                "color": "Black",
+                "notes": "Special Edition"
+            },
+            "category": 100,
+            "price": 17000.0
+        },
+        {
+            "userID": 4,
+            "postID": 1,
+            "date": "29-05-2021",
+            "detail": {
+                "productID": 1,
+                "productName": "Silla Gamer",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Grey & Black",
+                "notes": "Rare Edition"
+            },
+            "category": 100,
+            "price": 29999.5
+        },
+        {
+            "userID": 4,
+            "postID": 67,
+            "date": "29-05-2021",
+            "detail": {
+                "productID": 5,
+                "productName": "Monitor 24'' 75hz IPS",
+                "type": "Gamer",
+                "brand": "Samsung",
+                "color": "Grey & Black",
+                "notes": "Rare Edition"
+            },
+            "category": 100,
+            "price": 25000.0
+        },
+        {
+            "userID": 4,
+            "postID": 4,
+            "date": "28-05-2021",
+            "detail": {
+                "productID": 2,
+                "productName": "Escritorio en V",
+                "type": "Melamina",
+                "brand": "Platinium",
+                "color": "Black",
+                "notes": "Special Edition"
+            },
+            "category": 100,
+            "price": 15000.0,
+            "hasPromo": true,
+            "discount": 10.0
+        },
+        {
+            "userID": 1,
+            "postID": 6,
+            "date": "28-05-2021",
+            "detail": {
+                "productID": 2,
+                "productName": "Mouse Inalambrico Logitech",
+                "type": "Plastico",
+                "brand": "Logitech",
+                "color": "Black",
+                "notes": "Special Edition"
+            },
+            "category": 100,
+            "price": 15000.0,
+            "hasPromo": true,
+            "discount": 10.0
+        }
+        ]
+    }

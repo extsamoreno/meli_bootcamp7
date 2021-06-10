@@ -60,7 +60,6 @@ public class UserController {
     }
 
 
-
     //Get all users
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers(){

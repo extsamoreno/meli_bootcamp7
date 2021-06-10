@@ -1,0 +1,675 @@
+{
+	"info": {
+		"_postman_id": "43818f19-97e7-418e-ad82-7ca3fc9e5dbb",
+		"name": "Spring Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "US 0001",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/follow/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"follow",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0001 - Exception userID Not Found",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/follow/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"follow",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0001 - Exception Can't Follow",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/follow/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"follow",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0002",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4/followers/count/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4",
+						"followers",
+						"count",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0002 - Exception userID Not Found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/5/followers/count/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"5",
+						"followers",
+						"count",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0003 - Return only Users, Not sellers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4/followers/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4",
+						"followers",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0003 - Exception userID Not Found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/5/followers/list/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"5",
+						"followers",
+						"list",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0004",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/followed/list/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"followed",
+						"list",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0004 - Exception only Guest Auth , Not sellers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4/followed/list/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4",
+						"followed",
+						"list",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0005",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\" : 4,\n    \"postID\" : 67,\n    \"date\" : \"29-05-2021\",\n    \"detail\" : {\n      \"productID\" : 5,\n      \"productName\" : \"Monitor 24'' 75hz IPS\",\n      \"type\" : \"Gamer\",\n      \"brand\" : \"Samsung\",\n      \"color\" : \"Grey & Black\",\n      \"notes\" : \"Rare Edition\"\n    },\n    \"category\" : 100,\n    \"price\" : 25000\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0005 - Exception PostID already exist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\" : 4,\n    \"postID\" : 5,\n    \"date\" : \"29-05-2021\",\n    \"detail\" : {\n      \"productID\" : 1,\n      \"productName\" : \"Monitor 24'' 75hz IPS\",\n      \"type\" : \"Gamer\",\n      \"brand\" : \"Samsung\",\n      \"color\" : \"Grey & Black\",\n      \"notes\" : \"Rare Edition\"\n    },\n    \"category\" : 100,\n    \"price\" : 25000\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0005 - Exception userID Not Exist",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\" : 68,\n    \"postID\" : 5,\n    \"date\" : \"29-05-2021\",\n    \"detail\" : {\n      \"productID\" : 1,\n      \"productName\" : \"Monitor 24'' 75hz IPS\",\n      \"type\" : \"Gamer\",\n      \"brand\" : \"Samsung\",\n      \"color\" : \"Grey & Black\",\n      \"notes\" : \"Rare Edition\"\n    },\n    \"category\" : 100,\n    \"price\" : 25000\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0005 - Exception productID already exists",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\" : 1,\n    \"postID\" : 765,\n    \"date\" : \"29-05-2021\",\n    \"detail\" : {\n      \"productID\" : 1,\n      \"productName\" : \"Monitor 24'' 75hz IPS\",\n      \"type\" : \"Gamer\",\n      \"brand\" : \"Samsung\",\n      \"color\" : \"Grey & Black\",\n      \"notes\" : \"Rare Edition\"\n    },\n    \"category\" : 100,\n    \"price\" : 25000\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0006",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userID\" : 4,\n  \"postID\" : 5,\n  \"date\" : \"28-05-2021\",\n  \"detail\" : {\n    \"productID\" : 2,\n    \"productName\" : \"Escritorio en Z\",\n    \"type\" : \"Melamina\",\n    \"brand\" : \"Platinium\",\n    \"color\" : \"Black\",\n    \"notes\" : \"Special Edition\"\n  },\n  \"category\" : 100,\n  \"price\" : 15000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/followed/3/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"followed",
+						"3",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0006 - Exception userID Not Found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/followed/123123/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"followed",
+						"123123",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0007",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/unfollow/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"unfollow",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0007 - Exception userID Not Found",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/123/unfollow/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"123",
+						"unfollow",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0007 - Exception Relation Not Found",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/unfollow/345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"unfollow",
+						"345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0008",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/followed/list?order=name_asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"followed",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0008 - Exception User Not Authorized",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4/followed/list?order=name_asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4",
+						"followed",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0009",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/followed/3/list?order=date_asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"followed",
+						"3",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "date_asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0009 - Exception userID Not Found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/followed/423/list?order=date_asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"followed",
+						"423",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "date_asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0010",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\" : 4,\n    \"postID\" : 45,\n    \"date\" : \"29-05-2021\",\n    \"detail\" : {\n      \"productID\" : 34,\n      \"productName\" : \"Monitor 24'' 75hz IPS\",\n      \"type\" : \"Gamer\",\n      \"brand\" : \"Samsung\",\n      \"color\" : \"Grey & Black\",\n      \"notes\" : \"Rare Edition\"\n    },\n    \"category\" : 100,\n    \"price\" : 25000,\n    \"hasPromo\" : true,\n    \"discount\": 10\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0011",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/4/countPromo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"4",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0011 - Exception userID Not Found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/234/countPromo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"234",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0012",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/4/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"4",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US 0012 - Exception userID Not Found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/234/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"234",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

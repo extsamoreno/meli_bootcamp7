@@ -3,5 +3,20 @@
     "id": 1,
     "userID" : 1,
     "followedUserID" : 2
+  },
+  {
+    "id": 2,
+    "userID" : 2,
+    "followedUserID" : 4
+  },
+  {
+    "id": 3,
+    "userID" : 3,
+    "followedUserID" : 4
+  },
+  {
+    "id": 4,
+    "userID" : 3,
+    "followedUserID" : 1
   }
 ]

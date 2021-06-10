@@ -88,11 +88,11 @@ public class FollowServiceImpl implements FollowService{
             throw  new UserNotSellerException(userId);
 
         List<Follow> followList = followRepository.getAll().stream()
-                .filter(follow -> follow.getUserID() == userId)
+                .filter(follow -> follow.getFollowedUserID() == userId)
                 .collect(Collectors.toList());
 
         List<User> userList = followList.stream()
-                .map(follow -> userRepository.getUserByID(follow.getFollowedUserID()))
+                .map(follow -> userRepository.getUserByID(follow.getUserID()))
                 .filter(user1 -> !user1.isSeller())
                 .collect(Collectors.toList());
 
