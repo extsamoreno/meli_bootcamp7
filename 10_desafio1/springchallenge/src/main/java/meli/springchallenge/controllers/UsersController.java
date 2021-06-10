@@ -14,14 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 public class UsersController {
+    //On Root folder a README.md was added.
 
     @Autowired
     IUserService userService;
-
-    @GetMapping("/ping")
-    public ResponseEntity<String> ping(){
-        return new ResponseEntity("pong", HttpStatus.OK);
-    }
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotValidException, RelationNotValidException {

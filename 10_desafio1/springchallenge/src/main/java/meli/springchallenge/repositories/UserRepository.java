@@ -2,7 +2,6 @@ package meli.springchallenge.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import meli.springchallenge.dtos.UserDTO;
 import meli.springchallenge.exceptions.RelationNotValidException;
 import meli.springchallenge.exceptions.UserNotValidException;
 import meli.springchallenge.models.User;
@@ -14,7 +13,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository

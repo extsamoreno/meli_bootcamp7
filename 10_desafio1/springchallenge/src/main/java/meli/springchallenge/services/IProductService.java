@@ -12,7 +12,7 @@ public interface IProductService {
 
     void createPost(PostDTO post) throws ProductIdNotValidException, PostIdNotValidException, UserNotValidException;
 
-    FollowedPostDTO getFollowedPosts(int userId, String order) throws UserNotValidException;
+    FollowedPostDTO getFollowedPosts(int userId, String order, int daysBefore) throws UserNotValidException;
 
     CountPromoDTO countPromoPost(int userId) throws UserNotValidException;
 

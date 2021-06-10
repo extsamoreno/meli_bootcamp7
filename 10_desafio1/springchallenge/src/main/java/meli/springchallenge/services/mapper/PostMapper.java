@@ -1,12 +1,9 @@
 package meli.springchallenge.services.mapper;
 
-import meli.springchallenge.dtos.FollowedPostDTO;
 import meli.springchallenge.dtos.PostDTO;
 import meli.springchallenge.dtos.ProductDTO;
 import meli.springchallenge.models.Post;
 import meli.springchallenge.models.Product;
-
-import java.util.List;
 
 public class PostMapper {
 
@@ -23,8 +20,7 @@ public class PostMapper {
         return new Post(
                 postDTO.getUserId(),
                 postDTO.getId_post(),
-                DateMapper.toDate(postDTO.getDate()),
-//                postDTO.getDate(),
+                postDTO.getDate(),
                 postDTO.getDetail().getProduct_id(),
                 postDTO.getCategory(),
                 postDTO.getPrice(),
@@ -39,7 +35,7 @@ public class PostMapper {
         return  new PostDTO(
                 post.getUserId(),
                 post.getPostId(),
-                DateMapper.toString(post.getDate()),
+                post.getDate(),
                 prodDTO,
                 post.getCategory(),
                 post.getPrice(),

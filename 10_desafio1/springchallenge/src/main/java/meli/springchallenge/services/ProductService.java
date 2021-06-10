@@ -33,37 +33,33 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public FollowedPostDTO getFollowedPosts(int userId, String order) throws UserNotValidException {
+    public FollowedPostDTO getFollowedPosts(int userId, String order, int daysBefore) throws UserNotValidException {
 
         userRepository.validateUser(userId);
         List<User> followed = userRepository.getFollowed(userId);
         List<PostDTO> postDTOs = new ArrayList<>();
-        Date limitDate = getDateBeforeTwoWeeks(new Date(), 14);
+        Date limitDate = getDateBeforeTwoWeeks(new Date(), daysBefore);
 
         for(User u:followed){
             List<Post> posts = new ArrayList<>();
-
             try{
                 posts = productRepository.getPostByUserId(u.getUserId());
             }catch (Exception e){
                 e.printStackTrace();
             }
-
-            if( order.equals("date_desc")){
-                posts.sort((p1, p2) -> p2.getDate().compareTo(p1.getDate()));
-            }else if(order.equals("date_asc")) {
-                posts.sort((p1, p2) -> p1.getDate().compareTo(p2.getDate()));
-            }
-
-            for(Post p: posts){
-                if ( limitDate.compareTo(p.getDate())<= 0) {
+            for(Post p: posts)
+                if (limitDate.compareTo(p.getDate()) <= 0) {
                     Product product = productRepository.getProductById(p.getProductId());
                     postDTOs.add(PostMapper.postToDTO(p, product));
                 }
-            }
-
         }
 
+        if( order.equals("date_desc")) {
+            postDTOs.sort((p1, p2) -> p2.getDate().compareTo(p1.getDate()));
+        }
+        else if(order.equals("date_asc")) {
+            postDTOs.sort((p1, p2) -> p1.getDate().compareTo(p2.getDate()));
+        }
 
         return new FollowedPostDTO(userId, postDTOs);
     }
@@ -73,20 +69,12 @@ public class ProductService implements IProductService{
 
         String userName = userRepository.getUserById(userId).getUserName();
         int countPost = 0;
-
         try{
             List<Post> posts = productRepository.getPostByUserId(userId);
-
-            for(Post p:posts){
-                if(p.isHasPromo()){
-                    countPost++;
-                }
-            }
-
+            for(Post p:posts) if (p.isHasPromo()) countPost++;
         }catch (Exception e){
             e.printStackTrace();
         }
-
         return new CountPromoDTO( userId, userName, countPost);
     }
 
@@ -97,24 +85,18 @@ public class ProductService implements IProductService{
         List<PostDTO> postDTOs = new ArrayList<>();
         try{
             List<Post>  posts = productRepository.getPostByUserId(userId);
-            if(filter.equals("hasPromo")){
-                filteredPosts = posts.stream().filter(p->p.isHasPromo()).collect(Collectors.toList());
-            }else{
-                filteredPosts = posts;
-            }
+            if(filter.equals("hasPromo"))
+                filteredPosts = posts.stream().filter(Post::isHasPromo).collect(Collectors.toList());
+            else filteredPosts = posts;
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
         for(Post p:filteredPosts){
             Product product = productRepository.getProductById(p.getProductId());
             postDTOs.add(PostMapper.postToDTO(p, product));
         }
-
         return new PostsListDTO( userId, userName, postDTOs);
     }
-
 
     private Date getDateBeforeTwoWeeks(Date date, int daysBefore) {
         Calendar calendar = Calendar.getInstance();

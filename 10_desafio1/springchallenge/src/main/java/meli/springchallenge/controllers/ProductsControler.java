@@ -17,40 +17,44 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/products")
 public class ProductsControler {
 
+    //On Root folder a README.md was added.
+
     @Autowired
     IProductService productService;
 
-    @GetMapping("/ping")
-    public ResponseEntity<String> ping(){
-        return new ResponseEntity("pong", HttpStatus.OK);
-    }
-
     @PostMapping("/newpost")
-    public ResponseEntity<String> createPost(@RequestBody PostDTO post) throws PostIdNotValidException, ProductIdNotValidException, UserNotValidException {
+    public ResponseEntity<String> createPost(@RequestBody PostDTO post)
+            throws PostIdNotValidException, ProductIdNotValidException, UserNotValidException {
         productService.createPost(post);
         return new ResponseEntity("New post successfully added", HttpStatus.OK);
     }
 
     @PostMapping("/newpromopost")
-    public ResponseEntity<String> createPromoPost(@RequestBody PostDTO post) throws PostIdNotValidException, ProductIdNotValidException, UserNotValidException {
+    public ResponseEntity<String> createPromoPost(@RequestBody PostDTO post)
+            throws PostIdNotValidException, ProductIdNotValidException, UserNotValidException {
         productService.createPost(post);
         return new ResponseEntity("New post successfully added", HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPostDTO> getFollowedPosts(@PathVariable int userId, @RequestParam(defaultValue = "date_desc") String order) throws UserNotValidException {
-        return new ResponseEntity<FollowedPostDTO>(productService.getFollowedPosts(userId, order),HttpStatus.OK);
+    public ResponseEntity<FollowedPostDTO> getFollowedPosts(@PathVariable int userId,
+                                                            @RequestParam(defaultValue = "date_desc") String order,
+                                                            @RequestParam(defaultValue = "14") int daysBefore)
+            throws UserNotValidException {
+        return new ResponseEntity<FollowedPostDTO>(productService.getFollowedPosts(userId, order, daysBefore),HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/countPromo")
-    public ResponseEntity<CountPromoDTO> countPromoPost(@PathVariable int userId) throws UserNotValidException {
+    public ResponseEntity<CountPromoDTO> countPromoPost(@PathVariable int userId)
+            throws UserNotValidException {
         return new ResponseEntity<CountPromoDTO>(productService.countPromoPost(userId),HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/list")
-    public ResponseEntity<PostsListDTO> getPostsByUserId(@PathVariable int userId) throws UserNotValidException {
-        return new ResponseEntity<PostsListDTO>(productService.getPostsByUserId(userId, "hasPromo"),HttpStatus.OK);
+    public ResponseEntity<PostsListDTO> getPostsByUserId(@PathVariable int userId,
+                                                         @RequestParam(defaultValue = "hasPromo") String filter)
+            throws UserNotValidException {
+        return new ResponseEntity<PostsListDTO>(productService.getPostsByUserId(userId, filter),HttpStatus.OK);
     }
-
 
 }
