@@ -43,7 +43,6 @@ public class UserService implements IUserService{
             throw new UserNotFoundException(id);
         return user;
     }
-
     @Override
     public FollowersUserDTOResponse getFollowersList(Integer idUser, Optional<String> order) throws UserNotFoundException {
         User user = getUser(idUser);

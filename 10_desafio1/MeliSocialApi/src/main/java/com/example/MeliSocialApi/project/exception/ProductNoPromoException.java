@@ -4,6 +4,6 @@ import org.springframework.http.HttpStatus;
 
 public class ProductNoPromoException extends ProductException{
     public ProductNoPromoException() {
-        super("The prod is not a Promo", HttpStatus.BAD_REQUEST);
+        super("The prod is not a promo", HttpStatus.BAD_REQUEST);
     }
 }

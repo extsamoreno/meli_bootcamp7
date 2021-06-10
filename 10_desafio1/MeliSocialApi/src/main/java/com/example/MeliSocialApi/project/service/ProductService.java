@@ -1,6 +1,7 @@
 package com.example.MeliSocialApi.project.service;
 
 import com.example.MeliSocialApi.project.Utils.Constant;
+import com.example.MeliSocialApi.project.exception.ProductNoPromoException;
 import com.example.MeliSocialApi.project.exception.ProductNoValidDateException;
 import com.example.MeliSocialApi.project.exception.UserNotFoundException;
 import com.example.MeliSocialApi.project.model.Product;
@@ -22,7 +23,11 @@ public class ProductService implements IProductService {
     IProductRepository productRepository;
     @Autowired
     IUserService userService;
-
+    public void createProductPromo(ProductDTO productParam) throws UserNotFoundException, ProductNoValidDateException, ProductNoPromoException {
+        if (!productParam.getHasPromo())
+            throw new ProductNoPromoException();
+        createProduct(productParam);
+    }
     public void createProduct(ProductDTO productParam) throws UserNotFoundException, ProductNoValidDateException {
         if (productParam.getDate().after(Date.valueOf(LocalDate.now())))
             throw new ProductNoValidDateException();

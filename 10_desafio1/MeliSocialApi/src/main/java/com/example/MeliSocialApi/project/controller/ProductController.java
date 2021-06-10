@@ -1,6 +1,7 @@
 package com.example.MeliSocialApi.project.controller;
 
 import com.example.MeliSocialApi.project.Utils.Constant;
+import com.example.MeliSocialApi.project.exception.ProductNoPromoException;
 import com.example.MeliSocialApi.project.exception.ProductNoValidDateException;
 import com.example.MeliSocialApi.project.exception.UserNotFoundException;
 import com.example.MeliSocialApi.project.service.IProductService;
@@ -31,8 +32,8 @@ public class ProductController {
         return new ResponseEntity<ProductUserDTOResponse>(productService.getProductFromUser(userId, Constant.weeksOrder, order),HttpStatus.OK);
     }
     @PostMapping("/newpromopost")
-    public ResponseEntity addProductPromo(@RequestBody ProductDTO product) throws UserNotFoundException, HttpMessageNotReadableException, ProductNoValidDateException {
-        productService.createProduct(product);
+    public ResponseEntity addProductPromo(@RequestBody ProductDTO product) throws UserNotFoundException, HttpMessageNotReadableException, ProductNoValidDateException, ProductNoPromoException {
+        productService.createProductPromo(product);
         return new ResponseEntity(HttpStatus.OK);
     }
     @GetMapping("/{userId}/countPromo")
