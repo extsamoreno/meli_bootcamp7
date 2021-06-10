@@ -1,4 +1,4 @@
-package com.reto1.demo.Model.DTO;
+package com.reto1.demo.Model.DTO.PostObjects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.reto1.demo.Model.Product;

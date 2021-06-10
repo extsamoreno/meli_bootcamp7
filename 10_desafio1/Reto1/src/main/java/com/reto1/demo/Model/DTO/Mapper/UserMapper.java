@@ -1,10 +1,10 @@
 package com.reto1.demo.Model.DTO.Mapper;
 
 import com.reto1.demo.Model.User;
-import com.reto1.demo.Model.UserObjets.UserDTO;
-import com.reto1.demo.Model.UserObjets.UserDTOCount;
-import com.reto1.demo.Model.UserObjets.UserDTOFolloweds;
-import com.reto1.demo.Model.UserObjets.UserDTOFollowers;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTO;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOCount;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOFolloweds;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOFollowers;
 
 import java.util.ArrayList;
 

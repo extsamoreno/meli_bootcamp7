@@ -1,12 +1,15 @@
 package com.reto1.demo.Model.Util;
 
 
-import com.reto1.demo.Model.DTO.PostDTO;
+import com.reto1.demo.Model.DTO.PostObjects.PostDTO;
 import com.reto1.demo.Model.Post;
-import com.reto1.demo.Model.UserObjets.UserDTO;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTO;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 public class Util{
@@ -33,5 +36,17 @@ public class Util{
     public static void orderDescByDateDTO(List<PostDTO> posts) {
         Comparator<PostDTO> c = (p1, p2) -> p2.getDate().compareTo(p1.getDate());
         posts.sort(c);
+    }
+
+
+    public static LocalDate toLocalDate(Date dateToConvert) {
+        return LocalDate.ofInstant(
+                dateToConvert.toInstant(), ZoneId.systemDefault());
+    }
+
+    public static Date toDate(LocalDate dateToConvert) {
+        return java.util.Date.from(dateToConvert.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
     }
 }

@@ -4,10 +4,9 @@ import com.reto1.demo.Exception.OrderNotFoundException;
 import com.reto1.demo.Exception.UserAlreadyFollowException;
 import com.reto1.demo.Exception.UserIdNotFoundException;
 import com.reto1.demo.Exception.UserNotFollowException;
-import com.reto1.demo.Model.Post;
-import com.reto1.demo.Model.UserObjets.UserDTOCount;
-import com.reto1.demo.Model.UserObjets.UserDTOFolloweds;
-import com.reto1.demo.Model.UserObjets.UserDTOFollowers;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOCount;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOFolloweds;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOFollowers;
 
 public interface IFollowService {
 
@@ -18,8 +17,6 @@ public interface IFollowService {
     UserDTOFollowers getFollowers(int userId) throws UserIdNotFoundException, UserNotFollowException;
 
     UserDTOFolloweds getFolloweds(int userID) throws UserIdNotFoundException, UserNotFollowException;
-
-    String creatPost(Post post) throws UserIdNotFoundException, UserNotFollowException;
 
     String unFollow(int userId, int userIdToUnfollow) throws UserNotFollowException, UserIdNotFoundException;
 

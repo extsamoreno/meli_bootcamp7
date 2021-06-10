@@ -1,4 +1,4 @@
-package com.reto1.demo.Model.DTO;
+package com.reto1.demo.Model.DTO.PostObjects;
 
 import com.reto1.demo.Model.Product;
 import lombok.AllArgsConstructor;
@@ -19,4 +19,5 @@ public class PromoPostDTO extends PostDTO {
         this.hasPromo = hasPromo;
         this.discount = discount;
     }
+
 }

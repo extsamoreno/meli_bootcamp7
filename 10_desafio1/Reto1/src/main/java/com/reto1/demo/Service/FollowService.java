@@ -5,11 +5,9 @@ import com.reto1.demo.Exception.UserAlreadyFollowException;
 import com.reto1.demo.Exception.UserIdNotFoundException;
 import com.reto1.demo.Exception.UserNotFollowException;
 import com.reto1.demo.Model.DTO.Mapper.UserMapper;
-import com.reto1.demo.Model.Post;
-import com.reto1.demo.Model.User;
-import com.reto1.demo.Model.UserObjets.UserDTOCount;
-import com.reto1.demo.Model.UserObjets.UserDTOFolloweds;
-import com.reto1.demo.Model.UserObjets.UserDTOFollowers;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOCount;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOFolloweds;
+import com.reto1.demo.Model.DTO.UserObjets.UserDTOFollowers;
 import com.reto1.demo.Model.Util.Util;
 import com.reto1.demo.Repository.IFollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,38 +20,83 @@ public class FollowService implements IFollowService{
     @Autowired
     IFollowRepository iFollowRepository;
 
+    /**
+     *
+     * @param userId
+     * @param userIdToFollow
+     * @return
+     * @throws UserAlreadyFollowException
+     * @throws UserIdNotFoundException
+     *
+     * Follow other user
+     */
     @Override
     public String followOtherUser(int userId, int userIdToFollow) throws UserAlreadyFollowException, UserIdNotFoundException {
         return iFollowRepository.follow(userId, userIdToFollow);
     }
 
+    /**
+     *
+     * @param userId
+     * @return userDTOCount
+     * @throws UserIdNotFoundException
+     * @throws UserNotFollowException
+     *
+     * Return user with count followers
+     */
     @Override
     public UserDTOCount countFollowers(int userId) throws UserIdNotFoundException, UserNotFollowException {
         return UserMapper.toUserCount(iFollowRepository.getUserById(userId));
     }
 
+    /**
+     *
+     * @param userId
+     * @return UserDTOFollowers (List followers)
+     * @throws UserIdNotFoundException
+     * @throws UserNotFollowException
+     *
+     *
+     */
     @Override
     public UserDTOFollowers getFollowers(int userId) throws UserIdNotFoundException, UserNotFollowException {
         return UserMapper.toUserFollowers(iFollowRepository.getUserById(userId));
     }
 
+    /**
+     *
+     * @param userId
+     * @return UserDTOFolloweds(List pages followed)
+     * @throws UserIdNotFoundException
+     * @throws UserNotFollowException
+     */
     @Override
     public UserDTOFolloweds getFolloweds(int userId) throws UserIdNotFoundException, UserNotFollowException {
         return UserMapper.toUserFolloweds(iFollowRepository.getUserById(userId));
     }
 
-    @Override
-    public String creatPost(Post post) throws UserIdNotFoundException, UserNotFollowException {
-        User user = iFollowRepository.getUserById(post.getUserId());
-        user.addPost(post);
-        return post.getDetail().getProductName();
-    }
-
+    /**
+     *
+     * @param userId
+     * @param userIdToUnfollow
+     * @return String name unFollow user
+     * @throws UserNotFollowException
+     * @throws UserIdNotFoundException
+     */
     @Override
     public String unFollow(int userId, int userIdToUnfollow) throws UserNotFollowException, UserIdNotFoundException {
         return iFollowRepository.unfollow(userId, userIdToUnfollow);
     }
 
+    /**
+     *
+     * @param order
+     * @param userID
+     * @return UserDTOFollowers order default asc
+     * @throws UserNotFollowException
+     * @throws UserIdNotFoundException
+     * @throws OrderNotFoundException
+     */
     @Override
     public UserDTOFollowers orderListFollowers(String order, int userID) throws UserNotFollowException, UserIdNotFoundException, OrderNotFoundException {
         UserDTOFollowers followers = getFollowers(userID);
@@ -67,6 +110,15 @@ public class FollowService implements IFollowService{
         return followers;
     }
 
+    /**
+     *
+     * @param order
+     * @param userID
+     * @return UserDTOFolloweds order default asc
+     * @throws UserNotFollowException
+     * @throws UserIdNotFoundException
+     * @throws OrderNotFoundException
+     */
     @Override
     public UserDTOFolloweds orderListFolloweds(String order, int userID) throws UserNotFollowException, UserIdNotFoundException, OrderNotFoundException {
         UserDTOFolloweds followeds = getFolloweds(userID);
