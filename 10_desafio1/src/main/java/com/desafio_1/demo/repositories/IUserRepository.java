@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public interface IUserRepository {
-    User addFollowUser(int userId, int userIdToFollow) throws UnhandledException;
+    void addFollowUser(int userId, int userIdToFollow) throws UnhandledException;
     User findUserById(int userId) throws UnhandledException;
     ArrayList<User> findFollowersByUserId(int userId, Comparator<String> comparator) throws UnhandledException;
     ArrayList<User> findFollowedByUserId(int userId, Comparator<String> comparator) throws UnhandledException;
-    User unfollowUser(int userId, int userIdToUnfollow) throws UnhandledException;;
+    void unfollowUser(int userId, int userIdToUnfollow) throws UnhandledException;;
 }

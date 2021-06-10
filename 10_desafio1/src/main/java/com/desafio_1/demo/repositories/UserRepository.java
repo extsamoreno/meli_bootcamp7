@@ -19,7 +19,7 @@ public class UserRepository implements IUserRepository{
         ));
 
     @Override
-    public User addFollowUser(int userId, int userIdToFollow) throws UnhandledException {
+    public void addFollowUser(int userId, int userIdToFollow) throws UnhandledException {
 
         try{
 
@@ -31,8 +31,6 @@ public class UserRepository implements IUserRepository{
             userToFollow.getFollowers().add(userFollower);
             users.set(userFollower.getId() - 1, userFollower);
             users.set(userToFollow.getId() - 1, userToFollow);
-
-            return userFollower;
 
         }catch (Exception ex){
             throw new UnhandledException(ex.getMessage());
@@ -99,7 +97,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public User unfollowUser(int userId, int userIdToUnfollow) throws UnhandledException {
+    public void unfollowUser(int userId, int userIdToUnfollow) throws UnhandledException {
         try{
             List<User> users = listUsers;
             User userFollower = users.stream().filter(user -> user.getId() == userId).findFirst().orElse(null);
@@ -110,7 +108,6 @@ public class UserRepository implements IUserRepository{
             users.set(userFollower.getId() - 1, userFollower);
             users.set(userToUnfollow.getId() - 1, userToUnfollow);
 
-            return userFollower;
         }catch (Exception ex){
             throw new UnhandledException(ex.getMessage());
         }

@@ -28,7 +28,7 @@ public class ProductService implements IProductService{
     IUserRepository userRepository;
 
     @Override
-    public ProductResponseDTO addProduct(ProductRequestDTO product)
+    public void addProduct(ProductRequestDTO product)
             throws UnhandledException,
             UserIdInvalidException,
             UserNotFoundException,
@@ -45,10 +45,9 @@ public class ProductService implements IProductService{
     {
         ProductResponseDTO productResponse = null;
         if(validateProduct(product) && validateProductDetail(product.getDetail())){
-            productResponse = ProductMapper.toDTO(productRepository.addProduct(ProductMapper.toModel(product)));
+            productRepository.addProduct(ProductMapper.toModel(product));
         }
 
-        return productResponse;
     }
 
     @Override

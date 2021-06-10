@@ -10,6 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public interface IProductRepository {
-    Product addProduct(Product product) throws UnhandledException;
+    void addProduct(Product product) throws UnhandledException;
     ArrayList<Product> findProductsByFollowedId(List<Integer> followedIds, Comparator<LocalDate> c) throws UnhandledException;
 }

@@ -21,4 +21,6 @@ public class ProductRequestDTO {
     private ProductDetailDTO detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 }

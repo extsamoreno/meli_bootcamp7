@@ -15,7 +15,9 @@ public class ProductMapper {
                 product.getDate(),
                 ProductDetailMapper.toDTO(product.getDetail()),
                 product.getCategory(),
-                product.getPrice()
+                product.getPrice(),
+                product.isHasPromo(),
+                product.getDiscount()
         );
     }
     public static Product toModel(ProductRequestDTO product){
@@ -26,7 +28,9 @@ public class ProductMapper {
                 product.getDate(),
                 ProductDetailMapper.toModel(product.getDetail()),
                 product.getCategory(),
-                product.getPrice()
+                product.getPrice(),
+                product.isHasPromo(),
+                product.getDiscount()
                 );
     }
 }

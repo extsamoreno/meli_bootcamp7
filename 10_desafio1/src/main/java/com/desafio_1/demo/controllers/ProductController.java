@@ -18,8 +18,9 @@ public class ProductController {
     IProductService productService;
 
     @PostMapping("/newpost")
-    public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody ProductRequestDTO product) throws UserIdInvalidException, ProductCategoryInvalidException, ProductPriceInvalidException, UserNotFoundException, UnhandledException, ProductDetailRequiredException, ProductDateInvalidException, ProductIdPostInvalidException, ProductDetailIdInvalidException, ProductDetailNameRequiredException, ProductDetailBrandRequiredException, ProductDetailColorRequiredException, ProductDetailTypeRequiredException {
-        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
+    public ResponseEntity addProduct(@RequestBody ProductRequestDTO product) throws UserIdInvalidException, ProductCategoryInvalidException, ProductPriceInvalidException, UserNotFoundException, UnhandledException, ProductDetailRequiredException, ProductDateInvalidException, ProductIdPostInvalidException, ProductDetailIdInvalidException, ProductDetailNameRequiredException, ProductDetailBrandRequiredException, ProductDetailColorRequiredException, ProductDetailTypeRequiredException {
+        productService.addProduct(product);
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")
@@ -27,12 +28,10 @@ public class ProductController {
         return new ResponseEntity<>(productService.findProductsByFollowedId(userId, order), HttpStatus.OK);
     }
 
-    /*
-    @PostMapping("/newpost")
-    public ResponseEntity<ProductResponseDTO> addProduct(@RequestBody ProductRequestDTO product) throws UserIdInvalidException, ProductCategoryInvalidException, ProductPriceInvalidException, UserNotFoundException, UnhandledException, ProductDetailRequiredException, ProductDateInvalidException, ProductIdPostInvalidException, ProductDetailIdInvalidException, ProductDetailNameRequiredException, ProductDetailBrandRequiredException, ProductDetailColorRequiredException, ProductDetailTypeRequiredException {
-        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
+    @PostMapping("/newpromopost")
+    public ResponseEntity addProductPromo(@RequestBody ProductRequestDTO product) throws UserIdInvalidException, ProductCategoryInvalidException, ProductPriceInvalidException, UserNotFoundException, UnhandledException, ProductDetailRequiredException, ProductDateInvalidException, ProductIdPostInvalidException, ProductDetailIdInvalidException, ProductDetailNameRequiredException, ProductDetailBrandRequiredException, ProductDetailColorRequiredException, ProductDetailTypeRequiredException {
+        productService.addProduct(product);
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 
-
-     */
 }

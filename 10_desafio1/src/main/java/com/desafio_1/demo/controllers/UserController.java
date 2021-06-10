@@ -21,8 +21,9 @@ public class UserController {
     IUserService userService;
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<UserFollowedDTO> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException {
-        return new ResponseEntity<>(userService.addFollowUser(userId, userIdToFollow), HttpStatus.OK);
+    public ResponseEntity followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException {
+        userService.addFollowUser(userId, userIdToFollow);
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 
     @GetMapping("{userId}/followers/count")
@@ -41,7 +42,8 @@ public class UserController {
     }
 
     @GetMapping("{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<UserFollowedDTO> findFollowedByUserId(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException, UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
-        return new ResponseEntity<>(userService.unfollowUser(userId, userIdToUnfollow), HttpStatus.OK);
+    public ResponseEntity unfollowUser(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException, UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
+        userService.unfollowUser(userId, userIdToUnfollow);
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 }

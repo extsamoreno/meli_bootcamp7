@@ -26,7 +26,9 @@ public class ProductFollowedMapper {
                     product.getDate(),
                     ProductDetailMapper.toDTO(product.getDetail()),
                     product.getCategory(),
-                    product.getPrice()
+                    product.getPrice(),
+                    product.isHasPromo(),
+                    product.getDiscount()
             ));
         }
         return productsDTO;

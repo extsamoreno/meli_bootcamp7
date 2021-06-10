@@ -3,7 +3,6 @@ package com.desafio_1.demo.repositories;
 import com.desafio_1.demo.exceptions.UnhandledException;
 import com.desafio_1.demo.models.Product;
 import com.desafio_1.demo.models.ProductDetail;
-import com.desafio_1.demo.models.User;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -18,7 +17,7 @@ public class ProductRepository implements IProductRepository{
     private ArrayList<Product> listProducts = new ArrayList<>();
 
     @Override
-    public Product addProduct(Product product) throws UnhandledException {
+    public void addProduct(Product product) throws UnhandledException {
 
         try{
             int id = listProducts.size()+1;
@@ -26,7 +25,7 @@ public class ProductRepository implements IProductRepository{
             product.setIdPost(id);
             product.setDetail(new ProductDetail(id, detail.getProductName(),detail.getType(), detail.getBrand(), detail.getColor(),detail.getNotes()));
             listProducts.add(product);
-            return product;
+
         }catch(Exception ex){
             throw new UnhandledException(ex.getMessage());
         }

@@ -26,7 +26,7 @@ public class UserService implements IUserService{
     IUserRepository userRepository;
 
     @Override
-    public UserFollowedDTO addFollowUser(int userId, int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException {
+    public void addFollowUser(int userId, int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException {
 
         if(userId <= 0)
             throw new UserIdInvalidException();
@@ -45,13 +45,9 @@ public class UserService implements IUserService{
         ArrayList<User> followed = userRepository.findFollowedByUserId(userId, createComparatorName(null));
         User userFollowed = followed.stream().filter(u -> u.getId() == userIdToFollow).findFirst().orElse(null);
 
-        if(userFollowed != null)
-            return UserFollowedMapper.toDTO(user, followed);
+        if(userFollowed == null)
+            userRepository.addFollowUser(userId, userIdToFollow);
 
-        user = userRepository.addFollowUser(userId, userIdToFollow);
-        followed = userRepository.findFollowedByUserId(userId, createComparatorName(null));
-
-        return UserFollowedMapper.toDTO(user, followed);
     }
 
     @Override
@@ -99,7 +95,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public UserFollowedDTO unfollowUser(int userId, int userIdToUnfollow) throws UserIdFollowerEqualsFollowed, UserIdInvalidException, UserNotFoundException, UnhandledException {
+    public void unfollowUser(int userId, int userIdToUnfollow) throws UserIdFollowerEqualsFollowed, UserIdInvalidException, UserNotFoundException, UnhandledException {
         if(userId <= 0)
             throw new UserIdInvalidException();
 
@@ -114,11 +110,7 @@ public class UserService implements IUserService{
         if(user == null)
             throw new UserNotFoundException(userId);
 
-        user = userRepository.unfollowUser(userId, userIdToUnfollow);
-
-        ArrayList<User> followed = userRepository.findFollowedByUserId(userId, createComparatorName(null));
-
-        return UserFollowedMapper.toDTO(user, followed);
+        userRepository.unfollowUser(userId, userIdToUnfollow);
     }
 
     private Comparator<String> createComparatorName(String order){

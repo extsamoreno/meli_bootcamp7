@@ -20,4 +20,6 @@ public class ProductResponseDTO {
     private ProductDetailDTO detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 }
