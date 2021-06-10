@@ -1,4 +1,5 @@
 # Challenge of Spring
+if you want test the endpoints run the proyect and enter in [this link](http://localhost:8080/swagger-ui/index.html#/)
 
 Requeriments of the system:
 
