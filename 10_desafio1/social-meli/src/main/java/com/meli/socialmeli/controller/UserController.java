@@ -3,7 +3,9 @@ package com.meli.socialmeli.controller;
 import com.meli.socialmeli.dto.user.FollowersCountDTO;
 import com.meli.socialmeli.dto.user.UserFollowersDTO;
 import com.meli.socialmeli.dto.user.UserFollowedDTO;
+import com.meli.socialmeli.exception.UserAlreadyFollowedException;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
+import com.meli.socialmeli.exception.UserNotFollowedException;
 import com.meli.socialmeli.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,7 @@ public class UserController {
 
     //Requirement US 0001
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<?> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdNotFoundException {
+    public ResponseEntity<?> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserIdNotFoundException, UserAlreadyFollowedException {
         iUserService.followUser(userId,userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -44,7 +46,7 @@ public class UserController {
 
     //Requirement US 0007
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<?> unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException {
+    public ResponseEntity<?> unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserIdNotFoundException, UserNotFollowedException {
         iUserService.unfollowUser(userId,userIdToUnfollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }

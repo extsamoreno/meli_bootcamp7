@@ -7,6 +7,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class User {
     private Integer userId;
     private String userName;

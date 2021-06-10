@@ -3,7 +3,9 @@ package com.meli.socialmeli.service;
 import com.meli.socialmeli.dto.user.FollowersCountDTO;
 import com.meli.socialmeli.dto.user.UserFollowedDTO;
 import com.meli.socialmeli.dto.user.UserFollowersDTO;
+import com.meli.socialmeli.exception.UserAlreadyFollowedException;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
+import com.meli.socialmeli.exception.UserNotFollowedException;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IUserRepository;
 import com.meli.socialmeli.service.mapper.UserMapper;
@@ -17,7 +19,7 @@ public class UserService implements IUserService {
     IUserRepository iUserRepository;
 
     @Override
-    public void followUser(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException {
+    public void followUser(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException, UserAlreadyFollowedException {
         User userFrom = iUserRepository.findUserById(userId);
         User userTo = iUserRepository.findUserById(userIdToFollow);
 
@@ -29,7 +31,8 @@ public class UserService implements IUserService {
             throw new UserIdNotFoundException(userIdToFollow);
         }
 
-        iUserRepository.addFollower(userTo,userFrom);
+        if(!iUserRepository.addFollower(userTo,userFrom))
+            throw new UserAlreadyFollowedException(userId,userIdToFollow);
     }
 
     @Override
@@ -66,7 +69,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void unfollowUser(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException {
+    public void unfollowUser(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException, UserNotFollowedException {
         if(iUserRepository.findUserById(userId) == null) {
             throw new UserIdNotFoundException(userId);
         }
@@ -75,6 +78,7 @@ public class UserService implements IUserService {
             throw new UserIdNotFoundException(userIdToUnfollow);
         }
 
-        iUserRepository.deleteFollower(userId,userIdToUnfollow);
+        if(!iUserRepository.deleteFollower(userId,userIdToUnfollow))
+            throw new UserNotFollowedException(userId,userIdToUnfollow);
     }
 }

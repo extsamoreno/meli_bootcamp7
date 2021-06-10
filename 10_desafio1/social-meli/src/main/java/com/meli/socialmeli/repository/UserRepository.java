@@ -39,22 +39,25 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void addFollower(User userTo, User userFrom) {
-        Optional<Follow> item = this.follows.stream().filter(i -> i.getUserTo().getUserId().equals(userTo.getUserId()) && i.getUserFrom().getUserId().equals(userFrom.getUserId())).findFirst();
+    public boolean addFollower(User userTo, User userFrom) {
+        User user = this.users.stream().filter(usr -> usr.getUserId().equals(userFrom.getUserId())).findFirst().get();
+        User userToFollow = this.users.stream().filter(usr -> usr.getUserId().equals(userTo.getUserId())).findFirst().get();
+
+        //Check first if the user is not already following the other user
+        Optional<User> item = user.getFollowed().stream().filter(followed -> followed.getUserId().equals(userTo.getUserId())).findFirst();
 
         if(item.isEmpty()) {
-            this.follows.add(new Follow(userFrom,userTo));
+            user.getFollowed().add(userTo);
+            userToFollow.getFollowers().add(userFrom);
+            return true;
         }
+        return false;
     }
 
     @Override
     public List<User> getUserFollowers(Integer userId, String order) {
-        List<Follow> fs = this.follows.stream().filter(i -> i.getUserTo().getUserId().equals(userId)).collect(Collectors.toList());
-        List<User> followers = new ArrayList<>();
-
-        for (Follow f : fs) {
-            followers.add(f.getUserFrom());
-        }
+        User user = this.users.stream().filter(usr -> usr.getUserId().equals(userId)).findFirst().get();
+        List<User> followers = user.getFollowers();
 
         if(order != null && order.equals("name_asc"))
             followers.sort(Comparator.comparing(User::getUserName));
@@ -67,12 +70,8 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<User> getUserFollowed(Integer userId, String order) {
-        List<Follow> fs = this.follows.stream().filter(i -> i.getUserFrom().getUserId().equals(userId)).collect(Collectors.toList());
-        List<User> followed = new ArrayList<>();
-
-        for (Follow f : fs) {
-            followed.add(f.getUserTo());
-        }
+        User user = this.users.stream().filter(usr -> usr.getUserId().equals(userId)).findFirst().get();
+        List<User> followed = user.getFollowed();
 
         if(order != null && order.equals("name_asc"))
             followed.sort(Comparator.comparing(User::getUserName));
@@ -84,13 +83,20 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void deleteFollower(Integer userId, Integer userIdToUnfollow) {
-        Optional<Follow> item = this.follows.stream().filter(i -> i.getUserTo().getUserId().equals(userIdToUnfollow) && i.getUserFrom().getUserId().equals(userId)).findFirst();
+    public boolean deleteFollower(Integer userId, Integer userIdToUnfollow) {
+        User user = this.users.stream().filter(usr -> usr.getUserId().equals(userId)).findFirst().get();
+        User userToUnfollow = this.users.stream().filter(usr -> usr.getUserId().equals(userIdToUnfollow)).findFirst().get();
+
+        //Check first if the user is following the other user
+        Optional<User> item = user.getFollowed().stream().filter(followed -> followed.getUserId().equals(userIdToUnfollow)).findFirst();
 
         if(item.isPresent()) {
-            Follow followToDelete = item.get();
-            this.follows.remove(followToDelete);
+            user.getFollowed().remove(item.get());
+            userToUnfollow.getFollowers().remove(user);
+            return true;
         }
+
+        return false;
     }
 
     private List<User> loadDatabase() {
