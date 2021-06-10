@@ -9,19 +9,23 @@ import java.util.stream.Collectors;
 
 @Repository
 public class PostRepository implements IPostRepository {
-    private List<Post> posts;
+    private final List<Post> posts;
 
     public PostRepository() {
         this.posts = new ArrayList<>();
     }
 
     @Override
-    public void insertPost(Post post) {
+    public boolean insertPost(Post post) {
+        //Check if the post is not already inserted by the user
         Optional<Post> item = this.posts.stream().filter(i -> i.getPostId().equals(post.getPostId()) && i.getUserId().equals(post.getUserId())).findFirst();
 
         if(item.isEmpty()) {
             this.posts.add(post);
+            return false;
         }
+
+        return true;
     }
 
     @Override
@@ -43,30 +47,17 @@ public class PostRepository implements IPostRepository {
 
     @Override
     public List<Post> getPromoPosts(Integer userId) {
-        return this.posts.stream()
-                .filter(i -> i.getUserId().equals(userId))
-                .filter(Post::isHasPromo)
-                .collect(Collectors.toList());
+        return this.posts.stream().filter(i -> i.getUserId().equals(userId)).filter(Post::isHasPromo).collect(Collectors.toList());
     }
 
     private List<Post> getPostsByUser(Integer userId) {
-        return this.posts.stream()
-                .filter(i -> i.getUserId().equals(userId))
-                .filter(i -> i.getDate().after(getDateBeforeTwoWeeks()))
-                .collect(Collectors.toList());
+        return this.posts.stream().filter(i -> i.getUserId().equals(userId)).filter(i -> i.getDate().after(getDateBeforeTwoWeeks())).collect(Collectors.toList());
     }
 
     private Date getDateBeforeTwoWeeks() {
         Calendar calendar = Calendar.getInstance();
         calendar.getTime();
         calendar.add(Calendar.DATE, -14); //2 weeks
-        return calendar.getTime();
-    }
-
-    private Date addDays(Date date, int days) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, days);
         return calendar.getTime();
     }
 }

@@ -1,6 +1,5 @@
 package com.meli.socialmeli.repository;
 
-import com.meli.socialmeli.model.Follow;
 import com.meli.socialmeli.model.User;
 
 import java.util.List;

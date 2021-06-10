@@ -1,10 +1,8 @@
 package com.meli.socialmeli.service;
 
-import com.meli.socialmeli.dto.post.FollowedPostsDTO;
-import com.meli.socialmeli.dto.post.NewPostDTO;
-import com.meli.socialmeli.dto.post.NewPromoPostDTO;
-import com.meli.socialmeli.dto.post.PromoPostCount;
+import com.meli.socialmeli.dto.post.*;
 import com.meli.socialmeli.dto.user.UserPromoPostsDTO;
+import com.meli.socialmeli.exception.PostAlreadyInsertedException;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IPostRepository;
@@ -25,12 +23,13 @@ public class PostService implements IPostService{
     IUserRepository iUserRepository;
 
     @Override
-    public void addPost(NewPostDTO newPost) throws UserIdNotFoundException {
+    public void addPost(PostDTO newPost) throws UserIdNotFoundException, PostAlreadyInsertedException {
         if(iUserRepository.findUserById(newPost.getUserId()) == null) {
             throw new UserIdNotFoundException(newPost.getUserId());
         }
 
-        iPostRepository.insertPost(PostMapper.toPost(newPost));
+        if(iPostRepository.insertPost(PostMapper.toPost(newPost)))
+            throw new PostAlreadyInsertedException(newPost.getUserId(),newPost.getPostId());
     }
 
     @Override
@@ -46,12 +45,13 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public void addPromoPost(NewPromoPostDTO newPromoPost) throws UserIdNotFoundException {
+    public void addPromoPost(PostDTO newPromoPost) throws UserIdNotFoundException, PostAlreadyInsertedException {
         if(iUserRepository.findUserById(newPromoPost.getUserId()) == null) {
             throw new UserIdNotFoundException(newPromoPost.getUserId());
         }
 
-        iPostRepository.insertPost(PostMapper.toPromoPost(newPromoPost));
+        if(iPostRepository.insertPost(PostMapper.toPost(newPromoPost)))
+            throw new PostAlreadyInsertedException(newPromoPost.getUserId(),newPromoPost.getPostId());
     }
 
     @Override

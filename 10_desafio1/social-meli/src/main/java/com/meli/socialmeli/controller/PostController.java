@@ -1,9 +1,7 @@
 package com.meli.socialmeli.controller;
 
-import com.meli.socialmeli.dto.post.FollowedPostsDTO;
-import com.meli.socialmeli.dto.post.NewPostDTO;
-import com.meli.socialmeli.dto.post.NewPromoPostDTO;
-import com.meli.socialmeli.dto.post.PromoPostCount;
+import com.meli.socialmeli.dto.post.*;
+import com.meli.socialmeli.exception.PostAlreadyInsertedException;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 import com.meli.socialmeli.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ public class PostController {
 
     //Requirement US 0005
     @PostMapping("/newpost")
-    public ResponseEntity<?> newPost(@RequestBody NewPostDTO newPost) throws UserIdNotFoundException {
+    public ResponseEntity<?> newPost(@RequestBody PostDTO newPost) throws UserIdNotFoundException, PostAlreadyInsertedException {
         iPostService.addPost(newPost);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -33,7 +31,7 @@ public class PostController {
 
     //Requirement US 0010
     @PostMapping("/newpromopost")
-    public ResponseEntity<?> newPromoPost(@RequestBody NewPromoPostDTO newPromoPost) throws UserIdNotFoundException {
+    public ResponseEntity<?> newPromoPost(@RequestBody PostDTO newPromoPost) throws UserIdNotFoundException, PostAlreadyInsertedException {
         iPostService.addPromoPost(newPromoPost);
         return new ResponseEntity<>(HttpStatus.OK);
     }

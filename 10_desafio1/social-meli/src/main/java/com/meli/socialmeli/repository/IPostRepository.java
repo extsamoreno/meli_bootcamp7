@@ -6,7 +6,7 @@ import com.meli.socialmeli.model.User;
 import java.util.List;
 
 public interface IPostRepository {
-    void insertPost(Post post);
+    boolean insertPost(Post post);
     List<Post> getFollowedPosts(List<User> followed, String order);
     List<Post> getPromoPosts(Integer userId);
 }

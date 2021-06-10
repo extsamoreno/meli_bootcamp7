@@ -5,24 +5,22 @@ import com.meli.socialmeli.model.Product;
 
 public class ProductMapper {
     public static Product toProduct(ProductDTO productDTO) {
-        Product product = new Product();
-        product.setProductId(productDTO.getProductId());
-        product.setProductName(productDTO.getProductName());
-        product.setType(productDTO.getType());
-        product.setBrand(productDTO.getBrand());
-        product.setColor(productDTO.getColor());
-        product.setNotes(productDTO.getNotes());
-        return product;
+        return new Product(
+                productDTO.getProductId(),
+                productDTO.getProductName(),
+                productDTO.getType(),
+                productDTO.getBrand(),
+                productDTO.getColor(),
+                productDTO.getNotes());
     }
 
     public static ProductDTO toProductDTO(Product product) {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setProductId(product.getProductId());
-        productDTO.setProductName(product.getProductName());
-        productDTO.setType(product.getType());
-        productDTO.setBrand(product.getBrand());
-        productDTO.setColor(product.getColor());
-        productDTO.setNotes(product.getNotes());
-        return productDTO;
+        return new ProductDTO(
+                product.getProductId(),
+                product.getProductName(),
+                product.getType(),
+                product.getBrand(),
+                product.getColor(),
+                product.getNotes());
     }
 }

@@ -3,70 +3,60 @@
     "userId": 1,
     "userName": "fgomez",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 2,
     "userName": "aespinola",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 3,
     "userName": "dnieto",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 4,
     "userName": "dbonometti",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 5,
     "userName": "pwilliam",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 6,
     "userName": "mvalverde",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 7,
     "userName": "mstefanutti",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 8,
     "userName": "jperez",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 9,
     "userName": "jgonzalez",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   },
   {
     "userId": 10,
     "userName": "hfernandez",
     "followed": [],
-    "followers": [],
-    "post": []
+    "followers": []
   }
 ]
