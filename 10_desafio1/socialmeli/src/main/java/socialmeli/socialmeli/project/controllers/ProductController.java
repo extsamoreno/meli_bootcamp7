@@ -29,8 +29,9 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostArrayDto> getPostList (@PathVariable Integer userId) throws NoPostsFoundException {
-       return new ResponseEntity<>(iProductService.getArrayPostById(userId), HttpStatus.OK);
+    public ResponseEntity<PostArrayDto> getPostList
+            (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "date_asc") String order) throws NoPostsFoundException {
+       return new ResponseEntity<>(iProductService.getArrayPostById(userId,order), HttpStatus.OK);
     }
 
 
