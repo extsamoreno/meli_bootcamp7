@@ -34,27 +34,32 @@ public class UsersController {
     ISocialService iSocialService;
 
 
-
+ // ESTE ENDPOINT SE UTILIZA EN LAS PRUEBAS PARA CARGAR INICIALMENTE CLIENTES, VENDEDORES Y RELACIONES DE SEGUIMIENTO
+ // SE DEBE CORRER ESTE ENDPOINT ANTES DE HACER PRUEBAS.  Ver archivo postman!
     @PostMapping("/crearDB")
-    public void crearDB() throws UserIdNotFoundException, SellerIdNotFoundException, RegisteredFollowerException {    //Se crea la base de datos de prueba
+    public void crearDB() throws UserIdNotFoundException, SellerIdNotFoundException, RegisteredFollowerException {
         iInitRepository.altaUsuarios();
         iInitRepository.altaVendedores();
         iInitRepository.follow();
-        //iInitRepository.createPost();
 
-
-
+        /*
+        Se crean usuarios ID del 1 al 7
+        Se crean vendedores ID del 1 al 7
+        Usuario 1 sigue a vendedor 1
+        Usuario 2 sigue a vendedores 1, 2 y 3
+        Usuario 3 sigue a vendedores 1, 3 y 5
+         */
     }
 
-    @PostMapping("/listar")    //Se listan las BD, prueba para verificar que funciona ok
+    //PARA TESTING
+    @PostMapping("/listar")
     public void listar()  {
        iUserRepository.listUsers();
        iSellerRepository.listSeller();
-
-
     }
 
-    @PostMapping("/listarPublicacionesPorVendedor/{id}")    //Se listan las BD, prueba para verificar que funciona ok
+    //PARA TESTING
+    @PostMapping("/listarPublicacionesPorVendedor/{id}")
     public void listarPublicaciones(@PathVariable int id)  {
        SellerModel vendedor= iSellerRepository.getVendedorById(id);
 
@@ -96,10 +101,6 @@ public class UsersController {
     public ResponseEntity<FollowedListDTO> followedList (@PathVariable int id, @RequestParam (required = false, defaultValue = "")String order)throws UserIdNotFoundException{
         return new ResponseEntity<>(iSocialService.getFollowedList(id,order),HttpStatus.OK);
     }
-
-
-
-
 
 
 

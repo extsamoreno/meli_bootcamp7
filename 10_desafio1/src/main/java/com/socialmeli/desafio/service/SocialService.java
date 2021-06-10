@@ -196,6 +196,55 @@ public class SocialService implements ISocialService {
     }
 
 
+
+    public CountPromoDTO countPromoBySeller(int sellerId) throws SellerIdNotFoundException {
+        SellerModel seller = iSellerRepository.getVendedorById(sellerId);
+        int count = 0;
+
+        if (seller == null) {
+            throw new SellerIdNotFoundException(sellerId);
+        }
+
+        for (int i = 0; i < seller.getPosts().size(); i++) {
+            PostModel post = seller.getPosts().get(i);
+
+            if (post.isHasPromo()) {
+                count++;
+            }
+        }
+        return SocialMapper.countPromoDTO(seller, count);
+    }
+
+
+    public PromoListSellerDTO listPromo(int sellerId, String order) throws SellerIdNotFoundException {  //CU0012
+        ArrayList<PostPromoDTO> posts = new ArrayList<>();
+
+        SellerModel seller = iSellerRepository.getVendedorById(sellerId);
+
+        if (seller == null) {
+            throw new SellerIdNotFoundException(sellerId);
+        }
+
+        for (int i = 0; i < seller.getPosts().size(); i++) {
+            PostModel publicacion = seller.getPosts().get(i);
+
+            if (publicacion.isHasPromo()) {
+                posts.add(SocialMapper.toPromoDto(publicacion));
+            }
+        }
+
+        if (order.equals("name_asc")) {
+            sortPromoAsc(posts);
+
+        } else if (order.equals("name_desc")) {
+            sortPromoDesc(posts);
+        }
+        return SocialMapper.toPromoListVendedorDTO(seller, posts);
+    }
+
+
+    //______________________SORTERS_____________________
+
     public void sortUserAsc(ArrayList<UserDTO> aSortear) {
 
         Collections.sort(aSortear, new Comparator<UserDTO>() {
@@ -282,50 +331,8 @@ public class SocialService implements ISocialService {
     }
 
 
-    public CountPromoDTO countPromoBySeller(int sellerId) throws SellerIdNotFoundException {
-        SellerModel seller = iSellerRepository.getVendedorById(sellerId);
-        int count = 0;
-
-        if (seller == null) {
-            throw new SellerIdNotFoundException(sellerId);
-        }
-
-        for (int i = 0; i < seller.getPosts().size(); i++) {
-            PostModel post = seller.getPosts().get(i);
-
-            if (post.isHasPromo()) {
-                count++;
-            }
-        }
-        return SocialMapper.countPromoDTO(seller, count);
-    }
 
 
-    public PromoListSellerDTO listPromo(int sellerId, String order) throws SellerIdNotFoundException {  //CU0012
-        ArrayList<PostPromoDTO> posts = new ArrayList<>();
-
-        SellerModel seller = iSellerRepository.getVendedorById(sellerId);
-
-        if (seller == null) {
-            throw new SellerIdNotFoundException(sellerId);
-        }
-
-        for (int i = 0; i < seller.getPosts().size(); i++) {
-            PostModel publicacion = seller.getPosts().get(i);
-
-            if (publicacion.isHasPromo()) {
-                posts.add(SocialMapper.toPromoDto(publicacion));
-            }
-        }
-
-        if (order.equals("name_asc")) {
-            sortPromoAsc(posts);
-
-        } else if (order.equals("name_desc")) {
-            sortPromoDesc(posts);
-        }
-        return SocialMapper.toPromoListVendedorDTO(seller, posts);
-    }
 
 
 }

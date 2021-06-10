@@ -37,6 +37,7 @@ public interface ISocialService {
     void sortSellerDesc(ArrayList<SellerDTO> aSortear);
 
     CountPromoDTO countPromoBySeller (int sellerId) throws SellerIdNotFoundException;
+
     PromoListSellerDTO listPromo (int sellerId, String order) throws SellerIdNotFoundException;
 
 }
