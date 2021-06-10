@@ -16,6 +16,5 @@ public class User{
     private List<Integer> followers;
     private List<Integer> following;
     private List<Integer> posts;
-    private List<Integer> promPosts;
 
 }

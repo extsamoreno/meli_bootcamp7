@@ -3,6 +3,7 @@ package com.example.SocialMeli.Controllers;
 import com.example.SocialMeli.Exceptions.*;
 
 import com.example.SocialMeli.Services.DTOs.NonPromoPostDTO;
+import com.example.SocialMeli.Services.DTOs.PostCountDTO;
 import com.example.SocialMeli.Services.DTOs.PostDTO;
 import com.example.SocialMeli.Services.DTOs.PromoPostDTO;
 import com.example.SocialMeli.Services.iPostService;
@@ -34,5 +35,14 @@ public class PostController {
     @GetMapping("/products/followed/{userId}/list")
     public ResponseEntity<List<PostDTO>> getFollowedPosts (@PathVariable int userId, @RequestParam(defaultValue="date_desc") String order) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
         return new ResponseEntity<>(iPostService.getFollowedPost(userId, order) ,HttpStatus.OK);
+    }
+
+    @GetMapping("/products/{userId}/countPromo")
+    public ResponseEntity<PostCountDTO> getUserPromPostCount (@PathVariable int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
+        return new ResponseEntity<>(iPostService.getPromPostsCant(userId) ,HttpStatus.OK);
+    }
+    @GetMapping("/products/{userId}/list")
+    public ResponseEntity<List<PromoPostDTO>> getUserPromPosts (@PathVariable int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
+        return new ResponseEntity<>(iPostService.getPromPostsByUser(userId) ,HttpStatus.OK);
     }
 }

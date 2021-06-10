@@ -23,8 +23,29 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
     @Autowired
     iDataRepository iDataRepository;
 
+    @Override
+    public PostCountDTO getPromPostsCant(int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
 
+        User user = iDataRepository.getUserByID(userId);
 
+        return new PostCountDTO(user.getId(), user.getName(), this.getPromPostsByUser(userId).size());
+
+    }
+    public List<PromoPostDTO> getPromPostsByUser(int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
+
+        User user = iDataRepository.getUserByID(userId);
+        List<PromoPostDTO> output = new ArrayList<>();
+        List<Post> posts = iDataRepository.getPostsByIds(user.getPosts());
+        for (int j = 0; j < posts.size(); j++) {
+            if (posts.get(j).getHasPromo()){
+                Product product = iDataRepository.getProductByID(posts.get(j).getProductId());
+                output.add( PostMapper.toPromDTO(posts.get(j),product));
+            }
+        }
+
+        return output;
+
+    }
     private Boolean isPostIdUsed(int postId){
         try{
             iDataRepository.getPostByID(postId);
@@ -61,13 +82,7 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
 
         List<Post> posts = iDataRepository.getPosts();
         if(!this.isPostIdUsed(post.getId())){
-            if(post.getHasPromo()){
-                user.getPromPosts().add(post.getId());
-            }
-            else{
-                user.getPosts().add(post.getId());
-            }
-
+            user.getPosts().add(post.getId());
             posts.add(post);
         }
         else{
@@ -106,23 +121,18 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
     public List<PostDTO> getFollowedPost(int userId, String order) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
 
         User user = iDataRepository.getUserByID(userId);
-
         List<PostDTO> output = new ArrayList<>();
         for (int i = 0; i < user.getFollowing().size(); i++) {
-
             User followed = iDataRepository.getUserByID(user.getFollowing().get(i));
             List<Post> posts = iDataRepository.getPostsByIds(followed.getPosts());
             for (int j = 0; j < posts.size(); j++) {
-
-                Product product = iDataRepository.getProductByID(posts.get(j).getProductId());
-                output.add( PostMapper.toDTO(posts.get(j),product));
+                if(!posts.get(j).getHasPromo()){
+                    Product product = iDataRepository.getProductByID(posts.get(j).getProductId());
+                    output.add( PostMapper.toDTO(posts.get(j),product));
+                }
             }
-
         }
-
         Comparator<PostDTO> compatator = this.getComparator(order);
-
-
         this.filterPostByDate(output, LocalDate.now().minusWeeks(2), LocalDate.now());
         this.bubbleOrder(output, compatator);
         return output;

@@ -14,6 +14,13 @@ public class PostMapper {
 
         return new PostDTO(post.getUserId(), post.getId(), post.getDate(),null, post.getCategory(), post.getPrice());
     }
+    public static  PromoPostDTO toPromDTO(Post post){
+        return new PromoPostDTO(post.getUserId(), post.getId(), post.getDate(),null, post.getCategory(), post.getPrice(), post.getHasPromo(), post.getDiscount());
+    }
+    public static PromoPostDTO toPromDTO(Post post, Product detail){
+
+        return new PromoPostDTO(post.getUserId(), post.getId(), post.getDate(),ProductMapper.toDTO(detail), post.getCategory(), post.getPrice(), post.getHasPromo(), post.getDiscount());
+    }
     public static PostDTO toDTO(Post post, Product detail){
 
         return new PostDTO(post.getUserId(), post.getId(), post.getDate(),ProductMapper.toDTO(detail), post.getCategory(), post.getPrice());

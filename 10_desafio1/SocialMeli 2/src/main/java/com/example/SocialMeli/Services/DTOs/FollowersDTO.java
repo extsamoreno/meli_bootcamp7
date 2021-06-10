@@ -6,13 +6,13 @@ import lombok.Setter;
 import java.util.List;
 
 @Setter @Getter
-public class FollowersDTO extends Followment {
+public class FollowersDTO extends UserDTO {
 
     private List<UserDTO> followers;
 
     public FollowersDTO(int userID, String userName, List<UserDTO> followers){
         super(userID,userName);
-        this.setUserId(userID);
+        this.setUserID(userID);
         this.setFollowers(followers);
     }
 }
