@@ -10,12 +10,10 @@ import java.util.ArrayList;
 
 public interface IUserService {
     String followUser(int userId, int userIdToFollow) throws UserNotFoundException;
-    void follow(User user, User userTofollow);
-    void addFollower(User user, User follower);
-    void addFollowed(User user, User followed);
     ArrayList<User> getUsersList();
     FollowersCountDTO getFollowersCountDTO(int userId) throws UserNotFoundException;
-    FollowersListDTO getFollowersListDTO(int userId) throws UserNotFoundException;
-    FollowedListDTO getFollowedListDTO(int userId) throws UserNotFoundException;
+    FollowersListDTO getFollowersListDTO(int userId, String order) throws UserNotFoundException;
+    FollowedListDTO getFollowedListDTO(int userId, String order) throws UserNotFoundException;
 
+    String unfollowUser(int userId, int userIdToUnfollow) throws UserNotFoundException;
 }

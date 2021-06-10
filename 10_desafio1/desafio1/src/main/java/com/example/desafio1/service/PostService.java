@@ -11,16 +11,10 @@ import com.example.desafio1.repository.IUserRepository;
 import com.example.desafio1.service.dto.postdto.PostDTO;
 import com.example.desafio1.service.dto.postdto.UserPostListDTO;
 import com.example.desafio1.service.mapper.PostMapper;
-import com.example.desafio1.service.sortutil.CompareDateDesc;
-import com.example.desafio1.service.sortutil.QuickSort;
-import com.example.desafio1.service.sortutil.Sorter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 @Service
 public class PostService implements IPostService{
@@ -81,7 +75,7 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public UserPostListDTO getUserPostListDTO(int userId) throws UserNotFoundException {
+    public UserPostListDTO getUserPostListDTO(int userId, String order) throws UserNotFoundException {
 
         ArrayList<Integer> followedUsers = iUserRepository.getUserById(userId).getFollowed();
 
@@ -91,17 +85,16 @@ public class PostService implements IPostService{
             recentPosts.addAll(iProductPostRepository.getRecentPosts(followedUserId));
         }
 
-        ArrayList<ProductPost> recentOrderedPosts = sortPosts(recentPosts);
+        if (order.equalsIgnoreCase("date_asc"))
+        {
+            recentPosts.sort(Comparator.comparing((ProductPost::getDate)));
+        }
+        else if (order.equalsIgnoreCase("date_desc"))
+        {
+            recentPosts.sort(Collections.reverseOrder(Comparator.comparing((ProductPost::getDate))));
+        }
 
-        return PostMapper.toUserPostListDTO(userId, recentOrderedPosts);
+        return PostMapper.toUserPostListDTO(userId, recentPosts);
     }
 
-    private ArrayList<ProductPost> sortPosts(ArrayList<ProductPost> posts)
-    {
-        ProductPost[] sellerPosts = posts.toArray(new ProductPost[0]);
-        Sorter<ProductPost> sorter = new QuickSort();
-        Comparator<ProductPost> c = new CompareDateDesc();
-        sorter.sort(sellerPosts, c);
-        return new ArrayList<>(Arrays.asList(sellerPosts));
-    }
 }

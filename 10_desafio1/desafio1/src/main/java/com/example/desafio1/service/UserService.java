@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Service
 public class UserService implements IUserService{
@@ -26,20 +28,41 @@ public class UserService implements IUserService{
         return "Todo OK";
     }
 
-    @Override
-    public void follow(User user, User userTofollow) {
+    private void follow(User user, User userTofollow) {
         addFollowed(user, userTofollow);
         addFollower(userTofollow, user);
     }
 
-    @Override
-    public void addFollower(User user, User follower) {
+    private void addFollower(User user, User follower) {
         user.getFollowers().add(follower.getId());
     }
 
-    @Override
-    public void addFollowed(User user, User followed) {
+    private void addFollowed(User user, User followed) {
         user.getFollowed().add(followed.getId());
+    }
+
+    @Override
+    public String unfollowUser(int userId, int userIdToUnfollow) throws UserNotFoundException {
+        User userFollower = iUserRepository.getUserById(userId);
+        User userFollowed = iUserRepository.getUserById(userIdToUnfollow);
+        unfollow(userFollower, userFollowed);
+
+        return "Todo OK";
+    }
+
+    private void unfollow(User user, User userToUnfollow) {
+        removeFollowed(user, userToUnfollow);
+        removeFollower(userToUnfollow, user);
+    }
+
+    private void removeFollower(User user, User follower) {
+        ArrayList<Integer> followers = user.getFollowers();
+        followers.remove((Integer) follower.getId());
+    }
+
+    private void removeFollowed(User user, User followed) {
+        ArrayList<Integer> followedUsers = user.getFollowed();
+        followedUsers.remove((Integer) followed.getId());
     }
 
     @Override
@@ -55,7 +78,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowersListDTO getFollowersListDTO(int userId) throws UserNotFoundException {
+    public FollowersListDTO getFollowersListDTO(int userId, String order) throws UserNotFoundException {
         User user = iUserRepository.getUserById(userId);
         ArrayList<Integer> followersId = user.getFollowers();
         ArrayList<FollowerDTO> followerDTOS = new ArrayList<>();
@@ -64,11 +87,23 @@ public class UserService implements IUserService{
             FollowerDTO followerDTO = UserMapper.toFollowerDTO(iUserRepository.getUserById(followerId));
             followerDTOS.add(followerDTO);
         }
+
+        if (order.equalsIgnoreCase("name_asc"))
+        {
+            followerDTOS.sort(Comparator.comparing((FollowerDTO::getUserName)));
+        }
+        else if (order.equalsIgnoreCase("name_desc"))
+        {
+            followerDTOS.sort(Collections.reverseOrder(Comparator.comparing((FollowerDTO::getUserName))));
+        }
+
         return UserMapper.toFollowersListDTO(user, followerDTOS);
     }
 
+
+
     @Override
-    public FollowedListDTO getFollowedListDTO(int userId) throws UserNotFoundException {
+    public FollowedListDTO getFollowedListDTO(int userId, String order) throws UserNotFoundException {
         User user = iUserRepository.getUserById(userId);
         ArrayList<Integer> followedIds = user.getFollowed();
         ArrayList<FollowedDTO> followedDTOS = new ArrayList<>();
@@ -77,6 +112,16 @@ public class UserService implements IUserService{
             FollowedDTO followedDTO = UserMapper.toFollowedDTO(iUserRepository.getUserById(followedId));
             followedDTOS.add(followedDTO);
         }
+
+        if (order.equalsIgnoreCase("name_asc"))
+        {
+            followedDTOS.sort(Comparator.comparing((FollowedDTO::getUserName)));
+        }
+        else if (order.equalsIgnoreCase("name_desc"))
+        {
+            followedDTOS.sort(Collections.reverseOrder(Comparator.comparing((FollowedDTO::getUserName))));
+        }
+
         return UserMapper.toFollowedListDTO(user, followedDTOS);
     }
 

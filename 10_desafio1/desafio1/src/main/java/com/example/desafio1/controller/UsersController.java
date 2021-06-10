@@ -32,6 +32,13 @@ public class UsersController {
         return new ResponseEntity<>(iUserService.followUser(userId, userIdToFollow), HttpStatus.OK);
     }
 
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<String> unfollowUser(@PathVariable int userId, @PathVariable int userIdToUnfollow)
+            throws UserNotFoundException
+    {
+        return new ResponseEntity<>(iUserService.unfollowUser(userId, userIdToUnfollow), HttpStatus.OK);
+    }
+
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> getFollowersCount(@PathVariable int userId)
             throws UserNotFoundException
@@ -40,17 +47,23 @@ public class UsersController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersListDTO> getFollowersList(@PathVariable int userId)
+    public ResponseEntity<FollowersListDTO> getFollowersList(@PathVariable int userId,
+                                                             @RequestParam(required=false,
+                                                                     defaultValue = "name_asc")
+                                                                     String order)
             throws UserNotFoundException
     {
-        return new ResponseEntity<>(iUserService.getFollowersListDTO(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowersListDTO(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedListDTO> getFollowedList(@PathVariable int userId)
+    public ResponseEntity<FollowedListDTO> getFollowedList(@PathVariable int userId,
+                                                           @RequestParam(required=false,
+                                                                   defaultValue = "name_asc")
+                                                                   String order)
             throws UserNotFoundException
     {
-        return new ResponseEntity<>(iUserService.getFollowedListDTO(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowedListDTO(userId, order), HttpStatus.OK);
     }
 
 }

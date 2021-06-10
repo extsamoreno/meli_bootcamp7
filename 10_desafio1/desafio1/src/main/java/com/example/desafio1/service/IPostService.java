@@ -17,5 +17,5 @@ public interface IPostService {
     ProductPost checkPostId(ProductPost postRequest)
             throws PostIdAlreadyInUseException;
     HashMap<Integer, ProductPost> getPosts();
-    UserPostListDTO getUserPostListDTO(int userId) throws UserNotFoundException;
+    UserPostListDTO getUserPostListDTO(int userId, String order) throws UserNotFoundException;
 }

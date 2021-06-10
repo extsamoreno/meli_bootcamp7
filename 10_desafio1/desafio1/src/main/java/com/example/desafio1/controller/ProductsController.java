@@ -36,10 +36,13 @@ public class ProductsController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserPostListDTO> getUserPostDTO(@PathVariable int userId)
+    public ResponseEntity<UserPostListDTO> getUserPostDTO(@PathVariable int userId,
+                                                          @RequestParam(required=false,
+                                                                  defaultValue = "date_desc")
+                                                                  String order)
             throws UserNotFoundException
     {
-        return new ResponseEntity<>(iPostService.getUserPostListDTO(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iPostService.getUserPostListDTO(userId, order), HttpStatus.OK);
     }
 
 //--------------------------------------------------------------
