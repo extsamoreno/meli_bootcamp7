@@ -1,12 +1,11 @@
-package com.meli.socialmeli.dto;
+package com.meli.socialmeli.dto.user;
 
 import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PromoPostCount {
+public class UserDTO {
     private Integer userId;
     private String userName;
-    private Integer promoProductsCount;
 }

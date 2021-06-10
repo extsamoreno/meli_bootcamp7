@@ -1,6 +1,6 @@
-package com.meli.socialmeli.dto;
+package com.meli.socialmeli.dto.user;
 
-import com.meli.socialmeli.model.Post;
+import com.meli.socialmeli.dto.post.PostDTO;
 
 import java.util.List;
 import lombok.*;
@@ -11,5 +11,5 @@ import lombok.*;
 public class UserPromoPostsDTO {
     private Integer userId;
     private String userName;
-    private List<Post> posts;
+    private List<PostDTO> posts;
 }

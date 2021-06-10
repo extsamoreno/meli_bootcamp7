@@ -1,6 +1,4 @@
-package com.meli.socialmeli.dto;
-
-import com.meli.socialmeli.model.Post;
+package com.meli.socialmeli.dto.post;
 
 import java.util.List;
 import lombok.*;
@@ -10,5 +8,5 @@ import lombok.*;
 @AllArgsConstructor
 public class FollowedPostsDTO {
     private Integer userId;
-    private List<Post> posts;
+    private List<PostDTO> posts;
 }

@@ -1,8 +1,8 @@
 package com.meli.socialmeli.controller;
 
-import com.meli.socialmeli.dto.FollowersCountDTO;
-import com.meli.socialmeli.dto.UserFollowersDTO;
-import com.meli.socialmeli.dto.UserFollowedDTO;
+import com.meli.socialmeli.dto.user.FollowersCountDTO;
+import com.meli.socialmeli.dto.user.UserFollowersDTO;
+import com.meli.socialmeli.dto.user.UserFollowedDTO;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 import com.meli.socialmeli.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,18 +1,14 @@
 package com.meli.socialmeli.service;
 
-import com.meli.socialmeli.dto.FollowersCountDTO;
-import com.meli.socialmeli.dto.UserFollowedDTO;
-import com.meli.socialmeli.dto.UserFollowersDTO;
+import com.meli.socialmeli.dto.user.FollowersCountDTO;
+import com.meli.socialmeli.dto.user.UserFollowedDTO;
+import com.meli.socialmeli.dto.user.UserFollowersDTO;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
-import com.meli.socialmeli.model.Follow;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.IUserRepository;
+import com.meli.socialmeli.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
@@ -55,7 +51,7 @@ public class UserService implements IUserService {
             throw new UserIdNotFoundException(userId);
         }
 
-        return new UserFollowersDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowers(userId,order));
+        return new UserFollowersDTO(user.getUserId(), user.getUserName(), UserMapper.toUsersDTO(iUserRepository.getUserFollowers(userId,order)));
     }
 
     @Override
@@ -66,7 +62,7 @@ public class UserService implements IUserService {
             throw new UserIdNotFoundException(userId);
         }
 
-        return new UserFollowedDTO(user.getUserId(), user.getUserName(), iUserRepository.getUserFollowed(userId,order));
+        return new UserFollowedDTO(user.getUserId(), user.getUserName(), UserMapper.toUsersDTO(iUserRepository.getUserFollowed(userId,order)));
     }
 
     @Override

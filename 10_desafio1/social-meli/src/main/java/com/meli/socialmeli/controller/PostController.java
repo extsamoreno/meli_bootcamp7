@@ -1,9 +1,9 @@
 package com.meli.socialmeli.controller;
 
-import com.meli.socialmeli.dto.FollowedPostsDTO;
-import com.meli.socialmeli.dto.NewPostDTO;
-import com.meli.socialmeli.dto.NewPromoPostDTO;
-import com.meli.socialmeli.dto.PromoPostCount;
+import com.meli.socialmeli.dto.post.FollowedPostsDTO;
+import com.meli.socialmeli.dto.post.NewPostDTO;
+import com.meli.socialmeli.dto.post.NewPromoPostDTO;
+import com.meli.socialmeli.dto.post.PromoPostCount;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 import com.meli.socialmeli.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;

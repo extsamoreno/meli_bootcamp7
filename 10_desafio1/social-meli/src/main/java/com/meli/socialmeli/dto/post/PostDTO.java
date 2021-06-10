@@ -1,21 +1,19 @@
-package com.meli.socialmeli.dto;
+package com.meli.socialmeli.dto.post;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.meli.socialmeli.model.Product;
 import lombok.*;
 
 import java.util.Date;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class NewPromoPostDTO {
+public class PostDTO {
     private Integer userId;
     private Integer postId;
-    @JsonFormat(pattern="dd-MM-yyyy")
     private Date date;
-    private Product detail;
+    private ProductDTO detail;
     private Integer category;
     private double price;
     private boolean hasPromo;

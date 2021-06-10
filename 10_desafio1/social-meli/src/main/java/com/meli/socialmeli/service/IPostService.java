@@ -1,6 +1,10 @@
 package com.meli.socialmeli.service;
 
-import com.meli.socialmeli.dto.*;
+import com.meli.socialmeli.dto.post.FollowedPostsDTO;
+import com.meli.socialmeli.dto.post.NewPostDTO;
+import com.meli.socialmeli.dto.post.NewPromoPostDTO;
+import com.meli.socialmeli.dto.post.PromoPostCount;
+import com.meli.socialmeli.dto.user.UserPromoPostsDTO;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 
 public interface IPostService {
