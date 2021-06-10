@@ -34,7 +34,7 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
             throw new IdNotFoundException(userId);
         }
         if (seller == null) {
-            throw new SellerCanNotFollowException(userId);
+            throw new IdNotFoundException(userIdToFollow);
         }
         if (buyer.isSeller()) {
             throw new SellerCanNotFollowException(userId);
