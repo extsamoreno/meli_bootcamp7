@@ -13,6 +13,9 @@ public class BootstrapSocialMeli implements InitializingBean {
     @Autowired
     IProductRepository productRepository;
 
+    /**
+     * to automatically initialize the databases
+     */
     @Override
     public void afterPropertiesSet() {
         System.out.println("*******************************");

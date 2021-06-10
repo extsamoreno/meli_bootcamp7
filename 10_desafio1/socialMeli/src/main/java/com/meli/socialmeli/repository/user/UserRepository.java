@@ -10,38 +10,69 @@ import java.util.Optional;
 
 @Repository
 public class UserRepository implements IUserRepository {
-
+    /**
+     * database in memory
+     */
     public static List<User> userList = new ArrayList<>();
     public static Integer cont = 0;
 
+    /**
+     * returns an optional of user searching by userId
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public Optional<User> findUserById(Integer userId) {
         return userList.stream().filter(u -> u.getUserId().equals(userId)).findFirst();
     }
 
+    /**
+     * save a new user or update an existing one
+     *
+     * @param user
+     */
     @Override
     public void save(User user) {
         if (alreadyExists(user)) this.update(user);
         else this.create(user);
     }
 
-
+    /**
+     * checks that already exist an user
+     *
+     * @param user
+     * @return
+     */
     private boolean alreadyExists(User user) {
         return this.findUserById(user.getUserId()).isPresent();
     }
 
+    /**
+     * "persist" and updated user in the database
+     *
+     * @param user
+     */
     private void update(User user) {
         User userToRemove = this.findUserById(user.getUserId()).get();
         userList.remove(userToRemove);
         userList.add(user);
     }
 
+    /**
+     * "persist" a new user
+     *
+     * @param user
+     */
     private void create(User user) {
         user.setUserId(cont);
         userList.add(user);
         cont++;
     }
 
+    /**
+     * creates a set of users with relations to initialize the database
+     */
     @Override
     public void loadDatabase() {
         User u1569 = new User(1569, "vendedor1");

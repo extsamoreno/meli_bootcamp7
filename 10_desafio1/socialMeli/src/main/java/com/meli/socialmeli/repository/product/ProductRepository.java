@@ -13,29 +13,56 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository implements IProductRepository {
-
+    /**
+     * database in memory
+     */
     public static List<Publication> postList = new ArrayList<>();
 
+    /**
+     * save a new post if not exist
+     *
+     * @param post
+     * @throws CanNotCreatePostException
+     */
     @Override
     public void save(Publication post) throws CanNotCreatePostException {
         if (alreadyExists(post)) throw new CanNotCreatePostException(post.getIdPost());
         else this.create(post);
     }
 
+    /**
+     * returns a list of publications searching by userId
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public List<Publication> findByUserId(Integer userId) {
         return postList.stream().filter(p -> p.getUserId().equals(userId)).collect(Collectors.toList());
     }
 
-
+    /**
+     * "persist" a new post
+     *
+     * @param post
+     */
     private void create(Publication post) {
         postList.add(post);
     }
 
+    /**
+     * checks that it doesnt exist a post with the same idPost
+     *
+     * @param post
+     * @return
+     */
     private boolean alreadyExists(Publication post) {
         return postList.stream().anyMatch(x -> x.getIdPost().equals(post.getIdPost()));
     }
 
+    /**
+     * creates a set of publications to initialize the database
+     */
     @Override
     public void loadDatabase() {
         //1569 6932 6631 1456 1578
@@ -69,6 +96,12 @@ public class ProductRepository implements IProductRepository {
         );
     }
 
+    /**
+     * create a product sample
+     *
+     * @param userId
+     * @return
+     */
     private Product productSample(Integer userId) {
         return new Product(1, "A product From User:" + userId, "A type", "My brand", "Black Sabbath", "None");
     }
