@@ -2,7 +2,9 @@ package com.meli.socialmeli.service.post;
 
 import com.meli.socialmeli.dto.post.*;
 import com.meli.socialmeli.dto.user.UserPromoPostsDTO;
+import com.meli.socialmeli.exception.InvalidDateException;
 import com.meli.socialmeli.exception.PostAlreadyInsertedException;
+import com.meli.socialmeli.exception.ProductAlreadyPostedException;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.post.IPostRepository;
@@ -24,13 +26,12 @@ public class PostService implements IPostService {
     IUserRepository iUserRepository;
 
     @Override
-    public void addPost(PostDTO newPost) throws UserIdNotFoundException, PostAlreadyInsertedException {
+    public void addPost(PostDTO newPost) throws UserIdNotFoundException, PostAlreadyInsertedException, ProductAlreadyPostedException, InvalidDateException {
         if(iUserRepository.findUserById(newPost.getUserId()) == null) {
             throw new UserIdNotFoundException(newPost.getUserId());
         }
 
-        if(iPostRepository.insertPost(PostMapper.toPost(newPost)))
-            throw new PostAlreadyInsertedException(newPost.getUserId(),newPost.getPostId());
+        iPostRepository.insertPost(PostMapper.toPost(newPost));
     }
 
     @Override
@@ -46,13 +47,12 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void addPromoPost(PostDTO newPromoPost) throws UserIdNotFoundException, PostAlreadyInsertedException {
+    public void addPromoPost(PostDTO newPromoPost) throws UserIdNotFoundException, PostAlreadyInsertedException, ProductAlreadyPostedException, InvalidDateException {
         if(iUserRepository.findUserById(newPromoPost.getUserId()) == null) {
             throw new UserIdNotFoundException(newPromoPost.getUserId());
         }
 
-        if(iPostRepository.insertPost(PostMapper.toPost(newPromoPost)))
-            throw new PostAlreadyInsertedException(newPromoPost.getUserId(),newPromoPost.getPostId());
+        iPostRepository.insertPost(PostMapper.toPost(newPromoPost));
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.meli.socialmeli.repository.post;
 
+import com.meli.socialmeli.exception.InvalidDateException;
+import com.meli.socialmeli.exception.PostAlreadyInsertedException;
+import com.meli.socialmeli.exception.ProductAlreadyPostedException;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.User;
 import com.meli.socialmeli.repository.post.IPostRepository;
@@ -17,16 +20,23 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public boolean insertPost(Post post) {
+    public void insertPost(Post post) throws PostAlreadyInsertedException, ProductAlreadyPostedException, InvalidDateException {
         //Check if the post is not already inserted by the user
         Optional<Post> item = this.posts.stream().filter(i -> i.getPostId().equals(post.getPostId()) && i.getUserId().equals(post.getUserId())).findFirst();
 
-        if(item.isEmpty()) {
-            this.posts.add(post);
-            return false;
-        }
+        if(item.isPresent())
+            throw new PostAlreadyInsertedException(post.getUserId(),post.getPostId());
 
-        return true;
+        //Check if the product is not already posted by the user
+        item = this.posts.stream().filter(i -> i.getDetail().getProductId().equals(post.getDetail().getProductId()) && i.getUserId().equals(post.getUserId())).findFirst();
+
+        if(item.isPresent())
+            throw new ProductAlreadyPostedException(post.getUserId(),post.getDetail().getProductId());
+
+        if(!validDate(post.getDate()))
+            throw new InvalidDateException();
+
+        this.posts.add(post);
     }
 
     @Override
@@ -60,5 +70,10 @@ public class PostRepository implements IPostRepository {
         calendar.getTime();
         calendar.add(Calendar.DATE, -14); //2 weeks
         return calendar.getTime();
+    }
+
+    private boolean validDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        return !calendar.getTime().before(date);
     }
 }

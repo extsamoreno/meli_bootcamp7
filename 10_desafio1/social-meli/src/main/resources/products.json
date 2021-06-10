@@ -1,0 +1,35 @@
+[
+  {
+    "productId": 1,
+    "productName" : "Silla Gamer",
+    "type" : "Gamer",
+    "brand" : "Racer",
+    "color" : "Red & Black",
+    "notes" : "Special Edition"
+
+  },
+  {
+    "productId" : 2,
+    "productName" : "Headset RGB Inalámbrico",
+    "type" : "Gamer",
+    "brand" : "Razer",
+    "color" : "Green with RGB",
+    "notes" : "Sin Batería"
+  },
+  {
+    "productID" : 3,
+    "productName" : "Escritorio en L",
+    "type" : "Melamina",
+    "brand" : "Platinium",
+    "color" : "Silver",
+    "notes" : "Tornillos incluidos"
+  },
+  {
+    "productID" : 4,
+    "productName" : "Teclado Mecánico",
+    "type" : "Oficina",
+    "brand" : "Redragon ",
+    "color" : "White",
+    "notes" : "Bluetooth"
+  }
+]

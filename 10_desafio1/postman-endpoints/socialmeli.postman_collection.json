@@ -11,15 +11,15 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/users/1/follow/2",
+					"raw": "{{url}}/users/3/follow/1",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						"1",
+						"3",
 						"follow",
-						"2"
+						"1"
 					]
 				}
 			},
@@ -31,13 +31,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/users/2/followers/count/",
+					"raw": "{{url}}/users/4/followers/count/",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						"2",
+						"4",
 						"followers",
 						"count",
 						""
@@ -52,13 +52,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/users/2/followers/list",
+					"raw": "{{url}}/users/4/followers/list",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						"2",
+						"4",
 						"followers",
 						"list"
 					]
@@ -72,13 +72,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/users/2/followers/list?order=name_asc",
+					"raw": "{{url}}/users/1/followers/list?order=name_asc",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						"2",
+						"1",
 						"followers",
 						"list"
 					],
@@ -124,13 +124,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/users/1/followed/list",
+					"raw": "{{url}}/users/3/followed/list",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						"1",
+						"3",
 						"followed",
 						"list"
 					]
@@ -144,13 +144,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/users/1/followed/list?order=name_asc",
+					"raw": "{{url}}/users/3/followed/list?order=name_asc",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						"1",
+						"3",
 						"followed",
 						"list"
 					],
@@ -170,13 +170,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/users/1/followed/list?order=name_desc",
+					"raw": "{{url}}/users/3/followed/list?order=name_desc",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						"1",
+						"3",
 						"followed",
 						"list"
 					],
@@ -197,7 +197,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": 2,\n    \"postId\": 5,\n    \"date\": \"30-05-2021\",\n    \"detail\":\n    {\n        \"productId\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50\n}",
+					"raw": "{\n    \"userId\": 1,\n    \"postId\": 5,\n    \"date\": \"30-05-2021\",\n    \"detail\":\n    {\n        \"productId\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -232,13 +232,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/products/newpromopost",
+					"raw": "{{url}}/products/newpost",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"products",
-						"newpromopost"
+						"newpost"
 					]
 				}
 			},
@@ -250,14 +250,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/products/followed/1/list",
+					"raw": "{{url}}/products/followed/3/list",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"products",
 						"followed",
-						"1",
+						"3",
 						"list"
 					]
 				}
@@ -322,15 +322,15 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/users/1/unfollow/2",
+					"raw": "{{url}}/users/3/unfollow/4",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"users",
-						"1",
+						"3",
 						"unfollow",
-						"2"
+						"4"
 					]
 				}
 			},

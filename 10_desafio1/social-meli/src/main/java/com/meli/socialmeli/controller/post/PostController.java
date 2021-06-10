@@ -1,7 +1,9 @@
 package com.meli.socialmeli.controller.post;
 
 import com.meli.socialmeli.dto.post.*;
+import com.meli.socialmeli.exception.InvalidDateException;
 import com.meli.socialmeli.exception.PostAlreadyInsertedException;
+import com.meli.socialmeli.exception.ProductAlreadyPostedException;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
 import com.meli.socialmeli.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class PostController {
 
     //Requirement US 0005
     @PostMapping("/newpost")
-    public ResponseEntity<?> newPost(@RequestBody PostDTO newPost) throws UserIdNotFoundException, PostAlreadyInsertedException {
+    public ResponseEntity<?> newPost(@RequestBody PostDTO newPost) throws UserIdNotFoundException, PostAlreadyInsertedException, ProductAlreadyPostedException, InvalidDateException {
         iPostService.addPost(newPost);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -31,7 +33,7 @@ public class PostController {
 
     //Requirement US 0010
     @PostMapping("/newpromopost")
-    public ResponseEntity<?> newPromoPost(@RequestBody PostDTO newPromoPost) throws UserIdNotFoundException, PostAlreadyInsertedException {
+    public ResponseEntity<?> newPromoPost(@RequestBody PostDTO newPromoPost) throws UserIdNotFoundException, PostAlreadyInsertedException, ProductAlreadyPostedException, InvalidDateException {
         iPostService.addPromoPost(newPromoPost);
         return new ResponseEntity<>(HttpStatus.OK);
     }

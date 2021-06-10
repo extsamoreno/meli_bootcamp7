@@ -1,5 +1,6 @@
 package com.meli.socialmeli.dto.post;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
 public class PostDTO {
     private Integer userId;
     private Integer postId;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date date;
     private ProductDTO detail;
     private Integer category;
