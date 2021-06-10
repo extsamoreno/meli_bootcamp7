@@ -2,18 +2,24 @@ package com.socialMeli.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.socialMeli.exceptions.*;
-import com.socialMeli.models.*;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.socialMeli.exceptions.FailCreatePostException;
+import com.socialMeli.exceptions.FailLoadDatabase;
+import com.socialMeli.exceptions.UserIdNotFoundException;
+import com.socialMeli.exceptions.UserNotFoundException;
+import com.socialMeli.models.Post;
+import com.socialMeli.models.PromoPost;
+import com.socialMeli.models.Seller;
+import com.socialMeli.models.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -23,16 +29,17 @@ public class SocialMeliRepository implements iSocialMeliRepository {
     private HashMap<Integer, Seller> sellers;
     private AtomicInteger userId;
 
-    private HashMap<Integer, Post> posts;
     private AtomicInteger postId;
 
-    public SocialMeliRepository(){
-        this.users = new HashMap<>();
-
+    public SocialMeliRepository() throws FailLoadDatabase {
+        this.userId = new AtomicInteger(1);
+        this.postId = new AtomicInteger(1);
+        loadUsersHashmap();
+        loadSellersHashMap();
     }
 
     @Override
-    public List<Object> loadDatabase(String pathFile) throws FailLoadDatabase {
+    public List<User> loadDatabase(String pathFile) throws FailLoadDatabase {
         File file = null;
         try {
             file = ResourceUtils.getFile("classpath:"+pathFile);
@@ -41,36 +48,45 @@ public class SocialMeliRepository implements iSocialMeliRepository {
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<Object>> typeRef = new TypeReference<>() {};
-        List<Object> objectJSON = null;
+        objectMapper.registerModule(new JavaTimeModule());
+        TypeReference<List<User>> typeRef = new TypeReference<>() {};
+        List<User> userJSON = null;
 
         try {
-            objectJSON = objectMapper.readValue(file, typeRef);
+            userJSON = objectMapper.readValue(file, typeRef);
         } catch(IOException e) {
             throw new FailLoadDatabase(pathFile);
         }
-        return objectJSON;
+        return userJSON;
     }
 
     @Override
-    public void updateDatabase(List<User> users, String pathFile) throws FailUploadDatabase {
-        FileWriter file = null;
-        try {
-            file = new FileWriter("classpath:"+pathFile);
-            file.write(new Gson().toJson(users));
-        } catch(IOException e) {
-            throw new FailUploadDatabase(pathFile);
+    public void loadUsersHashmap() throws FailLoadDatabase {
+        this.users = new HashMap<>();
+        List<User> usersDB = loadDatabase("users.json");
+        usersDB.stream().forEach(user -> this.users.put(this.userId.getAndIncrement(), user));
+    }
+
+    @Override
+    public void loadSellersHashMap () {
+        this.sellers = new HashMap<>();
+        for (Map.Entry<Integer, User> entry : this.users.entrySet()) {
+            entry.getValue().getFollowing().stream().forEach(seller -> this.sellers.put(this.userId.getAndIncrement(), seller));
         }
     }
 
     @Override
-    public Object findById(Integer id) throws UserNotFoundException {
-        Object result = users.get(userId);
-        if (result == null)
-            result = sellers.get(userId);
-        if (result == null)
+    public Seller findSellerById(Integer id) throws UserNotFoundException {
+        if (this.sellers.get(id) == null)
             throw new UserNotFoundException(id);
-        return result;
+        return sellers.get(id);
+    }
+
+    @Override
+    public User findUserById(Integer id) throws UserNotFoundException {
+        if (this.users.get(id) == null)
+            throw new UserNotFoundException(id);
+        return this.users.get(id);
     }
 
     @Override
@@ -92,20 +108,21 @@ public class SocialMeliRepository implements iSocialMeliRepository {
     }
 
     @Override
-    public void newPost(StandardPost newPost) throws FailCreatePostException {
+    public void newPost(Post newPost) throws FailCreatePostException {
         try {
-            this.posts.put(this.postId.getAndIncrement(), newPost);
+            this.sellers.get(newPost.getSellerId()).getPosts().add(newPost);
         } catch (Exception e){
             throw new FailCreatePostException();
         }
     }
 
     @Override
-    public void newPromoPost(PromoPost newPromoPost) throws FailCreatePostException {
+    public void newPost(PromoPost newPromoPost) throws FailCreatePostException {
         try {
-            this.posts.put(this.postId.getAndIncrement(), newPromoPost);
+            this.sellers.get(newPromoPost.getSellerId()).getPromoPosts().add(newPromoPost);
         } catch (Exception e){
             throw new FailCreatePostException();
         }
     }
+
 }

@@ -14,6 +14,7 @@ public class Seller extends User implements Comparable<Seller>{
 
     private ArrayList<UserDTO> followers;
     private ArrayList<Post> posts;
+    private ArrayList<PromoPost> promoPosts;
 
     //0 si son iguales, <0 si username va antes de o.username, >0 al reves
     @Override

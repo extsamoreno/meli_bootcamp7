@@ -1,5 +1,6 @@
 package com.socialMeli.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,11 +12,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Post {
 
-    private int idPost;
+    private int sellerId;
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     private Product detail;
     private int category;
     private double price;
 
-    public Product getDetail(){ return null;}
+    public boolean hasPromo(){return false;}
+
 }

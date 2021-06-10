@@ -42,5 +42,4 @@ public class HandlerException {
     public ResponseEntity<ErrorDTO> wrongCriteriaOrderException(WrongCriteriaOrderException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
-
 }

@@ -1,19 +1,22 @@
 package com.socialMeli.repository;
 
 import com.socialMeli.exceptions.*;
+import com.socialMeli.models.Post;
 import com.socialMeli.models.PromoPost;
-import com.socialMeli.models.StandardPost;
+import com.socialMeli.models.Seller;
 import com.socialMeli.models.User;
 
 import java.util.List;
 
 public interface iSocialMeliRepository {
 
-    List<Object> loadDatabase(String pathFile) throws FailLoadDatabase;
+    List<User> loadDatabase(String pathFile) throws FailLoadDatabase;
+    void loadUsersHashmap() throws FailLoadDatabase;
+    void loadSellersHashMap ();
 
-    Object findById(Integer id) throws UserNotFoundException;
+    User findUserById(Integer id) throws UserNotFoundException;
+    Seller findSellerById(Integer id) throws UserNotFoundException;
     Integer findByUser (Object user) throws UserIdNotFoundException;
-    void newPost (StandardPost post) throws FailCreatePostException, InvalidDateException;
-    void updateDatabase(List<User> users, String pathFile) throws FailUploadDatabase;
-    void newPromoPost(PromoPost newPromoPost) throws FailCreatePostException;
+    void newPost (Post post) throws FailCreatePostException, InvalidDateException;
+    void newPost(PromoPost newPromoPost) throws FailCreatePostException;
 }

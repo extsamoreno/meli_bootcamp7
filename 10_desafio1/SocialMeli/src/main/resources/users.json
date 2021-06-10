@@ -3,17 +3,69 @@
     "username": "usuario1",
     "following": [
       {
+        "username": "carlos",
+        "following": [],
         "followers": [
           {
-            "username": "usuaior2",
-            "following": []
+            "userId": 2,
+            "username": "agustin"
+          },
+          {
+            "userId": 3,
+            "username": "betina"
           }
         ],
-        "posts": [{
-          "userId": 1235,
-          "idPost" : 18,
-          "date" : "29-04-2021",
-          "detail" :
+        "posts": [
+          {
+            "date" : "29-04-2021",
+            "detail" :
+              {
+                "productId": 1,
+                "productName" : ";Silla Gamer",
+                "type" :"Gamer",
+                "brand" : "Racer",
+                "color" : "Red & Black",
+                "notes": "Special Edition"
+              },
+            "category" : 100,
+            "price" : 1500.50
+          }],
+        "promoPosts": [
+          {
+            "date" : "29-04-2021",
+            "detail" :
+            {
+              "productId": 1,
+              "productName" : "Silla Gamer",
+              "type" :"Gamer",
+              "brand" : "Racer",
+              "color" : "Red & Black",
+              "notes": "Special Edition"
+            },
+            "category" : 100,
+            "price" : 1500.50,
+            "hasPromo": true,
+            "discount": 0.25
+          }
+        ]
+      },
+      {
+        "username": "damian",
+        "following": [],
+        "followers": [
+          {
+            "userId": 2,
+            "username": "agustin"
+          },
+          {
+            "userId": 3,
+            "username": "betina"
+          }
+        ],
+        "posts": [
+          {
+            "date" : "29-04-2020",
+            "detail" :
             {
               "productId": 1,
               "productName" : ";Silla Gamer",
@@ -22,10 +74,80 @@
               "color" : "Red & Black",
               "notes": "Special Edition"
             },
-          "category" : 100,
-          "price" : 1500.50
-        }
+            "category" : 100,
+            "price" : 1500.50
+          }],
+        "promoPosts": [
+          {
+            "date" : "29-04-2021",
+            "detail" :
+            {
+              "productId": 1,
+              "productName" : ";Silla Gamer",
+              "type" :"Gamer",
+              "brand" : "Racer",
+              "color" : "Red & Black",
+              "notes": "Special Edition"
+            },
+            "category" : 100,
+            "price" : 1500.50,
+            "hasPromo": true,
+            "discount": 0.25
+          }
         ]
       }
-    ]}
+    ]
+  },
+  {
+    "username": "usuario2",
+    "following": [
+      {
+        "username": "vendedor2",
+        "following": [],
+        "followers": [
+          {
+            "userId": 3,
+            "username": "usuario3"
+          },
+          {
+            "userId": 4,
+            "username": "usuario4"
+          }
+        ],
+        "posts": [
+          {
+            "date" : "08-06-2021",
+            "detail" :
+            {
+              "productId": 2,
+              "productName" : "Consola",
+              "type" :"Gamer",
+              "brand" : "Nintendo",
+              "color" : "Red & Blue",
+              "notes": "Neon"
+            },
+            "category" : 205,
+            "price" : 40000
+          }],
+        "promoPosts": [
+          {
+            "date" : "29-05-2021",
+            "detail" :
+            {
+              "productId": 3,
+              "productName" : "Teclado Mecanico",
+              "type" :"Gamer",
+              "brand" : "Racer",
+              "color" : "Pink",
+              "notes": "Mechanic Edition"
+            },
+            "category" : 420,
+            "price" : 3000,
+            "hasPromo": true,
+            "discount": 0.10
+          }
+        ]
+      }
+    ]
+  }
 ]

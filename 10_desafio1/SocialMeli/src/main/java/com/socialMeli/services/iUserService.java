@@ -2,10 +2,12 @@ package com.socialMeli.services;
 
 import com.socialMeli.exceptions.UserNotFoundException;
 import com.socialMeli.exceptions.WrongCriteriaOrderException;
-import com.socialMeli.models.DTOs.FollowersCountDTO;
 import com.socialMeli.models.DTOs.FollowListDTO;
+import com.socialMeli.models.DTOs.FollowersCountDTO;
+import com.socialMeli.models.DTOs.UserDTO;
 import com.socialMeli.models.Seller;
-import com.socialMeli.models.User;
+
+import java.util.ArrayList;
 
 public interface iUserService {
 
@@ -14,6 +16,6 @@ public interface iUserService {
     FollowListDTO listFollowers (Integer userId) throws UserNotFoundException;
     FollowListDTO listFollowed (Integer userId) throws UserNotFoundException;
     Void unfollow (Integer userId, Integer userIdToUnfollow) throws UserNotFoundException;
-    Seller orderFollowersByName(Integer sellerId, String order) throws UserNotFoundException, WrongCriteriaOrderException;
-    User orderFollowedByName(Integer userId, String order) throws UserNotFoundException, WrongCriteriaOrderException;
+    ArrayList<UserDTO> orderFollowersByName(Integer sellerId, String order) throws UserNotFoundException, WrongCriteriaOrderException;
+    ArrayList<Seller> orderFollowedByName(Integer userId, String order) throws UserNotFoundException, WrongCriteriaOrderException;
 }

@@ -1,7 +1,6 @@
 package com.socialMeli.exceptions;
 
 import com.socialMeli.models.DTOs.ErrorDTO;
-import com.socialMeli.repository.SocialMeliRepository;
 import org.springframework.http.HttpStatus;
 
 public class FailUploadDatabase extends SocialMeliException {

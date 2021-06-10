@@ -1,7 +1,6 @@
 package com.socialMeli.models.DTOs;
 
 import com.socialMeli.models.Post;
-import com.socialMeli.models.StandardPost;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

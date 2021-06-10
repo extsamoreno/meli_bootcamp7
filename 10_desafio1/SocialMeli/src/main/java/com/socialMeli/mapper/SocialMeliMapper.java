@@ -1,25 +1,27 @@
-package com.socialMeli;
+package com.socialMeli.mapper;
 
 import com.socialMeli.exceptions.UserIdNotFoundException;
-import com.socialMeli.models.*;
 import com.socialMeli.models.DTOs.UserDTO;
+import com.socialMeli.models.Seller;
+import com.socialMeli.models.User;
 import com.socialMeli.repository.iSocialMeliRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ObjectMapper {
+public class SocialMeliMapper implements iSocialMeliMapper{
 
     @Autowired
     iSocialMeliRepository repository;
 
-    public ArrayList<UserDTO> mapUserList (ArrayList<User> users) {
+    public ArrayList<UserDTO> mapUserToDTOList (ArrayList<User> users) {
         return (ArrayList<UserDTO>) users.stream().map(user -> {
             try {
-                return mapUser(user);
+                return mapUserToDTO(user);
             } catch (UserIdNotFoundException e) {
                 e.printStackTrace();
             }
@@ -27,14 +29,14 @@ public class ObjectMapper {
         }).collect(Collectors.toList());
     }
 
-    public UserDTO mapUser (User user) throws UserIdNotFoundException {
+    public UserDTO mapUserToDTO (User user) throws UserIdNotFoundException {
         return (new UserDTO(repository.findByUser(user), user.getUsername()));
     }
 
-    public ArrayList<UserDTO> mapSellerList (ArrayList<Seller> sellers) {
+    public ArrayList<UserDTO> mapSellerToUserDTOList (ArrayList<Seller> sellers) {
         return (ArrayList<UserDTO>) sellers.stream().map(seller -> {
             try {
-                return mapSeller(seller);
+                return mapSellertoUserDTO(seller);
             } catch (UserIdNotFoundException e) {
                 e.printStackTrace();
             }
@@ -42,18 +44,15 @@ public class ObjectMapper {
         }).collect(Collectors.toList());
     }
 
-    public UserDTO mapSeller (Seller seller) throws UserIdNotFoundException {
+    public UserDTO mapSellertoUserDTO (Seller seller) throws UserIdNotFoundException {
         return (new UserDTO(repository.findByUser(seller), seller.getUsername()));
     }
 
-    public ArrayList<UserDTO> mapPromoList (ArrayList<Seller> sellers) {
-        return (ArrayList<UserDTO>) sellers.stream().map(seller -> {
-            try {
-                return mapSeller(seller);
-            } catch (UserIdNotFoundException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }).collect(Collectors.toList());
+    public List<User> mapObjectToUserList (List<Object> objects) {
+        return objects.stream().map(object -> mapObjectToUser(object)).collect(Collectors.toList());
+    }
+
+    public User mapObjectToUser (Object object) {
+        return ((User) object);
     }
 }

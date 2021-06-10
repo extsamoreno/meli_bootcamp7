@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PromoPost extends Post{
 
-    private boolean hasPromo;
+    private boolean hasPromo = true;
     private double discount;
+
+    @Override
+    public boolean hasPromo(){
+        return this.hasPromo;
+    }
 }
