@@ -1,7 +1,7 @@
 # Meli Challenge # 1
 This readme bring some context about the SocialMeli API.
 ## Considerations: 
-##### 1) The User repository have pre-loaded users configured to be loaded each time the API is executed. A hashmap is being used to simulate the database and the pre-loaded users are:
+### 1) The User repository have pre-loaded users configured to be loaded each time the API is executed. A hashmap is being used to simulate the database and the pre-loaded users are:
 `userId: 1 - userName: Usuario 1`
 
 `userId: 2 - userName: Usuario 2`
@@ -18,9 +18,9 @@ There's all the users that can be used for Postman test. If you wanna add anothe
 
 Also, the API is running at 8080 port.
 
-##### 2) For each requirement it was used the next payload examples:
+### 2) For each requirement it was used the next payload examples:
 
-### * 0001 (To be able to carry out the action of "Follow" to a certain seller):
+#### * 0001 (To be able to carry out the action of "Follow" to a certain seller):
 
 Request Type -> `Post`
 
@@ -28,14 +28,14 @@ URL          -> `http://localhost:8080/users/{userId}/follow/{userToFollow}`
 
 Example      -> `http://localhost:8080/users/1/follow/4`
 
-##### Exceptions:
+Exceptions:
   -> if you try to request 2 times in a row the same follow should throw an `UserAlreadyFollowerException`
 
   -> if you put an unknown user id in both cases should throw `UserNotFoundException`
 
 Payload      -> `Not required`
 
-### * 0002 (Obtain the result of the number of users who follow a certain seller):
+#### * 0002 (Obtain the result of the number of users who follow a certain seller):
 
 Request Type -> `Get`
 
@@ -43,12 +43,12 @@ URL          -> `http://localhost:8080/users/{userId}/followers/count`
 
 Example      -> `http://localhost:8080/users/4/followers/count`
 
-##### Exceptions:
+Exceptions:
   -> if you put an unknown user id should throw `UserNotFoundException`
 
 Payload      -> `Not required`
 
-### * 0003/0008 (Get a list of all users who follow a certain seller (Who's following me?)) (Ascending and descending alphabetical ordering):
+#### * 0003/0008 (Get a list of all users who follow a certain seller (Who's following me?)) (Ascending and descending alphabetical ordering):
 
 Request Type -> `Get`
 
@@ -71,7 +71,7 @@ Payload      -> `Not required`
 
 Notes        -> By default, the list will be sorted descending
 
-### * 0004/0008 (Get a list of all sellers that are followed by a certain user (Who am I following?)) (Ascending and descending alphabetical ordering):
+#### * 0004/0008 (Get a list of all sellers that are followed by a certain user (Who am I following?)) (Ascending and descending alphabetical ordering):
 
 Request Type -> `Get`
 
@@ -94,7 +94,7 @@ Payload      -> `Not required`
 
 Notes        -> By default, the list will be sorted descending
 
-### * 0005 (Register a new publication):
+#### * 0005 (Register a new publication):
 
 Request Type -> `Post`
 
@@ -187,7 +187,7 @@ Over Date (OverActualDateException)
 }
 ```
 
-### * 0006/0009 (Obtain a list of the publications made by the sellers that a user follows in the last two weeks (for this take into account sort by date, latest posts first)) (Sort by ascending and descending date):
+#### * 0006/0009 (Obtain a list of the publications made by the sellers that a user follows in the last two weeks (for this take into account sort by date, latest posts first)) (Sort by ascending and descending date):
 
 Request Type -> `Get`
 
@@ -206,7 +206,7 @@ Exceptions:
 
 Payload      -> `Not required`
 
-### * 0007 (To be able to carry out the action of "Unfollow" (stop following) to a certainseller):
+#### * 0007 (To be able to carry out the action of "Unfollow" (stop following) to a certainseller):
 
 Request Type -> `Post`
 
@@ -222,7 +222,7 @@ Exceptions:
   
 Payload      -> `Not required`
 
-### * 0010 (Carry out the publication of a new promotional product):
+#### * 0010 (Carry out the publication of a new promotional product):
 
 Request Type -> `Post`
 
@@ -323,7 +323,7 @@ Over Date (OverActualDateException)
 }
 ```
 
-### * 0011 (Get the amount of promotional products for a given seller):
+#### * 0011 (Get the amount of promotional products for a given seller):
 
 Request Type -> `Get`
 
@@ -337,7 +337,7 @@ Exceptions:
   
 Payload      -> `Not required`
 
-### * 0012 (Get a list of all promotional products from a certain seller):
+#### * 0012 (Get a list of all promotional products from a certain seller):
 
 Request Type -> `Get`
 
