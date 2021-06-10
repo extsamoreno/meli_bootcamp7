@@ -1,9 +1,39 @@
-# Bienvenidos al repositorio de la Wave7
+# Diego Prieto's repository - Wave7
 ---
-A continuación te explicamos como vamos a utilizar este repo!!!
+Inside this repository there's the different activities developed during bootcamp.
 
 ---
+## Challenge #1
 
-Por cada actividad que debas realizar, ya sea de manera individual o grupal, vamos a implementar este repo, en el vas a encontrar en la branch **_master_** una carpeta indicando el nombre de cada uno de los módulos, dentro de ella deberás crear una carpeta con la siguiente denominación: **_Apellido_Nombre_**, la misma sera de uso _personal_, en caso de que la actividad la realicen en grupo deberán crear una carpeta con la siguiente denominación: **_Apellido1_Apellido2_**...**_ApellidoN_**
+It has the following services:
+
+Service                 | Method.   |EndPoint
+------------------------|-----------|-----------
+Follow seller           |Post       |/users/{userId}/follow/{userIdToFollow}
+Count Followers         |Get        |/users/{userId}/followers/count/
+Followers list          |Get        |/users/{UserID}/followers/list
+Sellers Followed list   |Get        |/users/{UserID}/followed/list
+New Post                |Post       |/products/newpost
+Get Posts list from followed <br>sellers|Get      |/products/followed/{userId}/list
+Unfollow seller         |Post       |/users/{userId}/unfollow/{userIdToUnfollow}
+New product in promotion|Post       |/products/newpromopost
+Count products in promotion <br> from sellers  |Get      |/products/{userId}/countPromo/
+List of products in promotion <br> from sellers |Get      |/products/{userId}/list/
+
+<br>
+<br>
+The project has three json that emulates the information from database:
+
+* user.json: Has the information from the users.
+* posts.json: Has the information from posts made by sellers.
+* follow.json: Has the relation between user and ids that the user follows.
+
+<br>
+<br>
+
+__There's a Postman collection to make the tests of each service.__
+
+
+
 
 
