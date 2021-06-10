@@ -1,9 +1,30 @@
-# Bienvenidos al repositorio de la Wave7
----
-A continuación te explicamos como vamos a utilizar este repo!!!
+# Funcionalidades adicionales
 
----
+13. Obtener un listado de todos los productos en promoción de un determinado vendedor y ordenarlos por fecha ascendente y descendente.
 
-Por cada actividad que debas realizar, ya sea de manera individual o grupal, vamos a implementar este repo, en el vas a encontrar en la branch **_master_** una carpeta indicando el nombre de cada uno de los módulos, dentro de ella deberás crear una carpeta con la siguiente denominación: **_Apellido_Nombre_**, la misma sera de uso _personal_, en caso de que la actividad la realicen en grupo deberán crear una carpeta con la siguiente denominación: **_Apellido1_Apellido2_**...**_ApellidoN_**
+Sign:
+
+| Method | Sign |
+| --- | --- |
+| Get      | **Ejemplos:**  <br/> &nbsp;&nbsp;&nbsp; /products/followed/{userId}/list?order=date_asc <br/>  &nbsp;&nbsp;&nbsp; /products/followed/{userId}/list?order=date_desc | 
 
 
+| Order | Description |
+| --- | --- |
+| date_asc      | Fecha ascendente (de más antigua a más nueva) | 
+| date_desc     | Fecha descendente (de más nueva a más antigua)|
+
+
+14. Obtener un listado de todos los productos en promoción de un determinado vendedor y ordenarlos por porcentaje de descuento.
+
+Sign:
+
+| Method | Sign |
+| --- | --- |
+| Get      | **Ejemplos:**  <br/> &nbsp;&nbsp;&nbsp; /products/followed/{userId}/list?order=discount_asc <br/>  &nbsp;&nbsp;&nbsp; /products/followed/{userId}/list?order=discount_desc | 
+
+
+| Order | Description |
+| --- | --- |
+| discount_asc      | Descuento ascendente (de menor porcentaje a mayor) | 
+| discount_desc     | Descuento descendente (de mayor porcentaje a menor )|
