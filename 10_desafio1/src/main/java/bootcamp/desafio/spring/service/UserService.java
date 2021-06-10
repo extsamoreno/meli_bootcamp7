@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -57,10 +58,10 @@ public class UserService implements IUserService{
         }
         switch (order){
             case "name_asc":
-                result.sort((d1,d2) -> d1.getUserName().compareTo(d2.getUserName()));
+                result.sort((d1,d2) -> d1.getUserName().toLowerCase(Locale.ROOT).compareTo(d2.getUserName().toLowerCase(Locale.ROOT)));
                 return result;
             case "name_desc":
-                result.sort((d1,d2) -> d2.getUserName().compareTo(d1.getUserName()));
+                result.sort((d1,d2) -> d2.getUserName().toLowerCase(Locale.ROOT).compareTo(d1.getUserName().toLowerCase(Locale.ROOT)));
                 return result;
             default:
                 return result;
@@ -78,10 +79,10 @@ public class UserService implements IUserService{
         }
         switch (order){
             case "name_asc":
-                result.sort((d1,d2) -> d1.getUserName().compareTo(d2.getUserName()));
+                result.sort((d1,d2) -> d1.getUserName().toLowerCase(Locale.ROOT).compareTo(d2.getUserName().toLowerCase(Locale.ROOT)));
                 return result;
             case "name_desc":
-                result.sort((d1,d2) -> d2.getUserName().compareTo(d1.getUserName()));
+                result.sort((d1,d2) -> d2.getUserName().toLowerCase(Locale.ROOT).compareTo(d1.getUserName().toLowerCase(Locale.ROOT)));
                 return result;
             default:
                 return result;
@@ -97,4 +98,6 @@ public class UserService implements IUserService{
     public ArrayList<User> findAll() {
         return (ArrayList<User>) iClientRepository.findAll();
     }
+
+
 }

@@ -11,7 +11,6 @@ import bootcamp.desafio.spring.repository.IClientRepository;
 import bootcamp.desafio.spring.repository.IFollowRepository;
 import bootcamp.desafio.spring.repository.IPostRepository;
 import bootcamp.desafio.spring.service.dto.*;
-import bootcamp.desafio.spring.service.mapper.PostMapper;
 import bootcamp.desafio.spring.service.mapper.PostPromoMapper;
 import bootcamp.desafio.spring.service.mapper.PostRequestMapper;
 import bootcamp.desafio.spring.util.Utils;
@@ -56,7 +55,7 @@ public class ProductService implements IProductService{
 
     @Override
     public ProductFollowedDTO getPostTheFollows(Long userId, String order) {
-        ArrayList<PostDTO> result = new ArrayList<>();
+        ArrayList<PostPromoDTO> result = new ArrayList<>();
         ArrayList<Follow> follows=iFollowRepository.findByIdFollowing(userId);
         for (Follow f: follows) {
             Optional<User> userOpt= iClientRepository.findById(f.getIdUserFollower());
@@ -64,17 +63,12 @@ public class ProductService implements IProductService{
                 for (Post post: userOpt.get().getPosts()
                  ) {
                     if(Utils.getDaysMinusNow(post.getDate())<14){
-                        result.add(PostMapper.toDTO(post));
+                        result.add(PostPromoMapper.toDTO(post));
                     }
                 }
             }
         }
-        if(order.equals("date_desc")){
-            result.sort((postX,postY) -> postY.getDate().compareTo(postX.getDate()));
-        }else{
-            result.sort((postX,postY) -> postX.getDate().compareTo(postY.getDate()));
-        }
-
+        this.orderPromoPost(result,order);
         return new ProductFollowedDTO(userId,result);
     }
 
@@ -108,7 +102,7 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public PostPromoListDTO getPromosBySellerList(Long userId) throws PostUserNotFoundException {
+    public PostPromoListDTO getPromosBySellerList(Long userId, String order) throws PostUserNotFoundException {
         Optional<User> user= iClientRepository.findById(userId);
         ArrayList<PostPromoDTO> discountPosts= new ArrayList<>();
         if(user.isPresent()){
@@ -117,11 +111,32 @@ public class ProductService implements IProductService{
                     discountPosts.add(PostPromoMapper.toDTO(p));
                 }
             }
+            this.orderPromoPost(discountPosts,order);
             return new PostPromoListDTO(user.get().getUserId(), user.get().getUserName(),discountPosts);
         }else{
             throw new PostUserNotFoundException(userId);
         }
     }
 
+    /**
+     * metodo para ordenar lista de dto retornada
+     * @param posts
+     * @param order
+     */
+    private void orderPromoPost(ArrayList<PostPromoDTO> posts,String order){
+        switch (order){
+            case "date_desc":
+                posts.sort((postX,postY) -> postY.getDate().compareTo(postX.getDate()));
+                break;
+            case "discount_asc":
+                posts.sort((postX,postY) -> postX.getDiscount().compareTo(postY.getDiscount()));
+                break;
+            case "discount_desc":
+                posts.sort((postX,postY) -> postY.getDiscount().compareTo(postX.getDiscount()));
+                break;
+            default:
+                posts.sort((postX,postY) -> postX.getDate().compareTo(postY.getDate()));
+        }
+    }
 
 }

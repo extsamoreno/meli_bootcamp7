@@ -23,5 +23,5 @@ public interface IProductService {
 
     CantPromoDTO getPromosBySeller(Long userId) throws PostUserNotFoundException;
 
-    PostPromoListDTO getPromosBySellerList(Long userId) throws PostUserNotFoundException;
+    PostPromoListDTO getPromosBySellerList(Long userId, String order) throws PostUserNotFoundException;
 }

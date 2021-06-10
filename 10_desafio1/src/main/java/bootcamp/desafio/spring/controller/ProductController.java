@@ -88,7 +88,8 @@ public class ProductController {
      * @return
      */
     @GetMapping("/{userId}/list")
-    public ResponseEntity<PostPromoListDTO> getPromosBySellerList(@PathVariable("userId") Long userId) throws PostUserNotFoundException {
-        return new ResponseEntity<>(iProductService.getPromosBySellerList(userId),HttpStatus.OK);
+    public ResponseEntity<PostPromoListDTO> getPromosBySellerList(@PathVariable("userId") Long userId,
+                                                                  @RequestParam(value = "order", required = false,defaultValue = "") String order) throws PostUserNotFoundException {
+        return new ResponseEntity<>(iProductService.getPromosBySellerList(userId,order),HttpStatus.OK);
     }
 }

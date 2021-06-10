@@ -13,5 +13,5 @@ import java.util.ArrayList;
 public class ProductFollowedDTO {
 
     private long userId;
-    private ArrayList<PostDTO> posts;
+    private ArrayList<PostPromoDTO> posts;
 }
