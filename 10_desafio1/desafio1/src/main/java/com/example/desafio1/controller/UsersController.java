@@ -2,7 +2,7 @@ package com.example.desafio1.controller;
 
 import com.example.desafio1.exception.UserNotFoundException;
 import com.example.desafio1.model.User;
-import com.example.desafio1.service.IUserService;
+import com.example.desafio1.service.user.IUserService;
 import com.example.desafio1.service.dto.userdto.FollowedListDTO;
 import com.example.desafio1.service.dto.userdto.FollowersCountDTO;
 import com.example.desafio1.service.dto.userdto.FollowersListDTO;

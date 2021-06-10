@@ -1,13 +1,11 @@
-package com.example.desafio1.service;
+package com.example.desafio1.service.post;
 
-import com.example.desafio1.exception.ProductInconsistencyException;
-import com.example.desafio1.exception.ProductNotFoundException;
-import com.example.desafio1.exception.PostIdAlreadyInUseException;
-import com.example.desafio1.exception.UserNotFoundException;
+import com.example.desafio1.exception.*;
 import com.example.desafio1.model.Product;
 import com.example.desafio1.model.ProductPost;
 import com.example.desafio1.repository.IProductPostRepository;
 import com.example.desafio1.repository.IUserRepository;
+import com.example.desafio1.service.product.IProductService;
 import com.example.desafio1.service.dto.postdto.PostDTO;
 import com.example.desafio1.service.dto.postdto.UserPostListDTO;
 import com.example.desafio1.service.mapper.PostMapper;
@@ -17,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class PostService implements IPostService{
+public class PostService implements IPostService {
 
     @Autowired
     IProductPostRepository iProductPostRepository;
@@ -32,7 +30,7 @@ public class PostService implements IPostService{
     @Override
     public String createPost(PostDTO postDTO)
             throws ProductNotFoundException, ProductInconsistencyException,
-            PostIdAlreadyInUseException
+            PostIdAlreadyInUseException, WrongProductIdException
     {
         ProductPost productPost = PostMapper.toProductPost(postDTO);
 

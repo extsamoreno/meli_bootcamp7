@@ -1,13 +1,10 @@
 package com.example.desafio1.controller;
 
-import com.example.desafio1.exception.PostIdAlreadyInUseException;
-import com.example.desafio1.exception.ProductInconsistencyException;
-import com.example.desafio1.exception.ProductNotFoundException;
-import com.example.desafio1.exception.UserNotFoundException;
+import com.example.desafio1.exception.*;
 import com.example.desafio1.model.Product;
 import com.example.desafio1.model.ProductPost;
-import com.example.desafio1.service.IPostService;
-import com.example.desafio1.service.IProductService;
+import com.example.desafio1.service.post.IPostService;
+import com.example.desafio1.service.product.IProductService;
 import com.example.desafio1.service.dto.postdto.PostDTO;
 import com.example.desafio1.service.dto.postdto.UserPostListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +27,7 @@ public class ProductsController {
     @PostMapping("/newpost")
     public ResponseEntity<String> createNewPost(@RequestBody PostDTO postDTO)
             throws ProductNotFoundException, ProductInconsistencyException,
-            PostIdAlreadyInUseException
+            PostIdAlreadyInUseException, WrongProductIdException
     {
         return new ResponseEntity<>(iPostService.createPost(postDTO), HttpStatus.OK);
     }

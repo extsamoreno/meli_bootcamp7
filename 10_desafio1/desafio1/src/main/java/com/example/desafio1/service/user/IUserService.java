@@ -1,4 +1,4 @@
-package com.example.desafio1.service;
+package com.example.desafio1.service.user;
 
 import com.example.desafio1.exception.UserNotFoundException;
 import com.example.desafio1.model.User;

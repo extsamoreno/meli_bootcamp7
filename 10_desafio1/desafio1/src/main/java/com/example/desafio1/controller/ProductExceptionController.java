@@ -1,9 +1,6 @@
 package com.example.desafio1.controller;
 
-import com.example.desafio1.exception.PostIdAlreadyInUseException;
-import com.example.desafio1.exception.ProductInconsistencyException;
-import com.example.desafio1.exception.ProductNotFoundException;
-import com.example.desafio1.exception.ProductPostNotFoundException;
+import com.example.desafio1.exception.*;
 import com.example.desafio1.service.dto.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,6 +11,11 @@ public class ProductExceptionController {
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleException(ProductNotFoundException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(WrongProductIdException.class)
+    public ResponseEntity<ErrorDTO> handleException(WrongProductIdException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 

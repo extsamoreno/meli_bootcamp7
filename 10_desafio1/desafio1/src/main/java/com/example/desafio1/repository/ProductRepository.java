@@ -4,7 +4,11 @@ import com.example.desafio1.exception.ProductNotFoundException;
 import com.example.desafio1.model.Product;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository implements IProductRepository{
@@ -31,6 +35,33 @@ public class ProductRepository implements IProductRepository{
     @Override
     public HashMap<Integer, Product> getProductCatalog() {
         return catalog;
+    }
+
+    @Override
+    public boolean isProductInCatalog(Product product) {
+        Collection<Product> products = catalog.values();
+        List<Product> match= products.stream()
+                .filter(prod -> prod.getBrand().equals(product.getBrand()))
+                .filter(prod -> prod.getType().equalsIgnoreCase(product.getType()))
+                .filter(prod -> prod.getProductName().equalsIgnoreCase(product.getProductName()))
+                .collect(Collectors.toList());
+        return match.size() != 0;
+    }
+
+    @Override
+    public int getProductId(Product product) {
+        int id = 0;
+        Collection<Product> products = catalog.values();
+        Product match= products.stream()
+                .filter(prod -> prod.getBrand().equals(product.getBrand()))
+                .filter(prod -> prod.getType().equalsIgnoreCase(product.getType()))
+                .filter(prod -> prod.getProductName().equalsIgnoreCase(product.getProductName()))
+                .findFirst()
+                .get();
+
+        id = match.getProduct_id();
+
+        return id;
     }
 
 

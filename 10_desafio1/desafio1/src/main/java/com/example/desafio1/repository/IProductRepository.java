@@ -12,6 +12,7 @@ public interface IProductRepository {
     Product getProductById(int productId) throws ProductNotFoundException;
     boolean isUsedId(int productId);
     int validId();
-
     HashMap<Integer, Product> getProductCatalog();
+    boolean isProductInCatalog(Product product);
+    int getProductId(Product product);
 }

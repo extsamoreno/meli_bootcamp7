@@ -1,10 +1,11 @@
-package com.example.desafio1.service;
+package com.example.desafio1.service.user;
 
 import com.example.desafio1.exception.UserNotFoundException;
 import com.example.desafio1.model.User;
 import com.example.desafio1.repository.IUserRepository;
 import com.example.desafio1.service.dto.userdto.*;
 import com.example.desafio1.service.mapper.UserMapper;
+import com.example.desafio1.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
     @Autowired
     IUserRepository iUserRepository;

@@ -1,9 +1,6 @@
-package com.example.desafio1.service;
+package com.example.desafio1.service.post;
 
-import com.example.desafio1.exception.ProductInconsistencyException;
-import com.example.desafio1.exception.ProductNotFoundException;
-import com.example.desafio1.exception.PostIdAlreadyInUseException;
-import com.example.desafio1.exception.UserNotFoundException;
+import com.example.desafio1.exception.*;
 import com.example.desafio1.model.ProductPost;
 import com.example.desafio1.service.dto.postdto.PostDTO;
 import com.example.desafio1.service.dto.postdto.UserPostListDTO;
@@ -13,7 +10,7 @@ import java.util.HashMap;
 public interface IPostService {
 
     String createPost(PostDTO postDTO)
-            throws ProductNotFoundException, ProductInconsistencyException, PostIdAlreadyInUseException;
+            throws ProductNotFoundException, ProductInconsistencyException, PostIdAlreadyInUseException, WrongProductIdException;
     ProductPost checkPostId(ProductPost postRequest)
             throws PostIdAlreadyInUseException;
     HashMap<Integer, ProductPost> getPosts();
