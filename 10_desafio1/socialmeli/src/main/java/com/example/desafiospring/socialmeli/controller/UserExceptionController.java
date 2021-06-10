@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class UserExceptionController {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(UserNotFoundException e) {
+    public ResponseEntity<ErrorDTO> handlerGlobalException(UserNotFoundException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus()); //EL HANDLER EXCEPTION ARROJA ESTO
     }
 }

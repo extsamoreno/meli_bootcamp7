@@ -23,7 +23,7 @@ public class PostServiceImpl implements IPostService{
     @Override
     public void newPost(PostDTO post) throws UserNotFoundException {
         userRepository.insertPost(
-                PostMapper.getPost(post)
+                PostMapping.getPostDTO(post)
         );
     }
     @Override
