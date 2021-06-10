@@ -7,11 +7,11 @@ import com.example.demo.model.Product;
 import com.example.demo.model.User;
 import com.example.demo.repositories.IUserRepository;
 import com.example.demo.services.mapper.Mapper;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+
+import java.util.*;
 
 @Service
 public class ProductService implements IProductService{
@@ -44,14 +44,28 @@ public class ProductService implements IProductService{
 
         for (User u : users) {
             for (Post p : u.getPosts()) {
-                if(p.getDate().before(getDateBeforeTwoWeeks())){
+                if(p.getDate().after(getDateBeforeTwoWeeks())){
                     posts.add(p);
                 }
             }
         }
 
+        Collections.sort(posts, Comparator.comparing(Post::getDate));
+
         return userPostsDTO;
     }
+
+    @Override
+    public UserPostsDTO getOrderedPosts(int userId, String order) {
+        UserPostsDTO userPostsDTO = getPostsFromFollowed(userId);
+
+        if(order.equals("date_desc")){
+            Collections.reverse(userPostsDTO.getPosts());
+        }
+
+        return userPostsDTO;
+    }
+
 
     private Date getDateBeforeTwoWeeks() {
         Calendar calendar = Calendar.getInstance();

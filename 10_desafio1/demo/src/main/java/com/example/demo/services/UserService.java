@@ -9,7 +9,10 @@ import com.example.demo.services.mapper.Mapper;
 import com.example.demo.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserServices{
@@ -69,6 +72,29 @@ public class UserService implements IUserServices{
 
         System.out.println(user1.getUserName() + " is no longer following " + user2.getUserName());
         return true;
+    }
+
+    @Override
+    public FollowersListDTO getOrderedFollowersList(int userId, String order) {
+
+        User user = userRepository.getUserById(userId);
+        Collections.sort(user.getFollowers(), Comparator.comparing(UserDTO::getUserName));
+
+        if(order.equals("name_desc")){
+            Collections.reverse(user.getFollowers());
+        }
+        return new FollowersListDTO(user.getUserName(), user.getId(), user.getFollowers());
+    }
+
+    @Override
+    public FollowedListDTO getOrderedFollowedList(int userId, String order) {
+        User user = userRepository.getUserById(userId);
+        Collections.sort(user.getFollowed(), Comparator.comparing(UserDTO::getUserName));
+
+        if(order.equals("name_desc")){
+            Collections.reverse(user.getFollowed());
+        }
+        return new FollowedListDTO(user.getUserName(), user.getId(), user.getFollowed());
     }
 
 

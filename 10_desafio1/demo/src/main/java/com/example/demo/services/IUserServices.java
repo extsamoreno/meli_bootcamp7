@@ -16,4 +16,8 @@ public interface IUserServices {
 
     boolean unfollow(int userId, int userIdToUnfollow);
 
+    FollowersListDTO getOrderedFollowersList(int userId, String order);
+
+    FollowedListDTO getOrderedFollowedList(int userId, String order);
+
 }
