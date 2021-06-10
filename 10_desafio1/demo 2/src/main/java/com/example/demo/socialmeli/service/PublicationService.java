@@ -114,4 +114,28 @@ public class PublicationService implements IPublicationService {
         }
         return count;
     }
+    @Override
+    public PublicationListDTO getPublicationListPromo(int id, String order) throws UserNotFoundException {
+        User user = userRepository.getUserById(id);
+        List<Publication> publications = userRepository.getAllPublication();
+        ArrayList<Publication> arrayList = new ArrayList<>();
+        for (int i = 0; i < user.getPosts().size(); i++) {
+            int idPost = user.getPosts().get(i);
+            Optional<Publication> item = publications.stream().filter(publication -> publication.getId_post() == idPost).findFirst();
+            if (item.isPresent()) {
+                arrayList.add(item.get());
+            }
+        }
+        PublicationListDTO publicationListDTO = new PublicationListDTO();
+        publicationListDTO.setUserId(id);
+        arrayList.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+        ArrayList<Publication> arrayList1 = new ArrayList<>();
+        for (int k = 0; k < arrayList.size(); k++) {
+            if (arrayList.get(k).isHasPromo()) {
+                arrayList1.add(arrayList.get(k));
+            }
+        }
+        publicationListDTO.setPosts(arrayList1);
+        return publicationListDTO;
+    }
 }

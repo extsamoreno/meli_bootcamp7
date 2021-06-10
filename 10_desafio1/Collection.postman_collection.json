@@ -20,7 +20,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8082/users/1/follow/2",
+					"raw": "http://localhost:8082/users/1/follow/3",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -30,7 +30,7 @@
 						"users",
 						"1",
 						"follow",
-						"2"
+						"3"
 					]
 				}
 			},
@@ -64,7 +64,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8082/users/51/followers/list",
+					"raw": "http://localhost:8082/users/3/followers/list",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -72,7 +72,7 @@
 					"port": "8082",
 					"path": [
 						"users",
-						"51",
+						"3",
 						"followers",
 						"list"
 					]
@@ -255,6 +255,51 @@
 					"path": [
 						"products",
 						"newpromopost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Requerimiento cantidad de productos en promoción",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082//products/1/countPromo/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"",
+						"products",
+						"1",
+						"countPromo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Requerimiento listado productos en promoción",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/products/followed/1/listPromo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"products",
+						"followed",
+						"1",
+						"listPromo"
 					]
 				}
 			},

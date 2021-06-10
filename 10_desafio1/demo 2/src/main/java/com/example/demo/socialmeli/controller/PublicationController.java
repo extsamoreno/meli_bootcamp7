@@ -36,4 +36,8 @@ public class PublicationController {
     public ResponseEntity<CountPromoDTO> newPromoPost (@PathVariable int userId) throws UserNotFoundException{
         return new ResponseEntity<CountPromoDTO>(iPublicationService.countPromo(userId),HttpStatus.OK);
     }
+    @GetMapping("/followed/{userId}/listPromo")
+    public ResponseEntity<PublicationListDTO> publicationPromoList (@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException {
+        return new ResponseEntity<PublicationListDTO>(iPublicationService.getPublicationListPromo(userId, order),HttpStatus.OK);
+    }
 }

@@ -14,5 +14,6 @@ public interface IPublicationService {
     void addNewPost (PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException;
     PublicationListDTO getPublicationList (int id, String order) throws UserNotFoundException;
     CountPromoDTO countPromo (int userId) throws UserNotFoundException;
-    public int getCountPromo(int id) throws UserNotFoundException;
+    int getCountPromo(int id) throws UserNotFoundException;
+    PublicationListDTO getPublicationListPromo(int id, String order) throws UserNotFoundException;
 }
