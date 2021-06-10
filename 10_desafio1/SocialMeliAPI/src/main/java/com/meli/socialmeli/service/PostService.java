@@ -39,9 +39,13 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public PostDTOFollowedList getFollowedUserPosts(int userId, String order) throws IncorrectOrderTypeException {
+    public PostDTOFollowedList getFollowedUserPosts(int userId, String order) throws IncorrectOrderTypeException, UserNotFoundException {
         List<Post> totalPostList= new ArrayList<>(); // List that will going to contain all the post for each followed user
-        List<User> followedUsers= iUserRepository.getUserById(userId).getFollowed(); // List of the followed user
+        User user= iUserRepository.getUserById(userId);
+        if (user==null){
+            throw new UserNotFoundException(userId);
+        }
+        List<User> followedUsers= user.getFollowed(); // List of the followed user
         List<Post> postList;
         for (User followedUser : followedUsers) { // for each followed user
             postList = iPostRepository.getPostsByUserId(followedUser.getUserId()); // Take the list of their posts

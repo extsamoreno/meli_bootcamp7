@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 
 public interface IPostService {
     public HttpStatus addNewPost(Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException;
-    public PostDTOFollowedList getFollowedUserPosts(int userId, String order) throws IncorrectOrderTypeException;
+    public PostDTOFollowedList getFollowedUserPosts(int userId, String order) throws IncorrectOrderTypeException, UserNotFoundException;
     public HttpStatus addNewPromotionPost(Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException;
     public PostDTOAllPostList getAllPromotionPost(int userId) throws UserNotFoundException;
     public PostDTOPromoCount getPostPromoCount(int userId) throws UserNotFoundException;

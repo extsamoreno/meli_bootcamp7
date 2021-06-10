@@ -43,9 +43,10 @@ public class PostController {
      * @param order Optional parameter which allows the user to choose a sort order
      * @return the user id and a list of followed post sorted by desc by default
      * @throws IncorrectOrderTypeException if the order defined was an unknown sorting type
+     * @throws UserNotFoundException if the user has not been found
      */
     @GetMapping("/products/followed/{userId}/list")
-    public ResponseEntity<PostDTOFollowedList> getFollowedUserPosts(@PathVariable int userId, @RequestParam(required = false) String order) throws IncorrectOrderTypeException {
+    public ResponseEntity<PostDTOFollowedList> getFollowedUserPosts(@PathVariable int userId, @RequestParam(required = false) String order) throws IncorrectOrderTypeException, UserNotFoundException {
         return new ResponseEntity<>(iPostService.getFollowedUserPosts(userId, order),HttpStatus.OK);
     }
 
