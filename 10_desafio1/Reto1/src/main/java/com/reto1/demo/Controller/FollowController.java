@@ -104,7 +104,7 @@ public class FollowController {
     @GetMapping("/users/create")
     public ResponseEntity<String> create(@RequestBody UserRequest user){
         String name = user.getName()+" id: "+iFollowService.createUser(user);
-        return new ResponseEntity<>("User create "+name,HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("User created "+name,HttpStatus.ACCEPTED);
     }
 
 }
