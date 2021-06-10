@@ -130,4 +130,6 @@ public class SocialController {
     public  ResponseEntity<ListDiscountDTO>   orderDtoNameDesc(@PathVariable int userId,@PathVariable String order) {
         return new ResponseEntity<>(FollowService.orderDtoNameDesc(userId,order), HttpStatus.OK);
 
+    }
+
 }
