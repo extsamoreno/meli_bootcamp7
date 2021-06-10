@@ -17,3 +17,5 @@ US:
 8) Create a new promo post
 9) Get the total of posts that includes a promo for a user
 10) Get a list of all the posts that includes a promo for a user
+
+The only thing is loaded prior to execute any request is the users, without any follower or post, so the first steps are creating a new post and following users.
