@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,10 +16,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestNewProduct {
-    private Integer userId;
-    private Integer id_post;
-    private Date date;
+    private Integer Id;
+    private Integer user;
+    private LocalDate date;
     private Product products;
     private Category category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
 }

@@ -101,6 +101,15 @@
 				"url": null
 			},
 			"response": []
+		},
+		{
+			"name": "CountPromo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
 		}
 	]
 }

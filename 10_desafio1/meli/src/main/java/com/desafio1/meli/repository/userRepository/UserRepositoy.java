@@ -1,5 +1,6 @@
 package com.desafio1.meli.repository.userRepository;
 
+import com.desafio1.meli.exceptions.NotExistUser;
 import com.desafio1.meli.model.*;
 import com.desafio1.meli.service.DTO.*;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -30,64 +31,106 @@ public class UserRepositoy implements IUserrepository {
         this.follow = new HashMap<>();
         this.follower = new HashMap<>();
     }
+    public void loadRepository(){
+        this.users = loadDatabase();
+    }
+
 
     @Override
     public boolean follow(RequestFollowUserToUser requestFollowUserToUser){
         try{
             // If follow list is empty
             if (this.follow.isEmpty()){
-                ArrayList<User> user = new ArrayList<>();
-                user.add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
-                this.follow.put(requestFollowUserToUser.getUser().getId(), user);
+                ArrayList<User> userList = new ArrayList<>();
+                userList.add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
+                this.follow.put(requestFollowUserToUser.getUser().getId(), userList);
             }else{
-                this.follow.get(requestFollowUserToUser.getUser().getId()).add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
+                if (!this.follow.containsKey(requestFollowUserToUser.getUser().getId())){
+                    ArrayList<User> userList = new ArrayList<>();
+                    userList.add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
+                    this.follower.put(requestFollowUserToUser.getUser().getId(), userList);
+                }else {
+                    User getUser = findUserById(requestFollowUserToUser.getUserFollower().getId());
+                    this.follow.get(requestFollowUserToUser.getUser().getId()).add(getUser);
+                }
+
             }
             // If follower list is empty
             if (this.follower.isEmpty()){
-                ArrayList<User> user = new ArrayList<>();
-                user.add(findUserById(requestFollowUserToUser.getUserFollower().getId()));
-                this.follower.put(requestFollowUserToUser.getUser().getId(), user);
+                ArrayList<User> userList = new ArrayList<>();
+                //Agrego al Arreglo user el user que sigue
+                userList.add(findUserById(requestFollowUserToUser.getUser().getId()));
+                // en el key-> seguido agrego el usuario que sigue al seguido
+                this.follower.put(requestFollowUserToUser.getUserFollower().getId(), userList);
             }else{
+                // Si en la key seguido no tiene a nadie se crea el array y se asigna
+                if(!this.follower.containsKey(requestFollowUserToUser.getUserFollower().getId())){
+                    ArrayList<User> userList = new ArrayList<>();
+                    userList.add(findUserById(requestFollowUserToUser.getUser().getId()));
+                    this.follower.put(requestFollowUserToUser.getUserFollower().getId(), userList);
+                }else{
+                    //sino se asigna en el key del seguido
+                    User getUser = findUserById(requestFollowUserToUser.getUser().getId());
+                    this.follower.get(requestFollowUserToUser.getUserFollower().getId()).add(getUser);
+                }
 
-                this.follower.get(requestFollowUserToUser.getUserFollower().getId()).add(findUserById(requestFollowUserToUser.getUser().getId()));
             }
             return true;
         }catch (Exception e){
             return false;
         }
     }
-
     @Override
-    public Integer countFollower(Integer userId){
+    public boolean unFollow(RequestUnFollowUserToUser requestUnFollowUserToUser){
+        boolean status = false;
         try{
-            return  this.follower.get(userId).size();
+            // If follow list is !empty
+            if (!this.follow.isEmpty() && findUserById(requestUnFollowUserToUser.getUserUnFollower().getId())!=null){
+                User user = findUserById(requestUnFollowUserToUser.getUserUnFollower().getId());
+                status =  this.follow.get(requestUnFollowUserToUser.getUser().getId()).remove(user);
+            }
+            // If follower list is !empty
+            if (!this.follower.isEmpty() && findUserById(requestUnFollowUserToUser.getUser().getId())!=null){
+                User user = findUserById(requestUnFollowUserToUser.getUser().getId());
+                status = this.follower.get(requestUnFollowUserToUser.getUserUnFollower().getId()).remove(user);;
+            }
+            return status;
         }catch (Exception e){
-            return -1;
+            return false;
         }
     }
 
     @Override
-    public ResponseFollowersListDTO listFollower(Integer userId){
+    public Integer countFollower(Integer userId) throws NotExistUser{
+        try{
+            return  this.follower.get(userId).size();
+        }catch (Exception e){
+            throw new NotExistUser(userId);
+        }
+    }
+
+    @Override
+    public ResponseFollowersListDTO listFollower(Integer userId) throws NotExistUser{
         ResponseFollowersListDTO responseFollowersListDTO = new ResponseFollowersListDTO();
         try{
             responseFollowersListDTO.setFollowers(this.follower.get(userId));
             responseFollowersListDTO.setUserName(findUserById(userId).getName());
             responseFollowersListDTO.setUserId(userId);
         }catch (Exception e){
-            System.out.println("falla");
+           throw new NotExistUser(userId);
         }
         return responseFollowersListDTO;
     }
 
     @Override
-    public ResponseFollowsListDTO listFollow(Integer userId){
+    public ResponseFollowsListDTO listFollow(Integer userId) throws NotExistUser{
         ResponseFollowsListDTO responseFollowListDTO = new ResponseFollowsListDTO();
         try{
             responseFollowListDTO.setFollow(this.follow.get(userId));
             responseFollowListDTO.setUserName(findUserById(userId).getName());
             responseFollowListDTO.setUserId(userId);
         }catch (Exception e){
-            System.out.println("falla");
+            throw new NotExistUser(userId);
         }
         return responseFollowListDTO;
     }
