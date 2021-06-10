@@ -7,5 +7,5 @@ import com.meli.socialmeli.models.UserMeli;
 public interface IPostRepository {
 
     UserMeli newPostAdd(Post post);
-    UserPostListDTO getPostListById(int userId);
+    UserPostListDTO getPostListById(int userId, String order);
 }

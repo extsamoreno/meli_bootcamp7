@@ -19,13 +19,12 @@ public class ProductController {
     @PostMapping("/newpost")
     public ResponseEntity<UserMeli> SetNewPost(@RequestBody Post post){
         Post post1 = new Post();
-        //Agregar fecha de publicación ?
         return new ResponseEntity<>(iPostService.newPost(post), HttpStatus.OK);
     }
     //Punto 6 Listo
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserPostListDTO> getListPost(@PathVariable int userId){
+    public ResponseEntity<UserPostListDTO> getListPost(@PathVariable int userId, @RequestParam(required = false, defaultValue = "") String order){
 
-        return new ResponseEntity<>(iPostService.getListPosts(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iPostService.getListPosts(userId, order), HttpStatus.OK);
     }
 }

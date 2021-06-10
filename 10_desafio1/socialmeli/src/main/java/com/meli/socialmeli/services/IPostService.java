@@ -7,6 +7,6 @@ import com.meli.socialmeli.models.UserMeli;
 public interface IPostService {
 
     UserMeli newPost(Post post);
-    UserPostListDTO getListPosts(int userId);
+    UserPostListDTO getListPosts(int userId, String order);
 
 }

@@ -17,8 +17,9 @@ public class UserMeli {
     private ArrayList<Integer> followers = new ArrayList<>();
     private ArrayList<Integer> followedBy = new ArrayList<>();
 
-    //private ArrayList<Integer> posts = new ArrayList<>();
     private List<Post> posts = new ArrayList<>();
+
+    private boolean merchant = false;
 
     public UserMeli(int userId, String userName) {
         this.userId = userId;

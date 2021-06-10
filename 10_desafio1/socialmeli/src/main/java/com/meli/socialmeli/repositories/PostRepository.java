@@ -24,7 +24,7 @@ public class PostRepository implements IPostRepository {
 
     private static LocalDate stringToDate(String sDate) {
         List<Integer> dateList = Arrays.stream(sDate.split("-"))
-                .map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+                .map(Integer::parseInt).collect(Collectors.toList());
 
         return LocalDate.of(dateList.get(2), dateList.get(1), dateList.get(0));
     }
@@ -38,38 +38,26 @@ public class PostRepository implements IPostRepository {
         return false;
     }
 
-    @Override
-    public UserPostListDTO getPostListById(int userId) {
-        List<Post> alp = users.get(userId).getPosts().stream().filter(post -> ifTwoWeeks(stringToDate(post.getDate())))
-                .sorted((o2, o1) -> stringToDate(o1.getDate()).compareTo(stringToDate(o2.getDate())))
+    private List<Post> FilterPerWeeks(int userId) {
+        //weeks = 2 in ifTwoWeeks
+        List<Post> postListTwoWeeks = users.get(userId).getPosts().stream()
+                .filter(post -> ifTwoWeeks(stringToDate(post.getDate())))
                 .collect(Collectors.toList());
-//List<Post> alp = users.get(userId).getPosts().stream()
-//                .sorted(Comparator.comparing(o -> stringToDate(o.getDate()))).collect(Collectors.toList());
-
-        return new UserPostListDTO(users.get(userId).getUserId(), alp);
+        return postListTwoWeeks;
     }
 
-
-//    private static List<String> sortedByDate(List<String> dates) {
-//
-////        Instant instant = Instant.now();
-////        String output = formatter.format( instant );
-//
-//        List<String> sortedDates = dates.stream()
-////                .map(this::formatToInstant)     // Las mapeamos a LocalDateTime
-//                .sorted()                       // Las ordenamos según su orden natural
-////                .map(this::formatToString)      // Las convertimos de vuelta a String
-//                .collect(Collectors.toList());  // Creamos una nueva lista con las String ya ordenadas
-//        return sortedDates;
-//    }
-
-//    public static void main(String[] args) {
-//        List<String> list = new ArrayList<>();
-//        list.add("2020-02-12");
-//        list.add("2017-11-02");
-//        list.add("2018-05-11");
-//        list.add("2017-12-55");
-//        System.out.println(" = " + sortedByDate(list));
-//    }
-
+    @Override
+    public UserPostListDTO getPostListById(int userId, String order) {
+        List<Post> alp = FilterPerWeeks(userId);
+        if (order.equals("date_desc")) {
+            alp = alp.stream().sorted((o2, o1) -> stringToDate(o1.getDate()).compareTo(stringToDate(o2.getDate())))
+                    .collect(Collectors.toList());
+            return new UserPostListDTO(users.get(userId).getUserId(), alp);
+        }
+        if (order.equals("date_asc")) {
+            alp = alp.stream().sorted((o1, o2) -> stringToDate(o1.getDate()).compareTo(stringToDate(o2.getDate())))
+                    .collect(Collectors.toList());
+        }
+        return new UserPostListDTO(users.get(userId).getUserId(), alp);
+    }
 }

@@ -1,6 +1,5 @@
 package com.meli.socialmeli.services;
 
-import com.meli.socialmeli.Mappers.UserMapper;
 import com.meli.socialmeli.dto.UserPostListDTO;
 import com.meli.socialmeli.models.Post;
 import com.meli.socialmeli.models.UserMeli;
@@ -9,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PostService implements IPostService{
+public class PostService implements IPostService {
     @Autowired
     IPostRepository iPostRepository;
 
@@ -19,9 +18,8 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public UserPostListDTO getListPosts(int userId) {
-        //return UserMapper.UserMeliToUserPostListDTO(iPostRepository.getPostListById(userId));
-        return iPostRepository.getPostListById(userId);
+    public UserPostListDTO getListPosts(int userId, String order) {
+        return iPostRepository.getPostListById(userId, order);
     }
 
 }
