@@ -80,7 +80,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public FollowDTO unfollowUser(int follower, int followed) throws UserNotFoundException, UserSameIdException, UserAlreadyFollowException {
+    public FollowDTO unfollowUser(int follower, int followed) throws UserNotFoundException, UserSameIdException, UserNotFollowException {
 
         if (followed == follower) {
             throw new UserSameIdException();
@@ -88,7 +88,7 @@ public class UserService implements IUserService {
         User userFollower = iUserRepository.findUserById(follower);
         User userFollowed = iUserRepository.findUserById(followed);
         if (!userFollower.getFollowed().contains(userFollowed))
-            throw new UserAlreadyFollowException(follower, followed);
+            throw new UserNotFollowException(follower, followed);
         return iUserRepository.unfollow(follower, followed);
     }
 
