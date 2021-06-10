@@ -7,6 +7,7 @@ import com.meli.socialmeli.repository.IPostRepository;
 import com.meli.socialmeli.repository.IUserRepository;
 import com.meli.socialmeli.service.dto.PostDTOAllPostList;
 import com.meli.socialmeli.service.dto.PostDTOFollowedList;
+import com.meli.socialmeli.service.dto.PostDTOPromoCount;
 import com.meli.socialmeli.service.util.QuickSort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -93,6 +94,20 @@ public class PostService implements IPostService {
         requestList.setUserName(user.getUserName());
         requestList.setPosts(postList);
         return requestList;
+    }
+
+    @Override
+    public PostDTOPromoCount getPostPromoCount(int userId) throws UserNotFoundException {
+        List<Post> postList= iPostRepository.getPromotionPostByUserId(userId);
+        User user= iUserRepository.getUserById(userId);
+        if(user==null){
+            throw new UserNotFoundException(userId);
+        }
+        PostDTOPromoCount requestPost= new PostDTOPromoCount();
+        requestPost.setUserId(userId);
+        requestPost.setUserName(user.getUserName());
+        requestPost.setPromoproducts_count(postList.size());
+        return requestPost;
     }
 
     public boolean isAValidPost(Post post)  {

@@ -4,6 +4,7 @@ import com.meli.socialmeli.exception.*;
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.service.dto.PostDTOAllPostList;
 import com.meli.socialmeli.service.dto.PostDTOFollowedList;
+import com.meli.socialmeli.service.dto.PostDTOPromoCount;
 import org.springframework.http.HttpStatus;
 
 public interface IPostService {
@@ -11,4 +12,5 @@ public interface IPostService {
     public PostDTOFollowedList getFollowedUserPosts(int userId, String order) throws IncorrectOrderTypeException;
     public HttpStatus addNewPromotionPost(Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException;
     public PostDTOAllPostList getAllPromotionPost(int userId) throws UserNotFoundException;
+    public PostDTOPromoCount getPostPromoCount(int userId) throws UserNotFoundException;
 }

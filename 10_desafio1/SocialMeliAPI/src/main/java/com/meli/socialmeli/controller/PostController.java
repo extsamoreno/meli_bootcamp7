@@ -5,6 +5,7 @@ import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.service.IPostService;
 import com.meli.socialmeli.service.dto.PostDTOAllPostList;
 import com.meli.socialmeli.service.dto.PostDTOFollowedList;
+import com.meli.socialmeli.service.dto.PostDTOPromoCount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,11 @@ public class PostController {
     public ResponseEntity<HttpStatus> addNewPromotionPost(@RequestBody Post post) throws MissingDataException, UserNotFoundException, PostIdAlreadyExistException, OverActualDateException {
         HttpStatus status= iPostService.addNewPromotionPost(post);
         return new ResponseEntity<>(status, status);
+    }
+
+    @GetMapping("/products/{userId}/countPromo")
+    public ResponseEntity<PostDTOPromoCount> getPostPromoCount(@PathVariable int userId) throws UserNotFoundException {
+        return new ResponseEntity<>(iPostService.getPostPromoCount(userId),HttpStatus.OK);
     }
 
     @GetMapping("/products/{userId}/list")
