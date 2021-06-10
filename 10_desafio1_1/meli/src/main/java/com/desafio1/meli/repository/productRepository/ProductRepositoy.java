@@ -1,5 +1,7 @@
 package com.desafio1.meli.repository.productRepository;
 
+import com.desafio1.meli.exceptions.FailCreatePublicationException;
+import com.desafio1.meli.exceptions.NotExistUser;
 import com.desafio1.meli.model.Category;
 import com.desafio1.meli.model.*;
 import com.desafio1.meli.repository.userRepository.*;
@@ -34,49 +36,60 @@ public class ProductRepositoy implements IProductrepository {
     }
 
     @Override
-    public boolean newProduct(RequestNewProduct requestNewProduct){
-        try{
-            Product product = new Product(
-                    requestNewProduct.getProducts().getId(),
-                    requestNewProduct.getProducts().getName(),
-                    requestNewProduct.getProducts().getType(),
-                    requestNewProduct.getProducts().getBrand(),
-                    requestNewProduct.getProducts().getColor(),
-                    requestNewProduct.getProducts().getNotes()
-            );
+    public boolean newProduct(RequestNewProduct requestNewProduct) throws FailCreatePublicationException {
+        if (this.publications.stream().filter(publication -> publication.getId().equals(requestNewProduct.getId())).collect(Collectors.toList()).size() >= 1){
+            throw new FailCreatePublicationException(requestNewProduct.getId());
+        }else {
+            try {
+                Product product = new Product(
+                        requestNewProduct.getProducts().getId(),
+                        requestNewProduct.getProducts().getName(),
+                        requestNewProduct.getProducts().getType(),
+                        requestNewProduct.getProducts().getBrand(),
+                        requestNewProduct.getProducts().getColor(),
+                        requestNewProduct.getProducts().getNotes()
+                );
 
-            Category category = new Category(requestNewProduct.getCategory().getName());
+                Category category = new Category(requestNewProduct.getCategory().getName());
 
-            Publication publication = new Publication(
-                    requestNewProduct.getUserId(),
-                    iUserrepository.findUserById(requestNewProduct.getId_post()),
-                    requestNewProduct.getDate(),
-                    product,
-                    category,
-                    requestNewProduct.getPrice()
-                    );
+                Publication publication = new Publication(
+                        requestNewProduct.getId(),
+                        iUserrepository.findUserById(requestNewProduct.getUser()),
+                        requestNewProduct.getDate(),
+                        product,
+                        category,
+                        requestNewProduct.getPrice(),
+                        requestNewProduct.getHasPromo(),
+                        requestNewProduct.getDiscount()
+                );
 
-            this.publications.add(publication);
+                this.publications.add(publication);
 
-            return true;
+                return true;
 
-        }catch (Exception e){
-            return false;
+            } catch (Exception e) {
+                throw new FailCreatePublicationException(requestNewProduct.getId());
+            }
         }
     }
 
     @Override
-    public RequestFollowedProductList getProductListFollow (Integer userId, LocalDate dateFrome, LocalDate dateBefore){
+    public RequestFollowedProductList getProductListFollow (Integer userId, LocalDate dateFrome, LocalDate dateBefore) throws NotExistUser {
         RequestFollowedProductList requestFollowedProductList = new RequestFollowedProductList();
-        User user = iUserrepository.findUserById(userId);
-        ArrayList<User> listFollowUser =  iUserrepository.listFollow(userId).getFollow();
-        requestFollowedProductList.setUserId(userId);
-        requestFollowedProductList.setPosts((ArrayList<Publication>) this.publications.stream()
-                .filter(publication -> publication.getUser_id() == userId)
-                .filter(publication -> publication.getDate().isAfter(dateFrome) && publication.getDate().isBefore(dateBefore))
-                .collect(Collectors.toList()));
+        try {
+            User user = iUserrepository.findUserById(userId);
+            ArrayList<User> listFollowUser =  iUserrepository.listFollow(userId).getFollow();
+            requestFollowedProductList.setUserId(userId);
+            requestFollowedProductList.setPosts((ArrayList<Publication>) this.publications.stream()
+                    .filter(publication -> publication.getUser().getId() == userId)
+                    .filter(publication -> publication.getDate().isAfter(dateFrome) && publication.getDate().isBefore(dateBefore))
+                    .collect(Collectors.toList()));
 
-        return requestFollowedProductList ;
+            return requestFollowedProductList ;
+        }catch (Exception e){
+            throw new NotExistUser(userId);
+        }
+
 
     }
 

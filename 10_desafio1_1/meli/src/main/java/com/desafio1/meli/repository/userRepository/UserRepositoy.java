@@ -1,5 +1,6 @@
 package com.desafio1.meli.repository.userRepository;
 
+import com.desafio1.meli.exceptions.NotExistUser;
 import com.desafio1.meli.model.*;
 import com.desafio1.meli.service.DTO.*;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -30,6 +31,10 @@ public class UserRepositoy implements IUserrepository {
         this.follow = new HashMap<>();
         this.follower = new HashMap<>();
     }
+    public void loadRepository(){
+        this.users = loadDatabase();
+    }
+
 
     @Override
     public boolean follow(RequestFollowUserToUser requestFollowUserToUser){
@@ -96,36 +101,36 @@ public class UserRepositoy implements IUserrepository {
     }
 
     @Override
-    public Integer countFollower(Integer userId){
+    public Integer countFollower(Integer userId) throws NotExistUser{
         try{
             return  this.follower.get(userId).size();
         }catch (Exception e){
-            return -1;
+            throw new NotExistUser(userId);
         }
     }
 
     @Override
-    public ResponseFollowersListDTO listFollower(Integer userId){
+    public ResponseFollowersListDTO listFollower(Integer userId) throws NotExistUser{
         ResponseFollowersListDTO responseFollowersListDTO = new ResponseFollowersListDTO();
         try{
             responseFollowersListDTO.setFollowers(this.follower.get(userId));
             responseFollowersListDTO.setUserName(findUserById(userId).getName());
             responseFollowersListDTO.setUserId(userId);
         }catch (Exception e){
-            System.out.println("falla");
+           throw new NotExistUser(userId);
         }
         return responseFollowersListDTO;
     }
 
     @Override
-    public ResponseFollowsListDTO listFollow(Integer userId){
+    public ResponseFollowsListDTO listFollow(Integer userId) throws NotExistUser{
         ResponseFollowsListDTO responseFollowListDTO = new ResponseFollowsListDTO();
         try{
             responseFollowListDTO.setFollow(this.follow.get(userId));
             responseFollowListDTO.setUserName(findUserById(userId).getName());
             responseFollowListDTO.setUserId(userId);
         }catch (Exception e){
-            System.out.println("falla");
+            throw new NotExistUser(userId);
         }
         return responseFollowListDTO;
     }

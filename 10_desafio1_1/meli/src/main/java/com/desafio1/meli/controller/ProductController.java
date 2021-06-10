@@ -1,5 +1,7 @@
 package com.desafio1.meli.controller;
 
+import com.desafio1.meli.exceptions.FailCreatePublicationException;
+import com.desafio1.meli.exceptions.NotExistUser;
 import com.desafio1.meli.service.DTO.RequestFollowedProductList;
 import com.desafio1.meli.service.DTO.RequestNewProduct;
 import com.desafio1.meli.service.DTO.ResponseFollowersListDTO;
@@ -17,18 +19,25 @@ public class ProductController{
     @Autowired
     IProductservice iProductservice;
 
-
+    /**
+     *
+     * @param requestNewProduct
+     * @return new Publications
+     */
     @PostMapping("/newpost/")
-    public ResponseEntity<Boolean> setPost(@RequestBody RequestNewProduct requestNewProduct) {
-
-        boolean status = iProductservice.newProduct(requestNewProduct);
-        if (status)
-            return new ResponseEntity<Boolean>(status, HttpStatus.OK);
-        return new ResponseEntity<Boolean>(status, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Boolean> setPost(@RequestBody RequestNewProduct requestNewProduct) throws FailCreatePublicationException {
+        return new ResponseEntity<Boolean>(iProductservice.newProduct(requestNewProduct), HttpStatus.BAD_REQUEST);
 
     }
+
+    /**
+     *
+     * @param userId
+     * @param order
+     * @return followed list order to userId
+     */
     @GetMapping("/followed/{userId}/list/")
-    public ResponseEntity<RequestFollowedProductList> getFollower(@PathVariable Integer userId, @RequestParam(required = false) PublicationOrderType order) {
+    public ResponseEntity<RequestFollowedProductList> getFollower(@PathVariable Integer userId, @RequestParam(required = false) PublicationOrderType order) throws NotExistUser {
 
         RequestFollowedProductList status = iProductservice.listProductFollowerUser(userId, order);
         return new ResponseEntity<RequestFollowedProductList>(status, HttpStatus.OK);

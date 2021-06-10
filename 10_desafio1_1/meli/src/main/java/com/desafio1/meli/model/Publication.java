@@ -12,10 +12,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Publication {
-    private Integer user_id;
-    private User id_post;
+    private Integer id;
+    private User user;
     private LocalDate date;
     private Product product;
     private Category category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
 }

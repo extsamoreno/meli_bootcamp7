@@ -16,10 +16,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestNewProduct {
-    private Integer userId;
-    private Integer id_post;
+    private Integer Id;
+    private Integer user;
     private LocalDate date;
     private Product products;
     private Category category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
 }
