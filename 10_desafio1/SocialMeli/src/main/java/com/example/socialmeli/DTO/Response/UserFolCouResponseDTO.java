@@ -12,5 +12,5 @@ import lombok.Setter;
 public class UserFolCouResponseDTO {
     private int userId;
     private String userName;
-    private int followerscount;
+    private int followersCount;
 }

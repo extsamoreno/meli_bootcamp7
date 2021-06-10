@@ -13,11 +13,13 @@ import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
-    @Autowired
     ProductMapper productMapper;
-
-    @Autowired
     IProductRepository iProductRepository;
+
+    public ProductService(ProductMapper productMapper, IProductRepository iProductRepository) {
+        this.productMapper = productMapper;
+        this.iProductRepository = iProductRepository;
+    }
 
     @Override
     public ProductCreateResponseDTO addProducts(ProductDTO product) {

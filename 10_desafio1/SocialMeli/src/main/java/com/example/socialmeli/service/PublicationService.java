@@ -2,15 +2,12 @@ package com.example.socialmeli.service;
 
 import com.example.socialmeli.DTO.PublicationDTO;
 import com.example.socialmeli.DTO.PublicationPromoDTO;
-import com.example.socialmeli.DTO.Response.PublicationCreateResponseDTO;
-import com.example.socialmeli.DTO.Response.PublicationFollowedUserResponseDTO;
-import com.example.socialmeli.DTO.Response.PublicationPromoCreateResponseDTO;
-import com.example.socialmeli.DTO.Response.UserFolLisResponseDTO;
+import com.example.socialmeli.DTO.Response.*;
 import com.example.socialmeli.DTO.UserDTO;
+import com.example.socialmeli.exceptions.UserIdNotFountException;
 import com.example.socialmeli.mapper.PublicationMapper;
 import com.example.socialmeli.model.Publication;
 import com.example.socialmeli.repository.IPublicationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,13 +16,15 @@ import java.util.stream.Collectors;
 @Service
 public class PublicationService implements IPublicationService {
 
-    @Autowired
     IPublicationRepository iPublicationRepository;
-    @Autowired
     PublicationMapper publicationMapper;
-    @Autowired
     IUserService iUserService;
 
+    public PublicationService(IPublicationRepository iPublicationRepository, PublicationMapper publicationMapper, IUserService iUserService) {
+        this.iPublicationRepository = iPublicationRepository;
+        this.publicationMapper = publicationMapper;
+        this.iUserService = iUserService;
+    }
 
     @Override
     public PublicationCreateResponseDTO addPublication(PublicationDTO obj) {
@@ -75,6 +74,16 @@ public class PublicationService implements IPublicationService {
     }
 
     @Override
+    public PublicationPromoCountResponseDTO getPublicationsPromoCount(int userId) {
+        PublicationPromoCountResponseDTO response = new PublicationPromoCountResponseDTO();
+        UserDTO user = iUserService.getUserById(userId);
+        response.setUserId(user.getUserId());
+        response.setUserName(user.getUserName());
+        response.setPromoProductsCount(iPublicationRepository.getPublicationsPromo().size());
+        return response;
+    }
+
+    @Override
     public List<PublicationDTO> getPublicationsByUserId(int userId) {
         List<PublicationDTO> response = new ArrayList<>();
         for (Publication obj : iPublicationRepository.getPublications()) {
@@ -84,15 +93,12 @@ public class PublicationService implements IPublicationService {
     }
 
     @Override
-    public PublicationFollowedUserResponseDTO getPublicationFollowedUser(int userId, String order) {
-        UserFolLisResponseDTO users = iUserService.getFollowedList(userId, null);
+    public PublicationFollowedUserResponseDTO getPublicationFollowedUser(int userId, String order) throws UserIdNotFountException {
+        UserFolLisResponseDTO user = iUserService.getFollowedList(userId, null);
         PublicationFollowedUserResponseDTO response = new PublicationFollowedUserResponseDTO();
-        UserDTO user = new UserDTO();
-        user.setUserId(users.getUserId());
-        user.setUserName(users.getUserName());
-        response.setUser(user);
+        response.setUserId(user.getUserId());
         List<PublicationDTO> publication = new ArrayList<>();
-        for (UserDTO obj : users.getFollowed()) {
+        for (UserDTO obj : user.getFollowed()) {
             publication.addAll(getPublicationsByUserId(obj.getUserId()));
         }
         publication.sort(Comparator.comparing(PublicationDTO::getDate));
@@ -108,8 +114,6 @@ public class PublicationService implements IPublicationService {
         ca.setTime(new Date());
         ca.add(Calendar.WEEK_OF_MONTH, -2);
         response.setPosts(publication.stream().filter(x -> x.getDate().after(ca.getTime())).collect(Collectors.toList()));
-
-
         return response;
     }
 }
