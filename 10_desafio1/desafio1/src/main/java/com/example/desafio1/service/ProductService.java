@@ -2,7 +2,7 @@ package com.example.desafio1.service;
 
 import com.example.desafio1.dto.*;
 import com.example.desafio1.exception.IDNotFoundException;
-import com.example.desafio1.exception.IDPresentAllReadyException;
+import com.example.desafio1.exception.IDAllReadyPresentException;
 import com.example.desafio1.mapper.Mapper;
 import com.example.desafio1.model.Post;
 import com.example.desafio1.model.Product;
@@ -32,7 +32,7 @@ public class ProductService implements IProductService {
 	public PostRepository postRepository;
 
 	@Override
-	public void newPost(NewPostDTO post) throws IDPresentAllReadyException {
+	public void newPost(NewPostDTO post) throws IDAllReadyPresentException {
 		productRepository.registerProduct(Mapper.mapToProductModel(post.getDetail()));
 		postRepository.registerNewPost(Mapper.mapToPostModel(post));
 	}
@@ -51,7 +51,7 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public void newPromoPost(NewPromoDTO promo) throws IDPresentAllReadyException {
+	public void newPromoPost(NewPromoDTO promo) throws IDAllReadyPresentException {
 		productRepository.registerProduct(Mapper.mapToProductModel(promo.getDetail()));
 		postRepository.registerNewPost(Mapper.mapToPostModel(promo));
 	}

@@ -2,7 +2,7 @@ package com.example.desafio1.controller;
 
 import com.example.desafio1.dto.*;
 import com.example.desafio1.exception.IDNotFoundException;
-import com.example.desafio1.exception.IDPresentAllReadyException;
+import com.example.desafio1.exception.IDAllReadyPresentException;
 import com.example.desafio1.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class UserController {
 
 	// US0001
 	@PostMapping("/{userID}/follow/{userIDToFollow}")
-	ResponseEntity<HttpStatus> follow(@PathVariable Integer userID, @PathVariable Integer userIDToFollow) throws IDPresentAllReadyException, IDNotFoundException {
+	ResponseEntity<HttpStatus> follow(@PathVariable Integer userID, @PathVariable Integer userIDToFollow) throws IDAllReadyPresentException, IDNotFoundException {
 
 		return userService.follow(userID, userIDToFollow) ? new ResponseEntity<>(HttpStatus.OK)
 														  : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -99,7 +99,7 @@ public class UserController {
 
 	// US0007
 	@PostMapping("/{userID}/unfollow/{userIDToUnfollow}")
-	ResponseEntity<HttpStatus> unfollow(@PathVariable Integer userID, @PathVariable Integer userIDToUnfollow) throws IDNotFoundException, IDPresentAllReadyException {
+	ResponseEntity<HttpStatus> unfollow(@PathVariable Integer userID, @PathVariable Integer userIDToUnfollow) throws IDNotFoundException, IDAllReadyPresentException {
 
 		return userService.unfollow(userID, userIDToUnfollow) ? new ResponseEntity<>(HttpStatus.OK)
 															  : new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ErrorHandler {
 
 	@ExceptionHandler
-	public ResponseEntity<ErrorDTO> handleUserIDAllReadyInFollowsException(IDPresentAllReadyException e) {
+	public ResponseEntity<ErrorDTO> handleUserIDAllReadyInFollowsException(IDAllReadyPresentException e) {
 		return new ResponseEntity<>(e.getError(), e.getStatus());
 	}
 

@@ -1,7 +1,7 @@
 package com.example.desafio1.repository;
 
 import com.example.desafio1.exception.IDNotFoundException;
-import com.example.desafio1.exception.IDPresentAllReadyException;
+import com.example.desafio1.exception.IDAllReadyPresentException;
 import com.example.desafio1.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,7 +47,7 @@ public class UserRepository implements IRepository<User> {
 		}
 	}
 
-	public boolean registerFollow(int userID, int userIDToFollow) throws IDNotFoundException, IDPresentAllReadyException {
+	public boolean registerFollow(int userID, int userIDToFollow) throws IDNotFoundException, IDAllReadyPresentException {
 
 		User user = users.stream().filter(u -> u.getUserID() == userID)
 								  .findAny()
@@ -64,7 +64,7 @@ public class UserRepository implements IRepository<User> {
 			throw new IDNotFoundException(userIDToFollow);
 
 		if (user.getFollows().contains(userIDToFollow))
-			throw new IDPresentAllReadyException(userIDToFollow);
+			throw new IDAllReadyPresentException(userIDToFollow);
 
 		user.getFollows().add(userIDToFollow);
 
@@ -109,7 +109,7 @@ public class UserRepository implements IRepository<User> {
 										 .collect(Collectors.toList());
 	}
 
-	public boolean registerUnfollow(Integer userID, Integer userIDToUnfollow) throws IDNotFoundException, IDPresentAllReadyException {
+	public boolean registerUnfollow(Integer userID, Integer userIDToUnfollow) throws IDNotFoundException, IDAllReadyPresentException {
 		User user = getUser(userID);
 		User userToUnfollow = getUser(userID);
 
@@ -120,7 +120,7 @@ public class UserRepository implements IRepository<User> {
 			throw new IDNotFoundException(userIDToUnfollow);
 
 		if (!user.getFollows().contains(userIDToUnfollow))
-			throw new IDPresentAllReadyException(userIDToUnfollow);
+			throw new IDAllReadyPresentException(userIDToUnfollow);
 
 		user.getFollows().remove(userIDToUnfollow);
 

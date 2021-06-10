@@ -1,6 +1,6 @@
 package com.example.desafio1.repository;
 
-import com.example.desafio1.exception.IDPresentAllReadyException;
+import com.example.desafio1.exception.IDAllReadyPresentException;
 import com.example.desafio1.model.Post;
 import com.example.desafio1.model.Product;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -46,12 +46,12 @@ public class ProductRepository implements IRepository<Product> {
 		}
 	}
 
-	public void registerProduct(Product product) throws IDPresentAllReadyException {
+	public void registerProduct(Product product) throws IDAllReadyPresentException {
 		if (products.stream().filter(p -> p.getProductID() == product.getProductID())
 							 .findAny()
 							 .orElse(null) != null) {
 
-			throw new IDPresentAllReadyException(product.getProductID());
+			throw new IDAllReadyPresentException(product.getProductID());
 		}
 
 		products.add(product);

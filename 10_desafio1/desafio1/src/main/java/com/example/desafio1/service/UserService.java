@@ -4,7 +4,7 @@ import com.example.desafio1.dto.FollowedDTO;
 import com.example.desafio1.dto.FollowerCountDTO;
 import com.example.desafio1.dto.FollowersDTO;
 import com.example.desafio1.exception.IDNotFoundException;
-import com.example.desafio1.exception.IDPresentAllReadyException;
+import com.example.desafio1.exception.IDAllReadyPresentException;
 import com.example.desafio1.mapper.Mapper;
 import com.example.desafio1.model.User;
 import com.example.desafio1.repository.PostRepository;
@@ -28,7 +28,7 @@ public class UserService implements IUserService {
 	public PostRepository postRepository;
 
 	@Override
-	public boolean follow(int userID, int userIDToFollow) throws IDPresentAllReadyException, IDNotFoundException {
+	public boolean follow(int userID, int userIDToFollow) throws IDAllReadyPresentException, IDNotFoundException {
 		return userRepository.registerFollow(userID, userIDToFollow);
 	}
 
@@ -55,7 +55,7 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public boolean unfollow(Integer userID, Integer userIDToUnfollow) throws IDNotFoundException, IDPresentAllReadyException {
+	public boolean unfollow(Integer userID, Integer userIDToUnfollow) throws IDNotFoundException, IDAllReadyPresentException {
 		return userRepository.registerUnfollow(userID, userIDToUnfollow);
 	}
 }

@@ -2,7 +2,7 @@ package com.example.desafio1.controller;
 
 import com.example.desafio1.dto.*;
 import com.example.desafio1.exception.IDNotFoundException;
-import com.example.desafio1.exception.IDPresentAllReadyException;
+import com.example.desafio1.exception.IDAllReadyPresentException;
 import com.example.desafio1.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class ProductController {
 
 	// US0005
 	@PostMapping("/newpost")
-	ResponseEntity<HttpStatus> newpost(@RequestBody NewPostDTO post) throws IDPresentAllReadyException {
+	ResponseEntity<HttpStatus> newpost(@RequestBody NewPostDTO post) throws IDAllReadyPresentException {
 
 		productService.newPost(post);
 
@@ -56,7 +56,7 @@ public class ProductController {
 
 	// US0010
 	@PostMapping("/newpromopost")
-	ResponseEntity<PromoDTO> newPromoPost(@RequestBody NewPromoDTO promo) throws IDPresentAllReadyException {
+	ResponseEntity<PromoDTO> newPromoPost(@RequestBody NewPromoDTO promo) throws IDAllReadyPresentException {
 
 		productService.newPromoPost(promo);
 
