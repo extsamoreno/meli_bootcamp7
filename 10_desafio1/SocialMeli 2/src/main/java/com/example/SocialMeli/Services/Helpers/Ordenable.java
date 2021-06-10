@@ -1,7 +1,5 @@
 package com.example.SocialMeli.Services.Helpers;
 
-import com.example.SocialMeli.Services.DTOs.PostDTO;
-
 import java.util.Comparator;
 import java.util.List;
 

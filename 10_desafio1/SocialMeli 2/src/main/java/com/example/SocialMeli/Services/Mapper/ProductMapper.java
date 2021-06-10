@@ -3,9 +3,7 @@ package com.example.SocialMeli.Services.Mapper;
 
 
 import com.example.SocialMeli.Models.Product;
-import com.example.SocialMeli.Models.User;
 import com.example.SocialMeli.Services.DTOs.ProductDTO;
-import com.example.SocialMeli.Services.DTOs.UserDTO;
 
 public class ProductMapper {
 

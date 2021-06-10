@@ -1,15 +1,11 @@
 package com.example.SocialMeli.Services.DTOs;
 
-import com.example.SocialMeli.Models.Post;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class PostDTO{

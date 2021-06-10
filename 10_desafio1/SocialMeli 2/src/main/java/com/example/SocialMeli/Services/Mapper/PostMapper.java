@@ -3,7 +3,6 @@ package com.example.SocialMeli.Services.Mapper;
 
 import com.example.SocialMeli.Models.Post;
 import com.example.SocialMeli.Models.Product;
-import com.example.SocialMeli.Models.User;
 import com.example.SocialMeli.Services.DTOs.*;
 
 import java.util.List;

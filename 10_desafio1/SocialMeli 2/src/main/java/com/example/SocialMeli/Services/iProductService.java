@@ -1,7 +1,6 @@
 package com.example.SocialMeli.Services;
 
 import com.example.SocialMeli.Exceptions.*;
-import com.example.SocialMeli.Models.User;
 import com.example.SocialMeli.Services.DTOs.*;
 
 import java.util.List;
