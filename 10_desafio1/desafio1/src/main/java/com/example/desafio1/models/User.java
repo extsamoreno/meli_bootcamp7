@@ -14,8 +14,8 @@ import java.util.List;
 public class User {
     private int userId;
     private String userName;
-    private List<UserDTO> followed;
-    private List<UserDTO> followers;
+    private List<Integer> followed;
+    private List<Integer> followers;
     private List<Post> posts;
 
     public User(int userId, String userName) {
@@ -34,20 +34,20 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
-    public void addFollower(UserDTO userDTO) {
-        this.followers.add(userDTO);
+    public void addFollower(int userId) {
+        this.followers.add(userId);
     }
 
-    public void removeFollower(UserDTO userDTO) {
-        this.followers.remove(userDTO);
+    public void removeFollower(Integer userId) {
+        this.followers.remove(userId);
     }
 
-    public void addFollowed(UserDTO userDTO) {
-        this.followed.add(userDTO);
+    public void addFollowed(int userId) {
+        this.followed.add(userId);
     }
 
-    public void removeFollowed(UserDTO userDTO) {
-        this.followed.remove(userDTO);
+    public void removeFollowed(Integer userId) {
+        this.followed.remove(userId);
     }
 
     public void addNewPost(Post post) {

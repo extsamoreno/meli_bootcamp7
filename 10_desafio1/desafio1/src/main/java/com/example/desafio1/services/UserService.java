@@ -14,6 +14,7 @@ import com.example.desafio1.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class UserService implements IUserService {
     public String followUser(int userId, int userIdToFollow) throws InvalidUserIdException {
         User user = iUserRepository.getUserById(userId);
         User userToFollow = iUserRepository.getUserById(userIdToFollow);
-        user.addFollowed(UserMapper.UserToDTO(userToFollow));
-        userToFollow.addFollower(UserMapper.UserToDTO(user));
+        user.addFollowed(userToFollow.getUserId());
+        userToFollow.addFollower(user.getUserId());
         return userId + " ha seguido a " + userIdToFollow;
     }
 
@@ -50,8 +51,8 @@ public class UserService implements IUserService {
     public String unfollowUser(int userId, int userIdToUnfollow) throws InvalidUserIdException {
         User user = iUserRepository.getUserById(userId);
         User userToUnfollow = iUserRepository.getUserById(userIdToUnfollow);
-        user.removeFollowed(UserMapper.UserToDTO(userToUnfollow));
-        userToUnfollow.removeFollower(UserMapper.UserToDTO(user));
+        user.removeFollowed(userToUnfollow.getUserId());
+        userToUnfollow.removeFollower(user.getUserId());
         return userId + " ha dejado de seguido a " + userIdToUnfollow;
     }
 
@@ -69,7 +70,11 @@ public class UserService implements IUserService {
     public ResponseFollowerListDTO getFollowersList(int userId, String order) throws UserException {
         User user = iUserRepository.getUserById(userId);
         ResponseFollowerListDTO responseFollowerListDTO = new ResponseFollowerListDTO();
-        List<UserDTO> listFollowers = user.getFollowers();
+
+        List<User> followers = getListOfUsersById(user.getFollowers());
+        List<UserDTO> listFollowers = UserMapper.listUserToListUserDTO(followers);
+
+
         sortUserDTOByName(order, listFollowers);
         responseFollowerListDTO.setUserId(user.getUserId());
         responseFollowerListDTO.setUserName(user.getUserName());
@@ -81,7 +86,7 @@ public class UserService implements IUserService {
     public ResponseFollowedSellerDTO getFollowedSellers(int userId, String order) throws UserException {
         User user = iUserRepository.getUserById(userId);
         ResponseFollowedSellerDTO responseFollowedSellerDTO = new ResponseFollowedSellerDTO();
-        List<UserDTO> listFollowed = user.getFollowed();
+        List<UserDTO> listFollowed = getFollowedList(user.getUserId());
         sortUserDTOByName(order, listFollowed);
         responseFollowedSellerDTO.setUserId(user.getUserId());
         responseFollowedSellerDTO.setUserName(user.getUserName());
@@ -92,7 +97,8 @@ public class UserService implements IUserService {
     @Override
     public List<UserDTO> getFollowedList(int userId) throws InvalidUserIdException {
         User user = iUserRepository.getUserById(userId);
-        return user.getFollowed();
+        List<User> followed = getListOfUsersById(user.getFollowed());
+        return UserMapper.listUserToListUserDTO(followed);
     }
 
     @Override
@@ -101,7 +107,7 @@ public class UserService implements IUserService {
         return user.getPosts();
     }
 
-    public void sortUserDTOByName(String order, List<UserDTO> list) throws InvalidOrderException {
+    private void sortUserDTOByName(String order, List<UserDTO> list) throws InvalidOrderException {
         if(order.equals("name_asc")) {
             list.sort(COMPARATOR_NAME_ASC);
         } else if(order.equals("name_des")) {
@@ -109,5 +115,13 @@ public class UserService implements IUserService {
         } else if(!order.equals("")) {
             throw new InvalidOrderException(order);
         }
+    }
+
+    private List<User> getListOfUsersById(List<Integer> userIdList) throws InvalidUserIdException {
+        List<User> userList = new ArrayList<>();
+        for(Integer id : userIdList) {
+            userList.add(getUserById(id));
+        }
+        return userList;
     }
 }
