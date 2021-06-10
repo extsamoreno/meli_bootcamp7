@@ -32,7 +32,7 @@ public class UserService {
         if(seller.getFollowers().contains(user)){
             throw new BadRequestException("User already following this seller");
         }
-        userRepository.getById(sellerId).getFollowers().add(userRepository.getById(userId));
+        userRepository.getById(sellerId).getFollowers().add(Mappers.mapperToFollowDTO(userRepository.getById(userId)));
         userRepository.saveUsers();
 
     }
@@ -47,29 +47,24 @@ public class UserService {
         return new ResponseCountFollowersDTO(
                 user.getUserId(),
                 user.getUserName(),
-                user.getFollowers().size()
+                user.getFollowers() == null ? 0 :  user.getFollowers().size()
         );
     }
 
-    public ResponseListFollowersDTO listFollowers (int sellerId,String order) throws Exception {
+    public ResponseListFollowersDTO listFollowers (int sellerId,   String order) throws Exception {
 
         User seller = userRepository.getById(sellerId);
         if(seller == null){
             throw new NotFoundException("User not exists");
         }
-
-        List<UserDTO> usersDTO = new ArrayList<>();
-        for(User user : seller.getFollowers()){
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUserId(user.getUserId());
-            userDTO.setUsername(user.getUserName());
-            usersDTO.add(userDTO);
+        if(seller.getFollowers() == null){
+            throw new NotFoundException("Seller has no followers");
         }
 
         return new ResponseListFollowersDTO(
                 seller.getUserId(),
                 seller.getUserName(),
-                userRepository.sortByCriteria(usersDTO, order == null ? "date_desc" : order)
+                userRepository.sortByCriteria(seller.getFollowers(), order == null ? "date_desc" : order)
 
         );
     }
@@ -87,7 +82,7 @@ public class UserService {
             if(userAux.getFollowers().contains(user)){
                 UserDTO userDTO = new UserDTO();
                 userDTO.setUserId(userAux.getUserId());
-                userDTO.setUsername(userAux.getUserName());
+                userDTO.setUserName(userAux.getUserName());
                 sellers.add(userDTO);
             }
         }

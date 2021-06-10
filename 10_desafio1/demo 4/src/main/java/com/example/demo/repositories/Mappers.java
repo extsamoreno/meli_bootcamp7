@@ -2,7 +2,9 @@ package com.example.demo.repositories;
 
 import com.example.demo.DTO.PostDTO;
 import com.example.demo.DTO.PostPromoDTO;
+import com.example.demo.DTO.UserDTO;
 import com.example.demo.entities.Post;
+import com.example.demo.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,4 +46,10 @@ public class Mappers {
         return result;
     }
 
+    public static UserDTO mapperToFollowDTO(User user) {
+        UserDTO userDto = new UserDTO();
+        userDto.setUserId(user.getUserId());
+        userDto.setUserName(user.getUserName());
+        return userDto;
+    }
 }

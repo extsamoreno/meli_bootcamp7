@@ -2,14 +2,14 @@
   {
     "userId": 1,
     "id_post": 1,
-    "date": 1622937600000,
+    "date": "06-06-2021",
     "detail": {
-      "product_id": 0,
-      "productName": null,
-      "type": null,
-      "brand": null,
-      "color": null,
-      "notes": null
+      "product_id": 1,
+      "productName": "Silla",
+      "type": "Mobiliario",
+      "brand": "Durasol",
+      "color": "Rojo",
+      "notes": "La mejores sillas"
     },
     "category": 1,
     "price": 400.0,
@@ -17,16 +17,16 @@
     "discount": 0.0
   },
   {
-    "userId": 2,
+    "userId": 1,
     "id_post": 2,
-    "date": 1623024000000,
+    "date": "07-06-2021",
     "detail": {
-      "product_id": 0,
-      "productName": null,
-      "type": null,
-      "brand": null,
-      "color": null,
-      "notes": null
+      "product_id": 2,
+      "productName": "Mesa",
+      "type": "Mobiliario",
+      "brand": "Durasol",
+      "color": "Negro",
+      "notes": "La mejor calidad"
     },
     "category": 1,
     "price": 400.0,
@@ -36,14 +36,14 @@
   {
     "userId": 2,
     "id_post": 3,
-    "date": 1623110400000,
+    "date": "08-00-2021",
     "detail": {
-      "product_id": 0,
-      "productName": null,
-      "type": null,
-      "brand": null,
-      "color": null,
-      "notes": null
+      "product_id": 3,
+      "productName": "Pantalla",
+      "type": "Oficina",
+      "brand": "Durasol",
+      "color": "Negro",
+      "notes": "La mejor calidad"
     },
     "category": 1,
     "price": 800.0,
@@ -51,16 +51,16 @@
     "discount": 0.0
   },
   {
-    "userId": 1,
+    "userId": 2,
     "id_post": 4,
-    "date": 1591574400000,
+    "date": "08-06-2020",
     "detail": {
-      "product_id": 0,
-      "productName": null,
-      "type": null,
-      "brand": null,
-      "color": null,
-      "notes": null
+      "product_id": 4,
+      "productName": "Cuadro",
+      "type": "Decoracion",
+      "brand": "Durasol",
+      "color": "Azul",
+      "notes": "La mejor calidad"
     },
     "category": 1,
     "price": 800.0,
@@ -68,70 +68,19 @@
     "discount": 0.0
   },
   {
-    "userId": 1,
-    "id_post": 11,
-    "date": 1628467200000,
+    "userId": 3,
+    "id_post": 5,
+    "date": "09-06-2021",
     "detail": {
-      "product_id": 0,
-      "productName": null,
-      "type": null,
-      "brand": null,
-      "color": null,
-      "notes": null
+      "product_id": 5,
+      "productName": "Pc",
+      "type": "Oficina",
+      "brand": "Durasol",
+      "color": "Gris",
+      "notes": "La mejor calidad"
     },
     "category": 1,
     "price": 800.0,
-    "hasPromo": true,
-    "discount": 66.0
-  },
-  {
-    "userId": 1,
-    "id_post": 166,
-    "date": 1628467200000,
-    "detail": {
-      "product_id": 0,
-      "productName": null,
-      "type": null,
-      "brand": null,
-      "color": null,
-      "notes": null
-    },
-    "category": 1,
-    "price": 98765.0,
-    "hasPromo": false,
-    "discount": 0.0
-  },
-  {
-    "userId": 1,
-    "id_post": 16666,
-    "date": 1628467200000,
-    "detail": {
-      "product_id": 3,
-      "productName": "holis",
-      "type": "holis",
-      "brand": "holis",
-      "color": "holis",
-      "notes": "holis"
-    },
-    "category": 1,
-    "price": 98765.0,
-    "hasPromo": false,
-    "discount": 0.0
-  },
-  {
-    "userId": 1,
-    "id_post": 3434,
-    "date": 1628467200000,
-    "detail": {
-      "product_id": 3,
-      "productName": "holis",
-      "type": "holis",
-      "brand": "holis",
-      "color": "holis",
-      "notes": "holis"
-    },
-    "category": 1,
-    "price": 98765.0,
     "hasPromo": false,
     "discount": 0.0
   }

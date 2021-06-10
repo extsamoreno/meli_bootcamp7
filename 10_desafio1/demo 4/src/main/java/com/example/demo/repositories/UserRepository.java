@@ -82,7 +82,10 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void unFollowSeller(User user, User seller) {
-        User userToDelete = seller.getFollowers().stream().filter(userAux -> userAux.getUserId() == user.getUserId()).findAny().orElse(null);
+        UserDTO userToDelete = seller.getFollowers().stream()
+                .filter(userAux -> userAux.getUserId() == user.getUserId())
+                .findAny().orElse(null);
+
         seller.getFollowers().remove(userToDelete);
     }
 
@@ -90,9 +93,9 @@ public class UserRepository implements IUserRepository {
     public List<UserDTO> sortByCriteria(List<UserDTO> list, String order) {
 
         if (order.equals("name_desc")) {
-            list.sort((name1, name2) -> name2.getUsername().compareTo(name1.getUsername()));
+            list.sort((name1, name2) -> name2.getUserName().compareTo(name1.getUserName()));
         } else {
-            list.sort(Comparator.comparing(UserDTO::getUsername));
+            list.sort(Comparator.comparing(UserDTO::getUserName));
         }
         return list;
     }
