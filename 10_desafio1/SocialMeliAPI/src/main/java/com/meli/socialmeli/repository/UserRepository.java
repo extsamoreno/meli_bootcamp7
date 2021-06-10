@@ -11,10 +11,10 @@ public class UserRepository implements IUserRepository{
     static {
         users=new HashMap<>();
         users.put(1, new User(1,"Usuario 1"));
-        users.put(2, new User(2,"Vendedor 1"));
-        users.put(3, new User(3,"Usuario 2"));
-        users.put(4, new User(4,"Vendedor 2"));
-        users.put(5, new User(5,"Usuario 3"));
+        users.put(2, new User(2,"Usuario 2"));
+        users.put(3, new User(3,"Usuario 3"));
+        users.put(4, new User(4,"Usuario 4"));
+        users.put(5, new User(5,"Usuario 5"));
         users.put(1235, new User(1235,"Usuario prueba"));
     }
 
