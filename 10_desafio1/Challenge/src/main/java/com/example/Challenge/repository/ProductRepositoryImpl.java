@@ -28,7 +28,7 @@ public class ProductRepositoryImpl implements  IProductRepository{
     }
 
     @Override
-    public List<Product> getAllProducts(Integer userId) {
+    public List<Product> getAllProductsFollowed(Integer userId) {
         List<Product> listResult = new ArrayList<>();
         User user = iUserRepository.getUserById(userId);
 
@@ -40,5 +40,36 @@ public class ProductRepositoryImpl implements  IProductRepository{
             }
         }
         return listResult;
+    }
+
+    @Override
+    public List<Product> getAllSellerProducts(Integer userId) {
+        List<Product> listResult = new ArrayList<>();
+        for(int i=0 ;i<dataBaseProducts.size() ; i++){
+            if(dataBaseProducts.get(i).getUserId().equals(userId)){
+                listResult.add(dataBaseProducts.get(i));
+            }
+        }
+        return listResult;
+    }
+
+    @Override
+    public List<Product> getAllSellerPromoProducts(Integer userId) {
+        List<Product> listResult = new ArrayList<>();
+        for(int i=0 ;i<dataBaseProducts.size() ; i++){
+            if(dataBaseProducts.get(i).getUserId().equals(userId) && dataBaseProducts.get(i).isHasPromo()){
+                listResult.add(dataBaseProducts.get(i));
+            }
+        }
+        return listResult;
+    }
+
+    @Override
+    public String createPromoPost(Product product) {
+        if(product!= null) {
+            dataBaseProducts.add(product);
+            return "OK";
+        }
+        return "Fail";
     }
 }

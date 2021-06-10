@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data
-public class UserException extends  Exception{
+public class UserException extends Exception{
     private ErrorDTO error;
     private HttpStatus status;
 

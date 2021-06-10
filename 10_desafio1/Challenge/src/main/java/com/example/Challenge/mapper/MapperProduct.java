@@ -7,10 +7,20 @@ import com.example.Challenge.model.Product;
 
 public class MapperProduct {
     public static ProductDTO toProductDTO(Product product){
-        ProductDTO productResult = new ProductDTO(
-                                    product.getIdPost(),
-                                    product.getDate(),product.getDetail(),
-                                    product.getCategory(),product.getPrice());
-        return productResult;
+
+        if(product.isHasPromo()){
+            ProductDTO productResult = new ProductDTO(
+                    product.getIdPost(),
+                    product.getDate(),product.getDetail(),
+                    product.getCategory(),product.getPrice(),true,product.getDiscount());
+            return productResult;
+        }
+        else {ProductDTO productResult = new ProductDTO(
+                product.getIdPost(),
+                product.getDate(),product.getDetail(),
+                product.getCategory(),product.getPrice());
+            return productResult;
+        }
+
     }
 }

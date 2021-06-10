@@ -16,7 +16,19 @@ public class Product {
     private String date;
     private ProductDetail detail;
     private Integer category;
-    private Double price;
+    private double price;
+    private boolean hasPromo;
+    private double discount;
+
+    public Product(Integer userId, Integer idPost, String date, ProductDetail detail, Integer category, double price) {
+        this.userId = userId;
+        this.idPost = idPost;
+        this.date = date;
+        this.detail = detail;
+        this.category = category;
+        this.price = price;
+    }
+
 
     public LocalDate getDateFromString(){
         LocalDate resultDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy"));

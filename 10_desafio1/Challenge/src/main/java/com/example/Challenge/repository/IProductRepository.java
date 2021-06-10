@@ -8,5 +8,8 @@ import java.util.List;
 
 public interface IProductRepository {
     String createPost(Product product);
-    List<Product> getAllProducts(Integer userId);
+    List<Product> getAllProductsFollowed(Integer userId);
+    List<Product> getAllSellerProducts(Integer userId);
+    List<Product> getAllSellerPromoProducts(Integer userId);
+    String createPromoPost(Product product);
 }
