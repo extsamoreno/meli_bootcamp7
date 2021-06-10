@@ -1,7 +1,8 @@
-package com.meli.socialmeli.repository;
+package com.meli.socialmeli.repository.post;
 
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.User;
+import com.meli.socialmeli.repository.post.IPostRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

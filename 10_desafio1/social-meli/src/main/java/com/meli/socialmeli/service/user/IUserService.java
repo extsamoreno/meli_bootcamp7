@@ -1,4 +1,4 @@
-package com.meli.socialmeli.service;
+package com.meli.socialmeli.service.user;
 
 import com.meli.socialmeli.dto.user.FollowersCountDTO;
 import com.meli.socialmeli.dto.user.UserFollowedDTO;

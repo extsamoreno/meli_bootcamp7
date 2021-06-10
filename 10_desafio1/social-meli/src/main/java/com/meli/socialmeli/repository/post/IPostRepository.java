@@ -1,4 +1,4 @@
-package com.meli.socialmeli.repository;
+package com.meli.socialmeli.repository.post;
 
 import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.model.User;

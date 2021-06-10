@@ -1,4 +1,4 @@
-package com.meli.socialmeli.controller;
+package com.meli.socialmeli.controller.user;
 
 import com.meli.socialmeli.exception.ApiError;
 import com.meli.socialmeli.exception.UserAlreadyFollowedException;

@@ -1,9 +1,9 @@
-package com.meli.socialmeli.controller;
+package com.meli.socialmeli.controller.post;
 
 import com.meli.socialmeli.dto.post.*;
 import com.meli.socialmeli.exception.PostAlreadyInsertedException;
 import com.meli.socialmeli.exception.UserIdNotFoundException;
-import com.meli.socialmeli.service.IPostService;
+import com.meli.socialmeli.service.post.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

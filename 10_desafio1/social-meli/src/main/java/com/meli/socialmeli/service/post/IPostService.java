@@ -1,4 +1,4 @@
-package com.meli.socialmeli.service;
+package com.meli.socialmeli.service.post;
 
 import com.meli.socialmeli.dto.post.*;
 import com.meli.socialmeli.dto.user.UserPromoPostsDTO;
