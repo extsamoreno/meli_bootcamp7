@@ -24,11 +24,12 @@ public class PostRepository {
 
         Map<Integer, Post> merchantPosts = new HashMap<>();
 
-        for (Map.Entry<Integer, Post> entry : posts.entrySet()) {
-            if (userId == entry.getValue().getUserId()) {
-                merchantPosts.put(entry.getKey(), entry.getValue());
+        posts.forEach((k, v) -> {
+            if (v.getUserId() == userId) {
+                merchantPosts.put(k, v);
             }
-        }
+        });
+
         return merchantPosts;
     }
 
@@ -40,8 +41,6 @@ public class PostRepository {
             if (v.getUserId() == userId) {
                 if (v.isHasPromo()) {
                     promoProductsCount.getAndIncrement();
-                    {
-                    }
                 }
             }
         });
@@ -52,14 +51,13 @@ public class PostRepository {
 
         Map<Integer, Post> promoPosts = new HashMap<>();
 
-        for (Map.Entry<Integer, Post> entry : posts.entrySet()) {
-
-            if (entry.getValue().getUserId() == userId) {
-                if (entry.getValue().isHasPromo()) {
-                    promoPosts.put(entry.getKey(), entry.getValue());
+        posts.forEach((k, v) -> {
+            if (v.getUserId() == userId) {
+                if (v.isHasPromo()) {
+                    promoPosts.put(k, v);
                 }
             }
-        }
+        });
         return promoPosts;
     }
 }

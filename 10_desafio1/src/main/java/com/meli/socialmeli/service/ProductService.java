@@ -35,6 +35,9 @@ public class ProductService {
     @Autowired
     private UserService userService;
 
+    private static final String DATE_ASC = "date_asc";
+    private static final String NAME_ASC = "name_asc";
+
     public void insertNewPost(PostDTO postDTO) throws InvalidIdException, PostIdAlreadyExistsException {
 
         if (userRepository.userIdIsNotValid(postDTO.getUserId())) {
@@ -52,7 +55,7 @@ public class ProductService {
 
         List<PostCollectionDTO> postCollectionDTOList = new ArrayList<>();
 
-        List<UserDTO> followedList = userService.getFollowedList(userId, "name_asc").getFollowed();
+        List<UserDTO> followedList = userService.getFollowedList(userId, NAME_ASC).getFollowed();
 
         for (UserDTO eachFollowedMerchant : followedList) {
 
@@ -123,7 +126,8 @@ public class ProductService {
         }
 
         merchantPromoPosts.setUserId(userId);
-        merchantPromoPosts.setPosts(postDTOList);
+        merchantPromoPosts.setUserName(userRepository.getUserById(userId).getUserName());
+        merchantPromoPosts.setPosts(sortPosts(postDTOList,DATE_ASC));
 
         return merchantPromoPosts;
     }
