@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDTO {
+public class ProductDTO implements  Comparable{
 
     private Integer productId;
     private String productName;
@@ -16,4 +16,8 @@ public class ProductDTO {
     private String color;
     private String notes;
 
+    @Override
+    public int compareTo(Object o) {
+        return this.productName.compareTo(((ProductDTO)o).getProductName());
+    }
 }

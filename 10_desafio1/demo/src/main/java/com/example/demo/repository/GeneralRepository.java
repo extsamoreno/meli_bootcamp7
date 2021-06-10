@@ -1,23 +1,18 @@
 package com.example.demo.repository;
 
 import com.example.demo.DTO.PostDTO;
-import com.example.demo.DTO.PostListDTO;
+import com.example.demo.DTO.PromoPostDTO;
 import com.example.demo.DTO.UserDTO;
 import com.example.demo.exception.FollowersNotFoundException;
 import com.example.demo.exception.GenericException;
 import com.example.demo.exception.UserNotFoundException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Repository
@@ -26,11 +21,17 @@ public class GeneralRepository implements IGeneralRepository {
     private HashMap<Integer, List<UserDTO>> followerDB;
     private HashMap<Integer, List<UserDTO>> followedDB;
     private HashMap<Integer, List<PostDTO>> postDB;
+    private HashMap<Integer, List<PromoPostDTO>> promoPostDB;
+
+    List<UserDTO> user ;
 
     public GeneralRepository(){
         this.followedDB = new HashMap<>();
         this.followerDB = new HashMap<>();
         this.postDB = new HashMap<>();
+        this.promoPostDB = new HashMap<>();
+
+        this.user = DataBase.LoadDataBase();
     }
 
     @Override
@@ -41,8 +42,6 @@ public class GeneralRepository implements IGeneralRepository {
 
     @Override
     public UserDTO findById(Integer userId) throws UserNotFoundException {
-        List<UserDTO> user = null;
-        user = LoadDataBase();
         UserDTO result = null;
         if (user != null) {
             Optional<UserDTO> item = user.stream()
@@ -96,6 +95,30 @@ public class GeneralRepository implements IGeneralRepository {
         lessFollowed(userId,userIdToUnfollow);
     }
 
+    @Override
+    public void newPromoPost(PromoPostDTO promoPost) throws GenericException {
+        if(this.promoPostDB.containsKey(promoPost.getUserId())){
+            this.promoPostDB.get(promoPost.getUserId()).add(promoPost);
+        }else {
+            List<PromoPostDTO> listPromoPost = new ArrayList<>();
+            listPromoPost.add(promoPost);
+            this.promoPostDB.put(promoPost.getUserId(),listPromoPost);
+        }
+    }
+
+    @Override
+    public Integer countPromo(UserDTO user) {
+        List<PromoPostDTO> promoList  = this.promoPostDB.get(user.getUserId());
+        if(promoList != null)
+            promoList = promoList.stream().filter(promo -> promo.isHasPromo()).collect(Collectors.toList());
+        return (promoList == null ? 0:promoList.size());
+    }
+
+    @Override
+    public List<PromoPostDTO> getPromoList(UserDTO user) {
+        return this.promoPostDB.get(user.getUserId().intValue());
+    }
+
     private void addFollowed(UserDTO userId, UserDTO userIdToFollow) {
         if(this.followedDB.containsKey(userId.getUserId())){
             this.followedDB.get(userId.getUserId()).add(userIdToFollow);
@@ -146,22 +169,5 @@ public class GeneralRepository implements IGeneralRepository {
     }
 
 
-    private List<UserDTO> LoadDataBase() {
-        File file = null;
-        String fuenteArchivo = "src/main/java/com/example/demo/repository/user.json";
-        try {
-            file = ResourceUtils.getFile(fuenteArchivo);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        ObjectMapper objectMapper = new ObjectMapper();
-        TypeReference<List<UserDTO>> typeRef = new TypeReference<>() {};
-        List<UserDTO> user = null;
-        try {
-            user = objectMapper.readValue(file, typeRef);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
+
 }

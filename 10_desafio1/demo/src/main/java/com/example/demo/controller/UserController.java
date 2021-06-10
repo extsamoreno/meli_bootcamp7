@@ -4,6 +4,7 @@ import com.example.demo.DTO.FollowedListDTO;
 import com.example.demo.DTO.FollowersCountDTO;
 import com.example.demo.DTO.FollowersListDTO;
 import com.example.demo.exception.GenericException;
+import com.example.demo.exception.OrderErrorException;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.services.IUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserController {
     IUserServices userServices;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<Void> follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws UserNotFoundException {
+    public ResponseEntity<Void> follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow) throws GenericException {
         userServices.follow(userId,userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -30,12 +31,12 @@ public class UserController {
     }
 
     @GetMapping("/{UserID}/followers/list")
-    public ResponseEntity<FollowersListDTO> followersList (@PathVariable Integer UserID, @RequestParam(required = false, value = "order",defaultValue = "") String order) throws UserNotFoundException {
+    public ResponseEntity<FollowersListDTO> followersList (@PathVariable Integer UserID, @RequestParam(required = false, value = "order",defaultValue = "name_asc") String order) throws UserNotFoundException, OrderErrorException {
         return new ResponseEntity<>(userServices.followersList(UserID,order),HttpStatus.OK);
     }
 
     @GetMapping("/{UserID}/followed/list")
-    public ResponseEntity<FollowedListDTO> followedList (@PathVariable Integer UserID, @RequestParam(required = false, value = "order",defaultValue = "") String order) throws UserNotFoundException {
+    public ResponseEntity<FollowedListDTO> followedList (@PathVariable Integer UserID, @RequestParam(required = false, value = "order",defaultValue = "name_asc") String order) throws GenericException {
         return new ResponseEntity<>(userServices.followedList(UserID,order),HttpStatus.OK);
     }
 
