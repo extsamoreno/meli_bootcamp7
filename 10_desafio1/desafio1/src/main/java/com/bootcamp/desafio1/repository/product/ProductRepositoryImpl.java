@@ -32,7 +32,6 @@ public class ProductRepositoryImpl implements IProductRepository {
         return productDB;
     }
 
-
     // Method to Read the data from JSON to List of Products called productsList
     public ArrayList<Product> readDateBase() {
         File file = null;

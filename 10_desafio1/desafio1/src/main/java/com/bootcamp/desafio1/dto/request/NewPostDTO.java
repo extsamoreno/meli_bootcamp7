@@ -17,7 +17,7 @@ public class NewPostDTO {
 
     private int userId;
     private int postId;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy", timezone="UTC")
     private Date date;
     private ProductDTO detail;
     private int category;
