@@ -20,6 +20,8 @@ public class ProductDTO implements  Comparable<LocalDate> {
     private boolean hasPromo;
     private double discount;
 
+
+    //Constructor for products without promo
     public ProductDTO(Integer idPost, String date, ProductDetail detail, Integer category, double price) {
         this.idPost = idPost;
         this.date = date;
@@ -29,7 +31,7 @@ public class ProductDTO implements  Comparable<LocalDate> {
     }
 
 
-
+    //Convert String to LocalDate
     public LocalDate getDateFromString(){
         LocalDate resultDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy"));
         return resultDate;

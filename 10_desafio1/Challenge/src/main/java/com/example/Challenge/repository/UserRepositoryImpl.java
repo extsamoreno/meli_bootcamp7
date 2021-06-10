@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 @Repository
 public class UserRepositoryImpl implements IUserRepository {
+
+    //Initialize users
     public final HashMap<Integer, User> dataBaseUsers = new HashMap<>();
     User u1=new User(1,"user1", false);
     User u2=new User(2,"user2",false);
@@ -18,7 +20,7 @@ public class UserRepositoryImpl implements IUserRepository {
     User u7=new User(7,"user7",true);
     User u8=new User(8,"user8",true);
 
-
+    //Add users to database
     public UserRepositoryImpl() {
         this.dataBaseUsers.put(1,u1);
         this.dataBaseUsers.put(2,u2);

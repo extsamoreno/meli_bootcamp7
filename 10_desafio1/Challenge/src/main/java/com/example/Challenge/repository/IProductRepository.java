@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface IProductRepository {
+    //Create product/post
     String createPost(Product product);
+    //Get all products
     List<Product> getAllProductsFollowed(Integer userId);
     List<Product> getAllSellerProducts(Integer userId);
     List<Product> getAllProducts();

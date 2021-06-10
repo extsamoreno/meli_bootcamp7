@@ -50,8 +50,6 @@ public class ProductServiceImpl implements IProductService{
                 throw new ProductException("There is already a product with this id post ");
             }
         }
-
-
         return iProductRepository.createPost(product);
     }
 
@@ -73,7 +71,6 @@ public class ProductServiceImpl implements IProductService{
         //Exceptions
         if(user == null) throw new UserIdNotFoundException(userId);
         else if(user.isSeller()) throw new ProgramException("Only customers can  view posts ", HttpStatus.BAD_REQUEST);
-
 
         List<ProductDTO> listResult= new ArrayList<>();
         List<Product> listProducts = iProductRepository.getAllProductsFollowed(userId);
@@ -112,7 +109,6 @@ public class ProductServiceImpl implements IProductService{
                 throw new ProductException("There is already a product with this id post ");
             }
         }
-
         return iProductRepository.createPromoPost(product);
     }
 

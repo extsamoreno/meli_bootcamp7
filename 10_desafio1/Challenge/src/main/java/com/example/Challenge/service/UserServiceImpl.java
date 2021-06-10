@@ -22,8 +22,6 @@ public class UserServiceImpl implements   IUserService{
     @Autowired
     IUserRepository iUserRepository;
 
-
-
     public void addFollower(User customer, User seller) {
         List<UserDTO> usersFollowers = seller.getFollowers();
         if (customer!= null){
@@ -33,7 +31,6 @@ public class UserServiceImpl implements   IUserService{
             iUserRepository.saveChanges(seller);
         }
     }
-
     public void addFollowed(User customer, User seller){
         List<UserDTO> usersFollowed = customer.getFollowed();
         if(seller!= null){
@@ -112,12 +109,12 @@ public class UserServiceImpl implements   IUserService{
             return userResult;
         }
         else if(order.equals("name_asc")){
-            //Sort by Name
+            //Sort by Name asc
             Collections.sort(userResult.getListFollowers(), (o1, o2) ->o1.getUserName().compareTo(o2.getUserName()) );
             return userResult;
         }
         else if(order.equals("name_desc")){
-            //Sort by Name
+            //Sort by Name desc
             Collections.sort(userResult.getListFollowers(), (o1, o2) ->o1.getUserName().compareTo(o2.getUserName()) );
             Collections.reverse(userResult.getListFollowers());
             return userResult;
@@ -127,13 +124,9 @@ public class UserServiceImpl implements   IUserService{
 
     @Override
     public UserResponseListFollowedDTO getUserFollowedList(Integer userId, String order) throws ProgramException {
-
         User user = iUserRepository.getUserById(userId);
-
-
         //Exceptions
         if(user == null) throw new UserIdNotFoundException(userId);
-        else if(!user.isSeller()) throw new ProgramException("Only customers have followed", HttpStatus.BAD_REQUEST);
 
         UserResponseListFollowedDTO userResult = MapperUser.toUserFollowedResponseListDTO(user);
 

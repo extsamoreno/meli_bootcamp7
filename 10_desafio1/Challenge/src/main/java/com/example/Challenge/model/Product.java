@@ -20,6 +20,7 @@ public class Product {
     private boolean hasPromo;
     private double discount;
 
+    //Constructor for Product without promo
     public Product(Integer userId, Integer idPost, String date, ProductDetail detail, Integer category, double price) {
         this.userId = userId;
         this.idPost = idPost;
@@ -29,7 +30,7 @@ public class Product {
         this.price = price;
     }
 
-
+    //Convert String to LocalDate
     public LocalDate getDateFromString(){
         LocalDate resultDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy"));
         return resultDate;

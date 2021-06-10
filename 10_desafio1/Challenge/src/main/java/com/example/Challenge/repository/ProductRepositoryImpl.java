@@ -1,14 +1,11 @@
 package com.example.Challenge.repository;
 
-
-import com.example.Challenge.dto.UserDTO;
 import com.example.Challenge.model.Product;
 import com.example.Challenge.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -24,7 +21,7 @@ public class ProductRepositoryImpl implements  IProductRepository{
             dataBaseProducts.add(product);
             return "OK";
         }
-        return "Fail";
+        else return "Fail";
     }
 
     @Override
@@ -32,6 +29,7 @@ public class ProductRepositoryImpl implements  IProductRepository{
         List<Product> listResult = new ArrayList<>();
         User user = iUserRepository.getUserById(userId);
 
+        //Find Followed products
         for(int i=0; i<user.getFollowed().size(); i++){
             for(int j=0; j<dataBaseProducts.size();j++){
                 if(user.getFollowed().get(i).getIdUser()== dataBaseProducts.get(j).getUserId()){

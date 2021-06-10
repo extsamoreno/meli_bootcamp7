@@ -6,8 +6,9 @@ import com.example.Challenge.model.Product;
 
 
 public class MapperProduct {
-    public static ProductDTO toProductDTO(Product product){
 
+    // Convert Product to ProductDTO
+    public static ProductDTO toProductDTO(Product product){
         if(product.isHasPromo()){
             ProductDTO productResult = new ProductDTO(
                     product.getIdPost(),

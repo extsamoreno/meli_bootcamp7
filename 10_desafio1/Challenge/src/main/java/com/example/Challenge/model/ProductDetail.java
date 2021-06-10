@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class ProductDetail {
     private Integer productId;
     private String productName, type,brand,color,notes;
