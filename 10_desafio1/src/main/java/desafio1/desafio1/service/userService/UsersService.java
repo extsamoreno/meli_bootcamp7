@@ -22,7 +22,7 @@ public class UsersService implements IUsersService {
    @Autowired
     IUserRepository userRepository;
 
-    @Override//estoy devolviendo una instancia nueva, debeiria devolver la de la bdd
+    @Override
     public User follow(int userId, int userIdToFollow) throws UserNotFoundException, FollowException, FollowLoopException { //userIdToFollow es a quien quiero seguir
         UserSaveDTO userSaveDTO = new UserSaveDTO();
         UserSaveDTO userSaveDTOFollow = new UserSaveDTO();
@@ -34,10 +34,12 @@ public class UsersService implements IUsersService {
         //hago eso porque en el find se fija si existe y no tengo que validar de nuevo aca
         userSaveDTO.setUserId(userRepository.findUserById(userId).getUserId());
         userSaveDTO.setUserName(userRepository.findUserById(userId).getUserName());
+        userSaveDTO.setIsSeller(userRepository.findUserById(userId).getIsSeller());
 
 
         userSaveDTOFollow.setUserId(userRepository.findUserById(userIdToFollow).getUserId());
         userSaveDTOFollow.setUserName(userRepository.findUserById(userIdToFollow).getUserName());
+        userSaveDTOFollow.setIsSeller(userRepository.findUserById(userIdToFollow).getIsSeller());
 
         //validar si ya lo sigo, si es asi, no deberia volver a agregarlo a la lista
         List<UserSaveDTO> userSaveDTOList = userRepository.findUserById(userId).getFollowList();
@@ -62,11 +64,12 @@ public class UsersService implements IUsersService {
 
         sellerCountDTO.setUserId(user.getUserId());
         sellerCountDTO.setUserName(user.getUserName());
+        sellerCountDTO.setIsSeller(user.getIsSeller());
 
         //valido que en la lista haya usuarios que siguen a este vendedor, y obtengo el tamaño
-        sellerCountDTO.setFollowers_count(userRepository.filterFollowersMe(userId, "usuario").size());
+        sellerCountDTO.setFollowers_count(userRepository.filterFollowersMe(userId, 0).size());
 
-        if(!sellerCountDTO.getUserName().contains("vendedor")){  //REVISAR ESTO, LO HICE RAPIDO, NO ESTOY SEGURA
+        if(sellerCountDTO.getIsSeller() ==0){
             throw new ValidateSellerException(sellerCountDTO.getUserId());
         }
 
@@ -82,11 +85,12 @@ public class UsersService implements IUsersService {
 
         sellerListDTO.setUserId(user.getUserId());
         sellerListDTO.setUserName(user.getUserName());
+        sellerListDTO.setIsSeller(user.getIsSeller());
 
-        //valido que en la lista haya usuarios que siguen a este vendedor, y obtengo el tamaño
-        sellerListDTO.setFollowMeList(userRepository.filterFollowersMe(userId, "usuario"));
+        //obtengo lista de usuarios que siguen a este vendedor
+        sellerListDTO.setFollowMeList(userRepository.filterFollowersMe(userId, 0));
 
-        if(!sellerListDTO.getUserName().contains("vendedor")){  //Valido si yo soy un vendedor
+        if(sellerListDTO.getIsSeller()==0){  //Valido si yo soy un vendedor
             throw new ValidateSellerException(sellerListDTO.getUserId());
         }
 
@@ -98,11 +102,6 @@ public class UsersService implements IUsersService {
 
     }
 
-    private void sortByName(List<UserSaveDTO> list , String order){
-        if(order.equals("name_asc")) list.sort(Comparator.comparing(UserSaveDTO::getUserName));
-        else if(order.equals("name_desc")) list.sort(Comparator.comparing(UserSaveDTO::getUserName).reversed());
-
-    }
 
 
     @Override
@@ -113,10 +112,11 @@ public class UsersService implements IUsersService {
 
         userListDTO.setUserId(user.getUserId());
         userListDTO.setUserName(user.getUserName());
+        userListDTO.setIsSeller(user.getIsSeller());
 
-        userListDTO.setFollowList(userRepository.filterFollowers(userId, "vendedor"));
+        userListDTO.setFollowList(userRepository.filterFollowers(userId, 1)); ///1 es vendedor
 
-        if(!userListDTO.getUserName().contains("usuario")){
+        if(userListDTO.getIsSeller()==1){ //validamos que no sea un vendedor
             throw new ValidateUserException(userListDTO.getUserId());
         }
 
@@ -125,6 +125,12 @@ public class UsersService implements IUsersService {
         sortByName(userListDTO.getFollowList(), order);
 
         return userListDTO;
+
+    }
+
+    private void sortByName(List<UserSaveDTO> list , String order){
+        if(order.equals("name_asc")) list.sort(Comparator.comparing(UserSaveDTO::getUserName));
+        else if(order.equals("name_desc")) list.sort(Comparator.comparing(UserSaveDTO::getUserName).reversed());
 
     }
 

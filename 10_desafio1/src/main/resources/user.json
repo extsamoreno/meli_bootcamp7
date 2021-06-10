@@ -1,7 +1,8 @@
 [
   {
     "userId": 1,
-    "userName": "vendedor1",
+    "userName": "juan perez",
+    "isSeller": 1,
     "followList": [],
     "followMeList": [ ],
     "publicationsList": [
@@ -26,70 +27,78 @@
         "detail":
         {
           "product_id": 1,
-          "productName": "Silla Gamer",
-          "type": "Gamer",
-          "brand": "Racer",
-          "color": "Red & Black",
-          "notes": "Special Edition"
+          "productName": "Silla",
+          "type": "Ergonomica",
+          "brand": "x",
+          "color": "x",
+          "notes": "c"
         },
-        "category": 100,
-        "price": 1500.50
+        "category": 300,
+        "price": 2000.50
       }
 
     ]
   },
   {
     "userId": 2,
-    "userName": "vendedor2",
-    "followList": [],
-    "followMeList": [],
-    "publicationsList": []
-  },
-  {
-    "userId": 9,
-    "userName": "vendedor9",
+    "userName": "andres david",
+    "isSeller": 1,
     "followList": [],
     "followMeList": [],
     "publicationsList": []
   },
   {
     "userId": 3,
-    "userName": "usuario1",
+    "userName": "elizabeth jonshon",
+    "isSeller": 1,
     "followList": [],
     "followMeList": [],
     "publicationsList": []
   },
   {
-    "userId": 4,
-    "userName": "usuario2",
-    "followList": [],
-    "followMeList": [],
-    "publicationsList": []
+  "userId": 4,
+  "userName": "laura martinez",
+  "isSeller": 1,
+  "followList": [],
+  "followMeList": [],
+  "publicationsList": []
   },
   {
     "userId": 5,
-    "userName": "usuario3",
+    "userName": "exequiel sanchez",
+    "isSeller": 1,
     "followList": [],
     "followMeList": [],
     "publicationsList": []
   },
   {
     "userId": 6,
-    "userName": "usuario4",
+    "userName": "fiorella jaime",
+    "isSeller": 0,
     "followList": [],
     "followMeList": [],
     "publicationsList": []
   },
   {
-    "userId": 10,
-    "userName": "vendedor10",
+    "userId": 7,
+    "userName": "maria antonieta",
+    "isSeller": 0,
     "followList": [],
     "followMeList": [],
     "publicationsList": []
   },
   {
-    "userId": 11,
-    "userName": "vendedor11",
+    "userId": 8,
+    "userName": "belen cancian",
+    "isSeller": 0,
+    "followList": [],
+    "followMeList": [],
+    "publicationsList": []
+  },
+  {
+    "userId": 9,
+    "userName": "rosa buyatti",
+    "isSeller":0,
     "followList": [],
     "followMeList": [],
     "publicationsList": []

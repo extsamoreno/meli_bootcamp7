@@ -14,6 +14,7 @@ import java.util.List;
 public class User {
     private int userId;
     private String userName;
+    private int isSeller;
     private List<UserSaveDTO> followList; //quienes sigo yo
     private List<UserSaveDTO> followMeList; //quienes me siguen
     private List<Publications> publicationsList;

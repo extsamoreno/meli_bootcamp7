@@ -12,7 +12,7 @@ public class UserListDTO {
     private int userId;
     private String userName;
     private List<UserSaveDTO> followList;
-
+    private int isSeller;
 
     public UserListDTO() {
         this.followList = new ArrayList<>();

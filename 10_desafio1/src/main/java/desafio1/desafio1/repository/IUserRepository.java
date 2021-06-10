@@ -11,8 +11,8 @@ import java.util.List;
 
 public interface IUserRepository {
     User findUserById(int userId) throws UserNotFoundException;
-    List<UserSaveDTO> filterFollowers(int userId, String criterio) throws UserNotFoundException;
-    List<UserSaveDTO> filterFollowersMe(int userId, String criterio) throws UserNotFoundException;
+    List<UserSaveDTO> filterFollowers(int userId, int criterio) throws UserNotFoundException;
+    List<UserSaveDTO> filterFollowersMe(int userId, int criterio) throws UserNotFoundException;
     List<Publications> findPublicationByUserID(int userID) throws UserNotFoundException;
     void unfollow(int userId, int userIdToUnfollow) throws UserNotFoundException, UnfollowException, ValidateSellerException;
 }

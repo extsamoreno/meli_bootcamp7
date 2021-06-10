@@ -27,7 +27,7 @@ public class ProductService implements IProductService {
 
         Publications publications = new Publications();
 
-        if(!user.getUserName().contains("vendedor")){  //Valido si yo soy un vendedor, sino no puedo cargar publicaciones
+        if(user.getIsSeller()==0){  //Valido si yo soy un vendedor, sino no puedo cargar publicaciones
             throw new ValidateSellerException(user.getUserId());
         }
 
@@ -48,7 +48,7 @@ public class ProductService implements IProductService {
     @Override
     public PostsDTO listPublication(int userId, String order) throws UserNotFoundException {
         //Obtengo la lista de vendedores TDO a los que sigue el usuario
-        List<UserSaveDTO> sellersTDO= userRepository.filterFollowers(userId, "vendedor");
+        List<UserSaveDTO> sellersTDO= userRepository.filterFollowers(userId, 1);
         List<User> sellers = new ArrayList<>();
         PostsDTO postsDTO = new PostsDTO();
 

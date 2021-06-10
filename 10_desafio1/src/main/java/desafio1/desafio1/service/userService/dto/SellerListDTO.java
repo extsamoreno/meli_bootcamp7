@@ -13,6 +13,7 @@ public class SellerListDTO {
     private int userId;
     private String userName;
     private List<UserSaveDTO> followMeList;
+    private int isSeller;
 
 
     public SellerListDTO() {
