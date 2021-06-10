@@ -1,5 +1,9 @@
 package com.socialmeli.desafio.controller;
 
+import com.socialmeli.desafio.Exception.SeguidorNoRegistradoException;
+import com.socialmeli.desafio.Exception.SeguidorYaRegistradoException;
+import com.socialmeli.desafio.Exception.UserIdNotFoundException;
+import com.socialmeli.desafio.Exception.VendedorIdNotFoundException;
 import com.socialmeli.desafio.dto.FollowedListDTO;
 import com.socialmeli.desafio.dto.FollowersCountDTO;
 import com.socialmeli.desafio.dto.FollowersListDTO;
@@ -23,7 +27,7 @@ import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 @RequestMapping("/users")
 public class UsersController {
 
-     @Autowired
+    @Autowired
     IUsuarioRepository iUsuarioRepository;
 
     @Autowired
@@ -38,7 +42,7 @@ public class UsersController {
 
 
     @PostMapping("/crearDB")
-    public void crearDB()  {    //Se crea la base de datos de prueba
+    public void crearDB() throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorYaRegistradoException {    //Se crea la base de datos de prueba
         iInitRepository.altaUsuarios();
         iInitRepository.altaVendedores();
         iInitRepository.follow();
@@ -59,52 +63,45 @@ public class UsersController {
     @PostMapping("/listarPublicacionesPorVendedor/{id}")    //Se listan las BD, prueba para verificar que funciona ok
     public void listarPublicaciones(@PathVariable int id)  {
        VendedorModel vendedor= iVendedorRepository.getVendedorById(id);
-        System.out.println(vendedor.getPosts().get(0).getDetail());
-
 
     }
 
 
     @PostMapping("/{id}/follow/{userIdToFollow}")   //CU0001
-    public ResponseEntity<HttpStatus> follow (@PathVariable int id, @PathVariable int userIdToFollow)  {
+    public ResponseEntity<Void> follow (@PathVariable int id, @PathVariable int userIdToFollow) throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorYaRegistradoException {
+       iSocialService.follow(id, userIdToFollow);
 
-        iSocialService.follow(id, userIdToFollow);
-
-        if (id == 0) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   //falta hacer las excepciones
-        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/{id}/unFollow/{userIdToUnfollow}")   //CU0007
-    public ResponseEntity<HttpStatus> unFollow (@PathVariable int id, @PathVariable int userIdToUnfollow)  {
+    public ResponseEntity<Void> unFollow (@PathVariable int id, @PathVariable int userIdToUnfollow) throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorNoRegistradoException {
 
         iSocialService.unfollow(id, userIdToUnfollow);
 
-        if (id == 0) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);   //falta hacer las excepciones
-        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     @GetMapping("/{id}/followers/count/")  //CU0002
-    public ResponseEntity<FollowersCountDTO> followersCount (@PathVariable int id){  //falta hacer las excepciones
+    public ResponseEntity<FollowersCountDTO> followersCount (@PathVariable int id)throws VendedorIdNotFoundException{
 
         return new ResponseEntity<>(iSocialService.getCountFollowers(id),HttpStatus.OK);
     }
 
 
-    @GetMapping("/{id}/followers/list")  //CU0003
-    public ResponseEntity<FollowersListDTO> followersList (@PathVariable int id){  //falta hacer las excepciones
-
-        return new ResponseEntity<>(iSocialService.getFollowersList(id),HttpStatus.OK);
+   @GetMapping("/{id}/followers/list")  //CU0003 y CU0008
+    public ResponseEntity<FollowersListDTO> followersList (@PathVariable int id, @RequestParam (required = false, defaultValue = "") String order)throws VendedorIdNotFoundException{
+       System.out.println(order);
+        return new ResponseEntity<>(iSocialService.getFollowersList(id,order),HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/followed/list")  //CU0004
-    public ResponseEntity<FollowedListDTO> followedList (@PathVariable int id){  //falta hacer las excepciones
 
-        return new ResponseEntity<>(iSocialService.getFollowedList(id),HttpStatus.OK);
+
+    @GetMapping("/{id}/followed/list")  //CU0004 y CU0008
+    public ResponseEntity<FollowedListDTO> followedList (@PathVariable int id, @RequestParam (required = false, defaultValue = "")String order)throws UserIdNotFoundException{
+
+        return new ResponseEntity<>(iSocialService.getFollowedList(id,order),HttpStatus.OK);
     }
 
 

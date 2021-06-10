@@ -1,5 +1,8 @@
 package com.socialmeli.desafio.socialRepository;
 
+import com.socialmeli.desafio.Exception.SeguidorYaRegistradoException;
+import com.socialmeli.desafio.Exception.UserIdNotFoundException;
+import com.socialmeli.desafio.Exception.VendedorIdNotFoundException;
 import com.socialmeli.desafio.model.DetailModel;
 import com.socialmeli.desafio.model.PublicacionModel;
 import com.socialmeli.desafio.model.VendedorModel;
@@ -56,14 +59,15 @@ public class InitRepository implements IInitRepository{
     }
 
 
-    public void follow(){
-       iSocialService.follow(1, 1);
-        iSocialService.follow(2, 1);
+    public void follow() throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorYaRegistradoException {
+
         iSocialService.follow(2, 2);
         iSocialService.follow(2, 3);
+        iSocialService.follow(1, 1);
+        iSocialService.follow(3, 5);
+        iSocialService.follow(2, 1);
         iSocialService.follow(3, 1);
         iSocialService.follow(3, 3);
-        iSocialService.follow(3, 5);
 
         }
 

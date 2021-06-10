@@ -1,6 +1,8 @@
 package com.socialmeli.desafio.controller;
 
 
+import com.socialmeli.desafio.Exception.UserIdNotFoundException;
+import com.socialmeli.desafio.Exception.VendedorIdNotFoundException;
 import com.socialmeli.desafio.dto.PublicacionesVendedoresSeguidosDTO;
 import com.socialmeli.desafio.model.PublicacionModel;
 import com.socialmeli.desafio.service.ISocialService;
@@ -20,15 +22,14 @@ public class ProductController {
     ISocialService iSocialService;
 
     @PostMapping("/newpost")  //CU0005
-    public ResponseEntity<HttpStatus> newPost(@RequestBody PublicacionModel publicacion)  {
+    public ResponseEntity<HttpStatus> newPost(@RequestBody PublicacionModel publicacion) throws VendedorIdNotFoundException, UserIdNotFoundException {
         iSocialService.createPost(publicacion);
-        return new ResponseEntity<>(HttpStatus.OK);   //faltaria hacerlo mas prolijo con un DTO y Mapper
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")  //CU0006
-    public ResponseEntity<PublicacionesVendedoresSeguidosDTO> postByVendedores (@PathVariable int userId){
-       // iSocialService.publicacionesVendedoresSeguidosDosSemanas(userId);
-        return new ResponseEntity<>(iSocialService.publicacionesVendedoresSeguidosDosSemanas(userId),HttpStatus.OK);
+    public ResponseEntity<PublicacionesVendedoresSeguidosDTO> postByVendedores (@PathVariable int userId, @RequestParam (required = false, defaultValue = "") String order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iSocialService.publicacionesVendedoresSeguidosDosSemanas(userId,order),HttpStatus.OK);
     }
 
 
