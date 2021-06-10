@@ -5,8 +5,6 @@ import com.example.demo.exception.GenericException;
 import com.example.demo.exception.OrderErrorException;
 import com.example.demo.exception.UserNotFoundException;
 
-import java.util.List;
-
 public interface IProductServices {
 
     void newPost(PostDTO post) throws UserNotFoundException;

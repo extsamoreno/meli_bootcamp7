@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
 import com.example.demo.DTO.PostDTO;
-import com.example.demo.DTO.PostListDTO;
 import com.example.demo.DTO.PromoPostDTO;
 import com.example.demo.DTO.UserDTO;
 import com.example.demo.exception.GenericException;
