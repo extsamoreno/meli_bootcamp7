@@ -17,7 +17,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
     @Autowired
     iDataRepository iDataRepository;
 
-    private void addFollowedToUser(User user, int followedId) throws UserNotFoundException {
+    private void addFollowedToUser(User user, int followedId){
         List<Integer> following = user.getFollowing();
 
         if(following.indexOf(followedId) == -1 && user.getId() != followedId){
@@ -25,7 +25,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
         }
 
     }
-    private void addFollowerToUser(User user, int followerId) throws UserNotFoundException {
+    private void addFollowerToUser(User user, int followerId){
 
         List<Integer> followers = user.getFollowers();
 
@@ -35,7 +35,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
 
 
     }
-    private void removeFollowedToUser(User user, int followedId) throws UserNotFoundException {
+    private void removeFollowedToUser(User user, int followedId){
         List<Integer> following = user.getFollowing();
 
         int index = following.indexOf(followedId);
@@ -44,7 +44,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
         }
 
     }
-    private void removeFollowerToUser(User user, int followerId) throws UserNotFoundException {
+    private void removeFollowerToUser(User user, int followerId) {
 
         List<Integer> followers = user.getFollowers();
 
