@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "3991fefd-e7df-4b99-b256-6edbbf651c2e",
+		"name": "socialMeli",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createDTORepository",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/loaddb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"loaddb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "followById",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/follow/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"follow",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unFollowById",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/1/follow/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"follow",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFollowers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "getFollowersList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/users/2/followers/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"users",
+						"2",
+						"followers",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFollowedList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "getFollowedPostByUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "newPost",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 2,\n    \"id_post\": 5,\n    \"date\": \"30-05-2021\",\n    \"detail\":\n    {\n        \"product_id\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50,\n    \"hasPromo\": true,\n    \"discount\": 10\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/products/newpost",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

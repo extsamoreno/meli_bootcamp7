@@ -16,6 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+/*
+* OBSERVACION:
+* Utilice solo un repositorio el cual contiene "dos tablas" = dos hashmaps que representan dos tablas en donde se guarda
+* la informacion. Intete que los metodos sean genericos para que los mismos puedan realizar ABMs a ambas tablas.
+* */
 @Repository
 public class SocialMeliRepository implements ISocialMeliRepository {
     public static int POSTDTO_TABLE = 1;
@@ -23,7 +28,6 @@ public class SocialMeliRepository implements ISocialMeliRepository {
     public static String USERDTONAME = "UserDTO";
     public static String POSTDTONAME = "PostDTO";
 
-    // Trato a cada map como una tabla
 
     private HashMap<Integer, UserDTO> userDTOMap = new HashMap<Integer, UserDTO>();
     private HashMap<Integer, PostDTO> postDTOMap = new HashMap<Integer, PostDTO>();

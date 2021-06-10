@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Calendar;
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -21,4 +24,17 @@ public class PostDTO {
     private double price;
     private boolean hasPromo;
     private float discount;
+
+    public static Date stringToDate(String stringDate){
+        Integer day = Integer.parseInt(stringDate.substring(0, 2));
+        Integer month = Integer.parseInt(stringDate.substring(3, 5));
+        Integer year = Integer.parseInt(stringDate.substring(6, 10));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.YEAR, year);
+
+        return calendar.getTime();
+    }
 }

@@ -2,9 +2,6 @@ package com.desafio.socialMeli.service;
 
 import com.desafio.socialMeli.service.dto.PostDTO;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -12,12 +9,21 @@ import java.util.*;
 @Service
 class OrderService implements IOrderService{
 
+
+
+    /* ACLARACION:
+    * Este metodo ordena por date. No me alcanzo el tiempo para implementar el punto 9, pero es un metodo get que usa esta funcion la cual esta
+    * funcionando correctamente para la fecha en ambos ordenes.
+    * Respecto al ordenamiento para ver las ultimas dos semanas, no me funciono. Me falto parsear el date nuevamente a string y luego compararlo.
+    * Tuve problemas con las librerias de Date.
+    * */
     @Override
     public List <PostDTO> orderPostByDate(List<PostDTO> postDTOS, String order){
 
         HashMap <Integer, PostDTO> mapPostDTO = new HashMap<>();
         ArrayList<PostDTO> arrayListPostDTO = new ArrayList<PostDTO>();
         ArrayList<String> stringArrayList = new ArrayList<String>();
+        ArrayList<String> stringArrayListAux = new ArrayList<String>();
 
         int index = 0;
 
@@ -26,29 +32,35 @@ class OrderService implements IOrderService{
         Collections.sort(stringArrayList);
 
         if(order.equals("date_asc")) Collections.reverse(stringArrayList);
+
+
         if (order.equals("date_asc_2W")) {
 
-            Date calendario = getDateBeforeTwoWeeks();
-            System.out.println("la fecha de hace dos semanas es: " +calendario);
+            Date dateBeforeTwoWeeks = getDateBeforeTwoWeeks();
+            System.out.println("la fecha de hace dos semanas es: " +dateBeforeTwoWeeks);
 
-            Calendar fecha2 = new GregorianCalendar(2016,7,5);
+            ArrayList<Date> dates = new ArrayList<Date>();
+            ArrayList<Date> datesAux = new ArrayList<Date>();
 
-            ArrayList<Calendar> fechaAux = new ArrayList<Calendar>();
+            for(PostDTO p: postDTOS)  dates.add(p.stringToDate(p.getDate()));
 
-            ArrayList<String> stringArrayListAux = new ArrayList<String>();
-            for(String e : stringArrayList) {
-                stringArrayListAux.add(e);
-                if (e.equals(calendario)) {
-                    break;
+
+            for(Date date : dates) {
+                if(date.compareTo(dateBeforeTwoWeeks) > 0) {
+                    System.out.println("La fecha" + date + "es mayor que " + dateBeforeTwoWeeks);
+                    datesAux.add(date);
                 }
             }
+
+            for(int i = 0; i<datesAux.size();i++)
+                stringArrayListAux.add(datesAux.get(i).toString());
+
+
             stringArrayList.clear();
             stringArrayList.addAll(stringArrayListAux);
             Collections.reverse(stringArrayList);
 
         }
-
-
 
 
         for(PostDTO p : postDTOS) {
@@ -70,14 +82,8 @@ class OrderService implements IOrderService{
         return arrayListPostDTO;
     }
 
-    private static Date getDateBeforeTwoWeeks() {
-/*        DateTimeFormatter formmat1 = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
-        LocalDateTime calendar = LocalDateTime.now().minusDays(14);
-        //String formatter = formmat1.format(calendar);
-        return calendar;
-    }
-*/
 
+    private static Date getDateBeforeTwoWeeks() {
         Calendar calendar = Calendar.getInstance();
         calendar.getTime();
         calendar.add(Calendar.DATE, -14);
@@ -85,4 +91,3 @@ class OrderService implements IOrderService{
     }
 
 }
-

@@ -21,7 +21,6 @@ public class UserController {
     @Autowired
     IUserService iUserService;
 
-    //------------------------------------------------------------------------------------------------------------------------------------------------------
 
     @GetMapping("/loaddb")
     public ResponseEntity<String> loadDatabase() {
@@ -54,4 +53,6 @@ public class UserController {
     public ResponseEntity<String> unfollowById(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserNotFoundException, RepositoryUnableException, RemoveFollowerException, RemoveFollowedException {
         return new ResponseEntity<String>(iUserService.unfollowById(userId, userIdToUnfollow), HttpStatus.OK);
     }
+
+
 }
