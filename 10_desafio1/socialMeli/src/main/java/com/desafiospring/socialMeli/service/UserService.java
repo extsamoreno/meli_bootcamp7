@@ -15,7 +15,6 @@ import com.desafiospring.socialMeli.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -70,7 +69,6 @@ public class UserService implements IUserService {
 
 
     private void sortingByName(String order, List<UserDTO> list) {
-
         if (order != null && order.equals("name_desc"))
             list.sort(Comparator.comparing(UserDTO::getUserName).reversed());
         if (order != null && order.equals("name_asc"))

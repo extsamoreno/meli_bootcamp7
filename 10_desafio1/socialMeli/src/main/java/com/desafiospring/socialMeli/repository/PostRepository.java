@@ -14,58 +14,38 @@ public class PostRepository implements IPostRepository {
 
     @Override
     public void addNewPost(Post post) throws PostIdAlreadyExistException {
-        Post checkPost = this.posts.stream()
+        Post checkPost = posts.stream()
                 .filter(p -> p.getId_post() == post.getId_post())
                 .findAny().orElse(null);
-
         if (checkPost != null) {
             throw new PostIdAlreadyExistException(post.getId_post());
         } else {
-            this.posts.add(post.getId_post(), post);
+            posts.add(post);
         }
     }
 
     @Override
-    public List<Post> getFollowedPosts(List<User> followed, String order) {
+    public List<Post> getFollowedPosts(List<User> followed) {
         List<Post> followedPosts = new ArrayList<>();
 
         for (User u : followed) {
             followedPosts.addAll(getPosts(u.getUserId()));
         }
 
-        if (order != null && order.equals("date_asc"))
-            followedPosts.sort(Comparator.comparing(Post::getDate));
-
-        if (order != null && order.equals("date_desc"))
-            followedPosts.sort(Comparator.comparing(Post::getDate).reversed());
-
         return followedPosts;
-    }
-
-    @Override
-    public void addNewPromoPost(Post promoPost) throws PostIdAlreadyExistException {
-        Post checkPost = this.posts.stream()
-                .filter(p -> p.getId_post() == promoPost.getId_post())
-                .findAny().orElse(null);
-
-        if (checkPost != null) {
-            throw new PostIdAlreadyExistException(promoPost.getId_post());
-        } else {
-            this.posts.add(promoPost.getId_post(), promoPost);
-        }
     }
 
     @Override
     public int getPromoProductsCount(int userId) {
         return (int) posts.stream()
-                .filter(p -> p.getUserId() == (userId) && p.isHasPromo() == (true))
+                .filter(p -> p.getUserId() == (userId) && p.isHasPromo())
                 .count();
     }
 
     @Override
     public List<Post> getPromoPostsList(int userId) {
         return posts.stream()
-                .filter(p -> p.getUserId() == userId && p.isHasPromo() == true)
+                .filter(p -> p.getUserId() == userId && p.isHasPromo())
                 .collect(Collectors.toList());
     }
 

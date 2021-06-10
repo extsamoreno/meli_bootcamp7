@@ -1,6 +1,5 @@
 package com.desafiospring.socialMeli.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.util.Date;

@@ -15,4 +15,5 @@ public class PostException extends Exception {
         this.errorDTO.setName(this.getClass().getSimpleName());
         this.httpStatus = httpStatus;
     }
+
 }

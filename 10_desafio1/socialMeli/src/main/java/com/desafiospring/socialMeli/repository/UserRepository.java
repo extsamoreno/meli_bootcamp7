@@ -1,6 +1,5 @@
 package com.desafiospring.socialMeli.repository;
 
-import com.desafiospring.socialMeli.dto.UserDTO;
 import com.desafiospring.socialMeli.exceptions.UserAlreadyFollowsException;
 import com.desafiospring.socialMeli.exceptions.UserAlreadyUnfollowsException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
@@ -14,12 +13,12 @@ public class UserRepository implements IUserRepository {
     HashMap<Integer, User> usersDic = new HashMap<>();
 
     public UserRepository() {
-        usersDic.put(1, new User("Roberto", 1, new ArrayList<>(), new ArrayList<>()));
-        usersDic.put(2, new User("Sofia", 2, new ArrayList<>(), new ArrayList<>()));
-        usersDic.put(3, new User("Laura", 3, new ArrayList<>(), new ArrayList<>()));
-        usersDic.put(4, new User("Susana", 4, new ArrayList<>(), new ArrayList<>()));
-        usersDic.put(5, new User("Ximena", 5, new ArrayList<>(), new ArrayList<>()));
-        usersDic.put(6, new User("Usuario6", 6, new ArrayList<>(), new ArrayList<>()));
+        usersDic.put(1, new User("User1", 1, new ArrayList<>(), new ArrayList<>()));
+        usersDic.put(2, new User("User2", 2, new ArrayList<>(), new ArrayList<>()));
+        usersDic.put(3, new User("User3", 3, new ArrayList<>(), new ArrayList<>()));
+        usersDic.put(4, new User("User4", 4, new ArrayList<>(), new ArrayList<>()));
+        usersDic.put(5, new User("User5", 5, new ArrayList<>(), new ArrayList<>()));
+        usersDic.put(6, new User("User6", 6, new ArrayList<>(), new ArrayList<>()));
     }
 
     @Override
@@ -39,8 +38,8 @@ public class UserRepository implements IUserRepository {
         if (user.getFollowed().contains(userToFollow)) {
             throw new UserAlreadyFollowsException(userId, userIdToFollow);
         } else {
-            usersDic.get(userId).getFollowed().add(findUserById(userIdToFollow));
-            usersDic.get(userIdToFollow).getFollowedBy().add(findUserById(userId));
+            usersDic.get(userId).getFollowed().add(userToFollow);
+            usersDic.get(userIdToFollow).getFollowedBy().add(user);
         }
     }
 
@@ -76,8 +75,8 @@ public class UserRepository implements IUserRepository {
         User userToFollow = findUserById(userIdToFollow);
 
         if (user.getFollowed().contains(userToFollow)) {
-            usersDic.get(userId).getFollowed().remove(findUserById(userIdToFollow));
-            usersDic.get(userIdToFollow).getFollowedBy().remove(findUserById(userId));
+            usersDic.get(userId).getFollowed().remove(userToFollow);
+            usersDic.get(userIdToFollow).getFollowedBy().remove(user);
         } else {
             throw new UserAlreadyUnfollowsException(userId, userIdToFollow);
         }

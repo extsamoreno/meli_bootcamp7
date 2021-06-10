@@ -8,7 +8,9 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 public class PromoPostListDTO {
+
     private int userId;
     private String userName;
     private List<PostDTO> promoList;
+
 }

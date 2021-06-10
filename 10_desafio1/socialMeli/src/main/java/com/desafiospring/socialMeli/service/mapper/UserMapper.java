@@ -8,10 +8,6 @@ import java.util.List;
 
 public class UserMapper {
 
-    public static UserDTO toDto(User user) {
-        return new UserDTO(user.getUserId(), user.getUserName());
-    }
-
     public static List<UserDTO> toDTOList(List<User> users) {
         List<UserDTO> dtos = new ArrayList<>();
         users.forEach(u -> {

@@ -1,8 +1,8 @@
 package com.desafiospring.socialMeli.dto;
 
-import java.util.List;
-
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter

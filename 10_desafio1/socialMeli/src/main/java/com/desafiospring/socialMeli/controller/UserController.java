@@ -27,14 +27,14 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<FollowersCountDTO> numberOfFollowers(@PathVariable int userId)
+    public ResponseEntity<FollowersCountDTO> getNumberOfFollowers(@PathVariable int userId)
             throws UserNotFoundException {
         return new ResponseEntity<>(userService.getNumberOfFollowers(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userID}/followers/list")
-    public ResponseEntity<UserFollowedDTO> followersList(@PathVariable int userID,
-                                                         @RequestParam(required = false) String order)
+    public ResponseEntity<UserFollowedDTO> getFollowers(@PathVariable int userID,
+                                                        @RequestParam(required = false) String order)
             throws UserNotFoundException {
         return new ResponseEntity<>(userService.getFollowers(userID, order), HttpStatus.OK);
     }

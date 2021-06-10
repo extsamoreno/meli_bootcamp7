@@ -12,6 +12,7 @@ import com.desafiospring.socialMeli.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -34,9 +35,11 @@ public class PostService implements IPostService {
 
         User user = userRepository.findUserById(userId);
         List<User> usersFollowed = userRepository.getFollowedList(userId);
-        List<Post> postList = postRepository.getFollowedPosts(usersFollowed, order);
+        List<Post> postList = postRepository.getFollowedPosts(usersFollowed);
 
         List<PostDTO> postDTOList = PostMapper.toDtoList(postList);
+
+        sortByDate(postDTOList, order);
 
         return new FollowedPostDTO(user.getUserId(), postDTOList);
     }
@@ -44,7 +47,7 @@ public class PostService implements IPostService {
     @Override
     public void newPromoPost(NewPromoPostDTO promoPost) throws UserNotFoundException, PostIdAlreadyExistException {
         userRepository.findUserById(promoPost.getUserId());
-        postRepository.addNewPromoPost(PostMapper.toPromoPost(promoPost));
+        postRepository.addNewPost(PostMapper.toPromoPost(promoPost));
     }
 
     @Override
@@ -61,6 +64,14 @@ public class PostService implements IPostService {
         List<PostDTO> dtoList = PostMapper.toDtoList(promoList);
 
         return new PromoPostListDTO(userId, user.getUserName(), dtoList);
+    }
+
+    private void sortByDate (List<PostDTO> list, String order) {
+        if (order != null && order.equals("date_asc"))
+            list.sort(Comparator.comparing(PostDTO::getDate));
+
+        if (order != null && order.equals("date_desc"))
+            list.sort(Comparator.comparing(PostDTO::getDate).reversed());
     }
 
 }
