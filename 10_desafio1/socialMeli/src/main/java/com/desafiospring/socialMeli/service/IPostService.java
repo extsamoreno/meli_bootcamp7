@@ -5,7 +5,7 @@ import com.desafiospring.socialMeli.dto.FollowedPostDTO;
 import com.desafiospring.socialMeli.exceptions.PostIdAlreadyExistException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 
-public interface IProductService {
+public interface IPostService {
 
     void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException;
 
