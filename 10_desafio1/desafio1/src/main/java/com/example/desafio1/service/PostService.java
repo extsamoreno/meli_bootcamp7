@@ -7,8 +7,7 @@ import com.example.desafio1.model.Post;
 import com.example.desafio1.model.User;
 import com.example.desafio1.repository.iPostRepository;
 import com.example.desafio1.repository.iUserRepository;
-import com.example.desafio1.service.dto.post.ResponseListFollowedSellers;
-import com.example.desafio1.service.dto.post.ResponseListPostDTO;
+import com.example.desafio1.service.dto.post.*;
 import com.example.desafio1.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +50,7 @@ public class PostService implements iPostService {
 
         User sellerUser = iUserRepository.findUserById(userId);
         ResponseListPostDTO sellerPosts = new ResponseListPostDTO();
+        sellerPosts.setUserId(sellerUser.getUserId());
 
         // Creating list with last seller posts (last 2 weeks to filter)
         for (Post p : iPostRepository.findNewerPostsByUserId(sellerUser.getUserId(), 2)) {
@@ -58,10 +58,50 @@ public class PostService implements iPostService {
         }
 
         // Order posts by date (asc/desc)
-        if(order.equals("date_asc")){
+        if (order.equals("date_asc")) {
             JavaUtils.orderByDateAsc(sellerPosts.getPosts());
-        }else if(order.equals("date_desc")) {
+        } else if (order.equals("date_desc")) {
             JavaUtils.orderByDateDesc(sellerPosts.getPosts());
+        }
+        return sellerPosts;
+    }
+
+    // Returns the amount of products in promotion from a seller (userId)
+    @Override
+    public ResponsePromoPostCountDTO countPromoPostSeller(Integer userId) throws UserNotFoundException {
+
+        User sellerUser = iUserRepository.findUserById(userId);
+        ResponseListPromoDTO sellerPosts = new ResponseListPromoDTO();
+
+        // Filter posts if has promo
+        for (Post p : iPostRepository.findPostsByUserId(sellerUser.getUserId())) {
+            if(p.isHasPromo()){
+                sellerPosts.getPosts().add(PostMapper.postToPromoDTO(p));
+            }
+        }
+        return new ResponsePromoPostCountDTO(sellerUser.getUserId(), sellerUser.getUserName(), sellerPosts.getPosts().size());
+    }
+
+    // Returns a list with promo posts (filtered by user)
+    @Override
+    public ResponseListPromoDTO listSellerPromoPosts(Integer userId, String order) throws UserNotFoundException {
+
+        User sellerUser = iUserRepository.findUserById(userId);
+        ResponseListPromoDTO sellerPosts = new ResponseListPromoDTO();
+        sellerPosts.setUserId(sellerUser.getUserId());
+
+        // Filter posts if has promo
+        for (Post p : iPostRepository.findPostsByUserId(sellerUser.getUserId())) {
+            if(p.isHasPromo()){
+                sellerPosts.getPosts().add(PostMapper.postToPromoDTO(p));
+            }
+        }
+
+        // Order posts by product name (asc/desc)
+        if (order.equals("name_asc")) {
+            JavaUtils.orderByPostNameAsc(sellerPosts.getPosts());
+        } else if (order.equals("name_desc")) {
+            JavaUtils.orderByPostNameDesc(sellerPosts.getPosts());
         }
         return sellerPosts;
     }

@@ -1,9 +1,8 @@
 package JavaUtils;
 
-import com.example.desafio1.model.Post;
 import com.example.desafio1.model.User;
-import com.example.desafio1.service.dto.post.ResponseListPostDTO;
 import com.example.desafio1.service.dto.post.ResponsePostDTO;
+import com.example.desafio1.service.dto.post.ResponsePromoPostDTO;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -19,13 +18,13 @@ public class JavaUtils {
     }
 
     // Order Post by Date ASC
-    public static void orderByDateAsc(ArrayList<ResponsePostDTO> posts){
+    public static void orderByDateAsc(ArrayList<ResponsePostDTO> posts) {
         Comparator<ResponsePostDTO> c = (p1, p2) -> p1.getDate().compareTo(p2.getDate());
         posts.sort(c);
     }
 
     // Order Post by Date DESC
-    public static void orderByDateDesc(ArrayList<ResponsePostDTO> posts){
+    public static void orderByDateDesc(ArrayList<ResponsePostDTO> posts) {
         Comparator<ResponsePostDTO> c = (p1, p2) -> p2.getDate().compareTo(p1.getDate());
         posts.sort(c);
     }
@@ -40,5 +39,17 @@ public class JavaUtils {
     public static void orderByUserNameDesc(ArrayList<User> users) {
         Comparator<User> c = (usr1, usr2) -> usr2.getUserName().compareTo(usr1.getUserName());
         users.sort(c);
+    }
+
+    // Order Posts by Name ASC
+    public static void orderByPostNameAsc(ArrayList<ResponsePromoPostDTO> posts) {
+        Comparator<ResponsePromoPostDTO> c = (post1, post2) -> post1.getDetail().getProductName().compareTo(post2.getDetail().getProductName());
+        posts.sort(c);
+    }
+
+    // Order Posts by Name DESC
+    public static void orderByPostNameDesc(ArrayList<ResponsePromoPostDTO> posts) {
+        Comparator<ResponsePromoPostDTO> c = (post1, post2) -> post2.getDetail().getProductName().compareTo(post1.getDetail().getProductName());
+        posts.sort(c);
     }
 }

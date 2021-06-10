@@ -13,7 +13,7 @@ import java.util.Date;
 public class Post {
 
     private int userId;
-    private Integer idPost;
+    private int postId;
 
     private @JsonFormat(pattern = "dd-MM-yyyy")
     Date date;
@@ -21,4 +21,6 @@ public class Post {
     private ProductDetail detail;
     private int category;
     private double price;
+    private boolean hasPromo = false;
+    private double discount = 0.0;
 }

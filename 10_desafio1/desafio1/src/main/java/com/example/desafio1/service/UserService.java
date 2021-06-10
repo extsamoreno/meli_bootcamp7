@@ -62,9 +62,9 @@ public class UserService implements iUserService {
         User followedUser = iUserRepository.findUserById(userId);
 
         // Order list by name (asc/desc)
-        if(order.equals("name_asc")) {
+        if (order.equals("name_asc")) {
             JavaUtils.orderByUserNameAsc(followedUser.getFollowers());
-        }else if(order.equals("name_desc")){
+        } else if (order.equals("name_desc")) {
             JavaUtils.orderByUserNameDesc(followedUser.getFollowers());
         }
         return UserMapper.toResponseListFollowersDTO(followedUser);
@@ -77,9 +77,9 @@ public class UserService implements iUserService {
         User followerUser = iUserRepository.findUserById(userId);
 
         // Order users by name (asc/desc)
-        if(order.equals("name_asc")) {
+        if (order.equals("name_asc")) {
             JavaUtils.orderByUserNameAsc(followerUser.getFollows());
-        }else if(order.equals("name_desc")){
+        } else if (order.equals("name_desc")) {
             JavaUtils.orderByUserNameDesc(followerUser.getFollows());
         }
         return UserMapper.toResponseListFollowedDTO(followerUser);

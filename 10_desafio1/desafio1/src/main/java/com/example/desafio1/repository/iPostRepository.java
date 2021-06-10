@@ -14,4 +14,5 @@ public interface iPostRepository {
     Post savePost(Post post) throws PostAlreadyExistException, UserNotFoundException;
     ArrayList<Post> findNewerPosts(int weeksToFind);
     ArrayList<Post> findNewerPostsByUserId(Integer id, Integer weeksToFind) throws UserNotFoundException;
+    ArrayList<Post> findPostsByUserId(Integer id) throws UserNotFoundException;
 }

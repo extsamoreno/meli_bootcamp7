@@ -47,7 +47,7 @@ public class UserRepository implements iUserRepository {
         User followed = findUserById(userIdToUnFollow);
 
         // Exception: follower doesn't follow that user
-        if(!followed.getFollowers().contains(follower)){
+        if (!followed.getFollowers().contains(follower)) {
             throw new UserNotFollowException(userId, userIdToUnFollow);
         }
 

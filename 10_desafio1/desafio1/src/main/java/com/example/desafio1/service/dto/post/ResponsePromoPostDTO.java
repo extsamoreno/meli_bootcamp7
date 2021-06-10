@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponsePostDTO {
+public class ResponsePromoPostDTO {
 
     private int postId;
 
@@ -21,4 +21,7 @@ public class ResponsePostDTO {
     private ProductDetail detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
+
 }
