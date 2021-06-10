@@ -24,7 +24,7 @@ Also, the API is running at 8080 port.
 
 Request Type -> `Post`
 
-URL          -> `http://localhost:8080/users/{userId}/follow/{userToFollow}`
+URL          -> `http://localhost:8080/users/{userId}/follow/{userIdToFollow}`
 
 Example      -> `http://localhost:8080/users/1/follow/4`
 
@@ -44,6 +44,7 @@ URL          -> `http://localhost:8080/users/{userId}/followers/count`
 Example      -> `http://localhost:8080/users/4/followers/count`
 
 Exceptions:
+
   -> if you put an unknown user id should throw `UserNotFoundException`
 
 Payload      -> `Not required`
@@ -202,6 +203,8 @@ http://localhost:8080/products/followed/1/list?order=date_asc
 
 Exceptions:
 
+  -> if you put an unknown user id should throw `UserNotFoundException`
+  
   -> if you put an order request param different from `name_asc` or `name_desc` should throw `IncorrectOrderTypeException`
 
 Payload      -> `Not required`
