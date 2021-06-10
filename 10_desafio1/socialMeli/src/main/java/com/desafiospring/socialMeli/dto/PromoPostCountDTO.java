@@ -6,10 +6,11 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PromoProductsCountDTO extends UserDTO {
+public class PromoPostCountDTO {
 
+    private int userId;
+    private String userName;
     private int promoproducts_count;
 
-    public PromoProductsCountDTO(int userId, String userName, int count) {
-    }
+
 }

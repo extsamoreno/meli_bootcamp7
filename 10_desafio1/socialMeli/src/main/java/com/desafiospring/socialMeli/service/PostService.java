@@ -1,7 +1,6 @@
 package com.desafiospring.socialMeli.service;
 
-import com.desafiospring.socialMeli.dto.PostDTO;
-import com.desafiospring.socialMeli.dto.FollowedPostDTO;
+import com.desafiospring.socialMeli.dto.*;
 import com.desafiospring.socialMeli.exceptions.PostIdAlreadyExistException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 
@@ -25,19 +24,43 @@ public class PostService implements IPostService {
     IPostRepository postRepository;
 
     @Override
-    public void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException {
+    public void newPost(NewPostDTO post) throws UserNotFoundException, PostIdAlreadyExistException {
         userRepository.findUserById(post.getUserId());
         postRepository.addNewPost(PostMapper.toPost(post));
     }
 
     @Override
-    public FollowedPostDTO getFollowedPosts(int userId, String order) throws UserNotFoundException {
+    public FollowedPostDTO getFollowedRecentPosts(int userId, String order) throws UserNotFoundException {
 
         User user = userRepository.findUserById(userId);
         List<User> usersFollowed = userRepository.getFollowedList(userId);
         List<Post> postList = postRepository.getFollowedPosts(usersFollowed, order);
 
-        return new FollowedPostDTO(user.getUserId(), postList);
+        List<PostDTO> postDTOList = PostMapper.toDtoList(postList);
+
+        return new FollowedPostDTO(user.getUserId(), postDTOList);
+    }
+
+    @Override
+    public void newPromoPost(NewPromoPostDTO promoPost) throws UserNotFoundException, PostIdAlreadyExistException {
+        userRepository.findUserById(promoPost.getUserId());
+        postRepository.addNewPromoPost(PostMapper.toPromoPost(promoPost));
+    }
+
+    @Override
+    public PromoPostCountDTO getPromoPostCount(int userId) throws UserNotFoundException {
+        User user = userRepository.findUserById(userId);
+        int count = postRepository.getPromoProductsCount(userId);
+        return new PromoPostCountDTO(userId, user.getUserName(), count);
+    }
+
+    @Override
+    public PromoPostListDTO getPromoPostsList(int userId) throws UserNotFoundException {
+        User user = userRepository.findUserById(userId);
+        List<Post> promoList = postRepository.getPromoPostsList(userId);
+        List<PostDTO> dtoList = PostMapper.toDtoList(promoList);
+
+        return new PromoPostListDTO(userId, user.getUserName(), dtoList);
     }
 
 }

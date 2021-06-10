@@ -41,29 +41,23 @@ public class UserService implements IUserService {
     @Override
     public UserFollowedDTO getFollowers(int userId, String order) throws UserNotFoundException {
         User user = userRepository.findUserById(userId);
-        List<UserDTO> followersList = new ArrayList<>();
+        List<User> followersList = userRepository.getFollowersList(userId);
+        List<UserDTO> followersListDTO = UserMapper.toDTOList(followersList);
 
-        for (User u : user.getFollowedBy()) {
-            followersList.add(UserMapper.toDto(u));
-        }
+        sortingByName(order, followersListDTO);
 
-        orderName(order, followersList);
-
-        return new UserFollowedDTO(user.getUserId(), user.getUserName(), followersList);
+        return new UserFollowedDTO(userId, user.getUserName(), followersListDTO);
     }
 
     @Override
     public UserFollowingDTO getFollowingList(int userId, String order) throws UserNotFoundException {
         User user = userRepository.findUserById(userId);
-        List<UserDTO> followingList = new ArrayList<>();
+        List<User> followingList = userRepository.getFollowedList(userId);
+        List<UserDTO> followingListDTO = UserMapper.toDTOList(followingList);
 
-        for (User u : user.getFollowed()) {
-            followingList.add(UserMapper.toDto(u));
-        }
+        sortingByName(order, followingListDTO);
 
-       orderName(order,followingList);
-
-        return new UserFollowingDTO(user.getUserId(), user.getUserName(), followingList);
+        return new UserFollowingDTO(userId, user.getUserName(), followingListDTO);
     }
 
     @Override
@@ -75,12 +69,12 @@ public class UserService implements IUserService {
     }
 
 
-    private void orderName(String order, List<UserDTO> list) {
+    private void sortingByName(String order, List<UserDTO> list) {
 
-        if (order != null && order.equals("name_asc"))
-            list.sort(Comparator.comparing(UserDTO::getUserName));
         if (order != null && order.equals("name_desc"))
             list.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+        if (order != null && order.equals("name_asc"))
+            list.sort(Comparator.comparing(UserDTO::getUserName));
     }
 
 }

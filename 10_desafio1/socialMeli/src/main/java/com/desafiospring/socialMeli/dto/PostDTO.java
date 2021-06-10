@@ -2,16 +2,16 @@ package com.desafiospring.socialMeli.dto;
 
 import com.desafiospring.socialMeli.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import java.util.Date;
 
-import lombok.*;
-
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class NewPostDTO {
+@AllArgsConstructor
+public class PostDTO {
 
     private int userId;
     private int id_post;
@@ -20,5 +20,7 @@ public class NewPostDTO {
     private Product detail;
     private String category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 
 }

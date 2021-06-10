@@ -1,7 +1,6 @@
 package com.desafiospring.socialMeli.controller;
 
-import com.desafiospring.socialMeli.dto.FollowedPostDTO;
-import com.desafiospring.socialMeli.dto.PostDTO;
+import com.desafiospring.socialMeli.dto.*;
 import com.desafiospring.socialMeli.exceptions.PostIdAlreadyExistException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 import com.desafiospring.socialMeli.service.IPostService;
@@ -18,17 +17,36 @@ public class PostsController {
     IPostService postService;
 
     @PostMapping("/newpost")
-    public ResponseEntity newPost(@RequestBody PostDTO postDTO)
+    public ResponseEntity newPost(@RequestBody NewPostDTO postDTO)
             throws UserNotFoundException, PostIdAlreadyExistException {
         postService.newPost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPostDTO> getPostList(@PathVariable int userId,
-                                                       @RequestParam(required = false) String order)
+    public ResponseEntity<FollowedPostDTO> getRecentPostsList(@PathVariable int userId,
+                                                              @RequestParam(required = false) String order)
             throws UserNotFoundException {
-        return new ResponseEntity<>(postService.getFollowedPosts(userId, order), HttpStatus.OK);
+        return new ResponseEntity<>(postService.getFollowedRecentPosts(userId, order), HttpStatus.OK);
+    }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity newPromoPost(@RequestBody NewPromoPostDTO promoPostDto)
+            throws UserNotFoundException, PostIdAlreadyExistException {
+        postService.newPromoPost(promoPostDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<PromoPostCountDTO> getPromoPostCount(@PathVariable int userId)
+            throws UserNotFoundException {
+        return new ResponseEntity(postService.getPromoPostCount(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<PromoPostListDTO> getPromoPostsList(@PathVariable int userId)
+            throws UserNotFoundException {
+        return new ResponseEntity<>(postService.getPromoPostsList(userId), HttpStatus.OK);
     }
 
 

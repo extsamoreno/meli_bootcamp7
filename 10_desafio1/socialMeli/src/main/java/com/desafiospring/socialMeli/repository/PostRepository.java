@@ -42,8 +42,35 @@ public class PostRepository implements IPostRepository {
         return followedPosts;
     }
 
+    @Override
+    public void addNewPromoPost(Post promoPost) throws PostIdAlreadyExistException {
+        Post checkPost = this.posts.stream()
+                .filter(p -> p.getId_post() == promoPost.getId_post())
+                .findAny().orElse(null);
+
+        if (checkPost != null) {
+            throw new PostIdAlreadyExistException(promoPost.getId_post());
+        } else {
+            this.posts.add(promoPost.getId_post(), promoPost);
+        }
+    }
+
+    @Override
+    public int getPromoProductsCount(int userId) {
+        return (int) posts.stream()
+                .filter(p -> p.getUserId() == (userId) && p.isHasPromo() == (true))
+                .count();
+    }
+
+    @Override
+    public List<Post> getPromoPostsList(int userId) {
+        return posts.stream()
+                .filter(p -> p.getUserId() == userId && p.isHasPromo() == true)
+                .collect(Collectors.toList());
+    }
+
     private List<Post> getPosts(Integer userId) {
-        return this.posts.stream()
+        return posts.stream()
                 .filter(i -> i.getUserId() == (userId))
                 .filter(i -> i.getDate().after(getDateBefore15days()))
                 .collect(Collectors.toList());

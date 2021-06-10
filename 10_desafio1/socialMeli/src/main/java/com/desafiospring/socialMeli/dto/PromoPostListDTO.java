@@ -6,11 +6,9 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class FollowedPostDTO {
-
+public class PromoPostListDTO {
     private int userId;
-    private List<PostDTO> posts;
-
+    private String userName;
+    private List<PostDTO> promoList;
 }

@@ -13,4 +13,9 @@ public interface IPostRepository {
 
     List<Post> getFollowedPosts(List<User> usersFollowed, String order);
 
+    void addNewPromoPost(Post promoPost) throws PostIdAlreadyExistException;
+
+    int getPromoProductsCount(int userId);
+
+    List<Post> getPromoPostsList(int userId);
 }

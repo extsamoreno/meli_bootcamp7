@@ -1,5 +1,6 @@
 package com.desafiospring.socialMeli.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.util.Date;
@@ -16,5 +17,7 @@ public class Post {
     private Product detail;
     private String category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 
 }
