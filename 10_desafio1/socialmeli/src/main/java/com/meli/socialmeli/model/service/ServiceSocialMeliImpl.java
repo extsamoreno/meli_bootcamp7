@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 @Service
 public class ServiceSocialMeliImpl implements ServiceSocialMeli{
@@ -103,6 +104,9 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
         if (newpost != null) {
             throw new PostIdAlreadyExistingException(post.getIdPost());
         }
+        Date day = post.getDate();
+        Date dayPlusOne = new Date(day.getTime() + (1000 * 60 * 60 * 24));
+        post.setDate(dayPlusOne);
         repositoryPost.createNewPost(post);
     }
 
