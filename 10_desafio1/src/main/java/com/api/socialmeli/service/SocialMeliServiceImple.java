@@ -151,9 +151,9 @@ PostRepositoryImple postRepositoryImple;
         followedPosts.setPosts(postRepositoryImple.getDbPosts());
         //Load Users Followed
         List<UserModel> followed = userRepositoryImple.getUsers().get(userId).getFollowed();
-        List<PostModel> postlist = new ArrayList<>();
 
         // Select posts by user ID
+        List<PostModel> postlist = new ArrayList<>();
         for (int i = 0; i < followed.size(); i++) {
             for (int j = 0; j < followedPosts.getPosts().size(); j++) {
                 if (followed.get(i).getUserId()==followedPosts.getPosts().get(j).getUserId()){
