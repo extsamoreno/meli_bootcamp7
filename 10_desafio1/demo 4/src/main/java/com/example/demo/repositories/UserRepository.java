@@ -1,6 +1,7 @@
-package com.example.demo.Repository;
+package com.example.demo.repositories;
 
-import com.example.demo.Entities.User;
+import com.example.demo.entities.User;
+import com.example.demo.DTO.UserDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -9,14 +10,14 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository {
 
-    String userPathFile = System.getProperty("user.dir") + "/src/main/java/com/example/demo/Repository/Data/users.json";
+    String userPathFile = System.getProperty("user.dir") + "/src/main/resources/data/users.json";
 
     List<User> users = loadUsers();
 
@@ -83,6 +84,17 @@ public class UserRepository implements IUserRepository {
     public void unFollowSeller(User user, User seller) {
         User userToDelete = seller.getFollowers().stream().filter(userAux -> userAux.getUserId() == user.getUserId()).findAny().orElse(null);
         seller.getFollowers().remove(userToDelete);
+    }
+
+    @Override
+    public List<UserDTO> sortByCriteria(List<UserDTO> list, String order) {
+
+        if (order.equals("name_desc")) {
+            list.sort((name1, name2) -> name2.getUsername().compareTo(name1.getUsername()));
+        } else {
+            list.sort(Comparator.comparing(UserDTO::getUsername));
+        }
+        return list;
     }
 
 }

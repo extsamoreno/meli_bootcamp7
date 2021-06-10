@@ -1,8 +1,9 @@
-package com.example.demo.Repository;
+package com.example.demo.repositories;
 
-import com.example.demo.Entities.Post;
-import com.example.demo.Entities.User;
-import com.example.demo.Services.DTO.PostDTO;
+import com.example.demo.DTO.PostPromoDTO;
+import com.example.demo.entities.Post;
+import com.example.demo.entities.User;
+import com.example.demo.DTO.PostDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 @Repository
 public class PostRepository implements IPostRepository {
 
-    String postPathFile = System.getProperty("user.dir") + "/src/main/java/com/example/demo/Repository/Data/post.json";
+    String postPathFile = System.getProperty("user.dir") + "/src/main/resources/data/post.json";
 
     List<Post> posts = loadPost();
 
@@ -88,7 +89,8 @@ public class PostRepository implements IPostRepository {
             result.addAll(postOfSeller.stream().filter(post -> post.getDate().after(validDate)).collect(Collectors.toList()));
         }
         result = sortByCriteria(result, order);
-        return mapperToPostDTO(result);
+
+        return Mappers.mapperToPostDTO(result);
     }
 
     private Date getDateRange() {
@@ -99,23 +101,6 @@ public class PostRepository implements IPostRepository {
         return calendar.getTime();
     }
 
-    private List<PostDTO> mapperToPostDTO(List<Post> list) {
-        List<PostDTO> result = new ArrayList<>();
-
-        for (Post post : list) {
-            PostDTO postDTO = new PostDTO();
-            postDTO.setId_post(post.getId_post());
-            postDTO.setDate(post.getDate());
-            postDTO.setDetail(post.getDetail());
-            postDTO.setCategory(post.getCategory());
-            postDTO.setPrice(post.getPrice());
-
-            result.add(postDTO);
-        }
-
-        return result;
-    }
-
     private List<Post> sortByCriteria(List<Post> list, String order) {
 
         if (order.equals("date_desc")) {
@@ -124,6 +109,27 @@ public class PostRepository implements IPostRepository {
             list.sort(Comparator.comparing(Post::getDate));
         }
         return list;
+    }
+
+    @Override
+    public int getCountPromosByUser(int userId) {
+
+        List<Post> postWithPromo = posts.stream()
+                .filter(post -> post.getUserId() == userId)
+                .filter(post -> post.isHasPromo())
+                .collect(Collectors.toList());
+
+
+        return postWithPromo.size();
+    }
+
+    public List<PostPromoDTO> getListPromosByUser(int userId) {
+        List<Post> postWithPromo = posts.stream()
+                .filter(post -> post.getUserId() == userId)
+                .filter(post -> post.isHasPromo())
+                .collect(Collectors.toList());
+
+        return Mappers.mapperToPostPromoDTO(postWithPromo);
     }
 
 

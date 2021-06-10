@@ -15,25 +15,20 @@
     "userName": "Jose",
     "followers": [
       {
-        "userId": 3,
-        "userName": "Pedro",
-        "followers": []
-      },
-      {
         "userId": 1,
         "userName": "pepe",
         "followers": [
-          {
-            "userId": 2,
-            "userName": "Jose",
-            "followers": []
-          },
           {
             "userId": 3,
             "userName": "Pedro",
             "followers": []
           }
         ]
+      },
+      {
+        "userId": 3,
+        "userName": "Pedro",
+        "followers": []
       }
     ]
   },

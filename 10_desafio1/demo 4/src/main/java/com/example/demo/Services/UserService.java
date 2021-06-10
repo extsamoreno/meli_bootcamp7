@@ -1,16 +1,14 @@
-package com.example.demo.Services;
+package com.example.demo.services;
 
 
-import com.example.demo.Entities.User;
-import com.example.demo.Exceptions.BadRequestException;
-import com.example.demo.Exceptions.CustomException;
-import com.example.demo.Exceptions.NotFoundException;
-import com.example.demo.Repository.*;
-import com.example.demo.Services.DTO.*;
+import com.example.demo.entities.User;
+import com.example.demo.exceptions.BadRequestException;
+import com.example.demo.exceptions.NotFoundException;
+import com.example.demo.repositories.*;
+import com.example.demo.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
@@ -21,7 +19,6 @@ public class UserService {
 
     public void addFollow(int userId, int sellerId) throws Exception {
 
-        userRepository.loadUsers();
         User user = userRepository.getById(userId);
         User seller = userRepository.getById(sellerId);
 
@@ -54,7 +51,7 @@ public class UserService {
         );
     }
 
-    public ResponseListFollowersDTO listFollowers (int sellerId) throws Exception {
+    public ResponseListFollowersDTO listFollowers (int sellerId,String order) throws Exception {
 
         User seller = userRepository.getById(sellerId);
         if(seller == null){
@@ -72,11 +69,12 @@ public class UserService {
         return new ResponseListFollowersDTO(
                 seller.getUserId(),
                 seller.getUserName(),
-                usersDTO
+                userRepository.sortByCriteria(usersDTO, order == null ? "date_desc" : order)
+
         );
     }
 
-    public ResponseListSellerDTO listSeller (int userId) throws Exception {
+    public ResponseListSellerDTO listSellers(int userId, String order) throws Exception {
         User user = userRepository.getById(userId);
         List<User> seller =  userRepository.loadUsers();
         List<UserDTO> sellers = new ArrayList<>();
@@ -96,7 +94,8 @@ public class UserService {
         return new ResponseListSellerDTO(
                 user.getUserId(),
                 user.getUserName(),
-                sellers
+                userRepository.sortByCriteria(sellers, order == null ? "date_desc" : order)
+
         );
     }
 

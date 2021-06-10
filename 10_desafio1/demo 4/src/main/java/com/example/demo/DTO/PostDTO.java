@@ -1,7 +1,7 @@
-package com.example.demo.Services.DTO;
+package com.example.demo.DTO;
 
 
-import com.example.demo.Entities.Product;
+import com.example.demo.entities.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

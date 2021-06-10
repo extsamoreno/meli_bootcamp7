@@ -1,4 +1,4 @@
-package com.example.demo.Services.DTO;
+package com.example.demo.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +9,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseListSellerDTO {
+public class ResponseGetPostsFollowedDTO {
 
     private int userId;
-    private String username;
-    private List<UserDTO> followers;
-
+    private List<PostDTO> posts;
 }

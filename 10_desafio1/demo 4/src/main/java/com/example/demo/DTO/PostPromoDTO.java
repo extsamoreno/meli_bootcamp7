@@ -1,17 +1,17 @@
-package com.example.demo.entities;
+package com.example.demo.DTO;
 
+import com.example.demo.entities.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+public class PostPromoDTO {
 
-    private int userId;
     private int id_post;
     private Date date;
     private Product detail;
@@ -19,6 +19,5 @@ public class Post {
     private double price;
     private boolean hasPromo;
     private double discount;
-
 
 }

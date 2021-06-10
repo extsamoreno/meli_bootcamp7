@@ -1,9 +1,9 @@
-package com.example.demo.Controllers;
+package com.example.demo.controllers;
 
-import com.example.demo.Services.DTO.ResponseCountFollowersDTO;
-import com.example.demo.Services.DTO.ResponseListFollowersDTO;
-import com.example.demo.Services.DTO.ResponseListSellerDTO;
-import com.example.demo.Services.UserService;
+import com.example.demo.DTO.ResponseCountFollowersDTO;
+import com.example.demo.DTO.ResponseListFollowersDTO;
+import com.example.demo.DTO.ResponseListSellerDTO;
+import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,14 +29,14 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<ResponseListFollowersDTO> listFollowers(@PathVariable int userId) throws Exception {
-        ResponseListFollowersDTO response = userService.listFollowers(userId);
+    public ResponseEntity<ResponseListFollowersDTO> listFollowers(@PathVariable int userId, @RequestParam(required = false) String order) throws Exception {
+        ResponseListFollowersDTO response = userService.listFollowers(userId, order);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<ResponseListSellerDTO> listSeller(@PathVariable int userId) throws Exception {
-        ResponseListSellerDTO response = userService.listSeller(userId);
+    public ResponseEntity<ResponseListSellerDTO> listSeller(@PathVariable int userId, @RequestParam(required = false) String order) throws Exception {
+        ResponseListSellerDTO response = userService.listSellers(userId, order);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

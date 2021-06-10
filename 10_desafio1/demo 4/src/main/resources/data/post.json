@@ -1,0 +1,138 @@
+[
+  {
+    "userId": 1,
+    "id_post": 1,
+    "date": 1622937600000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 400.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  {
+    "userId": 2,
+    "id_post": 2,
+    "date": 1623024000000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 400.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  {
+    "userId": 2,
+    "id_post": 3,
+    "date": 1623110400000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 800.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  {
+    "userId": 1,
+    "id_post": 4,
+    "date": 1591574400000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 800.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  {
+    "userId": 1,
+    "id_post": 11,
+    "date": 1628467200000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 800.0,
+    "hasPromo": true,
+    "discount": 66.0
+  },
+  {
+    "userId": 1,
+    "id_post": 166,
+    "date": 1628467200000,
+    "detail": {
+      "product_id": 0,
+      "productName": null,
+      "type": null,
+      "brand": null,
+      "color": null,
+      "notes": null
+    },
+    "category": 1,
+    "price": 98765.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  {
+    "userId": 1,
+    "id_post": 16666,
+    "date": 1628467200000,
+    "detail": {
+      "product_id": 3,
+      "productName": "holis",
+      "type": "holis",
+      "brand": "holis",
+      "color": "holis",
+      "notes": "holis"
+    },
+    "category": 1,
+    "price": 98765.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  {
+    "userId": 1,
+    "id_post": 3434,
+    "date": 1628467200000,
+    "detail": {
+      "product_id": 3,
+      "productName": "holis",
+      "type": "holis",
+      "brand": "holis",
+      "color": "holis",
+      "notes": "holis"
+    },
+    "category": 1,
+    "price": 98765.0,
+    "hasPromo": false,
+    "discount": 0.0
+  }
+]
