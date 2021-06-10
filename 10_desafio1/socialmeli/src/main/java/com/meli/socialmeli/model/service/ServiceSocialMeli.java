@@ -14,7 +14,7 @@ public interface ServiceSocialMeli {
             throws IdNotFoundException, ErrorOrderParamNameException, SellerCanNotFollowException;
     void createNewPost(Post post) throws IdNotFoundException, NonSellerUserException, PostIdAlreadyExistingException;
     UserListPostDTO getListPostbyUser(int userId, String order)
-            throws IdNotFoundException, ErrorOrderParamDateException;
+            throws IdNotFoundException, ErrorOrderParamDateException, SellerCanNotFollowException;
     void removeFollowerTo(int userId, int userIdUnFollow)
             throws IdNotFoundException, NonSellerUserException, NonExistentFolloweException, SellerCanNotFollowException;
     UserSellerCountPromoDTO getUserSellerCountPromoDTO(int userId) throws IdNotFoundException, NonSellerUserException;

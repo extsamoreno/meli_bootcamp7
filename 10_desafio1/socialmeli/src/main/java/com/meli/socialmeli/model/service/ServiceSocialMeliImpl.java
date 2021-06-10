@@ -107,13 +107,16 @@ public class ServiceSocialMeliImpl implements ServiceSocialMeli{
     }
 
     public UserListPostDTO getListPostbyUser(int userId, String order) throws IdNotFoundException,
-            ErrorOrderParamDateException {
+            ErrorOrderParamDateException, SellerCanNotFollowException {
         if (!order.equals("date_asc") && !order.equals("date_desc")) {
             throw new ErrorOrderParamDateException();
         }
         User user = repositoryUsers.getUserById(userId);
         if (user == null) {
             throw new IdNotFoundException(userId);
+        }
+        if (user.isSeller()) {
+            throw new SellerCanNotFollowException(userId);
         }
         Calendar dateDaysAgo = Calendar.getInstance();
         dateDaysAgo.add(Calendar.DAY_OF_YEAR, -15);

@@ -4,10 +4,7 @@ import com.meli.socialmeli.model.dao.model.Post;
 import com.meli.socialmeli.model.dto.UserListPostDTO;
 import com.meli.socialmeli.model.dto.UserSellerCountPromoDTO;
 import com.meli.socialmeli.model.dto.UserSellerListPromoDTO;
-import com.meli.socialmeli.model.exception.ErrorOrderParamDateException;
-import com.meli.socialmeli.model.exception.IdNotFoundException;
-import com.meli.socialmeli.model.exception.NonSellerUserException;
-import com.meli.socialmeli.model.exception.PostIdAlreadyExistingException;
+import com.meli.socialmeli.model.exception.*;
 import com.meli.socialmeli.model.service.ServiceSocialMeli;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +29,7 @@ public class ProductController {
                                                                @RequestParam(name = "order",
                                                                        required = false,
                                                                        defaultValue = "date_desc") String order)
-            throws IdNotFoundException, ErrorOrderParamDateException {
+            throws IdNotFoundException, ErrorOrderParamDateException, SellerCanNotFollowException {
         return new ResponseEntity<>(serviceSocialMeli.getListPostbyUser(userId, order), HttpStatus.OK);
     }
 
