@@ -38,5 +38,13 @@
     "brand": "DXRacer",
     "color": "Green",
     "notes": "L Edition"
+  },
+  {
+    "id": 6,
+    "name": "Other",
+    "type": "Ofice",
+    "brand": "Samsung",
+    "color": "Grey",
+    "notes": "S Edition"
   }
 ]

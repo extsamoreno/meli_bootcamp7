@@ -6,5 +6,4 @@ import com.socialmedia.socialmedia.repositories.entities.Product;
 import java.util.List;
 
 public interface IProductRepository extends IRepository<Product> {
-    List<Post> getPostsByUser(int id);
 }

@@ -69,7 +69,7 @@ public class UserRepository implements IUserRepository, IRepository<User> {
         File file = null;
 
         try {
-            file = ResourceUtils.getFile("classpath:users.json");
+            file = ResourceUtils.getFile("src/main/resources/users.json");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             file = null;

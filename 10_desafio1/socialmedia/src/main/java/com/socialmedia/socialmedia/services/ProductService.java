@@ -60,6 +60,8 @@ public class ProductService implements IProductService {
         List<PostDTO> postDTOList = new ArrayList<>();
 
         for (Follower followed : followedByUser) {
+            if (!followed.isFollow()) continue;
+
             var postsByFollowed = postRepository.getByUserForTwoWeeksId(followed.getUserId());
 
             for (Post postByFollowed: postsByFollowed) {

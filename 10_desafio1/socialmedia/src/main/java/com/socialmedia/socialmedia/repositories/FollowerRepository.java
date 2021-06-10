@@ -7,10 +7,7 @@ import com.socialmedia.socialmedia.repositories.entities.Follower;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -110,9 +107,8 @@ public class FollowerRepository implements IFollowerRepository {
 
     private List<Follower> loadDatabaseFollowers() {
         File file = null;
-
         try {
-            file = ResourceUtils.getFile("classpath:followers.json");
+            file = ResourceUtils.getFile("src/main/resources/followers.json");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             file = null;
@@ -138,6 +134,7 @@ public class FollowerRepository implements IFollowerRepository {
 
             FileWriter myWriter = new FileWriter("src/main/resources/followers.json", false);
             myWriter.write(jsonString);
+            myWriter.flush();
             myWriter.close();
 
         } catch (Exception ex) {

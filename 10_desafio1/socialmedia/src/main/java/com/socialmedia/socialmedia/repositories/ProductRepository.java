@@ -19,27 +19,11 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository implements IProductRepository {
-
-    @Override
-    public List<Post> getPostsByUser(int id) {
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, -14);
-        Date twoWeeks = c.getTime();
-
-        /*
-        List<Post> postsByUser = loadDatabasePosts()
-                .stream()
-                .filter(post -> post.getUserId() == id && !post.getDate().before(twoWeeks))
-                .collect(Collectors.toList());
-        */
-        return null;
-    }
-
     private List<Product> loadDatabaseProducts() {
         File file = null;
 
         try {
-            file = ResourceUtils.getFile("classpath:products.json");
+            file = ResourceUtils.getFile("src/main/resources/products.json");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             file = null;
@@ -57,8 +41,6 @@ public class ProductRepository implements IProductRepository {
 
         return products;
     }
-
-
 
     private void updateDatabaseProducts(List<Product> products) {
         ObjectMapper objectMapper = new ObjectMapper();

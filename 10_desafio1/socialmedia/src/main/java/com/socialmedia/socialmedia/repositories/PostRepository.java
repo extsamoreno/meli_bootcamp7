@@ -62,7 +62,7 @@ public class PostRepository implements IPostRepository {
         File file = null;
 
         try {
-            file = ResourceUtils.getFile("classpath:posts.json");
+            file = ResourceUtils.getFile("src/main/resources/posts.json");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             file = null;

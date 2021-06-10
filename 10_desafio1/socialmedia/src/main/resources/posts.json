@@ -43,5 +43,14 @@
     "date": "01-06-2021",
     "category": 100,
     "price": 111.5
+  },
+  {
+    "id": 6,
+    "userId": 6,
+    "postId": 222,
+    "productId": 6,
+    "date": "09-06-2021",
+    "category": 100,
+    "price": 2222.5
   }
 ]
