@@ -151,7 +151,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": 1,\n   \t\"postId\" : 1,\n    \"date\" : \"02-06-2021\",\n    \"detail\" :\n        \t{ \"id\" : 1,\n                \"name\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n    \"category\" : 100,\n    \"price\" : 1500.50,\n    \"hasPromo\": true,\n    \"discount\": 0.0\n}",
+					"raw": "{\n    \"userId\": 1,\n   \t\"postId\" : 4,\n    \"date\" : \"01-06-2021\",\n    \"detail\" :\n        \t{ \"id\" : 4,\n                \"name\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n    \"category\" : 100,\n    \"price\" : 1500.50,\n    \"hasPromo\": true,\n    \"discount\": 0.5\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -225,7 +225,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/products/followed/2/list?order=date_asc",
+					"raw": "localhost:8080/products/followed/2/list?order=date_desc",
 					"host": [
 						"localhost"
 					],
@@ -239,7 +239,7 @@
 					"query": [
 						{
 							"key": "order",
-							"value": "date_asc"
+							"value": "date_desc"
 						}
 					]
 				}
