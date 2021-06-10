@@ -9,6 +9,11 @@ _The url to enter the API is the following:_
 ```
 "http://localhost:8080/meli/api/socialmeli/v1/"
 ```
+_The export of the json file to perform the tests in postman is located in the root of the project with the following name:_
+
+```
+"API RETO 1 SRING BOOT SOCIAL MELI.postman_collection.json"
+```
 
 ### Things to keep in mind 📌
 
