@@ -14,6 +14,7 @@ import java.util.List;
 public interface IUserService {
 
     String createDB();
+    UserDTO addUser(String name);
     User getUserById(int userId) throws InvalidUserIdException;
     String followUser(int userId, int userIdToFollow) throws UserException;
     String unfollowUser(int userId, int userIdToUnfollow) throws UserException;

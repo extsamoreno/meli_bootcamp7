@@ -35,6 +35,17 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public boolean addUser(User user) {
+        users.put(user.getUserId(), user);
+        return true;
+    }
+
+    @Override
+    public HashMap<Integer, User> getUsers() {
+        return users;
+    }
+
+    @Override
     public User getUserById(int userId) throws InvalidUserIdException {
         User user = users.get(userId);
         if(user == null) {

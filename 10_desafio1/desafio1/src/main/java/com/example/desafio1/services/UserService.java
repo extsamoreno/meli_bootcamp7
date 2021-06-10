@@ -32,6 +32,13 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public UserDTO addUser(String name) {
+        User user = new User(getNewId(), name);
+        iUserRepository.addUser(user);
+        return UserMapper.userToDTO(user);
+    }
+
+    @Override
     public User getUserById(int userId) throws InvalidUserIdException {
         return iUserRepository.getUserById(userId);
     }
@@ -141,5 +148,9 @@ public class UserService implements IUserService {
         } else if(!user.getFollowed().contains(userId) && !isFollow) {
             throw new NotFollowedException(userId);
         }
+    }
+
+    private int getNewId() {
+        return iUserRepository.getUsers().size() + 1;
     }
 }

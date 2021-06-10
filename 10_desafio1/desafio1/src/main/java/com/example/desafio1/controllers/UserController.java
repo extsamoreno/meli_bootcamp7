@@ -3,6 +3,7 @@ package com.example.desafio1.controllers;
 import com.example.desafio1.dtos.ResponseFollowedSellerDTO;
 import com.example.desafio1.dtos.ResponseFollowerCountDTO;
 import com.example.desafio1.dtos.ResponseFollowerListDTO;
+import com.example.desafio1.dtos.UserDTO;
 import com.example.desafio1.exceptions.user.InvalidUserIdException;
 import com.example.desafio1.exceptions.user.UserException;
 import com.example.desafio1.services.IUserService;
@@ -25,6 +26,19 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<String> followSeller() {
         return new ResponseEntity<>(iUserService.createDB(), HttpStatus.OK);
+    }
+
+    /**
+     * Add a user to the database
+     * @param name name of the user to add
+     * @return UserDTO that contains userId and username
+     * Response
+     * 200 -> OK
+     * @author Sapaya Nicolás Martín
+     */
+    @PostMapping("/newUser/{name}")
+    public ResponseEntity<UserDTO> addUser(@PathVariable String name) {
+        return new ResponseEntity<>(iUserService.addUser(name), HttpStatus.OK);
     }
 
     /**
