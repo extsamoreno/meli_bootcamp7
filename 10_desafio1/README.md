@@ -1,5 +1,5 @@
 # Challenge of Spring
-if you want test the endpoints run the proyect and enter in [this link](http://localhost:8080/swagger-ui/index.html#/)
+if you want test the endpoints run the proyect and enter in [this link](http://localhost:8080/swagger-ui/index.html#/) or import [this JSON](./DesafioSpring.postman_collection.json) in your Postman
 
 Requeriments of the system:
 
