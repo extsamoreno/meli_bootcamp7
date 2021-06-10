@@ -10,6 +10,6 @@ public interface IUserService {
     void unfollowUser(UserUnfollowRequestDto userUnfollowRequestDto) throws IdNotFoundException, UnfollowException;
     public void followUser (UserRequestDto userRequestDto) throws IdNotFoundException, FollowMyselfException, FollowAlreadyException;
     public FollowersResponseDto getFollowersCountById (String userId) throws IdNotFoundException;
-    public FollowersListResponseDto getFollowersById(String userId) throws IdNotFoundException;
-    public FollowedListResponseDto getFollowedById(String userId) throws IdNotFoundException;
+    public FollowersListResponseDto getFollowersById(String userId, String order) throws IdNotFoundException;
+    public FollowedListResponseDto getFollowedById(String userId, String order) throws IdNotFoundException;
 }

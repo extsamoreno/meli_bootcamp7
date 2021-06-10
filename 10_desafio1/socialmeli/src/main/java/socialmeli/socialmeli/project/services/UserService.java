@@ -11,6 +11,10 @@ import socialmeli.socialmeli.project.repository.IUserRepository;
 import socialmeli.socialmeli.project.services.Dto.UserDto.*;
 import socialmeli.socialmeli.project.services.mapper.mapper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 @Service
 public class UserService implements IUserService{
     @Autowired
@@ -86,14 +90,39 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowersListResponseDto getFollowersById(String userId) throws IdNotFoundException {
-        User u = iUserRepository.findUserById(Integer.parseInt(userId));
-        return mapper.toFollowersListResponseDto(u,iUserRepository.getUserFollowersList(Integer.parseInt(userId)));
+    public FollowersListResponseDto getFollowersById(String userId, String order) throws IdNotFoundException {
+        User user = iUserRepository.findUserById(Integer.parseInt(userId));
+        ArrayList<User> userArr = new ArrayList<>();
+        userArr.addAll(iUserRepository.getUserFollowersList(Integer.parseInt(userId)));
+
+        if(order.equals("name_asc")){
+            Collections.sort(userArr, Comparator.comparing(User::getUserName));
+        }
+        else if(order.equals("name_desc"))
+        {
+            Collections.sort(userArr, Comparator.comparing(User::getUserName));
+            Collections.reverse(userArr);
+        }
+
+        return mapper.toFollowersListResponseDto(user,userArr);
     }
 
     @Override
-    public FollowedListResponseDto getFollowedById(String userId) throws IdNotFoundException {
-        User u = iUserRepository.findUserById(Integer.parseInt(userId));
-        return mapper.toFollowedListResponseDto(u,iUserRepository.getUserFollowedList(Integer.parseInt(userId)));
+    public FollowedListResponseDto getFollowedById(String userId, String order) throws IdNotFoundException {
+        User user = iUserRepository.findUserById(Integer.parseInt(userId));
+
+        ArrayList<User> userArr = new ArrayList<>();
+        userArr.addAll(iUserRepository.getUserFollowedList(Integer.parseInt(userId)));
+
+        if(order.equals("name_asc")){
+            Collections.sort(userArr, Comparator.comparing(User::getUserName));
+        }
+        else if(order.equals("name_desc"))
+        {
+            Collections.sort(userArr, Comparator.comparing(User::getUserName));
+            Collections.reverse(userArr);
+        }
+
+        return mapper.toFollowedListResponseDto(user,userArr);
     }
 }

@@ -35,13 +35,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersListResponseDto> getFollowersList (@PathVariable Integer userId) throws IdNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowersById(userId.toString()),HttpStatus.OK);
+    public ResponseEntity<FollowersListResponseDto> getFollowersList (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws IdNotFoundException {
+        return new ResponseEntity<>(iUserService.getFollowersById(userId.toString(), order),HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedListResponseDto> getFollowedUsers (@PathVariable Integer userId) throws IdNotFoundException {
-        return new ResponseEntity<>(iUserService.getFollowedById(userId.toString()),HttpStatus.OK);
+    public ResponseEntity<FollowedListResponseDto> getFollowedUsers (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws IdNotFoundException {
+        return new ResponseEntity<>(iUserService.getFollowedById(userId.toString(), order),HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")

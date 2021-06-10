@@ -46,7 +46,7 @@ public class ProductRepository implements IProductRepository {
 
         LocalDate todayLocalDate = LocalDate.now();
         LocalDate previousTwoWeeks = todayLocalDate.minusWeeks(2);
-        ArrayList<Post> previosTwoWeeksPostsArr = new ArrayList<>();
+        ArrayList<Post> previousTwoWeeksPostsArr = new ArrayList<>();
 
         for(Post post : arrayListPost){
 
@@ -55,10 +55,10 @@ public class ProductRepository implements IProductRepository {
                                     .atZone(ZoneId.systemDefault())
                                     .toLocalDate(); //date to localdate
             if (localDate.isAfter(previousTwoWeeks) && localDate.isBefore(todayLocalDate)){
-                previosTwoWeeksPostsArr.add(post);
+                previousTwoWeeksPostsArr.add(post);
             }
         }
-        return previosTwoWeeksPostsArr;
+        return previousTwoWeeksPostsArr;
     }
 
 
