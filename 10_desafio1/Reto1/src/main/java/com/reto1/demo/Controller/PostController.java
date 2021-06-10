@@ -1,6 +1,10 @@
 package com.reto1.demo.Controller;
 
-import com.reto1.demo.Exception.*;
+import com.reto1.demo.Exception.OrderNotFoundException;
+import com.reto1.demo.Exception.PostException.DateNotExistException;
+import com.reto1.demo.Exception.PostException.DuplicatedPostException;
+import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserException.UserNotFollowException;
 import com.reto1.demo.Model.DTO.PostObjects.LastPostDTO;
 import com.reto1.demo.Model.DTO.PostObjects.PromoPostCount;
 import com.reto1.demo.Model.DTO.UserObjets.UserPromoPostListDTO;
@@ -29,11 +33,14 @@ public class PostController {
     }
 
     /**
-    Obtener un listado de las publicaciones realizadas por los vendedores que
-    un usuario sigue en las últimas dos semanas
-    Ordena en forma desc las fechas
-    Devuelve tanto productos en promoción como productos normales
-    */
+     *
+     * @param userId
+     * @param order
+     * @return LastPostDTO (Recent posts and promo post order default asc)
+     * @throws UserIdNotFoundException
+     * @throws UserNotFollowException
+     * @throws OrderNotFoundException
+     */
     @GetMapping("/products/followed/{userId}/list")
     public ResponseEntity<LastPostDTO> lastPosts(@PathVariable int userId,
                                                  @RequestParam(required = false, defaultValue = "date_desc") String order)
@@ -51,18 +58,24 @@ public class PostController {
     }
 
     /**
-    * Obtener la cantidad de productos en promoción de un determinado
-    * vendedor
-    * */
+     *
+     * @param userId
+     * @return PromoPostCount count the promoposts user
+     * @throws UserNotFollowException
+     * @throws UserIdNotFoundException
+     */
     @GetMapping("/products/{userId}/countPromo/")
     public ResponseEntity<PromoPostCount> countPromoPost(@PathVariable int userId) throws UserNotFollowException, UserIdNotFoundException {
         return new ResponseEntity<>(iPostService.countPromoPost(userId),HttpStatus.OK);
     }
 
     /**
-    * Obtener un listado de todos los productos en promoción de un
-    * determinado vendedor
-    * */
+     *
+     * @param userId
+     * @return UserPromoPostListDTO get list alls promoposts user
+     * @throws UserNotFollowException
+     * @throws UserIdNotFoundException
+     */
     @GetMapping("/products/{userId}/list/")
     public ResponseEntity<UserPromoPostListDTO> listPromoPost(@PathVariable int userId) throws UserNotFollowException, UserIdNotFoundException {
         return new ResponseEntity<>(iPostService.listPromoPost(userId),HttpStatus.OK);

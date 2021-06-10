@@ -1,9 +1,8 @@
 package com.reto1.demo.Repository;
 
-import com.reto1.demo.Exception.GeneralException;
-import com.reto1.demo.Exception.UserAlreadyFollowException;
-import com.reto1.demo.Exception.UserIdNotFoundException;
-import com.reto1.demo.Exception.UserNotFollowException;
+import com.reto1.demo.Exception.UserException.UserAlreadyFollowException;
+import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserException.UserNotFollowException;
 import com.reto1.demo.Model.User;
 
 public interface IFollowRepository {

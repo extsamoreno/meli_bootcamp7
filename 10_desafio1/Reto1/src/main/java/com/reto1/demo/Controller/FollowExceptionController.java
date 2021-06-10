@@ -1,8 +1,8 @@
 package com.reto1.demo.Controller;
 
-import com.reto1.demo.Exception.UserAlreadyFollowException;
 import com.reto1.demo.Exception.GeneralException;
-import com.reto1.demo.Exception.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserException.UserAlreadyFollowException;
+import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
 import com.reto1.demo.Model.DTO.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,9 +1,10 @@
 package com.reto1.demo.Service;
 
 import com.reto1.demo.Exception.OrderNotFoundException;
-import com.reto1.demo.Exception.UserAlreadyFollowException;
-import com.reto1.demo.Exception.UserIdNotFoundException;
-import com.reto1.demo.Exception.UserNotFollowException;
+import com.reto1.demo.Exception.UserException.SameIdException;
+import com.reto1.demo.Exception.UserException.UserAlreadyFollowException;
+import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserException.UserNotFollowException;
 import com.reto1.demo.Model.DTO.Mapper.UserMapper;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOCount;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFolloweds;
@@ -31,7 +32,8 @@ public class FollowService implements IFollowService{
      * Follow other user
      */
     @Override
-    public String followOtherUser(int userId, int userIdToFollow) throws UserAlreadyFollowException, UserIdNotFoundException {
+    public String followOtherUser(int userId, int userIdToFollow) throws UserAlreadyFollowException, UserIdNotFoundException, SameIdException {
+        if(userId == userIdToFollow) throw new SameIdException();
         return iFollowRepository.follow(userId, userIdToFollow);
     }
 
@@ -131,5 +133,4 @@ public class FollowService implements IFollowService{
         }
         return followeds;
     }
-
 }

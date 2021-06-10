@@ -1,16 +1,15 @@
 package com.reto1.demo.Repository;
 
-import com.reto1.demo.Exception.GeneralException;
-import com.reto1.demo.Exception.UserAlreadyFollowException;
-import com.reto1.demo.Exception.UserIdNotFoundException;
-import com.reto1.demo.Exception.UserNotFollowException;
+import com.reto1.demo.Exception.UserException.UserAlreadyFollowException;
+import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserException.UserNotFollowException;
 import com.reto1.demo.Model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 @Service
-public class FollowRepository<user> implements IFollowRepository {
+public class FollowRepository implements IFollowRepository {
 
     static HashMap<Integer, User> dataUsers = new HashMap<>();
 
@@ -61,4 +60,5 @@ public class FollowRepository<user> implements IFollowRepository {
         followed.removeFollower(user);
         return followed.getName();
     }
+
 }

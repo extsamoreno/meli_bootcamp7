@@ -1,6 +1,10 @@
 package com.reto1.demo.Service;
 
-import com.reto1.demo.Exception.*;
+import com.reto1.demo.Exception.OrderNotFoundException;
+import com.reto1.demo.Exception.PostException.DateNotExistException;
+import com.reto1.demo.Exception.PostException.DuplicatedPostException;
+import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserException.UserNotFollowException;
 import com.reto1.demo.Model.DTO.Mapper.PostMapper;
 import com.reto1.demo.Model.DTO.PostObjects.LastPostDTO;
 import com.reto1.demo.Model.DTO.PostObjects.PromoPostCount;
@@ -11,6 +15,7 @@ import com.reto1.demo.Model.Util.Util;
 import com.reto1.demo.Repository.IFollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -27,7 +32,7 @@ public class PostService implements IPostService{
     @Override
     public String creatPost(Post post) throws UserIdNotFoundException, DuplicatedPostException, DateNotExistException, UserNotFollowException {
 
-        //Revisa si no existe ya antes ese post
+        //Check if not exist the post
         User user = iFollowRepository.getUserById(post.getUserId());
         if(!user.getPosts().stream().anyMatch(c->c.getId_post() == post.getId_post())){
             user.addPost(post);
@@ -35,11 +40,11 @@ public class PostService implements IPostService{
         else throw new DuplicatedPostException(post.getId_post());
 
         LocalDate today = LocalDate.now();
-        // Con el tipo de dato Date, las fechas 26/05 , se vuelven 25/05, por eso se debe sumar un día
+        // With Date, the date 26/05 , return 25/05, for this reason plus 1 day
         LocalDate datePost = Util.toLocalDate(post.getDate()).plusDays(1);
         post.setDate(Util.toDate(datePost));
 
-        //Verifica si la fecha es mayor a la del dia de hoy
+        //Check if date is after today
         if(datePost.isAfter(today)){
            throw new DateNotExistException(today, datePost);
         }
@@ -49,7 +54,7 @@ public class PostService implements IPostService{
 
 
     /**
-    * Return post and Promopost 2 weeks ago
+    * post and Promopost 2 weeks ago
     * */
     @Override
     public LastPostDTO lastPosts(int userId) throws UserIdNotFoundException, UserNotFollowException {
@@ -78,7 +83,7 @@ public class PostService implements IPostService{
         return lastPostDTO;
     }
     /**
-     * Return user show only promoPost
+     * user show only promoPost
      * */
     @Override
     public UserPromoPostListDTO listPromoPost(int userId) throws UserNotFollowException, UserIdNotFoundException {
@@ -87,7 +92,7 @@ public class PostService implements IPostService{
     }
 
     /**
-    * Return promo count where the user can see the count promo products
+    * promo count where the user can see the count promo products
     * that the seller has
     * */
     @Override
@@ -97,7 +102,7 @@ public class PostService implements IPostService{
     }
 
     /**
-    * Filtra las últimas dos semanas
+    * Filter post last 2 weeks ago
     * */
     public ArrayList<Post> recent(User user, LocalDate last2weeks){
         ArrayList<Post> recentPost = new ArrayList<>();

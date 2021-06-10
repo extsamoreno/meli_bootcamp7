@@ -1,18 +1,19 @@
 package com.reto1.demo.Service;
 
 import com.reto1.demo.Exception.OrderNotFoundException;
-import com.reto1.demo.Exception.UserAlreadyFollowException;
-import com.reto1.demo.Exception.UserIdNotFoundException;
-import com.reto1.demo.Exception.UserNotFollowException;
+import com.reto1.demo.Exception.UserException.SameIdException;
+import com.reto1.demo.Exception.UserException.UserAlreadyFollowException;
+import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
+import com.reto1.demo.Exception.UserException.UserNotFollowException;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOCount;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFolloweds;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFollowers;
 
 public interface IFollowService {
 
-    String followOtherUser(int userId, int userIdToFollow) throws UserAlreadyFollowException, UserIdNotFoundException ;
+    String followOtherUser(int userId, int userIdToFollow) throws UserAlreadyFollowException, UserIdNotFoundException, UserAlreadyFollowException, SameIdException;
 
-    UserDTOCount countFollowers(int userId) throws UserIdNotFoundException, UserNotFollowException;
+    UserDTOCount countFollowers(int userId) throws UserIdNotFoundException, UserNotFollowException, UserIdNotFoundException, UserNotFollowException;
 
     UserDTOFollowers getFollowers(int userId) throws UserIdNotFoundException, UserNotFollowException;
 
@@ -23,4 +24,5 @@ public interface IFollowService {
     UserDTOFollowers orderListFollowers(String order, int userID) throws UserNotFollowException, UserIdNotFoundException, OrderNotFoundException;
 
     UserDTOFolloweds orderListFolloweds(String order, int userID) throws UserNotFollowException, UserIdNotFoundException, OrderNotFoundException;
+
 }
