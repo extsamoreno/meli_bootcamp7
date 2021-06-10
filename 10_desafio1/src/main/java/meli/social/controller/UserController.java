@@ -49,8 +49,9 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserFollowersListDTO> listFollowers (@PathVariable int userId) throws UserIdNotFoundException {
-        return new ResponseEntity<>(userService.getFollowersList(userId), HttpStatus.OK);
+    public ResponseEntity<UserFollowersListDTO>
+    listFollowers (@PathVariable int userId, @RequestParam(defaultValue = "") String order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(userService.getFollowersList(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")

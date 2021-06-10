@@ -14,6 +14,6 @@ public interface UserService {
     void setFollower(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException;
     void removeFollower(Integer userId, Integer userIdToUnfollow) throws UserIdNotFoundException;
     UserFollowersCounterDTO getFollowersCounter (int userId) throws UserIdNotFoundException;
-    UserFollowersListDTO getFollowersList(int userId) throws UserIdNotFoundException;
+    UserFollowersListDTO getFollowersList(int userId, String order) throws UserIdNotFoundException;
     UserFollowedListDTO  getFollowedList(int userId) throws UserIdNotFoundException;
 }

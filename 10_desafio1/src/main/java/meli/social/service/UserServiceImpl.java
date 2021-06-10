@@ -9,11 +9,9 @@ import meli.social.service.dto.UserFollowersCounterDTO;
 import meli.social.service.dto.UserFollowersListDTO;
 import meli.social.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -60,7 +58,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserFollowersListDTO getFollowersList(int userId) throws UserIdNotFoundException {
+    public UserFollowersListDTO getFollowersList(int userId, String order) throws UserIdNotFoundException {
         UserModel user = dataRepository.findUserById(userId);
 
         List<UserDTO> followers = new ArrayList<>();
@@ -69,6 +67,11 @@ public class UserServiceImpl implements UserService{
             String nameFollower = dataRepository.findUserById(idFollower).getUserName();
             followers.add(new UserDTO(idFollower, nameFollower));
         }
+        // Ordena la lista alfabeticamente por su nombre
+        Comparator<UserDTO> userComparator = Comparator.comparing(u -> u.getUserName().toLowerCase());
+        if (order.equals("name_asc")) followers.sort(userComparator);
+        if (order.equals("name_desc")) followers.sort(userComparator.reversed());
+
         return UserMapper.toFollowersListDto(user, followers);
     }
 
