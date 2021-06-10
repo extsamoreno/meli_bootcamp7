@@ -1,7 +1,10 @@
 package com.SocialMeli.services;
 
 import com.SocialMeli.dtos.*;
+import com.SocialMeli.exceptions.UserAlreadyFollowsException;
+import com.SocialMeli.exceptions.UserException;
 import com.SocialMeli.exceptions.UserIdNotFoundException;
+import com.SocialMeli.exceptions.UsersCantFollowThemselvesException;
 import com.SocialMeli.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,24 +22,28 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void followUser(int userId, int userIdToFollow) throws UserNotFoundException, UserAlreadyFollowsException, UserCantFollowHimselfException {
-        if (userId == userIdToFollow) {
-            throw new UserCantFollowHimselfException(userId);
-        }
+    public FollowersCountDTO getFollowersCountById(Integer Integer) throws UserIdNotFoundException, UserIdNotFoundException {
+        return null;
+    }
+
+    public void FollowUserDTO(Integer userId, Integer userIdToFollow) throws UserException, UserIdNotFoundException, UserAlreadyFollowsException, UsersCantFollowThemselvesException, UserIdNotFoundException, UserAlreadyFollowsException {
+
     }
 
     @Override
-    public com.SocialMeli.dtos.FollowersCountDTO getFollowersCountById(int userId) throws UserIdNotFoundException {
-        return new FollowersCountDTO(userId, user.getUserName(), count);
+    public FollowersListDTO getFollowersListById(Integer userId, String order) throws UserIdNotFoundException, UserIdNotFoundException {
+        return null;
     }
 
     @Override
-    public FollowersListDTO getFollowersListById(int userId, String order) throws UserIdNotFoundException {
-        return new FollowersListDTO(userId, user.getUserName(), userDTOArray);
+    public FollowedListDTO getFollowedListById(Integer userId, String order) throws UserIdNotFoundException, UserIdNotFoundException {
+        return null;
     }
 
     @Override
-    public FollowedListDTO getFollowedListById(int userId, String order) throws UserIdNotFoundException {
-        return new FollowedListDTO(userId,user.getUserName(),userDTOArray);
+    public FollowersListDTO getFollowing(Integer id) {
+        return null;
     }
+
+
 }

@@ -1,20 +1,15 @@
 package com.SocialMeli.services;
 
 import com.SocialMeli.dtos.*;
-import com.SocialMeli.FollowerCountDTO;
-import com.SocialMeli.exceptions.UnhandledException;
-import com.SocialMeli.exceptions.UserException;
-import com.SocialMeli.exceptions.UserIdFollowerEqualsFollowed;
-import com.SocialMeli.exceptions.UserIdInvalidException;
+import com.SocialMeli.dtos.FollowersCountDTO;
 import com.SocialMeli.exceptions.UserIdNotFoundException;
 
 public interface IUserService {
 
-    Boolean follow (Integer userID, Integer useridtofollow);
-    void followUser(int userId, int userIdToFollow) throws UserException, UserNotFoundException, UserAlreadyFollowsException, UserCantFollowHimselfException;
-    public FollowersCountDTO getFollowersCountById(int userId) throws UserNotFoundException, UserIdNotFoundException;
-    public FollowersListDTO getFollowersListById(int userId, String order) throws UserNotFoundException, UserIdNotFoundException;
-    public FollowedListDTO getFollowedListById(int userId, String order) throws UserNotFoundException, UserIdNotFoundException;
-
+    Boolean follow (Integer userId, Integer userIdToFollow);
+    FollowersCountDTO getFollowersCountById(Integer userId) throws UserIdNotFoundException, UserIdNotFoundException;
+    FollowersListDTO getFollowersListById(Integer userId, String order) throws UserIdNotFoundException, UserIdNotFoundException;
+    FollowedListDTO getFollowedListById(Integer userId, String order) throws UserIdNotFoundException, UserIdNotFoundException;
+    FollowersListDTO getFollowing(Integer id);
 }
 

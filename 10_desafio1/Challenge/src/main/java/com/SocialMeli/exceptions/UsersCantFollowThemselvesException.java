@@ -1,5 +1,6 @@
 package com.SocialMeli.exceptions;
 
+import com.SocialMeli.dtos.FollowedUserDTO;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -15,5 +16,8 @@ public class UsersCantFollowThemselvesException extends Throwable {
 
         this.status = status;
 
+    }
+
+    public UsersCantFollowThemselvesException(int userId) {
     }
 }

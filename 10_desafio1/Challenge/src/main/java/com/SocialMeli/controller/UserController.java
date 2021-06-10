@@ -27,18 +27,17 @@ public class UserController {
     }
 
     // -----Cuantos usuarios siguen a un vendedor-----
-
-    @GetMapping("/{userid}/followers/count")
-    public ResponseEntity<FollowersCountDTO> getFollowersCountById(@PathVariable int userId)
+    @GetMapping("/{userid}/followers/count/")
+    public ResponseEntity<FollowersCountDTO> getFollowersCount(@PathVariable Integer userId)
             throws UserIdNotFoundException {
-        return new ResponseEntity<FollowersCountDTO>(iUserService.getFollowersCountById(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowersCountById(userId), HttpStatus.OK);
     }
 
     //-----Lista de seguidores------
 
     @GetMapping("/{id}/followers/list")
-    public ResponseEntity<FollowersListDTO> followers(@PathVariable Integer id, @RequestParam Optional<String>  order) throws UserIdNotFoundException {
-        return new ResponseEntity<userid, useridtofollow>(iUserService.getFollowers(id, order), HttpStatus.OK);
+    public <userId> ResponseEntity<FollowersListDTO> followers(@PathVariable Integer id, @RequestParam Optional<String>  order) throws UserIdNotFoundException {
+        return new ResponseEntity<userId, useridtofollow>(iUserService.getFollowers(id, order), HttpStatus.OK);
     }
 
     @GetMapping("/{id}/following/count")
@@ -48,7 +47,7 @@ public class UserController {
 
     // Lista de los seguidos
    @GetMapping("/{id}/following/list")
-    public ResponseEntity<FollowersListDTO> following(@PathVariable Integer id, @RequestParam Optional<String> order) throws UserIdNotFoundException {
-        return new ResponseEntity<FollowersListDTO>(iUserService.getFollowing(id, order), HttpStatus.OK);
+    public ResponseEntity<FollowersListDTO> following(@PathVariable Integer id) throws UserIdNotFoundException {
+        return new ResponseEntity<FollowersListDTO>(iUserService.getFollowing(id), HttpStatus.OK);
     }
 }
