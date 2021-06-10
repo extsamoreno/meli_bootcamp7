@@ -99,7 +99,7 @@ public class ProductService implements IProductService {
     public void sortPostByDate(String order, List<Post> list) throws InvalidOrderException {
         if (order.equals("date_asc")) {
             list.sort(COMPARATOR_DATE_ASC);
-        } else if (order.equals("date_des")) {
+        } else if (order.equals("date_desc")) {
             list.sort(COMPARATOR_DATE_DES);
         } else if (!order.equals("")) {
             throw new InvalidOrderException(order);
