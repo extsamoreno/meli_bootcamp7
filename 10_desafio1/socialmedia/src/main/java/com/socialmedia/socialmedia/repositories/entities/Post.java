@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -22,4 +20,6 @@ public class Post {
     private Date date;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 }

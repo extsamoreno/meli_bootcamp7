@@ -2,6 +2,7 @@ package com.socialmedia.socialmedia.mappers;
 
 import com.socialmedia.socialmedia.repositories.entities.Post;
 import com.socialmedia.socialmedia.services.dtos.PostDTO;
+import com.socialmedia.socialmedia.services.dtos.PostPromoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,29 @@ public class PostMapper {
         result.setDate(post.getDate());
         result.setCategory(post.getCategory());
         result.setPrice(post.getPrice());
+        result.setUserId(post.getUserId());
+
+        return result;
+    }
+
+    public static Post postPromoDtoToPost(PostPromoDTO postPromoDTO) {
+        var result = postDtoToPost(postPromoDTO);
+
+        result.setDiscount(postPromoDTO.getDiscount());
+        result.setHasPromo(postPromoDTO.isHasPromo());
+
+        return result;
+    }
+
+    public static PostPromoDTO PostToPostPromoDTO(Post post) {
+        PostPromoDTO result = new PostPromoDTO();
+
+        result.setHasPromo(post.isHasPromo());
+        result.setPostId(post.getPostId());
+        result.setDiscount(post.getDiscount());
+        result.setCategory(post.getCategory());
+        result.setPrice(post.getPrice());
+        result.setDate(post.getDate());
         result.setUserId(post.getUserId());
 
         return result;

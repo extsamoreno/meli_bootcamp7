@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "cd3cbf39-2bac-4c83-a864-19e8ca1277e3",
+		"name": "Social Media",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add follow to user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/users/4/follow/1",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"users",
+						"4",
+						"follow",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unfollow to user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/users/4/unfollow/1",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"users",
+						"4",
+						"unfollow",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "followers by user count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/users/6/followers/count",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"users",
+						"6",
+						"followers",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "followers by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/users/6/followers/list",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"users",
+						"6",
+						"followers",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "followed by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/users/4/followed/list?order=name_desc",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"users",
+						"4",
+						"followed",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add post with product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 6,\n    \"id_post\": 222,\n    \"date\": \"09-04-2021\",\n    \"detail\": {\n        \"product_id\": 1232,\n        \"productName\": \"Other\",\n        \"type\": \"Ofice\",\n        \"brand\": \"Samsung\",\n        \"color\": \"Grey\",\n        \"notes\": \"S Edition\"\n    },\n    \"category\": 100,\n    \"price\": 2222.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}/products/newpost",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"products",
+						"newpost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get followed posts by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/products/followed/4/list?order=date_desc",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"products",
+						"followed",
+						"4",
+						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "date_desc"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

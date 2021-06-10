@@ -46,5 +46,13 @@
     "brand": "Samsung",
     "color": "Grey",
     "notes": "S Edition"
+  },
+  {
+    "id": 7,
+    "name": "None",
+    "type": "Ofice",
+    "brand": "BenQ",
+    "color": "Black",
+    "notes": "Q Edition"
   }
 ]

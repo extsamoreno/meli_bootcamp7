@@ -8,4 +8,6 @@ import java.util.List;
 public interface IPostRepository extends IRepository<Post> {
     Post getByPostId(int postId);
     List<Post> getByUserForTwoWeeksId(int userId);
+
+    List<Post> getByUser(int userId);
 }

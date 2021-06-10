@@ -6,6 +6,7 @@ import com.socialmedia.socialmedia.exceptions.ObjectNotFoundException;
 import com.socialmedia.socialmedia.repositories.entities.Follower;
 import com.socialmedia.socialmedia.repositories.entities.IPostRepository;
 import com.socialmedia.socialmedia.repositories.entities.Post;
+import com.socialmedia.socialmedia.repositories.entities.Product;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -119,6 +120,17 @@ public class PostRepository implements IPostRepository {
 
         var result = posts.stream()
                 .filter(post -> post.getUserId() == userId && !post.getDate().before(twoWeeks))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    @Override
+    public List<Post> getByUser(int userId) {
+        List<Post> posts = loadDatabasePosts();
+
+        var result = posts.stream()
+                .filter(post -> post.getUserId() == userId)
                 .collect(Collectors.toList());
 
         return result;

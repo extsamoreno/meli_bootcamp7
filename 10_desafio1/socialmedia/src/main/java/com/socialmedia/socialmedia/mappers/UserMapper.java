@@ -60,4 +60,20 @@ public class UserMapper {
 
         return result;
     }
+
+    public static UserCountPromoDTO UserToUserCountPromoDTO(User user) {
+        var result = new UserCountPromoDTO();
+
+        result.setId(user.getId());
+        result.setUsername(user.getNickname());
+
+        return result;
+    }
+
+    public static UserWithPromosDTO UserToUserPromoDTO(User user) {
+        var result = new UserWithPromosDTO();
+        result.setId(user.getId());
+        result.setUsername(user.getNickname());
+        return result;
+    }
 }
