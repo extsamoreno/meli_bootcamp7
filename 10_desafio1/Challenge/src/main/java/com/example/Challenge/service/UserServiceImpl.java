@@ -72,7 +72,7 @@ public class UserServiceImpl implements   IUserService{
         User customer =  iUserRepository.getUserById(userId);
         User seller = iUserRepository.getUserById(userToFollow);
 
-
+        //Exceptions
         if(customer == null) throw new UserIdNotFoundException(userId);
         else if (seller == null) throw new UserIdNotFoundException(userToFollow);
         else if(customer.getFollowed().contains(MapperUser.toUserDTO(seller))){
@@ -89,14 +89,25 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public UserResponseCountDTO getUserFollowersCount(Integer userId) {
-        UserResponseCountDTO userResult = MapperUser.toUserResponseCountDTO(iUserRepository.getUserById(userId));
+    public UserResponseCountDTO getUserFollowersCount(Integer userId) throws  UserException{
+        User user = iUserRepository.getUserById(userId);
+
+        if(user == null) throw new UserIdNotFoundException(userId);
+        else if(!user.isSeller()) throw new UserException("Only sellers have followers", HttpStatus.BAD_REQUEST);
+
+        UserResponseCountDTO userResult = MapperUser.toUserResponseCountDTO(user);
         return userResult;
     }
 
     @Override
-    public UserResponseListDTO getUserFollowersList(Integer userId, String order) {
-        UserResponseListDTO userResult = MapperUser.toUserResponseListDTO(iUserRepository.getUserById(userId));
+    public UserResponseListDTO getUserFollowersList(Integer userId, String order) throws UserException {
+
+        User user = iUserRepository.getUserById(userId);
+        //Exceptions
+        if(user == null) throw new UserIdNotFoundException(userId);
+        else if(!user.isSeller()) throw new UserException("Only sellers have followers", HttpStatus.BAD_REQUEST);
+
+        UserResponseListDTO userResult = MapperUser.toUserResponseListDTO(user);
         if(order== null){
             return userResult;
         }
@@ -115,19 +126,25 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public UserResponseListFollowedDTO getUserFollowedList(Integer userId, String order) {
-        UserResponseListFollowedDTO userResult = MapperUser.toUserFollowedResponseListDTO(iUserRepository.getUserById(userId));
+    public UserResponseListFollowedDTO getUserFollowedList(Integer userId, String order) throws UserException {
+
+        User user = iUserRepository.getUserById(userId);
+        //Exceptions
+        if(user == null) throw new UserIdNotFoundException(userId);
+        else if(user.isSeller()) throw new UserException("Only customers have followed", HttpStatus.BAD_REQUEST);
+
+        UserResponseListFollowedDTO userResult = MapperUser.toUserFollowedResponseListDTO(user);
 
         if(order== null){
             return userResult;
         }
         else if(order.equals("name_asc")){
-            //Sort by Name
+            //Sort by Name asc
             Collections.sort(userResult.getListFollowed(), (o1, o2) ->o1.getUserName().compareTo(o2.getUserName()) );
             return userResult;
         }
         else if(order.equals("name_desc")){
-            //Sort by Name
+            //Sort by Name desc
             Collections.sort(userResult.getListFollowed(), (o1, o2) ->o1.getUserName().compareTo(o2.getUserName()) );
             Collections.reverse(userResult.getListFollowed());
             return userResult;
@@ -137,11 +154,21 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public void Unfollow(Integer userId, Integer userToUnfollow) {
+    public void Unfollow(Integer userId, Integer userToUnfollow) throws UserException{
 
         User customer =  iUserRepository.getUserById(userId);
-        System.out.println("holaaaa");
         User seller = iUserRepository.getUserById(userToUnfollow);
+        //Exceptions
+        if(customer == null) throw new UserIdNotFoundException(userId);
+        else if (seller == null) throw new UserIdNotFoundException(userToUnfollow);
+        else if(!customer.getFollowed().contains(MapperUser.toUserDTO(seller))){
+            throw new UserException("you don't follow that user", HttpStatus.BAD_REQUEST);
+        }else if(userId.equals(userToUnfollow)){
+            throw new UserException("You can't unfollow yourself", HttpStatus.BAD_REQUEST);
+        }else if(!seller.isSeller()){
+            throw new UserException("You can only unfollow sellers", HttpStatus.BAD_REQUEST);
+        }
+
         deleteFollower(customer,seller);
         deleteFollowed(customer,seller);
     }

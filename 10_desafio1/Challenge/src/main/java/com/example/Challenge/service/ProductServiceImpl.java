@@ -2,10 +2,16 @@ package com.example.Challenge.service;
 
 import com.example.Challenge.dto.ProductDTO;
 import com.example.Challenge.dto.ProductResponseDTO;
+import com.example.Challenge.exception.ProductException;
+import com.example.Challenge.exception.UserException;
+import com.example.Challenge.exception.UserIdNotFoundException;
 import com.example.Challenge.mapper.MapperProduct;
 import com.example.Challenge.model.Product;
+import com.example.Challenge.model.User;
 import com.example.Challenge.repository.IProductRepository;
+import com.example.Challenge.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -15,6 +21,8 @@ import java.util.*;
 public class ProductServiceImpl implements IProductService{
     @Autowired
     IProductRepository iProductRepository;
+    @Autowired
+    IUserRepository iUserRepository;
 
     public List<ProductDTO> getLatestPosts(List<ProductDTO> list) {
         List<ProductDTO> listOut = new ArrayList<>();
@@ -27,20 +35,27 @@ public class ProductServiceImpl implements IProductService{
     }
 
     @Override
-    public String newPost(Product product) {
+    public String newPost(Product product) throws ProductException {
         //System.out.println(product.getDateFromString());
+        if(product == null) throw new ProductException("invalid product", HttpStatus.BAD_REQUEST);
         return iProductRepository.createPost(product);
     }
 
-
-
     @Override
-    public List<Product> getAllProduct(Integer userId) {
+    public List<Product> getAllProduct(Integer userId) throws UserException {
+        User user = iUserRepository.getUserById(userId);
+        //Exceptions
+        if(user == null) throw new UserIdNotFoundException(userId);
         return iProductRepository.getAllProducts(userId);
 
     }
     @Override
-    public ProductResponseDTO getPostById(Integer userId, String order) {
+    public ProductResponseDTO getPostById(Integer userId, String order) throws UserException {
+
+        User user = iUserRepository.getUserById(userId);
+        //Exceptions
+        if(user == null) throw new UserIdNotFoundException(userId);
+
         List<ProductDTO> listResult= new ArrayList<>();
         List<Product> listProducts = iProductRepository.getAllProducts(userId);
         for(Product product: listProducts){

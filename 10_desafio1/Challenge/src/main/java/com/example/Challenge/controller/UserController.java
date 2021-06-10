@@ -31,17 +31,17 @@ public class UserController {
         return  new ResponseEntity<>(resultUser, HttpStatus.OK);
     }
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserResponseListDTO> userFollowersList(@PathVariable Integer userId, @RequestParam(required = false) String order){
+    public ResponseEntity<UserResponseListDTO> userFollowersList(@PathVariable Integer userId, @RequestParam(required = false) String order) throws UserException{
         UserResponseListDTO resultListUser= iUserService.getUserFollowersList(userId, order);
         return  new ResponseEntity<>(resultListUser, HttpStatus.OK);
     }
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserResponseListFollowedDTO> userFollowedList(@PathVariable Integer userId, @RequestParam(required = false) String order){
+    public ResponseEntity<UserResponseListFollowedDTO> userFollowedList(@PathVariable Integer userId, @RequestParam(required = false) String order) throws UserException{
         UserResponseListFollowedDTO resultListFollowedUser= iUserService.getUserFollowedList(userId, order);
         return  new ResponseEntity<>(resultListFollowedUser, HttpStatus.OK);
     }
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<String> unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow){
+    public ResponseEntity<String> unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserException{
         iUserService.Unfollow(userId, userIdToUnfollow);
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
