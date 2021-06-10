@@ -15,5 +15,5 @@ public interface IProductService {
     PostArrayDto getArrayPostById(Integer userId, String order) throws NoPostsFoundException;
     void addNewPromoPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoNotFoundException, IdNotFoundException;
     PostPromoDto getCountPromo(Integer userId) throws IdNotFoundException;
-    PostPromoListDto getPostPromoList(Integer userId);
+    PostPromoListDto getPostPromoList(Integer userId, String order);
 }

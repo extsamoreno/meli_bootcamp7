@@ -39,11 +39,15 @@ public class ProductRepository implements IProductRepository {
 
         ArrayList<Post> arrayListPost = (ArrayList<Post>) postArrayList
                                         .stream()
-                                        .filter(x -> x.getUserId() == userId).sorted()
+                                        .filter(x -> x.getUserId() == userId)
                                         .collect(Collectors.toList());
 
-        Collections.reverse(arrayListPost);
 
+        return getPreviousTwoWeeksPostsArr(arrayListPost);
+    }
+
+    // Previous two weeks condition
+    private ArrayList<Post> getPreviousTwoWeeksPostsArr(ArrayList<Post> arrayListPost) {
         LocalDate todayLocalDate = LocalDate.now();
         LocalDate previousTwoWeeks = todayLocalDate.minusWeeks(2);
         ArrayList<Post> previousTwoWeeksPostsArr = new ArrayList<>();
@@ -53,7 +57,7 @@ public class ProductRepository implements IProductRepository {
             LocalDate localDate = post.getDate()
                                     .toInstant()
                                     .atZone(ZoneId.systemDefault())
-                                    .toLocalDate(); //date to localdate
+                                    .toLocalDate(); //Date to LocalDate
             if (localDate.isAfter(previousTwoWeeks) && localDate.isBefore(todayLocalDate)){
                 previousTwoWeeksPostsArr.add(post);
             }
@@ -65,7 +69,8 @@ public class ProductRepository implements IProductRepository {
     public ArrayList<Post> getArrayPromoPostById(Integer userId){
         ArrayList<Post> promoArr = (ArrayList<Post>) postArrayList
                 .stream()
-                .filter(x -> x.getUserId() == userId && x.isHasPromo()==true).sorted()
+                .filter(x -> x.getUserId() == userId && x.isHasPromo()==true)
+                .sorted()
                 .collect(Collectors.toList());
         return promoArr;
     }

@@ -51,8 +51,8 @@ public class ProductController {
     }
 
     @GetMapping("/{userId}/list")
-    public ResponseEntity<PostPromoListDto> getPostPromoList (@PathVariable Integer userId){
-        return new ResponseEntity<>(iProductService.getPostPromoList(userId),HttpStatus.OK);
+    public ResponseEntity<PostPromoListDto> getPostPromoList (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "productname_asc") String order){
+        return new ResponseEntity<>(iProductService.getPostPromoList(userId, order),HttpStatus.OK);
     }
 
 }
