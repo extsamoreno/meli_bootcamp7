@@ -53,6 +53,10 @@ public class PublicationService implements IPublicationService {
         if (publicationRequestDTO.getPrice()<=0)
             throw new MissingParameterException("price");
         publication.setPrice(publicationRequestDTO.getPrice());
+        publication.setHasPromo(publicationRequestDTO.isHasPromo());
+        if (publicationRequestDTO.getDiscount()>1)
+            throw new MissingParameterException("discount");
+        publication.setDiscount(publicationRequestDTO.getDiscount());
         userRepository.refreshPublications(publication);
     }
 

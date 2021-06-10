@@ -26,4 +26,14 @@ public class PublicationController {
     public ResponseEntity<PublicationListDTO> publicationList (@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException {
         return new ResponseEntity<PublicationListDTO>(iPublicationService.getPublicationList(userId, order),HttpStatus.OK);
     }
+    @PostMapping("/newpromopost")
+    public ResponseEntity<Void> newPromoPost (@RequestBody PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException {
+        iPublicationService.addNewPost(publicationRequestDTO);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+    @GetMapping("/{userId}/countPromo/")
+    public ResponseEntity<Void> newPromoPost (@PathVariable int userId) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException {
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

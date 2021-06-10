@@ -12,5 +12,4 @@ import org.springframework.stereotype.Service;
 public interface IPublicationService {
     void addNewPost (PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException, PublicationExistingException, MissingParameterException, InvalidityDateException;
     PublicationListDTO getPublicationList (int id, String order) throws UserNotFoundException;
-
 }
