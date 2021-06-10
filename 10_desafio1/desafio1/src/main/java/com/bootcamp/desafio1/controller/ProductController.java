@@ -28,8 +28,8 @@ public class ProductController {
 
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostsFollowedListDTO> listPostsFollowed(@PathVariable int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
-        PostsFollowedListDTO postsFollowedListDTO = productServiceImpl.listPostsFollowed(userId);
+    public ResponseEntity<PostsFollowedListDTO> listPostsFollowed(@PathVariable int userId, @RequestParam(defaultValue = "") String order) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
+        PostsFollowedListDTO postsFollowedListDTO = productServiceImpl.listPostsFollowed(userId, order);
         return new ResponseEntity(postsFollowedListDTO, HttpStatus.OK);
     }
 

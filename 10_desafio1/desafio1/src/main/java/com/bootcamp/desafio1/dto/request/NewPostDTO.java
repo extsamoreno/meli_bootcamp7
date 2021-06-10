@@ -1,6 +1,7 @@
 package com.bootcamp.desafio1.dto.request;
 
 import com.bootcamp.desafio1.dto.ProductDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ public class NewPostDTO {
 
     private int userId;
     private int postId;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date date;
     private ProductDTO detail;
     private int category;

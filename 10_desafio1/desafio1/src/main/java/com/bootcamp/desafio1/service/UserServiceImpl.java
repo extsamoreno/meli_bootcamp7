@@ -130,7 +130,7 @@ public class UserServiceImpl implements  IUserService {
     }
 
 
-    public ArrayList<UserDTO> orderUserName(ArrayList<UserDTO> usersList, String order){
+    private ArrayList<UserDTO> orderUserName(ArrayList<UserDTO> usersList, String order){
         Comparator<UserDTO> NameComparator = (UserDTO a, UserDTO b) -> a.getUserName().compareTo(b.getUserName());
         switch (order){
             case "name_asc":

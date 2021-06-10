@@ -10,7 +10,7 @@ public interface IProductService {
 
     void insertNewPost(NewPostDTO newPostDTO) throws PostAlreadyExistsException, ProductAlreadyExistsException, UserNotFoundException;
 
-    PostsFollowedListDTO listPostsFollowed(int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException;
+    PostsFollowedListDTO listPostsFollowed(int userId, String order) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException;
 
     CountPromoDTO promoCount(int userId) throws UserNotFoundException, PostNotFoundException;
 

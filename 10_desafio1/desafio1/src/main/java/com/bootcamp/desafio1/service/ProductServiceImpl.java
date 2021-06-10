@@ -16,7 +16,9 @@ import com.bootcamp.desafio1.repository.user.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -68,7 +70,7 @@ public class ProductServiceImpl implements IProductService {
 
 
     @Override
-    public PostsFollowedListDTO listPostsFollowed(int userId) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
+    public PostsFollowedListDTO listPostsFollowed(int userId, String order) throws UserNotFoundException, PostNotFoundException, ProductNotFoundException {
         User currentUser = userRepositoryImpl.getUserById(userId);
         ArrayList<User> followed = currentUser.getFollowed();
 
@@ -89,8 +91,19 @@ public class ProductServiceImpl implements IProductService {
             // Generate the ProductDTO, PostDTO and add in the list
             ProductDTO productDTO = Mapper.toProductDTO(product);
             PostDTO postDTO = Mapper.toPostDTO(post, productDTO);
-            finalList.add(postDTO);
+
+            // Filter by Date before Now and after two weeks
+            Date currentDate = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            dateFormat.format(currentDate);
+
+            Date twoWeeksAgo = getDateBeforeTwoWeeks(currentDate);
+            if ( post.getDate().after(twoWeeksAgo) )
+                finalList.add(postDTO);
         }
+
+        // Order the finalList
+        orderDate(finalList, order);
         return Mapper.toPostsFollowedListDTO(currentUser, finalList);
     }
 
@@ -130,5 +143,30 @@ public class ProductServiceImpl implements IProductService {
         }
 
         return Mapper.toPromoListDTO(currentUser, finalList);
+    }
+
+    private Date getDateBeforeTwoWeeks(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, -14); //2 weeks
+        return calendar.getTime();
+    }
+
+    private ArrayList<PostDTO> orderDate(ArrayList<PostDTO> postsList, String order){
+        Comparator<PostDTO> DateComparator = (PostDTO a, PostDTO b) -> a.getDate().compareTo(b.getDate());
+        switch (order){
+            case "date_asc":
+                Collections.sort( postsList, DateComparator );
+                break;
+
+            case "date_desc":
+                Collections.sort( postsList, DateComparator);
+                Collections.reverse(postsList);
+                break;
+
+            case "":
+                break;
+        }
+        return postsList;
     }
 }
