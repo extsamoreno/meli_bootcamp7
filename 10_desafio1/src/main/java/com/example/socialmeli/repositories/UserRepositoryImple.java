@@ -137,13 +137,13 @@ public class UserRepositoryImple implements UserRepository {
     public void unfollowSeller(int userId, int userIdToUnfollow) throws InexistentUserException, InexistentFollowerException{
         User user = getUserById(userId);
         User userToUnfollow = getUserById(userIdToUnfollow);
+        UserList followed = new UserList();
+        UserList follower = new UserList();
         boolean followerNotFound = true;
 
         if(!(user.getFollowed() == null)){
-            for (int j = 0; j < user.getFollowed().size(); j++) {
-                UserList followed = user.getFollowed().get(j);
-
-                if(followed.getUserId() == userIdToUnfollow){
+            for (int i = 0; i < user.getFollowed().size(); i++) {
+                if(user.getFollowed().get(i).getUserId() == userIdToUnfollow){
                     followerNotFound = false;
                     break;
                 }
@@ -154,8 +154,17 @@ public class UserRepositoryImple implements UserRepository {
             throw new InexistentFollowerException(userId, userIdToUnfollow);
         }
 
-        UserList follower = new UserList(user.getUserId(), user.getUserName());
-        UserList followed = new UserList(userToUnfollow.getUserId(), userToUnfollow.getUserName());
+        for (int i = 0; i < user.getFollowed().size(); i++) {
+            if(user.getFollowed().get(i).getUserId() == userIdToUnfollow){
+                followed = user.getFollowed().get(i);
+            }
+        }
+
+        for (int i = 0; i < userToUnfollow.getFollowers().size(); i++) {
+            if(userToUnfollow.getFollowers().get(i).getUserId() == userId){
+                follower = userToUnfollow.getFollowers().get(i);
+            }
+        }
 
         user.deleteFollowed(followed);
         userToUnfollow.deleteFollower(follower);
