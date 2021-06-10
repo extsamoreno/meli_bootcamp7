@@ -33,6 +33,7 @@ public class UserService implements IUserService {
         }
         else
         {
+            //I decided to keep the system running
             message = "Already following";
         }
 
@@ -64,6 +65,7 @@ public class UserService implements IUserService {
             message = "Todo OK";
         }
         else{
+            //I decided to keep the system running
             message = "Follow first";
         }
         return message;
