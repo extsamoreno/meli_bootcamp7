@@ -1,4 +1,4 @@
-package com.meli.spring_challenge.controller;
+package com.meli.spring_challenge.controller.product;
 
 import com.meli.spring_challenge.exception.product.PostAlreadyExistException;
 import com.meli.spring_challenge.exception.product.ProductIDAlreadyExistException;

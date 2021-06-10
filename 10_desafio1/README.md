@@ -3,6 +3,7 @@
 ## Install
 
     Open pom.xml with your Favourite IDE - I recomended IntelliJ IDEA
+    Import Collection-MatiasBossa.json in Postman Collections
 
 ## Run the app
 
