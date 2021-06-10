@@ -19,4 +19,6 @@ public class ProductDTO {
     private ProductDetailDTO detail;
     private Integer category;
     private double price;
+    private Boolean hasPromo;
+    private float discount;
 }

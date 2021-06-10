@@ -2,11 +2,10 @@ package com.example.MeliSocialApi.project.service;
 
 import com.example.MeliSocialApi.project.Utils.Constant;
 import com.example.MeliSocialApi.project.exception.UserNotFoundException;
+import com.example.MeliSocialApi.project.exception.UsersMustBeDifferentException;
 import com.example.MeliSocialApi.project.model.User;
 import com.example.MeliSocialApi.project.repository.IUserRepository;
-import com.example.MeliSocialApi.project.service.dto.FollowedUserDTOResponse;
 import com.example.MeliSocialApi.project.service.dto.FollowersUserDTOResponse;
-import com.example.MeliSocialApi.project.service.dto.ProductDTO;
 import com.example.MeliSocialApi.project.service.dto.UserFollowersCountDTOResponse;
 import com.example.MeliSocialApi.project.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,47 +17,27 @@ import java.util.*;
 public class UserService implements IUserService{
     @Autowired
     IUserRepository userRepository;
-    public boolean follow(Integer idUser, Integer idUserToFollow) throws UserNotFoundException{
-        getUser(idUser).addFollowing(idUserToFollow);
-        getUser(idUserToFollow).addFollower(idUser);
+    public boolean follow(Integer idUser, Integer idUserToFollow) throws UserNotFoundException, UsersMustBeDifferentException {
+        if(idUser.equals(idUserToFollow))
+            throw new UsersMustBeDifferentException();
+        addFollowing(getUser(idUser),getUser(idUserToFollow));
+        addFollower(getUser(idUserToFollow),getUser(idUser));
         return true;
     }
-
     @Override
-    public boolean unfollow(Integer idUser, Integer idUserToUnfollow) throws UserNotFoundException {
-        getUser(idUser).unfollowing(idUserToUnfollow);
-        getUser(idUserToUnfollow).unfollower(idUser);
+    public boolean unfollow(Integer idUser, Integer idUserToUnfollow) throws UserNotFoundException, UsersMustBeDifferentException {
+        if(idUser.equals(idUserToUnfollow))
+            throw new UsersMustBeDifferentException();
+        removeFollowing(getUser(idUser),getUser(idUserToUnfollow));
+        removeFollower(getUser(idUserToUnfollow),getUser(idUser));
         return true;
     }
-
     @Override
     public UserFollowersCountDTOResponse getFollowersCount(Integer idUser) throws UserNotFoundException {
         User user = getUser(idUser);
         return UserMapper.userToUserFollowersCountDTO(user);
     }
-    /*
-    @Override
-    public FollowersUserDTOResponse getFollowersList(Integer idUser) throws UserNotFoundException {
-        User user = getUser(idUser);
-        LinkedHashSet<Integer> followers = user.getFollowers();
-        LinkedHashSet<User> followersUser = new LinkedHashSet<User>();
-        for(Integer follower : followers){
-            followersUser.add(userRepository.getUser(follower));
-        }
-        return UserMapper.userToFollowersUserDTO(user,followersUser);
-    }
-
-    @Override
-    public FollowedUserDTOResponse getFollowedList(Integer idUser) throws UserNotFoundException {
-        User user = getUser(idUser);
-        LinkedHashSet<Integer> followers = user.getFollowers();
-        LinkedHashSet<User> followedUsers = new LinkedHashSet<User>();
-        for(Integer follower : followers){
-            followedUsers.add(userRepository.getUser(follower));
-        }
-        return UserMapper.userToFollowedUserDTO(user,followedUsers);
-    }*/
-    private User getUser(Integer id) throws UserNotFoundException {
+    public User getUser(Integer id) throws UserNotFoundException {
         User user = userRepository.getUser(id);
         if(user==null)
             throw new UserNotFoundException(id);
@@ -73,18 +52,7 @@ public class UserService implements IUserService{
         for(Integer follower : followers){
             followersUser.add(getUser(follower));
         }
-        Comparator<User> userNameComparator = Comparator.comparing(u -> u.getName().toLowerCase());
-        Optional<Optional<String>> orderNoNullable = Optional.ofNullable(order).filter(s -> !s.isEmpty());
-        if(order.isPresent()) {
-            switch (order.get()) {
-                case Constant.OrderAlphabeticallyUp:
-                    followersUser.sort(userNameComparator);
-                    break;
-                case Constant.OrderAlphabeticallyBack:
-                    followersUser.sort(userNameComparator.reversed());
-                    break;
-            }
-        }
+        orderAlphabetically(followersUser,order);
         return UserMapper.userToFollowersUserDTO(user,followersUser);
     }
     @Override
@@ -93,21 +61,37 @@ public class UserService implements IUserService{
         LinkedHashSet<Integer> followings = user.getFollowing();
         LinkedList<User> followingsUser = new LinkedList<User>();
         for(Integer following : followings){
-            followingsUser.add(userRepository.getUser(following));
+            followingsUser.add(getUser(following));
         }
+        orderAlphabetically(followingsUser,order);
+        return UserMapper.userToFollowersUserDTO(user,followingsUser);
+
+    }
+    private void orderAlphabetically(LinkedList<User> users, Optional<String> order){
         Comparator<User> userNameComparator = Comparator.comparing(u -> u.getName().toLowerCase());
+        Optional<Optional<String>> orderNoNullable = Optional.ofNullable(order).filter(s -> !s.isEmpty());
         if(order.isPresent()) {
             switch (order.get()) {
                 case Constant.OrderAlphabeticallyUp:
-                    followingsUser.sort(userNameComparator);
+                    users.sort(userNameComparator);
                     break;
                 case Constant.OrderAlphabeticallyBack:
-                    followingsUser.sort(userNameComparator.reversed());
+                    users.sort(userNameComparator.reversed());
                     break;
             }
         }
-        return UserMapper.userToFollowersUserDTO(user,followingsUser);
-
+    }
+    private void addFollower(User userToFollow, User user){
+        userToFollow.getFollowers().add(user.getId());
+    }
+    private void addFollowing(User user, User userToFollowing){
+        user.getFollowing().add(userToFollowing.getId());
+    }
+    private void removeFollower(User user, User userToUnfollower){
+        user.getFollowers().remove(userToUnfollower.getId());
+    }
+    private void removeFollowing(User user, User userToUnfollowing){
+        user.getFollowing().remove(userToUnfollowing.getId());
     }
 
 }

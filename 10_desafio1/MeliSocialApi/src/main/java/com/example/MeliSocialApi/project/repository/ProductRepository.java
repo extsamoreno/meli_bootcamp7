@@ -2,6 +2,7 @@ package com.example.MeliSocialApi.project.repository;
 
 import com.example.MeliSocialApi.project.model.Product;
 import com.example.MeliSocialApi.project.model.ProductDetails;
+import com.example.MeliSocialApi.project.model.ProductPromo;
 import org.springframework.stereotype.Repository;
 
 
@@ -25,7 +26,6 @@ public class ProductRepository implements IProductRepository{
         products.put(13,new Product(1,13, Date.valueOf(LocalDate.of(2021,6,4)),details101,150,300.70));
     }
     // (user1): prod 10 -> cat 100, -1day, prod 11 -> cat 100, -16day, prod 12 -> cat 11, -6day, prod 13 -> cat 11, -4day
-
     public Map<Integer, ProductDetails> getDetails() {
         return productDetails;
     }

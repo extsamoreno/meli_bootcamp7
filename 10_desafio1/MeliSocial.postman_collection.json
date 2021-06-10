@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "51a71845-a104-41d2-8af1-4c464c9f6f6f",
+		"name": "MeliSocial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Follow",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1/follow/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"follow",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1/follow/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"follow",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1/followers/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"followers",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List followers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1/followed/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"followed",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List followed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1/followed/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1",
+								"followed",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Count Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080//users/2/followers/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"",
+								"users",
+								"2",
+								"followers",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Postt",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \t\"userId\": 8,\n   \t \"idPost\" : 23,\n        \"date\" : \"29-04-2021\",\n    \t \"detail\" :\n        \t{ \"productId\" : 3,\n   \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n     \t\"category\" : 100,\n     \t\"price\" : 1500.50\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/newpost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"newpost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/followed/1/list?order=date_desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"followed",
+								"1",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products Promo List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/followed/1/list?order=date_desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"followed",
+								"1",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "date_desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Post Promo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \t\"userId\": 8,\n   \t \"idPost\" : 23,\n        \"date\" : \"29-04-2021\",\n    \t \"detail\" :\n        \t{ \"productId\" : 3,\n   \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n     \t\"category\" : 100,\n     \t\"price\" : 1500.50\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/newpost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"newpost"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

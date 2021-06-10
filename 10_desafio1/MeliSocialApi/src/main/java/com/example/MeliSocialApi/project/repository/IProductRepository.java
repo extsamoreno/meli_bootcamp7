@@ -2,6 +2,7 @@ package com.example.MeliSocialApi.project.repository;
 
 import com.example.MeliSocialApi.project.model.Product;
 import com.example.MeliSocialApi.project.model.ProductDetails;
+import com.example.MeliSocialApi.project.model.ProductPromo;
 
 import java.util.Map;
 

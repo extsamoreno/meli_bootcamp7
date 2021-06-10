@@ -12,9 +12,9 @@ import java.util.LinkedList;
 @Setter
 @AllArgsConstructor
 public class FollowedUserDTOResponse extends UserDTOResponse {
-    private LinkedList<UserDTOResponse> followers = new LinkedList<>();
+    private LinkedList<UserDTOResponse> followed = new LinkedList<>();
     public FollowedUserDTOResponse(User user, LinkedList<UserDTOResponse> followers){
         super(user.getId(),user.getName());
-        this.followers = followers;
+        this.followed = followers;
     }
 }

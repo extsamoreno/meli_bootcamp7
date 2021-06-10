@@ -1,6 +1,7 @@
 package com.example.MeliSocialApi.project.controller;
 
 import com.example.MeliSocialApi.project.exception.UserNotFoundException;
+import com.example.MeliSocialApi.project.exception.UsersMustBeDifferentException;
 import com.example.MeliSocialApi.project.service.IUserService;
 import com.example.MeliSocialApi.project.service.dto.FollowersUserDTOResponse;
 import com.example.MeliSocialApi.project.service.dto.UserFollowersCountDTOResponse;
@@ -19,7 +20,7 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity addFollower(@PathVariable Integer userId,@PathVariable Integer userIdToFollow) throws UserNotFoundException {
+    public ResponseEntity addFollower(@PathVariable Integer userId,@PathVariable Integer userIdToFollow) throws UserNotFoundException, UsersMustBeDifferentException {
         userService.follow(userId,userIdToFollow);
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -27,14 +28,9 @@ public class UserController {
     public ResponseEntity<UserFollowersCountDTOResponse> getFollowersCount(@PathVariable Integer userId) throws UserNotFoundException {
         return new ResponseEntity<UserFollowersCountDTOResponse>(userService.getFollowersCount(userId),HttpStatus.OK);
     }
-    /*
-    @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersUserDTOResponse> getFollowers(@PathVariable Integer userId) throws UserNotFoundException {
-        return new ResponseEntity<FollowersUserDTOResponse>(userService.getFollowersList(userId),HttpStatus.OK);
-    }*/
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity unfollow(@PathVariable Integer userId,@PathVariable Integer userIdToFollow) throws UserNotFoundException {
-        userService.unfollow(userId,userIdToFollow);
+    public ResponseEntity unfollow(@PathVariable Integer userId,@PathVariable Integer userIdToUnfollow) throws UserNotFoundException, UsersMustBeDifferentException {
+        userService.unfollow(userId,userIdToUnfollow);
         return new ResponseEntity(HttpStatus.OK);
     }
     @GetMapping("/{userId}/followers/list")
