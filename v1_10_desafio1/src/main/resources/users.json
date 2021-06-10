@@ -1,0 +1,58 @@
+[
+  {
+  "userId": 0,
+  "userName": "Admin",
+  "followers": [],
+  "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 1,
+    "userName": "Juan Abal",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 2,
+    "userName": "Gianfranco Montalto",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 3,
+    "userName": "Gerónimo Pereyra",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 4,
+    "userName": "Mariano González",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 5,
+    "userName": "Bruno De Simone",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 6,
+    "userName": "Stefania Pérez",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  },
+  {
+    "userId": 7,
+    "userName": "Alexis Aranda",
+    "followers": [],
+    "followed": [],
+    "posts": []
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+  "userId": 1,
+  "postId": 1,
+  "date": "29-04-2021",
+    "detail":{
+      "productId":45,
+      "productName":"TecladoBluetooth",
+      "type":"Gamer",
+      "brand":"Redragon",
+      "color": "white",
+      "notes":"Draconic"
+    },
+    "category": 100,
+    "price": 1500.50
+  },
+  {
+    "userId": 1,
+    "postId": 2,
+    "date": "09-06-2021",
+    "detail":{
+      "productId":45,
+      "productName":"TecladoBluetooth",
+      "type":"Gamer",
+      "brand":"Redragon",
+      "color": "red",
+      "notes":"Draconic"
+    },
+    "category": 50,
+    "price": 678.78
+  }
+]
