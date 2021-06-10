@@ -43,7 +43,7 @@ Software Developer: Diego Banfi
 
   This context is reinitialized each time this method is called. (for more information see Context class, located in Context package).
   
-  To load de Context Scenario:
+  To load the Context Scenario:
 
   ```jsx
   method: POST
@@ -55,7 +55,9 @@ Software Developer: Diego Banfi
   buyer can be simultaneously a seller and vice versa, which is why it has been chosen not to make any difference
   between them.
 - To facilitate the tests on the API, the following is the link to a Postman Collection, with all the corresponding
-  requests: https://www.getpostman.com/collections/e928b4a5ebe4cf9c95bc
+  requests: https://www.getpostman.com/collections/e928b4a5ebe4cf9c95bc 
+  
+  (If the import of the collection through the link does not work, the collection is also attached in the file "Meli Challenge 1 - SocialMeli.postman_collection.json" located in the resources package)
 
 ### Requirements
 
