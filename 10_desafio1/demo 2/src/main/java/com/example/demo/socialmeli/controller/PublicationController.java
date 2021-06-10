@@ -20,7 +20,7 @@ public class PublicationController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PublicationListDTO> publicationList (@PathVariable int userId) {
-        return new ResponseEntity<PublicationListDTO>(iPublicationService.getPublicationList(userId),HttpStatus.OK);
+    public ResponseEntity<PublicationListDTO> publicationList (@PathVariable int userId, @RequestParam(required = false) String order) {
+        return new ResponseEntity<PublicationListDTO>(iPublicationService.getPublicationList(userId, order),HttpStatus.OK);
     }
 }

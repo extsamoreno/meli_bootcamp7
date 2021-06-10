@@ -33,7 +33,7 @@ public class PublicationService implements IPublicationService{
     }
 
     @Override
-    public PublicationListDTO getPublicationList(int id) {
+    public PublicationListDTO getPublicationList(int id, String order) {
         User user = userRepository.getUserById(id);
         List<Publication> publications = userRepository.getAllPublication();
         ArrayList<Publication> arrayList = new ArrayList<>();
@@ -46,17 +46,25 @@ public class PublicationService implements IPublicationService{
         }
         PublicationListDTO publicationListDTO = new PublicationListDTO();
         publicationListDTO.setUserId(id);
-        arrayList.sort((a,b)->b.getDate().compareTo(a.getDate()));
-        Calendar date = Calendar.getInstance();
-        date.add(Calendar.DAY_OF_YEAR,-14);
-        Date finallyDate = date.getTime();
-        ArrayList<Publication> arrayList1 = new ArrayList<>();
-        for (int k=0; k<arrayList.size();k++) {
-            if (finallyDate.before(arrayList.get(k).getDate())) {
-                arrayList1.add(arrayList.get(k));
+        if (order!=null){
+            if (order.equals("date_asc"))
+                arrayList.sort((a,b)->a.getDate().compareTo(b.getDate()));
+            else if (order.equals("date_desc"))
+                arrayList.sort((a,b)->b.getDate().compareTo(a.getDate()));
+            publicationListDTO.setPosts(arrayList);
+        }else {
+            arrayList.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+            Calendar date = Calendar.getInstance();
+            date.add(Calendar.DAY_OF_YEAR, -14);
+            Date finallyDate = date.getTime();
+            ArrayList<Publication> arrayList1 = new ArrayList<>();
+            for (int k = 0; k < arrayList.size(); k++) {
+                if (finallyDate.before(arrayList.get(k).getDate())) {
+                    arrayList1.add(arrayList.get(k));
+                }
             }
+            publicationListDTO.setPosts(arrayList1);
         }
-        publicationListDTO.setPosts(arrayList1);
         return publicationListDTO;
     }
 }

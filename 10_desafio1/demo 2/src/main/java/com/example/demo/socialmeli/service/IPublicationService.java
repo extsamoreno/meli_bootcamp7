@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IPublicationService {
     void addNewPost (PublicationRequestDTO publicationRequestDTO);
-    PublicationListDTO getPublicationList (int id);
+    PublicationListDTO getPublicationList (int id, String order);
 
 }

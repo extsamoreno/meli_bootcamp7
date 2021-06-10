@@ -15,7 +15,7 @@ public interface IUserService {
     int getCountFollowers (int id);
     ArrayList<UserDTO> getList (int id, boolean isFollowed);
     CountFollowersDTO countFollowers (int userId);
-    FollowersListDTO getFollowerList(int userId);
-    FollowedListDTO getFollowedList(int userId);
+    FollowersListDTO getFollowerList(int userId, String order);
+    FollowedListDTO getFollowedList(int userId, String order);
     HttpStatus unFollow(int userId,int useridToUnFollow);
 }
