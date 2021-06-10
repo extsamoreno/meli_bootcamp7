@@ -63,7 +63,6 @@ public class PostRepository implements iPostRepository {
                 listPosts.add(entry.getValue());
             }
         }
-
         return listPosts;
     }
 

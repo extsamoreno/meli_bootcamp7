@@ -12,14 +12,15 @@ import java.util.HashMap;
 @Repository
 public class UserRepository implements iUserRepository {
 
-    // Map with Users
+    // Map with Users (all users)
     HashMap<Integer, User> mapUsers = new HashMap();
 
+    // Load users to mapUsers
     public UserRepository() {
         loadUsers();
     }
 
-    // Update user data
+    // Update user data (not used)
     @Override
     public User saveUser(User user) {
 
@@ -50,7 +51,7 @@ public class UserRepository implements iUserRepository {
             throw new UserNotFollowException(userId, userIdToUnFollow);
         }
 
-        // Remove follower and followed from the lists
+        // Remove follower and followed from the users lists
         follower.getFollows().remove(followed);
         followed.getFollowers().remove(follower);
     }
@@ -59,9 +60,11 @@ public class UserRepository implements iUserRepository {
     // Load default users, all users can be sellers and buyers
     public void loadUsers() {
 
-        mapUsers.put(0, new User(0, "tomas", new ArrayList<User>(), new ArrayList<User>()));
-        mapUsers.put(1, new User(1, "carlos", new ArrayList<User>(), new ArrayList<User>()));
-        mapUsers.put(2, new User(2, "agustin", new ArrayList<User>(), new ArrayList<User>()));
-        mapUsers.put(3, new User(3, "mario", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(0, new User(0, "Tomas", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(1, new User(1, "Carlos", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(2, new User(2, "Agustin", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(3, new User(3, "Mario", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(4, new User(4, "Roberto", new ArrayList<User>(), new ArrayList<User>()));
+        mapUsers.put(5, new User(5, "German", new ArrayList<User>(), new ArrayList<User>()));
     }
 }

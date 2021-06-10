@@ -43,7 +43,6 @@ public class UserService implements iUserService {
 
         // Add List seller followers
         followedUser.getFollowers().add(followerUser);
-
         // Add List buyer follows
         followerUser.getFollows().add(followedUser);
     }
@@ -68,7 +67,6 @@ public class UserService implements iUserService {
         }else if(order.equals("name_desc")){
             JavaUtils.orderByUserNameDesc(followedUser.getFollowers());
         }
-
         return UserMapper.toResponseListFollowersDTO(followedUser);
     }
 
@@ -84,7 +82,6 @@ public class UserService implements iUserService {
         }else if(order.equals("name_desc")){
             JavaUtils.orderByUserNameDesc(followerUser.getFollows());
         }
-
         return UserMapper.toResponseListFollowedDTO(followerUser);
     }
 

@@ -13,8 +13,6 @@ import com.example.desafio1.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 @Service
 public class PostService implements iPostService {
 
@@ -30,7 +28,7 @@ public class PostService implements iPostService {
         iPostRepository.savePost(post);
     }
 
-    // Returns a list of the posts made by the sellers that a user follows (post made last weeks)
+    // Returns a list of the posts made by sellers that a user followed (post made last weeks)
     @Override
     public ResponseListFollowedSellers listPostsFollowed(Integer userId, String order) throws UserNotFoundException {
 
@@ -47,14 +45,14 @@ public class PostService implements iPostService {
         return listFollowedSellerDTO;
     }
 
-    // Returns a list with last seller posts (weeksToFind is a filter)
+    // Returns a list with last seller posts (weeksToFind is a filter) and ordered by date (asc/desc)
     @Override
     public ResponseListPostDTO lastSellerPosts(Integer userId, String order) throws UserNotFoundException {
 
         User sellerUser = iUserRepository.findUserById(userId);
         ResponseListPostDTO sellerPosts = new ResponseListPostDTO();
 
-        // Creating list with last seller posts
+        // Creating list with last seller posts (last 2 weeks to filter)
         for (Post p : iPostRepository.findNewerPostsByUserId(sellerUser.getUserId(), 2)) {
             sellerPosts.getPosts().add(PostMapper.postToDto(p));
         }
@@ -65,7 +63,6 @@ public class PostService implements iPostService {
         }else if(order.equals("date_desc")) {
             JavaUtils.orderByDateDesc(sellerPosts.getPosts());
         }
-
         return sellerPosts;
     }
 }
