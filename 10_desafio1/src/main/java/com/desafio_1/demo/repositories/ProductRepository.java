@@ -49,4 +49,22 @@ public class ProductRepository implements IProductRepository{
             throw new UnhandledException(ex.getMessage());
         }
     }
+
+    @Override
+    public ArrayList<Product> findProductsPromoByUserId(int userId, Comparator<LocalDate> c) throws UnhandledException {
+        try{
+            ArrayList<Product> products = new ArrayList<>();
+
+            List<Product> productsFind = listProducts.stream()
+                    .filter(p -> p.getUserId() == userId && p.isHasPromo())
+                    .sorted((a, b) -> c.compare(a.getDate(), b.getDate()))
+                    .collect(Collectors.toList());
+
+            products.addAll(productsFind);
+
+            return products;
+        }catch (Exception ex){
+            throw new UnhandledException(ex.getMessage());
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.desafio_1.demo.controllers;
 
 import com.desafio_1.demo.dtos.ProductFollowedDTO;
+import com.desafio_1.demo.dtos.ProductPromoCountDTO;
 import com.desafio_1.demo.dtos.ProductRequestDTO;
 import com.desafio_1.demo.dtos.ProductResponseDTO;
 import com.desafio_1.demo.exceptions.*;
@@ -26,6 +27,11 @@ public class ProductController {
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<ProductFollowedDTO> findProductsByFollowedId(@PathVariable int userId, @RequestParam(required = false) String order) throws UserNotFoundException, UserIdInvalidException, UnhandledException {
         return new ResponseEntity<>(productService.findProductsByFollowedId(userId, order), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<ProductPromoCountDTO> findProductsPromoCountByUserId(@PathVariable int userId) throws UserNotFoundException, UserIdInvalidException, UnhandledException {
+        return new ResponseEntity<>(productService.findProductsPromoCountByUserId(userId), HttpStatus.OK);
     }
 
 }

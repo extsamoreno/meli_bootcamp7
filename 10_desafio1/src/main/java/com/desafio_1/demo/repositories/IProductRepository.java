@@ -12,4 +12,5 @@ import java.util.List;
 public interface IProductRepository {
     void addProduct(Product product) throws UnhandledException;
     ArrayList<Product> findProductsByFollowedId(List<Integer> followedIds, Comparator<LocalDate> c) throws UnhandledException;
+    ArrayList<Product> findProductsPromoByUserId(int userId, Comparator<LocalDate> c) throws UnhandledException;
 }
