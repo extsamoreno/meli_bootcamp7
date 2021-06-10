@@ -6,7 +6,6 @@ import com.example.desafiospring.socialmeli.exception.UserNotFoundException;
 import com.example.desafiospring.socialmeli.model.Post;
 import com.example.desafiospring.socialmeli.service.DTO.PostDTO;
 import com.example.desafiospring.socialmeli.service.DTO.PostListDTO;
-import com.example.desafiospring.socialmeli.service.DTO.PromoPostDTO;
 import com.example.desafiospring.socialmeli.service.DTO.PromoUserProductDTO;
 import com.example.desafiospring.socialmeli.service.IPostService
 import com.example.desafiospring.socialmeli.service.IUserService;
