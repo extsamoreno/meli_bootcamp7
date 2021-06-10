@@ -118,7 +118,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userId\": 6,\n    \"id_post\": 222,\n    \"date\": \"09-04-2021\",\n    \"detail\": {\n        \"product_id\": 1232,\n        \"productName\": \"Other\",\n        \"type\": \"Ofice\",\n        \"brand\": \"Samsung\",\n        \"color\": \"Grey\",\n        \"notes\": \"S Edition\"\n    },\n    \"category\": 100,\n    \"price\": 2222.50\n}",
+					"raw": "{\n    \"userId\": 6,\n    \"id_post\": 978,\n    \"date\": \"09-04-2021\",\n    \"detail\": {\n        \"product_id\": 3222,\n        \"productName\": \"None\",\n        \"type\": \"Ofice\",\n        \"brand\": \"BenQ\",\n        \"color\": \"Black\",\n        \"notes\": \"Q Edition\"\n    },\n    \"category\": 50,\n    \"price\": 200.50\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -144,21 +144,53 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base-url}}/products/followed/4/list?order=date_desc",
+					"raw": "{{base-url}}/products/followed/2/list",
 					"host": [
 						"{{base-url}}"
 					],
 					"path": [
 						"products",
 						"followed",
-						"4",
+						"2",
 						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get followed posts by user Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/products/1/countPromo",
+					"host": [
+						"{{base-url}}"
 					],
-					"query": [
-						{
-							"key": "order",
-							"value": "date_desc"
-						}
+					"path": [
+						"products",
+						"1",
+						"countPromo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get products promo with seller id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/products/2/list",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"products",
+						"2",
+						"list"
 					]
 				}
 			},
