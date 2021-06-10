@@ -1,4 +1,4 @@
-package com.desafio.SocialMeli.Classes;
+package com.desafio.SocialMeli.Model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

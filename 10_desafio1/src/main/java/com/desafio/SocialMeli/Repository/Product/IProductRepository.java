@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Repository.Product;
 
-import com.desafio.SocialMeli.Classes.Product;
+import com.desafio.SocialMeli.Model.Product;
 
 import java.util.List;
 

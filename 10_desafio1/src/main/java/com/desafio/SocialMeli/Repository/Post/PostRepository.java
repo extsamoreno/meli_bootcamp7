@@ -1,13 +1,12 @@
 package com.desafio.SocialMeli.Repository.Post;
 
-import com.desafio.SocialMeli.Classes.Post;
+import com.desafio.SocialMeli.Model.Post;
 import com.desafio.SocialMeli.DTO.Post.PromoPostDTO;
 import com.desafio.SocialMeli.Mapper.PostMapper;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Mapper;
 
-import com.desafio.SocialMeli.Classes.Post;
+import com.desafio.SocialMeli.Model.Post;
 import com.desafio.SocialMeli.DTO.Post.PostDTO;
 import com.desafio.SocialMeli.DTO.Post.PostWithUserDTO;
 import com.desafio.SocialMeli.DTO.Post.PromoPostDTO;

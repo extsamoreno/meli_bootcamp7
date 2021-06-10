@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Repository.User;
 
-import com.desafio.SocialMeli.Classes.User;
+import com.desafio.SocialMeli.Model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

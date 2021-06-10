@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Mapper;
 
-import com.desafio.SocialMeli.Classes.User;
+import com.desafio.SocialMeli.Model.User;
 import com.desafio.SocialMeli.DTO.User.UserDTO;
 
 import java.util.ArrayList;

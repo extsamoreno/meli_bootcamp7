@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Mapper;
 
-import com.desafio.SocialMeli.Classes.Product;
+import com.desafio.SocialMeli.Model.Product;
 import com.desafio.SocialMeli.DTO.Product.ProductDTO;
 
 public class ProductMapper {

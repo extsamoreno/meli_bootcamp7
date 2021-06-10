@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Repository.Post;
 
-import com.desafio.SocialMeli.Classes.Post;
+import com.desafio.SocialMeli.Model.Post;
 import com.desafio.SocialMeli.DTO.Post.PromoPostDTO;
 
 import java.util.List;

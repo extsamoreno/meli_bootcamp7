@@ -1,4 +1,4 @@
-package com.desafio.SocialMeli.Classes;
+package com.desafio.SocialMeli.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

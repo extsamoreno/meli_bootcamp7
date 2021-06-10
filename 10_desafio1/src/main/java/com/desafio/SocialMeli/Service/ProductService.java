@@ -1,8 +1,8 @@
 package com.desafio.SocialMeli.Service;
 
-import com.desafio.SocialMeli.Classes.Post;
-import com.desafio.SocialMeli.Classes.Product;
-import com.desafio.SocialMeli.Classes.User;
+import com.desafio.SocialMeli.Model.Post;
+import com.desafio.SocialMeli.Model.Product;
+import com.desafio.SocialMeli.Model.User;
 import com.desafio.SocialMeli.DTO.Post.*;
 import com.desafio.SocialMeli.DTO.Product.ProductDTO;
 import com.desafio.SocialMeli.DTO.User.FollowedPostListDTO;

@@ -1,6 +1,6 @@
 package com.desafio.SocialMeli.Service;
 
-import com.desafio.SocialMeli.Classes.User;
+import com.desafio.SocialMeli.Model.User;
 import com.desafio.SocialMeli.DTO.User.FollowedListDTO;
 import com.desafio.SocialMeli.DTO.User.FollowersCountDTO;
 import com.desafio.SocialMeli.DTO.User.FollowersListDTO;
