@@ -1,8 +1,8 @@
 package com.desafiospring.socialMeli.service.mapper;
 
-import com.desafiospring.socialMeli.dto.NewPostDTO;
+import com.desafiospring.socialMeli.dto.request.NewPostDTO;
 import com.desafiospring.socialMeli.dto.PostDTO;
-import com.desafiospring.socialMeli.dto.NewPromoPostDTO;
+import com.desafiospring.socialMeli.dto.request.NewPromoPostDTO;
 import com.desafiospring.socialMeli.model.Post;
 
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ public class PostMapper {
         dto.setDate(post.getDate());
         dto.setId_post(post.getId_post());
         dto.setPrice(post.getPrice());
-        dto.setUserId(post.getUserId());
         dto.setDetail(post.getDetail());
         if (post.isHasPromo()) {
             dto.setHasPromo(post.isHasPromo());

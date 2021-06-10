@@ -10,6 +10,4 @@ public class UserDTO {
     private int userId;
     private String userName;
 
-    public UserDTO(int userId, String userName) {
-    }
 }

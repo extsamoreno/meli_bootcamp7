@@ -1,6 +1,11 @@
 package com.desafiospring.socialMeli.service;
 
 import com.desafiospring.socialMeli.dto.*;
+import com.desafiospring.socialMeli.dto.request.NewPostDTO;
+import com.desafiospring.socialMeli.dto.request.NewPromoPostDTO;
+import com.desafiospring.socialMeli.dto.response.FollowedPostDTO;
+import com.desafiospring.socialMeli.dto.response.PromoPostCountDTO;
+import com.desafiospring.socialMeli.dto.response.PromoPostListDTO;
 import com.desafiospring.socialMeli.exceptions.PostIdAlreadyExistException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 

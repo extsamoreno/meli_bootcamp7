@@ -1,6 +1,5 @@
-package com.desafiospring.socialMeli.dto;
+package com.desafiospring.socialMeli.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @Getter

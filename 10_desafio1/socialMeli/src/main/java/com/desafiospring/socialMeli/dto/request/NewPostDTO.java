@@ -1,4 +1,4 @@
-package com.desafiospring.socialMeli.dto;
+package com.desafiospring.socialMeli.dto.request;
 
 import com.desafiospring.socialMeli.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;

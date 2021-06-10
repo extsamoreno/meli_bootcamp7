@@ -1,4 +1,4 @@
-package com.desafiospring.socialMeli.dto;
+package com.desafiospring.socialMeli.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

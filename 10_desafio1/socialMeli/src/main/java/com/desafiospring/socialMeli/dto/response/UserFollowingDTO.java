@@ -1,5 +1,6 @@
-package com.desafiospring.socialMeli.dto;
+package com.desafiospring.socialMeli.dto.response;
 
+import com.desafiospring.socialMeli.dto.UserDTO;
 import lombok.*;
 
 import java.util.List;
