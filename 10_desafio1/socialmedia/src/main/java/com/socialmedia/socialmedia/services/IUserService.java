@@ -10,6 +10,6 @@ public interface IUserService {
     void followToUser(int userId, int userIdToFollow) throws UserNotFoundException, UserExistAsFollowerException, ObjectNotFoundException, UserDistinctTypeException;
     void unfollowToUser(int userId, int userIdToFollow) throws UserNotFoundException, ObjectNotFoundException, UserNotExistAsFollowerException;
     UserCountFollowerDTO getCountFollowersByUser(int userId) throws ObjectNotFoundException, UserDistinctTypeException;
-    UserWithFollowersDTO getFollowersByUser(int userId) throws ObjectNotFoundException, UserDistinctTypeException;
-    UserWithFollowedDTO getFollowedByUser(int userId) throws ObjectNotFoundException, UserDistinctTypeException;
+    UserWithFollowersDTO getFollowersByUser(int userId, String order) throws ObjectNotFoundException, UserDistinctTypeException;
+    UserWithFollowedDTO getFollowedByUser(int userId, String order) throws ObjectNotFoundException, UserDistinctTypeException;
 }

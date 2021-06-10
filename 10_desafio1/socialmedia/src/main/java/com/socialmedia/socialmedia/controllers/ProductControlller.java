@@ -24,8 +24,9 @@ public class ProductControlller {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserWithFollowedPostsDTO> getFollowedPostsByUser(@PathVariable int userId) throws UserNotFoundException, ObjectNotFoundException, UserDistinctTypeException {
-        UserWithFollowedPostsDTO userWithFollowedPostsDTO = productService.getFollowedPostsByUser(userId);
+    public ResponseEntity<UserWithFollowedPostsDTO> getFollowedPostsByUser(@PathVariable int userId, @RequestParam(value = "order", defaultValue = "date_asc") String order)
+            throws UserNotFoundException, ObjectNotFoundException, UserDistinctTypeException {
+        UserWithFollowedPostsDTO userWithFollowedPostsDTO = productService.getFollowedPostsByUser(userId, order);
 
         return new ResponseEntity<>(userWithFollowedPostsDTO, HttpStatus.OK);
     }

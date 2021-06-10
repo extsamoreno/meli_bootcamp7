@@ -8,13 +8,12 @@ import com.socialmedia.socialmedia.repositories.IFollowerRepository;
 import com.socialmedia.socialmedia.repositories.IProductRepository;
 import com.socialmedia.socialmedia.repositories.IUserRepository;
 import com.socialmedia.socialmedia.repositories.entities.*;
+import com.socialmedia.socialmedia.services.Helpers.SortPostHelper;
 import com.socialmedia.socialmedia.services.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class ProductService implements IProductService {
@@ -36,7 +35,7 @@ public class ProductService implements IProductService {
         var existPost = postRepository.getByPostId(post.getPostId());
         if (!Objects.isNull(existPost)) throw new ObjectExistException(existPost.getId(), "Post");
         var existUser = userRepository.getById(post.getUserId());
-        if (!Objects.isNull(existUser)) throw new ObjectExistException(existUser.getId(), "User");
+        if (Objects.isNull(existUser)) throw new ObjectExistException(existUser.getId(), "User");
         var existProduct = productRepository.getById(product.getId());
         if (!Objects.isNull(existProduct)) throw new ObjectExistException(existProduct.getId(), "Product");
 
@@ -44,7 +43,7 @@ public class ProductService implements IProductService {
 
         if (idProduct == 0) throw new ProductInsertException();
 
-        post.setPostId(idProduct);
+        post.setProductId(idProduct);
 
         int idPost = postRepository.add(post);
 
@@ -52,7 +51,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public UserWithFollowedPostsDTO getFollowedPostsByUser(int userId) throws ObjectNotFoundException {
+    public UserWithFollowedPostsDTO getFollowedPostsByUser(int userId, String order) throws ObjectNotFoundException {
         User userResult = userRepository.getById(userId);
         List<Follower> followedByUser = followerRepository.getFollowersByFollowerId(userId);
 
@@ -76,12 +75,15 @@ public class ProductService implements IProductService {
             }
         }
 
-        orderByDate(postDTOList);
+        if (order.equals("date_asc")) orderByDate(postDTOList, true);
+        else if (order.equals("date_desc")) orderByDate(postDTOList, false);
 
         result.setPosts(postDTOList);
 
         return result;
     }
-    private void orderByDate(List<PostDTO> postDTOList) {
+    private void orderByDate(List<PostDTO> postDTOList, boolean isAscendent) {
+        Collections.sort(postDTOList, new SortPostHelper());
+        if (isAscendent) Collections.reverse(postDTOList);
     }
 }

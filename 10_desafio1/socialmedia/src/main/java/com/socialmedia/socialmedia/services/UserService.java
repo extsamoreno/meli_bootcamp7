@@ -6,6 +6,7 @@ import com.socialmedia.socialmedia.repositories.IFollowerRepository;
 import com.socialmedia.socialmedia.repositories.IUserRepository;
 import com.socialmedia.socialmedia.repositories.entities.Follower;
 import com.socialmedia.socialmedia.repositories.entities.User;
+import com.socialmedia.socialmedia.services.Helpers.SortPostHelper;
 import com.socialmedia.socialmedia.services.dtos.UserCountFollowerDTO;
 import com.socialmedia.socialmedia.services.dtos.UserDTO;
 import com.socialmedia.socialmedia.services.dtos.UserWithFollowedDTO;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collector;
@@ -39,11 +41,15 @@ public class UserService implements IUserService {
 
         if (user.getUserType() != 2) throw new UserDistinctTypeException(user.getId(), "comprador");
 
-        Follower existObject = followerRepository.getFollowerByUserIdAndFollowerId(userId, userIdToFollow);
+        Follower existObject = followerRepository.getFollowerByUserIdAndFollowerId(userIdToFollow, userId);
 
-        if (!Objects.isNull(existObject)) throw new UserExistAsFollowerException(userId, userIdToFollow);
+        if (!Objects.isNull(existObject) && existObject.isFollow()) throw new UserExistAsFollowerException(userId, userIdToFollow);
 
-        followerRepository.add(new Follower(userId, userIdToFollow));
+        if (!Objects.isNull(existObject) && !existObject.isFollow()) {
+            existObject.setFollow(true);
+            followerRepository.update(existObject);
+        }
+        else followerRepository.add(new Follower(userIdToFollow, userId));
     }
 
     @Override
@@ -51,10 +57,11 @@ public class UserService implements IUserService {
         User userToFollow = userRepository.getById(userIdToFollow);
         User user = userRepository.getById(userId);
 
-        Follower existObject = followerRepository.getFollowerByUserIdAndFollowerId(user.getId(), userToFollow.getId());
+        Follower existObject = followerRepository.getFollowerByUserIdAndFollowerId(userToFollow.getId(), user.getId());
 
         if (Objects.isNull(existObject)) throw new UserNotExistAsFollowerException(user.getId(), userToFollow.getId());
 
+        existObject.setFollow(false);
         followerRepository.update(existObject);
     }
 
@@ -76,7 +83,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserWithFollowersDTO getFollowersByUser(int userId) throws ObjectNotFoundException, UserDistinctTypeException {
+    public UserWithFollowersDTO getFollowersByUser(int userId, String order) throws ObjectNotFoundException, UserDistinctTypeException {
         List<User> results = new ArrayList<>();
 
         User user = userRepository.getById(userId);
@@ -93,11 +100,19 @@ public class UserService implements IUserService {
 
         List<UserDTO> followersDTO = UserMapper.UsersToUsersDTO(results);
 
+        if (order.equals("name_desc")) orderByName(followersDTO, true);
+        else if (order.equals("name_asc")) orderByName(followersDTO, false);
+
         return UserMapper.UserToUserWithFollowersDTO(user, followersDTO);
     }
 
+    private void orderByName(List<UserDTO> userDTOList, boolean isDescendent) {
+        Collections.sort(userDTOList, (a,b) -> a.getUsername().compareTo(b.getUsername()));
+        if (isDescendent) Collections.reverse(userDTOList);
+    }
+
     @Override
-    public UserWithFollowedDTO getFollowedByUser(int userId) throws ObjectNotFoundException, UserDistinctTypeException {
+    public UserWithFollowedDTO getFollowedByUser(int userId, String order) throws ObjectNotFoundException, UserDistinctTypeException {
         List<User> results = new ArrayList<>();
 
         User user = userRepository.getById(userId);
@@ -113,6 +128,10 @@ public class UserService implements IUserService {
         }
 
         List<UserDTO> followersDTO = UserMapper.UsersToUsersDTO(results);
+
+
+        if (order.equals("name_desc")) orderByName(followersDTO, true);
+        else if (order.equals("name_asc")) orderByName(followersDTO, false);
 
         return UserMapper.UserToUserWithFollowedDTO(user, followersDTO);
     }

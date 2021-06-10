@@ -37,7 +37,13 @@ public class UserRepository implements IUserRepository, IRepository<User> {
 
         User userTemp = getById(object.getId());
 
-        users.set(users.indexOf(userTemp), object);
+        Optional<User> optional = users.stream().filter(x -> x.getId() == userTemp.getId()).findFirst();
+
+        if (!optional.isPresent()) throw new ObjectNotFoundException(object.getId());
+
+        int index = users.indexOf(optional.get());
+
+        users.set(index, object);
 
         updateDatabaseUsers(users);
 

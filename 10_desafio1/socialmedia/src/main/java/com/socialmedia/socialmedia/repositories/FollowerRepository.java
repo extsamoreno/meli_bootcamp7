@@ -41,7 +41,12 @@ public class FollowerRepository implements IFollowerRepository {
 
         Follower followerTemp = getById(object.getId());
 
-        followers.set(followers.indexOf(followerTemp), object);
+        Optional<Follower> optional = followers.stream().filter(x -> x.getId() == followerTemp.getId()).findFirst();
+
+        if (!optional.isPresent()) throw new ObjectNotFoundException(object.getId());
+
+        int index = followers.indexOf(optional.get());
+        followers.set(index, object);
 
         updateDatabaseFollowers(followers);
 

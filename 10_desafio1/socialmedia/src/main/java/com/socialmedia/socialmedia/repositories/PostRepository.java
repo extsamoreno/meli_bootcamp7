@@ -97,14 +97,14 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public Post getByPostId(int postId) throws ObjectNotFoundException {
+    public Post getByPostId(int postId) {
         List<Post> posts = loadDatabasePosts();
 
         Optional<Post> result = posts.stream()
                 .filter(follower -> follower.getPostId() == postId)
                 .findFirst();
 
-        if (result.isPresent()) throw new ObjectNotFoundException(postId);
+        if (!result.isPresent()) return null;
 
         return result.get();
     }

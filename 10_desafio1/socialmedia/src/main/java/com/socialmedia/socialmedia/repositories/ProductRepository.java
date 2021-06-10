@@ -14,10 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -106,15 +103,15 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Product getById(int id) throws ObjectNotFoundException {
+    public Product getById(int id) {
         List<Product> products = loadDatabaseProducts();
 
-        Product result = products.stream()
+        Optional<Product> result = products.stream()
                 .filter(follower -> follower.getId() == id)
-                .findFirst().get();
+                .findFirst();
 
-        if (Objects.isNull(result)) throw new ObjectNotFoundException(id);
+        if (!result.isPresent()) return null;
 
-        return result;
+        return result.get();
     }
 }

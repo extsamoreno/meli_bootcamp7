@@ -6,5 +6,37 @@
     "brand": "Racer",
     "color": "Blue",
     "notes": "we dont talk anymore"
+  },
+  {
+    "id": 2,
+    "name": "Auris Gamer",
+    "type": "Gamer",
+    "brand": "Racer",
+    "color": "Black",
+    "notes": "X Edition"
+  },
+  {
+    "id": 3,
+    "name": "Teclado",
+    "type": "Gamer",
+    "brand": "Racer",
+    "color": "Black",
+    "notes": "X Edition"
+  },
+  {
+    "id": 4,
+    "name": "Other",
+    "type": "Gamer",
+    "brand": "DXRacer",
+    "color": "White",
+    "notes": "Standard Edition"
+  },
+  {
+    "id": 5,
+    "name": "Other",
+    "type": "Gamer",
+    "brand": "DXRacer",
+    "color": "Green",
+    "notes": "L Edition"
   }
 ]

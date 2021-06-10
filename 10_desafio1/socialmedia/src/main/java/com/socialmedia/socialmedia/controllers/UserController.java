@@ -44,17 +44,19 @@ public class UserController {
     }
 
     @GetMapping("/{UserID}/followers/list")
-    public ResponseEntity<UserWithFollowersDTO> getFollowersByUser(@PathVariable("UserID") int userId) throws ObjectNotFoundException, UserDistinctTypeException {
+    public ResponseEntity<UserWithFollowersDTO> getFollowersByUser(@PathVariable("UserID") int userId,  @RequestParam(value = "order", defaultValue = "name_asc") String order)
+            throws ObjectNotFoundException, UserDistinctTypeException {
 
-        UserWithFollowersDTO userWithFollowersDTO = userService.getFollowersByUser(userId);
+        UserWithFollowersDTO userWithFollowersDTO = userService.getFollowersByUser(userId, order);
 
         return new ResponseEntity<>(userWithFollowersDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{UserID}/followed/list")
-    public ResponseEntity<UserWithFollowedDTO> getFollowedByUser(@PathVariable("UserID") int userId) throws ObjectNotFoundException, UserDistinctTypeException {
+    public ResponseEntity<UserWithFollowedDTO> getFollowedByUser(@PathVariable("UserID") int userId,  @RequestParam(value = "order", defaultValue = "name_asc") String order)
+            throws ObjectNotFoundException, UserDistinctTypeException {
 
-        UserWithFollowedDTO userWithFollowedDTO = userService.getFollowedByUser(userId);
+        UserWithFollowedDTO userWithFollowedDTO = userService.getFollowedByUser(userId, order);
 
         return new ResponseEntity<>(userWithFollowedDTO, HttpStatus.OK);
     }

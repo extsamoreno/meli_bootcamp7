@@ -6,6 +6,6 @@ import com.socialmedia.socialmedia.repositories.IRepository;
 import java.util.List;
 
 public interface IPostRepository extends IRepository<Post> {
-    Post getByPostId(int postId) throws ObjectNotFoundException;
+    Post getByPostId(int postId);
     List<Post> getByUserForTwoWeeksId(int userId);
 }
