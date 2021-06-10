@@ -1,16 +1,16 @@
 package com.example.desafio1.services;
 
-import com.example.desafio1.dtos.PublishingDTO;
-import com.example.desafio1.dtos.PublishingPromoCountDTO;
-import com.example.desafio1.dtos.PublishingPromoDTO;
+import com.example.desafio1.dtos.PostDTO;
+import com.example.desafio1.dtos.PostPromoCountDTO;
+import com.example.desafio1.dtos.PostPromoDTO;
 import com.example.desafio1.exceptions.OrderNotValidException;
 
 import java.util.List;
 
 public interface IProductService {
-    void processNewPublishing(PublishingDTO pub);
-    void processNewPromoPublishing(PublishingPromoDTO pub);
-    List<PublishingDTO> getFollowedPublishing(int userId, String order) throws OrderNotValidException;
-    List<PublishingDTO> getPromoPublishing(int userId);
-    PublishingPromoCountDTO getPromoPublishingCount(int userId);
+    void processNewPost(PostDTO post);
+    void processNewPromoPost(PostPromoDTO post);
+    List<PostDTO> getFollowedPosts(int userId, String order) throws OrderNotValidException;
+    List<PostDTO> getPromoPosts(int userId);
+    PostPromoCountDTO getPromoPostsCount(int userId);
 }

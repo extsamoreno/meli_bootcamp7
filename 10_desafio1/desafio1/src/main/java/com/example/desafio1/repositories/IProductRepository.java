@@ -1,13 +1,12 @@
 package com.example.desafio1.repositories;
 
-import com.example.desafio1.models.Publishing;
+import com.example.desafio1.models.Post;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public interface IProductRepository {
-    void addPublishing(Publishing pub);
-    List<Publishing> getPublishing(int userId, LocalDate dateFrom, LocalDate dateTo);
-    List<Publishing> getPromoPublishing(int userId);
+    void addPost(Post post);
+    List<Post> getPost(int userId, LocalDate dateFrom, LocalDate dateTo);
+    List<Post> getPromoPost(int userId);
 }

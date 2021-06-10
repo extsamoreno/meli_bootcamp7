@@ -1,7 +1,6 @@
 package com.example.desafio1.services.mappers;
 
 import com.example.desafio1.dtos.MeliUserDTO;
-import com.example.desafio1.exceptions.OrderNotValidException;
 import com.example.desafio1.models.MeliUser;
 
 import java.util.ArrayList;

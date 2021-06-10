@@ -3,11 +3,11 @@ package com.example.desafio1.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PublishingPromoDTO extends PublishingDTO{
+public class PostPromoDTO extends PostDTO {
     private boolean hasPromo;
     private double discount;
 }

@@ -1,22 +1,22 @@
-package com.example.desafio1.models;
+package com.example.desafio1.dtos;
 
+import com.example.desafio1.models.Product;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
 import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Publishing {
+public class PostDTO {
     private int userId;
     private int idPost;
     private LocalDate date;
-    private Product detail;
+    private ProductDTO detail;
     private int category;
     private double price;
-    private boolean hasPromo;
-    private double discount;
 }
