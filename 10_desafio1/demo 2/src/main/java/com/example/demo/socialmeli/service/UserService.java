@@ -1,6 +1,9 @@
 package com.example.demo.socialmeli.service;
 
-import com.example.demo.socialmeli.repository.User;
+import com.example.demo.socialmeli.exception.FollowedExistingException;
+import com.example.demo.socialmeli.exception.FollowedNotExistingException;
+import com.example.demo.socialmeli.exception.UserNotFoundException;
+import com.example.demo.socialmeli.models.User;
 import com.example.demo.socialmeli.repository.UserRepository;
 import com.example.demo.socialmeli.service.dto.CountFollowersDTO;
 import com.example.demo.socialmeli.service.dto.FollowedListDTO;
@@ -11,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -22,16 +24,20 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public HttpStatus follow(int userId, int useridToFollow) {
+    public HttpStatus follow(int userId, int useridToFollow) throws UserNotFoundException, FollowedExistingException {
         User user = userRepository.getUserById(userId);
         User userFollowed = userRepository.getUserById(useridToFollow);
-        user.getFollowed().add(userFollowed.getUserId());
+        for (int i=0;i<user.getFollowed().size();i++) {
+            if (user.getFollowed().get(i) == useridToFollow)
+                throw new FollowedExistingException(useridToFollow);
+        }
+        user.getFollowed().add(useridToFollow);
         userRepository.refreshUser(user);
         return HttpStatus.OK;
     }
 
     @Override
-    public CountFollowersDTO countFollowers(int userId) {
+    public CountFollowersDTO countFollowers(int userId) throws UserNotFoundException{
         User user = userRepository.getUserById(userId);
         CountFollowersDTO countFollowersDTO = new CountFollowersDTO();
         countFollowersDTO.setUserId(user.getUserId());
@@ -41,7 +47,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowersListDTO getFollowerList(int userId, String order) {
+    public FollowersListDTO getFollowerList(int userId, String order) throws UserNotFoundException {
         User user = userRepository.getUserById(userId);
         FollowersListDTO followersListDTO = new FollowersListDTO();
         followersListDTO.setUserId(userId);
@@ -59,7 +65,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public FollowedListDTO getFollowedList(int userId, String order) {
+    public FollowedListDTO getFollowedList(int userId, String order) throws UserNotFoundException{
         User user = userRepository.getUserById(userId);
         FollowedListDTO followedListDTO = new FollowedListDTO();
         followedListDTO.setUserId(userId);
@@ -77,13 +83,18 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public HttpStatus unFollow(int userId, int useridToUnFollow) {
+    public HttpStatus unFollow(int userId, int useridToUnFollow) throws UserNotFoundException, FollowedNotExistingException{
         User user = userRepository.getUserById(userId);
-        User userFollowed = userRepository.getUserById(useridToUnFollow);
+        User userToUnFollowed = userRepository.getUserById(useridToUnFollow);
+        boolean notFollowed = true;
         for (int i = 0; i < user.getFollowed().size(); i++) {
-            if (user.getFollowed().get(i) == useridToUnFollow)
+            if (user.getFollowed().get(i) == useridToUnFollow) {
                 user.getFollowed().remove(i);
+                notFollowed = false;
+            }
         }
+        if (notFollowed)
+            throw new FollowedNotExistingException(useridToUnFollow);
         userRepository.refreshUser(user);
         return HttpStatus.OK;
     }
@@ -104,7 +115,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ArrayList<UserDTO> getList(int id, boolean isFollowed) {
+    public ArrayList<UserDTO> getList(int id, boolean isFollowed) throws UserNotFoundException {
         List<User> users = userRepository.getAllUsers();
         ArrayList<UserDTO> followList = new ArrayList<>();
         for (int i = 0; i < users.size(); i++) {

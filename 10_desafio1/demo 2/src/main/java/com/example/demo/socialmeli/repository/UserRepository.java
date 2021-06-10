@@ -1,23 +1,22 @@
 package com.example.demo.socialmeli.repository;
 
-import com.example.demo.socialmeli.service.dto.UserDTO;
+import com.example.demo.socialmeli.exception.UserNotFoundException;
+import com.example.demo.socialmeli.models.Publication;
+import com.example.demo.socialmeli.models.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 @Repository
 public class UserRepository implements IUserRepository{
     @Override
-    public User getUserById(int id) {
+    public User getUserById(int id) throws UserNotFoundException {
         List<User> userList = null;
         userList = loadDatabase();
         User result = null;
@@ -26,6 +25,10 @@ public class UserRepository implements IUserRepository{
             if (item.isPresent()){
                 result = item.get();
             }
+            else {
+                throw new UserNotFoundException(id);
+            }
+
         }
         return result;
     }
@@ -57,8 +60,8 @@ public class UserRepository implements IUserRepository{
             User userDb = users.get(i);
             if (userDb.getUserId() == user.getUserId()){
                 users.set(i,user);
-            }
 
+            }
         }
         File file = null;
         try {

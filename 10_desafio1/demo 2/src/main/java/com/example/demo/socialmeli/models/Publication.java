@@ -1,5 +1,6 @@
-package com.example.demo.socialmeli.repository;
+package com.example.demo.socialmeli.models;
 
+import com.example.demo.socialmeli.models.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 

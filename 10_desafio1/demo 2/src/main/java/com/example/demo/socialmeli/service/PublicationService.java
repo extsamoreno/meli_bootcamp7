@@ -1,7 +1,11 @@
 package com.example.demo.socialmeli.service;
 
-import com.example.demo.socialmeli.repository.Publication;
-import com.example.demo.socialmeli.repository.User;
+import com.example.demo.socialmeli.exception.InvalidityDateException;
+import com.example.demo.socialmeli.exception.MissingParameterException;
+import com.example.demo.socialmeli.exception.PublicationExistingException;
+import com.example.demo.socialmeli.exception.UserNotFoundException;
+import com.example.demo.socialmeli.models.Publication;
+import com.example.demo.socialmeli.models.User;
 import com.example.demo.socialmeli.repository.UserRepository;
 import com.example.demo.socialmeli.service.dto.PublicationListDTO;
 import com.example.demo.socialmeli.service.dto.PublicationRequestDTO;
@@ -18,22 +22,42 @@ public class PublicationService implements IPublicationService {
     }
 
     @Override
-    public void addNewPost(PublicationRequestDTO publicationRequestDTO) {
+    public void addNewPost(PublicationRequestDTO publicationRequestDTO) throws UserNotFoundException,PublicationExistingException,MissingParameterException, InvalidityDateException
+    {
         int id = publicationRequestDTO.getUserId();
         User user = userRepository.getUserById(id);
+        List<Publication> publications = userRepository.getAllPublication();
+        for (int i=0;i<publications.size();i++) {
+            if (publications.get(i).getId_post() == publicationRequestDTO.getId_post())
+                throw new PublicationExistingException(publicationRequestDTO.getId_post());
+        }
         user.getPosts().add(publicationRequestDTO.getId_post());
         userRepository.refreshUser(user);
         Publication publication = new Publication();
+        if (publicationRequestDTO.getCategory()<=0)
+            throw new MissingParameterException("category");
         publication.setCategory(publicationRequestDTO.getCategory());
+        if (publicationRequestDTO.getId_post()<=0)
+            throw new MissingParameterException("id_post");
         publication.setId_post(publicationRequestDTO.getId_post());
+        if (publicationRequestDTO.getDate()==null)
+            throw new MissingParameterException("date");
+        Calendar dateCalendar = Calendar.getInstance();
+        Date todaysDate = dateCalendar.getTime();
+        if (publicationRequestDTO.getDate().after(todaysDate))
+            throw new InvalidityDateException(publicationRequestDTO.getDate());
         publication.setDate(publicationRequestDTO.getDate());
+        if (publicationRequestDTO.getDetail()==null)
+            throw new MissingParameterException("detail");
         publication.setDetail(publicationRequestDTO.getDetail());
+        if (publicationRequestDTO.getPrice()<=0)
+            throw new MissingParameterException("price");
         publication.setPrice(publicationRequestDTO.getPrice());
         userRepository.refreshPublications(publication);
     }
 
     @Override
-    public PublicationListDTO getPublicationList(int id, String order) {
+    public PublicationListDTO getPublicationList(int id, String order) throws UserNotFoundException {
         User user = userRepository.getUserById(id);
         List<Publication> publications = userRepository.getAllPublication();
         ArrayList<Publication> arrayList = new ArrayList<>();

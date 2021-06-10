@@ -1,4 +1,4 @@
-package com.example.demo.socialmeli.repository;
+package com.example.demo.socialmeli.models;
 
 import lombok.Data;
 import lombok.Setter;
