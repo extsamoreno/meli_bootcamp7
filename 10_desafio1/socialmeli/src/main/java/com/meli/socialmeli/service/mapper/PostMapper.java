@@ -9,27 +9,35 @@ import java.time.format.DateTimeFormatter;
 public class PostMapper {
 
     public static PostDTO modelToDTO(Post model) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return new PostDTO(
                 model.getUserId(),
                 model.getPostId(),
-                model.getDateCreation(),
+                model.getDateCreation().format(formatter),
                 ProductMapper.modelToDTO(model.getProduct()),
                 model.getCategoryId(),
-                model.getPrice());
+                model.getPrice(),
+                model.isHasPromo(),
+                model.getDiscount());
     }
 
     public static Post DTOToModel(PostDTO dto) {
-        LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate;
+        if (dto.getDate() == null) {
+            localDate = LocalDate.now();
+        } else {
+            localDate = LocalDate.parse(dto.getDate(), formatter);
+        }
         return new Post(
                 dto.getPostId(),
                 dto.getUserId(),
-                localDate.format(formatter),
-                localDate.format(formatter),
+                localDate,
+                localDate,
                 dto.getCategory(),
                 ProductMapper.DTOToModel(dto.getDetail()),
                 dto.getPrice(),
-                false,
-                0);
+                dto.isHasPromo(),
+                dto.getDiscount());
     }
 }

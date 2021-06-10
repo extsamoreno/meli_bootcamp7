@@ -1,24 +1,31 @@
 package com.meli.socialmeli.service;
 
-import com.meli.socialmeli.exception.SocialExceptionMissingParameter;
-import com.meli.socialmeli.exception.SocialExceptionUserNotExists;
+import com.meli.socialmeli.exception.*;
+import com.meli.socialmeli.model.Post;
 import com.meli.socialmeli.service.dto.PostDTO;
 import com.meli.socialmeli.service.dto.PostFollowingDTO;
+import com.meli.socialmeli.service.dto.ProductsUserDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IPostService {
 
-    void addPost(PostDTO post);
+    void addPost(PostDTO post) throws PostDateBeforeToday, PostNotExistsException, PostAlreadyExists, UserNotExistsException;
+
+    void updatePost(PostDTO post) throws PostNotExistsException, PostDateBeforeToday;
+
+    void addPromoPost(PostDTO post) throws PostDateBeforeToday, PostNotExistsException, PostAlreadyExists, UserNotExistsException;
 
     List<PostDTO> getListPostByUserId(int userId);
 
-    List<PostDTO> getListPromoPostByUserId(int userId);
+    ProductsUserDTO getProductsPromoPostByUserId(int userId, String order) throws UserNotExistsException;
 
-    PostFollowingDTO getListPostUsersFollowingByUserId(int userId, String order) throws SocialExceptionUserNotExists, SocialExceptionMissingParameter;
+    PostFollowingDTO getListPostUsersFollowingByUserId(int userId, String order) throws UserNotExistsException, MissingParameterException;
 
-    PostFollowingDTO getListPromoPostUsersFollowingByUserId(int userId, String order) throws SocialExceptionUserNotExists;
+    PostFollowingDTO getListPromoPostUsersFollowingByUserId(int userId, String order) throws UserNotExistsException;
+
+    int countProductPromoByUserId(int userId) throws UserNotExistsException;
+
 
 
 }

@@ -18,10 +18,12 @@ public interface IUserRepository {
 
     void UnfollowUser(int userId, int userIdToFollow);
 
-    int getFollowersAmountByUserId(int userId);
+    int countFollowersByUserId(int userId);
 
     List<Integer> getFollowersByUserId(int userId);
 
     List<Integer> getFollowingByUserId(int userId);
+
+    boolean userFollowingUserById(int userId, int userIdFollowing) ;
 
 }

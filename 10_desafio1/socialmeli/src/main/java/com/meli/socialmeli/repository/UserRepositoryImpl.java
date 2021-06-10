@@ -18,8 +18,8 @@ public class UserRepositoryImpl implements IUserRepository {
 
     Map<Integer, User> users;
     Map<Integer, List<Integer>> follow;
-    File file = null;
-    ObjectMapper objectMapper = null;
+    File file;
+    ObjectMapper objectMapper;
 
     public UserRepositoryImpl() {
         this.users = new HashMap<>();
@@ -58,13 +58,17 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
+    public boolean userFollowingUserById(int userId, int userIdFollowing) {
+        List<Integer> followers = follow.get(userIdFollowing);
+        return followers.contains(userId);
+    }
+
+    @Override
     public void followUser(int userId, int userIdToFollow) {
         List<Integer> followers = follow.get(userIdToFollow);
-        if (!followers.contains(userId)){
-            followers.add(userId);
-            follow.put(userIdToFollow, followers);
-            updateJsonFollow(this.follow);
-        }
+        followers.add(userId);
+        follow.put(userIdToFollow, followers);
+        updateJsonFollow(this.follow);
     }
 
     @Override
@@ -75,7 +79,7 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public int getFollowersAmountByUserId(int userId) {
+    public int countFollowersByUserId(int userId) {
         return follow.get(userId).size();
     }
 
@@ -86,7 +90,7 @@ public class UserRepositoryImpl implements IUserRepository {
 
     @Override
     public List<Integer> getFollowingByUserId(int userId) {
-        return users.keySet().stream(). filter(e -> follow.get(e).contains(userId)).collect(Collectors.toList());
+        return users.keySet().stream().filter(e -> follow.get(e).contains(userId)).collect(Collectors.toList());
     }
 
     private List<User> loadUsers() {
@@ -106,7 +110,7 @@ public class UserRepositoryImpl implements IUserRepository {
         return users;
     }
 
-    private Map<Integer,List<Integer>> loadFollow() {
+    private Map<Integer, List<Integer>> loadFollow() {
         try {
             this.file = ResourceUtils.getFile("classpath:follow.json");
         } catch (FileNotFoundException e) {
@@ -123,8 +127,8 @@ public class UserRepositoryImpl implements IUserRepository {
         return follow;
     }
 
-    private void updateJsonFollow(Map<Integer, List<Integer>> follow){
-        try{
+    private void updateJsonFollow(Map<Integer, List<Integer>> follow) {
+        try {
             String jsonString = this.objectMapper.writeValueAsString(follow);
 
             FileWriter myWriter = new FileWriter("src/main/resources/follow.json", false);

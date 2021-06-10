@@ -1,269 +1,272 @@
 {
-  "1": [
-    {
-      "postId": 1001,
-      "userId": 1,
-      "dateCreation": "09-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2001,
-        "productName": "Silla Gamer",
-        "type": "Gamer",
-        "brand": "Racer",
-        "color": "Blue & Black",
-        "notes": "Special Edition"
-      },
-      "price": 1500.5,
-      "hasPromo": false,
-      "discount": 0.0
+  "1001": {
+    "postId": 1001,
+    "userId": 1,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 100,
+    "product": {
+      "productId": 2001,
+      "productName": "Silla Gamer",
+      "type": "Gamer",
+      "brand": "ABC",
+      "color": "Red & black",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1002,
-      "userId": 1,
-      "dateCreation": "08-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2002,
-        "productName": "Silla Gamer",
-        "type": "Gamer",
-        "brand": "Racer",
-        "color": "Red & Black",
-        "notes": "Special Edition"
-      },
-      "price": 1500.5,
-      "hasPromo": false,
-      "discount": 0.0
+    "price": 1200.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1002": {
+    "postId": 1002,
+    "userId": 1,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 100,
+    "product": {
+      "productId": 2002,
+      "productName": "Silla Gamer",
+      "type": "Gamer",
+      "brand": "ABC",
+      "color": "Blue & black",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1003,
-      "userId": 1,
-      "dateCreation": "09-05-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2003,
-        "productName": "Silla Gamer",
-        "type": "Gamer",
-        "brand": "Racer",
-        "color": "Green & Black",
-        "notes": "Special Edition"
-      },
-      "price": 1500.5,
-      "hasPromo": false,
-      "discount": 0.0
-    }
-  ],
-  "2": [
-    {
-      "postId": 1004,
-      "userId": 2,
-      "dateCreation": "07-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2004,
-        "productName": "Balon",
-        "type": "Sport",
-        "brand": "Nike",
-        "color": "Black and White",
-        "notes": "Special Edition"
-      },
-      "price": 200.0,
-      "hasPromo": false,
-      "discount": 0.0
+    "price": 1200.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1003": {
+    "postId": 1003,
+    "userId": 1,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 100,
+    "product": {
+      "productId": 2003,
+      "productName": "Silla Gamer",
+      "type": "Gamer",
+      "brand": "ABC",
+      "color": "Green & black",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1005,
-      "userId": 2,
-      "dateCreation": "09-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2005,
-        "productName": "Balon Adidas",
-        "type": "Sport",
-        "brand": "Adidas",
-        "color": "Black and White",
-        "notes": "Special Edition"
-      },
-      "price": 200.0,
-      "hasPromo": false,
-      "discount": 0.0
-    }
-  ],
-  "3": [
-    {
-      "postId": 1006,
-      "userId": 3,
-      "dateCreation": "09-06-2021",
-      "dateModification": "09-05-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2006,
-        "productName": "Camiseta Real Madrid",
-        "type": "Clothes",
-        "brand": "Adidas",
-        "color": "White, black, golden",
-        "notes": "Special Edition"
-      },
-      "price": 1200.0,
-      "hasPromo": false,
-      "discount": 0.0
+    "price": 1200.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1004": {
+    "postId": 1004,
+    "userId": 2,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 101,
+    "product": {
+      "productId": 2004,
+      "productName": "Balon Adidas",
+      "type": "Sport",
+      "brand": "Adidas",
+      "color": "White & black",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1007,
-      "userId": 3,
-      "dateCreation": "09-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2007,
-        "productName": "Camiseta Barcelona",
-        "type": "Clothes",
-        "brand": "Nike",
-        "color": "Blue and Purple",
-        "notes": "Special Edition"
-      },
-      "price": 1200.0,
-      "hasPromo": false,
-      "discount": 0.0
+    "price": 99.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1005": {
+    "postId": 1005,
+    "userId": 2,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 101,
+    "product": {
+      "productId": 2005,
+      "productName": "Balon Nike",
+      "type": "Sport",
+      "brand": "Nike",
+      "color": "White & black",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1008,
-      "userId": 3,
-      "dateCreation": "09-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2008,
-        "productName": "Camiseta Atletico de Madrid",
-        "type": "Clothes",
-        "brand": "Nike",
-        "color": "Blue Red White",
-        "notes": "Special Edition"
-      },
-      "price": 1200.0,
-      "hasPromo": false,
-      "discount": 0.0
-    }
-  ],
-  "4": [
-    {
-      "postId": 1009,
-      "userId": 4,
-      "dateCreation": "05-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2009,
-        "productName": "Portatil x001",
-        "type": "Technology",
-        "brand": "MSI",
-        "color": "Black",
-        "notes": "Special Edition"
-      },
-      "price": 2500.0,
-      "hasPromo": false,
-      "discount": 0.0
+    "price": 99.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1006": {
+    "postId": 1006,
+    "userId": 2,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 101,
+    "product": {
+      "productId": 2006,
+      "productName": "Balon Umbro",
+      "type": "Sport",
+      "brand": "Umbro",
+      "color": "White & black",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1010,
-      "userId": 4,
-      "dateCreation": "09-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2010,
-        "productName": "Portatil HP a001",
-        "type": "Technology",
-        "brand": "HP",
-        "color": "White",
-        "notes": "Special Edition"
-      },
-      "price": 2600.0,
-      "hasPromo": false,
-      "discount": 0.0
+    "price": 99.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1007": {
+    "postId": 1007,
+    "userId": 3,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 102,
+    "product": {
+      "productId": 2007,
+      "productName": "Acer nitro",
+      "type": "Computer",
+      "brand": "Acer",
+      "color": "Red & black",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1011,
-      "userId": 4,
-      "dateCreation": "06-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2011,
-        "productName": "Portatil Acer Nitro",
-        "type": "Technology",
-        "brand": "Acer",
-        "color": "Black and red",
-        "notes": "Special Edition"
-      },
-      "price": 2600.0,
-      "hasPromo": false,
-      "discount": 0.0
-    }
-  ],
-  "5": [
-    {
-      "postId": 1012,
-      "userId": 5,
-      "dateCreation": "01-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2012,
-        "productName": "Harry Potter I",
-        "type": "Book",
-        "brand": "Mybook",
-        "color": "Golden",
-        "notes": "Special Edition"
-      },
-      "price": 50.0,
-      "hasPromo": false,
-      "discount": 0.0
+    "price": 2000.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1008": {
+    "postId": 1008,
+    "userId": 3,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 102,
+    "product": {
+      "productId": 2008,
+      "productName": "HP AllinOne",
+      "type": "Computer",
+      "brand": "HP",
+      "color": "White",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1013,
-      "userId": 5,
-      "dateCreation": "04-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2013,
-        "productName": "1984",
-        "type": "Book",
-        "brand": "Mybook",
-        "color": "Grey",
-        "notes": "Special Edition"
-      },
-      "price": 50.0,
-      "hasPromo": false,
-      "discount": 0.0
+    "price": 2000.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1009": {
+    "postId": 1009,
+    "userId": 3,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 102,
+    "product": {
+      "productId": 2009,
+      "productName": "MacBook Pro",
+      "type": "Computer",
+      "brand": "Apple",
+      "color": "Grey",
+      "notes": "Special Edition"
     },
-    {
-      "postId": 1014,
-      "userId": 5,
-      "dateCreation": "02-06-2021",
-      "dateModification": "09-06-2021",
-      "categoryId": 100,
-      "product": {
-        "productId": 2014,
-        "productName": "Brave New World",
-        "type": "Book",
-        "brand": "Mybook",
-        "color": "Red",
-        "notes": "Special Edition"
-      },
-      "price": 50.0,
-      "hasPromo": false,
-      "discount": 0.0
-    }
-  ],
-  "6": [],
-  "7": [],
-  "8": [],
-  "9": [],
-  "10": []
+    "price": 4000.0,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1010": {
+    "postId": 1010,
+    "userId": 4,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 103,
+    "product": {
+      "productId": 2010,
+      "productName": "1984",
+      "type": "Book",
+      "brand": "BookEditor",
+      "color": "Black",
+      "notes": "Special Edition"
+    },
+    "price": 50.99,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1011": {
+    "postId": 1011,
+    "userId": 4,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 103,
+    "product": {
+      "productId": 2011,
+      "productName": "The brave new world",
+      "type": "Book",
+      "brand": "BookEditor",
+      "color": "Black",
+      "notes": "Special Edition"
+    },
+    "price": 50.99,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1012": {
+    "postId": 1012,
+    "userId": 4,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 103,
+    "product": {
+      "productId": 2012,
+      "productName": "Harry Potter",
+      "type": "Book",
+      "brand": "BookEditor",
+      "color": "Black",
+      "notes": "Special Edition"
+    },
+    "price": 50.99,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1013": {
+    "postId": 1013,
+    "userId": 5,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 104,
+    "product": {
+      "productId": 2013,
+      "productName": "AirFrier",
+      "type": "Kitchen",
+      "brand": "Oster",
+      "color": "Grey",
+      "notes": "Special Edition"
+    },
+    "price": 70.5,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1014": {
+    "postId": 1014,
+    "userId": 5,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 104,
+    "product": {
+      "productId": 2014,
+      "productName": "AirFrier",
+      "type": "Kitchen",
+      "brand": "Oster",
+      "color": "White",
+      "notes": "Special Edition"
+    },
+    "price": 70.5,
+    "hasPromo": false,
+    "discount": 0.0
+  },
+  "1015": {
+    "postId": 1015,
+    "userId": 5,
+    "dateCreation": "2021-06-09",
+    "dateModification": "2021-06-09",
+    "categoryId": 104,
+    "product": {
+      "productId": 2015,
+      "productName": "AirFrier",
+      "type": "Kitchen",
+      "brand": "Oster",
+      "color": "White",
+      "notes": "Special Edition"
+    },
+    "price": 70.5,
+    "hasPromo": true,
+    "discount": 0.1
+  }
 }
