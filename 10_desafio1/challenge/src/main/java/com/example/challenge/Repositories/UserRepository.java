@@ -33,11 +33,11 @@ public class UserRepository implements IUserRepository {
 
     public User findUserById(int userId) throws UserNotFoundException {
 
-        try {
-            return this.users.get(userId);
-        } catch (Exception e) {
+        User res = this.users.get(userId);
+        if (res == null)
             throw new UserNotFoundException(userId);
-        }
+        else
+            return  res;
     }
 
     public List<User> getUsers() {

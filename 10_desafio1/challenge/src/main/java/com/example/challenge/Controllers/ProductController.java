@@ -6,16 +6,18 @@ import com.example.challenge.Services.DTOs.*;
 import com.example.challenge.Services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
     IProductService iProductService;
-
 
     @PostMapping("/newpost")
     public ResponseEntity<String> addNewPost(@RequestBody PostDTO postDTO) throws UserNotFoundException {
@@ -42,7 +44,7 @@ public class ProductController {
         return new ResponseEntity(iProductService.getCountPromo(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/userId}/list/")
+    @GetMapping("/{userId}/list/")
     public ResponseEntity<ResponsePromotionListDTO> getPromotionsPost(@PathVariable int userId)
             throws UserNotFoundException, InvalidOrderException {
         return new ResponseEntity(iProductService.getPromotionsPost(userId), HttpStatus.OK);
