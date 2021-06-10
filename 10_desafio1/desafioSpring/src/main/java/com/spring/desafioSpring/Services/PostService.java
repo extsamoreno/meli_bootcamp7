@@ -25,7 +25,8 @@ public class PostService implements IPostService {
     IUserService iUserService;
 
     @Override
-    public void insertPost(PostDTO postDTO) throws PostIdExistsException {
+    public void insertPost(PostDTO postDTO) throws PostIdExistsException, UserNotFoundException {
+        UserDTO user = iUserService.getUserById(postDTO.getUserId()); //control that the user exists
         iPostRepository.insertPost(PostMapper.postDtoToPost(postDTO));
     }
 
@@ -49,8 +50,7 @@ public class PostService implements IPostService {
             }
         }
 
-        if(order != null)
-            orderListPostsByDate(psfDTO.getPosts(), order);
+        orderListPostsByDate(psfDTO.getPosts(), order);
 
         return psfDTO;
     }
@@ -85,17 +85,19 @@ public class PostService implements IPostService {
         return listDTO;
     }
 
-    private void orderListPostsByDate(List<PostWithoutIdUserDTO> list, String order) {
-        switch (order){
-            case ("date_asc") :
-                list.sort( (a,b) -> a.getDate().compareTo(b.getDate()) );
-                break;
+    private void orderListPostsByDate(List<PostWithoutIdUserDTO> list, String order) throws PropertyNotFoundException {
+        String orderDatePostsAsc = GlobalUtils.getProperty("orderDatePostsAsc");
+        String orderDatePostsDesc = GlobalUtils.getProperty("orderDatePostsDesc");
 
-            case ("date_desc") :
-                list.sort( (a, b) -> b.getDate().compareTo(a.getDate()) );
-                break;
-
-            default:
+        if(order == null) {
+            list.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+            return;
         }
+
+        if(order.equals(orderDatePostsAsc))
+            list.sort( (a,b) -> a.getDate().compareTo(b.getDate()) );
+
+        if(order.equals(orderDatePostsDesc))
+            list.sort( (a, b) -> b.getDate().compareTo(a.getDate()) );
     }
 }

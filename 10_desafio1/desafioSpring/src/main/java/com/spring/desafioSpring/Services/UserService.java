@@ -2,10 +2,12 @@ package com.spring.desafioSpring.Services;
 
 import com.spring.desafioSpring.DTOs.*;
 import com.spring.desafioSpring.Exceptions.FollowYourselfException;
+import com.spring.desafioSpring.Exceptions.PropertyNotFoundException;
 import com.spring.desafioSpring.Exceptions.UserNotFoundException;
 import com.spring.desafioSpring.Models.User;
 import com.spring.desafioSpring.Repositories.IUserRepository;
 import com.spring.desafioSpring.Services.Mappers.UserMapper;
+import com.spring.desafioSpring.Utils.GlobalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,11 +42,10 @@ public class UserService implements IUserService{
         dto.setFollowers_count(user.getFollowers().size());
 
         return dto;
-        //return UserMapper.userToCountUserFollowersDTO(user);
     }
 
     @Override
-    public FollowersUserDTO followersByUser(int userId, String order) throws UserNotFoundException {
+    public FollowersUserDTO followersByUser(int userId, String order) throws UserNotFoundException, PropertyNotFoundException {
         User user = iUserRepository.getUser(userId);
 
         FollowersUserDTO dto = new FollowersUserDTO();
@@ -65,7 +66,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowedUserDTO followedByUser(int userId, String order) throws UserNotFoundException {
+    public FollowedUserDTO followedByUser(int userId, String order) throws UserNotFoundException, PropertyNotFoundException {
         User user = iUserRepository.getUser(userId);
 
         FollowedUserDTO dto = new FollowedUserDTO();
@@ -89,18 +90,15 @@ public class UserService implements IUserService{
         return UserMapper.userToUserDTO(iUserRepository.getUser(userId));
     }
 
-    private void orderListUserIdNameDTObyName(ArrayList<UserIdNameDTO> list, String order) {
-        switch (order){
-            case ("name_asc") :
-                list.sort( (a,b) -> a.getUserName().compareTo(b.getUserName()));
-            break;
+    private void orderListUserIdNameDTObyName(ArrayList<UserIdNameDTO> list, String order) throws PropertyNotFoundException {
+        String orderNameFllwAsc = GlobalUtils.getProperty("orderNameFllwAsc");
+        String orderNameFllwDesc = GlobalUtils.getProperty("orderNameFllwDesc");
 
-            case ("name_desc") :
-                list.sort( (a,b) -> b.getUserName().compareTo(a.getUserName()));
-            break;
+        if(order.equals(orderNameFllwAsc))
+            list.sort( (a,b) -> a.getUserName().compareTo(b.getUserName()));
 
-            default:
-        }
+        if(order.equals(orderNameFllwDesc))
+            list.sort( (a,b) -> b.getUserName().compareTo(a.getUserName()));
     }
 
 }

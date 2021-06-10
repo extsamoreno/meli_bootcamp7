@@ -83,7 +83,12 @@ public class UserRepository implements IUserRepository{
         return user;
     }
 
+    @Override
+    public int countFollowersByUser(int userId) throws UserNotFoundException {
+        User user = getUser(userId);
+        return user.getFollowers().size();
 
+    }
 
 
 }

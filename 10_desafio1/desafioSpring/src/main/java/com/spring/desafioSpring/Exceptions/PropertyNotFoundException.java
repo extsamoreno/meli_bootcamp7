@@ -4,6 +4,6 @@ import org.springframework.http.HttpStatus;
 
 public class PropertyNotFoundException extends ObjectException{
     public PropertyNotFoundException(String key) {
-        super("La property: " + key + "no fue encontrada", HttpStatus.CONFLICT);
+        super("La property: " + key + " no fue encontrada", HttpStatus.CONFLICT);
     }
 }

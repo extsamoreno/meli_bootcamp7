@@ -1,0 +1,203 @@
+Social Meli - API Rest
+
+Social Meli is a tool that is going to be launched in Mercado Libre, with the aim of generating one more bond
+close among the users of the platform.
+
+This tool will allow users to follow each other, to view their followers and the
+users who follow them, see the publications of users who follow them, sort by name, date,
+among other functionalities.
+
+
+-API specifications
+
+Author: Nahuel Tosi Brandi
+Project: Srping Challenge - IT Bootcamp
+Version: 1
+
+Path Base: /socialmeli/api/v1/...
+Port: 8080
+
+=============================================================================================================
+
+Social Meli es una herramienta que se va a lanzar en Mercado Libre, con el objetivo de generar un lazo más
+cercano entre los usuarios de la plataforma.
+
+Dicha herramienta permitirá que los usuarios se sigan entre si, puedan visualizar sus seguidores y los
+usuarios que los siguen, ver las publicaciones de los usuarios que siguen, realizar ordenamientos por nombre, fecha,
+entre otras funcionalidades más.
+
+
+-Especificaciones API
+
+Autor: Nahuel Tosi Brandi
+Proyecto: Desafío Srping - IT Bootcamp
+Version: 1
+
+Path Base: /socialmeli/api/v1/...
+Port: 8080
+
+=============================================================================================================
+
+-Endpoints - examples:
+
+USER:
+---------------------------------------------------------------
+follow (US0001):
+path: /socialmeli/api/v1/users/1/follow/2
+method: POST
+---------------------------------------------------------------
+followersCount (US0002):
+path: /socialmeli/api/v1/users/5/followers/count
+method: GET
+response:
+{
+    "userId": 5,
+    "userName": "Julia Marinez",
+    "followers_count": 3
+}
+---------------------------------------------------------------
+followersByUser (US0003-US0008):
+path: /socialmeli/api/v1/users/6/followers/list
+      /socialmeli/api/v1/users/6/followers/list?order=... options: name_asc ; name_desc
+method: GET
+response:
+{
+    "userId": 6,
+    "userName": "Micaela Gimenez",
+    "followers": [
+        {
+            "userId": 4,
+            "userName": "Ana Perez"
+        },
+        {...}
+    ]
+}
+---------------------------------------------------------------
+followedByUser (US0004-US0008):
+path: /socialmeli/api/v1/users/2/followed/list
+      /socialmeli/api/v1/users/2/followed/list?order=... options: name_asc ; name_desc
+method: GET
+response:
+{
+    "userId": 2,
+    "userName": "Matias Lopez",
+    "followed": [
+        {
+            "userId": 5,
+            "userName": "Julia Marinez"
+        },
+        {...}
+    ]
+}
+---------------------------------------------------------------
+unfollow (US0007):
+path: /socialmeli/api/v1/users/2/unfollow/5
+method: POST
+---------------------------------------------------------------
+
+POSTS:
+---------------------------------------------------------------
+newPost (US0005):
+path: /socialmeli/api/v1/products/newpost
+method: POST
+request:
+{
+    "userId" : 5,
+    "id_post" : 3,
+    "date" : "2021-06-05",
+    "detail" :
+        {
+            "product_id" : 3,
+            "productName" :  "Teclado",
+            "type"  :  "Gamer",
+            "brand" : "Racer",
+            "color"  :  "Red",
+            "notes"  :  "Gamer Full Edition"
+        },
+    "category"  : 54,
+    "price"  : 1000.50
+}
+---------------------------------------------------------------
+getPostsSellersFollow (US0006-US0009):
+path: /socialmeli/api/v1/products/followed/1/list
+      /socialmeli/api/v1/products/followed/1/list?order=... options: date_asc ; date_desc
+response:
+{
+    "userId": 1,
+    "posts": [
+        {
+            "id_post": 2,
+            "detail": {
+                "product_id": 2,
+                "productName": "Gabinete",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Blue",
+                "notes": ""
+            },
+            "category": 32,
+            "price": 500.24,
+            "hasPromo": false,
+            "discount": 0.0,
+            "date": "2021-06-03"
+        },
+        {...}
+    ]
+}
+---------------------------------------------------------------
+newPromoPost (US0010):
+path: /socialmeli/api/v1/products/newpromopost
+method: POST
+request:
+{
+    "userId" : 5,
+    "id_post" : 4,
+    "date" : "2021-06-05",
+    "detail" :
+        {
+            "product_id" : 4,
+            "productName" :  "Mouse",
+            "type"  :  "Gamer",
+            "brand" : "Racer",
+            "color"  :  "Red",
+            "notes"  :  "Gamer Full Edition"
+        },
+    "category"  : 54,
+    "price"  : 1000.50,
+    "hasPromo" : true,
+    "discount" : 0.15
+}
+---------------------------------------------------------------
+countPromosByUser (US0011):
+path: /socialmeli/api/v1/products/5/countPromo/
+method: GET
+---------------------------------------------------------------
+getPromosByUser (US0012):
+path: /socialmeli/api/v1/products/5/list
+method: GET
+response:
+{
+    "userId": 5,
+    "userName": "Julia Marinez",
+    "posts": [
+        {
+            "id_post": 4,
+            "detail": {
+                "product_id": 4,
+                "productName": "Mouse",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Red",
+                "notes": "Gamer Full Edition"
+            },
+            "category": 54,
+            "price": 1000.5,
+            "hasPromo": true,
+            "discount": 0.15,
+            "date": "2021-06-05"
+        },
+        {...}
+    ]
+}
+
+

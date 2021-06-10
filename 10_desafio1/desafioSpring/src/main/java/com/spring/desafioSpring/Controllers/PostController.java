@@ -20,14 +20,25 @@ public class PostController {
     @Autowired
     IPostService iPostService;
 
-    //US0005
+    /** US0005 - Allows to register a post
+     * @param postDTO    json with info about the post
+     * @return void      with SatusCode
+     * @throws PostIdExistsException
+     * @throws UserNotFoundException
+     */
     @PostMapping("/newpost")
-    public ResponseEntity newPost(@RequestBody PostDTO postDTO) throws PostIdExistsException {
+    public ResponseEntity<?> newPost(@RequestBody PostDTO postDTO) throws PostIdExistsException, UserNotFoundException {
         iPostService.insertPost(postDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //US0006 - US0009(order by date)
+    /** US0006 - US0009(order by date) - Returns a list of a user posts has
+     * @param userId                   id of the user from whom such information is requested
+     * @param order                    response list order
+     * @return PostsSellersFollowDTO   contains id and list posts with products of a user has
+     * @throws UserNotFoundException
+     * @throws PropertyNotFoundException
+     */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostsSellersFollowDTO> getPostsSellersFollow(@PathVariable() int userId, @RequestParam(required = false) String order)
             throws UserNotFoundException, PropertyNotFoundException {
@@ -35,20 +46,33 @@ public class PostController {
         return new ResponseEntity<>(iPostService.getPostsSellersFollow(userId, order),HttpStatus.OK);
     }
 
-    //US0010
+    /** US0010 - Allows to register a post with promotion
+     * @param postDTO     json with info about the post
+     * @return  void      with SatusCode
+     * @throws PostIdExistsException
+     * @throws UserNotFoundException
+     */
     @PostMapping("/newpromopost")
-    public ResponseEntity newPromoPost(@RequestBody PostDTO postDTO) throws PostIdExistsException {
+    public ResponseEntity<?> newPromoPost(@RequestBody PostDTO postDTO) throws PostIdExistsException, UserNotFoundException {
         iPostService.insertPost(postDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //US0011
+    /** US0011 - Returns the number of posts with promotion a user has
+     * @param userId            id of the user from whom such information is requested
+     * @return CountPromosDTO   contains id, name and number of posts with promotion of a user
+     * @throws UserNotFoundException
+     */
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<CountPromosDTO> countPromosByUser(@PathVariable() int userId) throws UserNotFoundException {
         return new ResponseEntity<>(iPostService.countPromosByUser(userId), HttpStatus.OK);
     }
 
-    //US0012
+    /** US0012 - Returns a list of a user posts with promotion has
+     * @param userId            id of the user from whom such information is requested
+     * @return ListPromosDTO    contains id, name and list posts with promotions of a user has
+     * @throws UserNotFoundException
+     */
     @GetMapping("/{userId}/list")
     public ResponseEntity<ListPromosDTO> getPromosByUser(@PathVariable() int userId)
             throws UserNotFoundException {

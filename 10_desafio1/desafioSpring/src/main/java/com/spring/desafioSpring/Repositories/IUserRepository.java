@@ -7,5 +7,6 @@ public interface IUserRepository {
     void follow(int userId, int userIdToFollow) throws UserNotFoundException;
     void unfollow(int userId, int userIdToUnollow) throws UserNotFoundException;
     User getUser(int userId) throws UserNotFoundException;
+    int countFollowersByUser(int userId) throws UserNotFoundException;
 
 }

@@ -9,7 +9,7 @@ import com.spring.desafioSpring.Exceptions.PropertyNotFoundException;
 import com.spring.desafioSpring.Exceptions.UserNotFoundException;
 
 public interface IPostService {
-    void insertPost(PostDTO post) throws PostIdExistsException;
+    void insertPost(PostDTO post) throws PostIdExistsException, UserNotFoundException;
     PostsSellersFollowDTO getPostsSellersFollow(int userId, String order) throws UserNotFoundException, PropertyNotFoundException;
     CountPromosDTO countPromosByUser(int userId) throws UserNotFoundException;
     ListPromosDTO getPromosByUser(int userId) throws UserNotFoundException;
