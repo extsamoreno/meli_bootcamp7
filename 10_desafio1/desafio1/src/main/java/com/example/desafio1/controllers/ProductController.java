@@ -43,7 +43,7 @@ public class ProductController {
      */
     @PostMapping("/newpost")
     public ResponseEntity<String> addNewPost(@RequestBody PostDTO postDTO) throws InvalidUserIdException {
-        return new ResponseEntity(iProductService.addNewPost(postDTO), HttpStatus.OK);
+        return new ResponseEntity<>(iProductService.addNewPost(postDTO), HttpStatus.OK);
     }
 
     // Add a PROMO post of a product to a user
@@ -75,7 +75,7 @@ public class ProductController {
     @PostMapping("/newpromopost")
     public ResponseEntity<String> addNewPromoPost(@RequestBody PostPromoDTO postPromoDTO)
             throws InvalidUserIdException, InvalidDiscountException {
-        return new ResponseEntity(iProductService.addNewPromoPost(postPromoDTO), HttpStatus.OK);
+        return new ResponseEntity<>(iProductService.addNewPromoPost(postPromoDTO), HttpStatus.OK);
     }
 
     // Obtain all post of the last 2 week from the sellers the user follow
@@ -92,7 +92,7 @@ public class ProductController {
                                                                                   defaultValue = "date_des")
                                                                                   String order)
             throws UserException {
-        return new ResponseEntity(iProductService.getAllPostOfMyFollowed(userId, order), HttpStatus.OK);
+        return new ResponseEntity<>(iProductService.getAllPostOfMyFollowed(userId, order), HttpStatus.OK);
     }
 
 
@@ -104,7 +104,7 @@ public class ProductController {
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<ResponsePromoCountDTO> getPromoProductsCount(@PathVariable int userId)
             throws InvalidUserIdException {
-        return new ResponseEntity(iProductService.getPromoProductsCount(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iProductService.getPromoProductsCount(userId), HttpStatus.OK);
     }
 
     // Get the number of PROMO products that user has
@@ -115,6 +115,6 @@ public class ProductController {
     @GetMapping("/{userId}/list")
     public ResponseEntity<ResponsePromoListDTO> getListOfPromoProducts(@PathVariable int userId)
             throws InvalidUserIdException {
-        return new ResponseEntity(iProductService.getListOfPromoProducts(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iProductService.getListOfPromoProducts(userId), HttpStatus.OK);
     }
 }

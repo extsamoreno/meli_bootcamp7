@@ -96,24 +96,24 @@ public class UserRepository implements IUserRepository {
         List<UserDTO> followers3 = new ArrayList<>();
         List<Post> posts3 = new ArrayList<>();
         followers3.add(new UserDTO(1, "Alvarez Jorge"));
-        String dateString = "26-05-2021";
+        String dateString = "27-05-2021";
         String[] st = dateString.split("-");
         posts3.add(new Post(30, LocalDate.parse(st[2] + "-" + st[1] + "-" + st[0]), new Product(2,
                 "Headset Gamer", "Gamer", "Racer", "Red & Black",
                 "Special Edition"), 101, 3000.00));
-        u = new User(4, "Rojas Macarena", followed3, followers3, posts3);
+        u = new User(4, "Rodriguez Nicolas", followed3, followers3, posts3);
         users.put(u.getUserId(), u);
 
         List<UserDTO> followed4 = new ArrayList<>();
         List<UserDTO> followers4 = new ArrayList<>();
         List<Post> posts4 = new ArrayList<>();
         followers4.add(new UserDTO(1, "Alvarez Jorge"));
-        dateString = "25-05-2021";
+        dateString = "26-05-2021";
         st = dateString.split("-");
         posts4.add(new Post(20, LocalDate.parse(st[2] + "-" + st[1] + "-" + st[0]), new Product(100,
                 "Keyboard Gamer", "Gamer", "Racer", "Red & Black",
                 "Special Edition"), 101, 3000.00));
-        dateString = "27-05-2021";
+        dateString = "28-05-2021";
         st = dateString.split("-");
         posts4.add(new Post(40, LocalDate.parse(st[2] + "-" + st[1] + "-" + st[0]), new Product(3,
                 "Mouse Gamer", "Gamer", "Racer", "Red & Black", "Special Edition"),

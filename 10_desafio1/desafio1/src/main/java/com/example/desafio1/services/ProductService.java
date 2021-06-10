@@ -19,9 +19,11 @@ import java.util.*;
 @Service
 public class ProductService implements IProductService {
     // older to newer
-    private final Comparator<Post> COMPARATOR_DATE_ASC = (a,b) -> a.getDate().compareTo(b.getDate());
+    private final Comparator<Post> COMPARATOR_DATE_ASC = Comparator.comparing(Post::getDate);
     // newer to older
     private final Comparator<Post> COMPARATOR_DATE_DES = (a,b) -> b.getDate().compareTo(a.getDate());
+    // max quantity of day for post of my followed
+    private final int MAX_DAYS_BETWEEN = 14;
 
     @Autowired
     IProductRepository iProductRepository;
@@ -61,7 +63,7 @@ public class ProductService implements IProductService {
         long daysBetween;
         for(Post p : temp) {
             daysBetween = ChronoUnit.DAYS.between(p.getDate(), now);
-            if(daysBetween <= 14) {
+            if(daysBetween <= MAX_DAYS_BETWEEN) {
                 posts.add(p);
             }
         }

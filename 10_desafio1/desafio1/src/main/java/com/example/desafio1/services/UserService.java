@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
     // A to Z
-    private final Comparator<UserDTO> COMPARATOR_NAME_ASC = (a, b)->a.getUserName().compareTo(b.getUserName());
+    private final Comparator<UserDTO> COMPARATOR_NAME_ASC = Comparator.comparing(UserDTO::getUserName);
     // Z to A
     private final Comparator<UserDTO> COMPARATOR_NAME_DES = (a, b)->b.getUserName().compareTo(a.getUserName());
 

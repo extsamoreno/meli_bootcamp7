@@ -1,5 +1,6 @@
 package com.example.desafio1.controllers;
 
+import com.example.desafio1.dtos.ResponseFollowedSellerDTO;
 import com.example.desafio1.dtos.ResponseFollowerCountDTO;
 import com.example.desafio1.dtos.ResponseFollowerListDTO;
 import com.example.desafio1.exceptions.user.InvalidUserIdException;
@@ -20,7 +21,7 @@ public class UserController {
     // Create database of users
     @PostMapping("/create")
     public ResponseEntity<String> followSeller() {
-        return new ResponseEntity(iUserService.createDB(), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.createDB(), HttpStatus.OK);
     }
 
     // An user follow a user
@@ -32,7 +33,7 @@ public class UserController {
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> followUser(@PathVariable int userId,
                                                @PathVariable int userIdToFollow) throws InvalidUserIdException {
-        return new ResponseEntity(iUserService.followUser(userId, userIdToFollow), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.followUser(userId, userIdToFollow), HttpStatus.OK);
     }
 
     // An user UNfollow a user
@@ -44,7 +45,7 @@ public class UserController {
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<String> unfollowUser(@PathVariable int userId,
                                              @PathVariable int userIdToUnfollow) throws InvalidUserIdException {
-        return new ResponseEntity(iUserService.unfollowUser(userId, userIdToUnfollow), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.unfollowUser(userId, userIdToUnfollow), HttpStatus.OK);
     }
 
     // Get the number of followers that user has
@@ -55,7 +56,7 @@ public class UserController {
     @GetMapping("/{userId}/followers/count/")
     public ResponseEntity<ResponseFollowerCountDTO> getFollowerCount(@PathVariable int userId)
             throws InvalidUserIdException {
-        return new ResponseEntity(iUserService.getFollowersCount(userId), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
     }
 
     // Get the followers of the user
@@ -71,7 +72,7 @@ public class UserController {
                                                                 @RequestParam(required = false,
                                                                         defaultValue = "") String order)
             throws UserException {
-        return new ResponseEntity(iUserService.getFollowersList(userId, order), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowersList(userId, order), HttpStatus.OK);
     }
 
     // Get the sellers that the user follows
@@ -83,10 +84,10 @@ public class UserController {
     // /users/1/followed/list?order=name_asc    // sort alphabetically in ascending order
     // /users/1/followed/list?order=name_asc    // sort alphabetically in descending order
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<ResponseFollowerListDTO> getFollowedSellers(@PathVariable int userId,
-                                                                      @RequestParam(required = false,
+    public ResponseEntity<ResponseFollowedSellerDTO> getFollowedSellers(@PathVariable int userId,
+                                                                        @RequestParam(required = false,
                                                                               defaultValue = "") String order)
             throws UserException {
-        return new ResponseEntity(iUserService.getFollowedSellers(userId, order), HttpStatus.OK);
+        return new ResponseEntity<>(iUserService.getFollowedSellers(userId, order), HttpStatus.OK);
     }
 }
