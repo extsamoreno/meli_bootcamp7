@@ -1,0 +1,91 @@
+Hay por defecto cargados 6 usuarios (ids 0 a 5)
+No hay por defecto cargado publicaciones (hay que crearlas)
+
+Entradas para probar con Postman
+//-----------------------------------------------------------------------------//
+
+// Id 2 seguir al id 0
+localhost:8080/users/2/follow/0
+
+//-----------------------------------------------------------------------------//
+
+// Mostrar cantidad de seguidores del id 2
+localhost:8080/users/2/followers/count/
+
+//-----------------------------------------------------------------------------//
+
+// Mostrar lista de seguidores del id 3 (puede ordenarse asc o desc por nombre), order es opcional
+localhost:8080/users/3/followers/list?order=name_desc
+
+//-----------------------------------------------------------------------------//
+
+// Mostrar lista de seguidos del id 2 (puede ordenarse asc o desc por nombre), order es opcional
+localhost:8080/users/2/followed/list?order=name_desc
+
+//-----------------------------------------------------------------------------//
+
+// Crear un post nuevo (sin promocion)
+localhost:8080/products/newpost
+
+Body:
+{
+    "userId": 0,
+    "postId": 1,
+    "date": "08-06-2021",
+    "detail":
+    {
+        "productId": 1,
+        "productName": "Silla Gamer",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Black",
+        "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.50
+}
+
+//-----------------------------------------------------------------------------//
+
+Mostrar lista de publicaciones de los seguidos del id 2 (puede ordenarse por fecha asc o desc) order es opcional
+localhost:8080/products/followed/2/list?order=date_desc
+
+//-----------------------------------------------------------------------------//
+
+// Id 2 deja de seguir el id 0
+localhost:8080/users/2/unfollow/0
+
+//-----------------------------------------------------------------------------//
+
+// Crear un post nuevo (con promocion)
+localhost:8080/products/newpromopost
+
+Body:
+{
+    "userId": 0,
+    "postId": 25,
+    "date": "28-05-2021",
+    "detail":
+    {
+        "productId": 4,
+        "productName": "Escritorio Gamer",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Green",
+        "notes": "Standart"
+    },
+    "category": 300,
+    "price": 4000.10,
+    "hasPromo": true,
+    "discount": 0.25
+}
+
+//-----------------------------------------------------------------------------//
+
+// Mostrar numeros de publicaciones con promocion del id 1
+localhost:8080/products/1/countPromo
+
+//-----------------------------------------------------------------------------//
+
+// Mostrar lista de publicaciones con promocion del id 1 (puede ordenarse por product name asc o desc) order es opcional
+localhost:8080/products/1/list?order=name_asc

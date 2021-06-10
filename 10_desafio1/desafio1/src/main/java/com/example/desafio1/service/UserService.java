@@ -14,6 +14,8 @@ import com.example.desafio1.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+
 @Service
 public class UserService implements iUserService {
 
@@ -63,9 +65,9 @@ public class UserService implements iUserService {
 
         // Order list by name (asc/desc)
         if (order.equals("name_asc")) {
-            JavaUtils.orderByUserNameAsc(followedUser.getFollowers());
+            followedUser.getFollowers().sort(Comparator.comparing(User::getUserName));
         } else if (order.equals("name_desc")) {
-            JavaUtils.orderByUserNameDesc(followedUser.getFollowers());
+            followedUser.getFollowers().sort((n1, n2) -> n2.getUserName().compareTo(n1.getUserName()));
         }
         return UserMapper.toResponseListFollowersDTO(followedUser);
     }
@@ -78,9 +80,9 @@ public class UserService implements iUserService {
 
         // Order users by name (asc/desc)
         if (order.equals("name_asc")) {
-            JavaUtils.orderByUserNameAsc(followerUser.getFollows());
+            followerUser.getFollows().sort(Comparator.comparing(User::getUserName));
         } else if (order.equals("name_desc")) {
-            JavaUtils.orderByUserNameDesc(followerUser.getFollows());
+            followerUser.getFollows().sort((n1, n2) -> n2.getUserName().compareTo(n1.getUserName()));
         }
         return UserMapper.toResponseListFollowedDTO(followerUser);
     }

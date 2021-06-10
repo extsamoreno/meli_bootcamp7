@@ -2,7 +2,6 @@ package com.example.desafio1.repository;
 
 import com.example.desafio1.exception.user.UserNotFollowException;
 import com.example.desafio1.exception.user.UserNotFoundException;
-import com.example.desafio1.model.Post;
 import com.example.desafio1.model.User;
 import org.springframework.stereotype.Repository;
 

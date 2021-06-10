@@ -11,8 +11,12 @@ import com.example.desafio1.service.dto.post.ResponsePromoPostCountDTO;
 public interface iPostService {
 
     void createPost(Post post) throws PostAlreadyExistException, UserNotFoundException;
+
     ResponseListFollowedSellers listPostsFollowed(Integer userId, String order) throws UserNotFoundException;
+
     ResponseListPostDTO lastSellerPosts(Integer userId, String order) throws UserNotFoundException;
+
     ResponsePromoPostCountDTO countPromoPostSeller(Integer userId) throws UserNotFoundException;
+
     ResponseListPromoDTO listSellerPromoPosts(Integer userId, String order) throws UserNotFoundException;
 }

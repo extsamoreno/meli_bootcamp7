@@ -50,6 +50,5 @@ public class PostController {
     public ResponseEntity<ResponseListPromoDTO> listSellerPromoPosts(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws UserNotFoundException {
         return new ResponseEntity<>(iPostService.listSellerPromoPosts(userId, order), HttpStatus.OK);
     }
-
 }
 

@@ -12,6 +12,8 @@ import com.example.desafio1.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+
 @Service
 public class PostService implements iPostService {
 
@@ -59,9 +61,9 @@ public class PostService implements iPostService {
 
         // Order posts by date (asc/desc)
         if (order.equals("date_asc")) {
-            JavaUtils.orderByDateAsc(sellerPosts.getPosts());
+            sellerPosts.getPosts().sort(Comparator.comparing(ResponsePostDTO::getDate));
         } else if (order.equals("date_desc")) {
-            JavaUtils.orderByDateDesc(sellerPosts.getPosts());
+            sellerPosts.getPosts().sort((d1, d2) -> d2.getDate().compareTo(d1.getDate()));
         }
         return sellerPosts;
     }
@@ -71,14 +73,8 @@ public class PostService implements iPostService {
     public ResponsePromoPostCountDTO countPromoPostSeller(Integer userId) throws UserNotFoundException {
 
         User sellerUser = iUserRepository.findUserById(userId);
-        ResponseListPromoDTO sellerPosts = new ResponseListPromoDTO();
+        ResponseListPromoDTO sellerPosts = listSellerPromoPosts(sellerUser.getUserId(), "");
 
-        // Filter posts if has promo
-        for (Post p : iPostRepository.findPostsByUserId(sellerUser.getUserId())) {
-            if(p.isHasPromo()){
-                sellerPosts.getPosts().add(PostMapper.postToPromoDTO(p));
-            }
-        }
         return new ResponsePromoPostCountDTO(sellerUser.getUserId(), sellerUser.getUserName(), sellerPosts.getPosts().size());
     }
 
@@ -92,16 +88,16 @@ public class PostService implements iPostService {
 
         // Filter posts if has promo
         for (Post p : iPostRepository.findPostsByUserId(sellerUser.getUserId())) {
-            if(p.isHasPromo()){
+            if (p.isHasPromo()) {
                 sellerPosts.getPosts().add(PostMapper.postToPromoDTO(p));
             }
         }
 
         // Order posts by product name (asc/desc)
         if (order.equals("name_asc")) {
-            JavaUtils.orderByPostNameAsc(sellerPosts.getPosts());
+            sellerPosts.getPosts().sort(Comparator.comparing(n -> n.getDetail().getProductName()));
         } else if (order.equals("name_desc")) {
-            JavaUtils.orderByPostNameDesc(sellerPosts.getPosts());
+            sellerPosts.getPosts().sort((n1, n2) -> n2.getDetail().getProductName().compareTo(n1.getDetail().getProductName()));
         }
         return sellerPosts;
     }

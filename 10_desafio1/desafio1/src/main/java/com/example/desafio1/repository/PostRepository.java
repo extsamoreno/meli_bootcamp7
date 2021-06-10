@@ -29,11 +29,6 @@ public class PostRepository implements iPostRepository {
 
         User sellerUser = iUserRepository.findUserById(post.getUserId());
 
-        /*// Exception: user id doesn't exist
-        if (iUserRepository.findUserById(post.getUserId()) == null) {
-            throw new UserNotFoundException(post.getUserId());
-        }*/
-
         // Exception: post id already exists
         if (mapPosts.get(post.getPostId()) != null) {
             throw new PostAlreadyExistException(post.getPostId());
@@ -41,6 +36,22 @@ public class PostRepository implements iPostRepository {
 
         mapPosts.put(post.getPostId(), post);
         return post;
+    }
+
+    // Returns a list with all posts created by the user
+    @Override
+    public ArrayList<Post> findPostsByUserId(Integer id) throws UserNotFoundException {
+
+        User sellerUser = iUserRepository.findUserById(id);
+        ArrayList<Post> listPostsUser = new ArrayList<>();
+
+        // Filter posts by userId
+        for (Map.Entry<Integer, Post> entry : mapPosts.entrySet()) {
+            if (entry.getValue().getUserId() == sellerUser.getUserId()) {
+                listPostsUser.add(entry.getValue());
+            }
+        }
+        return listPostsUser;
     }
 
     // Search posts created up "weeksToFind" ago
@@ -53,7 +64,7 @@ public class PostRepository implements iPostRepository {
         LocalDate today = LocalDate.now();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-        // Create a list with posts "weeksToFind" ago
+        // Create a list with posts filtered by weeks
         for (Map.Entry<Integer, Post> entry : mapPosts.entrySet()) {
 
             LocalDate datePost = convertToLocalDate(entry.getValue().getDate()).plusDays(1);
@@ -86,21 +97,5 @@ public class PostRepository implements iPostRepository {
             }
         }
         return listPostsFiltered;
-    }
-
-    // Returns a list with all posts created by the user
-    @Override
-    public ArrayList<Post> findPostsByUserId(Integer id) throws UserNotFoundException {
-
-        User sellerUser = iUserRepository.findUserById(id);
-        ArrayList<Post> listPostsUser = new ArrayList<>();
-
-        // Filter posts by userId
-        for (Map.Entry<Integer, Post> entry : mapPosts.entrySet()) {
-            if(entry.getValue().getUserId() == sellerUser.getUserId()){
-                listPostsUser.add(entry.getValue());
-            }
-        }
-        return listPostsUser;
     }
 }

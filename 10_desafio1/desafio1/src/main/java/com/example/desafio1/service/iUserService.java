@@ -11,8 +11,12 @@ import com.example.desafio1.service.dto.user.ResponseListFollowersDTO;
 public interface iUserService {
 
     void followUser(Integer userId, Integer userIdToFollow) throws UserNotFoundException, UserAlreadyFollowException, UserFollowEqualsFollowerException;
+
     ResponseCountFollowersDTO countFollowers(Integer userId) throws UserNotFoundException;
-    ResponseListFollowersDTO listFollowers(Integer userId, String order) throws  UserNotFoundException;
+
+    ResponseListFollowersDTO listFollowers(Integer userId, String order) throws UserNotFoundException;
+
     ResponseListFollowedDTO listFollowed(Integer userId, String order) throws UserNotFoundException;
+
     void unFollowUser(Integer userId, Integer userIdToUnFollow) throws UserNotFoundException, UserNotFollowException;
 }
