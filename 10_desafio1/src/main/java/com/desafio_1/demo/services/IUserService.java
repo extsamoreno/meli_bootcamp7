@@ -3,19 +3,16 @@ package com.desafio_1.demo.services;
 import com.desafio_1.demo.dtos.UserFollowedDTO;
 import com.desafio_1.demo.dtos.UserFollowerCountDTO;
 import com.desafio_1.demo.dtos.UserFollowerDTO;
-import com.desafio_1.demo.exceptions.UnhandledException;
-import com.desafio_1.demo.exceptions.UserIdFollowerEqualsFollowed;
-import com.desafio_1.demo.exceptions.UserIdInvalidException;
-import com.desafio_1.demo.exceptions.UserNotFoundException;
+import com.desafio_1.demo.exceptions.*;
 
 public interface IUserService {
-    void addFollowUser(int userId, int userIdToFollow) throws UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed, UserNotFoundException;
+    void addFollowUser(int userId, int userIdToFollow) throws UnhandledException, BadRequestException;
 
-    UserFollowerCountDTO findFollowersCount(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
+    UserFollowerCountDTO findFollowersCount(int userId) throws UnhandledException, BadRequestException;
 
-    UserFollowerDTO findFollowersByUserId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
+    UserFollowerDTO findFollowersByUserId(int userId, String order) throws UnhandledException, BadRequestException;
 
-    UserFollowedDTO findFollowedByUserId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
+    UserFollowedDTO findFollowedByUserId(int userId, String order) throws UnhandledException, BadRequestException;
 
-    void unfollowUser(int userId, int userIdToUnfollow) throws UserIdFollowerEqualsFollowed, UserIdInvalidException, UserNotFoundException, UnhandledException;
+    void unfollowUser(int userId, int userIdToUnfollow) throws UnhandledException, BadRequestException;
 }

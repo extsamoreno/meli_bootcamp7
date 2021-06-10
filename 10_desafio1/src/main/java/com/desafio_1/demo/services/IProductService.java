@@ -6,11 +6,11 @@ import com.desafio_1.demo.dtos.ProductRequestDTO;
 import com.desafio_1.demo.exceptions.*;
 
 public interface IProductService {
-    void addProduct(ProductRequestDTO product) throws UnhandledException, UserIdInvalidException, UserNotFoundException, ProductDateInvalidException, ProductDetailRequiredException, ProductCategoryInvalidException, ProductPriceInvalidException, ProductIdPostInvalidException, ProductDetailTypeRequiredException, ProductDetailNameRequiredException, ProductDetailBrandRequiredException, ProductDetailColorRequiredException, ProductDetailIdInvalidException, ProductDiscountInvalidException, ProductHasPromoNotTrueException;
+    void addProduct(ProductRequestDTO product) throws UnhandledException, BadRequestException;
 
-    ProductResponseDTO findProductsByFollowedId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
+    ProductResponseDTO findProductsByFollowedId(int userId, String order) throws UnhandledException,  BadRequestException;
 
-    ProductPromoCountDTO findProductsPromoCountByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
+    ProductPromoCountDTO findProductsPromoCountByUserId(int userId) throws UnhandledException, BadRequestException;
 
-    ProductResponseDTO findProductsPromoByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException;
+    ProductResponseDTO findProductsPromoByUserId(int userId) throws UnhandledException,  BadRequestException;
 }

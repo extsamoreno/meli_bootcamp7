@@ -1,17 +1,22 @@
 package com.desafio_1.demo.services;
 
+import br.com.fluentvalidator.Validator;
+import br.com.fluentvalidator.context.ValidationResult;
 import com.desafio_1.demo.dtos.*;
 import com.desafio_1.demo.exceptions.*;
 import com.desafio_1.demo.models.Product;
 import com.desafio_1.demo.models.User;
 import com.desafio_1.demo.repositories.IProductRepository;
 import com.desafio_1.demo.repositories.IUserRepository;
+import com.desafio_1.demo.services.constants.OrderConstant;
+import com.desafio_1.demo.services.helpers.UserValidatorHelper;
 import com.desafio_1.demo.services.mappers.ProductListMapper;
 import com.desafio_1.demo.services.mappers.ProductMapper;
 import com.desafio_1.demo.services.mappers.ProductPromoCountMapper;
+import com.desafio_1.demo.services.validators.ProductDetailValidator;
+import com.desafio_1.demo.services.validators.ProductValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,22 +32,7 @@ public class ProductService implements IProductService{
     IUserRepository userRepository;
 
     @Override
-    public void addProduct(ProductRequestDTO product)
-            throws UnhandledException,
-            UserIdInvalidException,
-            UserNotFoundException,
-            ProductDateInvalidException,
-            ProductDetailRequiredException,
-            ProductCategoryInvalidException,
-            ProductPriceInvalidException,
-            ProductIdPostInvalidException,
-            ProductDetailTypeRequiredException,
-            ProductDetailNameRequiredException,
-            ProductDetailBrandRequiredException,
-            ProductDetailColorRequiredException,
-            ProductDetailIdInvalidException,
-            ProductDiscountInvalidException,
-            ProductHasPromoNotTrueException {
+    public void addProduct(ProductRequestDTO product) throws UnhandledException, BadRequestException {
 
         if(validateProduct(product) && validateProductDetail(product.getDetail())){
             productRepository.addProduct(ProductMapper.toModel(product));
@@ -51,14 +41,11 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public ProductResponseDTO findProductsByFollowedId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
-        if(userId<= 0)
-            throw new UserIdInvalidException();
+    public ProductResponseDTO findProductsByFollowedId(int userId, String order) throws UnhandledException, BadRequestException {
 
         User user = userRepository.findUserById(userId);
 
-        if(user == null)
-            throw new UserNotFoundException(userId);
+        UserValidatorHelper.validateUserExist(user);
 
         ArrayList<User> followed = userRepository.findFollowedByUserId(userId, (a, b)->a.compareTo(b));
 
@@ -70,14 +57,11 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public ProductPromoCountDTO findProductsPromoCountByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
-        if(userId <= 0)
-            throw new UserIdInvalidException();
+    public ProductPromoCountDTO findProductsPromoCountByUserId(int userId) throws UnhandledException, BadRequestException {
 
         User user = userRepository.findUserById(userId);
 
-        if(user == null)
-            throw new UserNotFoundException(userId);
+        UserValidatorHelper.validateUserExist(user);
 
         ArrayList<Product> products = productRepository.findProductsPromoByUserId(userId, createComparatorDate(null));
 
@@ -85,14 +69,11 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public ProductResponseDTO findProductsPromoByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
-        if(userId <= 0)
-            throw new UserIdInvalidException();
+    public ProductResponseDTO findProductsPromoByUserId(int userId) throws UnhandledException, BadRequestException {
 
         User user = userRepository.findUserById(userId);
 
-        if(user == null)
-            throw new UserNotFoundException(userId);
+        UserValidatorHelper.validateUserExist(user);
 
         ArrayList<Product> products = productRepository.findProductsPromoByUserId(userId, createComparatorDate(null));
 
@@ -102,7 +83,7 @@ public class ProductService implements IProductService{
     private Comparator<LocalDate> createComparatorDate(String order){
         Comparator<LocalDate> comparator = (a, b)->b.compareTo(a);
 
-        if(order != null && order.equals("date_desc")){
+        if(order != null && order.equals(OrderConstant.OrderDateDesc)){
             comparator = (a, b)->a.compareTo(b);
         }
 
@@ -110,68 +91,37 @@ public class ProductService implements IProductService{
     }
 
 
-    private boolean validateProduct(ProductRequestDTO product) throws UserIdInvalidException,
-            UserNotFoundException, ProductDateInvalidException,
-            ProductDetailRequiredException,
-            ProductCategoryInvalidException,
-            ProductPriceInvalidException,
-            ProductIdPostInvalidException,
-            UnhandledException, ProductDiscountInvalidException, ProductHasPromoNotTrueException {
-        int userId = product.getUserId();
+    private boolean validateProduct(ProductRequestDTO product) throws
+            UnhandledException, BadRequestException {
 
-        if(userId<= 0)
-            throw new UserIdInvalidException();
+        User user = userRepository.findUserById(product.getUserId());
+        UserValidatorHelper.validateUserExist(user);
 
-        User user = userRepository.findUserById(userId);
+        Validator<ProductRequestDTO> validator = new ProductValidator();
+        ValidationResult result = validator.validate(product);
 
-        if(user == null)
-            throw new UserNotFoundException(userId);
-
-        if(product.getDate() == null)
-            throw new ProductDateInvalidException();
-
-        if(product.getDetail() == null)
-            throw new ProductDetailRequiredException();
-
-        if(product.getCategory() <= 0)
-            throw new ProductCategoryInvalidException();
-
-        if(product.getPrice() <= 0)
-            throw new ProductPriceInvalidException();
-
-        if(product.getIdPost() <= 0)
-            throw new ProductIdPostInvalidException();
+        if(!result.isValid()){
+            throw new BadRequestException(result.getErrors().toString());
+        }
 
         if(product.isHasPromo() && product.getDiscount() <= 0)
-            throw new ProductDiscountInvalidException();
+            throw new BadRequestException("Para añadir un producto en promocion, el descuento debe ser mayor a 0.");
 
         if(!product.isHasPromo() && product.getDiscount() > 0)
-            throw new ProductHasPromoNotTrueException();
+            throw new BadRequestException("Para añadir un producto en promocion con descuento, hasPromo debe ser true.");
 
         return true;
     }
 
-    private boolean validateProductDetail(ProductDetailDTO detailDTO) throws ProductDetailIdInvalidException,
-            ProductDetailNameRequiredException,
-            ProductDetailBrandRequiredException,
-            ProductDetailColorRequiredException,
-            ProductDetailTypeRequiredException
-    {
 
-        if(detailDTO.getProductId() <= 0)
-            throw new ProductDetailIdInvalidException();
+    private boolean validateProductDetail(ProductDetailDTO detailDTO) throws BadRequestException {
 
-        if(detailDTO.getProductName().isBlank())
-            throw new ProductDetailNameRequiredException();
+        Validator<ProductDetailDTO> validator = new ProductDetailValidator();
+        ValidationResult result = validator.validate(detailDTO);
 
-        if(detailDTO.getBrand().isBlank())
-            throw new ProductDetailBrandRequiredException();
-
-        if(detailDTO.getColor().isBlank())
-            throw new ProductDetailColorRequiredException();
-
-        if(detailDTO.getType().isBlank())
-            throw new ProductDetailTypeRequiredException();
+        if(!result.isValid()){
+            throw new BadRequestException(result.getErrors().toString());
+        }
 
         return true;
     }
