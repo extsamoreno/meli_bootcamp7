@@ -114,7 +114,7 @@ public class ProductService {
         PromoPostsDTO promoPostsDTO = new PromoPostsDTO();
 
         promoPostsDTO.setUserId(userId);
-        promoPostsDTO.setPromoProductsCount(postRepository.getNumberOfPostsById(userId));
+        promoPostsDTO.setPromoProductsCount(postRepository.getNumberOfPromoPostsById(userId));
         promoPostsDTO.setUserName(userRepository.getUserById(userId).getUserName());
 
         return promoPostsDTO;

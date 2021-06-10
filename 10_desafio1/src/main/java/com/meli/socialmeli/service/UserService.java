@@ -65,7 +65,7 @@ public class UserService {
     }
 
     /**
-     * Gets the number of followers a user has
+     * Obtains the number of followers a user has
      *
      * @param userId Corresponding to the user from which you want to obtain the followers count
      * @return The number of followers a user has

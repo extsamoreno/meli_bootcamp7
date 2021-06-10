@@ -11,48 +11,78 @@ public class UserRepository {
 
     public static Map<Integer, User> users = new HashMap<>();
 
+    /**
+     * Checks if the userId entered corresponds or not with an existing user
+     *
+     * @param userId Corresponding to the user to be verified
+     * @return True if userId is Invalid
+     */
     public boolean userIdIsNotValid(int userId) {
         return !users.containsKey(userId);
     }
 
+    /**
+     * Checks if the entered user follows the entered seller or not
+     *
+     * @param userId         Corresponding to the user from which you want to verify if you follow the selle
+     * @param userIdToFollow Corresponding to the seller from which you want to verify whether or not it is followed by the user
+     * @return True if the user follows the seller
+     */
     public boolean userContainsFollower(int userId, int userIdToFollow) {
         return users.get(userIdToFollow).getFollowers().containsKey(userId);
     }
 
+    /**
+     * Inserts a new follower. This performs two actions:
+     * 1) In the user who will be a follower, a new followed user is inserted
+     * 2) In the user that is followed, a new follower is inserted
+     *
+     * @param userId         Corresponding to the user who will follow another
+     * @param userIdToFollow Corresponding to the user to be followed
+     */
     public void insertFollower(int userId, int userIdToFollow) {
 
-        // Obtengo el follower específico:
         User follower = users.get(userId);
-
-        // Obtengo el followed específico:
         User followed = users.get(userIdToFollow);
 
-        // Agrego el follower dentro del listado de followers del followed:
         assert followed != null;
         followed.getFollowers().put(userId, follower);
-
-        // Agrego el followed dentro del listado de followed del follower:
         follower.getFollowed().put(userIdToFollow, followed);
     }
 
+    /**
+     * Removes a follower.This performs two actions:
+     * 1) In the user who will unfollow, the followed user is deleted
+     * 2) In the user that will stop being followed, the follower is deleted
+     *
+     * @param userId           Corresponding to the user who will unfollow another
+     * @param userIdToUnfollow Corresponding with the user who will be unfollowed
+     */
     public void removeFollower(int userId, int userIdToUnfollow) {
-        // Obtengo el follower específico:
-        User follower = users.get(userId);
 
-        // Obtengo el followed específico:
+        User follower = users.get(userId);
         User followed = users.get(userIdToUnfollow);
 
-        // Remuevo el follower dentro del listado de followers del followed:
         followed.getFollowers().remove(userId);
-
-        // Remuevo el followed dentro del listado de followed del follower:
         follower.getFollowed().remove(userIdToUnfollow);
     }
 
+    /**
+     * Obtains the number of followers a user has
+     *
+     * @param userId Corresponding to the user from which you want to obtain the followers count
+     * @return The number of followers a user has
+     */
     public int getNumberOfFollowers(int userId) {
         return users.get(userId).getFollowers().size();
     }
 
+    /**
+     * Obtains a User, which it searches by userId
+     *
+     * @param userId Corresponding to the user who wants to be obtained
+     * @return The User found
+     */
     public User getUserById(int userId) {
         return users.get(userId);
     }
