@@ -59,6 +59,7 @@ public class UserController {
         return (new ResponseEntity<>(userService.orderFollowersByName(userId, order), HttpStatus.OK));
     }
 
+    //0008
     @GetMapping("/followed")
     public ResponseEntity<ArrayList<Seller>> orderFollowedByName(@PathVariable Integer userId, @RequestParam(value = "order", defaultValue = "") String order) throws UserNotFoundException, WrongCriteriaOrderException {
         return (new ResponseEntity<>(userService.orderFollowedByName(userId, order), HttpStatus.OK));

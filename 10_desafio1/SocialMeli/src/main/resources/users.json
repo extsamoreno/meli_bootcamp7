@@ -17,6 +17,7 @@
         ],
         "posts": [
           {
+            "sellerId": 3,
             "date" : "29-04-2021",
             "detail" :
               {
@@ -32,6 +33,7 @@
           }],
         "promoPosts": [
           {
+            "sellerId": 3,
             "date" : "29-04-2021",
             "detail" :
             {
@@ -64,6 +66,7 @@
         ],
         "posts": [
           {
+            "sellerId": 4,
             "date" : "29-04-2020",
             "detail" :
             {
@@ -79,6 +82,7 @@
           }],
         "promoPosts": [
           {
+            "sellerId": 4,
             "date" : "29-04-2021",
             "detail" :
             {
@@ -116,6 +120,7 @@
         ],
         "posts": [
           {
+            "sellerId": 5,
             "date" : "08-06-2021",
             "detail" :
             {
@@ -131,6 +136,7 @@
           }],
         "promoPosts": [
           {
+            "sellerId": 5,
             "date" : "29-05-2021",
             "detail" :
             {

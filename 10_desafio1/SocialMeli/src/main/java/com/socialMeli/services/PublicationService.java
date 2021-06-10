@@ -87,14 +87,15 @@ public class PublicationService implements iPublicationService {
      */
     @Override
     public ArrayList<Post> orderPostsByDate(ArrayList<Post> posts, String order) throws WrongCriteriaOrderException {
-        Comparator<Post> c = (post1, post2) -> post1.getDate().isAfter(post2.getDate()) ? 1 : 0;
+        Comparator<Post> cAsc = (post1, post2) -> post1.getDate().isAfter(post2.getDate()) ? 1 : -1;
+        Comparator<Post> cDesc = (post1, post2) -> post1.getDate().isBefore(post2.getDate()) ? 1 : -1;
 
         switch (order){
-            case "asc":
-                Collections.sort(posts, c);
+            case "name_asc":
+                Collections.sort(posts, cAsc);
                 break;
-            case "desc":
-                Collections.sort(posts, Collections.reverseOrder());
+            case "name_desc":
+                Collections.sort(posts, cDesc);
                 break;
             default:
                 throw new WrongCriteriaOrderException();
