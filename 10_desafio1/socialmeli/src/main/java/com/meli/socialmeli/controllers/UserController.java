@@ -26,7 +26,7 @@ public class UserController {
     }
 
     //Punto 2 Listo
-    @GetMapping("/{userId}/followers/count/")
+    @GetMapping("/{userId}/followers/count")
     public ResponseEntity<UserFollowerCount> followersCount(@PathVariable int userId) {
         return new ResponseEntity<>(iUserService.getFollowerCount(userId), HttpStatus.ACCEPTED);
     }

@@ -28,16 +28,31 @@ public class UserRespository implements IUserRepository {
         Post post1 = new Post(1, 22, "30-05-2021", detail, 100, 1500.50);
         Post post2 = new Post(1, 22, "04-04-2020", detail, 100, 1500.50);
 
-        users.put(1, new UserMeli(1, "comprador1", post));
+        users.put(1, new UserMeli(1, "Vendedor1", post));
+        users.get(1).setMerchant(true);
         users.get(1).getPosts().add(post1);
         users.get(1).getPosts().add(post2);
-        users.get(1).setMerchant(true);
-        users.put(2, new UserMeli(2, "vendedor1"));
-        users.get(2).getFollowers().add(1);
-        users.get(2).getFollowers().add(3);
-        users.get(2).getFollowers().add(4);
-        users.put(3, new UserMeli(3, "comprador2"));
-        users.put(4, new UserMeli(4, "vendedor"));
+        users.get(1).getFollowers().add(3);
+        users.get(1).getFollowers().add(4);
+
+        users.put(2, new UserMeli(2, "Comprador2"));
+
+        users.put(3, new UserMeli(3, "Comprador3"));
+        users.get(3).getFollowedBy().add(1);
+        users.get(3).getFollowedBy().add(5);
+
+        users.put(4, new UserMeli(4, "Comprador4"));
+        users.get(4).getFollowedBy().add(1);
+        users.get(4).getFollowedBy().add(5);
+
+        users.put(5, new UserMeli(5, "Vendedor5"));
+        users.get(5).setMerchant(true);
+        users.get(5).getPosts().add(post1);
+        users.get(5).getPosts().add(post2);
+        users.get(5).getFollowers().add(3);
+        users.get(5).getFollowers().add(4);
+
+
     }
 
     @Override

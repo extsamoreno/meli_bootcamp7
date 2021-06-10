@@ -8,5 +8,4 @@ import lombok.Data;
 public class UserFollowDTO {
     private int userId;
     private String userIdToFollow;
-    //private String typeOfFollow;
 }

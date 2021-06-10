@@ -1,6 +1,7 @@
 package com.meli.socialmeli.repositories;
 
 import com.meli.socialmeli.dto.UserPostListDTO;
+import com.meli.socialmeli.exceptions.UserIsNotMerchant;
 import com.meli.socialmeli.models.Post;
 import com.meli.socialmeli.models.UserMeli;
 import org.springframework.stereotype.Repository;
@@ -15,10 +16,17 @@ import static com.meli.socialmeli.repositories.UserRespository.users;
 public class PostRepository implements IPostRepository {
 
     @Override
-    public UserMeli newPostAdd(Post post) {
+    public UserMeli newPostAdd(Post post) throws UserIsNotMerchant {
 
         int userId = post.getUserId();
-        users.get(userId).getPosts().add(post);
+
+        if (!users.get(userId).isMerchant()) {
+            throw  new UserIsNotMerchant(userId);
+
+        }
+        else {
+            users.get(userId).getPosts().add(post);
+        }
         return users.get(userId);
     }
 

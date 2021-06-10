@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.meli.socialmeli"},{"l":"com.meli.socialmeli.controllers"},{"l":"com.meli.socialmeli.dto"},{"l":"com.meli.socialmeli.exceptions"},{"l":"com.meli.socialmeli.Mappers"},{"l":"com.meli.socialmeli.models"},{"l":"com.meli.socialmeli.repositories"},{"l":"com.meli.socialmeli.services"}]
