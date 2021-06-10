@@ -6,7 +6,7 @@ import com.desafio_1.demo.models.Product;
 import com.desafio_1.demo.models.User;
 import com.desafio_1.demo.repositories.IProductRepository;
 import com.desafio_1.demo.repositories.IUserRepository;
-import com.desafio_1.demo.services.mappers.ProductFollowedMapper;
+import com.desafio_1.demo.services.mappers.ProductListMapper;
 import com.desafio_1.demo.services.mappers.ProductMapper;
 import com.desafio_1.demo.services.mappers.ProductPromoCountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public ProductFollowedDTO findProductsByFollowedId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
+    public ProductResponseDTO findProductsByFollowedId(int userId, String order) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
         if(userId<= 0)
             throw new UserIdInvalidException();
 
@@ -64,9 +64,7 @@ public class ProductService implements IProductService{
 
         List<Integer> usersId = followed.stream().map(User::getId).collect(Collectors.toList());
 
-
-
-        ProductFollowedDTO productsFollowed = ProductFollowedMapper.toDTO(userId, productRepository.findProductsByFollowedId(usersId, createComparatorDate(order)));
+        ProductResponseDTO productsFollowed = ProductListMapper.toDTO(user, productRepository.findProductsByFollowedId(usersId, createComparatorDate(order)));
 
         return productsFollowed;
     }
@@ -84,6 +82,21 @@ public class ProductService implements IProductService{
         ArrayList<Product> products = productRepository.findProductsPromoByUserId(userId, createComparatorDate(null));
 
         return ProductPromoCountMapper.toDTO(user, products.size());
+    }
+
+    @Override
+    public ProductResponseDTO findProductsPromoByUserId(int userId) throws UserIdInvalidException, UnhandledException, UserNotFoundException {
+        if(userId <= 0)
+            throw new UserIdInvalidException();
+
+        User user = userRepository.findUserById(userId);
+
+        if(user == null)
+            throw new UserNotFoundException(userId);
+
+        ArrayList<Product> products = productRepository.findProductsPromoByUserId(userId, createComparatorDate(null));
+
+        return ProductListMapper.toDTO(user,products);
     }
 
     private Comparator<LocalDate> createComparatorDate(String order){

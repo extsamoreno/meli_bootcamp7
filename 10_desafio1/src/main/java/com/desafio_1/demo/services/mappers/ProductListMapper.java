@@ -1,26 +1,25 @@
 package com.desafio_1.demo.services.mappers;
 
-import com.desafio_1.demo.dtos.ProductFollowedDTO;
-import com.desafio_1.demo.dtos.ProductRequestDTO;
 import com.desafio_1.demo.dtos.ProductResponseDTO;
+import com.desafio_1.demo.dtos.ProductBaseResponseDTO;
 import com.desafio_1.demo.models.Product;
+import com.desafio_1.demo.models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ProductFollowedMapper {
+public class ProductListMapper {
 
-    public static ProductFollowedDTO toDTO(int userId, ArrayList<Product> products){
+    public static ProductResponseDTO toDTO(User user, ArrayList<Product> products){
 
-        return new ProductFollowedDTO(userId, arrayToProductResponseDTO(products));
+        return new ProductResponseDTO(user.getId(), user.getUserName(), arrayToProductResponseDTO(products));
     }
 
-    public static ArrayList<ProductResponseDTO> arrayToProductResponseDTO(ArrayList<Product> products){
+    public static ArrayList<ProductBaseResponseDTO> arrayToProductResponseDTO(ArrayList<Product> products){
 
-        ArrayList<ProductResponseDTO> productsDTO = new ArrayList<>();
+        ArrayList<ProductBaseResponseDTO> productsDTO = new ArrayList<>();
         for (Product product: products) {
             productsDTO.add(
-                new ProductResponseDTO(
+                new ProductBaseResponseDTO(
                     product.getUserId(),
                     product.getIdPost(),
                     product.getDate(),

@@ -1,15 +1,14 @@
 package com.desafio_1.demo.services.mappers;
 
 import com.desafio_1.demo.dtos.ProductRequestDTO;
-import com.desafio_1.demo.dtos.ProductResponseDTO;
+import com.desafio_1.demo.dtos.ProductBaseResponseDTO;
 import com.desafio_1.demo.models.Product;
-import com.desafio_1.demo.models.ProductDetail;
 
 public class ProductMapper {
 
-    public static ProductResponseDTO toDTO(Product product){
+    public static ProductBaseResponseDTO toDTO(Product product){
 
-        return new ProductResponseDTO(
+        return new ProductBaseResponseDTO(
                 product.getUserId(),
                 product.getIdPost(),
                 product.getDate(),
