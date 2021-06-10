@@ -29,12 +29,6 @@ public class DataRepository implements IDataRepository {
                 .orElse(null);
     }
 
-
-    @Override
-    public List<User> getAllUsers() {
-        return users;
-    }
-
     @Override
     public List<User> getUserFollowers(Integer id) {
         User user = findUserById(id);
@@ -43,7 +37,6 @@ public class DataRepository implements IDataRepository {
                 .map(i -> findUserById(i))
                 .collect(Collectors.toList());
     }
-
 
     @Override
     public List<User> getUserFollowed(Integer id) {
@@ -56,17 +49,33 @@ public class DataRepository implements IDataRepository {
 
 
     @Override
-    public List<Post> getAllPost() {
-        return posts;
-    }
-
-    @Override
     public Post findPostById(Integer id) {
 
         return posts.stream()
                 .filter(postAux -> postAux.getPostId() == id)
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Post> getPostsByUserId(Integer id) {
+        User user = findUserById(id);
+
+        return user.getPosts().stream()
+                .map(postId -> findPostById(postId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Post> getPostWithPromoByUserId(Integer id) {
+        return getPostsByUserId(id).stream()
+                .filter(p -> p.isHasPromo())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Post> getAllPosts() {
+        return posts;
     }
 
     private static List<User> loadDatabase() {

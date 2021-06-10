@@ -1,10 +1,14 @@
 package com.bootcamp.socialmeli.service;
 
-import com.bootcamp.socialmeli.DTO.response.ListOfFollowedPostsDTOres;
+import com.bootcamp.socialmeli.DTO.request.PostPromoDTOreq;
+import com.bootcamp.socialmeli.DTO.response.CountPromoProductsDTO;
+import com.bootcamp.socialmeli.DTO.response.ListOfPostsDTOres;
 import com.bootcamp.socialmeli.DTO.request.PostDTOreq;
+import com.bootcamp.socialmeli.DTO.response.ListOfPostsWithUsernameDTOres;
 import com.bootcamp.socialmeli.exception.PostAlreadyRegisteredException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.mapper.PostMapper;
+import com.bootcamp.socialmeli.mapper.UserMapper;
 import com.bootcamp.socialmeli.model.Post;
 import com.bootcamp.socialmeli.model.User;
 import com.bootcamp.socialmeli.repository.IDataRepository;
@@ -28,6 +32,9 @@ public class PostService implements IPostService {
     PostMapper postMapper;
 
     @Autowired
+    UserMapper userMapper;
+
+    @Autowired
     SortUtilities sortUtilities;
 
     @Autowired
@@ -40,9 +47,16 @@ public class PostService implements IPostService {
             throw new UserIdNotFoundException(postDTOreq.getUserId());
         }
 
-        Post post = postMapper.toPost(postDTOreq);
+        Post post;
 
-        List<Post> posts = dataRepository.getAllPost();
+        //Controlo si el post tiene promo o no según la clase de la instancia
+        if (postDTOreq instanceof PostPromoDTOreq) {
+            post = postMapper.toPost((PostPromoDTOreq) postDTOreq);
+        } else {
+            post = postMapper.toPost(postDTOreq);
+        }
+
+        List<Post> posts = dataRepository.getAllPosts();
 
         //Controlo si ya existe un post con ese id
         if (dataRepository.findPostById(post.getPostId()) != null) {
@@ -58,7 +72,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public ListOfFollowedPostsDTOres getFollowedPost(Integer userId, Optional<String> order) throws UserIdNotFoundException {
+    public ListOfPostsDTOres getFollowedPost(Integer userId, Optional<String> order) throws UserIdNotFoundException {
         if (dataRepository.findUserById(userId) == null) {
             throw new UserIdNotFoundException(userId);
         }
@@ -80,6 +94,27 @@ public class PostService implements IPostService {
                 .filter(p -> p.getDate().isAfter(dateUtilities.getTwoWeeksAgo()))
                 .collect(Collectors.toList());
 
-        return postMapper.toListOfFollowedPostDTO(postFollowed, userId);
+        return postMapper.toListOfPostDTO(postFollowed, userId);
+    }
+
+    @Override
+    public CountPromoProductsDTO getCountPromoProducts(Integer userId) throws UserIdNotFoundException {
+
+        User user = dataRepository.findUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException(userId);
+        }
+
+        return userMapper.toCountPromoProductsDTO(user, dataRepository.getPostWithPromoByUserId(userId).size());
+    }
+
+    @Override
+    public ListOfPostsWithUsernameDTOres getListPromoProducts(Integer userId) throws UserIdNotFoundException {
+        User user = dataRepository.findUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException(userId);
+        }
+
+        return postMapper.toListOfPostWithUsernameDTO(dataRepository.getPostWithPromoByUserId(userId), user) ;
     }
 }

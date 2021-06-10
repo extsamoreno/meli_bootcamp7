@@ -1,6 +1,5 @@
 package com.bootcamp.socialmeli.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,8 +9,8 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Post {
     private int userId;
     private int postId;
@@ -19,4 +18,6 @@ public class Post {
     private Product detail;
     private String category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 }

@@ -13,11 +13,13 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FollowedPostDTOres {
+public class PostDTOres {
     private Integer postId;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     private ProductDTO detail;
     private String category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 }

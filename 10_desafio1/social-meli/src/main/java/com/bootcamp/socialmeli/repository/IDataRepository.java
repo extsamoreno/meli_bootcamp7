@@ -10,13 +10,16 @@ public interface IDataRepository {
 
     User findUserById(Integer id);
 
-    List<User> getAllUsers();
-
     List<User> getUserFollowers(Integer id);
 
     List<User> getUserFollowed(Integer id);
 
+    List<Post> getAllPosts();
+
     Post findPostById(Integer id);
 
-    List<Post> getAllPost();
+    List<Post> getPostsByUserId(Integer id);
+
+    List<Post> getPostWithPromoByUserId(Integer id);
+
 }

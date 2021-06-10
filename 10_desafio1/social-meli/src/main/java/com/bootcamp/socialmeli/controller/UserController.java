@@ -6,14 +6,12 @@ import com.bootcamp.socialmeli.DTO.response.UserFollowersListDTOres;
 import com.bootcamp.socialmeli.exception.FollowYourselfException;
 import com.bootcamp.socialmeli.exception.UnfollowYourselfException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
-import com.bootcamp.socialmeli.model.User;
 import com.bootcamp.socialmeli.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -58,8 +56,4 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
-    }
 }

@@ -1,7 +1,10 @@
 package com.bootcamp.socialmeli.controller;
 
-import com.bootcamp.socialmeli.DTO.response.ListOfFollowedPostsDTOres;
+import com.bootcamp.socialmeli.DTO.request.PostPromoDTOreq;
+import com.bootcamp.socialmeli.DTO.response.CountPromoProductsDTO;
+import com.bootcamp.socialmeli.DTO.response.ListOfPostsDTOres;
 import com.bootcamp.socialmeli.DTO.request.PostDTOreq;
+import com.bootcamp.socialmeli.DTO.response.ListOfPostsWithUsernameDTOres;
 import com.bootcamp.socialmeli.exception.PostAlreadyRegisteredException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
 import com.bootcamp.socialmeli.service.IPostService;
@@ -30,8 +33,29 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<ListOfFollowedPostsDTOres> getFollowedPosts(
+    public ResponseEntity<ListOfPostsDTOres> getFollowedPosts(
             @PathVariable Integer userId, @RequestParam Optional<String> order) throws UserIdNotFoundException {
         return new ResponseEntity<>(productService.getFollowedPost(userId, order), HttpStatus.OK);
+    }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity<Void> newPromoPost(@Valid @RequestBody PostPromoDTOreq post)
+            throws UserIdNotFoundException, PostAlreadyRegisteredException {
+
+        productService.newPost(post);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<CountPromoProductsDTO> getCountPromoProducts(@PathVariable Integer userId)
+            throws UserIdNotFoundException {
+        return new ResponseEntity<>(productService.getCountPromoProducts(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<ListOfPostsWithUsernameDTOres> getListPromoProducts(@PathVariable Integer userId)
+            throws UserIdNotFoundException {
+        return new ResponseEntity<>(productService.getListPromoProducts(userId), HttpStatus.OK);
     }
 }

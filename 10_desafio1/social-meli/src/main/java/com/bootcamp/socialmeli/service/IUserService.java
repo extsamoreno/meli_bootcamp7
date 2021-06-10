@@ -6,15 +6,11 @@ import com.bootcamp.socialmeli.DTO.response.UserFollowersListDTOres;
 import com.bootcamp.socialmeli.exception.FollowYourselfException;
 import com.bootcamp.socialmeli.exception.UnfollowYourselfException;
 import com.bootcamp.socialmeli.exception.UserIdNotFoundException;
-import com.bootcamp.socialmeli.model.User;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface IUserService {
     void follow(Integer userId, Integer userIdToFollow) throws UserIdNotFoundException, FollowYourselfException;
-
-    List<User> getAllUsers();
 
     UserAmountFollowersDTOres getAmountUserFollowers(Integer id) throws UserIdNotFoundException;
 

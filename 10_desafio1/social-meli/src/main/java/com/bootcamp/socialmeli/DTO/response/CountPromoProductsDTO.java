@@ -5,13 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListOfFollowedPostsDTOres {
+public class CountPromoProductsDTO {
     private Integer userId;
-    private List<FollowedPostDTOres> posts;
+    private String userName;
+    private Integer promoProductsCount;
 }

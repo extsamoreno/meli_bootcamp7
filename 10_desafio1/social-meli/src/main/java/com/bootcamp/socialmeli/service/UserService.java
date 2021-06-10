@@ -123,8 +123,4 @@ public class UserService implements IUserService{
         return userMapper.toListUserFollowedDTO(user, userFollowed );
     }
 
-    @Override
-    public List<User> getAllUsers() {
-        return dataRepository.getAllUsers();
-    }
 }

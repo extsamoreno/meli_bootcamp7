@@ -1,9 +1,6 @@
 package com.bootcamp.socialmeli.mapper;
 
-import com.bootcamp.socialmeli.DTO.response.UserAmountFollowersDTOres;
-import com.bootcamp.socialmeli.DTO.response.UserDTOres;
-import com.bootcamp.socialmeli.DTO.response.UserFollowedListDTOres;
-import com.bootcamp.socialmeli.DTO.response.UserFollowersListDTOres;
+import com.bootcamp.socialmeli.DTO.response.*;
 import com.bootcamp.socialmeli.model.User;
 import org.springframework.stereotype.Component;
 
@@ -33,5 +30,9 @@ public class UserMapper {
                 .collect(Collectors.toList());
 
         return new UserFollowedListDTOres(user.getUserId(), user.getUserName(), followedDTO);
+    }
+
+    public CountPromoProductsDTO toCountPromoProductsDTO(User user, Integer counter) {
+        return new CountPromoProductsDTO(user.getUserId(), user.getUserName(), counter);
     }
 }
