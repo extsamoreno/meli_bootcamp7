@@ -10,5 +10,5 @@ public interface IUserRepository {
     User getUserById(int userId) throws UserNotFoundException;
 
 
-
+    boolean isFollower(int userId, int userIdToFollow) throws UserNotFoundException;
 }

@@ -60,5 +60,11 @@ public class UserRepository implements IUserRepository{
         return usersDict.get(userId);
     }
 
+    @Override
+    public boolean isFollower(int userId, int userIdToFollow) throws UserNotFoundException
+    {
+        return getUserById(userIdToFollow).getFollowers().contains(userId);
+    }
+
 
 }

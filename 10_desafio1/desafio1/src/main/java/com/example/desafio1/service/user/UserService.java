@@ -22,11 +22,21 @@ public class UserService implements IUserService {
 
     @Override
     public String followUser(int userId, int userIdToFollow) throws UserNotFoundException {
-        User userFollower = iUserRepository.getUserById(userId);
-        User userFollowed = iUserRepository.getUserById(userIdToFollow);
-        follow(userFollower, userFollowed);
+        String message = "";
 
-        return "Todo OK";
+        if (!iUserRepository.isFollower(userId, userIdToFollow))
+        {
+            User userFollower = iUserRepository.getUserById(userId);
+            User userFollowed = iUserRepository.getUserById(userIdToFollow);
+            follow(userFollower, userFollowed);
+            message = "Todo OK";
+        }
+        else
+        {
+            message = "Already following";
+        }
+
+        return message;
     }
 
     private void follow(User user, User userTofollow) {
@@ -44,11 +54,19 @@ public class UserService implements IUserService {
 
     @Override
     public String unfollowUser(int userId, int userIdToUnfollow) throws UserNotFoundException {
-        User userFollower = iUserRepository.getUserById(userId);
-        User userFollowed = iUserRepository.getUserById(userIdToUnfollow);
-        unfollow(userFollower, userFollowed);
+        String message = "";
 
-        return "Todo OK";
+        if (iUserRepository.isFollower(userId, userIdToUnfollow))
+        {
+            User userFollower = iUserRepository.getUserById(userId);
+            User userFollowed = iUserRepository.getUserById(userIdToUnfollow);
+            unfollow(userFollower, userFollowed);
+            message = "Todo OK";
+        }
+        else{
+            message = "Follow first";
+        }
+        return message;
     }
 
     private void unfollow(User user, User userToUnfollow) {
