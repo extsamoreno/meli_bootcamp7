@@ -37,7 +37,14 @@ public class UserService implements IUserService{
         }
 
         User user = dataRepository.findUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException(userId);
+        }
+
         User userToFollow = dataRepository.findUserById(userIdToFollow);
+        if (userToFollow == null) {
+            throw new UserIdNotFoundException(userIdToFollow);
+        }
 
         //Agrego el usuario a seguir si éste no se encontraba antes
         if (!user.getFollowed().contains(userIdToFollow)) {
@@ -58,7 +65,14 @@ public class UserService implements IUserService{
         }
 
         User user = dataRepository.findUserById(userId);
+        if (user == null) {
+            throw new UserIdNotFoundException(userId);
+        }
+
         User userToUnfollow = dataRepository.findUserById(userIdToUnfollow);
+        if (userToUnfollow == null) {
+            throw new UserIdNotFoundException(userIdToUnfollow);
+        }
 
         //Elimino el usuario de la lista de seguidos si es que este ya se encontraba en la misma
         if (user.getFollowed().contains(userIdToUnfollow)) {
@@ -74,6 +88,9 @@ public class UserService implements IUserService{
     @Override
     public UserAmountFollowersDTOres getAmountUserFollowers(Integer id) throws UserIdNotFoundException {
         User user = dataRepository.findUserById(id);
+        if (user == null) {
+            throw new UserIdNotFoundException(id);
+        }
 
         return userMapper.toUserAmountFollowersDTO(user);
     }
@@ -81,6 +98,9 @@ public class UserService implements IUserService{
     @Override
     public UserFollowersListDTOres getListUserFollowers(Integer id, Optional<String> order) throws UserIdNotFoundException {
         User user = dataRepository.findUserById(id);
+        if (user == null) {
+            throw new UserIdNotFoundException(id);
+        }
 
         List<User> userFollowers = dataRepository.getUserFollowers(id);
 
@@ -92,6 +112,9 @@ public class UserService implements IUserService{
     @Override
     public UserFollowedListDTOres getListUserFollowed(Integer id, Optional<String> order) throws UserIdNotFoundException {
         User user = dataRepository.findUserById(id);
+        if (user == null) {
+            throw new UserIdNotFoundException(id);
+        }
 
         List<User> userFollowed = dataRepository.getUserFollowed(id);
 

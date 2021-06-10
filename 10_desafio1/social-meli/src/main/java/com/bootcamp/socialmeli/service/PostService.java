@@ -30,19 +30,22 @@ public class PostService implements IPostService {
     @Autowired
     SortUtilities sortUtilities;
 
+    @Autowired
+    DateUtilities dateUtilities;
+
     @Override
     public void newPost(PostDTOreq postDTOreq) throws PostAlreadyRegisteredException, UserIdNotFoundException {
         User user = dataRepository.findUserById(postDTOreq.getUserId());
+        if (user == null) {
+            throw new UserIdNotFoundException(postDTOreq.getUserId());
+        }
+
         Post post = postMapper.toPost(postDTOreq);
 
         List<Post> posts = dataRepository.getAllPost();
-        //Controlo si ya existe un post con ese id
-        Post postControl = posts.stream()
-                .filter(postAux -> postAux.getPostId() == post.getPostId())
-                .findFirst()
-                .orElse(null);
 
-        if (postControl != null) {
+        //Controlo si ya existe un post con ese id
+        if (dataRepository.findPostById(post.getPostId()) != null) {
             throw new PostAlreadyRegisteredException(post.getPostId());
         }
 
@@ -56,14 +59,14 @@ public class PostService implements IPostService {
 
     @Override
     public ListOfFollowedPostsDTOres getFollowedPost(Integer userId, Optional<String> order) throws UserIdNotFoundException {
+        if (dataRepository.findUserById(userId) == null) {
+            throw new UserIdNotFoundException(userId);
+        }
 
-        User user = dataRepository.findUserById(userId);
-        List<Integer> followed = user.getFollowed();
+        List<User> usersFollowed = dataRepository.getUserFollowed(userId);
         List<Post> postFollowed = new ArrayList<>();
 
-        for (Integer f : followed) {
-            User userAux = dataRepository.findUserByIdWithoutException(f);
-
+        for (User userAux : usersFollowed) {
             for (Integer p : userAux.getPosts()) {
                 postFollowed.add(dataRepository.findPostById(p));
             }
@@ -74,7 +77,7 @@ public class PostService implements IPostService {
         //Filtro los post si son posteriores a dos semanas
         postFollowed = postFollowed
                 .stream()
-                .filter(p -> p.getDate().isAfter(DateUtilities.twoWeeksAgo))
+                .filter(p -> p.getDate().isAfter(dateUtilities.getTwoWeeksAgo()))
                 .collect(Collectors.toList());
 
         return postMapper.toListOfFollowedPostDTO(postFollowed, userId);

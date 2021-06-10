@@ -8,15 +8,13 @@ import java.util.List;
 
 public interface IDataRepository {
 
-    User findUserById(Integer id) throws UserIdNotFoundException;
-
-    User findUserByIdWithoutException(Integer id);
+    User findUserById(Integer id);
 
     List<User> getAllUsers();
 
-    List<User> getUserFollowers(Integer id) throws UserIdNotFoundException;
+    List<User> getUserFollowers(Integer id);
 
-    List<User> getUserFollowed(Integer id) throws UserIdNotFoundException;
+    List<User> getUserFollowed(Integer id);
 
     Post findPostById(Integer id);
 
