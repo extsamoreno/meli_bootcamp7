@@ -1,9 +1,6 @@
 package com.meli.spring_challenge.service.follow;
 
-import com.meli.spring_challenge.exception.user.UserGuestException;
-import com.meli.spring_challenge.exception.user.UserNotFoundException;
-import com.meli.spring_challenge.exception.user.UserNotSellerException;
-import com.meli.spring_challenge.exception.user.UserRelationNotFoundException;
+import com.meli.spring_challenge.exception.user.*;
 import com.meli.spring_challenge.model.Follow;
 import com.meli.spring_challenge.model.User;
 import com.meli.spring_challenge.repository.follow.FollowRepository;
@@ -27,7 +24,7 @@ public class FollowServiceImpl implements FollowService{
     UserRepository userRepository;
 
     @Override
-    public void followUser(int userID, int followedUserID) throws UserNotFoundException {
+    public void followUser(int userID, int followedUserID) throws UserNotFoundException, UserFollowException {
 
         if(userRepository.getUserByID(userID) == null){
             throw new UserNotFoundException(userID);
@@ -35,6 +32,10 @@ public class FollowServiceImpl implements FollowService{
 
         if(userRepository.getUserByID(followedUserID) == null){
             throw new UserNotFoundException(followedUserID);
+        }
+
+        if(followRepository.getFollow(userID,followedUserID) != null || userID == followedUserID){
+            throw new UserFollowException(userID, followedUserID);
         }
 
         Follow follow = new Follow();

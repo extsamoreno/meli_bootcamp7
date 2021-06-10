@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -22,6 +23,13 @@ public class FollowRepositoryImpl implements FollowRepository{
 
     FollowRepositoryImpl(){
         this.followList = loadDataBase();
+    }
+
+    @Override
+    public List<Follow> getFollowedByUserID(int userID){
+        return this.followList.stream()
+                .filter(follow -> follow.getUserID() == userID)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -44,6 +52,22 @@ public class FollowRepositoryImpl implements FollowRepository{
                 .mapToInt(Follow::getId)
                 .max()
                 .getAsInt());
+    }
+
+    @Override
+    public Follow getFollow(int userID) {
+        return this.followList.stream()
+                .filter(follow -> follow.getUserID() == userID)
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public Follow getFollow(int userID, int userToFollowID) {
+        return this.followList.stream()
+                .filter(follow -> follow.getUserID() == userID && follow.getFollowedUserID() == userToFollowID)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

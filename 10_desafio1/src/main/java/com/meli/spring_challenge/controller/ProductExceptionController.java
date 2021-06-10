@@ -1,8 +1,8 @@
 package com.meli.spring_challenge.controller;
 
-import com.meli.spring_challenge.exception.PostAlreadyExistException;
-import com.meli.spring_challenge.exception.ProductException;
-import com.meli.spring_challenge.exception.ProductIDAlreadyExistException;
+import com.meli.spring_challenge.exception.product.PostAlreadyExistException;
+import com.meli.spring_challenge.exception.product.ProductException;
+import com.meli.spring_challenge.exception.product.ProductIDAlreadyExistException;
 import com.meli.spring_challenge.service.dto.ErrorDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

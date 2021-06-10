@@ -1,7 +1,7 @@
 package com.meli.spring_challenge.service.product;
 
-import com.meli.spring_challenge.exception.PostAlreadyExistException;
-import com.meli.spring_challenge.exception.ProductIDAlreadyExistException;
+import com.meli.spring_challenge.exception.product.PostAlreadyExistException;
+import com.meli.spring_challenge.exception.product.ProductIDAlreadyExistException;
 import com.meli.spring_challenge.exception.user.UserNotFoundException;
 import com.meli.spring_challenge.model.Post;
 import com.meli.spring_challenge.service.dto.FollowedSellerCountDto;

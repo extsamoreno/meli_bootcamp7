@@ -1,11 +1,12 @@
 package com.meli.spring_challenge.service.product;
 
-import com.meli.spring_challenge.exception.PostAlreadyExistException;
-import com.meli.spring_challenge.exception.ProductIDAlreadyExistException;
+import com.meli.spring_challenge.exception.product.PostAlreadyExistException;
+import com.meli.spring_challenge.exception.product.ProductIDAlreadyExistException;
 import com.meli.spring_challenge.exception.user.UserNotFoundException;
+import com.meli.spring_challenge.model.Follow;
 import com.meli.spring_challenge.model.Post;
-import com.meli.spring_challenge.model.Product;
 import com.meli.spring_challenge.model.User;
+import com.meli.spring_challenge.repository.follow.FollowRepository;
 import com.meli.spring_challenge.repository.newpost.NewPostRepository;
 import com.meli.spring_challenge.repository.user.UserRepository;
 import com.meli.spring_challenge.service.dto.FollowedSellerCountDto;
@@ -23,6 +24,8 @@ public class ProductServiceImpl implements ProductService {
     NewPostRepository newPostRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    FollowRepository followRepository;
 
 
     @Override
@@ -47,11 +50,18 @@ public class ProductServiceImpl implements ProductService {
         newPostRepository.create(post);
     }
 
-    
     @Override
     public FollowedSellerDto getFollowedSellerByID(int userID, String order) throws UserNotFoundException {
         User user = userRepository.getUserByID(userID);
-        List<Post> postsOfSeller = newPostRepository.getPostsByUserID(userID);
+        List<Follow> usersFollowed = followRepository.getFollowedByUserID(userID);
+        List<Post> postsOfSeller = new ArrayList<>();
+
+        for(Follow follow : usersFollowed){
+           newPostRepository.getPostsByUserID(follow.getFollowedUserID())
+                   .stream()
+                   .forEach(postsOfSeller::add);
+        }
+
         FollowedSellerDto result = new FollowedSellerDto();
 
         if(user == null)

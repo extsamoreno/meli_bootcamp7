@@ -1,4 +1,4 @@
-package com.meli.spring_challenge.exception;
+package com.meli.spring_challenge.exception.product;
 
 import com.meli.spring_challenge.service.dto.ErrorDto;
 import lombok.AllArgsConstructor;

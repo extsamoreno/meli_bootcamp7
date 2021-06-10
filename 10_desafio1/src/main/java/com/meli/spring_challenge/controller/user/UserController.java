@@ -1,9 +1,6 @@
 package com.meli.spring_challenge.controller.user;
 
-import com.meli.spring_challenge.exception.user.UserGuestException;
-import com.meli.spring_challenge.exception.user.UserNotFoundException;
-import com.meli.spring_challenge.exception.user.UserNotSellerException;
-import com.meli.spring_challenge.exception.user.UserRelationNotFoundException;
+import com.meli.spring_challenge.exception.user.*;
 import com.meli.spring_challenge.model.Follow;
 import com.meli.spring_challenge.model.User;
 import com.meli.spring_challenge.service.dto.FollowersCountDto;
@@ -30,7 +27,7 @@ public class UserController {
     //US 0001
     @PostMapping("/{userID}/follow/{userIdToFollow}")
     @ResponseStatus(HttpStatus.OK)
-    public void followUser(@PathVariable int userID, @PathVariable int userIdToFollow) throws UserNotFoundException {
+    public void followUser(@PathVariable int userID, @PathVariable int userIdToFollow) throws UserNotFoundException, UserFollowException {
         followService.followUser(userID, userIdToFollow);
     }
 
@@ -61,6 +58,8 @@ public class UserController {
     public void unfollowUser(@PathVariable int userID, @PathVariable int userIdToFollow) throws UserNotFoundException, UserRelationNotFoundException {
         followService.unfollowUser(userID, userIdToFollow);
     }
+
+
 
     //Get all users
     @GetMapping("/all")
