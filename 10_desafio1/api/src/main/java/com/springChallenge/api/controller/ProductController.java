@@ -1,5 +1,6 @@
 package com.springChallenge.api.controller;
 
+import com.springChallenge.api.controller.dto.product.CountPromoDTO;
 import com.springChallenge.api.controller.dto.product.PostDTO;
 import com.springChallenge.api.controller.dto.product.PostsListDTO;
 import com.springChallenge.api.controller.exception.product.IDPostAlreadyUsed;
@@ -26,5 +27,20 @@ public class ProductController {
             (@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "") String order)
             throws UserNotFoundException{
         return new ResponseEntity<>(iProductService.getPostsByUserId(userId, order), HttpStatus.OK);
+    }
+
+    @PostMapping("/newpromopost")
+    public void createNewPromoPost(@RequestBody PostDTO postDTO) throws UserNotFoundException, IDPostAlreadyUsed{
+        iProductService.createNewPost(postDTO);
+    }
+
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<CountPromoDTO> getCountPromo(@PathVariable Integer userId) throws UserNotFoundException{
+        return new ResponseEntity<>(iProductService.getCountPromo(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<PostsListDTO> getPromoPostsById(@PathVariable Integer userId) throws UserNotFoundException{
+        return new ResponseEntity<>(iProductService.getPromoPostsById(userId), HttpStatus.OK);
     }
 }

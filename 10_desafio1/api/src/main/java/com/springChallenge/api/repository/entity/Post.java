@@ -17,6 +17,17 @@ public class Post implements Comparable<Post>{
     private Product detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
+
+    public Post(int userId, int idPost, LocalDate date, Product toEntity, int category, double price) {
+        this.userId = userId;
+        this.idPost = idPost;
+        this.date = date;
+        this.detail = toEntity;
+        this.category = category;
+        this.price = price;
+    }
 
     @Override
     public int compareTo(Post p) {

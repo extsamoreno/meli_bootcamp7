@@ -12,4 +12,6 @@ public interface IUserRepository {
     void save(User user);
 
     ArrayList<Post> getFollowedPosts(int userId) throws UserNotFoundException;
+
+    ArrayList<Post> getPromoPostsById(Integer userId) throws UserNotFoundException;
 }

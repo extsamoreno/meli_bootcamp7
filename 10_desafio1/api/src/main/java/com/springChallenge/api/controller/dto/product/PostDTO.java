@@ -19,4 +19,6 @@ public class PostDTO {
     private ProductDTO detail;
     private int category;
     private double price;
+    private boolean hasPromo;
+    private double discount;
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -43,6 +44,15 @@ public class UserRepository implements IUserRepository {
             posts.addAll(postsWithinTwoWeeks);
         }
         return posts;
+    }
+
+    @Override
+    public ArrayList<Post> getPromoPostsById(Integer userId) throws UserNotFoundException {
+        var user = getByUserId(userId);
+        return user
+                .getPosts()
+                .stream().filter(Post::isHasPromo)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private ArrayList<Post> getPostsWithinTwoWeeks(ArrayList<Post> posts) {

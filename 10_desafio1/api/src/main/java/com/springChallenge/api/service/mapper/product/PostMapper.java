@@ -20,7 +20,9 @@ public class PostMapper {
                 post.getDate(),
                 ProductMapper.toDTO(post.getDetail()),
                 post.getCategory(),
-                post.getPrice()
+                post.getPrice(),
+                post.isHasPromo(),
+                post.getDiscount()
         );
     }
 
@@ -31,7 +33,9 @@ public class PostMapper {
                 dto.getDate(),
                 ProductMapper.toEntity(dto.getDetail()),
                 dto.getCategory(),
-                dto.getPrice()
+                dto.getPrice(),
+                dto.isHasPromo(),
+                dto.getDiscount()
         );
     }
 }
