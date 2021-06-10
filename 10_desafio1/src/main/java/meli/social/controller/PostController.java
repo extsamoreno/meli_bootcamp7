@@ -1,5 +1,6 @@
 package meli.social.controller;
 
+import meli.social.exception.PostIdRepeatedException;
 import meli.social.exception.UserIdNotFoundException;
 import meli.social.model.PostModel;
 import meli.social.model.UserModel;
@@ -30,7 +31,7 @@ public class PostController {
     // ------------------------------ ENDPOINTS FUNCIONALES ------------------------------
 
     @PostMapping("/newpost")
-    public HttpStatus newPost (@RequestBody PostModel post) throws UserIdNotFoundException {
+    public HttpStatus newPost (@RequestBody PostModel post) throws UserIdNotFoundException, PostIdRepeatedException {
         postService.addPost(post);
         return HttpStatus.OK;
     }

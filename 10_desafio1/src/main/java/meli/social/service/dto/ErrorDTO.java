@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter @Setter
 
-public class UserErrorDTO {
+public class ErrorDTO {
     private String message;
     private String name;
 }

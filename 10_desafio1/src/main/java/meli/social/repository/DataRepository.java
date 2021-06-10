@@ -1,5 +1,6 @@
 package meli.social.repository;
 
+import meli.social.exception.PostIdRepeatedException;
 import meli.social.exception.UserIdNotFoundException;
 import meli.social.model.PostModel;
 import meli.social.model.UserModel;
@@ -16,6 +17,6 @@ public interface DataRepository {
 
     // --------------------------- POSTS ---------------------------
     List<PostModel> getPostsDb();
-    PostModel findPostById(int postId);
+    PostModel findPostById(int postId) throws PostIdRepeatedException;
     void savePostDb (PostModel post);
 }

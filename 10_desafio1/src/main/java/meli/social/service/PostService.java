@@ -1,5 +1,6 @@
 package meli.social.service;
 
+import meli.social.exception.PostIdRepeatedException;
 import meli.social.exception.UserIdNotFoundException;
 import meli.social.model.PostModel;
 import meli.social.service.dto.PostListUserDTO;
@@ -13,6 +14,6 @@ import java.util.List;
 
 public interface PostService {
     List<PostModel> getAllPosts();
-    void addPost(PostModel post) throws UserIdNotFoundException;
+    void addPost(PostModel post) throws UserIdNotFoundException, PostIdRepeatedException;
     PostListUserDTO getPostsOfFollowed(int userId, String order) throws UserIdNotFoundException, ParseException;
 }

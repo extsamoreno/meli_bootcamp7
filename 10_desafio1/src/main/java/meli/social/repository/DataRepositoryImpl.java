@@ -2,6 +2,7 @@ package meli.social.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import meli.social.exception.PostIdRepeatedException;
 import meli.social.exception.UserIdNotFoundException;
 import meli.social.model.PostModel;
 import meli.social.model.UserModel;
@@ -45,7 +46,7 @@ public class DataRepositoryImpl implements DataRepository {
     }
 
     @Override
-    public PostModel findPostById(int postId) {
+    public PostModel findPostById(int postId) throws PostIdRepeatedException {
         PostModel foundPost = null;
         if(allPosts != null) {
             try{
@@ -54,6 +55,7 @@ public class DataRepositoryImpl implements DataRepository {
                 throw new RuntimeException(e);
             }
         }
+        if(foundPost != null) throw new PostIdRepeatedException(postId);
         return foundPost;
     }
 
@@ -136,8 +138,6 @@ public class DataRepositoryImpl implements DataRepository {
         }
     }
 }
-
-
 
     // ------------------------------ CARGANDO POSTS EN MAP FALLIDO ------------------------------
 

@@ -5,11 +5,11 @@ import meli.social.service.dto.ErrorDTO;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class UserException extends Exception{
+public class PostException extends Exception{
     private ErrorDTO error;
     private HttpStatus status;
 
-    public UserException(String message, HttpStatus status){
+    public PostException(String message, HttpStatus status){
         this.error = new ErrorDTO();
         this.error.setMessage(message);
         this.error.setName(this.getClass().getSimpleName());

@@ -1,5 +1,6 @@
 package meli.social.service;
 
+import meli.social.exception.PostIdRepeatedException;
 import meli.social.exception.UserIdNotFoundException;
 import meli.social.model.PostModel;
 import meli.social.model.UserModel;
@@ -29,15 +30,17 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public void addPost(PostModel post) throws UserIdNotFoundException {
+    public void addPost(PostModel post) throws UserIdNotFoundException, PostIdRepeatedException {
         int userId = post.getUserId();
         dataRepository.findUserById(userId);
+        dataRepository.findPostById(post.getPostId());
         dataRepository.savePostDb(post);
     }
 
     @Override
     public PostListUserDTO getPostsOfFollowed(int id, String order) throws UserIdNotFoundException, ParseException {
         UserModel user = dataRepository.findUserById(id);
+
         List<PostModel> allPosts = dataRepository.getPostsDb();
 
         // Recolectando todos los posts de los seguidores
