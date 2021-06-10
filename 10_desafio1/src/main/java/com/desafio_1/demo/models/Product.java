@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     private int userId;
@@ -22,4 +22,5 @@ public class Product {
     private double price;
     private boolean hasPromo;
     private double discount;
+
 }

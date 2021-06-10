@@ -1,10 +1,8 @@
 package com.desafio_1.demo.services;
 
-import com.desafio_1.demo.dtos.ProductDetailDTO;
-import com.desafio_1.demo.dtos.ProductFollowedDTO;
-import com.desafio_1.demo.dtos.ProductRequestDTO;
-import com.desafio_1.demo.dtos.ProductResponseDTO;
+import com.desafio_1.demo.dtos.*;
 import com.desafio_1.demo.exceptions.*;
+import com.desafio_1.demo.models.Product;
 import com.desafio_1.demo.models.User;
 import com.desafio_1.demo.repositories.IProductRepository;
 import com.desafio_1.demo.repositories.IUserRepository;
@@ -41,9 +39,10 @@ public class ProductService implements IProductService{
             ProductDetailNameRequiredException,
             ProductDetailBrandRequiredException,
             ProductDetailColorRequiredException,
-            ProductDetailIdInvalidException
-    {
-        ProductResponseDTO productResponse = null;
+            ProductDetailIdInvalidException,
+            ProductDiscountInvalidException,
+            ProductHasPromoNotTrueException {
+
         if(validateProduct(product) && validateProductDetail(product.getDetail())){
             productRepository.addProduct(ProductMapper.toModel(product));
         }
@@ -75,14 +74,14 @@ public class ProductService implements IProductService{
         return productsFollowed;
     }
 
+
     private boolean validateProduct(ProductRequestDTO product) throws UserIdInvalidException,
             UserNotFoundException, ProductDateInvalidException,
             ProductDetailRequiredException,
             ProductCategoryInvalidException,
             ProductPriceInvalidException,
             ProductIdPostInvalidException,
-            UnhandledException
-    {
+            UnhandledException, ProductDiscountInvalidException, ProductHasPromoNotTrueException {
         int userId = product.getUserId();
 
         if(userId<= 0)
@@ -107,6 +106,12 @@ public class ProductService implements IProductService{
 
         if(product.getIdPost() <= 0)
             throw new ProductIdPostInvalidException();
+
+        if(product.isHasPromo() && product.getDiscount() <= 0)
+            throw new ProductDiscountInvalidException();
+
+        if(!product.isHasPromo() && product.getDiscount() > 0)
+            throw new ProductHasPromoNotTrueException();
 
         return true;
     }
@@ -135,4 +140,5 @@ public class ProductService implements IProductService{
 
         return true;
     }
+
 }

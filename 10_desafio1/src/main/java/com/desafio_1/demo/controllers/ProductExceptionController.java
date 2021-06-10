@@ -69,5 +69,15 @@ public class ProductExceptionController {
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 
+    @ExceptionHandler(ProductHasPromoNotTrueException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductHasPromoNotTrueException e){
 
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
+
+    @ExceptionHandler(ProductDiscountInvalidException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ProductDiscountInvalidException e){
+
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
 }

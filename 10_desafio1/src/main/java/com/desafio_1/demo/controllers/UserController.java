@@ -41,7 +41,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findFollowedByUserId(userId, order), HttpStatus.OK);
     }
 
-    @GetMapping("{userId}/unfollow/{userIdToUnfollow}")
+    @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity unfollowUser(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException, UserIdInvalidException, UnhandledException, UserIdFollowerEqualsFollowed {
         userService.unfollowUser(userId, userIdToUnfollow);
         return new ResponseEntity(null, HttpStatus.OK);
