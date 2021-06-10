@@ -10,10 +10,10 @@ import java.util.List;
 
 public class UserMapper {
     public static UserDTO userToDTO(User user){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUserName(user.getUserName());
-        userDTO.setId(user.getId());
-        return userDTO;
+        return UserDTO.builder()
+                .userName(user.getUserName())
+                .id(user.getId())
+                .build();
     }
 
     public static ResponseUserCountFollowers userToResponse(User user){
@@ -32,10 +32,10 @@ public class UserMapper {
     }
 
     public static ResponseUserListFollowed userToUserWithFollowed(User user, List<UserDTO> listUserDTo) {
-        ResponseUserListFollowed newUser = new ResponseUserListFollowed();
-        newUser.setId(user.getId());
-        newUser.setUserName(user.getUserName());
-        newUser.setFollowed(listUserDTo);
-        return newUser;
+        return ResponseUserListFollowed.builder()
+                .id(user.getId())
+                .userName(user.getUserName())
+                .followed(listUserDTo)
+                .build();
     }
 }

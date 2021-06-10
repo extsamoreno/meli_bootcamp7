@@ -65,15 +65,4 @@ public class DataBase {
             this.listPosts.add(p);
         }
     }
-
-    public void writeDataBase(){
-        File file = null;
-        PrintWriter pw = null;
-        try{
-            file = ResourceUtils.getFile("classpath:users.json");
-            pw = new PrintWriter(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }

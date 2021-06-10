@@ -1,13 +1,15 @@
 package com.meli.desafio.posts.models.dto;
 
 import com.meli.desafio.posts.models.Product;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class PostDTO {
     private Integer userId;
     private Integer postId;

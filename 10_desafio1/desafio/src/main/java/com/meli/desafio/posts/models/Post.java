@@ -1,5 +1,7 @@
 package com.meli.desafio.posts.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +12,9 @@ import java.time.Period;
 import java.util.Date;
 
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Post implements Comparable<Post>{
     private Integer userId;
     private Integer postId;
