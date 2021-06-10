@@ -1,5 +1,6 @@
-package com.example.desafio1.service.dto.productdto;
+package com.example.desafio1.service.dto.postdto;
 
+import com.example.desafio1.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,11 +12,12 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductPostDTO
+public class PostDTO
 {
+    private int userId;
     private int id_post;
-    private Date date;
-    private ProductDTO detail;
+    private String date;
+    private Product detail;
     private int category;
     private double price;
 

@@ -14,7 +14,7 @@ import java.util.Date;
 public class ProductPost implements Precedeable<ProductPost>{
     private int userId;
     private int id_post;
-    private String date;
+    private Date date;
     private Product detail;
     private int category;
     private double price;

@@ -3,12 +3,20 @@ package com.example.desafio1.service;
 import com.example.desafio1.exception.ProductInconsistencyException;
 import com.example.desafio1.exception.ProductNotFoundException;
 import com.example.desafio1.exception.PostIdAlreadyInUseException;
+import com.example.desafio1.exception.UserNotFoundException;
 import com.example.desafio1.model.Product;
 import com.example.desafio1.model.ProductPost;
 import com.example.desafio1.repository.IProductPostRepository;
+import com.example.desafio1.repository.IUserRepository;
+import com.example.desafio1.service.dto.postdto.PostDTO;
+import com.example.desafio1.service.dto.postdto.UserPostListDTO;
+import com.example.desafio1.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 
 @Service
@@ -20,12 +28,17 @@ public class PostService implements IPostService{
     @Autowired
     IProductService iProductService;
 
+    @Autowired
+    IUserRepository iUserRepository;
+
 
     @Override
-    public String createPost(ProductPost productPost)
+    public String createPost(PostDTO postDTO)
             throws ProductNotFoundException, ProductInconsistencyException,
             PostIdAlreadyInUseException
     {
+        ProductPost productPost = PostMapper.toProductPost(postDTO);
+
         //checking product consistency with repo
         Product product = productPost.getDetail();
         Product productFromCatalog = iProductService.checkProductConsistency(product);
@@ -62,5 +75,30 @@ public class PostService implements IPostService{
     @Override
     public HashMap<Integer, ProductPost> getPosts() {
         return iProductPostRepository.getProductPostCatalog();
+    }
+
+    @Override
+    public UserPostListDTO getUserPostListDTO(int userId) throws UserNotFoundException {
+
+        ArrayList<Integer> followedUsers = iUserRepository.getUserById(userId).getFollowed();
+
+        ArrayList<ProductPost> recentPosts = new ArrayList<>();
+        for (int followedUserId :
+                followedUsers) {
+            recentPosts.addAll(iProductPostRepository.getRecentPosts(followedUserId));
+        }
+
+        sortPosts(recentPosts);
+
+        return PostMapper.toUserPostListDTO(userId, recentPosts);
+    }
+
+    private ArrayList<ProductPost> sortPosts(ArrayList<ProductPost> posts)
+    {
+        ProductPost[] sellerPosts = posts.toArray(new ProductPost[0]);
+        QuickSort<ProductPost> sorter = new QuickSort();
+        Comparator<ProductPost> c = new CompareDateDesc();
+        sorter.sort(sellerPosts, c);
+        return new ArrayList<>(Arrays.asList(sellerPosts));
     }
 }

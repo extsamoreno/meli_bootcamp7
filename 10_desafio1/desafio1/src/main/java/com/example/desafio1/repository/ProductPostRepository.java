@@ -4,7 +4,8 @@ import com.example.desafio1.exception.ProductPostNotFoundException;
 import com.example.desafio1.model.ProductPost;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductPostRepository implements IProductPostRepository{
@@ -40,6 +41,34 @@ public class ProductPostRepository implements IProductPostRepository{
     @Override
     public HashMap<Integer, ProductPost> getProductPostCatalog() {
         return postDir;
+    }
+
+    /*
+    @Override
+    public ArrayList<ProductPost> getRecentOrderedPosts(int followedUserId) {
+        ArrayList<ProductPost> posts = new ArrayList<>(getRecentPosts(followedUserId));
+        QuickSort<ProductPost> sorter = new QuickSort();
+        Comparator<ProductPost> c = new CompareDateDesc();
+        sorter.sort(posts, c);
+        return posts;
+    }*/
+
+    @Override
+    public List<ProductPost> getRecentPosts(int followedUserId)
+    {
+        //recent means 2 weeks ago maximum
+        return postDir.values().stream()
+                .filter(post -> post.getUserId() == followedUserId)
+                .filter(post -> post.getDate().after(getTwoWeeksAgoDate()))
+                .collect(Collectors.toList());
+    }
+
+    private Date getTwoWeeksAgoDate()
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.getTime();
+        calendar.add(Calendar.DATE, -14);
+        return calendar.getTime();
     }
 
 }
