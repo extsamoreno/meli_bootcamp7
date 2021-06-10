@@ -48,7 +48,7 @@
 			"response": []
 		},
 		{
-			"name": "lista de usuarios de un vendedor",
+			"name": "lista de usuarios que siguen a un vendedor",
 			"request": {
 				"method": "GET",
 				"header": [],
