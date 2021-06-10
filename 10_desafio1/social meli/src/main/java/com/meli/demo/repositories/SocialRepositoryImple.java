@@ -43,10 +43,7 @@ public class SocialRepositoryImple implements SocialRepository {
     ArrayList<PostResponseDTO> postDto1 = new ArrayList<>();
     ArrayList<PostResponseDTO> postDto2 = new ArrayList<>();
     ArrayList<PostResponseDTO> postDto3 = new ArrayList<>();
-    public static String formatearCalendar(Calendar c) {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
-        return df.format(c.getTime());
-    }
+    //Cargamos la informaciòn poara trabajar
     public void cargarDatos(){
 
         UserDTO user1 = new UserDTO(101,"Comprador Juanito");
@@ -122,11 +119,6 @@ public class SocialRepositoryImple implements SocialRepository {
         Arraypost1.add(post8);
         Arraypost2.add(post9);
         Arraypost3.add(post10);
-
-
-
-
-
         Seller sell1 = new Seller(1001,"Vendedor Pepito perez",Arraypost1,userAsigned1);
         Seller sell2 = new Seller(1002,"Vendedor Maria perez",Arraypost2,userAsigned2);
         Seller sell3 = new Seller(1003,"Vendedor Juan cans",Arraypost3,userAsigned3);
@@ -136,6 +128,7 @@ public class SocialRepositoryImple implements SocialRepository {
 
     }
 
+    //Seguir a un vendedor
     @Override
     public boolean Follow(int iduser, int id_vendedor) {
 
@@ -168,7 +161,7 @@ public class SocialRepositoryImple implements SocialRepository {
         return true;
 
     }
-
+//Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
     public CountUser countUsers(int iduser){
         CountUser cantidad=  new CountUser();
 
@@ -182,7 +175,7 @@ public class SocialRepositoryImple implements SocialRepository {
         }
         return cantidad;
     }
-
+    //Obtenemos el vendedor correspondiente al iduser
     public Seller listUsers(int iduser){
         for (int i = 0; i < Sellers.size(); i++) {
 
@@ -193,7 +186,7 @@ public class SocialRepositoryImple implements SocialRepository {
         }
         return null;
     }
-
+    //Obtenemos los vendedores que isgue un determinado comprador
     @Override
     public ListSeller listVendedores(int iduser) {
         ListSeller listVen =new ListSeller();
@@ -221,7 +214,7 @@ public class SocialRepositoryImple implements SocialRepository {
         listVen.setFollowed(vendedores);
         return listVen;
     }
-
+    // Añadimos la nueva publicaciòn
     @Override
     public boolean newPost(Post publi) {
         for (int i = 0; i < Sellers.size(); i++) {
@@ -232,7 +225,7 @@ public class SocialRepositoryImple implements SocialRepository {
         }
         return false;
     }
-
+//Obtenemos las publicaciones por cada vendedor
     @Override
     public ListSellerPost getListPostVendedors(int iduser) {
 
@@ -249,7 +242,6 @@ public class SocialRepositoryImple implements SocialRepository {
                                 post.add(PostMapper.toPostResponse(Sellers.get(j).getPublicacions().get(l)));
                             }
                         }
-
                     }
 
                 }
@@ -261,7 +253,7 @@ public class SocialRepositoryImple implements SocialRepository {
 
         return response;
     }
-
+//Dejar de seguir a un vendedor
     @Override
     public boolean unFollow(int iduser, int id_vendedor) {
         UserDTO usuario1 = new UserDTO();
@@ -290,7 +282,7 @@ public class SocialRepositoryImple implements SocialRepository {
 
         return true;
     }
-
+//Añadimos la nueva publicaciòn con descuento
     @Override
     public boolean newPostDiscount(Post publi) {
         for (int i = 0; i < Sellers.size(); i++) {
@@ -301,6 +293,8 @@ public class SocialRepositoryImple implements SocialRepository {
         }
         return false;
     }
+
+    //Obtenemos el vendedor deacuerdo al id
     @Override
     public Seller getVendedor(int userId) {
 

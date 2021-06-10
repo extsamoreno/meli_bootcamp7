@@ -18,7 +18,7 @@ public class OrderController {
 
     //http://localhost:8080/order/users/105/followers/list?order=name_asc
     //http://localhost:8080/order/users/105/followers/list?order=name_desc
-
+    //Punto 8 Alfabético Ascendente y Descendente
     @GetMapping("/users/{UserID}/followers/list")
     public ResponseEntity<ListSellersPostDTO> orderNameDesc(@PathVariable int UserID, @RequestParam(required = false) String order) {
         return new ResponseEntity<>(FollowService.orderNameAscDesc(UserID,order), HttpStatus.OK);
@@ -27,7 +27,7 @@ public class OrderController {
 
     //http://localhost:8080/order/products/followed/105/list?order=date_asc
     //http://localhost:8080/order/products/followed/105/list?order=date_desc
-
+    //Punto 9 Fecha Ascendente y Descendente
     @GetMapping("/products/followed/{userId}/list")
     public  ResponseEntity<ListSellersPostDTO>   orderDateDesc(@PathVariable int userId,@RequestParam(required = false) String order) {
         return new ResponseEntity<>(FollowService.orderDateAscDesc(userId,order), HttpStatus.OK);
@@ -36,6 +36,7 @@ public class OrderController {
 
     //http://localhost:8080/order/products/1001/list?order=name_desc
     //http://localhost:8080/order/products/1001/list?order=name_asc
+    //Ordenamiento publicaciones con promociòn
     @GetMapping("/products/{userId}/list")
     public  ResponseEntity<ListDiscountDTO>   orderDtoNameDesc(@PathVariable int userId,@RequestParam(required = false) String order) {
         return new ResponseEntity<>(FollowService.orderDtoNameDesc(userId,order), HttpStatus.OK);

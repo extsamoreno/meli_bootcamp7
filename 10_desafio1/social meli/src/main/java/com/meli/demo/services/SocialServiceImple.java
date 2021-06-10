@@ -23,25 +23,27 @@ public class SocialServiceImple implements SocialService {
     @Autowired
     SocialRepository FollowRepository;
 
+
+    //Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
     @Override
     public String Follow(int userid, int usertofollow) throws FollowException {
-
         FollowRepository.cargarDatos();
-
         if(FollowRepository.Follow(userid,usertofollow)){
             return "todo OK";
         }
         else{
             throw new FollowException();
         }
-
     }
 
+    //Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
     @Override
     public CountUsersDTO countUsers(int userid) {
         return CountUserMapper.toDTO(FollowRepository.countUsers(userid));
     }
 
+    //Obtener un listado de todos los usuarios que siguen a un determinado vendedor
+    //(¿Quién me sigue?)
     @Override
     public LisUsersResponseDTO listUsers(int iduser) {
         Seller Sellers = new Seller();
@@ -52,12 +54,14 @@ public class SocialServiceImple implements SocialService {
         list.setFollowers(Sellers.getUsuarios());
         return list;
     }
-
+    //Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario
+    //(¿A quién sigo?)
     @Override
     public ListSellersResponseDTO listVendedores(int iduser) {
         return ListSellerMapper.toDTO(FollowRepository.listVendedores(iduser));
     }
 
+    //Dar de alta una nueva publicación.
     @Override
     public String newPost(PostResponseDTO publi) throws PostException {
 
@@ -69,11 +73,17 @@ public class SocialServiceImple implements SocialService {
             throw new PostException();
         }
     }
+
+    //Dar formato a la fecha para poder obtener las publicaciones de las ultimas dos semanas por vendedor
     public static String formatearCalendar(Calendar c) {
         DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
         return df.format(c.getTime());
     }
 
+
+    //Obtener un listado de las publicaciones realizadas por los vendedores que un usuario
+    //sigue en las últimas dos semanas (para esto tener en cuenta ordenamiento por fecha,
+    //publicaciones más recientes primero).
     @Override
     public ListSellersPostDTO listPostVendedors(int iduser) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
@@ -91,27 +101,31 @@ public class SocialServiceImple implements SocialService {
         Date TwoWeeks=c.getTime();
         Date test2=c.getTime();
 
+        //Recorremos los post para añadir la fecha en el array
         for (int i = 0; i < lis.getPosts().size(); i++) {
 
             dateArray.add(lis.getPosts().get(i).getDate());
 
         }
+        //Obtenemos las fechas y las empezamos a partir para obtener los datos de año, mes y dia para convertirlo en un arry de tipo date
         for (int i = 0; i <dateArray.size() ; i++) {
             String[] parts = dateArray.get(i).split("-");
             date.set(Integer.parseInt(parts[2]), (Integer.parseInt(parts[1])-1), Integer.parseInt(parts[0]));
             dates.add(date.getTime());
         }
 
-
+        //Comparamos las fechas de las publicaciones con la actual y hace dos semanas para obtener las publicaciones que se deben mostrar
         for (int i = 0; i < dates.size(); i++) {
             if(Today.compareTo(dates.get(i)) * dates.get(i).compareTo(TwoWeeks) >= 0){
                 dates2.add(dates.get(i));
             }
         }
-
+        //Ordenamos la fecha de la mas reciente a la mas antigual
         dates1 =dates2.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
         dateArray2=modifyDate(dates1);
 
+        //Recorremos el array resultante y empezamos a comparar que publicaciones se adecuan a las fechas que estan entre hoy y hace dos semansa
+        //para despues Añadirlas
         for (int i = 0; i < dateArray2.size(); i++) {
 
             for (int j = 0; j < lis.getPosts().size(); j++) {
@@ -126,6 +140,8 @@ public class SocialServiceImple implements SocialService {
         return lis;
     }
 
+    //Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
+
     @Override
     public String unFollow(int userid, int usertofollow) throws FollowException {
         if(FollowRepository.unFollow(userid,usertofollow)){
@@ -135,7 +151,7 @@ public class SocialServiceImple implements SocialService {
             throw new FollowException();
         }
     }
-
+    //Ordenar la fecha de forma ascendente o descendente
     @Override
     public ListSellersPostDTO orderDateAscDesc(int UserID, String order) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
@@ -144,6 +160,7 @@ public class SocialServiceImple implements SocialService {
 
         return orderAscDescArrayDate(lis,order);
     }
+    //Ordenar el nombre de forma ascendente o descendente
     @Override
     public ListSellersPostDTO orderNameAscDesc(int UserID, String order) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
@@ -151,6 +168,7 @@ public class SocialServiceImple implements SocialService {
         return orderAscDescArrayName(lis,order);
     }
 
+    //Obtener el numero correspondiente a el mes que llega en el array list y ordenar la fecha con el formato requerido
     public static List<String> modifyDate( List<Date> dates1){
         List<String> dateArray2 = new ArrayList<String>();
 
@@ -199,7 +217,7 @@ public class SocialServiceImple implements SocialService {
         return dateArray2;
     }
 
-
+    //Metodo que ordena de acuerdo al mparametro order
     public ListSellersPostDTO orderAscDescArrayDate(ListSellersPostDTO list, String order){
 
         ListSellersPostDTO lis= new ListSellersPostDTO();
@@ -266,7 +284,7 @@ public class SocialServiceImple implements SocialService {
         return lis;
 
     }
-
+    //Metodo que ordena de acuerdo al mparametro order
     public ListSellersPostDTO orderAscDescArrayName(ListSellersPostDTO list, String order){
 
         ListSellersPostDTO lis= new ListSellersPostDTO();
@@ -324,7 +342,7 @@ public class SocialServiceImple implements SocialService {
         return lis;
 
     }
-
+// Llevar a cabo la publicación de un nuevo producto en promoción.
     @Override
     public String newPostDiscount(PostDTO poubli) throws PostDiscountException {
 
@@ -335,7 +353,7 @@ public class SocialServiceImple implements SocialService {
             throw new PostDiscountException();
         }
     }
-
+    // cantidad de productos en promoción de un determinado vendedor
     @Override
     public CountDiscountSelleDTO countDiscount(int idUser) {
 
@@ -354,7 +372,8 @@ public class SocialServiceImple implements SocialService {
 
         return count;
     }
-
+    //listado de todos los productos en promoción de un determinado
+    //vendedor
     @Override
     public ListDiscountDTO listDiscount(int iduser) {
         ListDiscountDTO list = new ListDiscountDTO();
@@ -373,14 +392,14 @@ public class SocialServiceImple implements SocialService {
 
         return list;
     }
-
+    //Ordenar publicaciones con promociones
     @Override
     public ListDiscountDTO orderDtoNameDesc(int UserID, String order) {
         ListDiscountDTO list = new ListDiscountDTO();
         list=listDiscount(UserID);
         return orderDtoNameDesc(list,order);
     }
-
+    //Ordenar publicaciones con promociones
     public ListDiscountDTO orderDtoNameDesc(ListDiscountDTO list, String order){
 
         ListDiscountDTO lis= new ListDiscountDTO();
