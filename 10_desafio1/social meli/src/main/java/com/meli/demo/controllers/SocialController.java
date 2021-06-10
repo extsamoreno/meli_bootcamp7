@@ -81,22 +81,7 @@ public class SocialController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    //http://localhost:8080/social/users/105/followers/list/name_desc
-    //http://localhost:8080/social/users/105/followers/list/name_asc
 
-    @GetMapping("/users/{UserID}/followers/list/{order}")
-    public  ResponseEntity<ListSellersPostDTO>   orderNameDesc(@PathVariable int UserID, @PathVariable String order) {
-        return new ResponseEntity<>(FollowService.orderNameAscDesc(UserID,order), HttpStatus.OK);
-    }
-
-
-    //http://localhost:8080/social/products/followed/105/list/date_asc
-    //http://localhost:8080/social/products/followed/105/list/date_desc
-
-    @GetMapping("/products/followed/{userId}/list/{order}")
-    public  ResponseEntity<ListSellersPostDTO>   orderDateDesc(@PathVariable int userId, @PathVariable String order) {
-        return new ResponseEntity<>(FollowService.orderDateAscDesc(userId,order), HttpStatus.OK);
-    }
 /*
     {
         "userId":1002,
@@ -144,11 +129,5 @@ public class SocialController {
     @GetMapping("/products/{userId}/list/{order}")
     public  ResponseEntity<ListDiscountDTO>   orderDtoNameDesc(@PathVariable int userId,@PathVariable String order) {
         return new ResponseEntity<>(FollowService.orderDtoNameDesc(userId,order), HttpStatus.OK);
-    }
-
-
-
-
-
 
 }
