@@ -10,9 +10,11 @@ import com.meli.socialmeli.dto.user.UserWithPromoListDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
+import com.meli.socialmeli.exception.InvalidSortTypeException;
 import com.meli.socialmeli.repository.product.IProductRepository;
 import com.meli.socialmeli.service.PublicationMapper;
-import com.meli.socialmeli.service.orderType.PublicationOrderType;
+import com.meli.socialmeli.service.orderType.SortType;
+import com.meli.socialmeli.service.orderType.Utils;
 import com.meli.socialmeli.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +44,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public FollowedPublicationDTO followedRecentPublications(Integer userId, PublicationOrderType order) throws IdNotFoundException {
+    public FollowedPublicationDTO followedRecentPublications(Integer userId, String order) throws IdNotFoundException, InvalidSortTypeException {
         User user = getUserByID(userId);
         List<Integer> followedIds = user.getFollowed().stream().map(User::getUserId).collect(Collectors.toList());
         List<Publication> posts = getRecentPublications(followedIds);
@@ -62,7 +64,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public UserWithPromoListDTO promoListOf(Integer userId, PublicationOrderType order) throws IdNotFoundException {
+    public UserWithPromoListDTO promoListOf(Integer userId, String order) throws IdNotFoundException, InvalidSortTypeException {
         User user = getUserByID(userId);
         List<Publication> posts = publicationWithPromoOf(userId);
         sortByDate(posts, order);
@@ -73,11 +75,17 @@ public class ProductService implements IProductService {
         return findPostByUserID(userId).stream().filter(Publication::isHasPromo).collect(Collectors.toList());
     }
 
-    private void sortByDate(List<Publication> posts, PublicationOrderType order) {
-        if (order == null) orderListDesc(posts);
-        else {
-            if (order.equals(PublicationOrderType.date_desc)) orderListDesc(posts);
-            if (order.equals(PublicationOrderType.date_asc)) orderListAsc(posts);
+    private void sortByDate(List<Publication> posts, String order) throws InvalidSortTypeException {
+        SortType sortType = Utils.getValidSortType(order);
+        switch (sortType) {
+            case date_asc:
+                orderListAsc(posts);
+                break;
+            case date_desc:
+                orderListDesc(posts);
+                break;
+            default:
+                throw new InvalidSortTypeException(order);
         }
     }
 

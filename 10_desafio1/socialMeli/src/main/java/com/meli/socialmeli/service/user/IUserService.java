@@ -6,7 +6,7 @@ import com.meli.socialmeli.dto.user.UserWithFollowersCountDTO;
 import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
 import com.meli.socialmeli.exception.FollowException;
 import com.meli.socialmeli.exception.IdNotFoundException;
-import com.meli.socialmeli.service.orderType.UserOrderType;
+import com.meli.socialmeli.exception.InvalidSortTypeException;
 
 public interface IUserService {
 
@@ -14,9 +14,9 @@ public interface IUserService {
 
     UserWithFollowersCountDTO followersCountOf(Integer userId) throws IdNotFoundException;
 
-    UserWithFollowersDTO followersOf(Integer userId, UserOrderType order) throws IdNotFoundException;
+    UserWithFollowersDTO followersOf(Integer userId, String order) throws IdNotFoundException, InvalidSortTypeException;
 
-    UserWithFollowedDTO followedOf(Integer userId, UserOrderType order) throws IdNotFoundException;
+    UserWithFollowedDTO followedOf(Integer userId, String order) throws IdNotFoundException, InvalidSortTypeException;
 
     void unfollowUser(Integer userId, Integer userIdToUnfollow) throws IdNotFoundException, FollowException;
 

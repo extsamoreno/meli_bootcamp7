@@ -8,7 +8,7 @@ import com.meli.socialmeli.dto.user.UserWithPromoListDTO;
 import com.meli.socialmeli.exception.CanNotCreatePostException;
 import com.meli.socialmeli.exception.IdNotFoundException;
 import com.meli.socialmeli.exception.InvalidDateFormatException;
-import com.meli.socialmeli.service.orderType.PublicationOrderType;
+import com.meli.socialmeli.exception.InvalidSortTypeException;
 import com.meli.socialmeli.service.product.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPublicationDTO> followedPublications(@PathVariable Integer userId, @RequestParam(required = false) PublicationOrderType order) throws IdNotFoundException {
+    public ResponseEntity<FollowedPublicationDTO> followedPublications(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "date_desc") String order) throws IdNotFoundException, InvalidSortTypeException {
         return new ResponseEntity<>(productService.followedRecentPublications(userId, order), HttpStatus.OK);
     }
 
@@ -45,7 +45,7 @@ public class ProductController {
     }
 
     @GetMapping("/{userId}/list")
-    public ResponseEntity<UserWithPromoListDTO> promoListOf(@PathVariable Integer userId, @RequestParam(required = false) PublicationOrderType order) throws IdNotFoundException {
+    public ResponseEntity<UserWithPromoListDTO> promoListOf(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "date_desc") String order) throws IdNotFoundException, InvalidSortTypeException {
         return new ResponseEntity<>(productService.promoListOf(userId, order), HttpStatus.OK);
     }
 }

@@ -5,7 +5,7 @@ import com.meli.socialmeli.dto.user.UserWithFollowersCountDTO;
 import com.meli.socialmeli.dto.user.UserWithFollowersDTO;
 import com.meli.socialmeli.exception.FollowException;
 import com.meli.socialmeli.exception.IdNotFoundException;
-import com.meli.socialmeli.service.orderType.UserOrderType;
+import com.meli.socialmeli.exception.InvalidSortTypeException;
 import com.meli.socialmeli.service.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,12 +31,12 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserWithFollowersDTO> followersListOf(@PathVariable Integer userId, @RequestParam(required = false) UserOrderType order) throws IdNotFoundException {
+    public ResponseEntity<UserWithFollowersDTO> followersListOf(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws IdNotFoundException, InvalidSortTypeException {
         return new ResponseEntity<>(userService.followersOf(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserWithFollowedDTO> followedListOf(@PathVariable Integer userId, @RequestParam(required = false) UserOrderType order) throws IdNotFoundException {
+    public ResponseEntity<UserWithFollowedDTO> followedListOf(@PathVariable Integer userId, @RequestParam(required = false, defaultValue = "name_asc") String order) throws IdNotFoundException, InvalidSortTypeException {
         return new ResponseEntity<>(userService.followedOf(userId, order), HttpStatus.OK);
     }
 
