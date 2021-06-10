@@ -38,6 +38,13 @@ public class ProductService {
     private static final String DATE_ASC = "date_asc";
     private static final String NAME_ASC = "name_asc";
 
+    /**
+     * Inserts a new post (this post can be promo or standard)
+     *
+     * @param postDTO The Post that want to be persisted
+     * @throws InvalidIdException           If the userId entered does not correspond to an existing user
+     * @throws PostIdAlreadyExistsException If the entered postId already exists
+     */
     public void insertNewPost(PostDTO postDTO) throws InvalidIdException, PostIdAlreadyExistsException {
 
         if (userRepository.userIdIsNotValid(postDTO.getUserId())) {
@@ -51,6 +58,14 @@ public class ProductService {
         postRepository.insertNewPost(postDTO.getPostId(), mapToPost(postDTO));
     }
 
+    /**
+     * Obtains all the posts published in the last 2 weeks by the sellers to which the entered user follows
+     *
+     * @param userId Corresponding to the user from whom you want to obtain the posts of his followed sellers
+     * @param order  The chronological order in which you want to obtain the results. This order can be ascending or descending
+     * @return The posts published in the last 2 weeks by the sellers to which the entered user follows, with the userId and userName of each seller
+     * @throws InvalidIdException If the userId entered does not correspond to an existing user
+     */
     public List<PostCollectionDTO> getFollowedMerchantsPosts(int userId, String order) throws InvalidIdException {
 
         List<PostCollectionDTO> postCollectionDTOList = new ArrayList<>();
@@ -82,19 +97,14 @@ public class ProductService {
         return postCollectionDTOList;
     }
 
-    public void insertNewPromoPost(PostDTO postDTO) throws InvalidIdException, PostIdAlreadyExistsException {
 
-        if (userRepository.userIdIsNotValid(postDTO.getUserId())) {
-            throw new InvalidIdException();
-        }
-
-        if (postRepository.postIdAlreadyExists(postDTO.getPostId())) {
-            throw new PostIdAlreadyExistsException();
-        }
-
-        postRepository.insertNewPost(postDTO.getPostId(), mapToPost(postDTO));
-    }
-
+    /**
+     * Obtains the number of promotional posts that a user has
+     *
+     * @param userId Corresponding to the user from whom you want to obtain the count of promotional posts
+     * @return The count of promotional posts that a user has
+     * @throws InvalidIdException If the userId entered does not correspond to an existing user
+     */
     public PromoPostsDTO getMerchantNumberOfPromoPosts(int userId) throws InvalidIdException {
 
         if (userRepository.userIdIsNotValid(userId)) {
@@ -110,6 +120,13 @@ public class ProductService {
         return promoPostsDTO;
     }
 
+    /**
+     * Obtains the list of the promotional posts that a user has
+     *
+     * @param userId Corresponding to the user from whom you want to obtain the promotional posts
+     * @return A list of the promotional posts that a user has
+     * @throws InvalidIdException If the userId entered does not correspond to an existing user
+     */
     public PostCollectionDTO getMerchantPromoPosts(int userId) throws InvalidIdException {
 
         if (userRepository.userIdIsNotValid(userId)) {
@@ -127,7 +144,7 @@ public class ProductService {
 
         merchantPromoPosts.setUserId(userId);
         merchantPromoPosts.setUserName(userRepository.getUserById(userId).getUserName());
-        merchantPromoPosts.setPosts(sortPosts(postDTOList,DATE_ASC));
+        merchantPromoPosts.setPosts(sortPosts(postDTOList, DATE_ASC));
 
         return merchantPromoPosts;
     }

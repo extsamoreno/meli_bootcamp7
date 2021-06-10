@@ -13,10 +13,16 @@ import java.util.HashMap;
 
 public class Context {
 
+
+    /**
+     * Loads a context scenario to emulate the pre-existing data in the data storage sources
+     * The context is reinitialized each time this method is called
+     */
     public static void loadContext() {
 
         System.out.println("\n  ------------------ LOADING CHALLENGE CONTEXT... -------------------\n");
 
+        // Add users:
         UserRepository.users.put(1, new User("user_1", new HashMap<>(), new HashMap<>()));
         UserRepository.users.put(2, new User("user_2", new HashMap<>(), new HashMap<>()));
         UserRepository.users.put(3, new User("user_3", new HashMap<>(), new HashMap<>()));
@@ -28,19 +34,24 @@ public class Context {
         UserRepository.users.put(1547, new User("m_user_1547", new HashMap<>(), new HashMap<>()));
         UserRepository.users.put(6684, new User("m_user_6684", new HashMap<>(), new HashMap<>()));
 
-        PostRepository.posts.put(1, generatePost("07-06-2021",1));
-        PostRepository.posts.put(2, generatePost("03-06-2021",1));
-        PostRepository.posts.put(3, generatePost("30-05-2021",1));
-        PostRepository.posts.put(4, generatePost("06-06-2021",1));
-        PostRepository.posts.put(5, generatePromoPost("01-06-2021",1));
-        PostRepository.posts.put(6, generatePromoPost("04-06-2021",1));
-        PostRepository.posts.put(7, generatePromoPost("31-05-2021",1));
-        PostRepository.posts.put(8, generatePromoPost("29-05-2021",1));
+        // Add posts from userId 1 (Promo & NoPromo):
+        PostRepository.posts.put(1, generatePost("07-06-2021", 1));
+        PostRepository.posts.put(2, generatePost("03-06-2021", 1));
+        PostRepository.posts.put(3, generatePost("30-05-2021", 1));
+        PostRepository.posts.put(4, generatePost("06-06-2021", 1));
+        PostRepository.posts.put(5, generatePromoPost("01-06-2021", 1));
+        PostRepository.posts.put(6, generatePromoPost("04-06-2021", 1));
+        PostRepository.posts.put(7, generatePromoPost("31-05-2021", 1));
+        PostRepository.posts.put(8, generatePromoPost("29-05-2021", 1));
 
-        PostRepository.posts.put(9, generatePost("01-06-2021",2));
-        PostRepository.posts.put(10, generatePost("30-05-2021",2));
-        PostRepository.posts.put(11, generatePost("06-06-2021",2));
-        PostRepository.posts.put(12, generatePost("29-05-2021",2));
+        // Add posts from userId 2 (Promo & NoPromo):
+        PostRepository.posts.put(9, generatePost("01-06-2021", 2));
+        PostRepository.posts.put(10, generatePost("30-05-2021", 2));
+        PostRepository.posts.put(11, generatePost("06-06-2021", 2));
+        PostRepository.posts.put(12, generatePost("29-05-2021", 2));
+        PostRepository.posts.put(13, generatePromoPost("01-06-2021", 1));
+        PostRepository.posts.put(14, generatePromoPost("04-06-2021", 1));
+        PostRepository.posts.put(15, generatePromoPost("31-05-2021", 1));
 
     }
 
@@ -64,7 +75,7 @@ public class Context {
         return post;
     }
 
-    private static Post generatePromoPost(String postDate, int userId){
+    private static Post generatePromoPost(String postDate, int userId) {
 
         Post post = generatePost(postDate, userId);
         post.setHasPromo(true);
