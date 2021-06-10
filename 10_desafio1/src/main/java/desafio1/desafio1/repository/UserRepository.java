@@ -107,28 +107,28 @@ public class UserRepository implements IUserRepository {
     private void removeFollowMe(User user, User userToUnfollow) throws UnfollowException { //eliminar quien me sigue
         List<UserSaveDTO> listFollowMe = new ArrayList<>();
         listFollowMe = user.getFollowMeList();
-        boolean flag = false;
+        int flag = -1;
 
         if(listFollowMe != null){
-            for(int i=0 ; i<listFollowMe.size() ; i++){
-                if(listFollowMe.get(i).getUserId() == userToUnfollow.getUserId()){
-                    for(int j=0 ; j<listUser.size() ; j++){
-                        if(listUser.get(j).getUserId() == user.getUserId()){
-                            flag = true;
-                            listUser.get(j).getFollowMeList().remove(userToUnfollow);
+            for(int i=0 ; i<listFollowMe.size() ; i++) {
+                if (listFollowMe.get(i).getUserId() == userToUnfollow.getUserId()) {
+                    for (int j = 0; j <= listUser.size() - 1; j++) {
+                        if (listUser.get(j).getUserId() == user.getUserId()) {
+                            flag = 1;
+                            //no lo elimina
+                            listUser.get(j).getFollowMeList().remove(i);
                         }
                     }
-
                 }
             }
-
+            //if(flag == -1) throw new UnfollowException(userToUnfollow.getUserId());
         }
     }
 
     private void removeFollow(User user, User userToUnfollow) throws UnfollowException, ValidateSellerException { //eliminar quien sigo
         List<UserSaveDTO> listFollow = new ArrayList<>();
         listFollow = user.getFollowList();
-        boolean flag = false; //se que esta feo
+        //int flag = -1; //se que esta feo
 
         //validar que es un vendedor a quien dejo de seguir
 
@@ -139,15 +139,16 @@ public class UserRepository implements IUserRepository {
         if(listFollow != null){
             for(int i=0 ; i<listFollow.size() ; i++){
                 if(listFollow.get(i).getUserId() == userToUnfollow.getUserId()){
-                    for(int j=0 ; j<listUser.size() ; j++){
+                    for(int j=0 ; j<=listUser.size()-1 ; j++){
                         if(listUser.get(j).getUserId() == user.getUserId()){
-                            flag = true;
-                            listUser.get(j).getFollowMeList().remove(userToUnfollow);
+                           // flag = 1;
+                            //NO LO ELIMINA Y NO SE POR QUEEE
+                            listUser.get(j).getFollowList().remove(i);
                         }
                     }
                 }
             }
-            if(flag == false) throw new UnfollowException(userToUnfollow.getUserId());
+           // if(flag == -1) throw new UnfollowException(userToUnfollow.getUserId());
         }
     }
 

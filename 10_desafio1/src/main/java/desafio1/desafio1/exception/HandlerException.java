@@ -1,5 +1,6 @@
 package desafio1.desafio1.exception;
 
+import desafio1.desafio1.exception.productException.UnfollowException;
 import desafio1.desafio1.exception.userException.UserNotFoundException;
 import desafio1.desafio1.exception.userException.ValidateSellerException;
 import desafio1.desafio1.exception.userException.ValidateUserException;
@@ -23,6 +24,11 @@ public class HandlerException {
 
     @ExceptionHandler(ValidateUserException.class)
     public ResponseEntity<ErrorDTO> validateUserException(ValidateUserException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(UnfollowException.class)
+    public ResponseEntity<ErrorDTO> unfollowException(UnfollowException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }
