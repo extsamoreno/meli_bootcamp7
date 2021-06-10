@@ -1,10 +1,7 @@
 package desafio1.desafio1.service.userService;
 
 import desafio1.desafio1.domain.User;
-import desafio1.desafio1.exception.productException.UnfollowException;
-import desafio1.desafio1.exception.userException.UserNotFoundException;
-import desafio1.desafio1.exception.userException.ValidateSellerException;
-import desafio1.desafio1.exception.userException.ValidateUserException;
+import desafio1.desafio1.exception.userException.*;
 import desafio1.desafio1.repository.IUserRepository;
 import desafio1.desafio1.service.userService.dto.SellerCountDTO;
 import desafio1.desafio1.service.userService.dto.SellerListDTO;
@@ -13,6 +10,10 @@ import desafio1.desafio1.service.userService.dto.UserListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class UsersService implements IUsersService {
 
@@ -20,21 +21,33 @@ public class UsersService implements IUsersService {
     IUserRepository userRepository;
 
     @Override//estoy devolviendo una instancia nueva, debeiria devolver la de la bdd
-    public User follow(int userId, int userIdToFollow) throws UserNotFoundException { //userIdToFollow es a quien quiero seguir
+    public User follow(int userId, int userIdToFollow) throws UserNotFoundException, FollowException, FollowLoopException { //userIdToFollow es a quien quiero seguir
         UserSaveDTO userSaveDTO = new UserSaveDTO();
         UserSaveDTO userSaveDTOFollow = new UserSaveDTO();
 
+        if(userId == userIdToFollow){
+            throw new FollowLoopException();
+        }
 
         //hago eso porque en el find se fija si existe y no tengo que validar de nuevo aca
         userSaveDTO.setUserId(userRepository.findUserById(userId).getUserId());
         userSaveDTO.setUserName(userRepository.findUserById(userId).getUserName());
 
+
         userSaveDTOFollow.setUserId(userRepository.findUserById(userIdToFollow).getUserId());
         userSaveDTOFollow.setUserName(userRepository.findUserById(userIdToFollow).getUserName());
 
+        //validar si ya lo sigo, si es asi, no deberia volver a agregarlo a la lista
+        List<UserSaveDTO> userSaveDTOList = userRepository.findUserById(userId).getFollowList();
+        Optional<UserSaveDTO> item = userSaveDTOList.stream().filter(
+                i -> i.getUserId() == userIdToFollow).findFirst();
+
+        if(item.isPresent()){
+            throw new FollowException(userIdToFollow);
+        }
+
         userRepository.findUserById(userId).getFollowList().add(userSaveDTOFollow);
         userRepository.findUserById(userIdToFollow).getFollowMeList().add(userSaveDTO);
-
 
         return userRepository.findUserById(userId);
     }

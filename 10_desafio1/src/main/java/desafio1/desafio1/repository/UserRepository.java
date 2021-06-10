@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import desafio1.desafio1.domain.Publications;
 import desafio1.desafio1.domain.User;
-import desafio1.desafio1.exception.productException.UnfollowException;
+import desafio1.desafio1.exception.userException.FollowException;
+import desafio1.desafio1.exception.userException.UnfollowException;
 import desafio1.desafio1.exception.userException.UserNotFoundException;
 import desafio1.desafio1.exception.userException.ValidateSellerException;
 import desafio1.desafio1.service.userService.dto.UserSaveDTO;
@@ -151,6 +152,7 @@ public class UserRepository implements IUserRepository {
            // if(flag == -1) throw new UnfollowException(userToUnfollow.getUserId());
         }
     }
+
 
     private List<User> loadDataBase() {
         File file = null;

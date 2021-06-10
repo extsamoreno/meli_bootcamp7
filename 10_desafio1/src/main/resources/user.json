@@ -1,12 +1,9 @@
 [
   {
-    "userId": 1223,
+    "userId": 1,
     "userName": "vendedor1",
     "followList": [],
-    "followMeList": [ {
-                    "userId": 1226,
-                    "userName": "usuario2"
-    }],
+    "followMeList": [ ],
     "publicationsList": [
       {
         "id_post": 5,
@@ -42,25 +39,16 @@
     ]
   },
   {
-    "userId": 1224,
+    "userId": 2,
     "userName": "vendedor2",
     "followList": [],
     "followMeList": [],
     "publicationsList": []
   },
   {
-    "userId": 1225,
+    "userId": 3,
     "userName": "usuario1",
-    "followList": [
-        {
-          "userId": 1224,
-          "userName": "vendedor2"
-        },
-        {
-          "userId": 1223,
-          "userName": "vendedor1"
-        }
-    ],
+    "followList": [],
     "followMeList": [],
     "publicationsList": []
   }

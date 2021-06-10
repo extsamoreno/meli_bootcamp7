@@ -1,9 +1,6 @@
 package desafio1.desafio1.exception;
 
-import desafio1.desafio1.exception.productException.UnfollowException;
-import desafio1.desafio1.exception.userException.UserNotFoundException;
-import desafio1.desafio1.exception.userException.ValidateSellerException;
-import desafio1.desafio1.exception.userException.ValidateUserException;
+import desafio1.desafio1.exception.userException.*;
 import desafio1.desafio1.service.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -31,4 +28,15 @@ public class HandlerException {
     public ResponseEntity<ErrorDTO> unfollowException(UnfollowException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
+
+    @ExceptionHandler(FollowException.class)
+    public ResponseEntity<ErrorDTO> followException(FollowException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(FollowLoopException.class)
+    public ResponseEntity<ErrorDTO> followLoopException(FollowLoopException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
 }

@@ -2,7 +2,7 @@ package desafio1.desafio1.repository;
 
 import desafio1.desafio1.domain.Publications;
 import desafio1.desafio1.domain.User;
-import desafio1.desafio1.exception.productException.UnfollowException;
+import desafio1.desafio1.exception.userException.UnfollowException;
 import desafio1.desafio1.exception.userException.UserNotFoundException;
 import desafio1.desafio1.exception.userException.ValidateSellerException;
 import desafio1.desafio1.service.userService.dto.UserSaveDTO;

@@ -1,4 +1,4 @@
-package desafio1.desafio1.exception.productException;
+package desafio1.desafio1.exception.userException;
 
 import desafio1.desafio1.domain.User;
 import desafio1.desafio1.exception.userException.UserException;

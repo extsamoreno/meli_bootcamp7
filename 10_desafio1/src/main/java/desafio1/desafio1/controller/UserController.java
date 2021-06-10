@@ -2,10 +2,7 @@ package desafio1.desafio1.controller;
 
 
 import desafio1.desafio1.domain.User;
-import desafio1.desafio1.exception.productException.UnfollowException;
-import desafio1.desafio1.exception.userException.UserNotFoundException;
-import desafio1.desafio1.exception.userException.ValidateSellerException;
-import desafio1.desafio1.exception.userException.ValidateUserException;
+import desafio1.desafio1.exception.userException.*;
 import desafio1.desafio1.service.userService.IUsersService;
 import desafio1.desafio1.service.userService.dto.SellerCountDTO;
 import desafio1.desafio1.service.userService.dto.SellerListDTO;
@@ -24,8 +21,9 @@ public class UserController {
 
     //me sobreescribe la lista y no se agregan uno despues del otro, no encuentro el problema porque puse add en todos lados creo
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<User> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotFoundException {
-        return new ResponseEntity<>(userService.follow(userId, userIdToFollow), HttpStatus.OK);
+    public ResponseEntity<Void> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) throws UserNotFoundException, FollowException, FollowLoopException {
+        userService.follow(userId, userIdToFollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }//devuelvo un usuario solo para verificar
 
     @GetMapping("/{userId}/followers/count")
