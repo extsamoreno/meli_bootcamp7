@@ -14,13 +14,5 @@ public class PostMapper {
                 postDTO.getPrice());
     }
 
-    public static PostDTO toPostDto (Post post) {
-        return new PostDTO(post.getUserId(),
-                post.getId_post(),
-                post.getDate(),
-                post.getDetail(),
-                post.getCategory(),
-                post.getPrice());
-    }
 
 }

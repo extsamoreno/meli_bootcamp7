@@ -1,5 +1,6 @@
 package com.desafiospring.socialMeli.repository;
 
+import com.desafiospring.socialMeli.dto.UserDTO;
 import com.desafiospring.socialMeli.exceptions.UserAlreadyFollowsException;
 import com.desafiospring.socialMeli.exceptions.UserAlreadyUnfollowsException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;

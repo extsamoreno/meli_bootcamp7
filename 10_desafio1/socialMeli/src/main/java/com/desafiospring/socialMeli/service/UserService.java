@@ -28,8 +28,6 @@ public class UserService implements IUserService {
     @Override
     public void followSeller(int userId, int userIdToFollow) throws
             UserNotFoundException, UserAlreadyFollowsException {
-        userRepository.findUserById(userId);
-        userRepository.findUserById(userIdToFollow);
         userRepository.addFollowerToUser(userId, userIdToFollow);
     }
 
@@ -42,7 +40,6 @@ public class UserService implements IUserService {
 
     @Override
     public UserFollowedDTO getFollowers(int userId, String order) throws UserNotFoundException {
-
         User user = userRepository.findUserById(userId);
         List<UserDTO> followersList = new ArrayList<>();
 
@@ -50,11 +47,7 @@ public class UserService implements IUserService {
             followersList.add(UserMapper.toDto(u));
         }
 
-        if (order != null && order.equals("name_asc"))
-            followersList.sort(Comparator.comparing(UserDTO::getUserName));
-
-        if (order != null && order.equals("name_desc"))
-            followersList.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+        orderName(order, followersList);
 
         return new UserFollowedDTO(user.getUserId(), user.getUserName(), followersList);
     }
@@ -68,11 +61,7 @@ public class UserService implements IUserService {
             followingList.add(UserMapper.toDto(u));
         }
 
-        if (order != null && order.equals("name_asc"))
-            followingList.sort(Comparator.comparing(UserDTO::getUserName));
-
-        if (order != null && order.equals("name_desc"))
-            followingList.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+       orderName(order,followingList);
 
         return new UserFollowingDTO(user.getUserId(), user.getUserName(), followingList);
     }
@@ -83,6 +72,15 @@ public class UserService implements IUserService {
         userRepository.findUserById(userId);
         userRepository.findUserById(userIdToFollow);
         userRepository.deleteFollower(userId, userIdToFollow);
+    }
+
+
+    private void orderName(String order, List<UserDTO> list) {
+
+        if (order != null && order.equals("name_asc"))
+            list.sort(Comparator.comparing(UserDTO::getUserName));
+        if (order != null && order.equals("name_desc"))
+            list.sort(Comparator.comparing(UserDTO::getUserName).reversed());
     }
 
 }

@@ -8,7 +8,9 @@ import com.desafiospring.socialMeli.model.User;
 import java.util.List;
 
 public interface IPostRepository {
+
     void addNewPost(Post post) throws UserNotFoundException, PostIdAlreadyExistException;
 
     List<Post> getFollowedPosts(List<User> usersFollowed, String order);
+
 }

@@ -10,11 +10,11 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDTO  {
+public class PostDTO {
 
     private int userId;
     private int id_post;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;
     private Product detail;
     private String category;

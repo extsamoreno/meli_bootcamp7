@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 public class PostService implements IPostService {
 
-
     @Autowired
     IUserRepository userRepository;
 
@@ -31,7 +30,6 @@ public class PostService implements IPostService {
         postRepository.addNewPost(PostMapper.toPost(post));
     }
 
-
     @Override
     public FollowedPostDTO getFollowedPosts(int userId, String order) throws UserNotFoundException {
 
@@ -41,6 +39,5 @@ public class PostService implements IPostService {
 
         return new FollowedPostDTO(user.getUserId(), postList);
     }
-
 
 }

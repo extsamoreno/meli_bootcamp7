@@ -14,7 +14,6 @@ public class PostRepository implements IPostRepository {
 
     @Override
     public void addNewPost(Post post) throws PostIdAlreadyExistException {
-
         Post checkPost = this.posts.stream()
                 .filter(p -> p.getId_post() == post.getId_post())
                 .findAny().orElse(null);
@@ -24,7 +23,6 @@ public class PostRepository implements IPostRepository {
         } else {
             this.posts.add(post.getId_post(), post);
         }
-
     }
 
     @Override
@@ -35,10 +33,10 @@ public class PostRepository implements IPostRepository {
             followedPosts.addAll(getPosts(u.getUserId()));
         }
 
-        if(order != null && order.equals("date_asc"))
+        if (order != null && order.equals("date_asc"))
             followedPosts.sort(Comparator.comparing(Post::getDate));
 
-        if(order != null && order.equals("date_desc"))
+        if (order != null && order.equals("date_desc"))
             followedPosts.sort(Comparator.comparing(Post::getDate).reversed());
 
         return followedPosts;

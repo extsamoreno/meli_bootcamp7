@@ -1,6 +1,5 @@
 package com.desafiospring.socialMeli.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.util.Date;
@@ -18,6 +17,4 @@ public class Post {
     private String category;
     private double price;
 
-    public Post(int id_post, int userId) {
-    }
 }

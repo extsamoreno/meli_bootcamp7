@@ -7,7 +7,8 @@ import lombok.Setter;
 
 import lombok.*;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FollowersCountDTO {

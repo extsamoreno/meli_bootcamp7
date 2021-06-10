@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionHandlerController {
 
     @ExceptionHandler(UserException.class)
-    public ResponseEntity<ErrorDTO> returnError(UserException e){
-        return new ResponseEntity<>(e.getErrorDTO(),e.getHttpStatus());
+    public ResponseEntity<ErrorDTO> returnError(UserException e) {
+        return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
     }
 
     @ExceptionHandler(PostException.class)
-    public ResponseEntity<ErrorDTO> returnError(PostException e){
-        return new ResponseEntity<>(e.getErrorDTO(),e.getHttpStatus());
+    public ResponseEntity<ErrorDTO> returnError(PostException e) {
+        return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
     }
 
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<String> returnError(Exception e){
+    public ResponseEntity<String> returnError(Exception e) {
         return new ResponseEntity<>("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -1,9 +1,9 @@
 package com.desafiospring.socialMeli.repository;
 
+import com.desafiospring.socialMeli.dto.UserDTO;
 import com.desafiospring.socialMeli.exceptions.UserAlreadyFollowsException;
 import com.desafiospring.socialMeli.exceptions.UserAlreadyUnfollowsException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
-import com.desafiospring.socialMeli.model.Post;
 import com.desafiospring.socialMeli.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -46,7 +46,6 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public int getFollowersCount(int userId) {
-
         return usersDic.get(userId).getFollowedBy().size();
     }
 
@@ -58,20 +57,16 @@ public class UserRepository implements IUserRepository {
             followersList.add(u);
         }
         return followersList;
-
     }
 
     @Override
     public List<User> getFollowedList(int userId) throws UserNotFoundException {
-
         User user = findUserById(userId);
         List<User> followedList = new ArrayList<>();
         for (User u : user.getFollowed()) {
             followedList.add(u);
         }
-
         return followedList;
-
     }
 
     @Override
@@ -83,11 +78,9 @@ public class UserRepository implements IUserRepository {
         if (user.getFollowed().contains(userToFollow)) {
             usersDic.get(userId).getFollowed().remove(findUserById(userIdToFollow));
             usersDic.get(userIdToFollow).getFollowedBy().remove(findUserById(userId));
-
         } else {
             throw new UserAlreadyUnfollowsException(userId, userIdToFollow);
         }
     }
-
 
 }
