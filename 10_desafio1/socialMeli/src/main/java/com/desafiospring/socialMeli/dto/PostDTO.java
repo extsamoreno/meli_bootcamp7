@@ -20,6 +20,4 @@ public class PostDTO  {
     private String category;
     private double price;
 
-    public PostDTO(int userId, int id_post) {
-    }
 }

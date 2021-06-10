@@ -6,6 +6,7 @@ import com.desafiospring.socialMeli.dto.UserDTO;
 import com.desafiospring.socialMeli.dto.UserFollowedDTO;
 import com.desafiospring.socialMeli.dto.UserFollowingDTO;
 import com.desafiospring.socialMeli.exceptions.UserAlreadyFollowsException;
+import com.desafiospring.socialMeli.exceptions.UserAlreadyUnfollowsException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 import com.desafiospring.socialMeli.model.User;
 import com.desafiospring.socialMeli.repository.ISocialMeliRepository;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -42,7 +44,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserFollowedDTO getFollowers(int userId) throws UserNotFoundException {
+    public UserFollowedDTO getFollowers(int userId, String order) throws UserNotFoundException {
 
         User user = socialMeliRepository.findUserById(userId);
         List<UserDTO> followersList = new ArrayList<>();
@@ -51,11 +53,17 @@ public class UserService implements IUserService {
             followersList.add(UserMapper.toDto(u));
         }
 
+        if(order != null && order.equals("name_asc"))
+            followersList.sort(Comparator.comparing(UserDTO::getUserName));
+
+        if(order != null && order.equals("name_desc"))
+            followersList.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+
         return new UserFollowedDTO(user.getUserId(),user.getUserName(), followersList);
     }
 
     @Override
-    public UserFollowingDTO getFollowingList(int userId) throws UserNotFoundException {
+    public UserFollowingDTO getFollowingList(int userId, String order) throws UserNotFoundException {
         User user = socialMeliRepository.findUserById(userId);
         List<UserDTO> followingList = new ArrayList<>();
 
@@ -63,13 +71,20 @@ public class UserService implements IUserService {
             followingList.add(UserMapper.toDto(u));
         }
 
+        if(order != null && order.equals("name_asc"))
+            followingList.sort(Comparator.comparing(UserDTO::getUserName));
+
+        if(order != null && order.equals("name_desc"))
+            followingList.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+
         return new UserFollowingDTO(user.getUserId(),user.getUserName(),followingList);
     }
 
 
 
     @Override
-    public void unfollowSeller(int userId, int userIdToFollow) throws UserNotFoundException {
+    public void unfollowSeller(int userId, int userIdToFollow)
+            throws UserNotFoundException, UserAlreadyUnfollowsException {
         socialMeliRepository.findUserById(userId);
         socialMeliRepository.findUserById(userIdToFollow);
         socialMeliRepository.deleteFollower(userId, userIdToFollow);

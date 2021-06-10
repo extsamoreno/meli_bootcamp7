@@ -25,9 +25,10 @@ public class PostsController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<FollowedPostDTO> getPostList(@PathVariable int userId)
-            throws UserNotFoundException, PostIdAlreadyExistException {
-        return new ResponseEntity<>(productService.getFollowedPosts(userId),HttpStatus.OK);
+    public ResponseEntity<FollowedPostDTO> getPostList(@PathVariable int userId,
+                                                       @RequestParam(required = false) String order)
+            throws UserNotFoundException {
+        return new ResponseEntity<>(productService.getFollowedPosts(userId, order), HttpStatus.OK);
     }
 
 

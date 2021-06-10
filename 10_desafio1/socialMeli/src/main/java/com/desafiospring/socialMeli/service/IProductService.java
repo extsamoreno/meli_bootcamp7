@@ -9,6 +9,6 @@ public interface IProductService {
 
     void newPost(PostDTO post) throws UserNotFoundException, PostIdAlreadyExistException;
 
-    FollowedPostDTO getFollowedPosts(int userId) throws UserNotFoundException;
+    FollowedPostDTO getFollowedPosts(int userId, String order) throws UserNotFoundException;
 
 }

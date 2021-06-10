@@ -4,6 +4,7 @@ import com.desafiospring.socialMeli.dto.FollowersCountDTO;
 import com.desafiospring.socialMeli.dto.UserFollowedDTO;
 import com.desafiospring.socialMeli.dto.UserFollowingDTO;
 import com.desafiospring.socialMeli.exceptions.UserAlreadyFollowsException;
+import com.desafiospring.socialMeli.exceptions.UserAlreadyUnfollowsException;
 import com.desafiospring.socialMeli.exceptions.UserNotFoundException;
 import com.desafiospring.socialMeli.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,20 +33,22 @@ public class UserController {
     }
 
     @GetMapping("/{userID}/followers/list")
-    public ResponseEntity<UserFollowedDTO> followersList(@PathVariable int userID)
+    public ResponseEntity<UserFollowedDTO> followersList(@PathVariable int userID,
+                                                         @RequestParam(required = false) String order)
             throws UserNotFoundException {
-        return new ResponseEntity<>(userService.getFollowers(userID), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getFollowers(userID, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserFollowingDTO> getUserFollowed(@PathVariable Integer userId)
+    public ResponseEntity<UserFollowingDTO> getUserFollowed(@PathVariable Integer userId,
+                                                            @RequestParam(required = false) String order)
             throws UserNotFoundException {
-        return new ResponseEntity<>(userService.getFollowingList(userId), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getFollowingList(userId, order), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity unfollowUser(@PathVariable int userId, @PathVariable int userIdToUnfollow)
-            throws UserNotFoundException {
+            throws UserNotFoundException, UserAlreadyUnfollowsException {
         userService.unfollowSeller(userId, userIdToUnfollow);
         return new ResponseEntity(HttpStatus.OK);
     }

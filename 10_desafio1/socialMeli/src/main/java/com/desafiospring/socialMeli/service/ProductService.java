@@ -29,12 +29,11 @@ public class ProductService implements IProductService {
 
 
     @Override
-    public FollowedPostDTO getFollowedPosts(int userId) throws UserNotFoundException {
+    public FollowedPostDTO getFollowedPosts(int userId, String order) throws UserNotFoundException {
 
         User user = socialMeliRepository.findUserById(userId);
         List<User> usersFollowed = socialMeliRepository.getFollowedList(userId);
-
-        List<Post> postList = socialMeliRepository.getFollowedPosts(usersFollowed);
+        List<Post> postList = socialMeliRepository.getFollowedPosts(usersFollowed, order);
 
         return new FollowedPostDTO(user.getUserId(), postList);
     }
