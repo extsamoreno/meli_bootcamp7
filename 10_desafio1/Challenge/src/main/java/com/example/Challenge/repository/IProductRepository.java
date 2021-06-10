@@ -10,6 +10,7 @@ public interface IProductRepository {
     String createPost(Product product);
     List<Product> getAllProductsFollowed(Integer userId);
     List<Product> getAllSellerProducts(Integer userId);
+    List<Product> getAllProducts();
     List<Product> getAllSellerPromoProducts(Integer userId);
     String createPromoPost(Product product);
 }

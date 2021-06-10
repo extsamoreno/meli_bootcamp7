@@ -4,7 +4,7 @@ import com.example.Challenge.dto.UserDTO;
 import com.example.Challenge.dto.UserResponseCountDTO;
 import com.example.Challenge.dto.UserResponseListDTO;
 import com.example.Challenge.dto.UserResponseListFollowedDTO;
-import com.example.Challenge.exception.UserException;
+import com.example.Challenge.exception.ProgramException;
 import com.example.Challenge.exception.UserIdNotFoundException;
 import com.example.Challenge.mapper.MapperUser;
 import com.example.Challenge.model.User;
@@ -67,7 +67,7 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public void Follow(Integer userId, Integer userToFollow) throws UserException {
+    public void Follow(Integer userId, Integer userToFollow) throws ProgramException {
 
         User customer =  iUserRepository.getUserById(userId);
         User seller = iUserRepository.getUserById(userToFollow);
@@ -76,11 +76,11 @@ public class UserServiceImpl implements   IUserService{
         if(customer == null) throw new UserIdNotFoundException(userId);
         else if (seller == null) throw new UserIdNotFoundException(userToFollow);
         else if(customer.getFollowed().contains(MapperUser.toUserDTO(seller))){
-            throw new UserException("You already follow the seller", HttpStatus.BAD_REQUEST);
+            throw new ProgramException("You already follow the seller", HttpStatus.BAD_REQUEST);
         }else if(userId.equals(userToFollow)){
-            throw new UserException("You can't follow yourself", HttpStatus.BAD_REQUEST);
+            throw new ProgramException("You can't follow yourself", HttpStatus.BAD_REQUEST);
         }else if(!seller.isSeller()){
-            throw new UserException("You can only follow sellers", HttpStatus.BAD_REQUEST);
+            throw new ProgramException("You can only follow sellers", HttpStatus.BAD_REQUEST);
         }
 
         addFollower(customer,seller);
@@ -89,23 +89,23 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public UserResponseCountDTO getUserFollowersCount(Integer userId) throws  UserException{
+    public UserResponseCountDTO getUserFollowersCount(Integer userId) throws ProgramException {
         User user = iUserRepository.getUserById(userId);
 
         if(user == null) throw new UserIdNotFoundException(userId);
-        else if(!user.isSeller()) throw new UserException("Only sellers have followers", HttpStatus.BAD_REQUEST);
+        else if(!user.isSeller()) throw new ProgramException("Only sellers have followers", HttpStatus.BAD_REQUEST);
 
         UserResponseCountDTO userResult = MapperUser.toUserResponseCountDTO(user);
         return userResult;
     }
 
     @Override
-    public UserResponseListDTO getUserFollowersList(Integer userId, String order) throws UserException {
+    public UserResponseListDTO getUserFollowersList(Integer userId, String order) throws ProgramException {
 
         User user = iUserRepository.getUserById(userId);
         //Exceptions
         if(user == null) throw new UserIdNotFoundException(userId);
-        else if(!user.isSeller()) throw new UserException("Only sellers have followers", HttpStatus.BAD_REQUEST);
+        else if(!user.isSeller()) throw new ProgramException("Only sellers have followers", HttpStatus.BAD_REQUEST);
 
         UserResponseListDTO userResult = MapperUser.toUserResponseListDTO(user);
         if(order== null){
@@ -126,12 +126,14 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public UserResponseListFollowedDTO getUserFollowedList(Integer userId, String order) throws UserException {
+    public UserResponseListFollowedDTO getUserFollowedList(Integer userId, String order) throws ProgramException {
 
         User user = iUserRepository.getUserById(userId);
+
+
         //Exceptions
         if(user == null) throw new UserIdNotFoundException(userId);
-        else if(user.isSeller()) throw new UserException("Only customers have followed", HttpStatus.BAD_REQUEST);
+        else if(!user.isSeller()) throw new ProgramException("Only customers have followed", HttpStatus.BAD_REQUEST);
 
         UserResponseListFollowedDTO userResult = MapperUser.toUserFollowedResponseListDTO(user);
 
@@ -154,7 +156,7 @@ public class UserServiceImpl implements   IUserService{
     }
 
     @Override
-    public void Unfollow(Integer userId, Integer userToUnfollow) throws UserException{
+    public void Unfollow(Integer userId, Integer userToUnfollow) throws ProgramException {
 
         User customer =  iUserRepository.getUserById(userId);
         User seller = iUserRepository.getUserById(userToUnfollow);
@@ -162,11 +164,11 @@ public class UserServiceImpl implements   IUserService{
         if(customer == null) throw new UserIdNotFoundException(userId);
         else if (seller == null) throw new UserIdNotFoundException(userToUnfollow);
         else if(!customer.getFollowed().contains(MapperUser.toUserDTO(seller))){
-            throw new UserException("you don't follow that user", HttpStatus.BAD_REQUEST);
+            throw new ProgramException("you don't follow that user", HttpStatus.BAD_REQUEST);
         }else if(userId.equals(userToUnfollow)){
-            throw new UserException("You can't unfollow yourself", HttpStatus.BAD_REQUEST);
+            throw new ProgramException("You can't unfollow yourself", HttpStatus.BAD_REQUEST);
         }else if(!seller.isSeller()){
-            throw new UserException("You can only unfollow sellers", HttpStatus.BAD_REQUEST);
+            throw new ProgramException("You can only unfollow sellers", HttpStatus.BAD_REQUEST);
         }
 
         deleteFollower(customer,seller);

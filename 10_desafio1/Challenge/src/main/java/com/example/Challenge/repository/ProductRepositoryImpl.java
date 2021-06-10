@@ -54,6 +54,11 @@ public class ProductRepositoryImpl implements  IProductRepository{
     }
 
     @Override
+    public List<Product> getAllProducts() {
+        return dataBaseProducts;
+    }
+
+    @Override
     public List<Product> getAllSellerPromoProducts(Integer userId) {
         List<Product> listResult = new ArrayList<>();
         for(int i=0 ;i<dataBaseProducts.size() ; i++){

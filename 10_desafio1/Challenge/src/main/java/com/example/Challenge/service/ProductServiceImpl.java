@@ -4,7 +4,8 @@ import com.example.Challenge.dto.ProductCountPromoDTO;
 import com.example.Challenge.dto.ProductDTO;
 import com.example.Challenge.dto.ProductListPromoDTO;
 import com.example.Challenge.dto.ProductResponseDTO;
-import com.example.Challenge.exception.UserException;
+import com.example.Challenge.exception.ProductException;
+import com.example.Challenge.exception.ProgramException;
 import com.example.Challenge.exception.UserIdNotFoundException;
 import com.example.Challenge.mapper.MapperProduct;
 import com.example.Challenge.model.Product;
@@ -36,31 +37,43 @@ public class ProductServiceImpl implements IProductService{
     }
 
     @Override
-    public String newPost(Product product) throws UserException  {
+    public String newPost(Product product) throws ProgramException{
 
 
         User user = iUserRepository.getUserById(product.getUserId());
         if(user == null) throw new UserIdNotFoundException(product.getUserId());
-        else if(!user.isSeller()) throw new UserException("Only sellers can post", HttpStatus.BAD_REQUEST);
-        //if(product == null) throw new ProductException("invalid product", HttpStatus.BAD_REQUEST);
+        else if(!user.isSeller()) throw new ProgramException("Only sellers can post", HttpStatus.BAD_REQUEST);
+        else if(product == null) throw new ProductException("invalid product");
+
+        for (Product prod : iProductRepository.getAllProducts()){
+            if(prod.getIdPost().equals(product.getIdPost())){
+                throw new ProductException("There is already a product with this id post ");
+            }
+        }
+
+
         return iProductRepository.createPost(product);
     }
 
     @Override
-    public List<Product> getAllProduct(Integer userId) throws UserException {
+    public List<Product> getAllProduct(Integer userId) throws ProgramException {
         User user = iUserRepository.getUserById(userId);
         //Exceptions
         if(user == null) throw new UserIdNotFoundException(userId);
+        else if(!user.isSeller()) throw new ProgramException("Only sellers have products", HttpStatus.BAD_REQUEST);
 
         return iProductRepository.getAllProductsFollowed(userId);
 
     }
     @Override
-    public ProductResponseDTO getPostById(Integer userId, String order) throws UserException {
+    public ProductResponseDTO getPostById(Integer userId, String order) throws ProgramException {
 
         User user = iUserRepository.getUserById(userId);
+
         //Exceptions
         if(user == null) throw new UserIdNotFoundException(userId);
+        else if(user.isSeller()) throw new ProgramException("Only customers can  view posts ", HttpStatus.BAD_REQUEST);
+
 
         List<ProductDTO> listResult= new ArrayList<>();
         List<Product> listProducts = iProductRepository.getAllProductsFollowed(userId);
@@ -87,30 +100,37 @@ public class ProductServiceImpl implements IProductService{
     }
 
     @Override
-    public String newPromoPost(Product product) throws UserException {
+    public String newPromoPost(Product product) throws ProgramException {
+
         User user = iUserRepository.getUserById(product.getUserId());
         if(user == null) throw new UserIdNotFoundException(product.getUserId());
-        else if(!user.isSeller()) throw new UserException("Only sellers can post", HttpStatus.BAD_REQUEST);
-        //if(product == null) throw new ProductException("invalid product", HttpStatus.BAD_REQUEST);
+        else if(!user.isSeller()) throw new ProgramException("Only sellers can post", HttpStatus.BAD_REQUEST);
+        else if(product == null) throw new ProductException("invalid product");
+
+        for (Product prod : iProductRepository.getAllProducts()){
+            if(prod.getIdPost().equals(product.getIdPost())){
+                throw new ProductException("There is already a product with this id post ");
+            }
+        }
 
         return iProductRepository.createPromoPost(product);
     }
 
     @Override
-    public ProductCountPromoDTO countProductPromo(Integer userId) throws UserException{
+    public ProductCountPromoDTO countProductPromo(Integer userId) throws ProgramException {
         User user = iUserRepository.getUserById(userId);
         if(user == null) throw new UserIdNotFoundException(userId);
-        else if(!user.isSeller()) throw new UserException("Only sellers can post", HttpStatus.BAD_REQUEST);
+        else if(!user.isSeller()) throw new ProgramException("Only sellers can post", HttpStatus.BAD_REQUEST);
         int countPromo = iProductRepository.getAllSellerPromoProducts(userId).size();
 
         return new ProductCountPromoDTO(userId,user.getUserName(), countPromo);
     }
 
     @Override
-    public ProductListPromoDTO listProductPromo(Integer userId) throws UserException {
+    public ProductListPromoDTO listProductPromo(Integer userId) throws ProgramException {
         User user = iUserRepository.getUserById(userId);
         if(user == null) throw new UserIdNotFoundException(userId);
-        else if(!user.isSeller()) throw new UserException("Only sellers can post", HttpStatus.BAD_REQUEST);
+        else if(!user.isSeller()) throw new ProgramException("Only sellers can post", HttpStatus.BAD_REQUEST);
 
         List<ProductDTO> listPromo = new ArrayList<>();
         for (Product product:iProductRepository.getAllSellerPromoProducts(userId)){
@@ -118,6 +138,5 @@ public class ProductServiceImpl implements IProductService{
         }
         return new ProductListPromoDTO(userId,user.getUserName(), listPromo);
     }
-
 
 }
