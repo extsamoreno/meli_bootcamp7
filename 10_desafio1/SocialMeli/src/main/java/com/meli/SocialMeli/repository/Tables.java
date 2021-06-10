@@ -1,6 +1,5 @@
 package com.meli.SocialMeli.repository;
 
-import com.meli.SocialMeli.exception.RepeatedFollowUserException;
 import com.meli.SocialMeli.model.Follow;
 import com.meli.SocialMeli.model.Post;
 import com.meli.SocialMeli.model.Product;
@@ -118,6 +117,16 @@ public class Tables {
         ArrayList<Post> retPostList = new ArrayList<>();
         for(Post post : postList){
             if(post.getUserId()==userId){
+                retPostList.add(post);
+            }
+        }
+        return retPostList;
+    }
+
+    public static ArrayList<Post> getPromoPostByUser(int userId) {
+        ArrayList<Post> retPostList = new ArrayList<>();
+        for(Post post : postList){
+            if(post.getUserId()==userId && post.isHasPromo()){
                 retPostList.add(post);
             }
         }

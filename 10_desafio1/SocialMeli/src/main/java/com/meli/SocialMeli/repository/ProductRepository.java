@@ -25,6 +25,11 @@ public class ProductRepository implements IProductRepository{
     }
 
     @Override
+    public ArrayList<Post> getPromoPostByUser(int userId) {
+        return Tables.getPromoPostByUser(userId);
+    }
+
+    @Override
     public Product getProductById(int productId) {
         return Tables.getProductById(productId);
     }

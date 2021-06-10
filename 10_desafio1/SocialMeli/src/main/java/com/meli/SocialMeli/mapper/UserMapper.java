@@ -33,4 +33,12 @@ public class UserMapper {
     public static UserBasicDto userToBasicDto(User user){
         return new UserBasicDto(user.getUserId(), user.getUserName());
     }
+
+    public static UserPostCountDto userToUserPostListDto(User user, int promoCount) {
+        return new UserPostCountDto(user.getUserId(), user.getUserName(), promoCount);
+    }
+
+    public static UserPostDto userToUserPostDto(User user, ArrayList<PostResDto> promoList) {
+        return new UserPostDto(user.getUserId(), user.getUserName(), promoList);
+    }
 }

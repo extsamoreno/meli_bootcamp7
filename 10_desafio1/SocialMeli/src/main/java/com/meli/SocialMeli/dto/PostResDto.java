@@ -15,4 +15,6 @@ public class PostResDto {
     ProductDto detail;
     int category;
     double price;
+
+
 }

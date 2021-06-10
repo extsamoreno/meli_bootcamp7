@@ -4,7 +4,6 @@ import com.meli.SocialMeli.model.Post;
 import com.meli.SocialMeli.model.Product;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public interface IProductRepository {
     public void newPost(Post post);
@@ -14,4 +13,6 @@ public interface IProductRepository {
     ArrayList<Post> getPostByUser(int userId);
 
     Product getProductById(int productId);
+
+    ArrayList<Post> getPromoPostByUser(int userId);
 }

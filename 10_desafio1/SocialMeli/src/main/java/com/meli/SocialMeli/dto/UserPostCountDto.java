@@ -6,19 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class PostDto {
-    int userId;
-    int id_post;
-    String date;
-    ProductDto detail;
-    int category;
-    double price;
-    private boolean hasPromo;
-    private double discount;
+public class UserPostCountDto {
+        int userId;
+        String userName;
+        int promproducts_count;
 }

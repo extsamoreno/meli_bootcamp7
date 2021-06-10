@@ -32,7 +32,7 @@ public class UserController {
     @PostMapping(path = "/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<String> follow(@PathVariable("userId") int followerId, @PathVariable("userIdToFollow") int followedId) throws InvalidUserIdException, RepeatedFollowUserException {
         iUserService.follow(followerId,followedId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<String>("Follow relationship added successfully",HttpStatus.OK);
     }
 
     @PostMapping(path = "/{userId}/unfollow/{userIdToUnfollow}")
