@@ -11,4 +11,5 @@ public interface ISocialRepository {
     FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws UserNotFoundException;
     UserDTO getUserById(int userId);
     MerchantDTO getMerchantById(int merchantId);
+    void unfollow(Integer userId,Integer userIdToUnfollow) throws MerchantNotFoundException, UserNotFoundException;
 }

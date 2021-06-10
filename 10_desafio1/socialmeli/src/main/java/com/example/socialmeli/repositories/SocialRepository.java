@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class SocialRepository implements ISocialRepository{
@@ -42,6 +43,23 @@ public class SocialRepository implements ISocialRepository{
     @Override
     public MerchantDTO getMerchantById(int merchantId) {
         return merchantsMap.get(merchantId);
+    }
+
+    @Override
+    public void unfollow(Integer userId, Integer userIdToUnfollow) throws MerchantNotFoundException, UserNotFoundException {
+        FollowedByMeListDTO myFollowed = usersWithMerchMap.get(userId);
+
+        if (myFollowed == null){
+            throw new UserNotFoundException("The userId does not exist", HttpStatus.BAD_REQUEST);
+        }
+
+        Integer size = myFollowed.getFollowers().size();
+
+        myFollowed.setFollowers(myFollowed.getFollowers().stream().filter(e -> !e.getId().equals(userIdToUnfollow)).collect(Collectors.toList()));
+
+        if (size.equals(myFollowed.getFollowers().size())){
+            throw new MerchantNotFoundException("The userId to unfollow does not exist", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override

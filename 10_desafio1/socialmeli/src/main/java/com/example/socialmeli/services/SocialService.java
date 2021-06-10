@@ -5,6 +5,7 @@ import com.example.socialmeli.exceptions.MerchantNotFoundException;
 import com.example.socialmeli.exceptions.UserNotFoundException;
 import com.example.socialmeli.repositories.ISocialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,6 +32,12 @@ public class SocialService implements  ISocialService{
     @Override
     public FollowedByMeListDTO followedByMe(Integer merchantid, String name) throws UserNotFoundException {
         return socialRepository.followedByMe(merchantid, name);
+    }
+
+    @Override
+    public HttpStatus unfollow(Integer userId, Integer userIdToUnfollow) throws UserNotFoundException, MerchantNotFoundException {
+        socialRepository.unfollow(userId,userIdToUnfollow);
+        return HttpStatus.OK;
     }
 
 }

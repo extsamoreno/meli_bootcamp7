@@ -77,11 +77,6 @@ public class PostService implements IPostService{
         return response;
     }
 
-    @Override
-    public HttpStatus unfollow(Integer userId, Integer userIdToUnfollow) {
-        return null;
-    }
-
     //region private methods
     private boolean isValidPost(Post post){
         if (post.getDate() == null || post.getProduct() == null){

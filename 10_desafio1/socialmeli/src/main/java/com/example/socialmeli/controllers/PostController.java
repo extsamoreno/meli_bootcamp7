@@ -27,8 +27,4 @@ public class PostController {
         return new ResponseEntity<PostListDTO>(postService.getPostByUserId(userId),HttpStatus.OK);
     }
 
-    @PostMapping("/user/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<HttpStatus> unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow){
-        return new ResponseEntity<HttpStatus>(postService.unfollow(userId,userIdToUnfollow),HttpStatus.OK);
-    }
 }

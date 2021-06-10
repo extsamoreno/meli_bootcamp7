@@ -38,4 +38,9 @@ public class SocialController {
                                                            @RequestParam(required = false, defaultValue = "") String name) throws UserNotFoundException {
         return new ResponseEntity<FollowedByMeListDTO>(socialService.followedByMe(userid, name),HttpStatus.OK);
     }
+
+    @PostMapping("/user/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<HttpStatus> unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow) throws UserNotFoundException, MerchantNotFoundException {
+        return new ResponseEntity<HttpStatus>(socialService.unfollow(userId,userIdToUnfollow),HttpStatus.OK);
+    }
 }

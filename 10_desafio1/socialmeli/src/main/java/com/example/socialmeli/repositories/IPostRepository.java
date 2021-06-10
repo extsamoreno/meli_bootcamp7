@@ -9,5 +9,5 @@ public interface IPostRepository {
     void newPost(Post post);
     Post getPostById(int postId);
     List<Post> getPostByUserId(Integer userId);
-    void unfollow(Integer userId,Integer userIdToUnfollow);
+
 }
