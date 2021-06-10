@@ -1,6 +1,7 @@
-package com.socialmeli.desafio.model;
+package com.socialmeli.desafio.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.socialmeli.desafio.model.DetailModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,11 +10,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class PublicacionModel {
+
+
+public class PostDTO {
 
     private int userId;
     private int postId;
@@ -22,8 +24,6 @@ public class PublicacionModel {
     private DetailModel detail;
     private int category;
     private double price;
-    private boolean hasPromo= false;
-    private double discount;
 
 
 }

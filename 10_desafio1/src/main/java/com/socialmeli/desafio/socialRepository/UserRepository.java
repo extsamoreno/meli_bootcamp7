@@ -1,7 +1,7 @@
 package com.socialmeli.desafio.socialRepository;
 
-import com.socialmeli.desafio.model.UsuarioModel;
-import com.socialmeli.desafio.model.VendedorModel;
+import com.socialmeli.desafio.model.UserModel;
+import com.socialmeli.desafio.model.SellerModel;
 import lombok.Data;
 import org.springframework.stereotype.Repository;
 
@@ -12,21 +12,21 @@ import java.util.HashMap;
 @Data
 public class UserRepository implements IUserRepository {
 
-    private static HashMap <Integer, UsuarioModel> UserDataBase = new HashMap<>();
+    private static HashMap <Integer, UserModel> UserDataBase = new HashMap<>();
 
 
 
-  public void altaUsuario(String userName){  //newUser
+  public void newUser(String userName){
 
         int idNext= UserDataBase.size()+1;
 
-        UsuarioModel user =new UsuarioModel(idNext,userName, new ArrayList<VendedorModel>());
+        UserModel user =new UserModel(idNext,userName, new ArrayList<SellerModel>());
 
         UserDataBase.put(idNext,user);
     }
 
 
-     public void listarUsuarios(){ //listUsers
+     public void listUsers(){
          for (int i = 1; i < UserDataBase.size() ; i++) {
              System.out.println(UserDataBase.get(i).getUserName());
          }
@@ -34,7 +34,7 @@ public class UserRepository implements IUserRepository {
 
 
     //busco usuario por ID y lo retorno
-    public UsuarioModel getUsuarioById(int id){  //getUserById
+    public UserModel getUsuarioById(int id){
       return UserDataBase.get(id);
 
     }

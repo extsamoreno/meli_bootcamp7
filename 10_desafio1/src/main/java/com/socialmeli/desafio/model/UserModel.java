@@ -12,20 +12,20 @@ import java.util.ArrayList;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioModel {
+public class UserModel {
 
     private int userId;
     private String userName;
-    private ArrayList<VendedorModel> follows;
+    private ArrayList<SellerModel> follows;
 
 
 
-    public void addFollow(VendedorModel follow){//Agrego un vendedor seguido a la lista de "seguidos"
+    public void addFollow(SellerModel follow){//Agrego un vendedor seguido a la lista de "seguidos"
         this.follows.add(follow);
 
     }
 
-    public void quitarFollow(VendedorModel follow){
+    public void removeFollow(SellerModel follow){
         this.follows.remove(follow);
 
     }

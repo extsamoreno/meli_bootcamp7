@@ -1,14 +1,14 @@
 package com.socialmeli.desafio.socialRepository;
 
-import com.socialmeli.desafio.model.UsuarioModel;
+import com.socialmeli.desafio.model.UserModel;
 
 public interface IUserRepository {
 
-    void altaUsuario(String userName);
+    void newUser(String userName);
 
-   void listarUsuarios();
+   void listUsers();
 
-   UsuarioModel getUsuarioById(int id);
+   UserModel getUsuarioById(int id);
 
 
 }

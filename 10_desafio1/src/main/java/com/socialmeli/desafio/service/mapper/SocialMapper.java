@@ -1,9 +1,9 @@
 package com.socialmeli.desafio.service.mapper;
 
 import com.socialmeli.desafio.dto.*;
-import com.socialmeli.desafio.model.PublicacionModel;
-import com.socialmeli.desafio.model.UsuarioModel;
-import com.socialmeli.desafio.model.VendedorModel;
+import com.socialmeli.desafio.model.PostModel;
+import com.socialmeli.desafio.model.UserModel;
+import com.socialmeli.desafio.model.SellerModel;
 import com.socialmeli.desafio.service.ISocialService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,14 +15,14 @@ public class SocialMapper {
     ISocialService iSocialService;   //borrar despues de la prueba??
 
 
-    public static FollowersCountDTO toFollowerCountDTO (VendedorModel vendedor){  //Conviente vendedor a vendedorDTO(FollowersCountDTO)
+    public static FollowersCountDTO toFollowerCountDTO (SellerModel vendedor){  //Conviente vendedor a vendedorDTO(FollowersCountDTO)
         return new FollowersCountDTO(vendedor.getUserId(), vendedor.getUserName(), vendedor.getFollowers().size());
     }
 
 
 
 
-    public static FollowersListDTO toFollowersListDto (VendedorModel vendedor, ArrayList<UsuarioDTO> followers){
+    public static FollowersListDTO toFollowersListDto (SellerModel vendedor, ArrayList<UserDTO> followers){
 
         //FollowersListDTO, incluye  el nombre, el id del vendedor y la lista de seguidores
         FollowersListDTO followerList = new FollowersListDTO(vendedor.getUserId(), vendedor.getUserName(), followers);
@@ -30,12 +30,12 @@ public class SocialMapper {
         return followerList;  //no es una lista
     }
 
-    public static UsuarioDTO toUsuarioDTO (UsuarioModel usuario){
-        return new UsuarioDTO(usuario.getUserId(), usuario.getUserName());
+    public static UserDTO toUsuarioDTO (UserModel usuario){
+        return new UserDTO(usuario.getUserId(), usuario.getUserName());
     }
 
 
-    public static FollowedListDTO toFollowedListDto (UsuarioModel usuario,ArrayList<VendedorDTO> followed){ //usando en C0004
+    public static FollowedListDTO toFollowedListDto (UserModel usuario, ArrayList<SellerDTO> followed){ //usando en C0004
 
         //FollowersListDTO, incluye  el nombre, el id del vendedor y la lista de seguidos
         FollowedListDTO followedList = new FollowedListDTO(usuario.getUserId(), usuario.getUserName(), followed);
@@ -43,44 +43,44 @@ public class SocialMapper {
         return followedList;
     }
 
-    public static VendedorDTO toVendedorDTO (VendedorModel vendedor){
-        return new VendedorDTO(vendedor.getUserId(), vendedor.getUserName());
+    public static SellerDTO toVendedorDTO (SellerModel vendedor){
+        return new SellerDTO(vendedor.getUserId(), vendedor.getUserName());
     }
 
 
 
     //Recibe un publicacion y la convierte a su DTO
-    public static PublicacionDTO toPublicacionDTO (PublicacionModel publicacion){
-         PublicacionDTO publicacionDTO = new PublicacionDTO();
+    public static PostDTO toPublicacionDTO (PostModel publicacion){
+         PostDTO postDTO = new PostDTO();
 
-         publicacionDTO.setUserId(publicacion.getUserId());
-         publicacionDTO.setId_post(publicacion.getPostId());
-         publicacionDTO.setDate(publicacion.getDate());
-         publicacionDTO.setDetail(publicacion.getDetail());
-         publicacionDTO.setCategory(publicacion.getCategory());
-         publicacionDTO.setPrice(publicacion.getPrice());
+         postDTO.setUserId(publicacion.getUserId());
+         postDTO.setPostId(publicacion.getPostId());
+         postDTO.setDate(publicacion.getDate());
+         postDTO.setDetail(publicacion.getDetail());
+         postDTO.setCategory(publicacion.getCategory());
+         postDTO.setPrice(publicacion.getPrice());
 
-        return publicacionDTO;
+        return postDTO;
     }
 
 
-    public static PublicacionesVendedoresSeguidosDTO toPublicacionesVendedoresSeguidosDTO (int userId, ArrayList<PublicacionDTO> publicacionesDTO){
-        PublicacionesVendedoresSeguidosDTO publicacionesVendedoresSeguidosDTO =new PublicacionesVendedoresSeguidosDTO();
+    public static PostOfFollowedSellerDTO toPublicacionesVendedoresSeguidosDTO (int userId, ArrayList<PostDTO> publicacionesDTO){
+        PostOfFollowedSellerDTO postOfFollowedSellerDTO =new PostOfFollowedSellerDTO();
 
-        publicacionesVendedoresSeguidosDTO.setUserId(userId);
-        publicacionesVendedoresSeguidosDTO.setPublicaciones(publicacionesDTO);
+        postOfFollowedSellerDTO.setUserId(userId);
+        postOfFollowedSellerDTO.setPosts(publicacionesDTO);
 
-        return publicacionesVendedoresSeguidosDTO;
+        return postOfFollowedSellerDTO;
 
     }
 
 
     //Recibe un publicacion y la convierte a su DTO
-    public static PostPromoDTO toPromoDto (PublicacionModel publicacion){
+    public static PostPromoDTO toPromoDto (PostModel publicacion){
         PostPromoDTO postPromoDTO = new PostPromoDTO();
 
         postPromoDTO.setUserId(publicacion.getUserId());
-        postPromoDTO.setId_post(publicacion.getPostId());
+        postPromoDTO.setPostId(publicacion.getPostId());
         postPromoDTO.setDate(publicacion.getDate());
         postPromoDTO.setDetail(publicacion.getDetail());
         postPromoDTO.setCategory(publicacion.getCategory());
@@ -93,7 +93,7 @@ public class SocialMapper {
 
 
 
-    public static CountPromoDTO countPromoDTO (VendedorModel vendedor,int count){
+    public static CountPromoDTO countPromoDTO (SellerModel vendedor, int count){
         CountPromoDTO countPromoDTO= new CountPromoDTO();
 
         countPromoDTO.setUserId(vendedor.getUserId());
@@ -104,14 +104,14 @@ public class SocialMapper {
     }
 
 
-    public static PromoListVendedorDTO toPromoListVendedorDTO (VendedorModel vendedor,ArrayList<PostPromoDTO> posts){
-        PromoListVendedorDTO promoListVendedorDTO = new PromoListVendedorDTO();
+    public static PromoListSellerDTO toPromoListVendedorDTO (SellerModel vendedor, ArrayList<PostPromoDTO> posts){
+        PromoListSellerDTO promoListSellerDTO = new PromoListSellerDTO();
 
-        promoListVendedorDTO.setUserId(vendedor.getUserId());
-        promoListVendedorDTO.setUserName(vendedor.getUserName());
-        promoListVendedorDTO.setPosts(posts);
+        promoListSellerDTO.setUserId(vendedor.getUserId());
+        promoListSellerDTO.setUserName(vendedor.getUserName());
+        promoListSellerDTO.setPosts(posts);
 
-        return promoListVendedorDTO;
+        return promoListSellerDTO;
 
 
     }

@@ -1,16 +1,16 @@
 package com.socialmeli.desafio.service;
 
-import com.socialmeli.desafio.Exception.SeguidorNoRegistradoException;
-import com.socialmeli.desafio.Exception.SeguidorYaRegistradoException;
+import com.socialmeli.desafio.Exception.FollowerNotRegisteredException;
+import com.socialmeli.desafio.Exception.RegisteredFollowerException;
 import com.socialmeli.desafio.Exception.UserIdNotFoundException;
-import com.socialmeli.desafio.Exception.VendedorIdNotFoundException;
+import com.socialmeli.desafio.Exception.SellerIdNotFoundException;
 import com.socialmeli.desafio.dto.*;
-import com.socialmeli.desafio.model.PublicacionModel;
-import com.socialmeli.desafio.model.UsuarioModel;
-import com.socialmeli.desafio.model.VendedorModel;
+import com.socialmeli.desafio.model.PostModel;
+import com.socialmeli.desafio.model.UserModel;
+import com.socialmeli.desafio.model.SellerModel;
 import com.socialmeli.desafio.service.mapper.SocialMapper;
 import com.socialmeli.desafio.socialRepository.IUserRepository;
-import com.socialmeli.desafio.socialRepository.IVendedorRepository;
+import com.socialmeli.desafio.socialRepository.ISellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,236 +24,236 @@ public class SocialService implements ISocialService {
     @Autowired
     IUserRepository iUserRepository;
     @Autowired
-    IVendedorRepository iVendedorRepository;
+    ISellerRepository iSellerRepository;
 
 
-    public void follow(int idUsuario, int idVendedor) throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorYaRegistradoException {
+    public void follow(int userId, int sellerId) throws UserIdNotFoundException, SellerIdNotFoundException, RegisteredFollowerException {
 
-        UsuarioModel usuario = iUserRepository.getUsuarioById(idUsuario);
-        VendedorModel vendedor = iVendedorRepository.getVendedorById(idVendedor);
+        UserModel user = iUserRepository.getUsuarioById(userId);
+        SellerModel seller = iSellerRepository.getVendedorById(sellerId);
 
-        if (usuario == null) {
-            throw new UserIdNotFoundException(idUsuario);
+        if (user == null) {
+            throw new UserIdNotFoundException(userId);
         }
-        if (vendedor == null) {
-            throw new VendedorIdNotFoundException(idVendedor);
+        if (seller == null) {
+            throw new SellerIdNotFoundException(sellerId);
         }
 
-        if (usuario.getFollows().contains(vendedor)) {
-            throw new SeguidorYaRegistradoException(idUsuario);
+        if (user.getFollows().contains(seller)) {
+            throw new RegisteredFollowerException(userId);
         }
-        usuario.addFollow(vendedor);
-        vendedor.addFollower(usuario);
+        user.addFollow(seller);
+        seller.addFollower(user);
 
     }
 
-    public void unfollow(int idUsuario, int idVendedor) throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorNoRegistradoException {
+    public void unfollow(int userId, int sellerId) throws UserIdNotFoundException, SellerIdNotFoundException, FollowerNotRegisteredException {
 
-        UsuarioModel usuario = iUserRepository.getUsuarioById(idUsuario);
-        VendedorModel vendedor = iVendedorRepository.getVendedorById(idVendedor);
+        UserModel user = iUserRepository.getUsuarioById(userId);
+        SellerModel seller = iSellerRepository.getVendedorById(sellerId);
 
-        if (usuario == null) {
-            throw new UserIdNotFoundException(idUsuario);
+        if (user == null) {
+            throw new UserIdNotFoundException(userId);
         }
-        if (vendedor == null) {
-            throw new VendedorIdNotFoundException(idVendedor);
+        if (seller == null) {
+            throw new SellerIdNotFoundException(sellerId);
         }
 
-        if (!usuario.getFollows().contains(vendedor)) {
-            throw new SeguidorNoRegistradoException(idUsuario, idVendedor);
+        if (!user.getFollows().contains(seller)) {
+            throw new FollowerNotRegisteredException(userId, sellerId);
         }
-        usuario.quitarFollow(vendedor);
-        vendedor.removeFollower(usuario);
+        user.removeFollow(seller);
+        seller.removeFollower(user);
     }
 
-    public FollowersCountDTO getCountFollowers(int id) throws VendedorIdNotFoundException { //CU002
-        VendedorModel vendedor = iVendedorRepository.getVendedorById(id);
-        if (vendedor == null) {
-            throw new VendedorIdNotFoundException(id);
+    public FollowersCountDTO getCountFollowers(int id) throws SellerIdNotFoundException { //CU002
+        SellerModel seller = iSellerRepository.getVendedorById(id);
+        if (seller == null) {
+            throw new SellerIdNotFoundException(id);
         }
-        return SocialMapper.toFollowerCountDTO(vendedor);
+        return SocialMapper.toFollowerCountDTO(seller);
     }
 
 
-    public FollowersListDTO getFollowersList(int id, String order) throws VendedorIdNotFoundException {  //CU0003
-        VendedorModel vendedor = iVendedorRepository.getVendedorById(id);
+    public FollowersListDTO getFollowersList(int id, String order) throws SellerIdNotFoundException {  //CU0003
+        SellerModel seller = iSellerRepository.getVendedorById(id);
 
-        if (vendedor == null) {
-            throw new VendedorIdNotFoundException(id);
+        if (seller == null) {
+            throw new SellerIdNotFoundException(id);
         }
 
-        ArrayList<UsuarioDTO> followers = new ArrayList<>();
+        ArrayList<UserDTO> followers = new ArrayList<>();
 
-        for (int i = 0; i < vendedor.getFollowers().size(); i++) {
-            UsuarioDTO userDto = SocialMapper.toUsuarioDTO(vendedor.getFollowers().get(i));
+        for (int i = 0; i < seller.getFollowers().size(); i++) {
+            UserDTO userDto = SocialMapper.toUsuarioDTO(seller.getFollowers().get(i));
             followers.add(userDto);
         }
 
         if (order.equals("name_asc")) {
-            sortUsuariosAscendentes(followers);
+            sortUserAsc(followers);
 
         } else if (order.equals("name_desc")) {
-            sortUsuariosDescendentes(followers);
+            sortUserDesc(followers);
         }
-        FollowersListDTO followerList = SocialMapper.toFollowersListDto(vendedor, followers);
+        FollowersListDTO followerList = SocialMapper.toFollowersListDto(seller, followers);
 
         return followerList;  //No es una lista
     }
 
 
-    public void createPost(PublicacionModel publicacion) throws VendedorIdNotFoundException {
-        VendedorModel vendedor = iVendedorRepository.getVendedorById(publicacion.getUserId());
-        if (vendedor == null) {
-            throw new VendedorIdNotFoundException(publicacion.getUserId());
+    public void createPost(PostModel post) throws SellerIdNotFoundException {
+        SellerModel seller = iSellerRepository.getVendedorById(post.getUserId());
+        if (seller == null) {
+            throw new SellerIdNotFoundException(post.getUserId());
         }
-        vendedor.addPost(publicacion);
+        seller.addPost(post);
     }
 
 
     //Devuelve lista de publicaciones seguidos por un usuario en las ultimas 2 semanas
     //Devuelve un objeto que adelanto tiene una lista de publicaciones
-    public PublicacionesVendedoresSeguidosDTO publicacionesVendedoresSeguidosDosSemanas(int id, String order) throws UserIdNotFoundException {
-        UsuarioModel usuario = iUserRepository.getUsuarioById(id);
-        if (usuario == null) {
+    public PostOfFollowedSellerDTO postFollowedSellersTwoWeeks(int id, String order) throws UserIdNotFoundException {
+        UserModel user = iUserRepository.getUsuarioById(id);
+        if (user == null) {
             throw new UserIdNotFoundException(id);
         }
-        ArrayList<VendedorModel> vendedores = getFollowedList(usuario);
-        ArrayList<PublicacionModel> publicacionesUltimasDosSemanas;
-        ArrayList<PublicacionModel> publicacionesDelVendedor = new ArrayList<>();
-        ArrayList<PublicacionDTO> publicacionesDTO = new ArrayList<>();
+        ArrayList<SellerModel> sellers = getFollowedList(user);
+        ArrayList<PostModel> postsTwoWeeks;
+        ArrayList<PostModel> sellerPosts = new ArrayList<>();
+        ArrayList<PostDTO> postsDTO = new ArrayList<>();
 
-        for (int v = 0; v < vendedores.size(); v++) {
-            publicacionesUltimasDosSemanas = getPublicacionesVendedorDosSemanas(vendedores.get(v));
-            publicacionesDelVendedor.addAll(publicacionesUltimasDosSemanas);
+        for (int v = 0; v < sellers.size(); v++) {
+            postsTwoWeeks = getPostSellerTwoWeeks(sellers.get(v));
+            sellerPosts.addAll(postsTwoWeeks);
         }
-        for (int p = 0; p < publicacionesDelVendedor.size(); p++) {
-            PublicacionDTO publicacionDTO = SocialMapper.toPublicacionDTO(publicacionesDelVendedor.get(p));
-            publicacionesDTO.add(publicacionDTO);
+        for (int p = 0; p < sellerPosts.size(); p++) {
+            PostDTO postDTO = SocialMapper.toPublicacionDTO(sellerPosts.get(p));
+            postsDTO.add(postDTO);
         }
         if (order.equals("date_asc")) {
-            sortPublicacionesAscendente(publicacionesDTO);
+            sortPublicacionesAscendente(postsDTO);
 
         } else if (order.equals("date_desc")) {
-            sortPublicacionesDescendente(publicacionesDTO);
+            sortPublicacionesDescendente(postsDTO);
         }
-        return SocialMapper.toPublicacionesVendedoresSeguidosDTO(id, publicacionesDTO);
+        return SocialMapper.toPublicacionesVendedoresSeguidosDTO(id, postsDTO);
     }
 
     //Devuelve lista de vendedores seguidos por un usuario
     //Sobrecargado
     public FollowedListDTO getFollowedList(int id, String order) throws UserIdNotFoundException {
-        UsuarioModel usuario = iUserRepository.getUsuarioById(id);
+        UserModel user = iUserRepository.getUsuarioById(id);
 
-        if (usuario == null) {
+        if (user == null) {
             throw new UserIdNotFoundException(id);
         }
-        ArrayList<VendedorDTO> followed = new ArrayList<>();
+        ArrayList<SellerDTO> followed = new ArrayList<>();
 
-        for (int i = 0; i < usuario.getFollows().size(); i++) {
-            VendedorModel vendedor = usuario.getFollows().get(i);
+        for (int i = 0; i < user.getFollows().size(); i++) {
+            SellerModel vendedor = user.getFollows().get(i);
 
-            VendedorDTO vendedorDTO = SocialMapper.toVendedorDTO(vendedor);
-            followed.add(vendedorDTO);
+            SellerDTO sellerDTO = SocialMapper.toVendedorDTO(vendedor);
+            followed.add(sellerDTO);
         }
         if (order.equals("name_asc")) {
-            sortVendedoresAscendentes(followed);
+            sortSellerAsc(followed);
 
         } else if (order.equals("name_desc")) {
-            sortVendedoresDescendentes(followed);
+            sortSellerDesc(followed);
         }
-        FollowedListDTO followedList = SocialMapper.toFollowedListDto(usuario, followed);
+        FollowedListDTO followedList = SocialMapper.toFollowedListDto(user, followed);
 
         return followedList;
     }
 
 
-    public ArrayList<VendedorModel> getFollowedList(UsuarioModel usuario) {   //CU006
-        ArrayList<VendedorModel> followed = new ArrayList<>();
+    public ArrayList<SellerModel> getFollowedList(UserModel user) {   //CU006
+        ArrayList<SellerModel> followed = new ArrayList<>();
 
-        for (int i = 0; i < usuario.getFollows().size(); i++) {
-            VendedorModel vendedor = usuario.getFollows().get(i);
-            followed.add(vendedor);
+        for (int i = 0; i < user.getFollows().size(); i++) {
+            SellerModel seller = user.getFollows().get(i);
+            followed.add(seller);
         }
         return followed;
     }
 
     //Me devuelve lista de publicaciones de un vendedor en las ultimas 2 semanas
-    public ArrayList<PublicacionModel> getPublicacionesVendedorDosSemanas(VendedorModel vendedor) {
-        ArrayList<PublicacionModel> publicaciones = new ArrayList<>();
+    public ArrayList<PostModel> getPostSellerTwoWeeks(SellerModel seller) {
+        ArrayList<PostModel> posts = new ArrayList<>();
 
-        Calendar calendario = Calendar.getInstance();
-        calendario.add(Calendar.WEEK_OF_YEAR, -2);
-        Date dosSemanasAntes = calendario.getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.WEEK_OF_YEAR, -2);
+        Date dosSemanasAntes = cal.getTime();
 
-        for (int i = 0; i < vendedor.getPosts().size(); i++) {
-            PublicacionModel publicacion = vendedor.getPosts().get(i);
+        for (int i = 0; i < seller.getPosts().size(); i++) {
+            PostModel post = seller.getPosts().get(i);
 
-            if (publicacion.getDate().compareTo(dosSemanasAntes) > 0) {
-                publicaciones.add(publicacion);
+            if (post.getDate().compareTo(dosSemanasAntes) > 0) {
+                posts.add(post);
             }
         }
-        return publicaciones;
+        return posts;
     }
 
 
-    public void sortUsuariosAscendentes(ArrayList<UsuarioDTO> aSortear) {
+    public void sortUserAsc(ArrayList<UserDTO> aSortear) {
 
-        Collections.sort(aSortear, new Comparator<UsuarioDTO>() {
+        Collections.sort(aSortear, new Comparator<UserDTO>() {
             @Override
-            public int compare(UsuarioDTO o1, UsuarioDTO o2) {
+            public int compare(UserDTO o1, UserDTO o2) {
                 return o1.getUserName().compareTo(o2.getUserName());
             }
         });
     }
 
 
-    public void sortUsuariosDescendentes(ArrayList<UsuarioDTO> aSortear) {
+    public void sortUserDesc(ArrayList<UserDTO> aSortear) {
 
-        Collections.sort(aSortear, new Comparator<UsuarioDTO>() {
+        Collections.sort(aSortear, new Comparator<UserDTO>() {
             @Override
-            public int compare(UsuarioDTO o1, UsuarioDTO o2) {
+            public int compare(UserDTO o1, UserDTO o2) {
                 return o2.getUserName().compareTo(o1.getUserName());
             }
         });
     }
 
 
-    public void sortVendedoresAscendentes(ArrayList<VendedorDTO> aSortear) {
+    public void sortSellerAsc(ArrayList<SellerDTO> aSortear) {
 
-        Collections.sort(aSortear, new Comparator<VendedorDTO>() {
+        Collections.sort(aSortear, new Comparator<SellerDTO>() {
             @Override
-            public int compare(VendedorDTO o1, VendedorDTO o2) {
+            public int compare(SellerDTO o1, SellerDTO o2) {
                 return o1.getUserName().compareTo(o2.getUserName());
             }
         });
     }
 
 
-    public void sortVendedoresDescendentes(ArrayList<VendedorDTO> aSortear) {
+    public void sortSellerDesc(ArrayList<SellerDTO> aSortear) {
 
-        Collections.sort(aSortear, new Comparator<VendedorDTO>() {
+        Collections.sort(aSortear, new Comparator<SellerDTO>() {
             @Override
-            public int compare(VendedorDTO o1, VendedorDTO o2) {
+            public int compare(SellerDTO o1, SellerDTO o2) {
                 return o2.getUserName().compareTo(o1.getUserName());
             }
         });
     }
 
-    public void sortPublicacionesAscendente(ArrayList<PublicacionDTO> aSortear) {
+    public void sortPublicacionesAscendente(ArrayList<PostDTO> aSortear) {
 
-        Collections.sort(aSortear, new Comparator<PublicacionDTO>() {
+        Collections.sort(aSortear, new Comparator<PostDTO>() {
             @Override
-            public int compare(PublicacionDTO o2, PublicacionDTO o1) {
+            public int compare(PostDTO o2, PostDTO o1) {
                 return o2.getDate().compareTo(o1.getDate());
             }
         });
     }
 
-    public void sortPublicacionesDescendente(ArrayList<PublicacionDTO> aSortear) {
+    public void sortPublicacionesDescendente(ArrayList<PostDTO> aSortear) {
 
-        Collections.sort(aSortear, new Comparator<PublicacionDTO>() {
+        Collections.sort(aSortear, new Comparator<PostDTO>() {
             @Override
-            public int compare(PublicacionDTO o2, PublicacionDTO o1) {
+            public int compare(PostDTO o2, PostDTO o1) {
                 return o1.getDate().compareTo(o2.getDate());
             }
         });
@@ -282,19 +282,18 @@ public class SocialService implements ISocialService {
     }
 
 
-    public CountPromoDTO countPromoBySeller(int sellerId) throws VendedorIdNotFoundException {
-
-        VendedorModel seller = iVendedorRepository.getVendedorById(sellerId);
+    public CountPromoDTO countPromoBySeller(int sellerId) throws SellerIdNotFoundException {
+        SellerModel seller = iSellerRepository.getVendedorById(sellerId);
         int count = 0;
 
         if (seller == null) {
-            throw new VendedorIdNotFoundException(sellerId);
+            throw new SellerIdNotFoundException(sellerId);
         }
 
         for (int i = 0; i < seller.getPosts().size(); i++) {
-            PublicacionModel publicacion = seller.getPosts().get(i);
+            PostModel post = seller.getPosts().get(i);
 
-            if (publicacion.isHasPromo()) {
+            if (post.isHasPromo()) {
                 count++;
             }
         }
@@ -302,17 +301,17 @@ public class SocialService implements ISocialService {
     }
 
 
-    public PromoListVendedorDTO listPromo(int sellerId, String order) throws VendedorIdNotFoundException {  //CU0012
+    public PromoListSellerDTO listPromo(int sellerId, String order) throws SellerIdNotFoundException {  //CU0012
         ArrayList<PostPromoDTO> posts = new ArrayList<>();
 
-        VendedorModel seller = iVendedorRepository.getVendedorById(sellerId);
+        SellerModel seller = iSellerRepository.getVendedorById(sellerId);
 
         if (seller == null) {
-            throw new VendedorIdNotFoundException(sellerId);
+            throw new SellerIdNotFoundException(sellerId);
         }
 
         for (int i = 0; i < seller.getPosts().size(); i++) {
-            PublicacionModel publicacion = seller.getPosts().get(i);
+            PostModel publicacion = seller.getPosts().get(i);
 
             if (publicacion.isHasPromo()) {
                 posts.add(SocialMapper.toPromoDto(publicacion));

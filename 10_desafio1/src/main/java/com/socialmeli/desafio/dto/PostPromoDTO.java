@@ -13,7 +13,7 @@ import java.util.Date;
 public class PostPromoDTO {
 
     private int userId;
-    private int id_post;
+    private int postId;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date date;
     private DetailModel detail;

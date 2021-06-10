@@ -1,17 +1,17 @@
 package com.socialmeli.desafio.dto;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-
 
 @Getter
 @Setter
-public class PromoListVendedorDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SellerDTO {
 
     private int userId;
     private String userName;
-    private ArrayList<PostPromoDTO> posts;
-
 }

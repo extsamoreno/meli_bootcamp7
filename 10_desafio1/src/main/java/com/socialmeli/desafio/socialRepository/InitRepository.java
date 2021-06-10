@@ -1,8 +1,8 @@
 package com.socialmeli.desafio.socialRepository;
 
-import com.socialmeli.desafio.Exception.SeguidorYaRegistradoException;
+import com.socialmeli.desafio.Exception.RegisteredFollowerException;
 import com.socialmeli.desafio.Exception.UserIdNotFoundException;
-import com.socialmeli.desafio.Exception.VendedorIdNotFoundException;
+import com.socialmeli.desafio.Exception.SellerIdNotFoundException;
 import com.socialmeli.desafio.service.ISocialService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class InitRepository implements IInitRepository{
     IUserRepository iUserRepository;
 
     @Autowired
-    IVendedorRepository iVendedorRepository;
+    ISellerRepository iSellerRepository;
 
     @Autowired
     ISocialService iSocialService;
@@ -27,30 +27,30 @@ public class InitRepository implements IInitRepository{
    public void altaUsuarios(){
 
 
-       iUserRepository.altaUsuario("Usuario 1");
-       iUserRepository.altaUsuario("Usuario 2");
-       iUserRepository.altaUsuario("Usuario 3");
-       iUserRepository.altaUsuario("Usuario 4");
-       iUserRepository.altaUsuario("Usuario 5");
-       iUserRepository.altaUsuario("Usuario 6");
-       iUserRepository.altaUsuario("Usuario 7");
+       iUserRepository.newUser("Usuario 1");
+       iUserRepository.newUser("Usuario 2");
+       iUserRepository.newUser("Usuario 3");
+       iUserRepository.newUser("Usuario 4");
+       iUserRepository.newUser("Usuario 5");
+       iUserRepository.newUser("Usuario 6");
+       iUserRepository.newUser("Usuario 7");
 
 
     }
 
     @Override
     public void altaVendedores() {
-        iVendedorRepository.altaVendedor("Vendedor 1");
-        iVendedorRepository.altaVendedor("Vendedor 2");
-        iVendedorRepository.altaVendedor("Vendedor 3");
-        iVendedorRepository.altaVendedor("Vendedor 4");
-        iVendedorRepository.altaVendedor("Vendedor 5");
-        iVendedorRepository.altaVendedor("Vendedor 6");
-        iVendedorRepository.altaVendedor("Vendedor 7");
+        iSellerRepository.newSeller("Vendedor 1");
+        iSellerRepository.newSeller("Vendedor 2");
+        iSellerRepository.newSeller("Vendedor 3");
+        iSellerRepository.newSeller("Vendedor 4");
+        iSellerRepository.newSeller("Vendedor 5");
+        iSellerRepository.newSeller("Vendedor 6");
+        iSellerRepository.newSeller("Vendedor 7");
     }
 
 
-    public void follow() throws UserIdNotFoundException, VendedorIdNotFoundException, SeguidorYaRegistradoException {
+    public void follow() throws UserIdNotFoundException, SellerIdNotFoundException, RegisteredFollowerException {
 
         iSocialService.follow(2, 2);
         iSocialService.follow(2, 3);
@@ -61,52 +61,6 @@ public class InitRepository implements IInitRepository{
         iSocialService.follow(3, 3);
 
         }
-
-
-
-    /*public void createPost() {
-
-        Date fecha1= new Date();
-        fecha1= arreglarFecha("2021-04-29 00:00:00");
-        System.out.println(fecha1.toString());
-
-        Date fecha2= new Date();
-        fecha1= arreglarFecha("2021-06-08 13:29:00");
-        System.out.println(fecha1.toString());
-
-        Date fecha3= new Date();
-        fecha1= arreglarFecha("2021-06-07 00:00:00");
-        System.out.println(fecha1.toString());
-
-        DetailModel details1= new DetailModel(1,"MESA","Gamer","Racer","Red and Black","EspecialEdition");
-       // DetailModel details2= new DetailModel(62,"GORRO","Gamer","Racer","Green with RGB","Sin bateria");
-       iSocialService.createPost(new PublicacionModel(1,1,fecha2,details1,100,1500.50));
-       //iSocialService.createPost(new PublicacionModel(2,2,fecha2,details1,100,1800.50));
-      // iSocialService.createPost(new PublicacionModel(2,3,fecha3,details2,100,1900.50));
-
-
-    }
-
-    public Date arreglarFecha(String s){
-       Date fecha= null;
-
-       try{
-           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-           fecha = dateFormat.parse(s);
-       }
-       catch (Exception e){
-
-       }
-        return fecha;
-    }
-
-*/
-
-
-
-
-
-
 
 
 }

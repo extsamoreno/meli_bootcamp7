@@ -1,19 +1,18 @@
 package com.socialmeli.desafio.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
-
 @Getter
 @Setter
-
-public class PublicacionesVendedoresSeguidosDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDTO {   //USADO EN CU0003
 
     private int userId;
-    private ArrayList<PublicacionDTO> publicaciones;
+    private String userName;
 
 }

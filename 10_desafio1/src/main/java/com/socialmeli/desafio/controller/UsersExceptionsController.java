@@ -1,9 +1,9 @@
 package com.socialmeli.desafio.controller;
 
-import com.socialmeli.desafio.Exception.SeguidorNoRegistradoException;
-import com.socialmeli.desafio.Exception.SeguidorYaRegistradoException;
+import com.socialmeli.desafio.Exception.FollowerNotRegisteredException;
+import com.socialmeli.desafio.Exception.RegisteredFollowerException;
 import com.socialmeli.desafio.Exception.UserIdNotFoundException;
-import com.socialmeli.desafio.Exception.VendedorIdNotFoundException;
+import com.socialmeli.desafio.Exception.SellerIdNotFoundException;
 import com.socialmeli.desafio.dto.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,18 +18,18 @@ public class UsersExceptionsController {
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 
-    @ExceptionHandler(VendedorIdNotFoundException.class)
-    public ResponseEntity<ErrorDTO> VendedorGlobalException(VendedorIdNotFoundException e){
+    @ExceptionHandler(SellerIdNotFoundException.class)
+    public ResponseEntity<ErrorDTO> VendedorGlobalException(SellerIdNotFoundException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 
-    @ExceptionHandler(SeguidorYaRegistradoException.class)
-    public ResponseEntity<ErrorDTO> UserGlobalException(SeguidorYaRegistradoException e){
+    @ExceptionHandler(RegisteredFollowerException.class)
+    public ResponseEntity<ErrorDTO> UserGlobalException(RegisteredFollowerException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 
-    @ExceptionHandler(SeguidorNoRegistradoException.class)
-    public ResponseEntity<ErrorDTO> UserGlobalException(SeguidorNoRegistradoException e){
+    @ExceptionHandler(FollowerNotRegisteredException.class)
+    public ResponseEntity<ErrorDTO> UserGlobalException(FollowerNotRegisteredException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 

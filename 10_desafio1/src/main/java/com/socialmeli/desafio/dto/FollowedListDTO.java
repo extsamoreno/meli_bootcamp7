@@ -1,6 +1,5 @@
 package com.socialmeli.desafio.dto;
 
-import com.socialmeli.desafio.model.VendedorModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +16,5 @@ public class FollowedListDTO {
 
     private int userId;
     private String userName;
-    private ArrayList<VendedorDTO> followed;
+    private ArrayList<SellerDTO> followed;
 }
