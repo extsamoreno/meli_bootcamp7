@@ -14,7 +14,6 @@ public interface IUserService {
     void unfollow(int userid, int user_id_to_unfollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException;
     SellerDTO getFollowerCount(int user_id) throws UserIdNotFoundException;
     SellerDTO getFollowers(int user_id, Optional<String> order) throws UserIdNotFoundException;
-
     UserDTO getFollowingCount(int user_id) throws UserIdNotFoundException;
     UserDTO getFollowing(int user_id, Optional<String> order) throws UserIdNotFoundException;
 

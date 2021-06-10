@@ -237,7 +237,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id_post\": 14,\n    \"id_user\": 1,\n    \"date\": \"20-04-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": \"100\",\n    \"price\": 1500.5\n}",
+					"raw": "{\n    \"post_id\": 14,\n    \"user_id\": 1,\n    \"date\": \"20-04-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"product_name\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": \"100\",\n    \"price\": 1500.5\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -265,7 +265,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id_post\": 14,\n    \"id_user\": 1,\n    \"date\": \"20-04-2021\",\n    \"detail\": {\n\n        \"productName\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": \"100\",\n    \"price\": 1500.5,\n    \"hasPromo\": true,\n    \"discount\":0.2\n}",
+					"raw": "{\n    \"post_id\": 14,\n    \"user_id\": 1,\n    \"date\": \"20-04-2021\",\n    \"detail\": {\n\n        \"product_name\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": \"100\",\n    \"price\": 1500.5,\n    \"has_promo\": true,\n    \"discount\":0.2\n}",
 					"options": {
 						"raw": {
 							"language": "json"

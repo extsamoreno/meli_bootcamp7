@@ -103,10 +103,10 @@ public class UserService implements IUserService {
     public UserDTO getFollowing(int user_id, Optional<String> order) throws UserIdNotFoundException {
         User user = iDataRepository.getUserById(user_id);
         List<User> following = new ArrayList<>();
+
         for (Integer following_id: user.getFollowed()) {
             following.add(iDataRepository.getUserById(following_id));
         }
-
         UserDTO userDTO = userMapper.toUserWithFollowingDTO(user, following);
 
         if (order.isPresent()) orderUserDTOList(((UserWithFollowingListDTO)userDTO).getFollowed(), order.get());
