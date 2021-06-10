@@ -1,7 +1,11 @@
 package com.meli.demo.repositories;
 
 import com.meli.demo.dtos.*;
+import com.meli.demo.models.CountUser;
+import com.meli.demo.models.ListSeller;
 import com.meli.demo.models.Post;
+import com.meli.demo.models.Seller;
+import com.meli.demo.models.ListSellerPost;
 import com.meli.demo.services.mappers.PostMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +28,7 @@ public class SocialRepositoryImple implements SocialRepository {
     private ArrayList<UserDTO> userAsigned1 =new ArrayList<>();
     private ArrayList<UserDTO> userAsigned2 =new ArrayList<>();
     private ArrayList<UserDTO> userAsigned3 =new ArrayList<>();
-    private ArrayList<SellerDTO> Sellers =new ArrayList<>();
+    private ArrayList<Seller> Sellers =new ArrayList<>();
 
 
 
@@ -68,16 +72,6 @@ public class SocialRepositoryImple implements SocialRepository {
         UserDTO user14 = new UserDTO(114,"Comprador Suirt");
         UserDTO user15 = new UserDTO(115,"Comprador Claudia");
 
-        /*DateUserFollowDTO Duser1 = new DateUserFollowDTO(101,new Date());
-        DateUserFollowDTO Duser2 = new DateUserFollowDTO(101,new Date());
-        DateUserFollowDTO Duser3 = new DateUserFollowDTO(101,new Date());
-        DateUserFollowDTO Duser4 = new DateUserFollowDTO(101,new Date());
-        DateUserFollowDTO Duser5 = new DateUserFollowDTO(101,new Date());
-        DateUserFollowDTO Duser6 = new DateUserFollowDTO(101,new Date());
-        DateUserFollowDTO Duser7 = new DateUserFollowDTO(101,new Date());
-        DateUserFollowDTO Duser8 = new DateUserFollowDTO(101,new Date());
-        DateUserFollowDTO Duser9 = new DateUserFollowDTO(101,new Date());*/
-
         UserDTO.add(user1);
         UserDTO.add(user2);
         UserDTO.add(user2);
@@ -107,8 +101,6 @@ public class SocialRepositoryImple implements SocialRepository {
         userAsigned3.add(user7);
         userAsigned3.add(user1);
 
-
-
         DetailDTO Detail01 = new DetailDTO(1,"Pala para tierra","Juego","Test1","gris","Test1");
         DetailDTO Detail02 = new DetailDTO(2,"Pc mac","Computador","Test2","plateado","Test2");
         DetailDTO Detail03 = new DetailDTO(1,"Cable Usb","Cable","Test3","negro","Test3");
@@ -127,12 +119,6 @@ public class SocialRepositoryImple implements SocialRepository {
         PostDTO post9 = new PostDTO(503,303,"29-05-2019",Detail03,100,1450.0,true,8.0);
         PostDTO post10 = new PostDTO(504,304,"30-07-2021",Detail04,200,300.0,true,6.0);
 
-        /*PostDiscountDTO postDto1D = new PostDiscountDTO(501,301,"01-05-2021",Detail01,100,1500.0,true,1.0);
-        PostDiscountDTO postDto2D = new PostDiscountDTO(502,302,"10-02-2021",Detail02,200,1400.0,true,23.0);
-        PostDiscountDTO postDto3D = new PostDiscountDTO(503,303,"12-05-2019",Detail03,100,1450.0,true,8.0);
-        PostDiscountDTO postDto4D = new PostDiscountDTO(504,304,"24-07-2021",Detail04,200,300.0,true,6.0);*/
-
-
         Arraypost1.add(post1);
         Arraypost2.add(post2);
         Arraypost3.add(post3);
@@ -148,9 +134,9 @@ public class SocialRepositoryImple implements SocialRepository {
 
 
 
-        SellerDTO sell1 = new SellerDTO(1001,"Vendedor Pepito perez",Arraypost1,userAsigned1);
-        SellerDTO sell2 = new SellerDTO(1002,"Vendedor Maria perez",Arraypost2,userAsigned2);
-        SellerDTO sell3 = new SellerDTO(1003,"Vendedor Juan cans",Arraypost3,userAsigned3);
+        Seller sell1 = new Seller(1001,"Vendedor Pepito perez",Arraypost1,userAsigned1);
+        Seller sell2 = new Seller(1002,"Vendedor Maria perez",Arraypost2,userAsigned2);
+        Seller sell3 = new Seller(1003,"Vendedor Juan cans",Arraypost3,userAsigned3);
         Sellers.add(sell1);
         Sellers.add(sell2);
         Sellers.add(sell3);
@@ -190,8 +176,8 @@ public class SocialRepositoryImple implements SocialRepository {
 
     }
 
-    public CountUsersDTO countUsers(int iduser){
-        CountUsersDTO cantidad=  new CountUsersDTO();
+    public CountUser countUsers(int iduser){
+        CountUser cantidad=  new CountUser();
 
         for (int i = 0; i < Sellers.size(); i++) {
 
@@ -204,24 +190,20 @@ public class SocialRepositoryImple implements SocialRepository {
         return cantidad;
     }
 
-    public LisUsersResponseDTO listUsers(int iduser){
-        LisUsersResponseDTO list=  new LisUsersResponseDTO();
+    public Seller listUsers(int iduser){
         for (int i = 0; i < Sellers.size(); i++) {
 
             if(Sellers.get(i).getId()==iduser){
 
-                list.setUserId(Sellers.get(i).getId());
-                list.setUserName(Sellers.get(i).getNombre());
-                list.setFollowers(Sellers.get(i).getUsuarios());
+                return Sellers.get(i);
             }
         }
-
-        return list;
+        return null;
     }
 
     @Override
-    public ListSellersResponseDTO listVendedores(int iduser) {
-        ListSellersResponseDTO listVen =new ListSellersResponseDTO();
+    public ListSeller listVendedores(int iduser) {
+        ListSeller listVen =new ListSeller();
 
         ArrayList<SellerResponseDTO> vendedores= new ArrayList<>();
 
@@ -251,7 +233,6 @@ public class SocialRepositoryImple implements SocialRepository {
     public boolean newPost(Post publi) {
         for (int i = 0; i < Sellers.size(); i++) {
             if(Sellers.get(i).getId()==publi.getUserId()){
-
                 Sellers.get(i).getPublicacions().add(PostMapper.toDTO(publi));
                 return true;
             }
@@ -260,9 +241,9 @@ public class SocialRepositoryImple implements SocialRepository {
     }
 
     @Override
-    public ListSellersPostDTO getListPostVendedors(int iduser) {
+    public ListSellerPost getListPostVendedors(int iduser) {
 
-        ListSellersPostDTO response= new ListSellersPostDTO();
+        ListSellerPost response= new ListSellerPost();
         ArrayList<PostResponseDTO> post = new ArrayList<>();
         for (int i = 0; i < UserDTO.size(); i++) {
             if(UserDTO.get(i).getUserId()==iduser){
@@ -328,9 +309,9 @@ public class SocialRepositoryImple implements SocialRepository {
         return false;
     }
     @Override
-    public SellerDTO getVendedor(int userId) {
+    public Seller getVendedor(int userId) {
 
-        SellerDTO vendedor = new SellerDTO();
+        Seller vendedor = new Seller();
         for (int i = 0; i < Sellers.size(); i++) {
             if(Sellers.get(i).getId()==userId){
                 vendedor= Sellers.get(i);

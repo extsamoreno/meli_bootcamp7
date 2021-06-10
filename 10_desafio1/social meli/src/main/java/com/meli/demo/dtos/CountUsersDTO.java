@@ -6,10 +6,15 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CountUsersDTO {
 
     private Integer userid;
     private String userName;
     private Integer followers_count;
+
+    public CountUsersDTO(Integer userid, String userName, Integer followers_count) {
+        this.userid = userid;
+        this.userName = userName;
+        this.followers_count = followers_count;
+    }
 }

@@ -2,20 +2,20 @@ package com.meli.demo.repositories;
 
 
 import com.meli.demo.dtos.*;
-import com.meli.demo.models.Post;
+import com.meli.demo.models.*;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SocialRepository {
     boolean Follow(int iduser, int id_vendedor);
     void cargarDatos();
-    CountUsersDTO countUsers(int iduser);
-    LisUsersResponseDTO listUsers(int iduser);
-    ListSellersResponseDTO listVendedores(int iduser);
+    CountUser countUsers(int iduser);
+    Seller listUsers(int iduser);
+    ListSeller listVendedores(int iduser);
     boolean newPost(Post publi);
-    ListSellersPostDTO getListPostVendedors(int iduser);
+    ListSellerPost getListPostVendedors(int iduser);
     boolean unFollow(int iduser, int id_vendedor);
     boolean newPostDiscount(Post publi);
-    SellerDTO getVendedor(int userId);
+    Seller getVendedor(int userId);
 
 }

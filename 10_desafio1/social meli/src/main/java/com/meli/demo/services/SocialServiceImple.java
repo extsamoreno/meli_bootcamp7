@@ -6,8 +6,9 @@ import com.meli.demo.exceptions.FollowException;
 import com.meli.demo.exceptions.PostDiscountException;
 import com.meli.demo.exceptions.PostException;
 import com.meli.demo.models.Post;
+import com.meli.demo.models.Seller;
 import com.meli.demo.repositories.SocialRepository;
-import com.meli.demo.services.mappers.PostMapper;
+import com.meli.demo.services.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,17 +38,23 @@ public class SocialServiceImple implements SocialService {
 
     @Override
     public CountUsersDTO countUsers(int userid) {
-        return FollowRepository.countUsers(userid);
+        return CountUserMapper.toDTO(FollowRepository.countUsers(userid));
     }
 
     @Override
     public LisUsersResponseDTO listUsers(int iduser) {
-        return FollowRepository.listUsers(iduser);
+        Seller Sellers = new Seller();
+        Sellers=FollowRepository.listUsers(iduser);
+        LisUsersResponseDTO list=  new LisUsersResponseDTO();
+        list.setUserId(Sellers.getId());
+        list.setUserName(Sellers.getNombre());
+        list.setFollowers(Sellers.getUsuarios());
+        return list;
     }
 
     @Override
     public ListSellersResponseDTO listVendedores(int iduser) {
-        return FollowRepository.listVendedores(iduser);
+        return ListSellerMapper.toDTO(FollowRepository.listVendedores(iduser));
     }
 
     @Override
@@ -65,7 +72,7 @@ public class SocialServiceImple implements SocialService {
     @Override
     public ListSellersPostDTO listPostVendedors(int iduser) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
-        lis=FollowRepository.getListPostVendedors(iduser);
+        lis= ListSellerPostMapper.toDTO(FollowRepository.getListPostVendedors(iduser));
         List<String> dateArray = new ArrayList<String>();
         ArrayList<PostResponseDTO> post = new ArrayList<>();
 
@@ -103,7 +110,7 @@ public class SocialServiceImple implements SocialService {
     @Override
     public ListSellersPostDTO orderDateAscDesc(int UserID, String order) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
-        lis=FollowRepository.getListPostVendedors(UserID);
+        lis=ListSellerPostMapper.toDTO(FollowRepository.getListPostVendedors(UserID));
 
 
         return orderAscDescArrayDate(lis,order);
@@ -111,7 +118,7 @@ public class SocialServiceImple implements SocialService {
     @Override
     public ListSellersPostDTO orderNameAscDesc(int UserID, String order) {
         ListSellersPostDTO lis= new ListSellersPostDTO();
-        lis=FollowRepository.getListPostVendedors(UserID);
+        lis=ListSellerPostMapper.toDTO(FollowRepository.getListPostVendedors(UserID));
         return orderAscDescArrayName(lis,order);
     }
 
@@ -304,7 +311,7 @@ public class SocialServiceImple implements SocialService {
     public CountDiscountSelleDTO countDiscount(int idUser) {
 
         CountDiscountSelleDTO count = new CountDiscountSelleDTO();
-        SellerDTO vendedor = new SellerDTO();
+        Seller vendedor = new Seller();
         vendedor=FollowRepository.getVendedor(idUser);
         count.setUserId(vendedor.getId());
         count.setUserName(vendedor.getNombre());
@@ -324,7 +331,7 @@ public class SocialServiceImple implements SocialService {
         ListDiscountDTO list = new ListDiscountDTO();
         ArrayList<PostDTO> postDiscount = new ArrayList<>();
         SellerDTO vendedor = new SellerDTO();
-        vendedor=FollowRepository.getVendedor(iduser);
+        vendedor= SellerMapper.toDTO(FollowRepository.getVendedor(iduser));
         list.setId(vendedor.getId());
         list.setUserName(vendedor.getNombre());
 

@@ -31,7 +31,6 @@ public class SocialController {
     //GET http://localhost:8080/social/users/1001/followers/list
     @GetMapping("/users/{UserID}/followers/list")
     public ResponseEntity<LisUsersResponseDTO> ListUsers(@PathVariable int UserID) throws FollowException {
-
         return new ResponseEntity<>(FollowService.listUsers(UserID), HttpStatus.OK);
     }
     //GET http://localhost:8080/social/users/101/followed/list
@@ -50,7 +49,7 @@ public class SocialController {
     "detail":
     {
         "product_id":1,
-        "productName":"Silla gamner",
+        "productName":"TESTG gamner",
         "type":"gamer",
         "brand":"Racer",
         "color":"red $ black",
@@ -112,7 +111,6 @@ public class SocialController {
 
     @GetMapping("/products/{userId}/countPromo/")
     public ResponseEntity<CountDiscountSelleDTO> countDiscount(@PathVariable int userId ){
-
         return new ResponseEntity<>(FollowService.countDiscount(userId),HttpStatus.OK);
     }
 
