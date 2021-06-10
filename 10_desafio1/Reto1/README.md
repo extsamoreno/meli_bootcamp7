@@ -14,6 +14,8 @@ SocialMeli is a proyect, where the users can follow the favorites sellers and re
 
 **In this proyect use the same User Object by buyer and seller, because I think the buyer also can sell, and seller also can buy.**
 
+**You can see the javaDoc on
+`10_desafio1/Reto1/JavaDoc/allpackages-index.html`**
 ### Users:
 
 This user are by default
@@ -23,6 +25,18 @@ id : 1569, name : "Construcciones SAS"
 id : 1570, name : "Mega SAS" 
 id : 1235, name : "Edilberto Suarez"
 id : 1236, name : "Jenny Angarita"
+```
+
+### Create new users
+
+**`GET`**[localhost:8080/users/create](http://localhost:8080/users/create)
+
+**Example:**
+
+```jsx
+{
+    "name" : "nicoll"
+}
 ```
 
 # Requirements API rest:
@@ -186,7 +200,7 @@ Id must be **unique** and you can use the same endpoint to create promo post
 {
     "userId": 1570,
     "id_post" : 31, 
-    "date" : "28-05-2021",
+	    "date" : "28-05-2021",
     "detail" :
         { "product_id" : 1,
           "productName" : "Silla Gamer Promo",
@@ -212,6 +226,7 @@ Id must be **unique** and you can use the same endpoint to create promo post
 
 - `UserIdNotFoundException`
 - `DuplicatedPostException`
+- `DateNotExistException`
 
 ## List products that user follow
 
@@ -355,6 +370,7 @@ localhost:8080/products/1570/list/
 - `UserAlreadyFollowException` User already follow
 - `OrderNotFoundException` Order used is not correct
 - `DuplicatedPostException` Post already exist
+- `DateNotExistException` Date is after today date
 - `UserNotFollowException` User not follow the seller or other user
 
 Thank You for taking the time to view my proyect 😄

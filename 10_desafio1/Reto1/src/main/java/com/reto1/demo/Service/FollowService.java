@@ -9,6 +9,7 @@ import com.reto1.demo.Model.DTO.Mapper.UserMapper;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOCount;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFolloweds;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFollowers;
+import com.reto1.demo.Model.DTO.UserObjets.UserRequest;
 import com.reto1.demo.Model.Util.Util;
 import com.reto1.demo.Repository.IFollowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,14 @@ public class FollowService implements IFollowService{
     IFollowRepository iFollowRepository;
 
     /**
-     *
+     * Follow other user
      * @param userId
      * @param userIdToFollow
      * @return
      * @throws UserAlreadyFollowException
      * @throws UserIdNotFoundException
      *
-     * Follow other user
+     *
      */
     @Override
     public String followOtherUser(int userId, int userIdToFollow) throws UserAlreadyFollowException, UserIdNotFoundException, SameIdException {
@@ -38,13 +39,13 @@ public class FollowService implements IFollowService{
     }
 
     /**
-     *
+     * User with count followers
      * @param userId
      * @return userDTOCount
      * @throws UserIdNotFoundException
      * @throws UserNotFollowException
      *
-     * Return user with count followers
+     *
      */
     @Override
     public UserDTOCount countFollowers(int userId) throws UserIdNotFoundException, UserNotFollowException {
@@ -52,9 +53,9 @@ public class FollowService implements IFollowService{
     }
 
     /**
-     *
+     * List followers
      * @param userId
-     * @return UserDTOFollowers (List followers)
+     * @return UserDTOFollowers
      * @throws UserIdNotFoundException
      * @throws UserNotFollowException
      *
@@ -66,9 +67,9 @@ public class FollowService implements IFollowService{
     }
 
     /**
-     *
+     * List pages followed
      * @param userId
-     * @return UserDTOFolloweds(List pages followed)
+     * @return UserDTOFolloweds
      * @throws UserIdNotFoundException
      * @throws UserNotFollowException
      */
@@ -78,7 +79,7 @@ public class FollowService implements IFollowService{
     }
 
     /**
-     *
+     * UnFollow user
      * @param userId
      * @param userIdToUnfollow
      * @return String name unFollow user
@@ -91,10 +92,10 @@ public class FollowService implements IFollowService{
     }
 
     /**
-     *
+     * List followers Order default asc
      * @param order
      * @param userID
-     * @return UserDTOFollowers order default asc
+     * @return UserDTOFollowers
      * @throws UserNotFollowException
      * @throws UserIdNotFoundException
      * @throws OrderNotFoundException
@@ -113,10 +114,10 @@ public class FollowService implements IFollowService{
     }
 
     /**
-     *
+     * List users followed Order default asc
      * @param order
      * @param userID
-     * @return UserDTOFolloweds order default asc
+     * @return UserDTOFolloweds
      * @throws UserNotFollowException
      * @throws UserIdNotFoundException
      * @throws OrderNotFoundException
@@ -132,5 +133,15 @@ public class FollowService implements IFollowService{
             throw new OrderNotFoundException(order, "name");
         }
         return followeds;
+    }
+
+    /**
+     * Create User
+     * @param user
+     * @return String name new user
+     */
+    @Override
+    public int createUser(UserRequest user) {
+        return iFollowRepository.createUser(user);
     }
 }

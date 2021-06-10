@@ -8,6 +8,7 @@ import com.reto1.demo.Exception.UserException.UserNotFollowException;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOCount;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFolloweds;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFollowers;
+import com.reto1.demo.Model.DTO.UserObjets.UserRequest;
 
 public interface IFollowService {
 
@@ -25,4 +26,5 @@ public interface IFollowService {
 
     UserDTOFolloweds orderListFolloweds(String order, int userID) throws UserNotFollowException, UserIdNotFoundException, OrderNotFoundException;
 
+    int createUser(UserRequest user);
 }

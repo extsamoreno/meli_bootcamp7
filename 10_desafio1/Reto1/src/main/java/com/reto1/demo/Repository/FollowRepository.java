@@ -3,6 +3,7 @@ package com.reto1.demo.Repository;
 import com.reto1.demo.Exception.UserException.UserAlreadyFollowException;
 import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
 import com.reto1.demo.Exception.UserException.UserNotFollowException;
+import com.reto1.demo.Model.DTO.UserObjets.UserRequest;
 import com.reto1.demo.Model.User;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,32 @@ public class FollowRepository implements IFollowRepository {
         user.unFollowPages(followed);
         followed.removeFollower(user);
         return followed.getName();
+    }
+
+    /**
+     *
+     * @param user
+     * @return create new user
+     */
+    @Override
+    public int createUser(UserRequest user) {
+        int id = lastIdMap(dataUsers);
+        dataUsers.put(id, new User(id, user.getName()));
+        return id;
+    }
+
+    /**
+     *
+     * @param dataUsers
+     * @return Last id the database
+     */
+    private int lastIdMap(HashMap<Integer, User> dataUsers) {
+        int newId = 0;
+        for (Integer id: dataUsers.keySet()) {
+            if(id > newId)
+                newId = id;
+        }
+        return newId+1;
     }
 
 }

@@ -8,6 +8,7 @@ import com.reto1.demo.Exception.UserException.UserNotFollowException;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOCount;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFolloweds;
 import com.reto1.demo.Model.DTO.UserObjets.UserDTOFollowers;
+import com.reto1.demo.Model.DTO.UserObjets.UserRequest;
 import com.reto1.demo.Service.IFollowService;
 import com.reto1.demo.Service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +101,11 @@ public class FollowController {
         return new ResponseEntity("Has unfollow to "+userName,HttpStatus.OK);
     }
 
+    @GetMapping("/users/create")
+    public ResponseEntity<String> create(@RequestBody UserRequest user){
+        String name = user.getName()+" id: "+iFollowService.createUser(user);
+        return new ResponseEntity<>("User create "+name,HttpStatus.ACCEPTED);
+    }
 
 }
 

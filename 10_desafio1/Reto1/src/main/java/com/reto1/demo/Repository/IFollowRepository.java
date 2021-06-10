@@ -3,6 +3,7 @@ package com.reto1.demo.Repository;
 import com.reto1.demo.Exception.UserException.UserAlreadyFollowException;
 import com.reto1.demo.Exception.UserException.UserIdNotFoundException;
 import com.reto1.demo.Exception.UserException.UserNotFollowException;
+import com.reto1.demo.Model.DTO.UserObjets.UserRequest;
 import com.reto1.demo.Model.User;
 
 public interface IFollowRepository {
@@ -13,4 +14,5 @@ public interface IFollowRepository {
 
     String unfollow(int userId, int userIdToUnFollow) throws UserIdNotFoundException, UserNotFollowException;
 
+    int createUser(UserRequest user);
 }

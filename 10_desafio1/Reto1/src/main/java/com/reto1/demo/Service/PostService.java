@@ -54,7 +54,7 @@ public class PostService implements IPostService{
 
 
     /**
-    * posts and Promopost of seller 2 weeks ago that user follow
+    * Posts and Promopost of seller 2 weeks ago that user follow
     * */
     @Override
     public LastPostDTO lastPosts(int userId) throws UserIdNotFoundException, UserNotFollowException {
@@ -83,7 +83,7 @@ public class PostService implements IPostService{
         return lastPostDTO;
     }
     /**
-     * user show only promoPost
+     * User show only promoPost
      * */
     @Override
     public UserPromoPostListDTO listPromoPost(int userId) throws UserNotFollowException, UserIdNotFoundException {
@@ -92,7 +92,7 @@ public class PostService implements IPostService{
     }
 
     /**
-    * promo count where the user can see the count promo products
+    * Promo count where the user can see the count promo products
     * that the seller has
     * */
     @Override
@@ -101,9 +101,13 @@ public class PostService implements IPostService{
         return PostMapper.toPromoPostCountMapper(user);
     }
 
+
     /**
-    * Filter post last 2 weeks ago
-    * */
+     * Filter post last 2 weeks ago
+     * @param user
+     * @param last2weeks
+     * @return List recent posts
+     */
     public ArrayList<Post> recent(User user, LocalDate last2weeks){
         ArrayList<Post> recentPost = new ArrayList<>();
         for (User followed: user.getFollowed()){
