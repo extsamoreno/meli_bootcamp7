@@ -4,12 +4,7 @@ import com.example.SocialMeli.Exceptions.*;
 import com.example.SocialMeli.Models.Post;
 import com.example.SocialMeli.Models.Product;
 import com.example.SocialMeli.Models.User;
-import com.example.SocialMeli.Services.DTOs.*;
-import com.example.SocialMeli.Services.Mapper.PostMapper;
-import com.example.SocialMeli.Services.Mapper.ProductMapper;
-import com.example.SocialMeli.Services.Mapper.UserMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -18,7 +13,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,21 +30,6 @@ public class DataRepository implements iDataRepository {
 
     public List<Product> getProducts() {
         return this.products;
-    }
-
-    public List<User> getUsers(){
-
-        return this.users;
-    }
-
-    public void addPostToUser(int userId, Post post) throws UserNotFoundException {
-
-        User user = this.getUserByID(userId);
-
-        List<Integer> posts = user.getPosts();
-        posts.add(post.getId());
-        user.setPosts(posts);
-
     }
 
     public List<User> getUsersByIds(List<Integer> UserIds) throws UserNotFoundException {
@@ -74,9 +53,6 @@ public class DataRepository implements iDataRepository {
         return posts;
 
     }
-
-
-
 
     private int findPostIndexByID(int postId) throws PostNotFoundException {
 
