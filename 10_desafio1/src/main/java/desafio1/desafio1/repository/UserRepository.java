@@ -12,6 +12,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,13 +51,14 @@ public class UserRepository implements IUserRepository {
     @Override
     public List<UserSaveDTO> filterFollowers(int userId, String criterio) throws UserNotFoundException {
         //User user = findUserById(userId);
-        List<UserSaveDTO> listFollowers = null;
+        List<UserSaveDTO> listFollowers = new ArrayList<>();
         List<UserSaveDTO> listUserSaveDTO = findUserById(userId).getFollowList();
 
+        boolean contains = false;
         if(listUserSaveDTO != null){
             for(UserSaveDTO u : listUserSaveDTO){
-
-                if(u.getUserName().equals(criterio)) {
+                contains = u.getUserName().toLowerCase().contains(criterio.toLowerCase());
+                if(contains == true) {
                     listFollowers.add(u);
                 }
             }
@@ -66,7 +68,6 @@ public class UserRepository implements IUserRepository {
         }
 
 
-
         return listFollowers;
 
     }
@@ -74,7 +75,7 @@ public class UserRepository implements IUserRepository {
     @Override
     public List<UserSaveDTO> filterFollowersMe(int userId, String criterio) throws UserNotFoundException {
         User user = findUserById(userId);
-        List<UserSaveDTO> listFollowersMe = null;
+        List<UserSaveDTO> listFollowersMe = new ArrayList<>(); //ACA HABIA UN NULL, LO CAMBIE PORQUE EN EL METODO DE ARRIBA TIRABA ERROR, SI NO ANDA LO PONGO EN NULL DE NUEVO
         List<UserSaveDTO> listUserSaveDTO = user.getFollowMeList();
 
         if(listUserSaveDTO != null){
