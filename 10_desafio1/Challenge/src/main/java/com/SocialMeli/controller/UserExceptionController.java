@@ -1,30 +1,27 @@
-package com.SocialMeli.controller;
+ package com.SocialMeli.controller;
 
-import org.springframework.http.HttpStatus;
-import com.SocialMeli.dtos.ErrorDTO;
+import com.SocialMeli.exceptions.UserIdNotFoundException;
+import jdk.jshell.spi.ExecutionControl;
+import com.SocialMeli.exceptions.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.SocialMeli.exceptions.UserNotFoundException;
 
-@ControllerAdvice
+ @ControllerAdvice
 public class UserExceptionController {
 
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<Object> exception(UserNotFoundException exception) {
-        return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
-    }
-
-  @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(UserNotFoundException e){
-
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ExecutionControl.UserException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
 
- @ExceptionHandler(UserIdFollowerEqualsFollowed.class)
-public ResponseEntity<ErrorDTO> handleGlobalException(UserIdFollowerEqualsFollowed e){
+    @ExceptionHandler(UserIdNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(UserIdNotFoundException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
 
-     return new ResponseEntity<>(e.getError(),e.getStatus());
-  }
-
+    @ExceptionHandler(UsersCantFollowThemselvesException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(UsersCantFollowThemselvesException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
 }

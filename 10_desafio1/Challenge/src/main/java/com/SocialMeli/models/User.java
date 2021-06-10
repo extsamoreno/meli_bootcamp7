@@ -19,6 +19,8 @@ public class User {
     public User(int userId, String userName) {
         this.userId = userId;
         this.userName = userName;
+        this.followed = new ArrayList<>();
+        this.followers = new ArrayList<>();
     }
 
 }

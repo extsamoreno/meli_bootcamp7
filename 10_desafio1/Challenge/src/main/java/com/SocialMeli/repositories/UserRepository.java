@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 @Repository
 public class UserRepository implements IUserRepository{
@@ -43,7 +44,6 @@ public class UserRepository implements IUserRepository{
         dbUsers.put(3, user3);
         dbUsers.put(4, user4);
 
-
     }
 
 
@@ -64,6 +64,16 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public ArrayList<User> findFollowedByUserId(int userId) throws UnhandledException {
+        return null;
+    }
+
+    @Override
+    public Boolean follow(Integer userID, Integer useridtofollow) {
+        return (Boolean.TRUE);
+    }
+
+    @Override
+    public Stream<User> getUserFollowersById(int userId) {
         return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.SocialMeli.dtos;
+package com.SocialMeli.exceptions;
 
 import com.SocialMeli.controller.UserController;
 import lombok.AllArgsConstructor;

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+public
 class FollowerUserDTO {
     private Integer userId;
     private String userName;

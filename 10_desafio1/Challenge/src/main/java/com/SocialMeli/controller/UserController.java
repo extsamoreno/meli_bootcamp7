@@ -1,66 +1,59 @@
 package com.SocialMeli.controller;
 
-import com.SocialMeli.services.IUserService;
 import com.SocialMeli.dtos.FollowedUserDTO;
-import com.SocialMeli.dtos.FollowUserDTO;
-import com.SocialMeli.dtos.CountFollowerUserDTO;
+import com.SocialMeli.dtos.FollowersCountDTO;
+import com.SocialMeli.dtos.F
+import com.SocialMeli.dtos.UserDTO;
+import com.SocialMeli.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import com.SocialMeli.exceptions.*;
 
 @RestController
-@RequestMapping("users")
-
+@RequestMapping("/users")
 public class UserController {
 
    @Autowired
    IUserService iUserService;
 
-    @PostMapping("/{userID}/follow/{userIdToFollow}")
-    public ResponseEntity<FollowUserDTO>unfollow (@PathVariable int followerId, @PathVariable int followedId) throws UserNotFoundException {
+   //-----Usuarios que siguen a un vendedor-----Check
 
-        return new ResponseEntity<>(iUserService.unfollow(followerId, followedId), HttpStatus.OK);
+    @PostMapping ("/{userid}/follow/{useridtofollow}")
+    public ResponseEntity<Boolean>  followUser(@PathVariable Integer userid, @PathVariable Integer useridtofollow) throws UserIdNotFoundException, UsersCantFollowThemselvesException {
+        iUserService.follow(userid, useridtofollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-      @GetMapping("/users/{userId}/followers/count")
-    public ResponseEntity<CountFollowerUserDTO> getFollowersCount (@PathVariable int userId) throws UserNotFoundException {
+    // -----Cuantos usuarios siguen a un vendedor-----
 
-        return new ResponseEntity<>(iUserService.getFollowersCount(userId), HttpStatus.OK);
+    @GetMapping("/{userid}/followers/count")
+    public ResponseEntity<FollowersCountDTO> getFollowersCountById(@PathVariable int userId)
+            throws UserIdNotFoundException {
+        return new ResponseEntity<FollowersCountDTO>(iUserService.getFollowersCountById(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getFollowers (@PathVariable int userId) throws UserNotFoundException {
+    //-----Lista de seguidores------
 
-        return new ResponseEntity<>(iUserService.getFollowers(userId), HttpStatus.OK);
-    }
-    @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<FollowedDTO> getFollowed (@PathVariable int userId) throws UserNotFoundException {
-
-        return new ResponseEntity<>(iUserService.getFollowed(userId), HttpStatus.OK);
+    @GetMapping("/{id}/followers/list")
+    public ResponseEntity<UserDTO> followers(@PathVariable Integer id, @RequestParam Optional<String>  order) throws UserIdNotFoundException {
+        return new ResponseEntity<userid, useridtofollow>(iuserService.getFollowers(id, order), HttpStatus.OK);
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> follow (){
-
-        return new ResponseEntity<>(iUserService.getdb(), HttpStatus.OK);
+    @GetMapping("/{id}/following/count")
+    public ResponseEntity<UserDTO> followingCount(@PathVariable Integer id) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iuserService.getFollowingCount(id), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/following/list")
+    public ResponseEntity<UserDTO> following(@PathVariable Integer id, @RequestParam Optional<String> order) throws UserIdNotFoundException {
+        return new ResponseEntity<>(iuserService.getFollowing(id, order), HttpStatus.OK);
+    }
 }
 
 /*
 
-    @Autowired
-    private SocialMeliServices sc;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
-
-        String username = SecurityContextHolder.getContext().getAuthentication().getName(); // Iniciar sesión
-        return "{\"message\": \"Bienvenido a Social Meli, " + username + "!\"}";
-    }
 
     @RequestMapping(value = "/following", method = RequestMethod.GET)
     public ArrayList<User> following(@RequestParam(value="name", defaultValue="unknown") String name) {

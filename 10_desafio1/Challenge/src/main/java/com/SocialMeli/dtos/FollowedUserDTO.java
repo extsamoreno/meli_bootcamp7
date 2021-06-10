@@ -4,6 +4,7 @@ import com.SocialMeli.models.User;
 import lombok.*;
 import java.util.List;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 
