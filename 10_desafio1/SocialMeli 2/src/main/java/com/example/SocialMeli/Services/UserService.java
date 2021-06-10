@@ -119,7 +119,7 @@ public class UserService extends Ordenable<UserDTO> implements iUserService{
 
         switch (orderBy){
             case "name": comparator = Comparator.comparing(UserDTO::getUserName);
-            case "id": comparator = Comparator.comparing(UserDTO::getUserID);
+            case "id": comparator = Comparator.comparing(UserDTO::getUserId);
             default: comparator = Comparator.comparing(UserDTO::getUserName);
         }
         switch (orderType){

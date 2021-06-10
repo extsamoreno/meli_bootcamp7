@@ -10,12 +10,7 @@ import java.util.List;
 @Setter @Getter @NoArgsConstructor @AllArgsConstructor
 public class UserDTO {
 
-    private int userID;
+    private int userId;
     private String userName;
-
-    public UserDTO(UserDTO userDTO){
-        this.userID = userDTO.getUserID();
-        this.userName = userDTO.getUserName();
-    }
 
 }

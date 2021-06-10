@@ -17,9 +17,9 @@ public class PostMapper {
     }
     public static Post toPost(NonPromoPostDTO postDTO){
 
-        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate().toString(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice(),false, 0.0);
+        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice(),false, 0.0);
     }
     public static Post toPost(PromoPostDTO postDTO){
-        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate().toString(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice(),postDTO.getHasPromo(), postDTO.getDiscount());
+        return new Post(postDTO.getPostId(), postDTO.getUserId(), postDTO.getDate(), postDTO.getDetail().getId(), postDTO.getCategory(), postDTO.getPrice(),postDTO.getHasPromo(), postDTO.getDiscount());
     }
 }

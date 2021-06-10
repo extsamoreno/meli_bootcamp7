@@ -11,7 +11,7 @@ public class PostCountDTO extends UserDTO {
 
     public PostCountDTO(int userId, String userName, int postCounter){
 
-        this.setUserID(userId);
+        this.setUserId(userId);
         this.setUserName(userName);
         this.setPostCounter(postCounter);
     }

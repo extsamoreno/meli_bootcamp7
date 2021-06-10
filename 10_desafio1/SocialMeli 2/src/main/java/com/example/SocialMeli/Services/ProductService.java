@@ -16,10 +16,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
-public class PostService extends Ordenable<PostDTO> implements iPostService{
+public class ProductService extends Ordenable<PostDTO> implements iProductService {
 
     @Autowired
     iDataRepository iDataRepository;
@@ -29,10 +28,10 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
 
         User user = iDataRepository.getUserByID(userId);
 
-        return new PostCountDTO(user.getId(), user.getName(), this.getPromPostsByUser(userId).size());
+        return new PostCountDTO(user.getId(), user.getName(), this.getPromPostsByUser(userId).getPosts().size());
 
     }
-    public List<PostDTO> getPromPostsByUser(int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
+    public PostsDTO getPromPostsByUser(int userId) throws UserNotFoundException, ProductNotFoundException, PostNotFoundException {
 
         User user = iDataRepository.getUserByID(userId);
         List<PostDTO> output = new ArrayList<>();
@@ -44,7 +43,7 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
             }
         }
 
-        return output;
+        return new PostsDTO(user.getId(), user.getName(), output);
 
     }
     private Boolean isPostIdUsed(int postId){
@@ -121,7 +120,7 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
 
     }
     @Override
-    public List<PostDTO> getFollowedPost(int userId, String order) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
+    public PostsDTO getFollowedPost(int userId, String order) throws PostNotFoundException, UserNotFoundException, ProductNotFoundException {
 
         User user = iDataRepository.getUserByID(userId);
         List<PostDTO> output = new ArrayList<>();
@@ -136,7 +135,8 @@ public class PostService extends Ordenable<PostDTO> implements iPostService{
 
         this.filterPostByDate(output, LocalDate.now().minusWeeks(2), LocalDate.now());
         this.orderByBubble(output, this.getComparator(order));
-        return output;
+
+        return new PostsDTO(user.getId(), user.getName(), output);
     }
 
     private Comparator<PostDTO> getComparator(String order){

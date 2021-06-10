@@ -11,7 +11,7 @@ public class FollowCountDTO extends UserDTO {
 
     public FollowCountDTO(int userId, String userName, int followers_count){
 
-        this.setUserID(userId);
+        this.setUserId(userId);
         this.setUserName(userName);
         this.setFollowers_count(followers_count);
     }
