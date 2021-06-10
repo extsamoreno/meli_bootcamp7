@@ -1,8 +1,9 @@
 package com.example.desafio1.service;
 
-import java.util.ArrayList;
+import com.example.desafio1.model.Precedeable;
+
 import java.util.Comparator;
 
 public interface Sorter<T> {
-    public <T> void sort(T[] arr, Comparator<T> comparator);
+    public <T> void sort(Precedeable<T>[] arr, Comparator<T> comparator);
 }

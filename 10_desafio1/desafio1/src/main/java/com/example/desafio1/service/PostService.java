@@ -4,6 +4,7 @@ import com.example.desafio1.exception.ProductInconsistencyException;
 import com.example.desafio1.exception.ProductNotFoundException;
 import com.example.desafio1.exception.PostIdAlreadyInUseException;
 import com.example.desafio1.exception.UserNotFoundException;
+import com.example.desafio1.model.Precedeable;
 import com.example.desafio1.model.Product;
 import com.example.desafio1.model.ProductPost;
 import com.example.desafio1.repository.IProductPostRepository;
@@ -88,17 +89,18 @@ public class PostService implements IPostService{
             recentPosts.addAll(iProductPostRepository.getRecentPosts(followedUserId));
         }
 
-        sortPosts(recentPosts);
+        ArrayList<ProductPost> recentOrderedPosts = sortPosts(recentPosts);
 
-        return PostMapper.toUserPostListDTO(userId, recentPosts);
+        return PostMapper.toUserPostListDTO(userId, recentOrderedPosts);
     }
 
     private ArrayList<ProductPost> sortPosts(ArrayList<ProductPost> posts)
     {
-        ProductPost[] sellerPosts = posts.toArray(new ProductPost[0]);
-        QuickSort<ProductPost> sorter = new QuickSort();
+        Precedeable<ProductPost>[] sellerPosts = posts.toArray(new ProductPost[0]);
+        Sorter<ProductPost> sorter = new QuickSort();
+        //Comparator<ProductPost> c = (a, b) -> a.precedeA(b);
         Comparator<ProductPost> c = new CompareDateDesc();
         sorter.sort(sellerPosts, c);
-        return new ArrayList<>(Arrays.asList(sellerPosts));
+        return new ArrayList<>(Arrays.asList((ProductPost[]) sellerPosts));
     }
 }
