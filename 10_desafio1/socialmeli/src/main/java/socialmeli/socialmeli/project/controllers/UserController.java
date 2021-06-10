@@ -8,6 +8,7 @@ import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowAlreadyExce
 import socialmeli.socialmeli.project.exceptions.UserExceptions.FollowMyselfException;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundException;
 import socialmeli.socialmeli.project.exceptions.UserExceptions.UnfollowException;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoListDto;
 import socialmeli.socialmeli.project.services.Dto.UserDto.*;
 import socialmeli.socialmeli.project.services.IUserService;
 
@@ -52,4 +53,6 @@ public class UserController {
         response.add("userId: "+userId+" has successfully unfollowed userIdToUnfollow: "+userIdToUnfollow);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+
 }

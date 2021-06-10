@@ -11,6 +11,7 @@ import socialmeli.socialmeli.project.repository.IUserRepository;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostArrayDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoDto;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoListDto;
 import socialmeli.socialmeli.project.services.Dto.UserDto.FollowedListResponseDto;
 import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersListResponseDto;
 import socialmeli.socialmeli.project.services.Dto.UserDto.FollowersResponseDto;
@@ -60,5 +61,9 @@ public class mapper {
 
    public static PostPromoDto postArrayPromoToDto(Integer userId, String userName,ArrayList<Post> arrayPost) throws IdNotFoundException {
        return new PostPromoDto(userId,userName,arrayPost.size());
+    }
+
+    public static PostPromoListDto postArrayPromoToListDto(ArrayList<Post> arrPost){
+        return new PostPromoListDto(arrPost);
     }
 }

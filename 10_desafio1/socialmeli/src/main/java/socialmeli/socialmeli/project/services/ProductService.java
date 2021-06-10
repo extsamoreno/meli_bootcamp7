@@ -16,6 +16,7 @@ import socialmeli.socialmeli.project.repository.IUserRepository;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostArrayDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoDto;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoListDto;
 import socialmeli.socialmeli.project.services.mapper.mapper;
 
 import java.util.ArrayList;
@@ -73,5 +74,10 @@ public class ProductService implements IProductService{
         return mapper.postArrayPromoToDto(user.getUserId(),user.getUserName(),promoArr);
     }
 
+    @Override
+    public PostPromoListDto getPostPromoList(Integer userId){
+        ArrayList<Post> promoArr = iProductRepository.getArrayPromoPostById(userId);
+        return mapper.postArrayPromoToListDto(promoArr);
+    }
 
 }

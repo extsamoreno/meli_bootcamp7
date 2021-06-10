@@ -8,13 +8,12 @@ import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundExcepti
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostArrayDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoDto;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoListDto;
 
 public interface IProductService {
-    public void addNewPost(PostDto PostDto) throws PostAlreadyExistsException, PostPromoFoundException, IdNotFoundException;
-
+    void addNewPost(PostDto PostDto) throws PostAlreadyExistsException, PostPromoFoundException, IdNotFoundException;
     PostArrayDto getArrayPostById(Integer userId, String order) throws NoPostsFoundException;
-
     void addNewPromoPost(PostDto postDto) throws PostAlreadyExistsException, PostPromoNotFoundException, IdNotFoundException;
-
     PostPromoDto getCountPromo(Integer userId) throws IdNotFoundException;
+    PostPromoListDto getPostPromoList(Integer userId);
 }

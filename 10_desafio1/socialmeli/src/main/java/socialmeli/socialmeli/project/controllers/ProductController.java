@@ -12,6 +12,7 @@ import socialmeli.socialmeli.project.exceptions.UserExceptions.IdNotFoundExcepti
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostArrayDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostDto;
 import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoDto;
+import socialmeli.socialmeli.project.services.Dto.ProductDto.PostPromoListDto;
 import socialmeli.socialmeli.project.services.IProductService;
 
 import java.util.ArrayList;
@@ -47,6 +48,11 @@ public class ProductController {
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<PostPromoDto> getCountPromo(@PathVariable Integer userId) throws IdNotFoundException {
         return new ResponseEntity<>(iProductService.getCountPromo(userId),HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<PostPromoListDto> getPostPromoList (@PathVariable Integer userId){
+        return new ResponseEntity<>(iProductService.getPostPromoList(userId),HttpStatus.OK);
     }
 
 }
