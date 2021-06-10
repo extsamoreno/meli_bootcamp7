@@ -16,4 +16,6 @@ public class Post {
     private int categoryId;
     private double price;
     private Product detail;
+    private boolean hasPromo;
+    private double discount;
 }

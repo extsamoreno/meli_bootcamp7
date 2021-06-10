@@ -7,7 +7,7 @@ import com.example.desafio_1.models.User;
 import com.example.desafio_1.repository.IPostRepository;
 import com.example.desafio_1.service.dto.FollowedPostDTO;
 import com.example.desafio_1.service.dto.PostDTO;
-import com.example.desafio_1.service.dto.UserDTO;
+import com.example.desafio_1.service.dto.PostPromoDTO;
 import com.example.desafio_1.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +36,14 @@ public class PostService implements IPostService {
     @Override
     public void createPostByDTO(PostDTO postDTO) throws UserExceptionNotFound, UserExceptionWrongType, ProductExceptionNotFound, PostExceptionNotValid, ProductExceptionNotValid, PostExceptionNotExists, PostExceptionAlreadyExists {
 
+        this.allValidationPostDTO(postDTO);
+
+        Post post = postMapper.toModel(postDTO);
+
+        createPost(post);
+    }
+
+    private void allValidationPostDTO(PostDTO postDTO) throws ProductExceptionNotValid, PostExceptionNotValid, ProductExceptionNotFound, UserExceptionNotFound, UserExceptionWrongType, PostExceptionAlreadyExists {
         //validate fields
         validateDTO(postDTO);
 
@@ -49,15 +57,10 @@ public class PostService implements IPostService {
         if (this.existsPost(postDTO.getId_post())) {
             throw new PostExceptionAlreadyExists(postDTO.getId_post()); // cant create a post with the same id
         }
-
-        Post post = postMapper.toModel(postDTO);
-
-        postRepository.add(post);
     }
 
-    @Override
-    public void createPost(Post post) {
-
+    private void createPost(Post post) {
+        postRepository.add(post);
     }
 
     @Override
@@ -77,23 +80,35 @@ public class PostService implements IPostService {
 
         List<Post> posts = getPostsFromFollowingBeforeTwoWeeks(buyerCast);
 
-        if(!order.isEmpty()) {
+        if (!order.isEmpty()) {
             orderListOfPost(posts, order);
         }
 
-        return new FollowedPostDTO(userId, posts.stream().map(x -> postMapper.toDto(x)).collect(Collectors.toList()));
+        return new FollowedPostDTO(userId, posts.stream().map(x -> postMapper.toPostPromoDTO(x) ).collect(Collectors.toList()));
+    }
+
+    @Override
+    public void createPostPromoByDTO(PostPromoDTO postPromoDTO) throws PostExceptionNotValid, UserExceptionWrongType, PostExceptionNotExists, ProductExceptionNotValid, ProductExceptionNotFound, PostExceptionAlreadyExists, UserExceptionNotFound {
+
+        this.validateDTOPromo(postPromoDTO);
+
+        this.allValidationPostDTO(postPromoDTO);
+
+        Post post = postMapper.toModel(postPromoDTO);
+
+        this.createPost(post);
     }
 
     private void orderListOfPost(List<Post> posts, String order) throws WrongOrderFieldException {
-        if(order.equalsIgnoreCase("date_asc")) {
+        if (order.equalsIgnoreCase("date_asc")) {
             posts.sort(Comparator.comparing(Post::getCreatedDate));
             return;
         }
-        if(order.equalsIgnoreCase("date_desc")) {
+        if (order.equalsIgnoreCase("date_desc")) {
             posts.sort(Collections.reverseOrder(Comparator.comparing(Post::getCreatedDate)));
             return;
         }
-        if(!order.isEmpty()) { //if is not empty and the order criteria is not valid...
+        if (!order.isEmpty()) { //if is not empty and the order criteria is not valid...
             throw new WrongOrderFieldException(order);
         }
     }
@@ -119,15 +134,27 @@ public class PostService implements IPostService {
         //Only capture the valdiation for post, because in the product service process the productException, not here
         try {
             Utils.validateIntGreaterThanZero(postDTO.getUserId(), "userId");
-            //Utils.validateIntGreaterThanZero(postDTO.getId_post(), "id_post"); //if id is 0 or null, autogenereate in repo
             Utils.validateIntGreaterThanZero(postDTO.getCategory(), "category");
             Utils.validateDoubleGreaterThanZero(postDTO.getPrice(), "price");
             Utils.validateDate(postDTO.getDate(), "date");
+
         } catch (Exception e) {
             throw new PostExceptionNotValid(e.getMessage());
         }
 
         productService.validateDTO(postDTO.getDetail());
+    }
+
+    private void validateDTOPromo(PostPromoDTO postDTO) throws PostExceptionNotValid {
+        try {
+            Utils.validateBooleanMustBeTrue(postDTO.isHasPromo(), "hasPromo");
+            Utils.validateDoubleGreaterThanZero(postDTO.getDiscount(), "discount");
+            Utils.validateDoubleGreaterThanValue(postDTO.getDiscount(), postDTO.getPrice(), "discount", "price");
+            Utils.validateDoubleEqualsToValue(postDTO.getDiscount(), postDTO.getPrice(), "discount", "price");
+        }
+        catch (Exception e) {
+            throw new PostExceptionNotValid(e.getMessage());
+        }
     }
 
 }

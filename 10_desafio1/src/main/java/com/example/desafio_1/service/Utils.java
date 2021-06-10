@@ -1,8 +1,6 @@
 package com.example.desafio_1.service;
 
-import com.example.desafio_1.exception.DateExceptionInvalidFormat;
-import com.example.desafio_1.exception.EmptyStringException;
-import com.example.desafio_1.exception.NumberNotGreaterThanZero;
+import com.example.desafio_1.exception.*;
 import com.example.desafio_1.models.Seller;
 
 import java.text.ParseException;
@@ -20,13 +18,13 @@ public class Utils {
     }
 
     public static void validateIntGreaterThanZero(int integer, String fieldName) throws NumberNotGreaterThanZero {
-        if (integer < 0) {
+        if (integer <= 0) {
             throw new NumberNotGreaterThanZero(fieldName);
         }
     }
 
     public static void validateDoubleGreaterThanZero(double value, String fieldName) throws NumberNotGreaterThanZero {
-        if (value < 0) {
+        if (value <= 0) {
             throw new NumberNotGreaterThanZero(fieldName);
         }
     }
@@ -49,5 +47,26 @@ public class Utils {
         calendar.getTime();
         calendar.add(Calendar.DATE, -14); //2 weeks
         return calendar.getTime();
+    }
+
+    public static void validateBooleanMustBeTrue(boolean booleanToTest, String field) throws WrongValueInFieldException {
+        if (!booleanToTest) { //if is not true, throw excpetion
+            throw new WrongValueInFieldException(field, "true");
+        }
+    }
+
+
+    //ValueOne can't be greater than value two
+    public static void validateDoubleGreaterThanValue(double valueOne, double valueTwo, String fieldOne, String fieldTwo) throws ValueDoubleOneCantBeGreaterThanValueTwoException {
+        if(valueOne > valueTwo) {
+            throw new ValueDoubleOneCantBeGreaterThanValueTwoException(fieldOne, fieldTwo);
+        }
+    }
+
+    //ValueOne can't be equals to value two
+    public static void validateDoubleEqualsToValue(double valueOne, double valueTwo, String fieldOne, String fieldTwo) throws ValueDoubleOneCantBeGreaterThanValueTwoException, ValueDoubleOneCantBeEqualsToValueTwoException {
+        if(valueOne == valueTwo) {
+            throw new ValueDoubleOneCantBeEqualsToValueTwoException(fieldOne, fieldTwo);
+        }
     }
 }

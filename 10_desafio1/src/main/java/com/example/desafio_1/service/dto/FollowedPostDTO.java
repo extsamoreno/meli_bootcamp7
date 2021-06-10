@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 public class FollowedPostDTO {
     private int userId;
-    private List<PostDTO> posts;
+    private List<PostPromoDTO> posts;
 }
