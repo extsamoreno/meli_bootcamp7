@@ -1,4 +1,4 @@
-Meli Challenge # 1
+# Meli Challenge # 1
 This readme bring some context about the SocialMeli API.
 Considerations: 
 1) The User repository have pre-loaded users configured to be loaded each time the API is executed. A hashmap is being used to simulate the database and the pre-loaded users are:
