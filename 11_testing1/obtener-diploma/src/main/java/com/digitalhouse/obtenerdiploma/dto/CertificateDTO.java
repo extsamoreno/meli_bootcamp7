@@ -11,6 +11,7 @@ public class CertificateDTO extends StudentDTO {
   private String studentName;
 
   @NotEmpty (message = "La lista de materias no puede estar vacia")
+  @Size(max = 60, message = "La cantidad de materias debe ser menor a 60")
   private List<@Valid SubjectDTO> subjects;
 
   @NotEmpty (message = "El mensaje no puede ser vacio")

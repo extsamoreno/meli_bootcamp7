@@ -2,6 +2,7 @@ package com.digitalhouse.obtenerdiploma.controller;
 
 import com.digitalhouse.obtenerdiploma.dto.ErrorDTO;
 import com.digitalhouse.obtenerdiploma.exception.AnalyzeNotesException;
+import com.digitalhouse.obtenerdiploma.exception.DuplicateSubjectNameException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -39,5 +40,9 @@ public class AnalizeNotesExceptionController {
         return new ResponseEntity<>("Bad json",HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DuplicateSubjectNameException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(DuplicateSubjectNameException e){
+        return new ResponseEntity<>(e.getError(),e.getStatus());
+    }
 
 }
