@@ -10,4 +10,12 @@ public class ScoreDTO extends StudentDTO{
 
     private String message;
     private double averageScore;
+
+    public ScoreDTO(StudentDTO student , double averageScore){
+
+        this.setStudentName(student.getStudentName());
+        this.setSubjects(student.getSubjects());
+        this.averageScore = averageScore;
+        this.message = "El Alumno "+student.getStudentName()+" ha obtenido un promedio de "+averageScore;
+    }
 }
