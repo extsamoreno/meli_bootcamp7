@@ -10,6 +10,8 @@ public class CertificateServiceImpl implements CertificateService {
     CertificateDTO response = new CertificateDTO(notes);
     response.setAverage(calculateAverage(notes));
     response.setMessage(writeDiploma(notes));
+    response.setName(notes.getName());
+    response.setSubjects(notes.getSubjects());
     return response;
   }
 
