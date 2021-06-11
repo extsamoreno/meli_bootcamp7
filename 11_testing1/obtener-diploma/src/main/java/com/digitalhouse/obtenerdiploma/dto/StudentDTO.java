@@ -4,7 +4,6 @@ package com.digitalhouse.obtenerdiploma.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -20,7 +19,7 @@ public class StudentDTO {
     private String name;
 
     @NotNull(message = "The sujects must not be null")
-    @Size(min = 1, message = "Minimum length of subjects is 1")
+    @Size(min = 1, max = 10, message = "Minimum length of subjects is 1, and maximun 10 subjects.")
     @Valid
     private List<SubjectDTO> subjects;
 

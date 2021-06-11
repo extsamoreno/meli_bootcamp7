@@ -17,6 +17,7 @@ public class SubjectDTO {
   private String subject;
 
   @NotNull
+  @PositiveOrZero(message = "The value must be positive.")
   @Min(value = 0, message = "Minimun value 0.0")
   @Max(value = 10, message = "Maximun value 10.0")
   private Integer note;
