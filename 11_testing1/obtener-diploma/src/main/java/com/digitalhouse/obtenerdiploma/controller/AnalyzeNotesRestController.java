@@ -17,6 +17,6 @@ public class AnalyzeNotesRestController {
 
   @PostMapping("/analyzeNotes")
   public CertificateDTO analyzeNotes(@RequestBody StudentDTO notes){
-    return certificateService.analyzeNotes(notes);
+      return certificateService.analyzeNotes(notes);
   }
 }
