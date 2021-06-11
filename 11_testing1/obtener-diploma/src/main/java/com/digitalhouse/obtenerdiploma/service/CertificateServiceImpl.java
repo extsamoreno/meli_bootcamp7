@@ -11,9 +11,10 @@ public class CertificateServiceImpl implements CertificateService {
 
   public CertificateDTO analyzeNotes(StudentDTO studentDTO) throws LowAverageException {
     CertificateDTO response = new CertificateDTO();
-    response.setStudent(studentDTO);
+    response.setStudentName(studentDTO.getStudentName());
     response.setAverage(calculateAverage(studentDTO));
     response.setMessage(writeDiploma(studentDTO));
+    response.setSubjects(studentDTO.getSubjects());
     return response;
   }
 

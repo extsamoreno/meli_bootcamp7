@@ -19,7 +19,7 @@ public class ObtenerDiplomaExceptionController {
     }
 
     @ExceptionHandler(LowAverageException.class)
-    public ResponseEntity<ErrorDTO> handlerException(LowAverageException e){
+    public ResponseEntity handlerException(LowAverageException e){
         return new ResponseEntity(new ErrorDTOString(e.getMessage(), e.getClass().getSimpleName()), HttpStatus.BAD_REQUEST);
     }
 }
