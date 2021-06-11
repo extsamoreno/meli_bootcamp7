@@ -14,6 +14,7 @@ public class StudentDTO {
     @Size(max = 50, message = "La longitud del nombre no puede superar los 50 caracteres")
     private String studentName;
     @NotEmpty(message = "La lista no puede ser vacía.")
+    @Size(max = 60, message = "La cantidad de materias debe ser menor a 60")
     private List<@Valid SubjectDTO> subjects;
 
     public StudentDTO() {
