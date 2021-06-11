@@ -10,8 +10,8 @@ public class StudentDTO {
 
     @NotEmpty(message = "El nombre del alumno no puede estar vacío")
     @Size(max = 50, message = "La longitud del nombre no puede superar los 50 caracteres")
-    @Pattern(regexp = "[A-Z][a-z]* [A-Z][a-z]*",
-            message = "El nombre del alumno comenzar con mayúscula y luego minúsculas.")
+    @Pattern(regexp = "([A-Z][a-z]*\\s)+[A-Z][a-z]*",
+            message = "Cada nombre o apellido del alumno debe comenzar con mayúscula y luego minúsculas.")
     private String name;
 
     @NotEmpty(message = "La lista no puede ser vacía.")
