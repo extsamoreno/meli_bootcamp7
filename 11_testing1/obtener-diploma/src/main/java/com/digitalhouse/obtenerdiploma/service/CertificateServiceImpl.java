@@ -1,12 +1,13 @@
 package com.digitalhouse.obtenerdiploma.service;
 
-import com.digitalhouse.obtenerdiploma.dto.StudentDTO;
-import com.digitalhouse.obtenerdiploma.dto.CertificateDTO;
-import com.digitalhouse.obtenerdiploma.dto.SubjectDTO;
+
+import com.digitalhouse.obtenerdiploma.service.dto.*;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CertificateServiceImpl implements CertificateService {
+
+  @Override
   public CertificateDTO analyzeNotes(StudentDTO notes) {
     CertificateDTO response = new CertificateDTO(notes);
     response.setAverage(calculateAverage(notes));
@@ -14,8 +15,19 @@ public class CertificateServiceImpl implements CertificateService {
     return response;
   }
 
+  @Override
+  public AverageNotesDTO averageNotes(StudentNameDTO notes) {
+    AverageNotesDTO result = new AverageNotesDTO();
+    result.setStudentName(notes.getName());
+    result.setSubjects(notes.getSubjects());
+    Double localAverage = calculateAverage(notes);;
+    result.setAverageScore(localAverage);
+    result.setMessage(writeDiploma(localAverage,notes.getName()));
+    return result;
+  }
+
   private Double calculateAverage(StudentDTO notes) {
-    int sum = notes.getSubjects().stream().mapToInt(SubjectDTO::getNote).sum();
+    double sum = notes.getSubjects().stream().mapToDouble(SubjectDTO::getScore).sum();
     return sum / (double) notes.getSubjects().size();
   }
 
@@ -28,7 +40,19 @@ public class CertificateServiceImpl implements CertificateService {
     return message;
   }
 
+  private String writeDiploma(double localAverage,String studentName) {
+
+    String message = studentName + " usted ha conseguido el promedio de " + localAverage;
+    if(localAverage > 9)
+      message = withHonors(localAverage, studentName);
+    return message;
+  }
+
+
   private String withHonors(Double localAverage, String localStudent) {
     return "¡Felicitaciones " + localStudent + "! Usted tiene el gran promedio de " + localAverage;
   }
+
+
+
 }
