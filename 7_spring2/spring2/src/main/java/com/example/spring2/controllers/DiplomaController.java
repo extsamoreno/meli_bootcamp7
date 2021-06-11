@@ -40,7 +40,7 @@ public class DiplomaController {
     }
 
     @GetMapping("/{studentName}")
-    public ResponseEntity<Diploma> addSubject(@PathVariable String studentName) {
+    public ResponseEntity<Diploma> getAverage(@PathVariable String studentName) {
         Student s = getStudentByName(studentName);
         Diploma d = new Diploma(getAverage(s), studentName);
         return new ResponseEntity(d, HttpStatus.OK);
