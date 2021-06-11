@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StudentDTO {
     @NotEmpty(message = "El nombre del alumno no puede estar vacío")
-    @Pattern(regexp = "\\b([A-Z])(\\S*?)\\b", message = "El nombre del alumno debe empezar con mayúscula")
+    @Pattern(regexp = "^[A-Z].*", message = "El nombre del alumno debe empezar con mayúscula")
     @Size(max = 50, message = "La longitud del nombre no puede superar los 50 caracteres")
     private String studentName;
 
