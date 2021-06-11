@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CertificateDTO {
+public class CertificateDTO extends StudentDTO{
   private String message;
-  private float average;
+  private double average;
   private StudentDTO student;
 
 }
