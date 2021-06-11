@@ -13,7 +13,7 @@ public class StudentDTO {
     @Pattern(regexp = "[A-ZÖ][a-zö]+",message = "El nombre del alumno comenzar con mayúscula.")
     private String name;
     @NotEmpty(message = "La lista no puede ser vacía.")
-    private List<SubjectDTO> subjects;
+    private List<@Valid SubjectDTO> subjects;
 
     public StudentDTO() {
     }
