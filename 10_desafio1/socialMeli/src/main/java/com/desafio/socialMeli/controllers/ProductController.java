@@ -26,7 +26,12 @@ public class ProductController {
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<UserFollowedPostsDTO> getFollowedPostsByUser(@PathVariable int userId) throws UserNotFoundException, RepositoryUnableException {
         UserFollowedPostsDTO userWithFollowedPostsDTO = iProductService.getFollowedPostsByUser(userId);
+        return new ResponseEntity<>(userWithFollowedPostsDTO, HttpStatus.OK);
+    }
 
+    @GetMapping("/{UserID}/followers/list")
+    public ResponseEntity<UserFollowedPostsDTO> getListOfFollowers(@PathVariable int userId @RequestParam(name = "order", required = false, defaultValue = "name_asc") String order){
+        UserFollowedPostsDTO userWithFollowedPostsDTO = iProductService.getListOfFollowers(userId);
         return new ResponseEntity<>(userWithFollowedPostsDTO, HttpStatus.OK);
     }
 }

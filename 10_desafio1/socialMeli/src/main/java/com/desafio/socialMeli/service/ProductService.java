@@ -9,6 +9,7 @@ import com.desafio.socialMeli.repository.entities.User;
 import com.desafio.socialMeli.service.dto.*;
 import com.desafio.socialMeli.service.mapper.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class ProductService implements IProductService {
 
     @Override
     public UserFollowedPostsDTO getFollowedPostsByUser(int userId) throws RepositoryUnableException, UserNotFoundException {
-
         UserFollowedDTO userFollowedList = iUserService.followedList(userId);
         List<PostDTO> allPostsDTOFollowed = new ArrayList<PostDTO>();
         List<PostDTO> postsByFollowed = new ArrayList<PostDTO>();
@@ -50,9 +50,9 @@ public class ProductService implements IProductService {
             postsByFollowed = iSocialMeliRepository.getPostDTOListByUserId(followed.getId());
             allPostsDTOFollowed.addAll(iOrderService.orderPostByDate(postsByFollowed, "date_asc_2W"));
         }
-
         UserFollowedPostsDTO userFollowedPostsDTO = PostMapper.toUserFollowedPostsDTO(allPostsDTOFollowed);
-
         return userFollowedPostsDTO;
     }
+
+    ResponseEntity<UserFollowedPostsDTO> getListOfFollowers()
 }
