@@ -10,9 +10,9 @@ public class SubjectDTO {
   private String name;
 
   @NotNull(message = "La nota no puede estar vacía.")
-  @Min(value = 0, message = "La mínima nota es 0")
-  @Max(value = 10, message = "La máxima nota es 10")
-  private Integer score;
+  @Min(value = 0, message = "La mínima nota es 0.0")
+  @Max(value = 10, message = "La máxima nota es 10.0")
+  private double score;
 
   public String getName() {
     return name;
@@ -22,11 +22,11 @@ public class SubjectDTO {
     this.name = name;
   }
 
-  public Integer getScore() {
+  public double getScore() {
     return score;
   }
 
-  public void setScore(Integer score) {
+  public void setScore(double score) {
     this.score = score;
   }
 

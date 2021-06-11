@@ -15,8 +15,10 @@ public class CertificateServiceImpl implements CertificateService {
   }
 
   private Double calculateAverage(StudentDTO notes) {
-    int sum = notes.getSubjects().stream().mapToInt(SubjectDTO::getScore).sum();
-    return sum / (double) notes.getSubjects().size();
+    double sum = notes.getSubjects().stream().mapToDouble(SubjectDTO::getScore).sum();
+    double average = sum / (double) notes.getSubjects().size();
+
+    return Math.round(average*100.0)/100.0;
   }
 
   private String writeDiploma(StudentDTO notes) {
