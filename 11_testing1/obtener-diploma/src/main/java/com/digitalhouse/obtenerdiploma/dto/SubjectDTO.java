@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 @AllArgsConstructor
@@ -18,8 +17,8 @@ public class SubjectDTO {
   private String subject;
 
   @NotNull
-  @Min(value = 0)
-  @Max(value = 10)
+  @Min(value = 0, message = "Minimun value 0.0")
+  @Max(value = 10, message = "Maximun value 10.0")
   private Integer note;
 
 }
