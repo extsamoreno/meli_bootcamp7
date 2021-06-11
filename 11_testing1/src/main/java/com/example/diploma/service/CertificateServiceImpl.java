@@ -30,8 +30,10 @@ public class CertificateServiceImpl implements CertificateService {
     Double localAverage = calculateAverage(notes);
     String studentName = notes.getStudentName();
     String message = studentName + " usted ha conseguido el promedio de " + localAverage;
+
     if(localAverage > 9)
       message = withHonors(localAverage, studentName);
+
     return message;
   }
 
