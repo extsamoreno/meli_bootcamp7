@@ -2,7 +2,6 @@ package com.digitalhouse.obtenerdiploma.dto;
 
 import lombok.Data;
 
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 @Data

@@ -2,6 +2,7 @@ package com.digitalhouse.obtenerdiploma.dto;
 
 import lombok.Data;
 
+@Data
 public class CertificateDTO extends StudentDTO {
   private String message;
   private Double average;
