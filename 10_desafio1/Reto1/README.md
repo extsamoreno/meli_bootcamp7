@@ -201,6 +201,8 @@ Id must be **unique** and you can use the same endpoint to create promo post
 
 **Example promo post:**
 
+`POST` localhost:8080/products/newpromopost
+
 ```jsx
 {
     "userId": 1570,
