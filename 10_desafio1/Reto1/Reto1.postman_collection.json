@@ -1,26 +1,36 @@
 {
 	"info": {
-		"_postman_id": "d710be30-b689-46d4-8a40-9122d6449159",
+		"_postman_id": "fc5a34ac-1a00-439e-8d76-b5f84da143c7",
 		"name": "Reto1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Create user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"nicoll\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:8080/users/1/follow/1",
+					"raw": "localhost:8080/users/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"1",
-						"follow",
-						"1"
+						"create"
 					]
 				}
 			},
@@ -29,19 +39,19 @@
 		{
 			"name": "Follow other",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/1/follow/1",
+					"raw": "localhost:8080/users/1235/follow/1570",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"1",
+						"1235",
 						"follow",
-						"1"
+						"1570"
 					]
 				}
 			},
@@ -53,7 +63,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "localhost:8080/users/1570/followers/count/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1570",
+						"followers",
+						"count",
+						""
+					]
 				}
 			},
 			"response": []
@@ -63,7 +84,19 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/users/1570/followers/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1570",
+						"followers",
+						"list"
+					]
+				}
 			},
 			"response": []
 		},
@@ -73,7 +106,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "localhost:8080/users/1570/followed/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1570",
+						"followed",
+						"list"
+					]
 				}
 			},
 			"response": []
@@ -81,19 +124,48 @@
 		{
 			"name": "UnFollow other",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/users/1235/unfollow/1570",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1235",
+						"unfollow",
+						"1570"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Create Post",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"userId\": 1570,\n        \"id_post\" : 13,\n        \"date\" : \"27-05-2021\",\n        \"detail\" :\n        { \n        \"product_id\" : 10,\n        \"productName\" : \"Silla Gamer Normal\",\n        \"type\" : \"Gamer\",\n        \"brand\" : \"Racer\",\n        \"color\" : \"Red &amp; Black\",\n        \"notes\" : \"Special Edition\"\n        },\n        \"category\" : 100,\n        \"price\" : 1500.50\n        \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": ""
+					"raw": "localhost:8080/products/newpost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpost"
+					]
 				}
 			},
 			"response": []
@@ -101,10 +173,27 @@
 		{
 			"name": "Create promo post",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 1570,\n    \"id_post\" : 31, \n\t    \"date\" : \"28-05-2021\",\n    \"detail\" :\n        { \"product_id\" : 1,\n          \"productName\" : \"Silla Gamer Promo\",\n          \"type\" : \"Gamer\",\n          \"brand\" : \"Racer\",  \n          \"color\" : \"Red &amp; Black\",\n          \"notes\" :  \"Special Edition\"\n        },\n        \"category\" : \"700\",\n        \"price\" : 1500.50,\n        \"hasPromo\": true,\n        \"discount\": 0.25\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": ""
+					"raw": "localhost:8080/products/newpromopost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"newpromopost"
+					]
 				}
 			},
 			"response": []
@@ -136,16 +225,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/products/followed/1235/list",
+					"raw": "localhost:8080/products/1570/countPromo/",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"products",
-						"followed",
-						"1235",
-						"list"
+						"1570",
+						"countPromo",
+						""
 					]
 				}
 			},
@@ -157,16 +246,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/products/followed/1235/list",
+					"raw": "localhost:8080/products/1570/list/",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"products",
-						"followed",
-						"1235",
-						"list"
+						"1570",
+						"list",
+						""
 					]
 				}
 			},
