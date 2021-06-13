@@ -10,6 +10,7 @@ public class DiplomaService {
         Diploma diploma = new Diploma();
         diploma.setStudent(student.getName());
 
+
         double average = calculateAverage(student);
         diploma.setAverage(average);
 
