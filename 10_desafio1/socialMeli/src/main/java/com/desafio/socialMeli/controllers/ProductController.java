@@ -1,10 +1,10 @@
 package com.desafio.socialMeli.controllers;
 
-import com.desafio.socialMeli.exceptions.RepositoryUnableException;
-import com.desafio.socialMeli.exceptions.UserNotFoundException;
-import com.desafio.socialMeli.repository.entities.Post;
-import com.desafio.socialMeli.service.IProductService;
-import com.desafio.socialMeli.service.dto.UserFollowedPostsDTO;
+import com.desafio.socialMeli.model.dao.models.Post;
+import com.desafio.socialMeli.model.dto.UserFollowedPostsDTO;
+import com.desafio.socialMeli.model.exceptions.RepositoryUnableException;
+import com.desafio.socialMeli.model.exceptions.UserNotFoundException;
+import com.desafio.socialMeli.model.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +28,10 @@ public class ProductController {
         UserFollowedPostsDTO userWithFollowedPostsDTO = iProductService.getFollowedPostsByUser(userId);
         return new ResponseEntity<>(userWithFollowedPostsDTO, HttpStatus.OK);
     }
-
+/*
     @GetMapping("/{UserID}/followers/list")
     public ResponseEntity<UserFollowedPostsDTO> getListOfFollowers(@PathVariable int userId @RequestParam(name = "order", required = false, defaultValue = "name_asc") String order){
         UserFollowedPostsDTO userWithFollowedPostsDTO = iProductService.getListOfFollowers(userId);
         return new ResponseEntity<>(userWithFollowedPostsDTO, HttpStatus.OK);
-    }
+    }*/
 }

@@ -1,13 +1,13 @@
 package com.desafio.socialMeli.controllers;
 
-import com.desafio.socialMeli.exceptions.RemoveFollowedException;
-import com.desafio.socialMeli.exceptions.RemoveFollowerException;
-import com.desafio.socialMeli.exceptions.RepositoryUnableException;
-import com.desafio.socialMeli.exceptions.UserNotFoundException;
-import com.desafio.socialMeli.service.IUserService;
-import com.desafio.socialMeli.service.dto.UserFollowedDTO;
-import com.desafio.socialMeli.service.dto.UserFollowersCountDTO;
-import com.desafio.socialMeli.service.dto.UserFollowersDTO;
+import com.desafio.socialMeli.model.exceptions.RemoveFollowedException;
+import com.desafio.socialMeli.model.exceptions.RemoveFollowerException;
+import com.desafio.socialMeli.model.exceptions.RepositoryUnableException;
+import com.desafio.socialMeli.model.exceptions.UserNotFoundException;
+import com.desafio.socialMeli.model.service.IUserService;
+import com.desafio.socialMeli.model.dto.UserFollowedDTO;
+import com.desafio.socialMeli.model.dto.UserFollowersCountDTO;
+import com.desafio.socialMeli.model.dto.UserFollowersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

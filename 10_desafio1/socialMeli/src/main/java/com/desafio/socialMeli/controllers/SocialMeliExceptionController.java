@@ -1,10 +1,10 @@
 package com.desafio.socialMeli.controllers;
 
-import com.desafio.socialMeli.exceptions.RemoveFollowedException;
-import com.desafio.socialMeli.exceptions.RemoveFollowerException;
-import com.desafio.socialMeli.exceptions.RepositoryUnableException;
-import com.desafio.socialMeli.exceptions.UserNotFoundException;
-import com.desafio.socialMeli.service.dto.ErrorDTO;
+import com.desafio.socialMeli.model.exceptions.RemoveFollowedException;
+import com.desafio.socialMeli.model.exceptions.RemoveFollowerException;
+import com.desafio.socialMeli.model.exceptions.RepositoryUnableException;
+import com.desafio.socialMeli.model.exceptions.UserNotFoundException;
+import com.desafio.socialMeli.model.dto.ErrorDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
