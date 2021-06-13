@@ -10,10 +10,10 @@ import javax.validation.constraints.*;
 @Valid
 public class SubjectDTO {
 
-
   @NotNull
   @Size(min = 1, max = 30, message = "El nombre de la materia debe tener 30 caracteres maximo")
   @Pattern(message = "El nombre de la materia debe comenzar con mayuscula", regexp = "^[A-Z].*[a-z]$")
+
   private String subject;
 
 

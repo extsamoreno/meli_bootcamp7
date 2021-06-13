@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Data
-//@Valid
+@Valid
 public class StudentDTO {
 
     @NotEmpty(message = "El nombre del alumno no puede estar vacio")

@@ -1,5 +1,7 @@
 package com.digitalhouse.obtenerdiploma.controller;
 
+import com.digitalhouse.obtenerdiploma.dto.ErrorDTO;
+import com.digitalhouse.obtenerdiploma.exceptions.SubjectException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,24 +14,11 @@ import java.util.Map;
 
 @ControllerAdvice
 public class AnalyzeNotesExceptionController {
-/*
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(ProductException e){
+    public ResponseEntity<ErrorDTO> handleGlobalException(SubjectException e){
         return new ResponseEntity<>(e.getError(),e.getStatus());
     }
-
-    @ExceptionHandler(ProductIdNotFoundException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(ProductIdNotFoundException e){
-
-        return new ResponseEntity<>(e.getError(),e.getStatus());
-    }
-*/
-
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResponseEntity<ErrorDTO> handleGlobalException(MethodArgumentNotValidException e){
-//        return new ResponseEntity<>(new ErrorDTO(e.getMessage(),e.getClass().getSimpleName()), HttpStatus.BAD_REQUEST);
-//    }
-
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -40,7 +29,6 @@ public class AnalyzeNotesExceptionController {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 

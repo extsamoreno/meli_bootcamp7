@@ -2,6 +2,7 @@ package com.digitalhouse.obtenerdiploma.controller;
 
 import com.digitalhouse.obtenerdiploma.dto.StudentDTO;
 import com.digitalhouse.obtenerdiploma.dto.CertificateDTO;
+import com.digitalhouse.obtenerdiploma.exceptions.SubjectNameNotFoundException;
 import com.digitalhouse.obtenerdiploma.service.CertificateService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,8 @@ public class AnalyzeNotesRestController {
   }
 
   @PostMapping("/analyzeNotes")
-  public CertificateDTO analyzeNotes(@Valid @RequestBody StudentDTO notes){
+  public CertificateDTO analyzeNotes(@Valid @RequestBody StudentDTO notes) throws SubjectNameNotFoundException {
+    //if(notes.getSubjects().contains(SubjectDTOGet.))
     return certificateService.analyzeNotes(notes);
   }
 }

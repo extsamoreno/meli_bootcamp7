@@ -1,13 +1,24 @@
 package com.digitalhouse.obtenerdiploma.service;
 
+import com.digitalhouse.obtenerdiploma.Repository.ISubjectRepository;
 import com.digitalhouse.obtenerdiploma.dto.StudentDTO;
 import com.digitalhouse.obtenerdiploma.dto.CertificateDTO;
 import com.digitalhouse.obtenerdiploma.dto.SubjectDTO;
+import com.digitalhouse.obtenerdiploma.exceptions.SubjectException;
+import com.digitalhouse.obtenerdiploma.exceptions.SubjectNameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CertificateServiceImpl implements CertificateService {
-  public CertificateDTO analyzeNotes(StudentDTO notes) {
+public class CertificateServiceImpl implements CertificateService{
+
+  @Autowired
+  ISubjectRepository iSubjectRepository;
+
+  public CertificateDTO analyzeNotes(StudentDTO notes) throws SubjectNameNotFoundException {
+    for(SubjectDTO subjectDTO: notes.getSubjects()){
+      if(iSubjectRepository.getSubjectByname(subjectDTO.getSubject()) == null) throw new SubjectNameNotFoundException(subjectDTO.getSubject());
+    }
     CertificateDTO response = new CertificateDTO(notes);
     response.setAverage(calculateAverage(notes));
     response.setMessage(writeDiploma(notes));
