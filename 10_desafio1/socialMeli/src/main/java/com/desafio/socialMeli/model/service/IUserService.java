@@ -18,6 +18,9 @@ public interface IUserService {
     UserFollowersCountDTO followersCount(Integer userId) throws RepositoryUnableException, UserNotFoundException;
     UserFollowersDTO followersList(Integer userId) throws RepositoryUnableException, UserNotFoundException;
     UserFollowedDTO followedList(Integer userId) throws RepositoryUnableException, UserNotFoundException;
+    UserFollowedDTO followedList(Integer userId, String order) throws RepositoryUnableException, UserNotFoundException;
+    UserFollowersDTO followersList(Integer userId, String order) throws RepositoryUnableException, UserNotFoundException;
+
 
 }
 

@@ -15,6 +15,8 @@ import com.desafio.socialMeli.model.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.desafio.socialMeli.model.dao.repository.SocialMeliRepository.USERDTO_TABLE;
 
 @Service
@@ -22,6 +24,9 @@ public class UserService implements IUserService {
 
     @Autowired
     ISocialMeliRepository iSocialMeliRepository;
+
+    @Autowired
+    IOrderService iOrderService;
 
     @Override
     public String loadDatabaseDTO(){
@@ -86,10 +91,24 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public UserFollowersDTO followersList(Integer userId, String order) throws  RepositoryUnableException, UserNotFoundException{
+        UserDTO userDTO = iSocialMeliRepository.getDTOById(userId, USERDTO_TABLE);
+        List<User> userList = iOrderService.orderUserByName(this.followersList(userId).getFollowers(), order);
+        return new UserFollowersDTO(userId, userDTO.getName(),userList);
+    }
+
+    @Override
     public UserFollowedDTO followedList(Integer userId) throws  RepositoryUnableException, UserNotFoundException{
         if(!iSocialMeliRepository.tableInRepositoryStatus(USERDTO_TABLE)) throw new RepositoryUnableException();
         UserDTO userDTO = getUserDTOByIdService(userId);
         return UserDTOMapper.toUserFollowedListDTO(userDTO, userId);
+    }
+
+    @Override
+    public UserFollowedDTO followedList(Integer userId, String order) throws  RepositoryUnableException, UserNotFoundException{
+        UserDTO userDTO = iSocialMeliRepository.getDTOById(userId, USERDTO_TABLE);
+        List<User> userList = iOrderService.orderUserByName(this.followedList(userId).getFollowedList(), order);
+        return new UserFollowedDTO(userId, userDTO.getName(),userList);
     }
 }
 

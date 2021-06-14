@@ -14,6 +14,7 @@ public class UserDTOMapper {
         return new UserFollowersCountDTO(userId,userDTO.getName(),userDTO.getFollowerList().size());
     }
 
+
     public static UserFollowersDTO toUserFollowersDTO(UserDTO userDTO, Integer userId) {
         List<User> followers = new ArrayList<User>();
         UserFollowersDTO userFollowersDTO = new UserFollowersDTO();

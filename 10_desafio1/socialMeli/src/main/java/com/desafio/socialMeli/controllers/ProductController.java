@@ -28,10 +28,5 @@ public class ProductController {
         UserFollowedPostsDTO userWithFollowedPostsDTO = iProductService.getFollowedPostsByUser(userId);
         return new ResponseEntity<>(userWithFollowedPostsDTO, HttpStatus.OK);
     }
-/*
-    @GetMapping("/{UserID}/followers/list")
-    public ResponseEntity<UserFollowedPostsDTO> getListOfFollowers(@PathVariable int userId @RequestParam(name = "order", required = false, defaultValue = "name_asc") String order){
-        UserFollowedPostsDTO userWithFollowedPostsDTO = iProductService.getListOfFollowers(userId);
-        return new ResponseEntity<>(userWithFollowedPostsDTO, HttpStatus.OK);
-    }*/
+
 }
