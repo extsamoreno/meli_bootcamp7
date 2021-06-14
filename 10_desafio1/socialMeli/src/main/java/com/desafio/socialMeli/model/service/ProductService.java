@@ -9,6 +9,7 @@ import com.desafio.socialMeli.model.dto.UserFollowedPostsDTO;
 import com.desafio.socialMeli.model.exceptions.RepositoryUnableException;
 import com.desafio.socialMeli.model.exceptions.UserNotFoundException;
 import com.desafio.socialMeli.model.mapper.PostMapper;
+import com.desafio.socialMeli.model.service.helpers.DateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,7 @@ public class ProductService implements IProductService {
 
         for (User followed : userFollowedList.getFollowedList()) {
             postsByFollowed = iSocialMeliRepository.getPostDTOListByUserId(followed.getId());
-            allPostsDTOFollowed.addAll(iOrderService.orderPostByDate(postsByFollowed, "date_asc_2W"));
+            allPostsDTOFollowed.addAll(iOrderService.getPostSince(iOrderService.orderPostByDate(postsByFollowed, "date_asc"), DateHelper.getDateBeforeTwoWeeks()));
         }
         UserFollowedPostsDTO userFollowedPostsDTO = PostMapper.toUserFollowedPostsDTO(allPostsDTOFollowed);
         return userFollowedPostsDTO;

@@ -24,7 +24,7 @@ public class PostDTO {
     private boolean hasPromo;
     private float discount;
 
-    public static Date stringToDate(String stringDate){
+    public Date stringToDate(String stringDate){
         Integer day = Integer.parseInt(stringDate.substring(0, 2));
         Integer month = Integer.parseInt(stringDate.substring(3, 5));
         Integer year = Integer.parseInt(stringDate.substring(6, 10));
