@@ -40,7 +40,7 @@ public class UserRepositoy implements IUserrepository {
 
 
     @Override
-    public boolean follow(RequestFollowUserToUser requestFollowUserToUser) throws NotExistUser{
+    public boolean follow(RequestFollowUserToUser requestFollowUserToUser) {
         try{
             // If follow list is empty
             if (this.follow.isEmpty()){
@@ -58,7 +58,7 @@ public class UserRepositoy implements IUserrepository {
                             filter(user -> user.getId().equals(getUser.getId())).count() < 1){
                         this.follow.get(requestFollowUserToUser.getUser().getId()).add(getUser);
                     }else{
-                        throw new NotExistUser(requestFollowUserToUser.getUser().getId());
+                        return false;
                     }
 
 
