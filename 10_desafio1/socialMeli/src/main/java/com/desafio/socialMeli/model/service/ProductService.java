@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.desafio.socialMeli.model.dao.repository.SocialMeliRepository.POSTDTO_TABLE;
@@ -56,9 +58,13 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public UserFollowedPostsDTO getListOfFollowers(int userId) {
-        return null;
+    public UserFollowedPostsDTO getFollowedPostsByUser(int userid, String order) throws RepositoryUnableException, UserNotFoundException {
+        UserFollowedPostsDTO userFollowedPostsDTO = getFollowedPostsByUser(userid);
+        userFollowedPostsDTO.getPosts().sort(Comparator.comparing(p->p.stringToDate(p.getDate())));
+        if(order.equals("date_asc")) Collections.reverse(userFollowedPostsDTO.getPosts());
+        return userFollowedPostsDTO;
     }
+
 
 
 }

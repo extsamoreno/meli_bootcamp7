@@ -8,5 +8,6 @@ import com.desafio.socialMeli.model.exceptions.UserNotFoundException;
 public interface IProductService {
     String saveNewPost(Post post) throws UserNotFoundException;
     UserFollowedPostsDTO getFollowedPostsByUser(int userId) throws UserNotFoundException, RepositoryUnableException;
-    UserFollowedPostsDTO getListOfFollowers(int userId);
+    UserFollowedPostsDTO getFollowedPostsByUser(int userid, String order) throws UserNotFoundException, RepositoryUnableException;
+    //UserFollowedPostsDTO getListOfFollowers(int userId);
 }
