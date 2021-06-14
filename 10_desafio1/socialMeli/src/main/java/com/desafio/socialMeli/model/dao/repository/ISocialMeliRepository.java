@@ -12,6 +12,9 @@ public interface ISocialMeliRepository {
     List<PostDTO>getPostDTOListByUserId(Integer userid);
 
     <T> T getDTOById(Integer id, Integer table);
+
+    List<PostDTO> getPostDTOList();
+
     <T> HashMap<Integer, T> getOrCreateDTOTable(Integer table);
     <T> boolean updateDTORepository(T t);
     public <T> Integer indexOfDTOinRepository(T t);

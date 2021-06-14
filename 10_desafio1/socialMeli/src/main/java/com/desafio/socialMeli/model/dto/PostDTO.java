@@ -21,8 +21,13 @@ public class PostDTO {
     private Product detail;
     private String category;
     private double price;
+
     private boolean hasPromo;
     private float discount;
+
+    public boolean isHasPromo() {
+        return hasPromo;
+    }
 
     public Date stringToDate(String stringDate){
         Integer day = Integer.parseInt(stringDate.substring(0, 2));

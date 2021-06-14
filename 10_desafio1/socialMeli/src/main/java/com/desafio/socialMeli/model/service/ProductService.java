@@ -3,9 +3,7 @@ package com.desafio.socialMeli.model.service;
 import com.desafio.socialMeli.model.dao.models.Post;
 import com.desafio.socialMeli.model.dao.models.User;
 import com.desafio.socialMeli.model.dao.repository.ISocialMeliRepository;
-import com.desafio.socialMeli.model.dto.PostDTO;
-import com.desafio.socialMeli.model.dto.UserFollowedDTO;
-import com.desafio.socialMeli.model.dto.UserFollowedPostsDTO;
+import com.desafio.socialMeli.model.dto.*;
 import com.desafio.socialMeli.model.exceptions.RepositoryUnableException;
 import com.desafio.socialMeli.model.exceptions.UserNotFoundException;
 import com.desafio.socialMeli.model.mapper.PostMapper;
@@ -65,6 +63,31 @@ public class ProductService implements IProductService {
         return userFollowedPostsDTO;
     }
 
+    @Override
+    public PostDTOCount getNumberOfPostsWithPromo(int userid){
 
+        List<PostDTO> postDTOSList = iSocialMeliRepository.getPostDTOList();
+        User user = iSocialMeliRepository.getUserById(userid);
+        //System.out.println("el usuario es: " +user.getName());
+        Integer qOfDiscount = 0;
+        for(PostDTO p: postDTOSList){
+            if(p.isHasPromo()) qOfDiscount++;
+        }
+        //PostDTOCount postCount = PostMapper.toPostDTOCount(user, qOfDiscount);
+        //return postCount;
+        return PostMapper.toPostDTOCount(user, qOfDiscount);
+    }
 
+    @Override
+    public PostDTOList getPromoPostsByUser(int userid){
+        List<PostDTO> postDTOSList = iSocialMeliRepository.getPostDTOList();
+        List<PostDTO> postDTOSListAux =  new ArrayList<>();
+
+        for(PostDTO p: postDTOSList) if(p.isHasPromo()) postDTOSListAux.add(p);
+
+        PostDTOList postDTOList = new PostDTOList();
+        postDTOList.setPostDTOList(postDTOSListAux);
+
+        return new PostDTOList();
+    }
 }

@@ -72,9 +72,7 @@ public class SocialMeliRepository implements ISocialMeliRepository {
         User result = new User();
         if (userList != null) {
             Optional<User> item = userList.stream().filter(user -> user.getId() == id).findFirst();
-            if (item.isPresent()) {
-                result = item.get();
-            }
+            if (item.isPresent()) result = item.get();
         }
         return result;
     }
@@ -82,6 +80,11 @@ public class SocialMeliRepository implements ISocialMeliRepository {
     @Override
     public List<User> getUserList() {
         return loadDatabase();
+    }
+
+    @Override
+    public List<PostDTO> getPostDTOList() {
+        return new ArrayList<PostDTO>(this.postDTOMap.values());
     }
 
     private List<User> loadDatabase() {
