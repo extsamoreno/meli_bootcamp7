@@ -23,14 +23,13 @@ public class LinkTackerController {
 
     @PostMapping("/saveurl")
     public ResponseEntity<UrlDTO> save(@RequestBody Url url) throws UrlNotValidException {
-        return new ResponseEntity<UrlDTO>(iMaskUrlService.getLink(url), HttpStatus.OK);
+        return new ResponseEntity<>(iMaskUrlService.getLink(url), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{linkId}/{pass}", method = RequestMethod.GET)
     public void redirect(@PathVariable Integer linkId, @PathVariable String pass, HttpServletResponse httpServletResponse) throws IOException, LinkNotFoundException, InvalidPassException, BloquedLinkException {
         httpServletResponse.sendRedirect(iMaskUrlService.getUrlNameByLink(linkId, pass));
     }
-
 
     @GetMapping("/metrics/{linkId}")
     public ResponseEntity<UrlDTO> getMatchName(@PathVariable Integer linkId) throws LinkNotFoundException {
