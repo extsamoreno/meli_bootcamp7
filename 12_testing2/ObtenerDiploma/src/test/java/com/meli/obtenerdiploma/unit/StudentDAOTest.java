@@ -13,13 +13,6 @@ public class StudentDAOTest {
 
     StudentDAO studentDAO = new StudentDAO();
     StudentRepository studentRepository=new StudentRepository();
-    /*
-
-    void save(StudentDTO stu);
-
-    boolean delete(Long id);
-
-     */
 
     @Test
     public void listAllHappyPath() {
