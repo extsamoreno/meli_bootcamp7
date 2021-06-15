@@ -3,7 +3,6 @@ package com.meli.obtenerdiploma.unit;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.repository.IStudentRepository;
-import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
 import com.meli.obtenerdiploma.service.StudentService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,10 +11,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.text.DecimalFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceTests {
@@ -28,27 +27,65 @@ public class StudentServiceTests {
     @InjectMocks
     StudentService studentService;
 
-    /**
-
-     void create(StudentDTO stu);
-     StudentDTO read(Long id);
-     void update(StudentDTO stu);
-     void delete(Long id);
-     Set<StudentDTO> getAll();
-
-     */
-
     @Test
     public void createNewStudentHappyPath() {
         //arr
         StudentDTO studentDTO = Utils.getStudentDTO();
-//        Mockito.when(studentDAO.save(studentDTO)).thenAnswer(null);
         // act
         studentService.create(studentDTO);
         //assert
         Mockito.verify(studentDAO, Mockito.atLeastOnce()).save(studentDTO);
-//        assertEquals(expected, received.getAverageScore());
     }
 
+    @Test
+    public void updateStudentHappyPath() {
+        //arr
+        StudentDTO studentDTO = Utils.getStudentDTO();
+        // act
+        studentService.update(studentDTO);
+        //assert
+        Mockito.verify(studentDAO, Mockito.atLeastOnce()).save(studentDTO);
+    }
+
+    @Test
+    public void deleteStudentHappyPath() {
+        //arr
+        Long id = 2L;
+        // act
+        studentService.delete(id);
+        //assert
+        Mockito.verify(studentDAO, Mockito.atLeastOnce()).delete(id);
+    }
+
+    @Test
+    public void readStudentHappyPath() {
+        //arr
+        StudentDTO studentDTO = Utils.getStudentDTO();
+        Long id = 2L;
+        Mockito.when(studentDAO.findById(id)).thenReturn(studentDTO);
+        // act
+        StudentDTO received = studentService.read(id);
+        //assert
+        Mockito.verify(studentDAO, Mockito.atLeastOnce()).findById(id);
+        assertEquals(studentDTO, received);
+    }
+
+
+    @Test
+    public void getAllStudentHappyPath() {
+        //arr
+        StudentDTO studentDTO1 = Utils.getStudentDTO();
+        StudentDTO studentDTO2 = Utils.getStudentDTO();
+        Set<StudentDTO> list = new HashSet<>();
+        list.add(studentDTO1);
+        list.add(studentDTO2);
+
+        Mockito.when(studentRepository.findAll()).thenReturn(list);
+        // act
+        Set<StudentDTO> received = studentService.getAll();
+        //assert
+        Mockito.verify(studentRepository, Mockito.atLeastOnce()).findAll();
+        assertEquals(list, received);
+    }
 
 }
