@@ -26,7 +26,7 @@ public class ObtenerDiplomaServiceTest {
     //ANALYZE SCORES
 
     @Test
-    public void testAnalyzeScoresNoHonor() {
+    public void testAnalyzeScoresNoHonorExistentStudent() {
         //ARRANGE
         StudentDTO expected = new StudentDTO(1L, "Juan", "El alumno Juan ha obtenido un promedio de 7,33. Puedes mejorar.", (9.0 + 7 + 6) / 3, new ArrayList<>() {
             {
@@ -56,7 +56,7 @@ public class ObtenerDiplomaServiceTest {
     }
 
     @Test
-    public void testAnalyzeScoresWithHonor() {
+    public void testAnalyzeScoresWithHonorExistentStudent() {
         //ARRANGE
         StudentDTO expected = new StudentDTO(2L, "Pedro", "El alumno Pedro ha obtenido un promedio de 10. Felicitaciones!", (10.0 + 10 + 10.0) / 3, new ArrayList<>() {
             {
