@@ -16,7 +16,7 @@ public class StudentDAOSaveTest {
     @Test
     public void saveHappyPath() {
         //arrange
-        StudentDTO studentDTO = getStudentDTO();
+        StudentDTO studentDTO = Utils.getStudentDTO();
 
         //act
         id=studentDAO.save(studentDTO);
@@ -26,24 +26,12 @@ public class StudentDAOSaveTest {
         studentDAO.delete(id);
     }
 
-    private StudentDTO getStudentDTO() {
-        SubjectDTO subject1= new SubjectDTO("mate1",9.5);
-        SubjectDTO subject2= new SubjectDTO("mate2",8.0);
-        SubjectDTO subject3= new SubjectDTO("mate3",6.5);
 
-        List<SubjectDTO> list= (Arrays.asList(subject1,subject2,subject3));
-
-        StudentDTO studentDTO= new StudentDTO();
-
-        studentDTO.setStudentName("Test");
-        studentDTO.setSubjects(list);
-        return studentDTO;
-    }
 
     @Test
     public void updateHappyPath() {
         //arrange
-        StudentDTO studentDTO = getStudentDTO();
+        StudentDTO studentDTO = Utils.getStudentDTO();
         Long idLocal=studentDAO.save(studentDTO);
         String name="OTRO NOMBRE";
 
@@ -59,7 +47,7 @@ public class StudentDAOSaveTest {
     @Test
     public void deleteHappyPath() {
         //Arrange
-        id=studentDAO.save(getStudentDTO());
+        id=studentDAO.save(Utils.getStudentDTO());
         //arrange
         //act
         boolean result = studentDAO.delete(id);
