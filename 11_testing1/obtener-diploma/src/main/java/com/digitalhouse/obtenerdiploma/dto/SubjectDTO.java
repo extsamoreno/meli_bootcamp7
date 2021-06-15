@@ -1,7 +1,14 @@
 package com.digitalhouse.obtenerdiploma.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.*;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SubjectDTO {
 
   @NotEmpty(message = "El nombre de la materia no puede estar vacío.")
@@ -14,19 +21,4 @@ public class SubjectDTO {
   @DecimalMax(value = "10.0", message = "La nota no puede ser mayor a 10.0")
   private double note;
 
-  public String getSubject() {
-    return subject;
-  }
-
-  public void setSubject(String subject) {
-    this.subject = subject;
-  }
-
-  public double getNote() {
-    return note;
-  }
-
-  public void setNote(Double note) {
-    this.note = note;
-  }
 }

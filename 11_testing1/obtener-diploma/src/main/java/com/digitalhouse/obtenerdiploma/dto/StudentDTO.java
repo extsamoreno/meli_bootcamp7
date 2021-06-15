@@ -1,11 +1,18 @@
 package com.digitalhouse.obtenerdiploma.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentDTO {
 
     @NotEmpty(message = "El nombre del alumno no puede estar vacío.")
@@ -15,24 +22,4 @@ public class StudentDTO {
 
     @NotEmpty(message = "La lista de materias no puede estar vacía.")
     private List<@Valid SubjectDTO> subjects;
-
-    public StudentDTO() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<SubjectDTO> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<SubjectDTO> subjects) {
-        this.subjects = subjects;
-    }
-
 }
