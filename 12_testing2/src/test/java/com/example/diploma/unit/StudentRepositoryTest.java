@@ -14,8 +14,10 @@ import java.util.Set;
 public class StudentRepositoryTest {
     IStudentRepository studentRepository = new StudentRepository();
 
+    //FIND ALL
+
     @Test
-    public void findAll() {
+    public void testFindAll() {
         //ARRANGE
         StudentDTO student1 = new StudentDTO(1L, "Juan", null, null, new ArrayList<>() {
             {
@@ -28,8 +30,8 @@ public class StudentRepositoryTest {
         StudentDTO student2 = new StudentDTO(2L, "Pedro", null, null, new ArrayList<>() {
             {
                 add(new SubjectDTO("Matemática", 10.0));
-                add(new SubjectDTO("Física", 8.0));
-                add(new SubjectDTO("Química", 4.0));
+                add(new SubjectDTO("Física", 10.0));
+                add(new SubjectDTO("Química", 10.0));
             }
         });
 
