@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Objects;
 
 @RestController
@@ -20,7 +21,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addStudent(@RequestBody StudentDTO houseDTO) {
+    public ResponseEntity<String> addStudent(@Valid @RequestBody StudentDTO houseDTO) {
         String result = this.studentService.addStudent(houseDTO);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
