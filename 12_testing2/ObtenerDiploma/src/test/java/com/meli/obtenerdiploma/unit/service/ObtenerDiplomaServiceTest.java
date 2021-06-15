@@ -24,7 +24,7 @@ public class ObtenerDiplomaServiceTest {
     ObtenerDiplomaService obtenerDiplomaService;
 
     @Test
-    public void analyzeScoresHappyPath() {
+    public void analyzeScoresHappyPathNoHonor() {
         //arrange
         StudentDTO expected = new StudentDTO(1L, "Juan", "El alumno Juan ha obtenido un promedio de 7,33. Puedes mejorar.", (9.0 + 7 + 6) / 3, new ArrayList<>() {
             {
@@ -49,6 +49,40 @@ public class ObtenerDiplomaServiceTest {
         StudentDTO received = obtenerDiplomaService.analyzeScores(id);
 
         //assert
+        Mockito.verify(studentDAO, Mockito.atLeast(1)).findById(id);
         Assertions.assertEquals(expected, received);
     }
+
+    @Test
+    public void analyzeScoresHappyPathWithHonor() {
+        //arrange
+        StudentDTO expected = new StudentDTO(1L, "Juan", "El alumno Juan ha obtenido un promedio de 9,5. Felicitaciones!", (9.0 + 9.5 + 10.0) / 3, new ArrayList<>() {
+            {
+                add(new SubjectDTO("Matemática", 9.0));
+                add(new SubjectDTO("Física", 9.5));
+                add(new SubjectDTO("Química", 10.0));
+            }
+        });
+
+        Long id = 1L;
+
+        StudentDTO studentDTO = new StudentDTO(1L, "Juan", null, null, new ArrayList<>() {
+            {
+                add(new SubjectDTO("Matemática", 9.0));
+                add(new SubjectDTO("Física", 9.5));
+                add(new SubjectDTO("Química", 10.0));
+            }
+        });
+        Mockito.when(studentDAO.findById(id)).thenReturn(studentDTO);
+
+        //act
+        StudentDTO received = obtenerDiplomaService.analyzeScores(id);
+
+        //assert
+        Mockito.verify(studentDAO, Mockito.atLeast(1)).findById(id);
+        Assertions.assertEquals(expected, received);
+    }
+
+
+
 }
