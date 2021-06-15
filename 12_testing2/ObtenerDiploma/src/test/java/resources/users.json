@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "studentName": "Genaro",
+    "message": "No se",
+    "averageScore": 10.0,
+    "subjects": [
+      {
+        "name": "Programación",
+        "score": 10.0
+      },
+      {
+        "name": "Algoritmos",
+        "score": 10.0
+      },
+      {
+        "name": "Base de datos",
+        "score": 10.0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "studentName": "Pedro",
+    "message": null,
+    "averageScore": null,
+    "subjects": [
+      {
+        "name": "Matemática",
+        "score": 10.0
+      },
+      {
+        "name": "Física",
+        "score": 8.0
+      },
+      {
+        "name": "Química",
+        "score": 4.0
+      }
+    ]
+  }
+]
