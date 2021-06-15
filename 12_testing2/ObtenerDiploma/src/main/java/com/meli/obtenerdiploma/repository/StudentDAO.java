@@ -36,14 +36,16 @@ public class StudentDAO implements IStudentDAO {
     }
 
     @Override
-    public void save(StudentDTO stu) {
+    public long save(StudentDTO stu) {
         boolean removed = this.delete(stu.getId());
-
-        if (!removed) stu.setId((this.students.size() + 1L));
+        long newId = this.students.size() + 1L;
+        if (!removed) stu.setId(newId);
 
         students.add(stu);
 
         this.saveData();
+
+        return newId;
     }
 
     @Override
