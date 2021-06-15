@@ -15,6 +15,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceTest {
@@ -67,13 +70,12 @@ public class StudentServiceTest {
     public void readThrowStudentNotFoundException() {
         //arrange
         Long id = 4L;
-
         Mockito.when(studentDAO.findById(id)).thenThrow(StudentNotFoundException.class);
 
         //act
 
         //assert
-        Assertions.assertThrows(StudentNotFoundException.class, () -> studentService.read(id));
+        Assertions.assertThrows(StudentNotFoundException.class,  () -> studentService.read(id));
         Mockito.verify(studentDAO, Mockito.atLeast(1)).findById(id);
     }
 
@@ -101,6 +103,23 @@ public class StudentServiceTest {
 
         //assert
         Mockito.verify(studentDAO, Mockito.atLeast(1)).delete(id);
+    }
+
+    @Test
+    public void getAll() {
+        //arrange
+        HashSet<StudentDTO> expected = new HashSet<>() {{
+            add(new StudentDTO(1L, "Juan", null, null, null));
+            add(new StudentDTO(2L, "Pedro", null, null, null));
+            add(new StudentDTO(3L, "Macarena", null, null, null));
+        }};
+        Mockito.when(studentRepository.findAll()).thenReturn(expected);
+
+        //act
+        Set<StudentDTO> received = studentService.getAll();
+
+        //assert
+        Assertions.assertEquals(expected, received);
     }
 
 }
