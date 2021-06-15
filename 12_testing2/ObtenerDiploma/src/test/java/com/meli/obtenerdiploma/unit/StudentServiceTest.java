@@ -26,6 +26,7 @@ public class StudentServiceTest {
     @InjectMocks
     StudentService studentService;
 
+    //TODO: Esta bien no tener assertions en estos tests?
     @Test
     public void createNewStudentHappyPath() {
         //Arrange
