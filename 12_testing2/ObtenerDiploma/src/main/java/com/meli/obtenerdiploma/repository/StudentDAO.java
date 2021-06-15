@@ -36,7 +36,7 @@ public class StudentDAO implements IStudentDAO {
     }
 
     @Override
-    public void save(StudentDTO stu) {
+    public Long save(StudentDTO stu) {
         boolean removed = this.delete(stu.getId());
 
         if (!removed) stu.setId((this.students.size() + 1L));
@@ -44,6 +44,7 @@ public class StudentDAO implements IStudentDAO {
         students.add(stu);
 
         this.saveData();
+        return stu.getId();
     }
 
     @Override
@@ -61,7 +62,7 @@ public class StudentDAO implements IStudentDAO {
 
         return ret;
     }
-
+    @Override
     public boolean exists(StudentDTO stu) {
        boolean ret = false;
 
