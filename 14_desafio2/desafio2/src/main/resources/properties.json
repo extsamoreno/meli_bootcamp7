@@ -1,0 +1,75 @@
+[
+  {
+    "name": "Casa de Vidrio",
+    "address": "Av. Emilio Castro 6677",
+    "neighborhood": "Liniers",
+    "environments": [
+      {
+        "name": "Habitación 1",
+        "width": 30.0,
+        "length": 10.0
+      },
+      {
+        "name": "Habitación 2",
+        "width": 10.0,
+        "length": 10.0
+      }
+    ]
+  },
+  {
+    "name": "Casa de Papel",
+    "address": "Av. Juan Bautista Alberdi 6868",
+    "neighborhood": "Mataderos",
+    "environments": [
+      {
+        "name": "Habitación 1",
+        "width": 30.0,
+        "length": 15.0
+      },
+      {
+        "name": "Habitación 2",
+        "width": 15.0,
+        "length": 10.0
+      },
+      {
+        "name": "Habitación 3",
+        "width": 15.0,
+        "length": 7.60
+      }
+    ]
+  },
+  {
+    "name": "Casa de Piedra",
+    "address": "Av. Siempre Viva 1111",
+    "neighborhood": "Palermo",
+    "environments": [
+      {
+        "name": "Habitación 1",
+        "width": 30.0,
+        "length": 14.30
+      },
+      {
+        "name": "Habitación 2",
+        "width": 1.0,
+        "length": 3.0
+      }
+    ]
+  },
+  {
+    "name": "Casa de Aire",
+    "address": "Av. Falsa 0000",
+    "neighborhood": "Belgrano",
+    "environments": [
+      {
+        "name": "Habitación 1",
+        "width": 30.0,
+        "length": 20.0
+      },
+      {
+        "name": "Habitación 2",
+        "width": 10.0,
+        "length": 8.0
+      }
+    ]
+  }
+]
