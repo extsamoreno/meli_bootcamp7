@@ -86,7 +86,7 @@ public class StudentDAO implements IStudentDAO {
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
-            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/users.json");
+            file = ResourceUtils.getFile("classpath:users.json");
             loadedData = objectMapper.readValue(file, new TypeReference<Set<StudentDTO>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();

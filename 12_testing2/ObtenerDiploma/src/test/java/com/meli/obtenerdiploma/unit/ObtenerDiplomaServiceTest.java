@@ -1,12 +1,10 @@
 package com.meli.obtenerdiploma.unit;
 
 
+import com.meli.obtenerdiploma.exception.StudentNotFoundException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
-import com.meli.obtenerdiploma.repository.StudentDAO;
-import com.meli.obtenerdiploma.service.IObtenerDiplomaService;
-import com.meli.obtenerdiploma.service.IStudentService;
 import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,15 +32,102 @@ public class ObtenerDiplomaServiceTest {
 
     @InjectMocks
     ObtenerDiplomaService ObtenerDiplomaService;
-
     @Test
-    public void analyzeScores(){
+    public void getGreetingMessageTest(){
         //arrange
-        double expectedScore = 5.0;
-        Long id = new Long(1);
+        String expectedMessage = "El alumno Alex ha obtenido un promedio de 5. Puedes mejorar.";
+
+        Long id = 1L;
         SubjectDTO subject1 = new SubjectDTO("Mate", 10.0);
         SubjectDTO subject2 = new SubjectDTO("Musica", 0.0);
         SubjectDTO subject3 = new SubjectDTO("Biologia", 5.0);
+        List<SubjectDTO> subjects = new ArrayList<>(Arrays.asList(subject1, subject3, subject2));
+
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setStudentName("Alex");
+        studentDTO.setSubjects(subjects);
+        studentDTO.setId(id);
+
+        when(iStudentDAO.findById(id)).thenReturn(studentDTO);
+
+        //act
+
+        StudentDTO student = ObtenerDiplomaService.analyzeScores(id);
+
+
+        //assert
+        verify(iStudentDAO,Mockito.atLeast(1)).findById(id);
+
+
+        assertEquals(student.getMessage(), expectedMessage);
+
+    }
+    @Test
+    public void getGreetingCongratulationMessageTest(){
+        //arrange
+        String expectedMessage = "El alumno Alex ha obtenido un promedio de 9.67. Felicitaciones!";
+
+        Long id = 1L;
+        SubjectDTO subject1 = new SubjectDTO("Mate", 10.0);
+        SubjectDTO subject2 = new SubjectDTO("Musica", 10.0);
+        SubjectDTO subject3 = new SubjectDTO("Biologia", 9.0);
+        List<SubjectDTO> subjects = new ArrayList<>(Arrays.asList(subject1, subject3, subject2));
+
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setStudentName("Alex");
+        studentDTO.setSubjects(subjects);
+        studentDTO.setId(id);
+
+        when(iStudentDAO.findById(id)).thenReturn(studentDTO);
+
+        //act
+
+        StudentDTO student = ObtenerDiplomaService.analyzeScores(id);
+
+
+        //assert
+        verify(iStudentDAO,Mockito.atLeast(1)).findById(id);
+
+
+        assertEquals(student.getMessage(), expectedMessage);
+
+    }
+    @Test
+    public void calculateAverageThrowNullPointerException(){
+        //arrange
+        double expectedScore = 50.0;
+        Long id = new Long(1);
+        SubjectDTO subject1 = new SubjectDTO("Mate", 100.0);
+        SubjectDTO subject2 = new SubjectDTO();
+        SubjectDTO subject3 = new SubjectDTO();
+        List<SubjectDTO> subjects = new ArrayList<>(Arrays.asList(subject1, subject3, subject2));
+
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setStudentName("Alex");
+        studentDTO.setSubjects(subjects);
+
+        when(iStudentDAO.findById(id)).thenReturn(studentDTO);
+
+        //act
+
+     //   StudentDTO student = ObtenerDiplomaService.analyzeScores(id);
+
+
+        //assert
+       // verify(iStudentDAO,Mockito.atLeast(1)).findById(id);
+
+        assertThrows(NullPointerException.class, () -> ObtenerDiplomaService.analyzeScores(id));
+
+
+    }
+    @Test
+    public void calculateAverageTest(){
+        //arrange
+        double expectedScore = 50.0;
+        Long id = new Long(1);
+        SubjectDTO subject1 = new SubjectDTO("Mate", 100.0);
+        SubjectDTO subject2 = new SubjectDTO("Musica", 0.0);
+        SubjectDTO subject3 = new SubjectDTO("Biologia", 50.0);
         List<SubjectDTO> subjects = new ArrayList<>(Arrays.asList(subject1, subject3, subject2));
 
         StudentDTO studentDTO = new StudentDTO();
@@ -64,16 +149,16 @@ public class ObtenerDiplomaServiceTest {
 
     }
 
-  /*  @Test
-    public  void getProductByIdThrowProductIdNotFoundException() throws ProductIdNotFoundException {
+  @Test
+    public  void findByIdThrowProductIdNotFoundExceptionTest() throws StudentNotFoundException {
         //arrange
-        int id = 1;
-        when(iProductRepository.getById(id)).thenReturn(null);
+        Long id = new Long(1);
+        when(iStudentDAO.findById(id)).thenThrow(new StudentNotFoundException(id));
 
         //assert
-        assertThrows(ProductIdNotFoundException.class, () -> productService.getProductById(id));
+        assertThrows(StudentNotFoundException.class, () -> iStudentDAO.findById(id));
 
-    }*/
+    }
 
 
 }
