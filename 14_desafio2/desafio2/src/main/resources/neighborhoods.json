@@ -1,17 +1,21 @@
 [
   {
+    "id": 1,
     "name": "Liniers",
     "price": 1200.00
   },
   {
+    "id": 2,
     "name": "Mataderos",
     "price": 1000.50
   },
   {
+    "id": 3,
     "name": "Palermo",
     "price": 5200.00
   },
   {
+    "id": 4,
     "name": "Belgrano",
     "price": 10000.50
   }

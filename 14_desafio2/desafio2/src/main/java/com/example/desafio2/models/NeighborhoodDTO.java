@@ -6,6 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NeighborhoodDTO {
+    private int id;
     private String name;
     private double price;
 }

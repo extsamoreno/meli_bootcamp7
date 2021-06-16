@@ -8,6 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PropertyDTO {
+    private int id;
     private String name;
     private String address;
     private String neighborhood;

@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "Casa de Vidrio",
     "address": "Av. Emilio Castro 6677",
     "neighborhood": "Liniers",
@@ -17,6 +18,7 @@
     ]
   },
   {
+    "id": 2,
     "name": "Casa de Papel",
     "address": "Av. Juan Bautista Alberdi 6868",
     "neighborhood": "Mataderos",
@@ -39,6 +41,7 @@
     ]
   },
   {
+    "id": 3,
     "name": "Casa de Piedra",
     "address": "Av. Siempre Viva 1111",
     "neighborhood": "Palermo",
@@ -56,6 +59,7 @@
     ]
   },
   {
+    "id": 4,
     "name": "Casa de Aire",
     "address": "Av. Falsa 0000",
     "neighborhood": "Belgrano",

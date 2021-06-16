@@ -1,5 +1,6 @@
 package com.example.desafio2.repositories;
 
+import com.example.desafio2.models.NeighborhoodDTO;
 import com.example.desafio2.models.PropertyDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,14 +11,13 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 @Repository
 public class PropertyRepository implements IPropertyRepository {
 
-    private List<PropertyDTO> properties;
+    private Map<Integer, PropertyDTO> properties;
+    private Map<Integer, NeighborhoodDTO> neighborhoods;
     private String SCOPE;
 
     public PropertyRepository() {
@@ -26,30 +26,36 @@ public class PropertyRepository implements IPropertyRepository {
         try {
             properties.load(new ClassPathResource("application.properties").getInputStream());
             this.SCOPE = properties.getProperty("api.scope");
-            this.loadData();
+            this.loadDataProperties();
+            this.loadDataNeighborhoods();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     @Override
-    public PropertyDTO getPropertyByName(String name) {
-        loadData();
+    public PropertyDTO getPropertyById(int id) throws FileNotFoundException {
+        loadDataProperties();
+        loadDataNeighborhoods();
         /*
         return properties.stream()
                 .filter(prop -> prop.getName().equals(name))
                 .findFirst().orElseThrow(() -> new StudentNotFoundException(name));
                 */
-        return null;
+        return properties.entrySet().stream()
+                .filter(prop -> prop.getValue().getId() == id)
+                .map(Map.Entry::getValue)
+                .findFirst().orElseThrow(() -> new FileNotFoundException());
     }
 
-    private void loadData() {
+    private void loadDataProperties() {
         List<PropertyDTO> loadedData = new ArrayList<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
-            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/users.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<List<PropertyDTO>>(){});
+            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
+            loadedData = objectMapper.readValue(file, new TypeReference<List<PropertyDTO>>() {
+            });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");
@@ -58,6 +64,43 @@ public class PropertyRepository implements IPropertyRepository {
             System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
 
-        this.properties = loadedData;
+        this.properties = toPropertyMap(loadedData);
     }
+
+    private void loadDataNeighborhoods() {
+        List<NeighborhoodDTO> loadedData = new ArrayList<>();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        File file;
+        try {
+            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/neighborhoods.json");
+            loadedData = objectMapper.readValue(file, new TypeReference<List<NeighborhoodDTO>>() {
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Failed while initializing DB, check your resources files");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed while initializing DB, check your JSON formatting.");
+        }
+
+        this.neighborhoods = toNeighborhoodMap(loadedData);
+    }
+
+    private Map<Integer, PropertyDTO> toPropertyMap(List<PropertyDTO> list) {
+        Map<Integer, PropertyDTO> map = new HashMap<>();
+        for(PropertyDTO dto : list) {
+            map.put(dto.getId(), dto);
+        }
+        return map;
+    }
+
+    private Map<Integer, NeighborhoodDTO> toNeighborhoodMap(List<NeighborhoodDTO> list) {
+        Map<Integer, NeighborhoodDTO> map = new HashMap<>();
+        for(NeighborhoodDTO dto : list) {
+            map.put(dto.getId(), dto);
+        }
+        return map;
+    }
+
 }

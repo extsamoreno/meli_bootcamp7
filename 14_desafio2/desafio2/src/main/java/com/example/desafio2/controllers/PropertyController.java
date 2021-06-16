@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileNotFoundException;
+
 @RestController
 @RequestMapping("/properties")
 public class PropertyController {
@@ -19,15 +21,16 @@ public class PropertyController {
 
     /**
      * Calculate de total square meters of the property
-     * @param propertyName name of the property to calculate square meters
+     * @param propertyId id of the property to calculate square meters
      * @return ResponsePropertySquareDTO that contains houseName and totalSquareMeters
      * Response
      * 200 -> OK
      * //@throws UserNotFoundException if some of the ids are not found in the repository
      * @author Sapaya Nicolás Martín
      */
-    @GetMapping("/{propertyName}/squareMeters")
-    public ResponseEntity<ResponsePropertySquareDTO> getSquareMeters(@PathVariable String propertyName) {
-        return new ResponseEntity<>(iPropertyService.getSquareMeters(propertyName), HttpStatus.OK);
+    @GetMapping("/{propertyId}/squareMeters")
+    public ResponseEntity<ResponsePropertySquareDTO> getSquareMeters(@PathVariable int propertyId)
+            throws FileNotFoundException {
+        return new ResponseEntity<>(iPropertyService.getSquareMeters(propertyId), HttpStatus.OK);
     }
 }

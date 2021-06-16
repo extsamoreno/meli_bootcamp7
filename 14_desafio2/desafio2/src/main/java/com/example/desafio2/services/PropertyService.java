@@ -7,6 +7,8 @@ import com.example.desafio2.repositories.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
+
 @Service
 public class PropertyService implements IPropertyService {
 
@@ -14,9 +16,9 @@ public class PropertyService implements IPropertyService {
     IPropertyRepository iPropertyRepository;
 
     @Override
-    public ResponsePropertySquareDTO getSquareMeters(String propertyName) {
+    public ResponsePropertySquareDTO getSquareMeters(int id) throws FileNotFoundException {
         ResponsePropertySquareDTO responseProperty = new ResponsePropertySquareDTO();
-        PropertyDTO propertyDTO = iPropertyRepository.getPropertyByName(propertyName);
+        PropertyDTO propertyDTO = iPropertyRepository.getPropertyById(id);
 
         responseProperty.setPropertyName(propertyDTO.getName());
         responseProperty.setTotalSquareMeters(calculatePropertySquareMeters(propertyDTO));
