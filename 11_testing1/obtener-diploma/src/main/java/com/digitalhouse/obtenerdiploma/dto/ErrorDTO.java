@@ -15,6 +15,9 @@ public class ErrorDTO {
         this.errors = errors;
     }
 
+    public ErrorDTO() {
+    }
+
     public String getName() {
         return name;
     }

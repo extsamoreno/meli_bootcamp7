@@ -1,6 +1,7 @@
 package com.digitalhouse.obtenerdiploma.controller;
 
 import com.digitalhouse.obtenerdiploma.dto.ErrorDTO;
+import com.digitalhouse.obtenerdiploma.exception.NotValidResponseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -26,4 +27,10 @@ public class ObtenerDiplomaExceptionController {
             ErrorDTO errorDTO = new ErrorDTO(MethodArgumentNotValidException.class.getSimpleName(),errors);
             return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
         }
+
+
+    @ExceptionHandler(NotValidResponseException.class)
+    public ResponseEntity<ErrorDTO> handleValidationExceptions(NotValidResponseException ex) {
+        return new ResponseEntity<>(ex.getErrorDTO(), ex.getStatus());
+    }
 }
