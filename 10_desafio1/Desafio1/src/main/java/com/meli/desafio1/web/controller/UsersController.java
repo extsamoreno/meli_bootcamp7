@@ -42,7 +42,6 @@ public class UsersController {
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<String> unFollowResponse(@PathVariable("userId") int userId, @PathVariable("userIdToUnfollow") int userIdToUnfollow) throws UserException {
-
         iUserService.unFollow(userId,userIdToUnfollow);
         return new ResponseEntity<>("todo OK", HttpStatus.OK);
     }

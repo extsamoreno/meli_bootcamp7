@@ -6,26 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "RequestPosts",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/products/posts",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"products",
-						"posts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "followRequest",
 			"request": {
 				"method": "POST",
