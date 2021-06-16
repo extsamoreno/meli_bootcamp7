@@ -1,0 +1,12 @@
+[
+  {
+  "district_id": 1,
+  "district_name": "San Isidro",
+  "district_price": 600.0
+},
+{
+  "district_id": 2,
+  "district_name": "Vicente Lopez",
+  "district_price": 500.0
+}
+]
