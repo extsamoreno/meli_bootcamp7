@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "5b4b452c-2774-4913-89e4-ceef54524ada",
+		"name": "Tasaciones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Nueva casa",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"name\": \"La casa en el aire\",\n    \"neighborhood\":\n    {\n      \"name\": \"Munich\",\n      \"price\": 1900.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"Estudio\",\n        \"width\": 10.4,\n        \"leng\": 0\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"Baño\",\n        \"width\": 3.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"Cocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/tucasita/insertCasita",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"insertCasita"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

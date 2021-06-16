@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Casa linda",
+    "neighborhood": {
+      "name": "Paraiso",
+      "price": 300.0
+    },
+    "environments": [
+      {
+        "environmentId": 1,
+        "name": "Dormitorio1",
+        "width": 10.4,
+        "leng": 5.7
+      },
+      {
+        "environmentId": 2,
+        "name": "Baño",
+        "width": 5.4,
+        "leng": 3.7
+      },
+      {
+        "environmentId": 3,
+        "name": "Cocina",
+        "width": 11.4,
+        "leng": 3.7
+      }
+    ]
+  },
+  {
+    "name": "Casa Patriota",
+    "neighborhood": {
+      "name": "Paraiso",
+      "price": 200000.0
+    },
+    "environments": [
+      {
+        "environmentId": 1,
+        "name": "Estudio",
+        "width": 10.4,
+        "leng": 12.7
+      },
+      {
+        "environmentId": 2,
+        "name": "Baño",
+        "width": 3.4,
+        "leng": 33.7
+      },
+      {
+        "environmentId": 3,
+        "name": "Cocina",
+        "width": 9.4,
+        "leng": 35.7
+      }
+    ]
+  },
+  {
+    "name": "Casa Fea",
+    "neighborhood": {
+      "name": "Marciano",
+      "price": 300.0
+    },
+    "environments": [
+      {
+        "environmentId": 1,
+        "name": "Estudio",
+        "width": 10.4,
+        "leng": 2.7
+      },
+      {
+        "environmentId": 2,
+        "name": "Baño",
+        "width": 3.4,
+        "leng": 3.7
+      },
+      {
+        "environmentId": 3,
+        "name": "Cocina",
+        "width": 9.4,
+        "leng": 5.7
+      }
+    ]
+  }
+]
