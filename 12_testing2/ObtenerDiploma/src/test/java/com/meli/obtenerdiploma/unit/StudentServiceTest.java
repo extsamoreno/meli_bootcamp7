@@ -76,4 +76,50 @@ public class StudentServiceTest {
         //Assert
         Assertions.assertNull(studentResult);
     }
+
+    @Test
+    public void updateStudentTest() {
+        //Arrange
+        SubjectDTO subjectOne = new SubjectDTO("Programación", 10d);
+        SubjectDTO subjectTwo = new SubjectDTO("Algoritmos", 10d);
+
+        List<SubjectDTO> listSubjects = new ArrayList<>();
+        listSubjects.add(subjectOne);
+        listSubjects.add(subjectTwo);
+
+        StudentDTO student = new StudentDTO(3L, "Genardo", "Otro mensaje", 10d, listSubjects);
+
+        //Act
+
+        studentService.update(student);
+
+        //arrange
+
+        Mockito.verify(studentDAO, Mockito.atLeastOnce()).save(student);
+    }
+
+    @Test
+    public void deleteStudentTest() {
+        Long id = 3L;
+
+        //Act
+
+        studentService.delete(id);
+
+        //arrange
+
+        Mockito.verify(studentDAO, Mockito.atLeastOnce()).delete(id);
+    }
+
+    @Test
+    public void getAllTest() {
+
+        //Act
+
+        studentService.getAll();
+
+        //arrange
+
+        Mockito.verify(studentRepository, Mockito.atLeastOnce()).findAll();
+    }
 }
