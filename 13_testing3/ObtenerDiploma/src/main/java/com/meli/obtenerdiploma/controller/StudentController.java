@@ -22,9 +22,9 @@ public class StudentController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("/getStudent/{id}")
-    public StudentDTO getStudent(@PathVariable Long id) {
-        return this.studentService.read(id);
+    @GetMapping("/getStudent/{studentId}")
+    public StudentDTO getStudent(@PathVariable Long studentId) {
+        return this.studentService.read(studentId);
     }
 
     @PostMapping("/modifyStudent")

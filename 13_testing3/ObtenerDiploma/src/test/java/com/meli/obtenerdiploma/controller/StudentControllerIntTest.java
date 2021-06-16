@@ -2,8 +2,8 @@ package com.meli.obtenerdiploma.controller;
 
 import com.meli.obtenerdiploma.exception.ObtenerDiplomaException;
 import com.meli.obtenerdiploma.model.StudentDTO;
-import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
+import com.meli.obtenerdiploma.unit.util.TestUtilsGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -17,16 +17,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ObtenerDiplomaControllerIntTest {
+public class StudentControllerIntTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,41 +31,28 @@ public class ObtenerDiplomaControllerIntTest {
     @MockBean
     IStudentDAO iStudentDAO;
 
-
     Long id;
-    private StudentDTO getStudentDto() {
 
-        String name = "Test";
-        String message = "";
-        Double average = 0.00;
-        SubjectDTO subjectA = new SubjectDTO("Matemática", 8.00);
-        SubjectDTO subjectB = new SubjectDTO("Lengua", 9.0);
-        SubjectDTO subjectC = new SubjectDTO("Ed. Física", 7.00);
-        List<SubjectDTO> subjects = Arrays.asList(subjectA, subjectB, subjectC);
-
-        StudentDTO expectedStudent = new StudentDTO(1L, name, message, average, subjects);
-        return expectedStudent;
-    }
 
     @Test
-    public void analyzeScoresOfStudentHappyPath() throws Exception {
-        id = 1L;
-        StudentDTO studentDTO = getStudentDto();
-        Mockito.when(iStudentDAO.findById(id)).thenReturn(studentDTO);
+    public void readGetStudentByIdHappyPath() throws Exception
+    {
+        id = 999L;
+        StudentDTO stu = TestUtilsGenerator.getStudentWithId(id);
+        Mockito.when(iStudentDAO.findById(id)).thenReturn(stu);
 
         MvcResult mvcResult =
-            this.mockMvc.perform(MockMvcRequestBuilders.get(
-                    "/analyzeScores/{studentId}", 1L))
-                    .andDo(print()).andExpect(status().isOk())
-                    .andExpect(content().contentType("application/json"))
-                    .andExpect(MockMvcResultMatchers.jsonPath(
-                            "$.studentName").value("Test"))
-                    .andReturn();
+                this.mockMvc.perform(MockMvcRequestBuilders.get(
+                        "/student/getStudent/{studentId}", id))
+                        .andDo(print()).andExpect(status().isOk())
+                        .andExpect(content().contentType("application/json"))
+                        .andExpect(MockMvcResultMatchers.jsonPath(
+                                "$.studentName").value("student1"))
+                        .andReturn();
 
         Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
-        Assertions. assertEquals("application/json" ,
-                mvcResult.getResponse().getContentType()) ;
-
+        Assertions.assertEquals("application/json" ,
+                mvcResult.getResponse().getContentType());
     }
 
     @Test
@@ -79,7 +63,7 @@ public class ObtenerDiplomaControllerIntTest {
 
         MvcResult mvcResult =
                 this.mockMvc.perform(MockMvcRequestBuilders.get(
-                        "/analyzeScores/{studentId}", id))
+                        "/student/getStudent/{id}", id))
                         .andDo(print()).andExpect(status().isNotFound())
                         .andExpect(content().contentType("application/json"))
                         .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("ObtenerDiplomaException"))
@@ -91,5 +75,4 @@ public class ObtenerDiplomaControllerIntTest {
                 mvcResult.getResponse().getContentType()) ;
 
     }
-
 }
