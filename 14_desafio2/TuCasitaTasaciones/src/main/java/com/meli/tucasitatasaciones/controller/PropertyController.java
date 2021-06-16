@@ -1,7 +1,7 @@
 package com.meli.tucasitatasaciones.controller;
 
 import com.meli.tucasitatasaciones.dto.PropertyDTO;
-import com.meli.tucasitatasaciones.service.IPropertyService;
+import com.meli.tucasitatasaciones.service.property.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "2552e315-b75e-41a9-b3a1-a3e47549e56e",
+		"name": "Desafio 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post New Property 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Casita 1\",\n    \"districtName\": \"General Paz\",\n    \"environments\": [\n        {\n            \"name\": \"Cocina\",\n            \"width\": 20.0,\n            \"length\": 10.0\n        },\n        {\n            \"name\": \"Dormitorio 1\",\n            \"width\": 25.0,\n            \"length\": 15.0\n        },\n        {\n            \"name\": \"Dormitorio 2\",\n            \"width\": 20.0,\n            \"length\": 33.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/properties/newProperty",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"properties",
+						"newProperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post New Property 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Casita 2\",\n    \"districtName\": \"San Fernando\",\n    \"environments\": [\n        {\n            \"name\": \"Living\",\n            \"width\": 15.0,\n            \"length\": 8.0\n        },\n        {\n            \"name\": \"Dormitorio\",\n            \"width\": 3.0,\n            \"length\": 6.0\n        },\n        {\n            \"name\": \"Cochera\",\n            \"width\": 9.0,\n            \"length\": 4.5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/properties/newProperty",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"properties",
+						"newProperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post New Property 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Casita 3\",\n    \"districtName\": \"Nueva Cordoba\",\n    \"environments\": [\n        {\n            \"name\": \"Cocina\",\n            \"width\": 5.0,\n            \"length\": 5.0\n        },\n        {\n            \"name\": \"Living\",\n            \"width\": 10.0,\n            \"length\": 7.0\n        },\n        {\n            \"name\": \"Comedor\",\n            \"width\": 6.0,\n            \"length\": 2.5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/properties/newProperty",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"properties",
+						"newProperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0001",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/appraisals/getTotalSquareMeters/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"appraisals",
+						"getTotalSquareMeters",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "localhost:8080/tucasita-tasaciones/v1"
+		}
+	]
+}

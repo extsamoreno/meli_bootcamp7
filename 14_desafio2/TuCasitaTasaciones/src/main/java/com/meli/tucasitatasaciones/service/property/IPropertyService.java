@@ -1,4 +1,4 @@
-package com.meli.tucasitatasaciones.service;
+package com.meli.tucasitatasaciones.service.property;
 
 import com.meli.tucasitatasaciones.dto.PropertyDTO;
 
