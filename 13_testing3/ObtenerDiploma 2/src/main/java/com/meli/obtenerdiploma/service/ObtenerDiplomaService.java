@@ -19,10 +19,8 @@ public class ObtenerDiplomaService implements IObtenerDiplomaService {
     @Override
     public StudentDTO analyzeScores(Long studentId) {
         StudentDTO stu = studentDAO.findById(studentId);
-
         stu.setAverageScore(calculateAverage(stu.getSubjects()));
         stu.setMessage(getGreetingMessage(stu.getStudentName(), stu.getAverageScore()));
-
         return stu;
     }
 
