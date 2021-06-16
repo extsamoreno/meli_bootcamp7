@@ -42,4 +42,9 @@ public class DistrictRepository implements IDistrictRepository {
         return this.findByName(name).isPresent();
     }
 
+    @Override
+    public List<District> findAll() {
+        return listOfDistrict;
+    }
+
 }

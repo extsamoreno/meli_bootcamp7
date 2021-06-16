@@ -1,8 +1,8 @@
 package com.example.tucasita.repository;
 
-import com.example.tucasita.domain.District;
 import com.example.tucasita.domain.House;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IHouseRepository {
@@ -15,5 +15,7 @@ public interface IHouseRepository {
     boolean deleteByName(String name);
 
     boolean existsByName(String name);
+
+    List<House> findAll();
 }
 

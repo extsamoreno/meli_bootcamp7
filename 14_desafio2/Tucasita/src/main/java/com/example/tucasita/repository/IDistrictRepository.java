@@ -2,6 +2,7 @@ package com.example.tucasita.repository;
 
 import com.example.tucasita.domain.District;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IDistrictRepository {
@@ -14,4 +15,6 @@ public interface IDistrictRepository {
     boolean deleteByName(String name);
 
     boolean existsByName(String name);
+
+    List<District> findAll();
 }
