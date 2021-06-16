@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Alta cordoba",
+    "price": 50.0
+  },
+  {
+    "id": 2,
+    "name": "Guemes",
+    "price": 35.0
+  },
+  {
+    "id": 3,
+    "name": "Nueva Cordoba",
+    "price": 75.9
+  },
+  {
+    "id": 4,
+    "name": "General paz",
+    "price": 70.0
+  },
+  {
+    "id": 5,
+    "name": "Cofico",
+    "price": 50.5
+  },
+  {
+    "id": 6,
+    "name": "Centro",
+    "price": 55.3
+  }
+]

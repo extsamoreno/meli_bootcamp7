@@ -44,7 +44,7 @@ public class ObtenerDiplomaControllerTest {
     public void testAnalyzeScoresWithoutCongrats() throws Exception {
         Long studentId = studentWithoutCongrats.getId();
         when(studentDAO.findById(studentId)).thenReturn(studentWithoutCongrats);
-        
+
         this.mockMvc.perform(MockMvcRequestBuilders.get("/analyzeScores/{studentId}", studentId))
                 .andDo(print())
                 .andExpect(content().contentType("application/json"))
