@@ -1,5 +1,6 @@
 package com.meli.obtenerdiploma.service;
 
+import com.meli.obtenerdiploma.exception.StudentNotFoundException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
@@ -16,7 +17,7 @@ public class ObtenerDiplomaService implements IObtenerDiplomaService {
     IStudentDAO studentDAO;
 
     @Override
-    public StudentDTO analyzeScores(Long studentId) {
+    public StudentDTO analyzeScores(Long studentId){
         StudentDTO stu = studentDAO.findById(studentId);
 
         stu.setAverageScore(calculateAverage(stu.getSubjects()));

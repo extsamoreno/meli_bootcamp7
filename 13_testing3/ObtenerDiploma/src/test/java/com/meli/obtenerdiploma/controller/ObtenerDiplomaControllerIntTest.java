@@ -1,5 +1,6 @@
 package com.meli.obtenerdiploma.controller;
 
+import com.meli.obtenerdiploma.exception.ObtenerDiplomaException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -39,7 +41,7 @@ public class ObtenerDiplomaControllerIntTest {
     IStudentDAO iStudentDAO;
 
 
-    Long id = 1L;
+    Long id;
     private StudentDTO getStudentDto() {
 
         String name = "Test";
@@ -50,12 +52,13 @@ public class ObtenerDiplomaControllerIntTest {
         SubjectDTO subjectC = new SubjectDTO("Ed. Física", 7.00);
         List<SubjectDTO> subjects = Arrays.asList(subjectA, subjectB, subjectC);
 
-        StudentDTO expectedStudent = new StudentDTO(id, name, message, average, subjects);
+        StudentDTO expectedStudent = new StudentDTO(1L, name, message, average, subjects);
         return expectedStudent;
     }
 
     @Test
-    public void analyzeScoresOfStudent() throws Exception {
+    public void analyzeScoresOfStudentHappyPath() throws Exception {
+        id = 1L;
         StudentDTO studentDTO = getStudentDto();
         Mockito.when(iStudentDAO.findById(id)).thenReturn(studentDTO);
 
@@ -74,5 +77,24 @@ public class ObtenerDiplomaControllerIntTest {
 
     }
 
+    @Test
+    public void analyzeScoresOfStudentNotFound() throws Exception {
+        id = 99L;
+        ObtenerDiplomaException exception = new ObtenerDiplomaException("Rompió", HttpStatus.NOT_FOUND);
+        Mockito.when(iStudentDAO.findById(id)).thenThrow( new ObtenerDiplomaException("Rompió", HttpStatus.NOT_FOUND));
 
+        MvcResult mvcResult =
+                this.mockMvc.perform(MockMvcRequestBuilders.get(
+                        "/analyzeScores/{studentId}", id))
+                        .andDo(print()).andExpect(status().isNotFound())
+                        .andExpect(content().contentType("application/json"))
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("ObtenerDiplomaException"))
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("Rompió"))
+                        .andReturn();
+
+        Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
+        Assertions. assertEquals("application/json" ,
+                mvcResult.getResponse().getContentType()) ;
+
+    }
 }
