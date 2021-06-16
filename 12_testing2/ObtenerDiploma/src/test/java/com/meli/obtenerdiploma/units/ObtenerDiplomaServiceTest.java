@@ -5,6 +5,7 @@ import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.service.IObtenerDiplomaService;
 import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -52,9 +53,8 @@ class ObtenerDiplomaServiceTest {
 
     }
 
-
     @Test
-    public void mensajePorNotaInferior(){
+    public void msgForLowerNote(){
 
         Long studentId = 1L;
         Double studentDTOAverageExpected = 7.5D;
@@ -75,7 +75,7 @@ class ObtenerDiplomaServiceTest {
     }
 
     @Test
-    public void mensajePorNotaSuperior(){
+    public void msgForHigherNote(){
         Long studentId = 1L;
         Double studentDTOAverageExpected = 10D;
         String studentName = "Pedro";
@@ -92,6 +92,26 @@ class ObtenerDiplomaServiceTest {
         StudentDTO studentDTOreceived = obtenerDiplomaService.analyzeScores(1L);
 
         assertEquals(msg, studentDTOreceived.getMessage());
+    }
+
+    @Test
+    public void AnalizeSubjectAverage(){
+        //arrange
+        Long studentId = 1L;
+        Double expected = 7.5;
+        List<SubjectDTO> subjectDTOList = new ArrayList<>();
+
+        subjectDTOList.add(new SubjectDTO("Matematicas" , 10D));
+        subjectDTOList.add(new SubjectDTO("Fisica" , 5D));
+        StudentDTO studentDTO = new StudentDTO(studentId, "","",10D,subjectDTOList);
+
+        when(iStudentDAO.findById(studentId)).thenReturn(studentDTO);
+
+        //act
+        Double received = obtenerDiplomaService.analyzeScores(studentId).getAverageScore();
+
+        //assert
+        Assertions.assertEquals(expected, received);
     }
 
 }
