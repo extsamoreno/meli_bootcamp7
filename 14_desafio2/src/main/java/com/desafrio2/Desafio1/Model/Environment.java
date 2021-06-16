@@ -11,4 +11,8 @@ public class Environment {
     private String name;
     private double width;
     private double length;
+
+    public double area(){
+        return this.width * this.length;
+    }
 }
