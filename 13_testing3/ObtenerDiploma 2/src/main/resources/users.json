@@ -34,5 +34,45 @@
         "score": 4
       }
     ]
+  },
+  {
+    "id": 3,
+    "studentName": "Test",
+    "message": null,
+    "averageScore": null,
+    "subjects": [
+      {
+        "name": "mate1",
+        "score": 10.0
+      },
+      {
+        "name": "mate2",
+        "score": 10.0
+      },
+      {
+        "name": "mate3",
+        "score": 10.0
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "studentName": "Test2",
+    "message": null,
+    "averageScore": null,
+    "subjects": [
+      {
+        "name": "mate1",
+        "score": 6.0
+      },
+      {
+        "name": "mate2",
+        "score": 7.0
+      },
+      {
+        "name": "mate3",
+        "score": 6.5
+      }
+    ]
   }
 ]
