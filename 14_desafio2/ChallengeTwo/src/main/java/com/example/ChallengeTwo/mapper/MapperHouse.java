@@ -1,5 +1,6 @@
 package com.example.ChallengeTwo.mapper;
 
+import com.example.ChallengeTwo.dto.BiggerEnvironmentDTO;
 import com.example.ChallengeTwo.dto.HouseTotalAreaDTO;
 import com.example.ChallengeTwo.dto.HouseTotalValueDTO;
 import com.example.ChallengeTwo.model.House;
@@ -11,4 +12,5 @@ public class MapperHouse {
     public static HouseTotalValueDTO toHouseTotalValueDTO (House house, double totalArea, double price){
         return new HouseTotalValueDTO(house.getHouseName(),house.getListEnvironment().size(),totalArea, price);
     }
+
 }

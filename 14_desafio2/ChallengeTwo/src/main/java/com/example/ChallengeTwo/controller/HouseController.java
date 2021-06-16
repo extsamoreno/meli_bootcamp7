@@ -1,5 +1,6 @@
 package com.example.ChallengeTwo.controller;
 
+import com.example.ChallengeTwo.dto.BiggerEnvironmentDTO;
 import com.example.ChallengeTwo.dto.HouseTotalAreaDTO;
 import com.example.ChallengeTwo.dto.HouseTotalValueDTO;
 import com.example.ChallengeTwo.service.IHouseService;
@@ -25,4 +26,10 @@ public class HouseController {
     public ResponseEntity<HouseTotalValueDTO> getTotalValueHouse(@PathVariable String houseName){
         return new ResponseEntity<>( iHouseService.getTotalValueHouse(houseName), HttpStatus.OK);
     }
+    @GetMapping("/biggerEnvironment/{houseName}")
+    public ResponseEntity<BiggerEnvironmentDTO> getBiggerEnvironment(@PathVariable String houseName){
+        return new ResponseEntity<>( iHouseService.getBiggerEnviroment(houseName), HttpStatus.OK);
+    }
+    
+
 }
