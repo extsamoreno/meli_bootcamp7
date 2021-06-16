@@ -21,8 +21,8 @@ public class BootstrapTuCasita implements InitializingBean {
     public void afterPropertiesSet() {
         System.out.println("*******************************");
         System.out.println("**** INITIALIZING DATABASE ****");
-        houseRepository.loadDatabase();
         districtRepository.loadDatabase();
+        houseRepository.loadDatabase();
         System.out.println("*******************************");
         System.out.println("********* COMPLETED ***********");
     }
