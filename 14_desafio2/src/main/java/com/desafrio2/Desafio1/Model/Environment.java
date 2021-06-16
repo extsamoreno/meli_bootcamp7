@@ -1,0 +1,14 @@
+package com.desafrio2.Desafio1.Model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Environment {
+    private String name;
+    private double width;
+    private double length;
+}

@@ -1,0 +1,18 @@
+[
+  {
+  "name": "Ferias",
+  "price": 200.0
+  },
+  {
+    "name": "Villa Clara",
+    "price": 2000.0
+  },
+  {
+    "name": "Villa Prado",
+    "price": 300.0
+  },
+  {
+    "name": "Esperanza",
+    "price": 140.0
+  }
+]
