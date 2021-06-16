@@ -55,7 +55,7 @@ public class ObtenerDiplomaControllerTest {
         Mockito.verify(obtenerDiplomaService,Mockito.atLeastOnce()).analyzeScores(2L);
     }
 
-    
+
     @Test
     public void getAnalizeScoresCompleteData(){
         // arrange
