@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Avellaneda",
+    "price": 150
+  },
+  {
+    "name": "Lanus",
+    "price": 100
+  },
+  {
+  "name": "Gerli",
+  "price": 100
+  },
+  {
+    "name": "Caballito",
+    "price": 200
+  },
+  {
+    "name": "Flores",
+    "price": 250
+  },
+  {
+    "name": "San Martin",
+    "price": 100
+  },
+  {
+  "name": "Vicente Lopez",
+  "price": 300
+  }
+]
