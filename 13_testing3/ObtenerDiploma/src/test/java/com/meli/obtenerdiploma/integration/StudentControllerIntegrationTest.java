@@ -91,7 +91,7 @@ public class StudentControllerIntegrationTest {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}", 1))
                 .andDo( print()).andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers. jsonPath("$.description").value(expectedDescription));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(expectedDescription));
     }
 
     @Test
