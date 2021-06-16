@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class House {
+public class Property {
     private String name;
     private District district;
     private List<Room> roomList;

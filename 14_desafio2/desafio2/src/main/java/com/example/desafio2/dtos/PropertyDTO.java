@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HouseDTO {
+public class PropertyDTO {
     private String name;
     private DistrictDTO district;
     private List<RoomDTO> roomList;
