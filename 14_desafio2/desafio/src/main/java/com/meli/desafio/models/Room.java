@@ -5,26 +5,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room {
-    @NotBlank
-    @Pattern(regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z]*$")
-    @Size(max = 30, message = "The name of the room cannot contain more than 45 characters")
+    @NotBlank(message = "The house must have a name")
+    @Pattern(regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z]*$", message = "The name of the room must begin with a capital letter")
+    @Size(max = 30, message = "The name of the room cannot contain more than 30 characters")
     private String name;
 
-    @NotBlank
-    @Max(25)
+    @Positive
+    @Max(value = 25, message = "The width of the room must be less than or equal to 25")
     private Integer width;
 
-    @NotBlank
-    @Max(33)
-    private Integer Length;
+    @Positive
+    @Max(value = 33, message = "The length of the room bust be lees than or equal to 33")
+    private Integer length;
 }

@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "name": "House1",
+    "district": {
+      "name": "Avellaneda",
+      "price": 2000
+    },
+    "rooms": [
+      {
+        "name": "Room1",
+        "width": 20,
+        "length": 15
+      },
+      {
+        "name": "Room2",
+        "width": 25,
+        "length": 5
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "House2",
+    "district": {
+      "name": "Gerli",
+      "price": 1500.00
+    },
+    "rooms": [
+      {
+        "name": "Room1",
+        "width": 20,
+        "length": 15
+      },
+      {
+        "name": "Room2",
+        "width": 25,
+        "length": 5
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "House3",
+    "district": {
+      "name": "Avellaneda",
+      "price": 2000.00
+    },
+    "rooms": [
+      {
+        "name": "Room1",
+        "width": 20,
+        "length": 15
+      },
+      {
+        "name": "Room2",
+        "width": 25,
+        "length": 5
+      },
+      {
+        "name": "Room3",
+        "width": 25,
+        "length": 5
+      }
+    ]
+  }
+]

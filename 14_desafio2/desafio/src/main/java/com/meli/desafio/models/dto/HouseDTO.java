@@ -1,6 +1,6 @@
-package com.meli.desafio.models;
+package com.meli.desafio.models.dto;
 
-import com.meli.desafio.models.dto.DistrictDTO;
+import com.meli.desafio.models.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,9 +17,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class House {
-    private Integer id;
-
+public class HouseDTO {
     @Size(max = 30, message = "The name of the house cannot contain more than 30 characters")
     @NotBlank(message = "The house must have a name")
     @Pattern(regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z]*$", message = "The name of the house must begin with a capital letter")

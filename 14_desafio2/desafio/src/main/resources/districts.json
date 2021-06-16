@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Avellaneda",
+    "price": 2000.00
+  },
+  {
+    "id": 2,
+    "name": "Gerli",
+    "price": 1500.00
+  },
+  {
+    "id": 3,
+    "name": "Lanus",
+    "price": 700.00
+  }
+]

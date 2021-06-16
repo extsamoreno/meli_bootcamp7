@@ -1,8 +1,10 @@
 package com.meli.desafio.exceptions;
 
 import com.meli.desafio.exceptions.dto.ErrorDTO;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public class ExceptionModel extends Exception{
 
     private ErrorDTO error;
