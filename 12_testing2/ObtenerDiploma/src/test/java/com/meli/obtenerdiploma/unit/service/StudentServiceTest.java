@@ -15,6 +15,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceTest {
@@ -101,6 +103,40 @@ public class StudentServiceTest {
 
         //assert
         Mockito.verify(studentDAO, Mockito.atLeast(1)).delete(id);
+    }
+
+    @Test
+    public void fidAll(){
+        //arrange
+        StudentDTO student1 = new StudentDTO(1L, "Juan", null, null, new ArrayList<>() {
+            {
+                add(new SubjectDTO("Matemática", 9.0));
+                add(new SubjectDTO("Física", 7.0));
+                add(new SubjectDTO("Química", 6.0));
+            }
+        });
+
+        StudentDTO student2 = new StudentDTO(2L, "Pedro", null, null, new ArrayList<>() {
+            {
+                add(new SubjectDTO("Matemática", 10.0));
+                add(new SubjectDTO("Física", 8.0));
+                add(new SubjectDTO("Química", 4.0));
+            }
+        });
+
+        //arrange
+        Set<StudentDTO> expected = new HashSet<>();
+        expected.add(student1);
+        expected.add(student2);
+        Mockito.when(studentRepository.findAll()).thenReturn(expected);
+
+
+        //act
+        Set<StudentDTO> received = studentService.getAll();
+
+        //assert
+        Assertions.assertEquals(expected, received);
+
     }
 
 }
