@@ -1,6 +1,7 @@
 package com.example.ChallengeTwo.service;
 
 import com.example.ChallengeTwo.dto.BiggerEnvironmentDTO;
+import com.example.ChallengeTwo.dto.EnvironmentAreaDTO;
 import com.example.ChallengeTwo.dto.HouseTotalAreaDTO;
 import com.example.ChallengeTwo.dto.HouseTotalValueDTO;
 import com.example.ChallengeTwo.mapper.MapperEnvironment;
@@ -10,6 +11,9 @@ import com.example.ChallengeTwo.model.House;
 import com.example.ChallengeTwo.repository.IHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class HouseServiceImple implements  IHouseService{
@@ -56,5 +60,15 @@ public class HouseServiceImple implements  IHouseService{
     public BiggerEnvironmentDTO getBiggerEnviroment(String houseName) {
         House house = iHouseRepository.getHouseByName(houseName);
         return MapperEnvironment.toBiggerEnvironment(getBiggerEnvironment(house),houseName);
+    }
+
+    @Override
+    public List<EnvironmentAreaDTO> getAllEnviromentsArea(String houseName) {
+        House house = iHouseRepository.getHouseByName(houseName);
+        List<EnvironmentAreaDTO> listResult = new ArrayList<>();
+        for(Environment environment: house.getListEnvironment()){
+            listResult.add(MapperEnvironment.toEnvironmentAreaDTO(environment));
+        }
+        return listResult;
     }
 }
