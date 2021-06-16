@@ -35,7 +35,7 @@ public class ObtenerDiplomaControllerTest {
     }
 
     @Test
-    public void analyzeScoresUnhappyPath(){
+    public void analyzeScoresUnhappyThrowStudentNotFoundException(){
         //arrange
         Long id = 4L;
         Mockito.when(iObtenerDiplomaService.analyzeScores(id)).thenThrow(new StudentNotFoundException(id));
