@@ -3,7 +3,9 @@ package com.tucasita.tasaciones.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tucasita.tasaciones.model.Room;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -11,11 +13,15 @@ public class PropertyDTO {
 
     @JsonProperty("prop_name")
     @NotNull
-    @Size(max = 30, message = "Maximum length is 30 characters")
+    @NotEmpty(message = "El nombre de la propiedad no puede estar vacío.")
+    @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
+    @Pattern(regexp = "([A-Z]([a-z]*))", message = "El nombre de la propiedad debe comenzar con mayúscula")
     private String name;
+
     @JsonProperty("district")
     @NotNull
     private NeighborhoodDTO neighborhood;
+
     @JsonProperty("environments")
     @NotNull
     private List<RoomDTO> rooms;
