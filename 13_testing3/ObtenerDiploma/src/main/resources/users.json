@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "studentName": "Juan",
+    "subjects": [
+      {
+        "name": "Matematica",
+        "score": 9
+      },
+      {
+        "name": "Fisica",
+        "score": 7
+      },
+      {
+        "name": "Quimica",
+        "score": 6
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "studentName": "Pedro",
+    "subjects": [
+      {
+        "name": "Matematica",
+        "score": 10
+      },
+      {
+        "name": "Fisica",
+        "score": 8
+      },
+      {
+        "name": "Quimica",
+        "score": 4
+      }
+    ]
+  }
+]
