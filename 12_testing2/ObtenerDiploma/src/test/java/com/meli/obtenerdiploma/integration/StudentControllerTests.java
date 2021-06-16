@@ -63,6 +63,7 @@ public class StudentControllerTests {
 
         doNothing().when(iStudentDAO).save(student1);
 
+        // Act & Assert
         this.mockMvc.perform(MockMvcRequestBuilders.post("/student/registerStudent")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
@@ -73,7 +74,7 @@ public class StudentControllerTests {
     public void should_validate_capital_letters_and_null_values() throws Exception {
         studentId = 1L;
         subject1 = new SubjectDTO( "Matematica", 9.0);
-        subject2 = new SubjectDTO( "Lengua", 9.0);
+        subject2 = new SubjectDTO( "lengua", 9.0);
         subjects = new ArrayList<SubjectDTO>();
         subjects.add(subject1);
         subjects.add(subject2);
@@ -93,7 +94,8 @@ public class StudentControllerTests {
                 .content(payloadJson))
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("description").value("El nombre del estudiante debe comenzar con mayúscula."));
+                .andExpect(MockMvcResultMatchers.jsonPath("studentName").value("El nombre del estudiante debe comenzar con mayúscula."));
+//                .andExpect(MockMvcResultMatchers.jsonPath("subjects[*].name").value("El nombre de la materia debe comenzar con mayúscula."));
 
     }
 
