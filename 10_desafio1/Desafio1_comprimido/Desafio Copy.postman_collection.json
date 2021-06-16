@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "25e2654a-8eea-47aa-967b-dcfe66bdbc4f",
-		"name": "Desafio",
+		"_postman_id": "b5c8b6aa-3af0-458a-a873-2a2117aaa8ff",
+		"name": "Desafio Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -11,7 +11,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/1/follow/",
+					"raw": "http://localhost:8080/users/1/follow/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -21,7 +21,7 @@
 						"users",
 						"1",
 						"follow",
-						""
+						"5"
 					]
 				}
 			},
@@ -55,7 +55,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/3/followers/list",
+					"raw": "http://localhost:8080/users/5/followers/list",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -63,7 +63,7 @@
 					"port": "8080",
 					"path": [
 						"users",
-						"3",
+						"5",
 						"followers",
 						"list"
 					]
@@ -77,7 +77,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/users/1/followed/list",
+					"raw": "http://localhost:8080/users/1/followed/list?order=name_desc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -88,6 +88,12 @@
 						"1",
 						"followed",
 						"list"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_desc"
+						}
 					]
 				}
 			},
@@ -100,7 +106,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \t\"userId\": 2,\n   \t \"id_post\" : 11,\n \"date\" : \"09-06-2021\",\n    \t \"detail\" :\n        \t{ \"product_id\" : 1,\n              \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n     \t\"category\" : \"\",\n     \t\"price\" : 0.1\n       \n}\n",
+					"raw": "{\n    \t\"userId\": 2,\n   \t \"id_post\" : 11,\n \"date\" : \"15-06-2021\",\n    \t \"detail\" :\n        \t{ \"product_id\" : 1,\n              \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Red & Black\",\n               \"notes\" : \"Special Edition\"\n        \t},\n     \t\"category\" : \"\",\n     \t\"price\" : 0.1\n       \n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -179,7 +185,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \t\"userId\": 5,\n   \t \"id_post\" : 13,\n \"date\" : \"05-06-2021\",\n    \t \"detail\" :\n        \t{ \"product_id\" : 1,\n              \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Blue & Black\",\n               \"notes\" : \"Normal Edition\"\n        \t},\n     \t\"category\" : \"algo\",\n     \t\"price\" : 3650,\n         \"hasPromo\": false,\n         \"discount\": 30\n       \n}\n",
+					"raw": "{\n    \t\"userId\": 5,\n   \t \"id_post\" : 13,\n \"date\" : \"10-06-2021\",\n    \t \"detail\" :\n        \t{ \"product_id\" : 1,\n              \"productName\" : \"Silla Gamer\",\n          \t   \"type\" : \"Gamer\",\n               \"brand\" : \"Racer\",\n               \"color\" : \"Blue & Black\",\n               \"notes\" : \"Normal Edition\"\n        \t},\n     \t\"category\" : \"algo\",\n     \t\"price\" : 3650,\n         \"hasPromo\": true,\n         \"discount\": 30\n       \n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
