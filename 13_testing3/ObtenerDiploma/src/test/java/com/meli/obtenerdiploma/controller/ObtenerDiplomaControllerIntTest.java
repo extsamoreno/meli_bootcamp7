@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -65,7 +66,7 @@ public class ObtenerDiplomaControllerIntTest {
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer().withDefaultPrettyPrinter();
 
-        String payloadJson = writer.writeValueAsString(subjectDTOS);
+        String payloadJson = writer.writeValueAsString(studentDTO.getSubjects());
 
         MvcResult mvcResult =
             this.mockMvc.perform(MockMvcRequestBuilders.get(
@@ -84,6 +85,29 @@ public class ObtenerDiplomaControllerIntTest {
         Assertions. assertEquals("application/json" ,
                 mvcResult.getResponse().getContentType()) ;
 
+    }
+
+    @Test
+    void getStudent() throws Exception {
+        Long id  = 1L;
+        StudentDTO studentDTO = new StudentDTO();
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer().withDefaultPrettyPrinter();
+
+        String response = writer.writeValueAsString(studentDTO);
+        
+        Mockito.when(iStudentDAO.findById(id)).thenReturn(studentDTO);
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}", id))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().json(response))
+                .andReturn();
+
+        Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
+        Assertions. assertEquals("application/json" ,
+                mvcResult.getResponse().getContentType()) ;
     }
 
     @Test
