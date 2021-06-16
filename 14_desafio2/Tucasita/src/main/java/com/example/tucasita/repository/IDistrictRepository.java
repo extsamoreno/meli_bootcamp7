@@ -1,19 +1,17 @@
 package com.example.tucasita.repository;
 
 import com.example.tucasita.domain.District;
-import com.example.tucasita.domain.House;
 
 import java.util.Optional;
 
-public interface IHouseRepository {
+public interface IDistrictRepository {
     void loadDatabase();
 
-    Optional<House> findByName(String name);
+    Optional<District> findByName(String name);
 
-    void save(House district);
+    void save(District district);
 
     boolean deleteByName(String name);
 
     boolean existsByName(String name);
 }
-
