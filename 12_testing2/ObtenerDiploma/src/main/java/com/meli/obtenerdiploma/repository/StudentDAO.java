@@ -62,6 +62,7 @@ public class StudentDAO implements IStudentDAO {
         return ret;
     }
 
+    @Override
     public boolean exists(StudentDTO stu) {
        boolean ret = false;
 
