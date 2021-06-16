@@ -15,12 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,7 +53,9 @@ public class StudentControllerTest {
 
         String payloadJson = writer.writeValueAsString(student);
 
-        Mockito.verify(studentDAO, Mockito.atLeastOnce()).save(student);
+        // Mockito.when(studentDAO.save(student)).thenReturn();
+
+        // Mockito.verify(studentDAO, Mockito.atLeastOnce()).save(student);
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/student/registerStudent")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -96,6 +96,23 @@ public class StudentControllerTest {
         Mockito.when(studentDAO.findById(1L)).thenThrow(StudentNotFoundException.class);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}",1L)
+                .accept(MediaType.ALL))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
+    public void registerStudentBadParams() throws Exception {
+        //registerStudent
+
+        //student to add
+        StudentDTO student = new StudentDTO(3L, "jenaro", "mensaje", 10d, null);
+
+       // Mockito.doNothing().when(studentDAO).save(student);
+
+        // Mockito.verify(studentDAO, Mockito.atLeastOnce()).save(student);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/student/registerStudent")
                 .accept(MediaType.ALL))
                 .andExpect(status().isBadRequest())
                 .andReturn();
