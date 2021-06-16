@@ -65,9 +65,9 @@ public class StudentControllerTest {
 
         StudentDTO student = new StudentDTO(1L, "Juan", null, 10d, new ArrayList<>() {
             {
-                add(new SubjectDTO("Matemática", 9.0));
-                add(new SubjectDTO("Física", 7.0));
-                add(new SubjectDTO("Química", 6.0));
+                add(new SubjectDTO("Matematica", 9.0));
+                add(new SubjectDTO("Fisica", 7.0));
+                add(new SubjectDTO("Quimica", 6.0));
             }
         });
 
@@ -77,11 +77,13 @@ public class StudentControllerTest {
 
         String payloadJson = writer.writeValueAsString(student);
 
+        Mockito.when(studentDAO.findById(1L)).thenReturn(student);
+
         this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}",1)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.TEXT_PLAIN)
                 .content(""))
                 .andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString(payloadJson)))
+                .andExpect(content().json(payloadJson))
                 .andReturn();
     }
 
