@@ -145,20 +145,20 @@ public class StudentControllerIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
 
-        Set<Object> responseSet = fromJsonToSet(response.getResponse().getContentAsString(), StudentDTO.class);
+        Set<StudentDTO> responseSet = fromJsonToSet(response.getResponse().getContentAsString(), StudentDTO.class);
         Assertions.assertEquals(students,responseSet);
     }
 
-    private String toJson(Object object) throws JsonProcessingException {
+    private <T> String toJson(T object) throws JsonProcessingException {
         ObjectWriter writer = mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false). writer().withDefaultPrettyPrinter();
         return writer.writeValueAsString(object);
     }
 
-    private Object fromJson(String payloadJson, Class oClass) throws JsonProcessingException {
+    private <T> T fromJson(String payloadJson, Class<T> oClass) throws JsonProcessingException {
          return mapper.readValue(payloadJson, oClass);
     }
 
-    private Set<Object> fromJsonToSet(String payloadJson, Class oClass) throws JsonProcessingException {
+    private <T> Set<T> fromJsonToSet(String payloadJson, Class<T> oClass) throws JsonProcessingException {
         new ObjectMapper();
         return mapper.readValue(payloadJson, mapper.getTypeFactory().constructCollectionType(HashSet.class, oClass));
     }
