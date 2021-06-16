@@ -10,7 +10,8 @@ public class StudentDAOSaveTest {
 
     StudentDAO studentDAO = new StudentDAO();
     Long id;
-
+    // SERIA MEJOR USAR LAS ANOTACIONES DE @BEFORE Y @AFTER
+    // PERO TAL VEZ HABRIA QUE SEPARAR EN OTRA CLASE
     @Test
     public void saveHappyPath() {
         //arrange
@@ -21,6 +22,9 @@ public class StudentDAOSaveTest {
         StudentDTO received = studentDAO.findById(id);
         //assert
         Assertions.assertEquals(studentDTO, received);
+
+        // DESHACER EL EFECTO DE ESTE TEST
+        // NO ES MUCHO, PERO ES TRABAJO HONESTO :)
         studentDAO.delete(id);
     }
 
@@ -39,6 +43,9 @@ public class StudentDAOSaveTest {
         StudentDTO received = studentDAO.findById(idLocal);
         //assert
         Assertions.assertEquals(name, received.getStudentName());
+
+        // DESHACER EL EFECTO DE ESTE TEST
+        // NO ES MUCHO, PERO ES TRABAJO HONESTO :)
         studentDAO.delete(idLocal);
     }
 
@@ -51,6 +58,5 @@ public class StudentDAOSaveTest {
         boolean result = studentDAO.delete(id);
         //assert
         Assertions.assertTrue(result);
-
     }
 }
