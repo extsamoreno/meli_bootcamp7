@@ -26,8 +26,10 @@ public class ObtenerDiplomaControllerTest {
     @InjectMocks
     ObtenerDiplomaController obtenerDiplomaController;
 
+    //ANALYZE SCORES ENDPOINT
+
     @Test
-    public void analyzeScores() {
+    public void testAnalyzeScores() {
         //ARRANGE
         StudentDTO expected = new StudentDTO(1L, "Juan", "El alumno Juan ha obtenido un promedio de 7,33. Puedes mejorar.", (9.0 + 7 + 6) / 3, new ArrayList<>() {
             {
@@ -38,7 +40,7 @@ public class ObtenerDiplomaControllerTest {
         });
 
         Long id = 1L;
-        
+
         Mockito.when(iObtenerDiplomaService.analyzeScores(1L)).thenReturn(expected);
 
         //ACT
