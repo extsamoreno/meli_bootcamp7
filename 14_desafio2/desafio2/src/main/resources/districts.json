@@ -1,0 +1,14 @@
+[
+  {
+    "district_name": "Santa Fe",
+    "district_price": 500.0
+  },
+  {
+    "district_name": "Palermo",
+    "district_price": 1000.0
+  },
+  {
+    "district_name": "Carmen",
+    "district_price": 800.0
+  }
+]

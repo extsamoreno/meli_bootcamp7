@@ -1,0 +1,89 @@
+[
+  {
+    "prop_name" : "Casa101",
+    "district" : {
+                  "district_name": "Santa Fe",
+                  "district_price": 500.0
+                  },
+    "environments" : [
+                        {
+                          "environment_name" : "Kitchen",
+                          "environment_width" : 2.5,
+                          "environment_length" : 2.0
+                        },
+                        {
+                          "environment_name" : "Room1",
+                          "environment_width" : 5.0,
+                          "environment_length" : 3.0
+                        },
+                        {
+                          "environment_name" : "Bath_Room",
+                          "environment_width" : 2.0,
+                          "environment_length" : 2.0
+                        }
+                      ]
+  },
+  {
+    "prop_name": "Casa102",
+    "district": {
+      "district_name": "Palermo",
+      "district_price": 1000.0
+    },
+    "environments": [
+      {
+        "environment_name": "Kitchen",
+        "environment_width": 4.0,
+        "environment_length": 4.0
+      },
+      {
+        "environment_name": "Room1",
+        "environment_width": 5.0,
+        "environment_length": 3.0
+      },
+      {
+        "environment_name": "Bath_Room",
+        "environment_width": 2.0,
+        "environment_length": 2.0
+      },
+      {
+        "environment_name": "Living_Room",
+        "environment_width": 5.0,
+        "environment_length": 5.0
+      },
+      {
+        "environment_name": "Room2",
+        "environment_width": 3.0,
+        "environment_length": 3.0
+      }
+    ]
+  },
+  {
+    "prop_name": "Casa103",
+    "district": {
+      "district_name": "Carmen",
+      "district_price": 1000.0
+    },
+    "environments": [
+      {
+        "environment_name": "Kitchen",
+        "environment_width": 4.0,
+        "environment_length": 4.0
+      },
+      {
+        "environment_name": "Room1",
+        "environment_width": 5.0,
+        "environment_length": 3.0
+      },
+      {
+        "environment_name": "Bath_Room",
+        "environment_width": 2.0,
+        "environment_length": 2.0
+      },
+      {
+        "environment_name" : "Dinner_Room",
+        "environment_width" : 3.5,
+        "environment_length" : 3.5
+      }
+    ]
+  }
+]
