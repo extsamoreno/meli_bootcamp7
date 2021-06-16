@@ -1,0 +1,44 @@
+[
+  {
+    "prop_name": "Avenue1",
+    "district_name": "Center",
+    "environments": [
+      {
+        "environment_name": "Hall",
+        "environment_width": 10.0,
+        "environment_length": 10.0
+        },
+      {
+        "environment_name": "Room1",
+        "environment_width": 12.0,
+        "environment_length": 15.0
+      },
+      {
+        "environment_name": "Room2",
+        "environment_width": 17.0,
+        "environment_length": 15.0
+      }
+    ]
+  },
+  {
+    "prop_name": "SouthAvenue2",
+    "district_name": "South",
+    "environments": [
+      {
+        "environment_name": "Hall",
+        "environment_width": 10.0,
+        "environment_length": 10.0
+      },
+      {
+        "environment_name": "Room1",
+        "environment_width": 12.0,
+        "environment_length": 15.0
+      },
+      {
+        "environment_name": "Room2",
+        "environment_width": 17.0,
+        "environment_length": 15.0
+      }
+    ]
+  }
+]
