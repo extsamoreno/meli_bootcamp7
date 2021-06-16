@@ -3,6 +3,7 @@ package com.meli.obtenerdiploma.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.meli.obtenerdiploma.exception.StudentNotFoundException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
@@ -53,7 +54,9 @@ public class StudentControllerTest {
                 writer().withDefaultPrettyPrinter();
 
         String payloadJson = writer.writeValueAsString(student);
-//falta mockito when coso
+
+        Mockito.verify(studentDAO, Mockito.atLeastOnce()).save(student);
+
         this.mockMvc.perform(MockMvcRequestBuilders.post("/student/registerStudent")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
@@ -88,28 +91,13 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testGetStudentWithCorrectId() throws Exception {
+    public void getStudentNotFound() throws Exception {
 
-        StudentDTO student = new StudentDTO(1L, "Juan", null, 10d, new ArrayList<>() {
-            {
-                add(new SubjectDTO("Matemática", 9.0));
-                add(new SubjectDTO("Física", 7.0));
-                add(new SubjectDTO("Química", 6.0));
-            }
-        });
+        Mockito.when(studentDAO.findById(1L)).thenThrow(StudentNotFoundException.class);
 
-        ObjectWriter writer = new ObjectMapper().
-                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
-                writer().withDefaultPrettyPrinter();
-
-        String payloadJson = writer.writeValueAsString(student);
-
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}",1)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(""))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString(payloadJson)))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}",1L)
+                .accept(MediaType.ALL))
+                .andExpect(status().isBadRequest())
                 .andReturn();
-
     }
 }

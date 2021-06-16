@@ -1,6 +1,7 @@
 package com.meli.obtenerdiploma.controller;
 
 import com.meli.obtenerdiploma.exception.ObtenerDiplomaException;
+import com.meli.obtenerdiploma.exception.StudentNotFoundException;
 import com.meli.obtenerdiploma.model.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,4 +30,9 @@ public class ObtenerDiplomaExceptionController {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(StudentNotFoundException.class)
+    protected ResponseEntity<ErrorDTO> handleValidationExceptions(StudentNotFoundException e) {
+        ErrorDTO error = new ErrorDTO("StudentNotFoundException", e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 }

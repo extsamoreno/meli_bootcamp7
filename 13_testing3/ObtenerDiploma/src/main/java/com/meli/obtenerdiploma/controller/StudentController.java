@@ -1,5 +1,6 @@
 package com.meli.obtenerdiploma.controller;
 
+import com.meli.obtenerdiploma.exception.StudentNotFoundException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class StudentController {
     }
 
     @GetMapping("/getStudent/{id}")
-    public StudentDTO getStudent(@PathVariable Long id) {
+    public StudentDTO getStudent(@PathVariable Long id) throws StudentNotFoundException {
         return this.studentService.read(id);
     }
 
