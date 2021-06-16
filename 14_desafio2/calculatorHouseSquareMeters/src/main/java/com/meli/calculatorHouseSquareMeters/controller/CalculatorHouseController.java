@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/")
 public class CalculatorHouseController {
@@ -20,14 +22,14 @@ public class CalculatorHouseController {
     private ServiceCalculatorHouse serviceCalculatorHouse;
 
     @PostMapping("/createHouse")
-    public ResponseEntity<?> createNewHouse(@RequestBody HouseRequestDTO houseRequestDTO)
+    public ResponseEntity<?> createNewHouse(@Valid @RequestBody HouseRequestDTO houseRequestDTO)
             throws DistrictNotFoundException, RepeatedHouseException, HouseNotCreatedException {
         serviceCalculatorHouse.createNewHouse(houseRequestDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/createDistrict")
-    public ResponseEntity<?> createNewDistrict(@RequestBody District district)
+    public ResponseEntity<?> createNewDistrict(@Valid @RequestBody District district)
             throws RepeatedDistrictException, DistrictNotCreatedException {
         serviceCalculatorHouse.createNewDistrict(district);
         return new ResponseEntity<>(HttpStatus.OK);
