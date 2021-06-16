@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Quintas de Arguello",
+    "price": 400.0
+  },
+  {
+    "name": "Alto Alberdi",
+    "price": 250.0
+  },
+  {
+    "name": "Nueva Cordoba",
+    "price": 600.0
+  },
+  {
+    "name": "Villa Belgrano",
+    "price": 170.0
+  },
+  {
+    "name": "San Fernando",
+    "price": 320.0
+  },
+  {
+    "name": "Alto Verde",
+    "price": 280.0
+  },
+  {
+    "name": "General Paz",
+    "price": 190.0
+  }
+]
