@@ -53,8 +53,17 @@ public class StudentDAOTest {
 
     @Test
     public void deleteTest() throws StudentNotFoundException {
-        IStudentDAO studentDAO = new StudentDAO();
-        Assertions.assertEquals(true,studentDAO.delete(2L));
+        IStudentDAO iStudentDAO = new StudentDAO();
+
+        List<SubjectDTO> subj1 = new ArrayList<>();
+        subj1.add(new SubjectDTO("Matemática", 9.00));
+        subj1.add(new SubjectDTO("Física", 7.00));
+        subj1.add(new SubjectDTO("Química", 6.00));
+        StudentDTO newStudent = new StudentDTO(1L, "Juan", null, null, subj1);
+
+        iStudentDAO.delete(1L);
+
+        Assertions.assertFalse(iStudentDAO.exists(newStudent));
     }
 
 
