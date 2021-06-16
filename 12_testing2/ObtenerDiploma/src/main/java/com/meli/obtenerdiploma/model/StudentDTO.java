@@ -5,10 +5,12 @@ import lombok.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class StudentDTO {
 
     Long id;
@@ -24,3 +26,5 @@ public class StudentDTO {
     @NotEmpty(message = "La lista de materias no puede estar vacía.")
     List<@Valid SubjectDTO> subjects;
 }
+
+

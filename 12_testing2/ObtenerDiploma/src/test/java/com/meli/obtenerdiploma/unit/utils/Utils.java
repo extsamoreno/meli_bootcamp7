@@ -1,8 +1,9 @@
-package com.meli.obtenerdiploma.unit;
+package com.meli.obtenerdiploma.unit.utils;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,10 +22,15 @@ public class Utils {
         SubjectDTO subject1= new SubjectDTO("mate1",10D);
         SubjectDTO subject2= new SubjectDTO("mate2",10D);
         SubjectDTO subject3= new SubjectDTO("mate3",10D);
-        List<SubjectDTO> list= (Arrays.asList(subject1,subject2,subject3));
+
+        List<SubjectDTO> subjects = new ArrayList<>();
+        subjects.add(subject1);
+        subjects.add(subject2);
+        subjects.add(subject3);
+
         StudentDTO studentDTO= new StudentDTO();
         studentDTO.setStudentName("Test");
-        studentDTO.setSubjects(list);
+        studentDTO.setSubjects(subjects);
         return studentDTO;
     }
 }

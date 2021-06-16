@@ -1,8 +1,12 @@
-package com.meli.obtenerdiploma.unit;
+package com.meli.obtenerdiploma.unit.service;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
+import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
+import com.meli.obtenerdiploma.unit.utils.Utils;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +16,13 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.atLeastOnce;
 
 @ExtendWith(MockitoExtension.class)
 public class ObtenerDiplomaServiceTest {
@@ -91,24 +102,31 @@ public class ObtenerDiplomaServiceTest {
     }
 
     @Test
-    public void sameEntryDataAndOutputData() {
+    public void RequestStudentNameMatchesResponseStudentName() {
         //Arrange
         StudentDTO studentDTO = Utils.getStudentDTO();
-        Long id = 101L;
-        studentDTO.setId(id);
-        Mockito.when(iStudentDAO.findById(id)).thenReturn(studentDTO);
+        when(iStudentDAO.findById(studentDTO.getId())).thenReturn(studentDTO);
 
         //Act
-        StudentDTO received = obtenerDiplomaService.analyzeScores(id);
+        obtenerDiplomaService.analyzeScores(studentDTO.getId());
 
         //Assert
-        Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
-//        assertEquals(studentDTO.getStudentName(), received.getStudentName());
-//        assertEquals(studentDTO.getSubjects(), received.getSubjects());
-        Assertions.assertEquals(studentDTO, received);
+        verify(iStudentDAO, atLeastOnce()).findById(studentDTO.getId());
+        assertEquals("Test", studentDTO.getStudentName());
+    }
 
-        // CONSULTAR A QUE SE REFIERE CON MISMOS DATOS DE ENTRADA Y SALIDA
-        // LA ENTRADA NO TIENE AVERAGE NI MESSAGE
-        // LA SALIDA SI, PERO MODIFICA EL OBJETO DE ENTRADA
+    @Test
+    public void RequestStudentSubjectListMatchesResponseSubjectList() {
+        //Arrange
+        StudentDTO studentDTO = Utils.getStudentDTO();
+        List<SubjectDTO> initalList = new ArrayList<>(studentDTO.getSubjects());
+        when(iStudentDAO.findById(studentDTO.getId())).thenReturn(studentDTO);
+
+        //Act
+        obtenerDiplomaService.analyzeScores(studentDTO.getId());
+
+        //Assert
+        verify(iStudentDAO, atLeastOnce()).findById(studentDTO.getId());
+        assertTrue(CollectionUtils.isEqualCollection(initalList, studentDTO.getSubjects()));
     }
 }

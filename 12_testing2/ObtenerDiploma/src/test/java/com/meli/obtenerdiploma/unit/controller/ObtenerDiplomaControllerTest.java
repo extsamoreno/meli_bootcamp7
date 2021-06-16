@@ -1,9 +1,9 @@
-package com.meli.obtenerdiploma.unit;
+package com.meli.obtenerdiploma.unit.controller;
 
 import com.meli.obtenerdiploma.controller.ObtenerDiplomaController;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.service.IObtenerDiplomaService;
-import org.junit.jupiter.api.Assertions;
+import com.meli.obtenerdiploma.unit.utils.Utils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,14 +22,12 @@ public class ObtenerDiplomaControllerTest {
     @Test
     public void analyzeScoresHappyPath() {
         //Arrange
-        Long studentId = 1L;
-        Mockito.when(iObtenerDiplomaService.analyzeScores(1L)).thenReturn(Utils.getStudentDTO());
+        StudentDTO studentDTO = Utils.getStudentDTO();
 
         //Act
-        StudentDTO received = obtenerDiplomaController.analyzeScores(studentId);
+        obtenerDiplomaController.analyzeScores(studentDTO.getId());
 
         //Assert
-        Mockito.verify(iObtenerDiplomaService,Mockito.atLeastOnce()).analyzeScores(studentId);
-        //TODO: Que assertion uso aca?
+        Mockito.verify(iObtenerDiplomaService,Mockito.atLeastOnce()).analyzeScores(studentDTO.getId());
     }
 }

@@ -1,11 +1,13 @@
-package com.meli.obtenerdiploma.unit;
+package com.meli.obtenerdiploma.unit.controller;
 
 import com.meli.obtenerdiploma.controller.StudentController;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.service.IStudentService;
+import com.meli.obtenerdiploma.unit.utils.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.apache.commons.collections4.CollectionUtils;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -41,15 +43,15 @@ public class StudentControllerTest {
     @Test
     public void getStudentHappyPath() {
         //Arrange
-        Long studentId = 1L;
-        Mockito.when(iStudentService.read(studentId)).thenReturn(Utils.getStudentDTO());
+        StudentDTO studentDTO = Utils.getStudentDTO();
+        Mockito.when(iStudentService.read(studentDTO.getId())).thenReturn(studentDTO);
 
         //Act
-        StudentDTO received = studentController.getStudent(studentId);
+        StudentDTO received = studentController.getStudent(studentDTO.getId());
 
         //Assert
-        Mockito.verify(iStudentService,Mockito.atLeastOnce()).read(studentId);
-        //TODO: Que assertion uso aca?
+        Mockito.verify(iStudentService,Mockito.atLeastOnce()).read(studentDTO.getId());
+        Assertions.assertEquals(studentDTO,received);
     }
 
     @Test
@@ -93,6 +95,6 @@ public class StudentControllerTest {
 
         //Assert
         Mockito.verify(iStudentService,Mockito.atLeastOnce()).getAll();
-        //TODO: Que assertion uso aca?
+        Assertions.assertTrue(CollectionUtils.isEqualCollection(students,received));
     }
 }

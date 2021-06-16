@@ -1,8 +1,9 @@
-package com.meli.obtenerdiploma.unit;
+package com.meli.obtenerdiploma.unit.repository;
 
 import com.meli.obtenerdiploma.exception.StudentNotFoundException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.StudentDAO;
+import com.meli.obtenerdiploma.unit.utils.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -27,12 +28,14 @@ public class StudentDAOTest {
     @Test
     public void findStudentByIdHappyPath() {
         //Arrange
+        StudentDTO studentDTO = Utils.getStudentDTO();
+        studentDAO.save(studentDTO);
 
         //Act
-        StudentDTO student = studentDAO.findById(1L);
+        StudentDTO student = studentDAO.findById(studentDTO.getId());
 
         //Assert
-        Assertions.assertEquals("Juan", student.getStudentName());
+        Assertions.assertEquals("Test", student.getStudentName());
     }
 
     @Test

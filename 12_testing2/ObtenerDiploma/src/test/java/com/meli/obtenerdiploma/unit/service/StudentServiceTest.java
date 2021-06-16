@@ -1,9 +1,10 @@
-package com.meli.obtenerdiploma.unit;
+package com.meli.obtenerdiploma.unit.service;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.repository.IStudentRepository;
 import com.meli.obtenerdiploma.service.StudentService;
+import com.meli.obtenerdiploma.unit.utils.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +27,6 @@ public class StudentServiceTest {
     @InjectMocks
     StudentService studentService;
 
-    //TODO: Esta bien no tener assertions en estos tests?
     @Test
     public void createNewStudentHappyPath() {
         //Arrange
