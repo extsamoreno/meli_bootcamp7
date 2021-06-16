@@ -1,9 +1,5 @@
 package com.meli.obtenerdiploma.integration;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.obtenerdiploma.exception.StudentNotFoundException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.unit.repository.IStudentDAO;
@@ -22,9 +18,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.HashSet;
 import java.util.Set;
 
+import static com.meli.obtenerdiploma.util.UtilMapper.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,8 +36,6 @@ public class StudentControllerIntegrationTest {
 
     @MockBean
     IStudentDAO iStudentDAO;
-
-    ObjectMapper mapper = new ObjectMapper();
 
     @Test
     public void registerStudentHappyPath() throws Exception {
@@ -80,7 +74,7 @@ public class StudentControllerIntegrationTest {
                 .andReturn();
 
         StudentDTO studentDTO1 = (StudentDTO) fromJson(response.getResponse().getContentAsString(), StudentDTO.class);
-        Assertions.assertEquals(studentDTO,studentDTO1);
+        Assertions.assertEquals(studentDTO, studentDTO1);
     }
 
     @Test
@@ -89,7 +83,7 @@ public class StudentControllerIntegrationTest {
         String expectedDescription = "El alumno con Id 1 no se encuetra registrado.";
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}", 1))
-                .andDo( print()).andExpect(status().isNotFound())
+                .andDo(print()).andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(expectedDescription));
     }
@@ -146,20 +140,7 @@ public class StudentControllerIntegrationTest {
                 .andReturn();
 
         Set<StudentDTO> responseSet = fromJsonToSet(response.getResponse().getContentAsString(), StudentDTO.class);
-        Assertions.assertEquals(students,responseSet);
+        Assertions.assertEquals(students, responseSet);
     }
 
-    private <T> String toJson(T object) throws JsonProcessingException {
-        ObjectWriter writer = mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false). writer().withDefaultPrettyPrinter();
-        return writer.writeValueAsString(object);
-    }
-
-    private <T> T fromJson(String payloadJson, Class<T> oClass) throws JsonProcessingException {
-         return mapper.readValue(payloadJson, oClass);
-    }
-
-    private <T> Set<T> fromJsonToSet(String payloadJson, Class<T> oClass) throws JsonProcessingException {
-        new ObjectMapper();
-        return mapper.readValue(payloadJson, mapper.getTypeFactory().constructCollectionType(HashSet.class, oClass));
-    }
 }
