@@ -40,7 +40,7 @@ public class PropRepository implements IPropRepository {
     @Override
     public District getDistrictByName(String name) throws DistrictNotExist {
         return districtData.stream()
-                .filter(district -> districtData.equals(name))
+                .filter(district -> district.getName().equals(name))
                 .findFirst()
                 .orElseThrow(()-> new DistrictNotExist(name));
     }
