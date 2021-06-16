@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Los Lapachos",
+    "price": 50
+  },
+  {
+    "id": 2,
+    "name": "Bella Vista",
+    "price": 90
+  },
+  {
+    "id": 3,
+    "name": "Estrella Roja",
+    "price": 40
+  }
+]
