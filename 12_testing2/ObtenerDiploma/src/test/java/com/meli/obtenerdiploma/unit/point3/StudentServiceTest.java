@@ -1,9 +1,10 @@
-package com.meli.obtenerdiploma.unit;
+package com.meli.obtenerdiploma.unit.point3;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.repository.IStudentRepository;
 import com.meli.obtenerdiploma.service.StudentService;
+import com.meli.obtenerdiploma.unit.Utils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +18,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class StudentServiceTests {
+public class StudentServiceTest {
 
     @Mock
     IStudentDAO studentDAO;

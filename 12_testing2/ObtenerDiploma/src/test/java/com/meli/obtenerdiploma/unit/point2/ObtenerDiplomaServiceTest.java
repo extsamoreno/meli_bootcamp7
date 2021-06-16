@@ -1,8 +1,9 @@
-package com.meli.obtenerdiploma.unit;
+package com.meli.obtenerdiploma.unit.point2;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
+import com.meli.obtenerdiploma.unit.Utils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +16,7 @@ import java.text.DecimalFormat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ObtenerDiplomaServiceTests {
+public class ObtenerDiplomaServiceTest {
 
     @Mock
     IStudentDAO studentDAO;
