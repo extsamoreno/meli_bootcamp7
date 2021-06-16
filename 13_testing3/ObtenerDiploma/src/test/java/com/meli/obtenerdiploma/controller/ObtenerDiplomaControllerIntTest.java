@@ -1,5 +1,8 @@
 package com.meli.obtenerdiploma.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.obtenerdiploma.exception.ObtenerDiplomaException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
@@ -40,11 +43,12 @@ public class ObtenerDiplomaControllerIntTest {
 
         String name = "Test";
         String message = "";
-        Double average = 0.00;
+        Double average = 0.0;
         SubjectDTO subjectA = new SubjectDTO("Matemática", 8.00);
         SubjectDTO subjectB = new SubjectDTO("Lengua", 9.0);
         SubjectDTO subjectC = new SubjectDTO("Ed. Física", 7.00);
         List<SubjectDTO> subjects = Arrays.asList(subjectA, subjectB, subjectC);
+
 
         StudentDTO expectedStudent = new StudentDTO(1L, name, message, average, subjects);
         return expectedStudent;
@@ -55,6 +59,13 @@ public class ObtenerDiplomaControllerIntTest {
         id = 1L;
         StudentDTO studentDTO = getStudentDto();
         Mockito.when(iStudentDAO.findById(id)).thenReturn(studentDTO);
+        List<SubjectDTO> subjectDTOS = studentDTO.getSubjects();
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer().withDefaultPrettyPrinter();
+
+        String payloadJson = writer.writeValueAsString(subjectDTOS);
 
         MvcResult mvcResult =
             this.mockMvc.perform(MockMvcRequestBuilders.get(
@@ -63,6 +74,10 @@ public class ObtenerDiplomaControllerIntTest {
                     .andExpect(content().contentType("application/json"))
                     .andExpect(MockMvcResultMatchers.jsonPath(
                             "$.studentName").value("Test"))
+                    .andExpect(MockMvcResultMatchers.jsonPath(
+                            "$.averageScore").value(8.0))
+                    .andExpect(MockMvcResultMatchers.jsonPath(
+                            "$.subjects").value(payloadJson))
                     .andReturn();
 
         Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
