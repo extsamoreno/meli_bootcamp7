@@ -2,7 +2,6 @@ package com.meli.calculatorHouseSquareMeters.unit.controller;
 
 import com.meli.calculatorHouseSquareMeters.controller.CalculatorHouseController;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.District;
-import com.meli.calculatorHouseSquareMeters.model.dao.model.House;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.Room;
 import com.meli.calculatorHouseSquareMeters.model.dto.*;
 import com.meli.calculatorHouseSquareMeters.model.exception.*;
@@ -330,7 +329,6 @@ public class CalculatorHouseControllerTest {
         } catch (HouseNotFoundException e) {
             received = e;
         }
-
 
         // Assert
         Mockito.verify(serviceCalculatorHouse, Mockito.atLeastOnce()).getHouseRoomListResponseDTO("Casa 1");

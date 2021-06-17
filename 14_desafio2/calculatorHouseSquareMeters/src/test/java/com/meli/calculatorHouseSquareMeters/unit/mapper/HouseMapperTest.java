@@ -86,7 +86,8 @@ public class HouseMapperTest {
     public void generateHouseRoomListResponseDTOCorrectly() {
         // Arrage
         HouseRoomListResponseDTO expected = new HouseRoomListResponseDTO("Casa1",
-                new ArrayList<RoomResponseDTO>(Arrays.asList(new RoomResponseDTO("Habitación 1", 100))));
+                new ArrayList<RoomResponseDTO>(Arrays.asList(new RoomResponseDTO("Habitación 1",
+                        100))));
 
         House house = new House("Casa1",
                 new District("Barrio Bajo", 800),

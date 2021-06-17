@@ -76,15 +76,18 @@ public class CalculatorHouseControllerTest {
 
     @Test
     public void createNewHouseBeansDTOValidationErrorWithEmpty() throws Exception {
-        HouseRequestDTO payloadDTO = new HouseRequestDTO("casa1casa1casa1casa1casa1casa1casa1casa1casa1casa1",
-                "barrio Bajo barrio Bajo barrio Bajo barrio Bajo barrio Bajo barrio Bajo barrio Bajo barrio Bajo",
+        HouseRequestDTO payloadDTO = new HouseRequestDTO("casa1casa1casa1casa1casa1casa1casa1casa1casa1casa",
+                "barrio Bajo barrio Bajo barrio Bajo barrio Bajo barrio Bajo barrio Bajo barrio Bajo barri",
                 new ArrayList<Room>(Arrays.asList(new Room("habitación 1", -10 ,34))));
 
         ObjectWriter writer = new ObjectMapper().
                 configure(SerializationFeature.WRAP_ROOT_VALUE, false).
                 writer();
 
-        String responseJson = "{\"houseName\":\"The 'houseName' attribute cannot exceed 30 characters\",\"districtName\":\"The 'districName' attribute cannot exceed 45 characters\",\"rooms[0].name\":\"The attribute 'name' must start in uppercase\",\"rooms[0].width\":\"The 'width' must be positive\",\"rooms[0].length\":\"The 'length' must be maximum 25\"}";
+        String responseJson = "{\"houseName\":\"The 'houseName' attribute cannot exceed 30 characters\",\"districtName"
+        + "\":\"The 'districName' attribute cannot exceed 45 characters\",\"rooms[0].name\":\"The attribute 'name' " +
+                "must start in uppercase\",\"rooms[0].width\":\"The 'width' must be positive\",\"rooms[0].length\":\"The"
+        + " 'length' must be maximum 25\"}";
         String payloadJson = writer.writeValueAsString(payloadDTO);
 
        this.mockMvc.perform(MockMvcRequestBuilders.post("/createHouse")
@@ -128,7 +131,8 @@ public class CalculatorHouseControllerTest {
                 configure(SerializationFeature.WRAP_ROOT_VALUE, false).
                 writer();
 
-        String responseJson = "{\"districtName\":\"The attribute 'districtName' must start in uppercase\",\"squareMeterPrice\":\"The 'squareMeterPrice' must be maximum 4000\"}";
+        String responseJson = "{\"districtName\":\"The attribute 'districtName' must start in uppercase\",\""
+        + "squareMeterPrice\":\"The 'squareMeterPrice' must be maximum 4000\"}";
         String payloadJson = writer.writeValueAsString(payloadDTO);
 
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/createDistrict")
@@ -155,7 +159,8 @@ public class CalculatorHouseControllerTest {
 
         Mockito.when(repositoryHouse.getHouseByName("Casa1")).thenReturn(house);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/totalQuantity/{houseName}","Casa1"))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .get("/totalQuantity/{houseName}","Casa1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(responseJson))
@@ -166,11 +171,13 @@ public class CalculatorHouseControllerTest {
     @Test
     public void getTotalQuantityHouseNotFoundException() throws Exception {
 
-        String responseJson = "{\"message\":\"The house with the name 'Casa1' was not found in the Database\",\"name\":\"HouseNotFoundException\"}";
+        String responseJson = "{\"message\":\"The house with the name 'Casa1' was not found in the Database\",\"name" +
+                "\":\"HouseNotFoundException\"}";
 
         Mockito.when(repositoryHouse.getHouseByName("Casa1")).thenReturn(null);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/totalQuantity/{houseName}","Casa1"))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .get("/totalQuantity/{houseName}","Casa1"))
                 .andDo(print()).andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(responseJson))
@@ -193,7 +200,8 @@ public class CalculatorHouseControllerTest {
 
         Mockito.when(repositoryHouse.getHouseByName("Casa1")).thenReturn(house);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/biggestRoom/{houseName}","Casa1"))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .get("/biggestRoom/{houseName}","Casa1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(responseJson))
@@ -204,11 +212,13 @@ public class CalculatorHouseControllerTest {
     @Test
     public void getBiggestRoomHouseNotFoundException() throws Exception {
 
-        String responseJson = "{\"message\":\"The house with the name 'Casa1' was not found in the Database\",\"name\":\"HouseNotFoundException\"}";
+        String responseJson = "{\"message\":\"The house with the name 'Casa1' was not found in the Database\",\"name" +
+                "\":\"HouseNotFoundException\"}";
 
         Mockito.when(repositoryHouse.getHouseByName("Casa1")).thenReturn(null);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/biggestRoom/{houseName}","Casa1"))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .get("/biggestRoom/{houseName}","Casa1"))
                 .andDo(print()).andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(responseJson))
@@ -227,7 +237,9 @@ public class CalculatorHouseControllerTest {
                         new Room("Habitacion 2", 9, 9),
                         new Room("Habitacion 3", 8, 8))));
 
-        String responseJson = "{\"houseName\":\"Casa1\",\"rooms\":[{\"name\":\"Habitacion 1\",\"totalSquareMeters\":100.0},{\"name\":\"Habitacion 2\",\"totalSquareMeters\":81.0},{\"name\":\"Habitacion 3\",\"totalSquareMeters\":64.0}]}";
+        String responseJson = "{\"houseName\":\"Casa1\",\"rooms\":[{\"name\":\"Habitacion 1\",\"totalSquareMeters\"" +
+                ":100.0},{\"name\":\"Habitacion 2\",\"totalSquareMeters\":81.0},{\"name\":\"Habitacion 3\",\"" +
+                "totalSquareMeters\":64.0}]}";
 
         Mockito.when(repositoryHouse.getHouseByName("Casa1")).thenReturn(house);
 
@@ -242,11 +254,13 @@ public class CalculatorHouseControllerTest {
     @Test
     public void getRoomListHouseNotFoundException() throws Exception {
 
-        String responseJson = "{\"message\":\"The house with the name 'Casa1' was not found in the Database\",\"name\":\"HouseNotFoundException\"}";
+        String responseJson = "{\"message\":\"The house with the name 'Casa1' was not found in the Database\",\"name" +
+                "\":\"HouseNotFoundException\"}";
 
         Mockito.when(repositoryHouse.getHouseByName("Casa1")).thenReturn(null);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/list/{houseName}","Casa1"))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .get("/list/{houseName}","Casa1"))
                 .andDo(print()).andExpect(status().isNotFound())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(responseJson))
