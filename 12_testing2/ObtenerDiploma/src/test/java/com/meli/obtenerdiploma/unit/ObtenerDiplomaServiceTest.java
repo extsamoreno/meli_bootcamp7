@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,37 +24,141 @@ import static org.mockito.Mockito.when;
 public class ObtenerDiplomaServiceTest {
 
     @Mock
-    IStudentDAO studentDAO;
+    IStudentDAO iStudentDAO;
 
     @InjectMocks
     ObtenerDiplomaService obtenerDiplomaService;
 
     @Test
-    public void testDiploma(){
+    public void analyzeScoresTest() {
+        //Arrange
+        long id = 2;
 
-        //arrange
-        StudentDTO expected = new StudentDTO(2L, "Pedro", "", null, null);
-        SubjectDTO ma1 = new SubjectDTO("", 10.0);
-       // SubjectDTO ma2 = new SubjectDTO("Física", 8.0);
-       // SubjectDTO ma3 = new SubjectDTO("Química", 4.0);
-        List<SubjectDTO> materias2 = new ArrayList<>();
-        materias2.add(ma1);
-       // materias2.add(ma2);
-       // materias2.add(ma3);
-        expected.setSubjects(materias2);
-        expected.setAverageScore(7.33);
+        List<SubjectDTO> subj2 = new ArrayList<>();
+        subj2.add(new SubjectDTO("Matemática", 10.00));
+        subj2.add(new SubjectDTO("Física", 8.00));
+        subj2.add(new SubjectDTO("Química", 4.00));
+        StudentDTO student = new StudentDTO(2L, "Pedro", null, null, subj2);
+        double average = (subj2.get(0).getScore() + subj2.get(1).getScore() +
+                subj2.get(2).getScore()) / subj2.size();
+        String messageExpected = "El alumno " + student.getStudentName() + " ha obtenido un promedio de " + new DecimalFormat("#.##").format(average)
+                + ". Puedes mejorar.";
+        StudentDTO expected = new StudentDTO(2L, "Pedro", messageExpected, average, subj2);
 
-        when(studentDAO.findById(2L).getAverageScore()).thenReturn(expected.getAverageScore());
-        System.out.println(expected.getAverageScore());
+        when(iStudentDAO.findById(id)).thenReturn(student);
 
-        //act
-        StudentDTO received = obtenerDiplomaService.analyzeScores(2L);
-       // System.out.println(expected.getAverageScore());
+        //Act
+        StudentDTO received = obtenerDiplomaService.analyzeScores(id);
+        //Assert
 
-        //assert
-        verify(studentDAO, Mockito.atLeast(1)).findById(2L);
+        //PREGUNTAR PARA QUÉ ES ESTA LINEA
+        Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
+
+        Assertions.assertEquals(expected, received);
+    }
+
+  @Test
+    public void calculateAverageOKTest() {
+        //Arrange
+        long id = 2;
+
+      StudentDTO student = estudiante(id + 1L, "Pedro");
+      StudentDTO expected = estudiante(id + 1L, "Pedro");
+
+      when(iStudentDAO.findById(id)).thenReturn(student);
+
+        //Act
+        StudentDTO received = obtenerDiplomaService.analyzeScores(id);
+        //Assert
+        Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
         Assertions.assertEquals(expected.getAverageScore(), received.getAverageScore());
+    }
+
+    @Test
+    public void calculateNegativeAverageTest() {
+        //Arrange
+        long id = 2;
+
+        StudentDTO student = estudiante(id + 1L, "Pedro");
+        StudentDTO expected = estudiante(id + 1L, "Pedro");
+
+        student.setAverageScore(student.getAverageScore()*-1);
+        when(iStudentDAO.findById(id)).thenReturn(student);
+
+        //Act
+        StudentDTO received = obtenerDiplomaService.analyzeScores(id);
+
+        //Assert
+        Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
+
+        Assertions.assertEquals(expected.getAverageScore(),received.getAverageScore());
+
+        //esta bien que se rompa?
+       // Expected :-7.333333333333333
+       // Actual   :7.333333333333333
+    }
+
+    @Test
+    public void diplomaNormalMessageTest() {
+        //Arrange
+        long id = 2;
+
+        StudentDTO student = estudiante(id + 1L, "Pedro");
+        StudentDTO expected = estudiante(id + 1L, "Pedro");
+
+        if(expected.getAverageScore()<9) {
+            String messageExpected = "El alumno " + student.getStudentName() + " ha obtenido un promedio de " + new DecimalFormat("#.##").format(student.getAverageScore()) + ". Puedes mejorar.";
+            expected.setMessage(messageExpected);
+        } else {
+            String messageExpected = "El alumno " + student.getStudentName() + " ha obtenido un " +
+                    "promedio de " + new DecimalFormat("#.##").format(student.getAverageScore())
+                    + ". Felicitaciones!";
+            expected.setMessage(messageExpected);
+        }
+        when(iStudentDAO.findById(id)).thenReturn(student);
+
+        //Act
+        StudentDTO received = obtenerDiplomaService.analyzeScores(id);
+
+        //Assert
+        Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
+        Assertions.assertEquals(expected.getMessage(), received.getMessage());
+    }
+
+   /* @Test
+    public void diplomaCongratsMessageTest() {
+        //Arrange
+        long id = 2;
+
+        StudentDTO student = estudiante(id + 1L, "Pedro");
+        StudentDTO expected = estudiante(id + 1L, "Pedro");
+
+        String messageExpected = "El alumno " + expected.getStudentName() + " ha obtenido un promedio de " + new DecimalFormat("#.##").format(expected.getAverageScore()) + ". Felicitaciones!";
+        expected.setMessage(messageExpected);
+
+        when(iStudentDAO.findById(id)).thenReturn(student);
+
+        //Act
+        StudentDTO received = obtenerDiplomaService.analyzeScores(id);
+
+        //Assert
+        Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
+        Assertions.assertEquals(expected.getMessage(), received.getMessage());
+    }*/
+
+    private StudentDTO estudiante(long id, String name){
+        List<SubjectDTO> subj2 = new ArrayList<>();
+        subj2.add(new SubjectDTO("Matemática", 9.01));
+        subj2.add(new SubjectDTO("Física", 9.00));
+        subj2.add(new SubjectDTO("Química", 9.00));
+        double average = (subj2.get(0).getScore() + subj2.get(1).getScore() +
+                subj2.get(2).getScore()) / subj2.size();
+
+        StudentDTO expected = new StudentDTO(id, name, null, average, subj2);
+
+        return expected;
 
     }
+
 
 }
