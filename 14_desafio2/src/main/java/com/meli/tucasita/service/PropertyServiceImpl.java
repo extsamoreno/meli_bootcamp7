@@ -15,42 +15,34 @@ public class PropertyServiceImpl implements PropertyService {
   @Autowired
   private PropertyRepository propertyRepository;
 
-  private final ModelMapper mapper = new ModelMapper();
-
   @Override
   public Map<Integer, PropertyDto> addNewProperty(PropertyDto propertyDto) {
-    Map<Integer, Property> properties = propertyRepository.findAllProperties();
-    Map<Integer, PropertyDto> propertiesDto = new HashMap<>();
-    properties.forEach((k, v) -> propertiesDto.put(k, mapper.map(v, PropertyDto.class)));
+
+    Map<Integer, PropertyDto> propertiesDto = propertyRepository.findAllProperties();
     propertiesDto.put(propertyDto.getId(), propertyDto);
-    properties.put(propertyDto.getId(), mapper.map(propertyDto, Property.class));
     return propertiesDto;
   }
 
   @Override
   public Map<Integer, DistrictDto> addNewDistrict(DistrictDto districtDto) {
-    Map<Integer, District> districts = propertyRepository.findAllDistricts();
-    Map<Integer, DistrictDto> districtsDto = new HashMap<>();
-    districts.forEach((k, v) -> districtsDto.put(k, mapper.map(v, DistrictDto.class)));
+    Map<Integer, DistrictDto> districtsDto = propertyRepository.findAllDistricts();
     districtsDto.put(districtDto.getId(), districtDto);
-    districts.put(districtDto.getId(), mapper.map(districtDto, District.class));
     return districtsDto;
   }
 
   @Override
-  public Double getPropertyArea(int id) {
-    var property = propertyRepository.findPropertyById(id);
-    Double area = calculatePropertyArea(property);
-    return area;
+  public PropertyAreaDto getPropertyArea(int id) {
+    var propertyDto = propertyRepository.findPropertyById(id);
+    return new PropertyAreaDto(propertyDto.getName(), calculatePropertyArea(propertyDto)) ;
   }
 
   @Override
   public PropertyPriceDto getPropertyPrice(int id) {
-    var property = propertyRepository.findPropertyById(id);
-    var district = propertyRepository.findDistrictById(property.getDistrictId());
-    double area = calculatePropertyArea(property);
-    double price = area * district.getPrice();
-    return new PropertyPriceDto(property.getName(), price);
+    var propertyDto = propertyRepository.findPropertyById(id);
+    var districtDto = propertyRepository.findDistrictById(propertyDto.getDistrictId());
+    double area = calculatePropertyArea(propertyDto);
+    double price = area * districtDto.getPrice();
+    return new PropertyPriceDto(propertyDto.getName(), price);
   }
 
   @Override
@@ -61,8 +53,8 @@ public class PropertyServiceImpl implements PropertyService {
   @Override
   public List<EnvironmentAreaDto> getPropertyEnvironments(int id) {
     List<EnvironmentAreaDto> environments = new ArrayList<>();
-    var property = propertyRepository.findPropertyById(id);
-    for (EnvironmentDto e: property.getEnvironments()) {
+    var propertyDto = propertyRepository.findPropertyById(id);
+    for (EnvironmentDto e: propertyDto.getEnvironments()) {
       environments.add(new EnvironmentAreaDto(e.getName(), e.getLength() * e.getWidth()));
     }
 
@@ -72,9 +64,9 @@ public class PropertyServiceImpl implements PropertyService {
     return environments;
   }
 
-  private double calculatePropertyArea(Property property) {
+  private double calculatePropertyArea(PropertyDto propertyDto) {
     double area = 0;
-    for (EnvironmentDto e: property.getEnvironments()) {
+    for (EnvironmentDto e: propertyDto.getEnvironments()) {
       area += e.getLength() * e.getWidth();
     }
     return area;

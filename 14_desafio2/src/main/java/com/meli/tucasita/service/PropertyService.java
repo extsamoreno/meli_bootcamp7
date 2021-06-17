@@ -10,7 +10,7 @@ import java.util.Map;
 public interface PropertyService {
   Map<Integer, PropertyDto> addNewProperty (PropertyDto propertyDto);
   Map<Integer, DistrictDto> addNewDistrict (DistrictDto districtDto);
-  Double getPropertyArea(int id);
+  PropertyAreaDto getPropertyArea(int id);
   PropertyPriceDto getPropertyPrice(int id);
   EnvironmentAreaDto getBiggestEnvironment(int id);
   List<EnvironmentAreaDto> getPropertyEnvironments(int id);

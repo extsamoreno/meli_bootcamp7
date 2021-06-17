@@ -8,12 +8,10 @@ import java.util.*;
 
 public class Utils {
 
-  public static Property getPropertyDto(){
+  public static PropertyDto getPropertyDto(){
     EnvironmentDto environment1 = new EnvironmentDto("Living de prueba", 4.00, 3.00);
     EnvironmentDto environment2 = new EnvironmentDto("Dormitorio de prueba", 3.00, 3.00);
     List<EnvironmentDto> environments = Arrays.asList(environment1, environment2);
-    return new Property(18, "Testing Property", 3, environments);
-
+    return new PropertyDto(18, "Testing Property", 3, environments);
   }
-
 }
