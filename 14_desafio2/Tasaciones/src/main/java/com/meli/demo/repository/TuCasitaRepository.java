@@ -36,10 +36,13 @@ public class TuCasitaRepository implements ITuCasitaRepository{
         neighborhoods.put("Funza", 1700.0);
         neighborhoods.put("Paraiso", 1908.0);
     }
-
-
     @Override
-    public void LoadHouses() {
+    public  HashMap<String, Double> viewNeighborhoods() {
+       return neighborhoods;
+    }
+
+
+    private void LoadHouses() {
         Set<House> loadedData = new HashSet<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -56,6 +59,10 @@ public class TuCasitaRepository implements ITuCasitaRepository{
         this.houses = loadedData;
     }
 
+    @Override
+    public House totalMeters(String name) throws HouseNotFoundException {
+        return getHouseByName(name);
+    }
 
 
     @Override
@@ -76,7 +83,9 @@ public class TuCasitaRepository implements ITuCasitaRepository{
         return create;
     }
 
-    public boolean findHouseByName(String name ) throws HouseExistException {
+
+
+    private boolean findHouseByName(String name ) throws HouseExistException {
 
         for (House cadena : houses) {
             if(cadena.getName().equals(name)){
@@ -86,12 +95,18 @@ public class TuCasitaRepository implements ITuCasitaRepository{
         return false;
     }
 
-    public House getHouseByName(String name ) {
+    private House getHouseByName(String name ) throws HouseNotFoundException {
+
+        boolean exist=false;
 
         for (House cadena : houses) {
             if(cadena.getName().equals(name)){
+                exist=true;
                 return cadena;
             }
+        }
+        if(!exist){
+            throw new HouseNotFoundException(name);
         }
         return null;
     }

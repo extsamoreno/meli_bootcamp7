@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\n    \"name\": \"La casa en el aire\",\n    \"neighborhood\":\n    {\n      \"name\": \"Munich\",\n      \"price\": 1900.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"Estudio\",\n        \"width\": 10.4,\n        \"leng\": 0\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"Baño\",\n        \"width\": 3.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"Cocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
+					"raw": " {\n    \"name\": \"La casa de dios\",\n    \"neighborhood\":\n    {\n      \"name\": \"Munich\",\n      \"price\": 1900.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"Estudio\",\n        \"width\": 10.4,\n        \"leng\": 0\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"Baño\",\n        \"width\": 3.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"Cocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -29,6 +29,131 @@
 					"path": [
 						"tucasita",
 						"insertCasita"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total metros por casa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/squareMeters/Casa linda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"squareMeters",
+						"Casa linda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total precio por casa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/metersPrice/Casa linda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"metersPrice",
+						"Casa linda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ambiente mas grande",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/biggerEnvironment/Casa Fea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"biggerEnvironment",
+						"Casa Fea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total metros por ambiente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/squareMetersByEnvironment/Casa Fea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"squareMetersByEnvironment",
+						"Casa Fea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Casa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/viewHouse/Casa Fea",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"viewHouse",
+						"Casa Fea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ver Barrios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/viewNeighborhoods",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"viewNeighborhoods"
 					]
 				}
 			},
