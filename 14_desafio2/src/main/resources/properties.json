@@ -1,0 +1,10 @@
+[ {
+  "id" : 1,
+  "name" : "Las fincas",
+  "districtId" : 1,
+  "environments" : [ {
+    "name" : "Baño",
+    "width" : 23.0,
+    "length" : 23.0
+  } ]
+} ]

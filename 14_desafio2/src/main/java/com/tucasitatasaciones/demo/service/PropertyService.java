@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PropertyService implements IPropertyService{
@@ -35,9 +36,9 @@ public class PropertyService implements IPropertyService{
         if(propertyExist != null)
             throw new BadRequestException("La propiedad que intenta crear ya existe.");
 
-        Property propertyToAdd = mapper.map(property, Property.class);
+        propertyExist = mapper.map(property, Property.class);
 
-        PropertyDTO propertyAdded = mapper.map(propertyRepository.addProperty(propertyToAdd), PropertyDTO.class);
+        PropertyDTO propertyAdded = mapper.map(propertyRepository.addProperty(propertyExist), PropertyDTO.class);
 
         return propertyAdded;
     }
@@ -124,7 +125,7 @@ public class PropertyService implements IPropertyService{
         return propertyEnvironmentDTO;
     }
 
-    private EnvironmentDTO calculateBiggestEnvironment(ArrayList<EnvironmentDTO> environments){
+    private EnvironmentDTO calculateBiggestEnvironment(List<EnvironmentDTO> environments){
         EnvironmentDTO biggest = environments.get(0);
         double maxRoom = calculateSquareMettersByEnvironment(biggest);
         for (int i = 1; i < environments.size(); i++) {
@@ -137,7 +138,7 @@ public class PropertyService implements IPropertyService{
         return biggest;
     }
 
-    private double calculateSquareMettersList(ArrayList<EnvironmentDTO> environments){
+    private double calculateSquareMettersList(List<EnvironmentDTO> environments){
         double squareMetters = 0;
         for (EnvironmentDTO environment: environments) {
             squareMetters += calculateSquareMettersByEnvironment(environment);

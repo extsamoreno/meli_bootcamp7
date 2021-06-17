@@ -32,7 +32,7 @@ public class EnvironmentDTO {
     @Valid
     @NotNull(message = "El largo del ambiente no puede estar vacío.")
     @Min(value = 1, message = "El largo minimo permitido es de 1 mts.")
-    @Max(value = 25, message = "El máximo largo permitido por propiedad es de 33 mts.")
+    @Max(value = 33, message = "El máximo largo permitido por propiedad es de 33 mts.")
     @JsonProperty("environment_length")
     private double length;
 }
