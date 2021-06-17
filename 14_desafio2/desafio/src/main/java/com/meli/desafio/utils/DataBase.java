@@ -21,8 +21,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class DataBase {
-    public static HashMap<Integer, HouseDTO> listHouses = new HashMap<>();
-    public static HashMap<Integer, DistrictDTO> listDistricts = new HashMap<>();
+    public static HashMap<Integer, House> listHouses = new HashMap<>();
+    public static HashMap<Integer, District> listDistricts = new HashMap<>();
 
     public void loadDistricts() {
         File file = null;
@@ -44,7 +44,7 @@ public class DataBase {
         }
 
         for(District d: listDistrictsJSON){
-            this.listDistricts.put(d.getId(), Mappers.DistrictToDTO(d));
+            this.listDistricts.put(d.getId(), d);
         }
     }
 
@@ -68,7 +68,7 @@ public class DataBase {
         }
 
         for(House h: listHouseJSON){
-            this.listHouses.put(h.getId(), Mappers.houseToDTO(h));
+            this.listHouses.put(h.getId(), h);
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.meli.desafio.unit;
 
 import com.meli.desafio.controllers.CalculateController;
-import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
+import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.services.ICalculateService;
@@ -27,8 +27,8 @@ public class CalculateControllerUnitTests {
     private CalculateController calculateController;
 
     @Test
-    public void getHouseHappyPath() throws HouseNotFoundException {
-        HouseDTO house = TestUtils.getTotalHouse("House1");
+    public void getHouseHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
+        HouseDTO house = TestUtils.getTotalHouseDTO("House1");
         Integer houseId = 1;
         when(calculateService.getHouseById(houseId)).thenReturn(house);
 
@@ -40,7 +40,7 @@ public class CalculateControllerUnitTests {
     }
 
     @Test
-    public void getHouseTotalMetersHappyPath() throws HouseNotFoundException {
+    public void getHouseTotalMetersHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
         Integer houseId = 1;
         when(calculateService.getTotalMeters(houseId)).thenReturn(50.00);
 

@@ -2,10 +2,7 @@
   {
     "id": 1,
     "name": "House1",
-    "district": {
-      "name": "Avellaneda",
-      "price": 2000
-    },
+    "districtId": 1,
     "rooms": [
       {
         "name": "Room1",
@@ -22,10 +19,7 @@
   {
     "id": 2,
     "name": "House2",
-    "district": {
-      "name": "Gerli",
-      "price": 1500.00
-    },
+    "districtId": 1,
     "rooms": [
       {
         "name": "Room1",
@@ -42,10 +36,7 @@
   {
     "id": 3,
     "name": "House3",
-    "district": {
-      "name": "Avellaneda",
-      "price": 2000.00
-    },
+    "districtId": 2,
     "rooms": [
       {
         "name": "Room1",

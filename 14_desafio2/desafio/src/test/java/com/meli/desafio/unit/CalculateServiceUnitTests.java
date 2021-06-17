@@ -1,9 +1,14 @@
 package com.meli.desafio.unit;
 
+import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
+import com.meli.desafio.exceptions.models.HouseNotFoundException;
+import com.meli.desafio.models.District;
+import com.meli.desafio.models.House;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;
 import com.meli.desafio.services.CalculateService;
+import com.meli.desafio.utils.Mappers;
 import com.meli.desafio.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,10 +30,60 @@ public class CalculateServiceUnitTests {
 
     @Test
     public void saveHappyPath() throws HouseAlreadyExistsException {
-        HouseDTO house = TestUtils.getTotalHouse("House");
+        HouseDTO house = TestUtils.getTotalHouseDTO("House");
         Integer houseId = 1;
         when(calculateRepository.save(house)).thenReturn(houseId);
 
-        Assertions.assertEquals(calculateRepository.save(house), houseId);
+        Integer response = calculateService.save(house);
+
+        Assertions.assertEquals(response, houseId);
+    }
+
+    @Test
+    public void getHouseByIdHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
+        House house = TestUtils.getTotalHouse("House");
+        Integer houseId = house.getId();
+        District district = TestUtils.getDistrict("Avellaneda");
+        when(calculateRepository.getById(houseId)).thenReturn(house);
+        when(calculateRepository.getDistrict(house.getDistrictId())).thenReturn(district);
+        HouseDTO expected = Mappers.houseToDTO(house, Mappers.districtToDTO(district));
+
+        HouseDTO response = calculateService.getHouseById(houseId);
+
+        Assertions.assertEquals(response, expected);
+    }
+
+    @Test
+    public void getTotalMetersHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
+        House house = TestUtils.getTotalHouse("House");
+        Integer houseId = house.getId();
+        District district = TestUtils.getDistrict("Avellaneda");
+        when(calculateRepository.getById(houseId)).thenReturn(house);
+        when(calculateRepository.getDistrict(house.getDistrictId())).thenReturn(district);
+        Double expected = 865.0;
+
+        Double response = calculateService.getTotalMeters(houseId);
+
+        Assertions.assertEquals(response, expected);
+    }
+
+    @Test
+    public void calculateTotalMetersHappyPath() {
+        HouseDTO house = TestUtils.getTotalHouseDTO("House");
+        Double expected = 865.0;
+
+        Double response = calculateService.calculateTotalMeters(house.getRooms());
+
+        Assertions.assertEquals(response, expected);
+    }
+
+    @Test
+    public void calculateMetersHappyPath() {
+        HouseDTO house = TestUtils.getTotalHouseDTO("House");
+        Double expected = 625.0;
+
+        Double response = calculateService.calculateSquareMeters(house.getRooms().get(0));
+
+        Assertions.assertEquals(response, expected);
     }
 }

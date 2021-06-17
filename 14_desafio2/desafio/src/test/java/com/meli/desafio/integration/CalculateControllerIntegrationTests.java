@@ -4,11 +4,14 @@ package com.meli.desafio.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.meli.desafio.exceptions.dto.ErrorDTO;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
+import com.meli.desafio.models.District;
+import com.meli.desafio.models.House;
+import com.meli.desafio.models.dto.DistrictDTO;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;
+import com.meli.desafio.utils.Mappers;
 import com.meli.desafio.utils.TestUtils;
 import com.meli.desafio.utils.URLBuilder;
 import org.junit.jupiter.api.Test;
@@ -39,7 +42,7 @@ public class CalculateControllerIntegrationTests {
 
     @Test
     public void addHouseHappyPath() throws Exception {
-        HouseDTO houseDTO = TestUtils.getTotalHouse("House1");
+        HouseDTO houseDTO = TestUtils.getTotalHouseDTO("House1");
         Integer houseId = 1;
 
         String payloadJson = writer.writeValueAsString(houseDTO);
@@ -61,7 +64,7 @@ public class CalculateControllerIntegrationTests {
 
     @Test
     public void addHouseShouldThrowHouseAlreadyExistsException() throws Exception {
-        HouseDTO houseDTO = TestUtils.getTotalHouse("House1");
+        HouseDTO houseDTO = TestUtils.getTotalHouseDTO("House1");
 
         HouseAlreadyExistsException error = new HouseAlreadyExistsException(houseDTO.getName());
 
@@ -84,12 +87,13 @@ public class CalculateControllerIntegrationTests {
 
     @Test
     public void getHouseHappyPath() throws Exception{
-        Integer houseId = 1;
-        HouseDTO houseDto = TestUtils.getTotalHouse("House1");
+        House house = TestUtils.getTotalHouse("House1");
+        Integer houseId = house.getId();
+        DistrictDTO district = TestUtils.getDistrictDTO("Avellaneda");
 
-        when(calculateRepository.getById(houseId)).thenReturn(houseDto);
+        when(calculateRepository.getById(houseId)).thenReturn(house);
 
-        String houseDtoString = writer.writeValueAsString(houseDto);
+        String houseDtoString = writer.writeValueAsString(Mappers.houseToDTO(house, district));
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/calculate/house/{id}", houseId))
@@ -119,10 +123,10 @@ public class CalculateControllerIntegrationTests {
 
     @Test
     public void getHouseTotalMetersHappyPath() throws Exception{
-        Integer houseId = 1;
-        HouseDTO houseDTO = TestUtils.getTotalHouse("House1");
+        House house = TestUtils.getTotalHouse("House1");
+        Integer houseId = house.getId();
 
-        when(calculateRepository.getById(houseId)).thenReturn(houseDTO);
+        when(calculateRepository.getById(houseId)).thenReturn(house);
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/totalMeters", houseId))
@@ -147,6 +151,23 @@ public class CalculateControllerIntegrationTests {
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(error))
+                .andReturn();
+    }
+
+    @Test
+    public void getHouseTotalPriceHappyPath() throws Exception{
+        House house = TestUtils.getTotalHouse("House");
+        Integer houseId = house.getId();
+        District district = TestUtils.getDistrict("Avellaneda");
+        when(calculateRepository.getById(houseId)).thenReturn(house);
+        when(calculateRepository.getDistrict(house.getDistrictId())).thenReturn(district);
+        String expected = "U$D 86500.0";
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/totalPrice", houseId))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=UTF-8"))
+                .andExpect(content().string(expected))
                 .andReturn();
     }
 }

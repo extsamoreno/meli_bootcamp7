@@ -1,5 +1,6 @@
 package com.meli.desafio.controllers;
 
+import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.dto.HouseDTO;
@@ -26,12 +27,19 @@ public class CalculateController {
     }
 
     @GetMapping("/house/{id}")
-    public ResponseEntity<HouseDTO> getHouse(@PathVariable Integer id) throws HouseNotFoundException {
+    public ResponseEntity<HouseDTO> getHouse(@PathVariable Integer id) throws HouseNotFoundException, DistrictNotFoundException {
         return new ResponseEntity<>(calculateService.getHouseById(id), HttpStatus.OK);
     }
 
     @GetMapping("/house/{id}/totalMeters")
-    public ResponseEntity<String> getTotalMeters(@PathVariable Integer id) throws HouseNotFoundException {
+    public ResponseEntity<String> getTotalMeters(@PathVariable Integer id) throws HouseNotFoundException, DistrictNotFoundException {
         return new ResponseEntity<>(calculateService.getTotalMeters(id) + "m2", HttpStatus.OK);
     }
+
+    @GetMapping("/house/{id}/totalPrice")
+    public ResponseEntity<String> getTotalPrice(@PathVariable Integer id) throws HouseNotFoundException, DistrictNotFoundException {
+        return new ResponseEntity<>("U$D " + calculateService.getTotalPrice(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/house/{id}/")
 }

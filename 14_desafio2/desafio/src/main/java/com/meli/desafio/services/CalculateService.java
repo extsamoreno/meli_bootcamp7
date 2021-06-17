@@ -1,10 +1,14 @@
 package com.meli.desafio.services;
 
+import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
+import com.meli.desafio.models.District;
+import com.meli.desafio.models.House;
 import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;
+import com.meli.desafio.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,21 +26,34 @@ public class CalculateService implements ICalculateService{
     }
 
     @Override
-    public HouseDTO getHouseById(Integer id) throws HouseNotFoundException {
-        return calculateRepository.getById(id);
+    public HouseDTO getHouseById(Integer id) throws HouseNotFoundException, DistrictNotFoundException {
+        House house = calculateRepository.getById(id);
+        District district = calculateRepository.getDistrict(house.getDistrictId());
+        return Mappers.houseToDTO(house, Mappers.districtToDTO(district));
     }
 
     @Override
-    public Double getTotalMeters(Integer id) throws HouseNotFoundException {
+    public Double getTotalMeters(Integer id) throws HouseNotFoundException, DistrictNotFoundException {
         HouseDTO house = this.getHouseById(id);
         return calculateTotalMeters(house.getRooms());
     }
 
-    public double calculateTotalMeters(List<Room> rooms){
-        return rooms.stream().mapToDouble(r -> calculateSquareMeters(r)).sum();
+    @Override
+    public Double getTotalPrice(Integer id) throws HouseNotFoundException, DistrictNotFoundException {
+        House house = calculateRepository.getById(id);
+        District district = calculateRepository.getDistrict(house.getDistrictId());
+        return calculateTotalPrice(house.getRooms(), district.getPrice());
     }
 
-    private double calculateSquareMeters(Room room) {
+    private Double calculateTotalPrice(List<Room> rooms, double price) {
+        return calculateTotalMeters(rooms) * price;
+    }
+
+    public double calculateTotalMeters(List<Room> rooms){
+        return rooms.stream().mapToDouble(this::calculateSquareMeters).sum();
+    }
+
+    public double calculateSquareMeters(Room room) {
         return room.getWidth() * room.getLength();
     }
 }

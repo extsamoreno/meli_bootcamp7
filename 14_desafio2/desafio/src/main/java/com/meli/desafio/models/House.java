@@ -25,9 +25,8 @@ public class House {
     @Pattern(regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z]*$", message = "The name of the house must begin with a capital letter")
     private String name;
 
-    @Valid
     @NotNull(message = "The house must be have a district")
-    private DistrictDTO district;
+    private Integer districtId;
 
     @Valid
     @Size(min = 1, message = "The house mut be have a room")
