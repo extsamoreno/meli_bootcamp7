@@ -57,22 +57,20 @@ public class PropertyServiceTests {
         verify(iPropertyRepository, atLeastOnce()).saveProperty(property);
         assertEquals(expected, received);
     }
-/*
+
     @Test
     public void createNeighborhoodOk() throws NeighborhoodAlreadyExistException {
         // arrange
         NeighborhoodDTO neighborhood = TestUtilsGenerator.getNeighborhoodPriceTen("Liniers");
         NeighborhoodDTO expected = TestUtilsGenerator.getNeighborhoodPriceTen("Liniers");
-        HttpStatus expectedStatus = HttpStatus.CREATED;
-        when(iPropertyService.createNeighborhood(neighborhood)).thenReturn(neighborhood);
+        when(iPropertyRepository.saveNeighborhood(neighborhood)).thenReturn(neighborhood);
 
         // act
-        ResponseEntity<NeighborhoodDTO> received = propertyController.createNeighborhood(neighborhood);
+        NeighborhoodDTO received = propertyService.createNeighborhood(neighborhood);
 
         // assert
-        verify(iPropertyService, atLeastOnce()).createNeighborhood(neighborhood);
-        boolean result = (received.getStatusCode() == expectedStatus && Objects.equals(received.getBody(), expected));
-        assertTrue(result);
+        verify(iPropertyRepository, atLeastOnce()).saveNeighborhood(neighborhood);
+        assertEquals(expected, received);
     }
 
     @Test
@@ -80,18 +78,15 @@ public class PropertyServiceTests {
         // arrange
         PropertyDTO property = TestUtilsGenerator.getPropertyWith305SquareMeters("Casa de Madera");
         double squareMeters = 305.00;
-        ResponsePropertySquareDTO response = new ResponsePropertySquareDTO(property.getName(), squareMeters);
         ResponsePropertySquareDTO expected = new ResponsePropertySquareDTO(property.getName(), squareMeters);
-        HttpStatus expectedStatus = HttpStatus.OK;
-        when(iPropertyService.getSquareMeters(property.getId())).thenReturn(response);
+        when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
 
         // act
-        ResponseEntity<ResponsePropertySquareDTO> received = propertyController.getSquareMeters(property.getId());
+        ResponsePropertySquareDTO received = propertyService.getSquareMeters(property.getId());
 
         // assert
-        verify(iPropertyService, atLeastOnce()).getSquareMeters(property.getId());
-        boolean result = (received.getStatusCode() == expectedStatus && Objects.equals(received.getBody(), expected));
-        assertTrue(result);
+        verify(iPropertyRepository, atLeastOnce()).getPropertyById(property.getId());
+        assertEquals(expected, received);
     }
 
     @Test
@@ -100,18 +95,18 @@ public class PropertyServiceTests {
         PropertyDTO property = TestUtilsGenerator.getPropertyWith305SquareMeters("Casa de Madera");
         NeighborhoodDTO neighborhood = TestUtilsGenerator.getNeighborhoodPriceTen(property.getNeighborhood());
         double value = 305.00 * neighborhood.getPrice();
-        ResponsePropertyValueDTO response = new ResponsePropertyValueDTO(property.getName(), value);
         ResponsePropertyValueDTO expected = new ResponsePropertyValueDTO(property.getName(), value);
-        HttpStatus expectedStatus = HttpStatus.OK;
-        when(iPropertyService.getPropertyValue(property.getId())).thenReturn(response);
+
+        when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
+        when(iPropertyRepository.getNeighborhoodById(property.getNeighborhood())).thenReturn(neighborhood);
 
         // act
-        ResponseEntity<ResponsePropertyValueDTO> received = propertyController.getPropertyValue(property.getId());
+        ResponsePropertyValueDTO received = propertyService.getPropertyValue(property.getId());
 
         // assert
-        verify(iPropertyService, atLeastOnce()).getPropertyValue(property.getId());
-        boolean result = (received.getStatusCode() == expectedStatus && Objects.equals(received.getBody(), expected));
-        assertTrue(result);
+        verify(iPropertyRepository, atLeastOnce()).getPropertyById(property.getId());
+        verify(iPropertyRepository, atLeastOnce()).getNeighborhoodById(property.getNeighborhood());
+        assertEquals(expected, received);
     }
 
     @Test
@@ -120,20 +115,16 @@ public class PropertyServiceTests {
         PropertyDTO property = TestUtilsGenerator.getPropertyWith305SquareMeters("Casa de Madera");
         EnvironmentDTO environment = TestUtilsGenerator.getEnvironment264SquareMeters("Habitación 1");
         double squareMeters = 264.00;
-        ResponseBiggestEnvironmentDTO response =
-                new ResponseBiggestEnvironmentDTO(property.getName(), squareMeters, environment);
         ResponseBiggestEnvironmentDTO expected =
                 new ResponseBiggestEnvironmentDTO(property.getName(), squareMeters, environment);
-        HttpStatus expectedStatus = HttpStatus.OK;
-        when(iPropertyService.getBiggestEnvironment(property.getId())).thenReturn(response);
+        when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
 
         // act
-        ResponseEntity<ResponseBiggestEnvironmentDTO> received = propertyController.getBiggestEnvironment(property.getId());
+        ResponseBiggestEnvironmentDTO received = propertyService.getBiggestEnvironment(property.getId());
 
         // assert
-        verify(iPropertyService, atLeastOnce()).getBiggestEnvironment(property.getId());
-        boolean result = (received.getStatusCode() == expectedStatus && Objects.equals(received.getBody(), expected));
-        assertTrue(result);
+        verify(iPropertyRepository, atLeastOnce()).getPropertyById(property.getId());
+        assertEquals(expected, received);
     }
 
     @Test
@@ -141,21 +132,15 @@ public class PropertyServiceTests {
         // arrange
         PropertyDTO property = TestUtilsGenerator.getPropertyWith305SquareMeters("Casa de Madera");
         List<ResponseEnvironmentDTO> environments = TestUtilsGenerator.getEnvironmentSquareMetersList(property);
-        ResponseSquareMetersEnvironmentDTO response =
-                new ResponseSquareMetersEnvironmentDTO(property.getName(), environments);
         ResponseSquareMetersEnvironmentDTO expected =
                 new ResponseSquareMetersEnvironmentDTO(property.getName(), environments);
-        HttpStatus expectedStatus = HttpStatus.OK;
-        when(iPropertyService.getSquareMetersOfEnvironments(property.getId())).thenReturn(response);
+        when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
 
         // act
-        ResponseEntity<ResponseSquareMetersEnvironmentDTO> received =
-                propertyController.getSquareMetersOfEnvironments(property.getId());
+        ResponseSquareMetersEnvironmentDTO received = propertyService.getSquareMetersOfEnvironments(property.getId());
 
         // assert
-        verify(iPropertyService, atLeastOnce()).getSquareMetersOfEnvironments(property.getId());
-        boolean result = (received.getStatusCode() == expectedStatus && Objects.equals(received.getBody(), expected));
-        assertTrue(result);
+        verify(iPropertyRepository, atLeastOnce()).getPropertyById(property.getId());
+        assertEquals(expected, received);
     }
- */
 }
