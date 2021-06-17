@@ -26,12 +26,12 @@ public class PropertyController {
         return ResponseEntity.ok(propertyService.calculateSquareMettersById(id));
     }
 
-    @GetMapping("/{id}/value")
+    @GetMapping("/{id}/price")
     public ResponseEntity<PropertyPriceDTO> getPropertyPriceById(@PathVariable int id) throws BadRequestException{
         return ResponseEntity.ok(propertyService.calculatePropertyPriceById(id));
     }
 
-    @GetMapping("/{id}/biggest-room")
+    @GetMapping("/{id}/biggest-environment")
     public ResponseEntity<PropertyBiggestEnvironmentDTO> getBiggestEnvironmentById(@PathVariable int id) throws BadRequestException{
         return ResponseEntity.ok(propertyService.calculateBiggestEnvironmentById(id));
     }

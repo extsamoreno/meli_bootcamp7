@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.tucasitatasaciones.demo.models.District;
 import com.tucasitatasaciones.demo.models.Property;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -14,11 +15,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Properties;
 
 @Repository
 public class PropertyRepository implements IPropertyRepository{
 
     private ArrayList<Property> listProperties;
+
     @Override
     public Property addProperty(Property property) {
         loadData();

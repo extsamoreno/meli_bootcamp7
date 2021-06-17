@@ -7,4 +7,38 @@
     "width" : 23.0,
     "length" : 23.0
   } ]
+}, {
+  "id" : 2,
+  "name" : "Las corzuelas",
+  "districtId" : 1,
+  "environments" : [ {
+    "name" : "Baño",
+    "width" : 23.0,
+    "length" : 23.0
+  }, {
+    "name" : "Cocina",
+    "width" : 21.0,
+    "length" : 33.0
+  }, {
+    "name" : "Baño",
+    "width" : 23.0,
+    "length" : 23.0
+  } ]
+}, {
+  "id" : 3,
+  "name" : "Los naranjos",
+  "districtId" : 1,
+  "environments" : [ {
+    "name" : "Baño",
+    "width" : 23.0,
+    "length" : 23.0
+  }, {
+    "name" : "Cocina",
+    "width" : 21.0,
+    "length" : 33.0
+  }, {
+    "name" : "Habitacion",
+    "width" : 10.0,
+    "length" : 10.0
+  } ]
 } ]

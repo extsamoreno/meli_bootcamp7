@@ -173,7 +173,7 @@ public class PropertyServiceTest {
         assertEquals(environmentExpected, propertyReceived.getBiggestEnvironment());
     }
 
-    /*
+
     @Test
     public void testCalculateSquareMettersEnvironmentsByIdWithValidProperty() throws BadRequestException {
         //Arrange
@@ -181,15 +181,17 @@ public class PropertyServiceTest {
         Property property = Utils.getProperty();
         PropertyDTO propertyDTO = Utils.getPropertyDTO();
         ArrayList<EnvironmentSquareMetterDTO> environmentsExpected = new ArrayList<>();
-        environmentsExpected.add(new EnvironmentSquareMetterDTO("Baño", 15.5, 25.0, 375));
+        environmentsExpected.add(new EnvironmentSquareMetterDTO("Baño", 15.5, 25.0, 387.5));
         environmentsExpected.add(new EnvironmentSquareMetterDTO("Cocina", 20.5, 25.0, 512.5));
         environmentsExpected.add(new EnvironmentSquareMetterDTO("Habitacion", 20.0, 30.0, 600));
         PropertyEnvironmentSquareMetterDTO propertyExpected = new PropertyEnvironmentSquareMetterDTO(propertyId, "Las fincas", environmentsExpected);
 
+        when(propertyRepository.findPropertyById(propertyId)).thenReturn(property);
         when(mapper.map(property, PropertyDTO.class)).thenReturn(propertyDTO);
         when(mapper.map(propertyDTO, PropertyEnvironmentSquareMetterDTO.class)).thenReturn(propertyExpected);
-        when(propertyRepository.findPropertyById(propertyId)).thenReturn(property);
         when(mapper.map(propertyDTO.getEnvironments().get(0), EnvironmentSquareMetterDTO.class)).thenReturn(environmentsExpected.get(0));
+        when(mapper.map(propertyDTO.getEnvironments().get(1), EnvironmentSquareMetterDTO.class)).thenReturn(environmentsExpected.get(1));
+        when(mapper.map(propertyDTO.getEnvironments().get(2), EnvironmentSquareMetterDTO.class)).thenReturn(environmentsExpected.get(2));
         //Act
         PropertyEnvironmentSquareMetterDTO propertyReceived = propertyService.calculateSquareMettersEnvironmentsById(propertyId);
 
@@ -200,5 +202,58 @@ public class PropertyServiceTest {
     }
 
 
-     */
+    @Test
+    public void testFindByIdWithValidId() throws BadRequestException {
+        //Arrange
+        int propertyId = 1;
+        Property property = Utils.getProperty();
+        PropertyDTO propertyExpected = Utils.getPropertyDTO();
+
+        when(mapper.map(property, PropertyDTO.class)).thenReturn(propertyExpected);
+        when(propertyRepository.findPropertyById(propertyId)).thenReturn(property);
+
+        //Act
+        PropertyDTO propertyReceived = propertyService.findPropertyById(propertyId);
+
+        //Assert
+        verify(propertyRepository, atLeastOnce()).findPropertyById(propertyId);
+
+        assertEquals(propertyExpected, propertyReceived);
+    }
+
+    @Test
+    public void testFindByIdWithInvalidId() throws BadRequestException {
+        //Arrange
+        int propertyId = 0;
+        BadRequestException exceptionExpected = new BadRequestException("El id ingresado es invalido.");
+
+        //Act
+        BadRequestException exceptionReceived = assertThrows(BadRequestException.class, ()-> {
+            propertyService.findPropertyById(propertyId);
+        });
+
+        //Assert
+        assertEquals(exceptionExpected.getMessage(), exceptionReceived.getMessage());
+        assertEquals(exceptionExpected.getStatus(), exceptionReceived.getStatus());
+    }
+
+    @Test
+    public void testFindByIdWithNotExistProperty() throws BadRequestException {
+        //Arrange
+        int propertyId = 1;
+        BadRequestException exceptionExpected = new BadRequestException("La propiedad con el id " + propertyId + " no existe.");
+
+        when(propertyRepository.findPropertyById(propertyId)).thenReturn(null);
+
+        //Act
+        BadRequestException exceptionReceived = assertThrows(BadRequestException.class, ()-> {
+            propertyService.findPropertyById(propertyId);
+        });
+
+        //Assert
+        verify(propertyRepository, atLeastOnce()).findPropertyById(propertyId);
+        assertEquals(exceptionExpected.getMessage(), exceptionReceived.getMessage());
+        assertEquals(exceptionExpected.getStatus(), exceptionReceived.getStatus());
+    }
+
 }

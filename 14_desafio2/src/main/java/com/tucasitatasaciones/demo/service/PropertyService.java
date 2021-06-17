@@ -46,13 +46,7 @@ public class PropertyService implements IPropertyService{
     @Override
     public PropertySquareMettersDTO calculateSquareMettersById(int id) throws BadRequestException {
 
-        if(id <= 0)
-            throw new BadRequestException("El id ingresado es invalido.");
-
-        PropertyDTO property = mapper.map(propertyRepository.findPropertyById(id), PropertyDTO.class);
-
-        if(property == null)
-            throw new BadRequestException("La propiedad con el id " + id + " no existe.");
+        PropertyDTO property = findPropertyById(id);
 
         PropertySquareMettersDTO propertySquareMetters = mapper.map(property, PropertySquareMettersDTO.class);
 
@@ -64,13 +58,7 @@ public class PropertyService implements IPropertyService{
 
     @Override
     public PropertyPriceDTO calculatePropertyPriceById(int id) throws BadRequestException {
-        if(id <= 0)
-            throw new BadRequestException("El id ingresado es invalido.");
-
-        PropertyDTO property = mapper.map(propertyRepository.findPropertyById(id), PropertyDTO.class);
-
-        if(property == null)
-            throw new BadRequestException("La propiedad con el id " + id + " no existe.");
+        PropertyDTO property = findPropertyById(id);
 
         DistrictDTO district = mapper.map(districtRepository.findDistrictById(property.getDistrictId()), DistrictDTO.class);
 
@@ -86,13 +74,7 @@ public class PropertyService implements IPropertyService{
 
     @Override
     public PropertyBiggestEnvironmentDTO calculateBiggestEnvironmentById(int id) throws BadRequestException {
-        if(id <= 0)
-            throw new BadRequestException("El id ingresado es invalido.");
-
-        PropertyDTO property = mapper.map(propertyRepository.findPropertyById(id), PropertyDTO.class);
-
-        if(property == null)
-            throw new BadRequestException("La propiedad con el id " + id + " no existe.");
+        PropertyDTO property = findPropertyById(id);
 
         PropertyBiggestEnvironmentDTO biggestProperty = mapper.map(property, PropertyBiggestEnvironmentDTO.class);
 
@@ -103,13 +85,7 @@ public class PropertyService implements IPropertyService{
 
     @Override
     public PropertyEnvironmentSquareMetterDTO calculateSquareMettersEnvironmentsById(int id) throws BadRequestException {
-        if(id <= 0)
-            throw new BadRequestException("El id ingresado es invalido.");
-
-        PropertyDTO property = mapper.map(propertyRepository.findPropertyById(id), PropertyDTO.class);
-
-        if(property == null)
-            throw new BadRequestException("La propiedad con el id " + id + " no existe.");
+        PropertyDTO property = findPropertyById(id);
 
         ArrayList<EnvironmentSquareMetterDTO> environments = new ArrayList<>();
 
@@ -123,6 +99,19 @@ public class PropertyService implements IPropertyService{
         propertyEnvironmentDTO.setEnvironments(environments);
 
         return propertyEnvironmentDTO;
+    }
+
+    @Override
+    public PropertyDTO findPropertyById(int id) throws BadRequestException {
+        if(id <= 0)
+            throw new BadRequestException("El id ingresado es invalido.");
+
+        PropertyDTO property = mapper.map(propertyRepository.findPropertyById(id), PropertyDTO.class);
+
+        if(property == null)
+            throw new BadRequestException("La propiedad con el id " + id + " no existe.");
+
+        return property;
     }
 
     private EnvironmentDTO calculateBiggestEnvironment(List<EnvironmentDTO> environments){

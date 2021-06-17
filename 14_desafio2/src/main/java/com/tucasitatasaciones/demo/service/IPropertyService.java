@@ -9,4 +9,5 @@ public interface IPropertyService {
     PropertyPriceDTO calculatePropertyPriceById(int id) throws BadRequestException;
     PropertyBiggestEnvironmentDTO calculateBiggestEnvironmentById(int id) throws BadRequestException;
     PropertyEnvironmentSquareMetterDTO calculateSquareMettersEnvironmentsById(int id) throws BadRequestException;
+    PropertyDTO findPropertyById(int id) throws BadRequestException;
 }
