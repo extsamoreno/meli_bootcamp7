@@ -39,6 +39,15 @@ public class PropertyService implements IPropertyService{
     }
 
     @Override
+    public double getPriceProperty(int id) {
+        Property property = propertyRepository.findById(id);
+        if(property == null){
+            throw new PropertyNotFoundException("La propiedad con el id  " + id + " no existe" , HttpStatus.NOT_FOUND);
+        }
+        return totalSquareMeters(id) * property.getDistrict().getPrice();
+    }
+
+    @Override
     public void create(PropertyDTO propertyDTO) {
         District district = districtRepository.findByName(propertyDTO.getDistrictName());
         if(district == null){

@@ -21,8 +21,13 @@ public class PropertyController {
     }
 
     @PostMapping("/totalsquaremeters/{id}")
-    public double totalSquareMeters(@PathVariable int id){
+    public double totalSquareMeters(@PathVariable int id) {
         return propertyService.totalSquareMeters(id);
+    }
+
+    @PostMapping("/priceproperty/{id}")
+    public double getPriceProperty(@PathVariable int id){
+        return propertyService.getPriceProperty(id);
     }
 
 
