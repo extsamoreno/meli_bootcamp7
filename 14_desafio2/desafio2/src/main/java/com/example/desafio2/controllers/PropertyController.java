@@ -1,8 +1,6 @@
 package com.example.desafio2.controllers;
 
-import com.example.desafio2.dtos.PropertyDTO;
-import com.example.desafio2.dtos.RoomDTO;
-import com.example.desafio2.dtos.RoomAreaDTO;
+import com.example.desafio2.dtos.*;
 import com.example.desafio2.services.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,29 +17,29 @@ public class PropertyController {
     IPropertyService iPropertyService;
 
     @PostMapping("/add")
-    @ResponseStatus(HttpStatus.OK)
-    public void postProperty(@Valid @RequestBody PropertyDTO prop){
+    public ResponseEntity<String> postProperty(@Valid @RequestBody PropertyDTO prop) {
         iPropertyService.add(prop);
+        return new ResponseEntity<>("Property submitted successfully!", HttpStatus.CREATED);
     }
 
     @GetMapping("/{propertyId}/area")
-    public double getArea(@PathVariable int propertyId){
-        return iPropertyService.getArea(propertyId);
+    public ResponseEntity<AreaDTO> getArea(@PathVariable int propertyId) {
+        return new ResponseEntity<>(new AreaDTO(propertyId, iPropertyService.getArea(propertyId)), HttpStatus.OK);
     }
 
     @GetMapping("/{propertyId}/price")
-    public double getPrice(@PathVariable int propertyId){
-        return iPropertyService.getPrice(propertyId);
+    public ResponseEntity<PriceDTO> getPrice(@PathVariable int propertyId) {
+        return new ResponseEntity<>(new PriceDTO(propertyId, iPropertyService.getPrice(propertyId)), HttpStatus.OK);
     }
 
     @GetMapping("/{propertyId}/rooms/biggest")
-    public ResponseEntity<RoomDTO> getBiggestRoom(@PathVariable int propertyId){
-        return new ResponseEntity<>(iPropertyService.getBiggestRoom(propertyId),HttpStatus.OK);
+    public ResponseEntity<RoomDTO> getBiggestRoom(@PathVariable int propertyId) {
+        return new ResponseEntity<>(iPropertyService.getBiggestRoom(propertyId), HttpStatus.OK);
     }
 
     @GetMapping("/{propertyId}/rooms/area")
-    public ResponseEntity<List<RoomAreaDTO>> getSquareMetersPerRoom(@PathVariable int propertyId){
-        return new ResponseEntity<>(iPropertyService.getRoomsAreas(propertyId),HttpStatus.OK);
+    public ResponseEntity<List<RoomAreaDTO>> getSquareMetersPerRoom(@PathVariable int propertyId) {
+        return new ResponseEntity<>(iPropertyService.getRoomsAreas(propertyId), HttpStatus.OK);
     }
 }
 

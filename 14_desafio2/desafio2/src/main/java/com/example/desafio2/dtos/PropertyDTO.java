@@ -14,9 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PropertyDTO {
-    @NotBlank(message="El nombre de la propiedad no puede estar vacio.")
-    @Pattern(regexp="([A-Z].*)", message="El nombre de la propiedad debe comenzar con mayuscula")
-    @Size(max=30, message="La longitud del nombre no puede superar los 30 caracteres.")
+    @NotBlank(message = "El nombre de la propiedad no puede estar vacio.")
+    @Pattern(regexp = "([A-Z].*)", message = "El nombre de la propiedad debe comenzar con mayuscula")
+    @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String name;
     private @Valid DistrictDTO district;
     private List<@Valid RoomDTO> roomList;
