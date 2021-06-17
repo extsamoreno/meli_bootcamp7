@@ -161,5 +161,34 @@ public class PropertyServiceTest {
         assertThrows(PropertyNotFoundException.class, () -> propertyService.getPropertyPrice(1));
     }
 
+    @Test
+    public void createPropertyTest() throws DistrictNotFoundException {
+        //Arrange
+        PropertyDTO propertyTest = TestUtilsGenerator.getPropertyDTOWithFourEnvironment();
+        Property property = TestUtilsGenerator.getPropertyWithFourEnvironment();
 
+        when(propertyMapper.toModel(propertyTest)).thenReturn(property);
+        when(propertyRepository.add(property)).thenReturn(true);
+        when(districtService.getDistrictByName(property.getDistrict().getName())).thenReturn(property.getDistrict());
+        //Act
+
+        NewIdDTO result = propertyService.createProperty(propertyTest);
+        //Assert
+
+        assertTrue(result.getId() > 0);
+    }
+
+    @Test
+    public void createPropertyTestNoDistrict() throws DistrictNotFoundException {
+        //Arrange
+        PropertyDTO propertyTest = TestUtilsGenerator.getPropertyDTOWithFourEnvironment();
+        Property property = TestUtilsGenerator.getPropertyWithFourEnvironment();
+
+        when(propertyMapper.toModel(propertyTest)).thenReturn(property);
+        when(districtService.getDistrictByName(property.getDistrict().getName())).thenThrow(DistrictNotFoundException.class);
+
+        //Assert
+
+        assertThrows(DistrictNotFoundException.class, () -> propertyService.createProperty(propertyTest));
+    }
 }
