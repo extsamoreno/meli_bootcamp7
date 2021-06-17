@@ -1,17 +1,15 @@
 package com.meli.desafio2.service;
 
-import com.meli.desafio2.dto.EnvironmentDTO;
-import com.meli.desafio2.dto.ResponseBigEnvironmentDTO;
-import com.meli.desafio2.dto.ResponsePropTotalM2DTO;
-import com.meli.desafio2.dto.ResponsePropValueDTO;
+import com.meli.desafio2.dto.*;
 import com.meli.desafio2.exception.DistrictIdNotFoundException;
+import com.meli.desafio2.exception.PropertyIdAlreadyExistException;
 import com.meli.desafio2.exception.PropertyIdNotFoundException;
-import com.meli.desafio2.mappers.EnvironmentMapper;
 import com.meli.desafio2.model.District;
 import com.meli.desafio2.model.Environment;
 import com.meli.desafio2.model.Property;
 import com.meli.desafio2.repository.IDistrictRepository;
 import com.meli.desafio2.repository.IPropertyRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +25,12 @@ public class PropertyService implements IPropertyService {
 
     @Autowired
     IDistrictRepository districtRepository;
+
+    private ModelMapper mapper;
+
+    public PropertyService(ModelMapper mapper){
+        this.mapper = mapper;
+    }
 
     // Calculate property total M2
     @Override
@@ -62,7 +66,6 @@ public class PropertyService implements IPropertyService {
         final Optional<EnvironmentDTO> biggestEnv = listEnvM2.stream().max((r1, r2) -> (int) (r1.getEnvM2() - r2.getEnvM2()));
 
         return new ResponseBigEnvironmentDTO(biggestEnv.get().getName(), biggestEnv.get().getWidth(), biggestEnv.get().getLength());
-
     }
 
     @Override
@@ -74,12 +77,20 @@ public class PropertyService implements IPropertyService {
 
         for (Environment env : prop.getEnvironments()) {
 
-            EnvironmentDTO envDTO = EnvironmentMapper.envToDTO(env);
+            EnvironmentDTO envDTO = mapper.map(env, EnvironmentDTO.class);
             envDTO.setEnvM2(calcEnvironmentM2(env));
 
             listEnvDTO.add(envDTO);
         }
         return listEnvDTO;
+    }
+
+    // Create a new property
+    @Override
+    public String createNewProperty(PropertyDTO propDTO) throws PropertyIdAlreadyExistException, DistrictIdNotFoundException {
+
+        propertyRepository.createProperty(mapper.map(propDTO, Property.class));
+        return "Property successfully created";
     }
 
     // Calculate environment M2

@@ -1,5 +1,8 @@
 package com.meli.desafio2.repository;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.meli.desafio2.exception.DistrictIdNotFoundException;
+import com.meli.desafio2.exception.PropertyIdAlreadyExistException;
 import com.meli.desafio2.exception.PropertyIdNotFoundException;
 import com.meli.desafio2.model.District;
 import com.meli.desafio2.model.Environment;
@@ -12,6 +15,9 @@ import java.util.List;
 
 @Repository
 public class PropertyRepository implements IPropertyRepository {
+
+    @Autowired
+    IDistrictRepository districtRepository;
 
     // List with all properties
     List<Property> properties;
@@ -30,6 +36,20 @@ public class PropertyRepository implements IPropertyRepository {
             throw new PropertyIdNotFoundException(propId);
         }
         return prop;
+    }
+
+    // Create a new property
+    @Override
+    public void createProperty(Property prop) throws PropertyIdAlreadyExistException, DistrictIdNotFoundException {
+
+        Property newProp = properties.stream().filter(i -> i.getId().equals(prop.getId())).findFirst().orElse(null);
+
+        if(newProp != null) {
+            throw new PropertyIdAlreadyExistException(prop.getId());
+        }
+
+        districtRepository.getDistrictbyId(prop.getDistrictId());
+        properties.add(prop);
     }
 
     // Load default properties
