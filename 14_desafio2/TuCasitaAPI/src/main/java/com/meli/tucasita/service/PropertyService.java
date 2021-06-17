@@ -81,7 +81,7 @@ public class PropertyService implements IPropertyService{
 
     public Environment getBiggerEnvironment(Property property){
         List<Environment> environments= property.getEnvironments();
-        Environment biggerEnv= environments.stream().reduce((a,b)->a.getLength()*a.getWidth()*1.0>b.getLength()*b.getWidth()*1.0?a:b).get();
+        Environment biggerEnv= environments.stream().reduce((a,b)->a.getLength()*a.getWidth()*1.0>=b.getLength()*b.getWidth()*1.0?a:b).get();
         return biggerEnv;
     }
 }
