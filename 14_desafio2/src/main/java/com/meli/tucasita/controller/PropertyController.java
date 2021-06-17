@@ -30,7 +30,7 @@ public class PropertyController {
 
   // US-0001: Calcular el total de metros cuadrados de una propiedad
   @GetMapping("/calculateArea/{id}")
-  public ResponseEntity<PropertyAreaDto> getPropertyArea(@PathVariable int id) {
+  public ResponseEntity<Double> getPropertyArea(@PathVariable int id) {
     return new ResponseEntity<>(propertyService.getPropertyArea(id), HttpStatus.OK) ;
   }
 

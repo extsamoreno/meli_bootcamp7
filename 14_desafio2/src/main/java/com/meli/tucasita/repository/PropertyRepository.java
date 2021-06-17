@@ -5,7 +5,7 @@ import com.meli.tucasita.model.Property;
 
 import java.util.*;
 
-public interface DataRepository {
+public interface PropertyRepository {
   Map<Integer, Property> findAllProperties();
   Map<Integer, District> findAllDistricts();
   Property findPropertyById(int id);
