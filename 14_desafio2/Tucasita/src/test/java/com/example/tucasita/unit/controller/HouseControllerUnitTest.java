@@ -62,7 +62,7 @@ public class HouseControllerUnitTest {
 
     @Test
     public void calculateLargestRoomHappyPath() {
-        RoomWithMetersDTO largest = new RoomWithMetersDTO("room2", 60);
+        RoomWithMetersDTO largest = new RoomWithMetersDTO("Room2", 60);
         HouseWithLargestRoom expected = new HouseWithLargestRoom("Casa", largest);
         Mockito.when(houseService.calculateLargestRoom(houseDTO)).thenReturn(expected);
 
@@ -74,8 +74,8 @@ public class HouseControllerUnitTest {
 
     @Test
     public void calculateRoomsSquareMetersHappyPath() {
-        RoomWithMetersDTO room1 = new RoomWithMetersDTO("room1", 20);
-        RoomWithMetersDTO room2 = new RoomWithMetersDTO("room2", 60);
+        RoomWithMetersDTO room1 = new RoomWithMetersDTO("Room1", 20);
+        RoomWithMetersDTO room2 = new RoomWithMetersDTO("Room2", 60);
         HouseWithRoomsMetersDTO expected = new HouseWithRoomsMetersDTO("Casa", Arrays.asList(room1, room2));
         Mockito.when(houseService.calculateRoomsSquareMeters(houseDTO)).thenReturn(expected);
 

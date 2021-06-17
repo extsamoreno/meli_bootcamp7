@@ -21,8 +21,8 @@ public class TestUtil {
 
     public static HouseDTO getSampleHouseDTO() {
         DistrictDTO districtDTO = new DistrictDTO("Barrio", 100D);
-        RoomDTO roomDTO1 = new RoomDTO("room1", 10D, 2D);
-        RoomDTO roomDTO2 = new RoomDTO("room2", 20D, 3D);
+        RoomDTO roomDTO1 = new RoomDTO("Room1", 10D, 2D);
+        RoomDTO roomDTO2 = new RoomDTO("Room2", 20D, 3D);
         List<RoomDTO> roomsDTO = Arrays.asList(roomDTO1, roomDTO2);
         return new HouseDTO("Casa", districtDTO, roomsDTO);
     }

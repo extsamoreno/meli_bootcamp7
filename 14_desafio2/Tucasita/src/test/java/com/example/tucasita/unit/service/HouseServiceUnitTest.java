@@ -74,7 +74,7 @@ public class HouseServiceUnitTest {
 
     @Test
     public void calculateLargestRoomHappyPath() {
-        RoomWithMetersDTO largest=new RoomWithMetersDTO("room2",60);
+        RoomWithMetersDTO largest=new RoomWithMetersDTO("Room2",60);
         HouseWithLargestRoom expected = new HouseWithLargestRoom("Casa", largest);
         HouseWithLargestRoom received = houseService.calculateLargestRoom(houseDTO);
         assertEquals(expected, received);
@@ -82,8 +82,8 @@ public class HouseServiceUnitTest {
 
     @Test
     public void calculateRoomsSquareMetersHappyPath() {
-        RoomWithMetersDTO room1=new RoomWithMetersDTO("room1",20);
-        RoomWithMetersDTO room2=new RoomWithMetersDTO("room2",60);
+        RoomWithMetersDTO room1=new RoomWithMetersDTO("Room1",20);
+        RoomWithMetersDTO room2=new RoomWithMetersDTO("Room2",60);
         HouseWithRoomsMetersDTO expected = new HouseWithRoomsMetersDTO("Casa", Arrays.asList(room1,room2));
         HouseWithRoomsMetersDTO received = houseService.calculateRoomsSquareMeters(houseDTO);
         assertEquals(expected, received);
