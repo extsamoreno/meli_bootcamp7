@@ -4,4 +4,5 @@ import com.meli.desafio2.web.model.District;
 
 public interface IDistrictRepository {
     public District getDistrictByName(String name);
+    public void saveDistrict(District district);
 }

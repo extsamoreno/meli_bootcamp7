@@ -47,4 +47,9 @@ public class DistrictRepository implements IDistrictRepository {
         }
         return null;
     }
+
+    @Override
+    public void saveDistrict(District district) {
+        districts.add(district);
+    }
 }

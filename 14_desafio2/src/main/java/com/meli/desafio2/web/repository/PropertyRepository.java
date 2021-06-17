@@ -2,8 +2,10 @@ package com.meli.desafio2.web.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.meli.desafio2.web.model.Environment;
 import com.meli.desafio2.web.model.Property;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -16,7 +18,7 @@ import java.util.Set;
 
 @Repository
 @Data
-public class PropertyRepository {
+public class PropertyRepository implements IPropertyRepository {
 
     private List<Property> properties = loadDataProperty();
 
@@ -39,5 +41,27 @@ public class PropertyRepository {
         }
         return properties;
 
+    }
+
+    @Override
+    public Property getPropertyByName(String name) {
+        for(Property property:properties){
+            if(property.getProp_name().equals(name)){
+                return property;
+            }
+        }
+        return null;
+    }
+    @Override
+    public List<Environment> getEnvironmentsByPropertyByName(String name){
+        Property property = getPropertyByName(name);
+        System.out.println(properties);
+        return property.getEnvironments();
+    }
+
+    @Override
+    public void saveProperty(Property property) {
+        properties.add(property);
+        System.out.println(properties);
     }
 }

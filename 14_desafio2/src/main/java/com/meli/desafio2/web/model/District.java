@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class District {
     private String district_name;
-    private String district_price;
+    private double district_price;
 }

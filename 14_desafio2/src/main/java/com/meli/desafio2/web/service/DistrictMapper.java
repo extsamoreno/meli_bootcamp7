@@ -7,4 +7,7 @@ public class DistrictMapper {
     public static DistrictDTO toDTO(District district){
         return new DistrictDTO(district.getDistrict_name(), district.getDistrict_price());
     }
+    public static District toModel(DistrictDTO districtDTO){
+        return new District(districtDTO.getDistrict_name(), districtDTO.getDistrict_price());
+    }
 }
