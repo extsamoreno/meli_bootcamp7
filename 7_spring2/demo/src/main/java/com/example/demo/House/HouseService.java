@@ -1,4 +1,6 @@
-package com.example.demo;
+package com.example.demo.House;
+
+import com.example.demo.House.House;
 
 import java.util.ArrayList;
 

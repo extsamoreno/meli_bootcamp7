@@ -1,0 +1,26 @@
+[
+  {
+    "distric_name": "Cañiza",
+    "distric_price": 200
+  },
+  {
+    "distric_name": "Cedrtios",
+    "distric_price": 600
+  },
+  {
+    "distric_name": "Compartir",
+    "distric_price": 300
+  },
+  {
+    "distric_name": "Cedro Bolivar",
+    "distric_price": 700
+  },
+  {
+    "distric_name": "Los cerezos",
+    "distric_price": 400
+  },
+  {
+    "distric_name": "Roma",
+    "distric_price": 400
+  }
+]
