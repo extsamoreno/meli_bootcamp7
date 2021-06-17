@@ -1,5 +1,6 @@
 package com.example.tucasita.domain;
 
+import com.example.tucasita.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,6 @@ public class House {
     }
 
     public Room getLargestRoom() {
-        return rooms.stream().max(Comparator.comparing(Room::squareMeters)).get();
+        return rooms.stream().max(Comparator.comparing(Room::squareMeters)).orElseThrow(() -> new NotFoundException("Largest Room"));
     }
 }

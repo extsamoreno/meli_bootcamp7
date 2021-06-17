@@ -9,17 +9,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Room implements Comparable<Room> {
+public class Room {
     private String name;
     private double width;
     private double length;
 
     public double squareMeters() {
         return width * length;
-    }
-
-    @Override
-    public int compareTo(Room room) {
-        return (int) (this.squareMeters()- room.squareMeters());
     }
 }
