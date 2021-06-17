@@ -10,13 +10,14 @@ public class PropertyRepository implements IPropertyRepository {
     HashMap<Integer, Property> propertyHm = new HashMap<>();
 
     @Override
-    public void add(Property property) {
+    public int add(Property property) {
         try{
             propertyHm.put(propertyHm.size()+1, property);
             listProperties();
         }catch (Exception e){
-            //TODO: handle exception
+            throw e;
         }
+        return propertyHm.size();
     }
 
     @Override

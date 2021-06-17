@@ -3,8 +3,11 @@ package com.example.desafio2.services;
 import com.example.desafio2.dtos.PropertyDTO;
 import com.example.desafio2.dtos.RoomAreaDTO;
 import com.example.desafio2.dtos.RoomDTO;
+import com.example.desafio2.exceptions.DistrictIdNotValidException;
+import com.example.desafio2.exceptions.PropertyIdNotValidException;
 import com.example.desafio2.models.Property;
 import com.example.desafio2.models.Room;
+import com.example.desafio2.repositories.IDistrictRepository;
 import com.example.desafio2.repositories.IPropertyRepository;
 import com.example.desafio2.services.mappers.PropertyMapper;
 import com.example.desafio2.services.mappers.RoomMapper;
@@ -20,27 +23,31 @@ public class PropertyService implements IPropertyService {
     @Autowired
     IPropertyRepository iPropertyRepository;
 
+    @Autowired
+    IDistrictRepository iDistrictRepository;
+
     @Override
-    public void add(PropertyDTO house) {
-        iPropertyRepository.add(PropertyMapper.toModel(house));
+    public int add(PropertyDTO prop) throws DistrictIdNotValidException {
+        if(iDistrictRepository.getById(prop.getDistrictId()) == null)
+            throw new DistrictIdNotValidException(prop.getDistrictId());
+
+        return iPropertyRepository.add(PropertyMapper.toModel(prop));
     }
 
     @Override
-    public double getArea(int propertyId) {
+    public double getArea(int propertyId) throws PropertyIdNotValidException {
         Property property = iPropertyRepository.getPropertyById(propertyId);
         if(property == null)
-            return 0;
-            //TODO: throw exception
+            throw new PropertyIdNotValidException(propertyId);
 
         return PropertyUtil.calculateArea(property);
     }
 
     @Override
-    public RoomDTO getBiggestRoom(int propertyId) {
+    public RoomDTO getBiggestRoom(int propertyId) throws PropertyIdNotValidException {
         Property property = iPropertyRepository.getPropertyById(propertyId);
         if(property == null)
-            //TODO: throw exception
-            return null;
+            throw new PropertyIdNotValidException(propertyId);
 
         double maxArea = 0;
         Room selectedRoom = null;
@@ -57,11 +64,10 @@ public class PropertyService implements IPropertyService {
     }
 
     @Override
-    public List<RoomAreaDTO> getRoomsAreas(int propertyId) {
+    public List<RoomAreaDTO> getRoomsAreas(int propertyId) throws PropertyIdNotValidException {
         Property property = iPropertyRepository.getPropertyById(propertyId);
         if(property == null)
-            //TODO: throw exception
-            return null;
+            throw new PropertyIdNotValidException(propertyId);
 
         List<RoomAreaDTO> roomAreaList = new ArrayList<>();
         RoomAreaDTO roomArea;
@@ -78,14 +84,13 @@ public class PropertyService implements IPropertyService {
     }
 
     @Override
-    public double getPrice(int propertyId) {
+    public double getPrice(int propertyId) throws PropertyIdNotValidException {
         Property property = iPropertyRepository.getPropertyById(propertyId);
         if(property == null)
-            //TODO: throw exception
-            return 0;
+            throw new PropertyIdNotValidException(propertyId);
 
         double area = PropertyUtil.calculateArea(property);
-        double pricePerSqMeter = PropertyUtil.calculatePricePerSqMeter(property.getDistrict());
+        double pricePerSqMeter = PropertyUtil.calculatePricePerSqMeter(iDistrictRepository.getById(property.getDistrictId()));
 
         return area * pricePerSqMeter;
     }

@@ -13,14 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Property {
     private String name;
-    private District district;
+    private int districtId;
     private List<Room> roomList;
 
     @Override
     public String toString() {
         return "House{" +
                 "name='" + name + '\'' +
-                ", district=" + district.toString() +
+                ", district=" + districtId +
                 ", roomList=" + roomList.size() +
                 '}';
     }

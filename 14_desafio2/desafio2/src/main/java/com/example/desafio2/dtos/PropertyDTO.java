@@ -18,6 +18,6 @@ public class PropertyDTO {
     @Pattern(regexp = "([A-Z].*)", message = "El nombre de la propiedad debe comenzar con mayuscula")
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String name;
-    private @Valid DistrictDTO district;
+    private int districtId;
     private List<@Valid RoomDTO> roomList;
 }
