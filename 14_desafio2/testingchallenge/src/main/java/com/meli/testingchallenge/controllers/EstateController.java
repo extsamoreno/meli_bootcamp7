@@ -21,7 +21,7 @@ public class EstateController {
     IEstateService estateService;
 
     @PostMapping("/assessment")
-    public ResponseEntity<EstateAssessmentDTO> getAssessment( @RequestBody EstateDTO house){
+    public ResponseEntity<EstateAssessmentDTO> getAssessment(@Valid @RequestBody EstateDTO house){
         return new ResponseEntity<>(estateService.getAssessment(house), HttpStatus.OK);
     }
 
