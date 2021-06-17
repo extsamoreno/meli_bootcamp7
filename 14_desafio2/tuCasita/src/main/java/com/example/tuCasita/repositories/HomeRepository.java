@@ -1,9 +1,6 @@
 package com.example.tuCasita.repositories;
 
-import com.example.tuCasita.exceptions.AlreadyExistDistrictException;
-import com.example.tuCasita.exceptions.AlreadyExistHomeException;
-import com.example.tuCasita.exceptions.HomeIdNotFoundException;
-import com.example.tuCasita.exceptions.HomeWithNoEnviromentsException;
+import com.example.tuCasita.exceptions.*;
 import com.example.tuCasita.models.District;
 import com.example.tuCasita.models.Enviroment;
 import com.example.tuCasita.models.Home;
@@ -69,17 +66,30 @@ public class HomeRepository implements IHomeRepository{
     }
 
     @Override
-    public District findDistrictById(Integer id) {
-        return districtMap.get(id);
+    public District findDistrictById(Integer id) throws DistrictNotFoundException {
+        District district = districtMap.get(id);
+
+        if (district == null){
+            throw new DistrictNotFoundException(id);
+        }
+
+        return district;
     }
 
     @Override
-    public void insertHome(Home home) throws AlreadyExistHomeException {
+    public void insertHome(Home home) throws AlreadyExistHomeException, AlreadyExistEnviromentIdException {
         Home exist = homeMap.get(home.getId());
 
         //Check if the home is already inserted by the user
         if (exist != null){
             throw new AlreadyExistHomeException(home.getId());
+        }
+
+        //Check if Enviroment id is already inserted by the user
+        for (int i = 0; i < home.getEnviromentList().size(); i++) {
+            if (existEnviromentId(home.getEnviromentList().get(i).getId())){
+                throw new AlreadyExistEnviromentIdException(home.getEnviromentList().get(i).getId());
+            }
         }
 
         homeMap.put(home.getId(),home);
@@ -145,6 +155,7 @@ public class HomeRepository implements IHomeRepository{
         return homeMap.get(homeId).getEnviromentList();
     }
 
+    //region private methods
     private double getSquareMeters(Home home){
         List<Enviroment> enviromentList = homeMap.get(home.getId()).getEnviromentList();
         Double meters = 0.0;
@@ -168,13 +179,14 @@ public class HomeRepository implements IHomeRepository{
     }
 
     private boolean existEnviromentId(Integer envId){
-        boolean exist = false;
-        List<Enviroment> envList = new ArrayList<>();
-
-        /*for (int i = 0; i < homeMap.size(); i++) {
-            envList.add(homeMap.get(i).getEnviromentList());
-        }*/
+        boolean exist = homeMap.entrySet().stream()
+                .map(e -> e.getValue().getEnviromentList())
+                .flatMap(Collection::stream)
+                .map(Enviroment::getId)
+                .anyMatch(enviromentId -> enviromentId == envId);
 
         return exist;
     }
+    //endregion
+
 }

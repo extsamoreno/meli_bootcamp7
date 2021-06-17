@@ -8,10 +8,11 @@ import java.util.List;
 
 public interface IHomeService {
     Double getSquareMeterByHome(Integer homeId) throws HomeIdNotFoundException;
-    HomeResponseDTO insertHome(HomeDTO homeDTO) throws AlreadyExistHomeException, DistrictNotFoundException, AlreadyExistDistrictException;
+    HomeResponseDTO insertHome(HomeDTO homeDTO) throws AlreadyExistHomeException, DistrictNotFoundException, AlreadyExistDistrictException, AlreadyExistEnviromentIdException;
     Double getPrice(Integer homeId) throws HomeIdNotFoundException;
     EnviromentDTO getBiggest(Integer homeId) throws HomeIdNotFoundException, HomeWithNoEnviromentsException;
     List<EnviromentAreasDTO> getMeterCount(Integer homeId) throws HomeIdNotFoundException;
 
     String insertDistrict(DistrictDTO districtDTO) throws AlreadyExistDistrictException;
+    District findDistrictById(Integer id) throws DistrictNotFoundException;
 }

@@ -38,7 +38,7 @@ public class HomeController {
     }
 
     @PostMapping("/insertHome")
-    public ResponseEntity<HomeResponseDTO> insertHome(@RequestBody @Valid HomeDTO homeDTO) throws AlreadyExistHomeException, AlreadyExistDistrictException, DistrictNotFoundException {
+    public ResponseEntity<HomeResponseDTO> insertHome(@RequestBody @Valid HomeDTO homeDTO) throws AlreadyExistHomeException, AlreadyExistDistrictException, DistrictNotFoundException, AlreadyExistEnviromentIdException {
         return new ResponseEntity<HomeResponseDTO>(homeService.insertHome(homeDTO), HttpStatus.OK);
     }
 

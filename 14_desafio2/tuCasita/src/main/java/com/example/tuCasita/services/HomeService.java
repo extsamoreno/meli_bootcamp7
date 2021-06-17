@@ -25,7 +25,7 @@ public class HomeService implements IHomeService{
     }
 
     @Override
-    public HomeResponseDTO insertHome(HomeDTO homeDTO) throws AlreadyExistHomeException, DistrictNotFoundException {
+    public HomeResponseDTO insertHome(HomeDTO homeDTO) throws AlreadyExistHomeException, DistrictNotFoundException, AlreadyExistEnviromentIdException {
         District district = homeRepository.findDistrictById(homeDTO.getDistrictId());
 
         if(district == null)
@@ -77,6 +77,11 @@ public class HomeService implements IHomeService{
     public String insertDistrict(DistrictDTO districtDTO) throws AlreadyExistDistrictException {
         homeRepository.insertDistrict(HomeMapper.districtDTOToModel(districtDTO));
         return ("The district was added correctly");
+    }
+
+    @Override
+    public District findDistrictById(Integer id) throws DistrictNotFoundException {
+        return homeRepository.findDistrictById(id);
     }
 
     private List<EnviromentDTO> enviromentListToEnviromentDTOList(List<Enviroment> enviromentList){
