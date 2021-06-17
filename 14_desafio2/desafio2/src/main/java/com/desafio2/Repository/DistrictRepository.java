@@ -35,6 +35,26 @@ public class DistrictRepository implements IDistrctRepository {
     }
 
     @Override
+    public void save(District district) {
+        this.delete(district.getDistrict_name());
+        districts.add(district);
+        this.saveData();
+    }
+
+    @Override
+    public boolean delete(String distrct_name) {
+        boolean ret = false;
+        try {
+            District found = this.findByName(distrct_name);
+            districts.remove(found);
+            ret  = true;
+            this.saveData();
+        } catch (DistrctNotFoundException e) {}
+
+        return ret;
+    }
+
+    @Override
     public boolean exists(District district) {
         boolean ret = false;
 
@@ -73,4 +93,19 @@ public class DistrictRepository implements IDistrctRepository {
 
         this.districts = loadedData;
     }
+
+    private void saveData() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json");
+            objectMapper.writeValue(file, this.districts);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Failed while writing to DB, check your resources files");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Failed while writing to DB, check your JSON formatting.");
+        }
+    }
+
 }

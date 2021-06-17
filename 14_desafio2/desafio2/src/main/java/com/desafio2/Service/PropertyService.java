@@ -21,6 +21,11 @@ public class PropertyService implements IPropertyService{
     IDistrctRepository iDistrctRepository;
 
     @Override
+    public void create(Property property) {
+        iPropertyRepository.save(property);
+    }
+
+    @Override
     public double getTotalSquareMeters(String name) {
         Property property = iPropertyRepository.findByName(name);
 
@@ -44,8 +49,8 @@ public class PropertyService implements IPropertyService{
     }
 
     @Override
-    public Environment getBiggestEnvironment(String name) {
-        Property property = iPropertyRepository.findByName(name);
+    public Environment getBiggestEnvironment(String property_name) {
+        Property property = iPropertyRepository.findByName(property_name);
         double maxSquareMeters = 0;
         Environment maxEnvironment = new Environment();
         for(Environment e : property.getEnvironments()) {
@@ -67,4 +72,6 @@ public class PropertyService implements IPropertyService{
         }
         return environmentDTOS;
     }
+
+
 }

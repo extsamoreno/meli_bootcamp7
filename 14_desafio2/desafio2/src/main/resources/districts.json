@@ -1,14 +1,1 @@
-[
-    {
-      "district_name": "South",
-      "district_price": 50
-    },
-    {
-      "district_name": "Center",
-      "district_price": 100
-    },
-    {
-      "district_name": "North",
-      "district_price": 60
-    }
-]
+[]

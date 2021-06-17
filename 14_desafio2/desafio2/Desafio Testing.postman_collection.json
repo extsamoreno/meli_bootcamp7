@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "52cd89e8-263b-407d-875e-1d6aef4f782d",
+		"name": "Desafio Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "US-0001: Calcular el total de metros cuadrados de una propiedad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "US-0002: Indicar el valor de una propiedad a partir de sus ambientes y medidas.",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "US-0003: Determinar cuál es el ambiente más grande.",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "US-0004: Determinar la cantidad de metros cuadrados que tiene cada ambiente de una propiedad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Create property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"SouthAvenue7\",\n    \"district_name\": \"South\",\n    \"environments\": [\n      {\n        \"environment_name\": \"Hall\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 10.0\n      },\n      {\n        \"environment_name\": \"Room1\",\n        \"environment_width\": 12.0,\n        \"environment_length\": 15.0\n      },\n      {\n        \"environment_name\": \"Room2\",\n        \"environment_width\": 17.0,\n        \"environment_length\": 15.0\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create district",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"district_name\": \"South\",\n    \"district_price\": 170.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/district/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"district",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

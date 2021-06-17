@@ -59,7 +59,7 @@ public class PropertyRepository implements IPropertyRepository{
         boolean ret = false;
 
         try {
-            ret  = this.findByName(property.getProp_name()) != null;
+            ret  = this.findByName(property.getProp_name()).equals(property);
         }
         catch (PropertyNotFoundException e) {}
 
@@ -97,7 +97,7 @@ public class PropertyRepository implements IPropertyRepository{
     private void saveData() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/users.json");
+            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
             objectMapper.writeValue(file, this.properties);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

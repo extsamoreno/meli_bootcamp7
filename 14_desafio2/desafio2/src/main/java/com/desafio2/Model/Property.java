@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class Property {
     @Size(max = 45, message = "La longitud del nombre del barrio no puede superar los 45 caracteres")
     private String district_name;
 
+    @Valid
     @NotEmpty(message = "La lista de habitaciones no puede estar vacía.")
     private List<Environment> environments;
 }

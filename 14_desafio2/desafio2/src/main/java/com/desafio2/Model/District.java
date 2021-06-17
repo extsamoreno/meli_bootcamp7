@@ -15,7 +15,7 @@ public class District {
     @Size(max = 45, message = "La longitud del nombre del barrio no puede superar los 45 caracteres")
     private String district_name;
 
-    @NotBlank(message = "El precio de un barrio no puede estar vacío.")
+    @NotNull(message = "El precio de un barrio no puede estar vacío.")
     @Max(value = 4000, message = "El precio máximo permitido por metro cuadrado no puede superar los 4000 U$S.")
     private double district_price;
 }

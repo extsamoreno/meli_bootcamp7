@@ -1,8 +1,10 @@
 package com.desafio2.Exception;
 
 import com.desafio2.DTO.ErrorDTO;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 public class PropertyException extends RuntimeException{
     private final ErrorDTO error;
     private final HttpStatus status;
