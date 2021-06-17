@@ -41,9 +41,8 @@ public class PropertyRepositoryImpl implements PropertyRepository {
         File file = ResourceUtils.getFile(System.getProperty("user.dir") + "/src/main/resources/properties.json");
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<Property>> typeRef = new TypeReference<>() {};
-        List<Property> properties = null;
         this.properties = objectMapper.readValue(file, typeRef);
-        if (properties.size() > 0 ) {
+        if (this.properties.size() > 0 ) {
             currentId = this.properties.stream().mapToInt(Property::getId).max().getAsInt();
         } else {
             currentId = 0;
