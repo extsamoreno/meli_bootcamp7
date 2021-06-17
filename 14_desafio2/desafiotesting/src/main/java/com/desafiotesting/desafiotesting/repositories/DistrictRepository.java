@@ -1,5 +1,7 @@
 package com.desafiotesting.desafiotesting.repositories;
+import com.desafiotesting.desafiotesting.exceptions.DistrictNotFoundException;
 import com.desafiotesting.desafiotesting.models.District;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class DistrictRepository implements IDistrictRepository{
     public District findByName(String name) {
         District founded = districts.stream()
                 .filter(district -> district.getName().equals(name))
-                .findFirst().orElse(null);
+                .findFirst().orElseThrow(()-> new DistrictNotFoundException("El barrio " + name + " no existe" , HttpStatus.NOT_FOUND));
         return founded;
     }
 
