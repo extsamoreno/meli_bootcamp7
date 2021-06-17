@@ -3,12 +3,12 @@
     "propId": 1,
     "propName": "Torre Pedro Goyena",
     "districtName": "Caballito",
-    "environments": null
-  },
-  {
-    "propId": 2,
-    "propName": "Torre Libertador",
-    "districtName": "Belgrano",
-    "environments": null
+    "environments": [
+      {
+        "environmentName": "Cocina",
+        "evironmentWidth": 5.00,
+        "environmentLength": 5.00
+      }
+    ]
   }
 ]

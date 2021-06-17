@@ -9,5 +9,6 @@ import java.util.Set;
 @Service
 public interface PropertyService {
     ResponseDTO addOneProperty(PropertyDTO property);
+    ResponseDTO calculateTotalSquareMeters(int idProperty);
     Set<PropertyDTO> getAllProperties();
 }

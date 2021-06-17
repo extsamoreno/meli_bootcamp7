@@ -1,6 +1,7 @@
 package com.example.tucasita.service;
 
 import com.example.tucasita.exception.InvalidPropertyException;
+import com.example.tucasita.model.EnvironmentDTO;
 import com.example.tucasita.model.PropertyDTO;
 import com.example.tucasita.model.ResponseDTO;
 import com.example.tucasita.repository.DistrictDAO;
@@ -34,6 +35,23 @@ public class PropertyServiceImple implements PropertyService{
         } else {
             throw new InvalidPropertyException(property.getDistrictName());
         }
+    }
+
+    @Override
+    public ResponseDTO calculateTotalSquareMeters(int idProperty) {
+        PropertyDTO property = propertyDAO.findById(idProperty);
+        Double totalSquareMeters = 0.00;
+
+        for (int i = 0; i < property.getEnvironments().size(); i++) {
+            EnvironmentDTO environment = property.getEnvironments().get(i);
+
+            Double environmentSquareMeters = environment.getEnvironmentLength() * environment.getEvironmentWidth();
+            totalSquareMeters = totalSquareMeters + environmentSquareMeters;
+        }
+
+        ResponseDTO response = new ResponseDTO(200, "La propiedad con ID " + idProperty + " tiene un total de " + totalSquareMeters + " metros cuadrados.");
+
+        return response;
     }
 
     @Override

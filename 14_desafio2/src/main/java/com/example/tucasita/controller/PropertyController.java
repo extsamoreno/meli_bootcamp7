@@ -6,10 +6,7 @@ import com.example.tucasita.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -38,4 +35,8 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.addOneProperty(property), HttpStatus.CREATED);
     }
 
+    @GetMapping("/calculateTotalSquareMeters")
+    public ResponseEntity<ResponseDTO> calculateTotalSquareMeters (@RequestParam int idProperty) {
+        return new ResponseEntity<>(propertyService.calculateTotalSquareMeters(idProperty), HttpStatus.OK);
+    }
 }

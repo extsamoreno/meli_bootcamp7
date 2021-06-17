@@ -21,5 +21,6 @@ public class PropertyDTO {
     @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")
     private String districtName;
 
+    @NotEmpty(message = "La lista de ambientes no puede estar vacía.")
     private List<@Valid EnvironmentDTO> environments;
 }
