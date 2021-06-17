@@ -8,7 +8,7 @@ import com.desafio2.testing.Dto.PropiedadValorDTO;
 import com.desafio2.testing.Exception.PropiedadInexistenteException;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
-import com.desafio2.testing.Repository.IMiCasitaRespositoryInit;
+import com.desafio2.testing.Repository.IUtilDB;
 import com.desafio2.testing.Service.IPropiedadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,8 @@ import javax.validation.Valid;
 
 public class MiCasitaController {
 
-    @Autowired
-    IMiCasitaRespositoryInit iMiCasitaRespositoryInit;
+    @Autowired  //ver si se puede sacar este autowired
+    IUtilDB IUtilDB; //crear clase utilitaria que la pueda llamar de cualquier lado static
 
     @Autowired
     IPropiedadService iPropiedadService;
@@ -31,7 +31,7 @@ public class MiCasitaController {
     @GetMapping("/crearDB")
     @Valid
     public void crearDB(){
-    iMiCasitaRespositoryInit.crearDataBase();
+    IUtilDB.crearDataBase();
 
     }
 

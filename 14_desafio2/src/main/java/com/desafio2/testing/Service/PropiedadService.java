@@ -32,6 +32,9 @@ public class PropiedadService implements IPropiedadService {
         double m2=0;
 
         PropiedadModel propiedad = iPropiedadRepository.getPropiedadByName(nombre);
+       if (propiedad == null) {
+           throw new PropiedadInexistenteException(nombre);
+       }
         m2= calcularM2Propiedad(propiedad);
 
         return PropiedadMapper.toPropiedadM2DTO(propiedad,m2);

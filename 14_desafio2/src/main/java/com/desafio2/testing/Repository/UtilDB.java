@@ -3,6 +3,7 @@ package com.desafio2.testing.Repository;
 
 import com.desafio2.testing.Model.AmbienteModel;
 import com.desafio2.testing.Model.BarrioModel;
+import com.desafio2.testing.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 
 @Repository
-public class MiCasitaRepositoryInit implements IMiCasitaRespositoryInit{
+public class UtilDB implements IUtilDB {
 
     @Autowired
     IAmbienteRepository iAmbienteRepository;
@@ -31,7 +32,7 @@ public class MiCasitaRepositoryInit implements IMiCasitaRespositoryInit{
          BarrioModel b2= iBarrioRepository.altaBarrio("Belgrano",3000.0);
          BarrioModel b3= iBarrioRepository.altaBarrio("Florida",2500.0);
          BarrioModel b4= iBarrioRepository.altaBarrio("Nuñez",3200.0);
-     System.out.println("Se crearon los barrios");
+         System.out.println("Se crearon los barrios");
 
 
         AmbienteModel c1= new AmbienteModel("Comedor",5.0, 3.4);
@@ -62,6 +63,7 @@ public class MiCasitaRepositoryInit implements IMiCasitaRespositoryInit{
         iPropiedadRepository.altaPropiedad("Cabildo 400",b1,ambientes4,4);
 
         System.out.println("Se crearon propiedades");
+
 
     }
 

@@ -24,15 +24,13 @@ public class PropiedadRepository implements IPropiedadRepository{
 
 
     @Override
-    public PropiedadModel getPropiedadByName(String name) throws PropiedadInexistenteException {
+    public PropiedadModel getPropiedadByName(String name) {
 
         for (PropiedadModel p : propiedadesDataBase) {
             if (p.getProp_name().equals(name)) {
                 return p;
             }
         }
-        throw new PropiedadInexistenteException(name);
-
-
+        return null;
     }
 }
