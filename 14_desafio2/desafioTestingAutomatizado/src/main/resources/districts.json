@@ -1,0 +1,30 @@
+[
+  {
+    "district_name": "Whatcom",
+    "district_price": 1200.0
+  },
+  {
+    "district_name": "Skagit",
+    "district_price": 990.0
+  },
+  {
+    "district_name": "Snohomish",
+    "district_price": 2300.0
+  },
+  {
+    "district_name": "King",
+    "district_price": 3100.0
+  },
+  {
+    "district_name": "San Juan Islands",
+    "district_price": 2340.0
+  },
+  {
+    "district_name": "Pierce",
+    "district_price": 1800.0
+  },
+  {
+    "district_name": "Mason",
+    "district_price": 870.0
+  }
+]
