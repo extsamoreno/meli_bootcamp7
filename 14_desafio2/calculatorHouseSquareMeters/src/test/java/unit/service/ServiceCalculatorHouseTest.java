@@ -5,10 +5,7 @@ import com.meli.calculatorHouseSquareMeters.model.dao.model.House;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.Room;
 import com.meli.calculatorHouseSquareMeters.model.dao.repository.RepositoryDistrict;
 import com.meli.calculatorHouseSquareMeters.model.dao.repository.RepositoryHouse;
-import com.meli.calculatorHouseSquareMeters.model.dto.HouseBiggestRoomResponseDTO;
-import com.meli.calculatorHouseSquareMeters.model.dto.HouseRequestDTO;
-import com.meli.calculatorHouseSquareMeters.model.dto.HouseRoomListResponseDTO;
-import com.meli.calculatorHouseSquareMeters.model.dto.HouseTotalQuantityResponseDTO;
+import com.meli.calculatorHouseSquareMeters.model.dto.*;
 import com.meli.calculatorHouseSquareMeters.model.exception.*;
 import com.meli.calculatorHouseSquareMeters.model.mapper.HouseMapper;
 import com.meli.calculatorHouseSquareMeters.model.service.ServiceCalculatorHouseImpl;
@@ -306,9 +303,9 @@ public class ServiceCalculatorHouseTest {
     public void getHouseRoomListResponseDTOCorrectly() throws HouseNotFoundException {
         // Arrange
         HouseRoomListResponseDTO expected = new HouseRoomListResponseDTO("Casa1",
-                new ArrayList<Room>(Arrays.asList(new Room("Habitación 1", 10, 10),
-                        new Room("Habitación 2", 9, 9),
-                        new Room("Habitación 3", 8, 8))));
+                new ArrayList<RoomResponseDTO>(Arrays.asList(new RoomResponseDTO("Habitación 1", 100),
+                        new RoomResponseDTO("Habitación 2", 81),
+                        new RoomResponseDTO("Habitación 3", 64))));
 
         House house = new House("Casa1",
                 new District("Barrio Bajo", 800),

@@ -12,5 +12,5 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class HouseRoomListResponseDTO {
     private String houseName;
-    private ArrayList<Room> rooms;
+    private ArrayList<RoomResponseDTO> rooms;
 }

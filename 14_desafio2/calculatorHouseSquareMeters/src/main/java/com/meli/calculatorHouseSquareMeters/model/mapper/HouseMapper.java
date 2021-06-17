@@ -3,10 +3,7 @@ package com.meli.calculatorHouseSquareMeters.model.mapper;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.District;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.House;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.Room;
-import com.meli.calculatorHouseSquareMeters.model.dto.HouseBiggestRoomResponseDTO;
-import com.meli.calculatorHouseSquareMeters.model.dto.HouseRequestDTO;
-import com.meli.calculatorHouseSquareMeters.model.dto.HouseRoomListResponseDTO;
-import com.meli.calculatorHouseSquareMeters.model.dto.HouseTotalQuantityResponseDTO;
+import com.meli.calculatorHouseSquareMeters.model.dto.*;
 
 import java.util.ArrayList;
 
@@ -56,6 +53,13 @@ public class HouseMapper {
     }
 
     public static HouseRoomListResponseDTO toHouseRoomListResponseDTO(House house) {
-        return new HouseRoomListResponseDTO(house.getHouseName(), house.getRooms());
+        HouseRoomListResponseDTO houseRoomListResponseDTO = new HouseRoomListResponseDTO();
+        houseRoomListResponseDTO.setHouseName(house.getHouseName());
+        ArrayList<RoomResponseDTO> roomResponseDTOS= new ArrayList<>();
+        for (Room room: house.getRooms()) {
+            roomResponseDTOS.add(RoomMapper.toRoomResponseDTO(room));
+        }
+        houseRoomListResponseDTO.setRooms(roomResponseDTOS);
+        return houseRoomListResponseDTO;
     }
 }
