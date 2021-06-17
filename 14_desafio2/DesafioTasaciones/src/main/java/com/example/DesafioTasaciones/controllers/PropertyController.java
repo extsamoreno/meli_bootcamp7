@@ -18,9 +18,9 @@ public class PropertyController {
     IHouseService iHouseService;
 
     @PostMapping("/newProperty")
-    public ResponseEntity<?> registerNewProperty(@RequestBody @Valid HouseDTO propertyDTO) {
-        iHouseService.createProperty(propertyDTO);
-        return ResponseEntity.ok("Added correctly");
+    public ResponseEntity<?> registerNewProperty(@RequestBody @Valid HouseDTO houseDTO) {
+        iHouseService.createProperty(houseDTO);
+        return ResponseEntity.ok("House Added correctly");
     }
 
     @GetMapping("/getAllProperties")

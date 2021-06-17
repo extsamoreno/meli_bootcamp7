@@ -13,6 +13,7 @@ public interface IHouseService {
     ResponseDTO propertyValue(Integer propertyId);
     ResponseDTO largestEnvironment(Integer propertyId);
     ResponseDTO roomsSquareMeters(Integer propertyId);
-    void createProperty(HouseDTO property);
+    void createProperty(HouseDTO house);
     List<HouseDTO> getAllProperties();
+    RoomDTO findBiggestEnvironment(List<Room> rooms);
 }

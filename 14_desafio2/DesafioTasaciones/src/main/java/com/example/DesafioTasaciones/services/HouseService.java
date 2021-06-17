@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.ModelMapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +67,28 @@ public class HouseService implements IHouseService {
         return response;
     }
 
-    private RoomDTO findBiggestEnvironment(List<Room> rooms) {
-        Optional<Room> largestRoom = rooms.stream().max((room1, room2) -> (int) (calculateSquareMeters(room1) - (calculateSquareMeters(room2))));
-        return largestRoom.map(room -> mapper.map(rooms, RoomDTO.class)).orElse(null);
+    @Override
+    public RoomDTO findBiggestEnvironment(List<Room> rooms) {
+        Room room = null;
+        if (rooms.size() > 0) {
+
+            if (rooms.size() == 1) {
+                room = rooms.get(1);
+            } else {
+                for (int i = 0; i < rooms.size(); i++) {
+                    if (i == 0) {
+                        room = rooms.get(0);
+                    } else {
+                        if (room.getWidth() * room.getLength() < rooms.get(i).getLength() * rooms.get(i).getWidth()) {
+                            room = rooms.get(i);
+                        }
+                    }
+                }
+            }
+        }
+        mapper = new ModelMapper();
+
+        return mapper.map(room, RoomDTO.class);
     }
 
     @Override
@@ -82,7 +102,7 @@ public class HouseService implements IHouseService {
 
     private List<RoomDTO> getEnvironmentsDTO(List<Room> rooms) {
         List<RoomDTO> roomsDTOS = new ArrayList<>();
-        for(Room room : rooms) {
+        for (Room room : rooms) {
             roomsDTOS.add(createEnvironmentDTO(room));
         }
         return roomsDTOS;
@@ -94,15 +114,17 @@ public class HouseService implements IHouseService {
         roomsDTOS.setSquareMeters(calculateSquareMeters(room));
         return roomsDTOS;
     }
+
     @Override
     public void createProperty(HouseDTO house) {
         District district = iHouseRepository.findDistrictByName(house.getDistrictName());
 
-        if(district == null) {
+        if (district == null) {
             throw new DistrictNotFound(house.getDistrictName());
         }
 
-        House newHouse = mapper.map(house,House.class);
+        mapper = new ModelMapper();
+        House newHouse = mapper.map(house, House.class);
         newHouse.setDistrict(district);
         iHouseRepository.saveProperty(newHouse);
     }
@@ -112,8 +134,8 @@ public class HouseService implements IHouseService {
         List<House> house = iHouseRepository.getAllProperties();
         List<HouseDTO> propertyDTOS = new ArrayList<>();
 
-        for(House h : house) {
-            propertyDTOS.add(mapper.map(h,HouseDTO.class));
+        for (House h : house) {
+            propertyDTOS.add(mapper.map(h, HouseDTO.class));
         }
         return propertyDTOS;
     }

@@ -1,0 +1,180 @@
+{
+	"info": {
+		"_postman_id": "17be9570-375a-4096-942e-7b7f00db88f3",
+		"name": "DesafioConTesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Property 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Rancho 2\",\n    \"districtName\": \"Springfield\",\n    \"rooms\": [\n        {\n            \"name\": \"Living\",\n            \"width\": 14.0,\n            \"length\": 6.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 3.0,\n            \"length\": 6.0\n        },\n        {\n            \"name\": \"Lavadero\",\n            \"width\": 9.0,\n            \"length\": 4.5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8096/properties/newProperty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8096",
+					"path": [
+						"properties",
+						"newProperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Property 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Rancho 2\",\n    \"districtName\": \"Capital\",\n    \"rooms\": [\n        {\n            \"name\": \"Living\",\n            \"width\": 15.0,\n            \"length\": 8.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 3.0,\n            \"length\": 6.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 10.0,\n            \"length\": 4.5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8096/properties/newProperty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8096",
+					"path": [
+						"properties",
+						"newProperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Property 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Campanita\",\n    \"districtName\": \"Chacras de la villa\",\n    \"rooms\": [\n        {\n            \"name\": \"Cocina\",\n            \"width\": 20.0,\n            \"length\": 8.0\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20.0,\n            \"length\": 6.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 10.0,\n            \"length\": 4.5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8096/properties/newProperty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8096",
+					"path": [
+						"properties",
+						"newProperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Us 0001",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8096/house/propertyValue/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8096",
+					"path": [
+						"house",
+						"propertyValue",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Us 0002",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8096/house/propertyValue/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8096",
+					"path": [
+						"house",
+						"propertyValue",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Us 0004",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8096/house/roomsSquareMeters/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8096",
+					"path": [
+						"house",
+						"roomsSquareMeters",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Us 0003",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8096/house/largestEnvironment/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8096",
+					"path": [
+						"house",
+						"largestEnvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

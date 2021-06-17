@@ -28,4 +28,12 @@ public class HouseDTO {
     private String name;
     private String districtName;
     private List<@Valid RoomDTO> rooms;
+
+    public HouseDTO(int id, String name, String districtName){
+        this.id= id;
+        this.name = name;
+        this.districtName= districtName;
+    }
+
+
 }
