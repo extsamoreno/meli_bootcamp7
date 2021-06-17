@@ -1,5 +1,6 @@
 package com.meli.desafio2.repository;
 
+import com.meli.desafio2.exception.DistrictIdNotFoundException;
 import com.meli.desafio2.model.District;
 import com.meli.desafio2.model.Property;
 import org.springframework.stereotype.Repository;
@@ -21,8 +22,14 @@ public class DistrictRepository implements IDistrictRepository {
 
     // Find a district by ID
     @Override
-    public District getDistrictbyId(Integer distId) {
-        return districts.stream().filter(i -> i.getId().equals(distId)).findFirst().get();
+    public District getDistrictbyId(Integer distId) throws DistrictIdNotFoundException {
+
+        District dist = districts.stream().filter(i -> i.getId().equals(distId)).findFirst().orElse(null);
+
+        if(dist == null){
+            throw new DistrictIdNotFoundException(distId);
+        }
+        return dist;
     }
 
     // Load default districts

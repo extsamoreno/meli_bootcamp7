@@ -7,13 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvironmentDTO {
+public class ResponseBigEnvironmentDTO {
 
     private String name;
-
-    private Double width;
-
-    private Double length;
-
-    private Double envM2;
+    private Double widthEnv;
+    private Double lengthEnv;
 }

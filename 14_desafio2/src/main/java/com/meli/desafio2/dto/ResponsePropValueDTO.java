@@ -7,13 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvironmentDTO {
+public class ResponsePropValueDTO {
 
+    private Integer id;
     private String name;
-
-    private Double width;
-
-    private Double length;
-
-    private Double envM2;
+    private Double propValue;
 }

@@ -55,7 +55,7 @@ public class PropertyRepository implements IPropertyRepository {
         prop2.setName("House 2");
         List<Environment> environments2 = new ArrayList<>();
 
-        prop2.setDistrictId(4);
+        prop2.setDistrictId(3);
         environments2.add(new Environment("Room", 10.0, 10.0));
         environments2.add(new Environment("Garden", 15.0, 15.0));
         prop2.setEnvironments(environments2);

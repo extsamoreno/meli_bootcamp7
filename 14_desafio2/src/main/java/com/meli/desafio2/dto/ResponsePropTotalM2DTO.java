@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponsePropTotalM2 {
+public class ResponsePropTotalM2DTO {
 
     private Integer id;
     private String name;

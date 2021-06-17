@@ -13,7 +13,7 @@ public class PropertyMapper {
     }
 
     // PropertyDTO to Property
-    private Property propToDTO(PropertyDTO propDTO){
+    private Property toProp(PropertyDTO propDTO){
         return mapper.map(propDTO, Property.class);
     }
 
