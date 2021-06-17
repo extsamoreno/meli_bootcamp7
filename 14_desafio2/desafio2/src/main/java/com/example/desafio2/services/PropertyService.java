@@ -80,11 +80,11 @@ public class PropertyService implements IPropertyService {
         return response;
     }
 
-    public double calculateEnvironmentSquareMeters(EnvironmentDTO environment) {
+    private double calculateEnvironmentSquareMeters(EnvironmentDTO environment) {
         return environment.getWidth() * environment.getLength();
     }
 
-    public double calculatePropertySquareMeters(PropertyDTO property) {
+    private double calculatePropertySquareMeters(PropertyDTO property) {
         double totalSquareMeters = 0;
         for (EnvironmentDTO env : property.getEnvironments()) {
             totalSquareMeters += calculateEnvironmentSquareMeters(env);

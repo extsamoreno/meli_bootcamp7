@@ -40,7 +40,7 @@ public class PropertyController {
      *     "environments": [
      *       {
      *         "name": "Habitación 1",
-     *         "width": 30.0,
+     *         "width": 23.0,
      *         "length": 10.0
      *       },
      *       {
