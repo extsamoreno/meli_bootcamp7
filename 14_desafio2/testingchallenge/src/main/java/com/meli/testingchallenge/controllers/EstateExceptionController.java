@@ -1,5 +1,8 @@
 package com.meli.testingchallenge.controllers;
 
+import com.meli.testingchallenge.dtos.ErrorDTO;
+import com.meli.testingchallenge.exceptions.EstateException;
+import com.meli.testingchallenge.models.Estate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,6 +15,11 @@ import java.util.Map;
 
 @ControllerAdvice
 public class EstateExceptionController {
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(EstateException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {

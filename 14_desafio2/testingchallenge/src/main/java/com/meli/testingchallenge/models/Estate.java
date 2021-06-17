@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +13,6 @@ public class Estate {
 
     private String prop_name;
     private String district_name;
-    private double district_price;
     private List<Environment> environments;
 
 }

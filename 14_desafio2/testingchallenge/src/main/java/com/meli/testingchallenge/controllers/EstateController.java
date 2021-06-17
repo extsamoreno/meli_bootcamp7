@@ -1,7 +1,10 @@
 package com.meli.testingchallenge.controllers;
 
+import com.meli.testingchallenge.dtos.DistrictDTO;
 import com.meli.testingchallenge.dtos.EstateAssessmentDTO;
 import com.meli.testingchallenge.dtos.EstateDTO;
+import com.meli.testingchallenge.exceptions.DistrictNotFoundException;
+import com.meli.testingchallenge.exceptions.ExistentDistrictNameException;
 import com.meli.testingchallenge.services.IEstateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +24,13 @@ public class EstateController {
     IEstateService estateService;
 
     @PostMapping("/assessment")
-    public ResponseEntity<EstateAssessmentDTO> getAssessment(@Valid @RequestBody EstateDTO house){
+    public ResponseEntity<EstateAssessmentDTO> getAssessment(@Valid @RequestBody EstateDTO house) throws DistrictNotFoundException {
         return new ResponseEntity<>(estateService.getAssessment(house), HttpStatus.OK);
+    }
+
+    @PostMapping("/new/district")
+    public ResponseEntity<String> addDistrict(@Valid @RequestBody DistrictDTO district) throws ExistentDistrictNameException {
+        return new ResponseEntity<>(estateService.addDistrict(district), HttpStatus.OK);
     }
 
 }

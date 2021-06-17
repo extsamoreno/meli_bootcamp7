@@ -1,8 +1,11 @@
 package com.meli.testingchallenge.services;
 
+import com.meli.testingchallenge.dtos.DistrictDTO;
 import com.meli.testingchallenge.dtos.EnvironmentDTORes;
 import com.meli.testingchallenge.dtos.EstateAssessmentDTO;
 import com.meli.testingchallenge.dtos.EstateDTO;
+import com.meli.testingchallenge.exceptions.DistrictNotFoundException;
+import com.meli.testingchallenge.exceptions.ExistentDistrictNameException;
 import com.meli.testingchallenge.models.District;
 import com.meli.testingchallenge.models.Environment;
 import com.meli.testingchallenge.models.Estate;
@@ -26,18 +29,28 @@ public class EstateService implements IEstateService{
     private IDistrictRepository respository;
 
     @Override
-    public EstateAssessmentDTO getAssessment(EstateDTO estateDto) {
+    public EstateAssessmentDTO getAssessment(EstateDTO estateDto) throws DistrictNotFoundException {
 
         Estate estate = mapper.map(estateDto, Estate.class);
-    System.out.println("estate.getDistrict_name() = " + estate.getDistrict_name());
 
         District district = respository.findDistrictByName(estate.getDistrict_name());
+
+        if (district == null){
+            throw new DistrictNotFoundException(estate.getDistrict_name());
+        }
 
         return new EstateAssessmentDTO(estateDto.getProp_name(),
                 calculateEstateSurface(estate.getEnvironments()),
                 calculatePrice(estate, district.getPrice()),
                 findBiggerEnvironment(estate.getEnvironments()),
                 generateEnvironmentsCalculations(estate.getEnvironments()));
+    }
+
+    @Override
+    public String addDistrict(DistrictDTO districtDto) throws ExistentDistrictNameException {
+        District district = mapper.map(districtDto, District.class);
+        respository.addDistrict(district);
+        return "District was added Successfully";
     }
 
 

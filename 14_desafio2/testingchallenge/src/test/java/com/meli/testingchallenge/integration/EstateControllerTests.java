@@ -41,8 +41,8 @@ class EstateControllerTests {
         wrongEnvironments = new ArrayList<>();
         wrongEnvironments.add(new EnvironmentDTO("bedroom 999", 50.0,50.0));
 
-        rightHouse = new EstateDTO("House1", "Manhattan", 100.0, rightEnvironments);
-        wrongHouse = new EstateDTO("house1", "manhattan", 100.0, wrongEnvironments);
+        rightHouse = new EstateDTO("House1", "Manhattan",  rightEnvironments);
+        wrongHouse = new EstateDTO("house1", "manhattan",  wrongEnvironments);
     }
 
     @Test

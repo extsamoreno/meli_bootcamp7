@@ -2,7 +2,11 @@ package com.meli.testingchallenge.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.meli.testingchallenge.exceptions.ExistentDistrictNameException;
 import com.meli.testingchallenge.models.District;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -12,6 +16,9 @@ import java.io.IOException;
 import java.util.List;
 
 @Repository
+@Setter
+@Getter
+@AllArgsConstructor
 public class DistrictRepository implements IDistrictRepository{
 
     private List<District> districts;
@@ -26,6 +33,19 @@ public class DistrictRepository implements IDistrictRepository{
                 .filter(d->d.getName().equals(name))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public void addDistrict(District district) throws ExistentDistrictNameException {
+
+        District existent = findDistrictByName(district.getName());
+
+        if (existent == null){
+            districts.add(district);
+        }else{
+            throw new ExistentDistrictNameException(district.getName());
+        }
+
     }
 
     private List<District> loadDistrictsDB() {
