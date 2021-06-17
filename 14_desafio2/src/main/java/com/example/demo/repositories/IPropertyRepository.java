@@ -10,8 +10,12 @@ import java.util.List;
 public interface IPropertyRepository {
 
     public List<Property> loadProperties();
+
     public void saveDistrict();
+
     public Property getPropertyById(int id);
+
+    public void addProperty(Property property);
 
 
 }

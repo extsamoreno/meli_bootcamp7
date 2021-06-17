@@ -10,4 +10,5 @@ public interface IDistrictRepository {
     public List<District> loadDistrict();
     public void saveDistrict();
 
+    District findDistrictByName(String districtName);
 }

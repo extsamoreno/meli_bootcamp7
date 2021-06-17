@@ -1,9 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.DTO.ResponseBiggerEnvironmentDTO;
-import com.example.demo.DTO.ResponseCalculateTotalMetersDTO;
-import com.example.demo.DTO.ResponsePriceDTO;
-import com.example.demo.DTO.ResponseTotalMetersByEnvironmentDTO;
+import com.example.demo.DTO.*;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
@@ -14,4 +11,5 @@ public interface IPropertyService {
     public ResponseBiggerEnvironmentDTO getBiggerEnvironment(int propertyId) throws Exception;
     public ResponseTotalMetersByEnvironmentDTO getTotalMetersByEnvironment(int propertyId) throws FileNotFoundException;
     public ResponsePriceDTO getPrice(int propertyId) throws Exception;
+    public void addProperty(PropertyDTO propertyDTO) throws Exception;
 }

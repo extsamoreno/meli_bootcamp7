@@ -1,24 +1,45 @@
 [
   {
     "id": 1,
-    "name": "house1",
+    "name": "House1",
     "district": {
-      "id": 1,
       "name": "barrio 1",
-      "price": 7
+      "price": 7.0
     },
     "environments": [
       {
         "id": 1,
         "name": "room1",
-        "width": 3,
-        "length": 4
+        "width": 3.0,
+        "length": 4.0
       },
       {
         "id": 2,
         "name": "room2",
-        "width": 3,
-        "length": 3
+        "width": 3.0,
+        "length": 3.0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "House2",
+    "district": {
+      "name": "barrio 4",
+      "price": 5.0
+    },
+    "environments": [
+      {
+        "id": 1,
+        "name": "room 1",
+        "width": 5.0,
+        "length": 5.0
+      },
+      {
+        "id": 2,
+        "name": "room 2",
+        "width": 6.0,
+        "length": 6.0
       }
     ]
   }

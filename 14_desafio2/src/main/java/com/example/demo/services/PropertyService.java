@@ -1,8 +1,11 @@
 package com.example.demo.services;
 
 import com.example.demo.DTO.*;
+import com.example.demo.Mapper;
+import com.example.demo.entities.District;
 import com.example.demo.entities.Environment;
 import com.example.demo.entities.Property;
+import com.example.demo.repositories.IDistrictRepository;
 import com.example.demo.repositories.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +19,15 @@ import java.util.List;
 public class PropertyService implements IPropertyService {
 
     @Autowired
-    IPropertyRepository propertyRepository;
+    IPropertyRepository iPropertyRepository;
+
+    @Autowired
+    IDistrictRepository iDistrictRepository;
 
     @Override
     public ResponseCalculateTotalMetersDTO getResponseCalculateTotalMetersDTO(int propertyId) throws Exception {
         ResponseCalculateTotalMetersDTO response = new ResponseCalculateTotalMetersDTO();
-        Property property = propertyRepository.getPropertyById(propertyId);
+        Property property = iPropertyRepository.getPropertyById(propertyId);
 
         if (property == null) {
             throw new FileNotFoundException("Property not exists");
@@ -39,9 +45,10 @@ public class PropertyService implements IPropertyService {
         }
         return total;
     }
+
     @Override
     public ResponseBiggerEnvironmentDTO getBiggerEnvironment(int propertyId) throws Exception {
-        Property property = propertyRepository.getPropertyById(propertyId);
+        Property property = iPropertyRepository.getPropertyById(propertyId);
 
         if (property == null) {
             throw new FileNotFoundException("Property not exists");
@@ -69,7 +76,7 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public ResponseTotalMetersByEnvironmentDTO getTotalMetersByEnvironment(int propertyId) throws FileNotFoundException {
-        Property property = propertyRepository.getPropertyById(propertyId);
+        Property property = iPropertyRepository.getPropertyById(propertyId);
 
         if (property == null) {
             throw new FileNotFoundException("Property not exists");
@@ -81,7 +88,7 @@ public class PropertyService implements IPropertyService {
         List<EnvironmentDTO> list = new ArrayList<>();
         for (Environment environmentEntry : property.getEnvironments()) {
             EnvironmentDTO environment = new EnvironmentDTO();
-            environment.setEnvironmentId(environmentEntry.getId());
+            environment.setId(environmentEntry.getId());
             environment.setName(environmentEntry.getName());
             environment.setTotalMeters(environmentEntry.getLength() * environmentEntry.getWidth());
             list.add(environment);
@@ -96,7 +103,7 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public ResponsePriceDTO getPrice(int propertyId) throws Exception {
-        Property property = propertyRepository.getPropertyById(propertyId);
+        Property property = iPropertyRepository.getPropertyById(propertyId);
 
         if (property == null) {
             throw new FileNotFoundException("Property not exists");
@@ -114,5 +121,20 @@ public class PropertyService implements IPropertyService {
         response.setPrice(totalPrice);
 
         return response;
+    }
+
+    @Override
+    public void addProperty(PropertyDTO propertyDTO) throws Exception {
+        District district = iDistrictRepository.findDistrictByName(propertyDTO.getDistrictName());
+
+        if (district == null) {
+            throw new FileNotFoundException("District not exists");
+        }
+        Property property = new Property();
+        property.setId(propertyDTO.getId());
+        property.setName(propertyDTO.getName());
+        property.setDistrict(district);
+        property.setEnvironments(Mapper.toEnvironment(propertyDTO.getEnvironments()));
+        iPropertyRepository.addProperty(property);
     }
 }

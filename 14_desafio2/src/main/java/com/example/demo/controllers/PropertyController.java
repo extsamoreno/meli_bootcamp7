@@ -1,9 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.DTO.ResponseBiggerEnvironmentDTO;
-import com.example.demo.DTO.ResponseCalculateTotalMetersDTO;
-import com.example.demo.DTO.ResponsePriceDTO;
-import com.example.demo.DTO.ResponseTotalMetersByEnvironmentDTO;
+import com.example.demo.DTO.*;
 import com.example.demo.entities.Property;
 import com.example.demo.repositories.IPropertyRepository;
 import com.example.demo.services.IPropertyService;
@@ -11,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.source.IterableConfigurationPropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("property")
@@ -49,4 +43,9 @@ public class PropertyController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PostMapping("/addProperty")
+    public ResponseEntity addProperty(@RequestBody PropertyDTO property) throws Exception {
+        propertyService.addProperty(property);
+        return ResponseEntity.ok().build();
+    }
 }

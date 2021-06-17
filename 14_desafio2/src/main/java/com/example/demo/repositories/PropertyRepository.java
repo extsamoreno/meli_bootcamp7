@@ -67,4 +67,9 @@ public class PropertyRepository implements IPropertyRepository {
         }
         return result;
     }
+
+    public void addProperty(Property property){
+        properties.add(property);
+        saveDistrict();
+    }
 }

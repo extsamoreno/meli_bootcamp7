@@ -1,8 +1,11 @@
 [
   {
-    "id": 1,
     "name": "barrio 1",
     "price": 7
+  },
+  {
+    "name": "barrio 4",
+    "price": 5
   }
 ]
 

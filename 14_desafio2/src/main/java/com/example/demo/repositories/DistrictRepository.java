@@ -2,6 +2,7 @@ package com.example.demo.repositories;
 
 
 import com.example.demo.entities.District;
+import com.example.demo.entities.Property;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -54,5 +55,15 @@ public class DistrictRepository  implements IDistrictRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public District findDistrictByName(String districtName){
+        District result = null;
+        if (this.districts != null) {
+            result = this.districts.stream()
+                    .filter(district -> district.getName().equals(districtName))
+                    .findAny().orElse(null);
+        }
+        return result;
     }
 }
