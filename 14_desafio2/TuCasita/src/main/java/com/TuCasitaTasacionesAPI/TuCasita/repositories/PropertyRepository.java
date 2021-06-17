@@ -59,7 +59,7 @@ public class PropertyRepository implements IPropertyRepository{
 
     private void loadData() {
         Property prop1 = new Property(1, "Av. Marquez 123", 1, new ArrayList<>());
-        Environment e1_prop1 = new Environment("Cocina", 3.0, 4.0);
+        Environment e1_prop1 = new Environment("Cocina", 7.0, 4.0);
         Environment e2_prop1 = new Environment("Living", 4.0, 4.0);
         Environment e3_prop1 = new Environment("Comedor", 5.0, 4.0);
         prop1.getEnvironments().add(e1_prop1);

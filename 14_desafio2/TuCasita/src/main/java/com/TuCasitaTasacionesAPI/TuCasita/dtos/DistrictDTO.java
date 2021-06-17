@@ -1,10 +1,12 @@
 package com.TuCasitaTasacionesAPI.TuCasita.dtos;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DistrictDTO {
 
     @NotEmpty(message = "El barrio no puede estar vacío.")

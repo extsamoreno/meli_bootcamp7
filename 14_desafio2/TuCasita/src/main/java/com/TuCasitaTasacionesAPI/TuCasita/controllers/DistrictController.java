@@ -18,18 +18,15 @@ public class DistrictController {
     IDistrictService iDistrictService;
 
     @PostMapping("/create")
-    public ResponseEntity create(@Valid @RequestBody DistrictDTO districtDTO) throws DistrictAlreadyExistsException {
-        iDistrictService.create(districtDTO);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<Integer> create(@Valid @RequestBody DistrictDTO districtDTO) throws DistrictAlreadyExistsException {
+        return new ResponseEntity<>(iDistrictService.create(districtDTO), HttpStatus.CREATED);
     }
 
 
-/*
+    /* solo prueba
     @GetMapping("/getbyid/{id}")
     public ResponseEntity<District> getById(@PathVariable() int id) throws DistrictNotFoundException {
         return new ResponseEntity(iDistrictService.getById(id), HttpStatus.OK);
-    }
-
- */
+    } */
 
 }
