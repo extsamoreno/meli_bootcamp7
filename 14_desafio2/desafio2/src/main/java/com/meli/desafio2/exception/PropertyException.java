@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class PropertyException extends Exception{
+public class PropertyException extends RuntimeException{
     ErrorDTO error;
     HttpStatus status;
 

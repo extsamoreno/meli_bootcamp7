@@ -30,12 +30,12 @@ public class PropertyService implements IPropertyService{
     }
 
     @Override
-    public PropertyFullDTO getProperty(int id) throws PropertyNotFoundException {
+    public PropertyFullDTO getProperty(int id) {
         return propertyRepository.getFullById(id);
     }
 
     @Override
-    public PropertySquareDTO getSquareMeters(int id) throws PropertyNotFoundException {
+    public PropertySquareDTO getSquareMeters(int id) {
         PropertyFullDTO property=propertyRepository.getFullById(id);
         Double squareMeters=0.0;
 
@@ -46,7 +46,7 @@ public class PropertyService implements IPropertyService{
     }
 
     @Override
-    public PropertyValueDTO getValue(int id) throws PropertyNotFoundException {
+    public PropertyValueDTO getValue(int id) {
         PropertyFullDTO property = propertyRepository.getFullById(id);
         double value=0;
         for (EnviromentSquareDTO enviromentSquare : calculateSquare(property.getEnviroments())) {
@@ -56,7 +56,7 @@ public class PropertyService implements IPropertyService{
     }
 
     @Override
-    public PropertyBiggestEnviromentDTO getBiggestEnviroment(int id) throws PropertyNotFoundException {
+    public PropertyBiggestEnviromentDTO getBiggestEnviroment(int id) {
         PropertyDTO property = propertyRepository.getById(id);
         EnviromentSquareDTO biggest=null;
         for (EnviromentSquareDTO enviromentSquare : calculateSquare(property.getEnviroments())) {
@@ -68,7 +68,7 @@ public class PropertyService implements IPropertyService{
     }
 
     @Override
-    public PropertyAllSquareDTO getEnviromentsSquare(int id) throws PropertyNotFoundException {
+    public PropertyAllSquareDTO getEnviromentsSquare(int id) {
         PropertyDTO property = propertyRepository.getById(id);
         ArrayList<EnviromentSquareDTO> enviromentSquareList = calculateSquare(property.getEnviroments());
         return PropertyMapper.DTOToAllSquareDTO(property,enviromentSquareList);

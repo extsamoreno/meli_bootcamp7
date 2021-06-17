@@ -7,13 +7,13 @@ public interface IPropertyService {
 
     int newProperty(PropertyInputDTO propertyInput);
 
-    PropertyFullDTO getProperty(int id) throws PropertyNotFoundException;
+    PropertyFullDTO getProperty(int id);
 
-    PropertySquareDTO getSquareMeters(int id) throws PropertyNotFoundException;
+    PropertySquareDTO getSquareMeters(int id);
 
-    PropertyValueDTO getValue(int id) throws PropertyNotFoundException;
+    PropertyValueDTO getValue(int id);
 
-    PropertyBiggestEnviromentDTO getBiggestEnviroment(int id) throws PropertyNotFoundException;
+    PropertyBiggestEnviromentDTO getBiggestEnviroment(int id);
 
-    PropertyAllSquareDTO getEnviromentsSquare(int id) throws PropertyNotFoundException;
+    PropertyAllSquareDTO getEnviromentsSquare(int id);
 }

@@ -19,6 +19,7 @@ public class PropertyAllSquareDTO {
     @Pattern(regexp = "^[A-Z].*", message = "El nombre de la propiedad debe comenzar con mayúscula.")
     @Size(max = 30,message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String prop_name;
+    @NotEmpty(message = "La propiedad debe contener hambientes")
     @Valid
     private ArrayList<EnviromentSquareDTO> enviroments;
 }

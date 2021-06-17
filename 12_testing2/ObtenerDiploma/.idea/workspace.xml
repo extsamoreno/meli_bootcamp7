@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d75b3f77-2b5a-4820-8c7f-fa11d911ca9a" name="Default Changelist" comment="Testing_1 - ObtenerDiploma + CRUD Alumnos" />
+    <list default="true" id="d75b3f77-2b5a-4820-8c7f-fa11d911ca9a" name="Default Changelist" comment="Testing_1 - ObtenerDiploma + CRUD Alumnos">
+      <change afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/test/java/com/meli/desafio2/Util.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/test/java/com/meli/desafio2/unit/propertyController/GetPropertyTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/test/java/com/meli/desafio2/unit/propertyController/NewPropertyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../meli_bootcamp7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/controller/PopertyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/controller/PropertyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/dto/PropertyAllSquareDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/dto/PropertyAllSquareDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/dto/PropertyBiggestEnviromentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/dto/PropertyBiggestEnviromentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/dto/PropertyInputDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/dto/PropertyInputDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/exception/PropertyException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/exception/PropertyException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/service/IPropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/service/IPropertyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/service/PropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../14_desafio2/desafio2/src/main/java/com/meli/desafio2/service/PropertyService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +93,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/meli/obtenerDiploma" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ObtenerDiplomaApplication">
+  <component name="RunManager" selected="JUnit.StudentControllerTest.registerStudentHappyPath">
     <configuration name="ObtenerDiplomaApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.meli.obtenerdiploma.ObtenerDiplomaApplication" />
       <module name="ObtenerDiploma" />
@@ -94,18 +107,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ObetenerDiplomaApplicationTests.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ObtenerDiploma" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.meli.obtenerdiploma.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.meli.obtenerdiploma" />
-      <option name="MAIN_CLASS_NAME" value="com.meli.obtenerdiploma.ObetenerDiplomaApplicationTests" />
-      <option name="METHOD_NAME" value="test" />
-      <option name="TEST_OBJECT" value="method" />
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -157,6 +165,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StudentControllerTest.registerStudentHappyPath" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="obtenerdiploma" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.meli.obtenerdiploma.unit.point5.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.meli.obtenerdiploma.unit.point5" />
+      <option name="MAIN_CLASS_NAME" value="com.meli.obtenerdiploma.unit.point5.StudentControllerTest" />
+      <option name="METHOD_NAME" value="registerStudentHappyPath" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ObtenerDiplomaApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="obtenerdiploma" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.meli.obtenerdiploma.ObtenerDiplomaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ObtenerDiplomaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="ObtenerDiploma" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.meli.obtenerdiploma.ObtenerDiplomaApplication" />
@@ -166,11 +197,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.StudentControllerTest.registerStudentHappyPath" />
         <item itemvalue="Application.ObtenerDiplomaApplication" />
         <item itemvalue="JUnit.ObtenerDiplomaControllerIntegrationTest.testObtenerDiplomaSinMaterias" />
         <item itemvalue="JUnit.ObtenerDiplomaControllerIntegrationTest" />
         <item itemvalue="JUnit.ObetenerDiplomaApplicationTests.testObtenerDiploma" />
-        <item itemvalue="JUnit.ObetenerDiplomaApplicationTests.test" />
       </list>
     </recent_temporary>
   </component>
@@ -183,6 +214,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619721005383</updated>
       <workItem from="1623770819098" duration="1002000" />
+      <workItem from="1623953547828" duration="1701000" />
     </task>
     <task id="LOCAL-00001" summary="Spring 2 - Practica TT - Obetener Diploma">
       <created>1619721212242</created>
