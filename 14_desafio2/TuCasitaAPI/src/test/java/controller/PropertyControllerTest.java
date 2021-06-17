@@ -21,15 +21,6 @@ public class PropertyControllerTest {
     @InjectMocks
     PropertyController propertyController;
 
-    @Test
-    public void correctTotalMetersOfAnProperty() throws PropertyNotFoundException {
-        // Arrange
-        String propertyName= "Propiedad prueba 1";
 
-        Mockito.when(iPropertyService.getTotalM2(propertyName)).thenReturn();
-        // Act
-        ResponseEntity<PropertyWithM2DTO> response= propertyController.getTotalM2(propertyName);
-        // Assert
-    }
 
 }
