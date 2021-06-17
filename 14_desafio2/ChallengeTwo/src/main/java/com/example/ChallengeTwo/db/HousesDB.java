@@ -56,14 +56,14 @@ public class HousesDB {
         listEnvironmentsH4.add(e2); listEnvironmentsH4.add(e10);listEnvironmentsH3.add(e7); listEnvironmentsH3.add(e4);
         listEnvironmentsH5.add(e3); listEnvironmentsH5.add(e9);listEnvironmentsH5.add(e10); listEnvironmentsH5.add(e5);
 
-        House h1 = new House("house1",d1,listEnvironmentsH1);
-        House h2 = new House("house2",d2,listEnvironmentsH2);
-        House h3 = new House("house3",d3,listEnvironmentsH3);
-        House h4 = new House("house4",d4,listEnvironmentsH4);
-        House h5 = new House("house5",d5,listEnvironmentsH5);
-        House h6 = new House("house6",d6,listEnvironmentsH3);
-        House h7 = new House("house7",d7,listEnvironmentsH2);
-        House h8 = new House("house8",d4,listEnvironmentsH5);
+        House h1 = new House("House1",d1,listEnvironmentsH1);
+        House h2 = new House("House2",d2,listEnvironmentsH2);
+        House h3 = new House("House3",d3,listEnvironmentsH3);
+        House h4 = new House("House4",d4,listEnvironmentsH4);
+        House h5 = new House("House5",d5,listEnvironmentsH5);
+        House h6 = new House("House6",d6,listEnvironmentsH3);
+        House h7 = new House("House7",d7,listEnvironmentsH2);
+        House h8 = new House("House8",d4,listEnvironmentsH5);
 
         //Adding houses
         this.dataBaseHouses.put(h1.getHouseName(),h1);this.dataBaseHouses.put(h2.getHouseName(),h2);this.dataBaseHouses.put(h3.getHouseName(), h3);
