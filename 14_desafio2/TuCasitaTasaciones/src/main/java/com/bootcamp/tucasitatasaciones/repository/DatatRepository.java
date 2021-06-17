@@ -10,13 +10,14 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class DatatRepository implements IDatatRepository {
 
     static List<District> districts = loadDistricts();
-    static List<Property> properties;
+    static List<Property> properties = new ArrayList<>();
 
     @Override
     public District findDistrictById(Long id) {
@@ -40,6 +41,19 @@ public class DatatRepository implements IDatatRepository {
                 .filter(prop -> prop.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public void saveProperty(Property property) {
+        Long id = properties.size() + 1L;
+        property.setId(id);
+
+        properties.add(property);
+    }
+
+    @Override
+    public List<Property> getAllProperties() {
+        return properties;
     }
 
     private static List<District> loadDistricts() {

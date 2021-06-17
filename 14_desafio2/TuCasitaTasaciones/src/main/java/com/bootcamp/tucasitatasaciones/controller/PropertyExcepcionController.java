@@ -2,7 +2,7 @@ package com.bootcamp.tucasitatasaciones.controller;
 
 import com.bootcamp.tucasitatasaciones.DTO.ErrorDTO;
 import com.bootcamp.tucasitatasaciones.DTO.ErrorValidationDTO;
-import com.bootcamp.tucasitatasaciones.exception.DistrictNotFoundException;
+import com.bootcamp.tucasitatasaciones.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,8 +19,8 @@ public class PropertyExcepcionController {
                 ex.getBindingResult().getAllErrors()), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(DistrictNotFoundException.class)
-    ResponseEntity<ErrorDTO> handleGlobalExceptions(DistrictNotFoundException e) {
+    @ExceptionHandler(NotFoundException.class)
+    ResponseEntity<ErrorDTO> handleNotFoundException(NotFoundException e) {
         return new ResponseEntity<>(e.getError(), e.getHttpStatus());
     }
 }
