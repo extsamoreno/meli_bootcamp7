@@ -18,7 +18,7 @@ public class RealStateController {
     @Autowired
     IRealStateService realStateService;
 
-    @GetMapping("/realStatelist")
+    @GetMapping("/realStateList")
     public ResponseEntity<List<RealStateOutDTO>> getRealStateList(){
         return new ResponseEntity<>(realStateService.getRealStateList(), HttpStatus.OK);
     }

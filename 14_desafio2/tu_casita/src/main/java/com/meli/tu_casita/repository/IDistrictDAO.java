@@ -3,17 +3,14 @@ package com.meli.tu_casita.repository;
 import com.meli.tu_casita.model.District;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IDistrictDAO {
     void save(District district);
 
-    boolean delete(int id);
+    Optional<District> findById(int id);
 
-    boolean exists(District district);
-
-    District findById(int id);
-
-    District findByName(String name);
+    Optional<District> findByName(String name);
 
     List<District> getDistrictList();
 

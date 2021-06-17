@@ -1,5 +1,6 @@
 package com.meli.tu_casita.service;
 
+import com.meli.tu_casita.exception.DistrictNotFoundException;
 import com.meli.tu_casita.model.District;
 import com.meli.tu_casita.model.Environment;
 import com.meli.tu_casita.model.RealState;
@@ -46,12 +47,8 @@ public class RealStateServiceImpl implements IRealStateService {
     public float getRealStateTotalPrice(int realStateId) {
         RealState realState = realStateDAO.findById(realStateId);
         float totalMeters = this.getRealStateTotalMeters(realStateId);
-        District district = districtDAO.findById(realState.getDistrictId());
-        float totalPrice = 0;
-        if (district != null) {
-            totalPrice = totalMeters * district.getPrice();
-        }//TODO: add exception
-        return totalPrice;
+        District district = districtDAO.findById(realState.getDistrictId()).get();
+        return totalMeters * district.getPrice();
     }
 
     @Override
@@ -82,7 +79,7 @@ public class RealStateServiceImpl implements IRealStateService {
 
     @Override
     public void addNewRealState(RealStateInDTO realStateInDTO) {
-        if (districtDAO.findById(realStateInDTO.getDistrictId()) != null) {
+        if (existsDistrict(realStateInDTO.getDistrictId())) {
             RealState realState = modelMapper.map(realStateInDTO, RealState.class);
             realStateDAO.save(realState);
             for (EnvironmentDTO environmentDTO : realStateInDTO.getEnvironments()) {
@@ -90,7 +87,9 @@ public class RealStateServiceImpl implements IRealStateService {
                 environment.setRealStateId(realState.getId());
                 environmentDAO.save(environment);
             }
-        }//TODO:add exception
+        } else {
+            throw new DistrictNotFoundException(realStateInDTO.getDistrictId(), null);
+        }
     }
 
     @Override
@@ -101,6 +100,10 @@ public class RealStateServiceImpl implements IRealStateService {
     @Override
     public RealStateOutDTO getRealStateOutDTOByRealStateId(int id) {
         return MapperRealStateModelToRealStateOutDTO(realStateDAO.findById(id));
+    }
+
+    private boolean existsDistrict(int districtId){
+        return districtDAO.findById(districtId).isPresent();
     }
 
     private List<EnvironmentDTO> getEnvironmentDTOListFromRealStateId(int realStateId) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DistrictServiceImpl implements IDistrictService {
@@ -21,10 +22,10 @@ public class DistrictServiceImpl implements IDistrictService {
 
     @Override
     public void saveDistrict(DistrictDTO districtDTO) {
-        District district = suburbDAO.findByName(districtDTO.getName());
-        if (district == null) {
-            district = modelMapper.map(districtDTO, District.class);
-            suburbDAO.save(district);
+        Optional<District> district = suburbDAO.findByName(districtDTO.getName());
+        if (district.isEmpty()) {
+            district = Optional.of(modelMapper.map(districtDTO, District.class));
+            suburbDAO.save(district.get());
         }
     }
 

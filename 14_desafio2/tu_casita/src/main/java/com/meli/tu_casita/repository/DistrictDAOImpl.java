@@ -2,7 +2,6 @@ package com.meli.tu_casita.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.tu_casita.exception.DistrictNotFoundException;
 import com.meli.tu_casita.model.District;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
@@ -13,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 @Repository
@@ -45,41 +45,15 @@ public class DistrictDAOImpl implements IDistrictDAO {
     }
 
     @Override
-    public boolean delete(int id) {
-        boolean result = false;
-        try {
-            District districtFound = this.findById(id);
-            districts.remove(districtFound);
-            result = true;
-            this.saveData();
-        } catch (DistrictNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        return result;
-    }
-
-    @Override
-    public boolean exists(District district) {
-        boolean result = false;
-        try {
-            if (district.getName() != null) result = this.findByName(district.getName()) != null;
-            if (district.getId() != null) result = this.findById(district.getId()) != null;
-        } catch (DistrictNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        return result;
-    }
-
-    @Override
-    public District findById(int id) {
+    public Optional<District> findById(int id) {
         loadData();
-        return districts.stream().filter(district -> district.getId().equals(id)).findFirst().orElse(null);
+        return districts.stream().filter(district -> district.getId().equals(id)).findFirst();
     }
 
     @Override
-    public District findByName(String name) {
+    public Optional<District> findByName(String name) {
         loadData();
-        return districts.stream().filter(district -> district.getName().compareTo(name) == 0).findFirst().orElse(null);
+        return districts.stream().filter(district -> district.getName().compareTo(name) == 0).findFirst();
     }
 
     @Override
