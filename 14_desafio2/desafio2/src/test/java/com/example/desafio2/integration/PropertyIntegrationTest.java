@@ -1,24 +1,17 @@
 package com.example.desafio2.integration;
 
-import com.example.desafio2.controllers.PropertyController;
 import com.example.desafio2.dtos.*;
-import com.example.desafio2.exceptions.DistrictIdNotValidException;
-import com.example.desafio2.exceptions.PropertyIdNotValidException;
 import com.example.desafio2.models.District;
 import com.example.desafio2.models.Property;
-import com.example.desafio2.models.Room;
 import com.example.desafio2.repositories.IDistrictRepository;
 import com.example.desafio2.repositories.IPropertyRepository;
-import com.example.desafio2.services.DistrictService;
-import com.example.desafio2.services.IPropertyService;
 import com.example.desafio2.services.mappers.PropertyMapper;
+import com.example.desafio2.services.utils.PropertyUtil;
 import com.example.desafio2.util.TestUtilsGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -51,7 +44,7 @@ public class PropertyIntegrationTest {
     IDistrictRepository iDistrictRepository;
 
     @Test
-    public void addHappyPath() throws Exception {
+    public void addPropertyHappyPath() throws Exception {
         //arrange
         int expected = 1;
         PropertyDTO prop = TestUtilsGenerator.getPropertyDTOWith3Rooms("AddIntegrationTestHouse");
@@ -71,13 +64,35 @@ public class PropertyIntegrationTest {
     }
 
     @Test
+    public void addPropertyDistrictIdNotValidShouldThrowDistrictIdNotValidException() throws Exception {
+        int propId = 1;
+        Property prop = TestUtilsGenerator.getPropertyWith3RoomsDetailed("GetBiggestRoomTestingHouse",
+                "Living",5.0,6.0,
+                "Bedroom",2.0,3.0,
+                "Kitchen",3.0,3.0);
+        Mockito.when(iPropertyRepository.getPropertyById(propId)).thenReturn(prop);
+        Mockito.when(iDistrictRepository.getById(prop.getDistrictId())).thenReturn(null);
+
+        ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
+        String propJson = writer.writeValueAsString(prop);
+        //act
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/properties/add")
+                .contentType("application/json")
+                .content(propJson))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("name").value("DistrictIdNotValidException"))
+                .andReturn();
+    }
+
+    @Test
     public void getAreaHappyPath() throws Exception {
         int propId = 1;
         Property prop = TestUtilsGenerator.getPropertyWith3RoomsDetailed("GetBiggestRoomTestingHouse",
                 "Living",5.0,6.0,
                 "Bedroom",2.0,3.0,
                 "Kitchen",3.0,3.0);
-        AreaDTO area = new AreaDTO(propId, prop.getArea());
+        AreaDTO area = new AreaDTO(propId, PropertyUtil.getArea(prop));
         Mockito.when(iPropertyRepository.getPropertyById(propId)).thenReturn(prop);
 
         ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
@@ -135,26 +150,19 @@ public class PropertyIntegrationTest {
     }
 
     @Test
-    public void getPriceDistrictIdNotValidShouldThrowDistrictIdNotValidException() throws Exception {
+    public void getPriceInvalidIdShouldThrowPropertyIdNotValidException() throws Exception {
         int propId = 1;
-        Property prop = TestUtilsGenerator.getPropertyWith3RoomsDetailed("GetBiggestRoomTestingHouse",
-                "Living",5.0,6.0,
-                "Bedroom",2.0,3.0,
-                "Kitchen",3.0,3.0);
-        Mockito.when(iPropertyRepository.getPropertyById(propId)).thenReturn(prop);
-        Mockito.when(iDistrictRepository.getById(prop.getDistrictId())).thenReturn(null);
 
-        ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
-        String propJson = writer.writeValueAsString(prop);
-        //act
+        Mockito.when(iPropertyRepository.getPropertyById(propId)).thenReturn(null);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/properties/add")
-                .contentType("application/json")
-                .content(propJson))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/price",propId))
                 .andDo(print()).andExpect(status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("name").value("DistrictIdNotValidException"))
+                .andExpect(MockMvcResultMatchers.jsonPath("name").value("PropertyIdNotValidException"))
                 .andReturn();
+
+        Mockito.verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyById(propId);
     }
+
 
     @Test
     public void getBiggestRoomHappyPath() throws Exception {
@@ -179,6 +187,21 @@ public class PropertyIntegrationTest {
 
         Mockito.verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyById(propId);
     }
+
+    @Test
+    public void getBiggestRoomInvalidIdShouldThrowPropertyIdNotValidException() throws Exception {
+        int propId = 1;
+
+        Mockito.when(iPropertyRepository.getPropertyById(propId)).thenReturn(null);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/rooms/biggest",propId))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("name").value("PropertyIdNotValidException"))
+                .andReturn();
+
+        Mockito.verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyById(propId);
+    }
+
     @Test
     public void getAreaPerRoomHappyPath() throws Exception {
         int propId = 1;
@@ -202,6 +225,20 @@ public class PropertyIntegrationTest {
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(containsString(responseJson)))
+                .andReturn();
+
+        Mockito.verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyById(propId);
+    }
+
+    @Test
+    public void getAreaPerRoomInvalidIdShouldThrowPropertyIdNotValidException() throws Exception {
+        int propId = 1;
+
+        Mockito.when(iPropertyRepository.getPropertyById(propId)).thenReturn(null);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/rooms/area",propId))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("name").value("PropertyIdNotValidException"))
                 .andReturn();
 
         Mockito.verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyById(propId);

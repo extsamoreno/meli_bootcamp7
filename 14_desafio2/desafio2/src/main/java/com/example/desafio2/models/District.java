@@ -8,13 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class District {
-    @Override
-    public String toString() {
-        return "District{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                '}';
-    }
 
     private String name;
     private double price;

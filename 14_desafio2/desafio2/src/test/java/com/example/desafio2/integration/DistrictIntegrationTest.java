@@ -38,7 +38,7 @@ public class DistrictIntegrationTest {
     IDistrictRepository iDistrictRepository;
 
     @Test
-    public void addHappyPath() throws Exception {
+    public void addDistrictHappyPath() throws Exception {
         //arrange
         int generatedId = 1;
         DistrictDTO dist = new DistrictDTO("district", 500);

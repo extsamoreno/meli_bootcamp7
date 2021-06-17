@@ -1,6 +1,5 @@
 package com.example.desafio2.unit;
 
-import com.example.desafio2.dtos.AreaDTO;
 import com.example.desafio2.dtos.PropertyDTO;
 import com.example.desafio2.dtos.RoomAreaDTO;
 import com.example.desafio2.dtos.RoomDTO;
@@ -8,10 +7,8 @@ import com.example.desafio2.exceptions.DistrictIdNotValidException;
 import com.example.desafio2.exceptions.PropertyIdNotValidException;
 import com.example.desafio2.models.District;
 import com.example.desafio2.models.Property;
-import com.example.desafio2.models.Room;
 import com.example.desafio2.repositories.IDistrictRepository;
 import com.example.desafio2.repositories.IPropertyRepository;
-import com.example.desafio2.services.IDistrictService;
 import com.example.desafio2.services.PropertyService;
 import com.example.desafio2.services.mappers.PropertyMapper;
 import com.example.desafio2.services.mappers.RoomMapper;
@@ -22,10 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -49,13 +44,23 @@ public class PropertyServiceTest {
         Property prop = TestUtilsGenerator.getPropertyWith3Rooms("GetAreaTestingHouse");
         when(iPropertyRepository.getPropertyById(propId)).thenReturn(prop);
 
-        double expected = PropertyUtil.calculateArea(prop);
+        double expected = PropertyUtil.getArea(prop);
 
         //act
         double result = service.getArea(propId);
 
         //assert
         Assertions.assertEquals(expected,result);
+    }
+
+    @Test
+    public void getAreaWithInvalidPropertyIdShouldThrowPropertyNotValidException() {
+        //arrange
+        int propId = 1;
+        when(iPropertyRepository.getPropertyById(propId)).thenReturn(null);
+
+        //act & assert
+        Assertions.assertThrows(PropertyIdNotValidException.class,()->service.getArea(propId));
     }
 
     @Test
@@ -76,6 +81,16 @@ public class PropertyServiceTest {
 
         //assert
         Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void getBiggestRoomWithInvalidPropertyIdShouldThrowPropertyNotValidException() {
+        //arrange
+        int propId = 1;
+        when(iPropertyRepository.getPropertyById(propId)).thenReturn(null);
+
+        //act & assert
+        Assertions.assertThrows(PropertyIdNotValidException.class,()->service.getBiggestRoom(propId));
     }
 
     @Test
@@ -103,6 +118,16 @@ public class PropertyServiceTest {
     }
 
     @Test
+    public void getRoomsAreasWithInvalidPropertyIdShouldThrowPropertyNotValidException() {
+        //arrange
+        int propId = 1;
+        when(iPropertyRepository.getPropertyById(propId)).thenReturn(null);
+
+        //act & assert
+        Assertions.assertThrows(PropertyIdNotValidException.class,()->service.getRoomsAreas(propId));
+    }
+
+    @Test
     public void addPropertyWithValidDistrictIdHappyPath() throws DistrictIdNotValidException {
         //arrange
         int expected = 1;
@@ -127,6 +152,8 @@ public class PropertyServiceTest {
         //act & assert
         Assertions.assertThrows(DistrictIdNotValidException.class,()->service.add(prop));
     }
+
+
 
 }
 

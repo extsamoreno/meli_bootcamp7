@@ -40,7 +40,7 @@ public class PropertyService implements IPropertyService {
         if(property == null)
             throw new PropertyIdNotValidException(propertyId);
 
-        return property.getArea();
+        return PropertyUtil.getArea(property);
     }
 
     @Override
@@ -89,8 +89,8 @@ public class PropertyService implements IPropertyService {
         if(property == null)
             throw new PropertyIdNotValidException(propertyId);
 
-        double area = PropertyUtil.calculateArea(property);
-        double pricePerSqMeter = PropertyUtil.calculatePricePerSqMeter(iDistrictRepository.getById(property.getDistrictId()));
+        double area = PropertyUtil.getArea(property);
+        double pricePerSqMeter = iDistrictRepository.getById(property.getDistrictId()).getPrice();
 
         return area * pricePerSqMeter;
     }
