@@ -2,6 +2,7 @@ package com.tucasita.tasaciones.service;
 
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
+import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
 import com.tucasita.tasaciones.model.Neighborhood;
 import com.tucasita.tasaciones.model.Property;
 import com.tucasita.tasaciones.model.Room;
@@ -23,5 +24,9 @@ public class PropertyMapper {
 
     public static RoomDTO toRoomDTO(Room room) {
         return new RoomDTO(room.getName(), room.getWidth(), room.getLength());
+    }
+
+    public static RoomSquareMetersDTO toSquareMetersDTO(Room room) {
+        return new RoomSquareMetersDTO(room.getName(), room.getLength() * room.getWidth());
     }
 }

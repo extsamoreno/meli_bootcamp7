@@ -3,6 +3,7 @@ package com.tucasita.tasaciones.service;
 import com.tucasita.tasaciones.dto.NeighborhoodDTO;
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
+import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
 import com.tucasita.tasaciones.exception.PropertyNotFoundException;
 import com.tucasita.tasaciones.model.Neighborhood;
 import com.tucasita.tasaciones.model.Property;
@@ -67,5 +68,18 @@ public class PropertyServiceTest {
 
         when(propertyRepository.getPropertyById(1)).thenReturn(property);
         assertEquals(property.getRooms().get(1).getName(), propertyService.getBiggestRoom(1).getName());
+    }
+
+    @Test
+    public void getRoomsSquareMeters() throws PropertyNotFoundException {
+        Property property = TestUtilGenerator.getPropertyWithTwoRooms();
+        RoomSquareMetersDTO room = new RoomSquareMetersDTO(property.getRooms().get(0).getName(), property.getRooms().get(0).getLength() * property.getRooms().get(0).getWidth());
+        RoomSquareMetersDTO room2 = new RoomSquareMetersDTO(property.getRooms().get(1).getName(), property.getRooms().get(1).getLength() * property.getRooms().get(1).getWidth());
+        MockedStatic<PropertyMapper> mock = mockStatic(PropertyMapper.class);
+        mock.when(() -> PropertyMapper.toSquareMetersDTO(property.getRooms().get(0))).thenReturn(room);
+        mock.when(() -> PropertyMapper.toSquareMetersDTO(property.getRooms().get(1))).thenReturn(room2);
+        when(propertyRepository.getPropertyById(1)).thenReturn(property);
+        assertEquals(propertyService.getRoomsSquareMeters(1).get(0), room);
+        assertEquals(propertyService.getRoomsSquareMeters(1).get(1), room2);
     }
 }
