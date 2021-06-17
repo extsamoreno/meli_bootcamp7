@@ -1,14 +1,15 @@
 package com.meli.TuCasitaTasaciones.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Environment {
-    String EnvironmentName;
-    double length;
-    double width;
+public class ErrorDTO {
+    private String name;
+    private String description;
 }

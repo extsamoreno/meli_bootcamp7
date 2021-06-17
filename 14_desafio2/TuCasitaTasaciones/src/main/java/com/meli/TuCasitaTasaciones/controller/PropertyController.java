@@ -1,19 +1,19 @@
 package com.meli.TuCasitaTasaciones.controller;
 
-import com.meli.TuCasitaTasaciones.model.Environment;
+import com.meli.TuCasitaTasaciones.model.EnvironmentDTO;
 import com.meli.TuCasitaTasaciones.model.EnvironmentAreaResponseDTO;
 import com.meli.TuCasitaTasaciones.model.HouseDTO;
-import com.meli.TuCasitaTasaciones.model.Property;
+import com.meli.TuCasitaTasaciones.model.PropertyDTO;
 import com.meli.TuCasitaTasaciones.service.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 public class PropertyController {
 
     @Autowired
@@ -40,25 +40,28 @@ public class PropertyController {
 //    }
 
     @PostMapping("Property/calculateArea")
-    public ResponseEntity<Double> calculateArea(@RequestBody List<Environment> environments) {
-        return new ResponseEntity<>(service.calculateArea(environments), HttpStatus.OK);
+    public ResponseEntity<Double> calculateArea( @Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
+        return new ResponseEntity<>(service.calculateArea(environmentDTOS), HttpStatus.OK);
     }
 
     @PostMapping("Property/calculatePrice")
-    public ResponseEntity<Double> calculatePrice(@RequestBody HouseDTO houseDTO) {
+    public ResponseEntity<Double> calculatePrice( @Valid @RequestBody HouseDTO houseDTO) {
         return new ResponseEntity<>(service.calculatePrice(houseDTO), HttpStatus.OK);
     }
 
     @PostMapping("Property/environmentsBigger")
-    public ResponseEntity<EnvironmentAreaResponseDTO> environmentsBigger(@RequestBody List<Environment> environments) {
-        return new ResponseEntity<>(service.environmentsBigger(environments), HttpStatus.OK);
+    public ResponseEntity<EnvironmentAreaResponseDTO> environmentsBigger( @Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
+        return new ResponseEntity<>(service.environmentsBigger(environmentDTOS), HttpStatus.OK);
     }
 
     @PostMapping("Property/environmentArea")
-    public ResponseEntity<List<EnvironmentAreaResponseDTO>> environmentArea(@RequestBody List<Environment> environments) {
-        return new ResponseEntity<>(service.environmentArea(environments), HttpStatus.OK);
+    public ResponseEntity<List<EnvironmentAreaResponseDTO>> environmentArea( @Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
+        return new ResponseEntity<>(service.environmentArea(environmentDTOS), HttpStatus.OK);
+    }
+
+    @PostMapping("Property/addProperty")
+    public ResponseEntity<?> addProperty( @Valid @RequestBody PropertyDTO propertyDTO) {
+        this.service.addProperty(propertyDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
-
-//@DecimalMin(value = "0.0", message = "La nota no puede ser menor a 0.0")
-//@DecimalMax(value = "10.0", message = "La nota no puede ser mayor a 10.0")

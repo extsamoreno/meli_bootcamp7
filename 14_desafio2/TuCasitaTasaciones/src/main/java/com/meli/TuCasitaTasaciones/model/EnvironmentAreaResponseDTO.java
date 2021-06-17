@@ -12,5 +12,4 @@ public class EnvironmentAreaResponseDTO {
     double length;
     double width;
     double area;
-
 }

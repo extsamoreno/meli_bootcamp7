@@ -10,5 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 public class HouseDTO {
     String district;
-    List<Environment> environments;
+    List<EnvironmentDTO> environments;
 }

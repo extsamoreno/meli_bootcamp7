@@ -1,13 +1,15 @@
 package com.meli.TuCasitaTasaciones.repository;
 
-import com.meli.TuCasitaTasaciones.model.District;
-import com.meli.TuCasitaTasaciones.model.Property;
+import com.meli.TuCasitaTasaciones.model.PropertyDTO;
 
+import java.util.HashMap;
 import java.util.Set;
 
 public interface IPropertyDAO {
-    Property getPropertyById(int idProperty);
-    Set<Property> getPropertyList();
-    Set<District> getDistrictList();
+    PropertyDTO getPropertyById(int idProperty);
+    Set<PropertyDTO> getPropertyList();
+    HashMap<String, Double> getDistrictList();
+
+    void addProperty(PropertyDTO propertyDTO);
 
 }

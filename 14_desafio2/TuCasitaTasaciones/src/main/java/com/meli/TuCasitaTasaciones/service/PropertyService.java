@@ -24,34 +24,37 @@ public class PropertyService implements IPropertyService {
 //    }
 
     @Override
-    public double calculateArea(List<Environment> environments) {
-        return environments.stream()
+    public double calculateArea(List<EnvironmentDTO> environmentDTOS) {
+        return environmentDTOS.stream()
                 .mapToDouble(environment -> environment.getLength() * environment.getWidth()).sum();
     }
 
     @Override
     public double calculatePrice(HouseDTO houseDTO) {
         String district = houseDTO.getDistrict();
-        double price = iPropertyDAO.getDistrictList().stream()
-                .filter(district1 -> district.equals(district))
-                .mapToDouble(District::getPrice).findFirst().orElse(0.0);
+        double price = iPropertyDAO.getDistrictList().get(district);
 
         return calculateArea(houseDTO.getEnvironments()) * price;
     }
 
     @Override
-    public EnvironmentAreaResponseDTO environmentsBigger(List<Environment> environments) {
-        Optional<Environment> bigger = environments.stream()
+    public EnvironmentAreaResponseDTO environmentsBigger(List<EnvironmentDTO> environmentDTOS) {
+        Optional<EnvironmentDTO> bigger = environmentDTOS.stream()
                 .max(Comparator.comparing(o -> o.getWidth() * o.getLength()));
 
         return EnvironmentMapper.ToEnvironmentAreaResponseDTO(bigger.get());
     }
 
     @Override
-    public List<EnvironmentAreaResponseDTO> environmentArea(List<Environment> environments) {
+    public List<EnvironmentAreaResponseDTO> environmentArea(List<EnvironmentDTO> environmentDTOS) {
 
-        return environments.stream().map(environment -> EnvironmentMapper.ToEnvironmentAreaResponseDTO(environment))
+        return environmentDTOS.stream().map(EnvironmentMapper::ToEnvironmentAreaResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void addProperty(PropertyDTO propertyDTO) {
+        iPropertyDAO.addProperty(propertyDTO);
     }
 
 //
