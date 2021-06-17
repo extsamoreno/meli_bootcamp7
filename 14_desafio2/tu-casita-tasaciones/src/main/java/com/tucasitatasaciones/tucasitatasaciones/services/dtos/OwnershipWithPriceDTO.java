@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OwnershipWithPriceDTO {
+public class OwnershipWithPriceDTO extends OwnershipDTO {
     private double price;
+
+    public OwnershipWithPriceDTO(int i, String s, double v) {
+        super(i, s);
+        this.price = v;
+    }
 }

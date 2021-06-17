@@ -1,12 +1,15 @@
 package com.tucasitatasaciones.tucasitatasaciones.services.dtos;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomWithPriceDTO extends RoomDTO {
-    private double price;
+public class ErrorDTO {
+    private String name;
+    private String description;
 }

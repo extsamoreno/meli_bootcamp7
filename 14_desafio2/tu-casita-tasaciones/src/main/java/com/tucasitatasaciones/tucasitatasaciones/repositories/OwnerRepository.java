@@ -17,9 +17,12 @@ public class OwnerRepository implements IOwnerRepository {
     }
 
     @Override
-    public Ownership add(Ownership ownership) {
-        ownershipList.put(ownershipList.size() + 1, ownership);
-        return null;
+    public int add(Ownership ownership) {
+        int ownershipId = ownershipList.size() + 1;
+
+        ownershipList.put(ownershipId, ownership);
+
+        return ownershipId;
     }
 
     @Override

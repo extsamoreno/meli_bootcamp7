@@ -22,4 +22,7 @@ public class DistrictRepository implements IDistrictRepository {
     public HashMap<Integer, District> findAll() {
         return null;
     }
+    public District findAny(int districtId) {
+        return districtHashMap.get(districtId);
+    }
 }

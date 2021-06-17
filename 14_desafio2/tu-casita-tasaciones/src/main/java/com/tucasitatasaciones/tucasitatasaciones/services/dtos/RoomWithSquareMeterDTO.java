@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OwnershipWithSquareMeterDTO extends OwnershipDTO {
+public class RoomWithSquareMeterDTO extends RoomDTO {
     private double squareMeter;
 
-    public OwnershipWithSquareMeterDTO(int i, String s, double v) {
-        super(i, s);
-        this.squareMeter = v;
+    public RoomWithSquareMeterDTO(String s, double v, double v1, double v2) {
+        super(s, v, v);
+        this.squareMeter = v2;
     }
 }
