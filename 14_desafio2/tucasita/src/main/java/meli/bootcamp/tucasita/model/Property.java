@@ -10,6 +10,6 @@ import java.util.List;
 public class Property {
 
     private String prop_name;
-    private Distric distric;
+    private Distric district;
     private List<Environment> environments;
 }

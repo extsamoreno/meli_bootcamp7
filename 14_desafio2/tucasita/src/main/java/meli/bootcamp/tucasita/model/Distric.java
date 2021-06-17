@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class Distric {
 
     private String district_name;
+
     private double district_price;
 }
