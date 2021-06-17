@@ -1,5 +1,6 @@
 package desafio2.demo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -7,6 +8,7 @@ import javax.validation.constraints.*;
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@AllArgsConstructor
 public class EnvironmentDTO {
     @NotEmpty(message = "El nombre del ambiente no puede estar vacío.")
     @Pattern(message = "El nombre del ambiente debe comenzar con mayúscula.",regexp = "^[A-Z].*")

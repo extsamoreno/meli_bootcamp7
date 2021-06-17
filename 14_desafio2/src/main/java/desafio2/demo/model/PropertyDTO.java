@@ -1,5 +1,6 @@
 package desafio2.demo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class PropertyDTO {
     @NotEmpty(message = "El nombre de la propiedad no puede estar vacío.")
     @Pattern(message = "El nombre de la propiedad debe comenzar con mayúscula.",regexp = "^[A-Z].*")
