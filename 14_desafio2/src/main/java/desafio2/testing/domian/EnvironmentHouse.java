@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 public class EnvironmentHouse {
     private String name;
-    private double width;
-    private double length;
+    private Double width;
+    private Double length;
 }

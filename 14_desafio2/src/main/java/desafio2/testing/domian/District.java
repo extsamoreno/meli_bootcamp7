@@ -8,5 +8,5 @@ import lombok.*;
 public class District {
     private int id;
     private String name;
-    private double price;
+    private Double price;
 }

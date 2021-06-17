@@ -5,16 +5,11 @@ import desafio2.testing.domian.House;
 import desafio2.testing.exception.HouseExistException;
 import desafio2.testing.exception.NotFoundException;
 import desafio2.testing.repository.IHouseRepository;
-import desafio2.testing.service.dto.HouseLargestEnvironmentDTO;
-import desafio2.testing.service.dto.HouseMeterPerEnvironmentDTO;
-import desafio2.testing.service.dto.HouseMeterPropertyDTO;
-import desafio2.testing.service.dto.HousePriceDTO;
+import desafio2.testing.service.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 @Service
 public class HouseService implements IHouseService{
@@ -23,8 +18,8 @@ public class HouseService implements IHouseService{
     IHouseRepository houseRepository;
 
     @Override
-    public void newHouse(House house) throws HouseExistException {
-        houseRepository.addHouse(house);
+    public void newHouse(HouseDTO houseDTO) throws HouseExistException {
+        houseRepository.addHouse(houseDTO);
     }
 
     @Override

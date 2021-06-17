@@ -1,17 +1,15 @@
 package desafio2.testing.controller;
 
-import desafio2.testing.domian.House;
 import desafio2.testing.exception.HouseExistException;
 import desafio2.testing.exception.NotFoundException;
 import desafio2.testing.service.IHouseService;
-import desafio2.testing.service.dto.HouseLargestEnvironmentDTO;
-import desafio2.testing.service.dto.HouseMeterPerEnvironmentDTO;
-import desafio2.testing.service.dto.HouseMeterPropertyDTO;
-import desafio2.testing.service.dto.HousePriceDTO;
+import desafio2.testing.service.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/house")
@@ -21,8 +19,8 @@ public class CalculateController {
     IHouseService houseService;
 
     @PostMapping("/newHouse")
-    public ResponseEntity<?> newHouse(@RequestBody House house) throws NotFoundException, HouseExistException {
-        houseService.newHouse(house);
+    public ResponseEntity<?> newHouse(@Valid @RequestBody HouseDTO houseDTO) throws NotFoundException, HouseExistException {
+        houseService.newHouse(houseDTO);
         return new ResponseEntity<>("¡Exit!",HttpStatus.OK);
     }
 
