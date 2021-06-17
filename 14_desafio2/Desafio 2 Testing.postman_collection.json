@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "1080c33d-1504-4000-838c-96b07fab3f16",
+		"name": "Desafio 2 Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "totalMeters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Casita1\",\n    \"district\" : \"Villa Prado\",\n    \"environments\":\n    [\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 12,\n            \"length\": 5\n        },\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 15,\n            \"length\": 2\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/TuCasita/totalMeters",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"TuCasita",
+						"totalMeters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "totalPrice",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Casita1\",\n    \"district\" : \"Villa Prado\",\n    \"environments\":\n    [\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 3,\n            \"length\": 4\n        },\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 5,\n            \"length\": 6\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/TuCasita/totalPrice",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"TuCasita",
+						"totalPrice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Big Enviroment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Casita1\",\n    \"district\" : \"Villa Prado\",\n    \"environments\":\n    [\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 3,\n            \"length\": 4\n        },\n        {\n            \"name\" : \"Habitation2\",\n            \"width\": 5,\n            \"length\": 6\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/TuCasita/bigEnvironment",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"TuCasita",
+						"bigEnvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total square meters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Casita1\",\n    \"district\" : \"Villa Prado\",\n    \"environments\":\n    [\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 12,\n            \"length\": 5\n        },\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 15,\n            \"length\": 2\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/TuCasita/totalMeters",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"TuCasita",
+						"totalMeters"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
