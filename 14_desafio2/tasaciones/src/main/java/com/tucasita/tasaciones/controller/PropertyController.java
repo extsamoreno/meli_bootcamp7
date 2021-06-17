@@ -23,7 +23,7 @@ public class PropertyController {
     @Autowired
     private PropertyService propertyService;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<?> saveProperty(@Valid @RequestBody PropertyDTO property) throws IOException, NeighborhoodNotFoundException {
         propertyService.saveProperty(property);
         return ResponseEntity.ok().build();

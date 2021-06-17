@@ -1,15 +1,11 @@
-package com.tucasita.tasaciones.controller;
+package com.tucasita.tasaciones.unit.controller;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import com.tucasita.tasaciones.dto.NeighborhoodDTO;
 import com.tucasita.tasaciones.dto.PropertyDTO;
-import com.tucasita.tasaciones.dto.RoomDTO;
 import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
 import com.tucasita.tasaciones.exception.NeighborhoodNotFoundException;
 import com.tucasita.tasaciones.exception.PropertyNotFoundException;
 import com.tucasita.tasaciones.service.PropertyService;
 import com.tucasita.tasaciones.util.TestUtilGenerator;
-import org.apache.coyote.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+import com.tucasita.tasaciones.controller.PropertyController;
 
 import java.io.IOException;
 import java.util.ArrayList;

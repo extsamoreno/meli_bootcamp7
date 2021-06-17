@@ -1,4 +1,4 @@
-package com.tucasita.tasaciones;
+package com.tucasita.tasaciones.unit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

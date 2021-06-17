@@ -78,7 +78,7 @@ public class TestUtilGenerator {
         rooms.add(room2);
         rooms.add(room3);
         rooms.add(room4);
-        PropertyDTO property = new PropertyDTO("home", "Palermo", rooms);
+        PropertyDTO property = new PropertyDTO("Home", "Palermo", rooms);
         return property;
     }
 
@@ -89,7 +89,7 @@ public class TestUtilGenerator {
         List<Room> rooms = new ArrayList<>();
         rooms.add(room1);
         rooms.add(room2);
-        Property property = new Property(1, "home", neigh, rooms);
+        Property property = new Property(1, "Home", neigh, rooms);
         return property;
     }
 }

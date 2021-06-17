@@ -1,4 +1,4 @@
-package com.tucasita.tasaciones.service;
+package com.tucasita.tasaciones.unit.service;
 
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
@@ -9,6 +9,8 @@ import com.tucasita.tasaciones.model.Neighborhood;
 import com.tucasita.tasaciones.model.Property;
 import com.tucasita.tasaciones.repository.NeighborhoodRepository;
 import com.tucasita.tasaciones.repository.PropertyRepository;
+import com.tucasita.tasaciones.service.PropertyMapper;
+import com.tucasita.tasaciones.service.PropertyServiceImpl;
 import com.tucasita.tasaciones.util.TestUtilGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

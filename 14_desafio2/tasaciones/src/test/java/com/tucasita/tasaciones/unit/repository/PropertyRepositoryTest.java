@@ -1,6 +1,8 @@
-package com.tucasita.tasaciones.repository;
+package com.tucasita.tasaciones.unit.repository;
 
 import com.tucasita.tasaciones.model.Property;
+import com.tucasita.tasaciones.repository.PropertyRepository;
+import com.tucasita.tasaciones.repository.PropertyRepositoryImpl;
 import com.tucasita.tasaciones.util.TestUtilGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
