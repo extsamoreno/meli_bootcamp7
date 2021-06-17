@@ -1,6 +1,7 @@
 package com.example.tucasita.service;
 
 import com.example.tucasita.exception.InvalidPropertyException;
+import com.example.tucasita.model.DistrictDTO;
 import com.example.tucasita.model.EnvironmentDTO;
 import com.example.tucasita.model.PropertyDTO;
 import com.example.tucasita.model.ResponseDTO;
@@ -38,7 +39,7 @@ public class PropertyServiceImple implements PropertyService{
     }
 
     @Override
-    public ResponseDTO calculateTotalSquareMeters(int idProperty) {
+    public ResponseDTO calculatePropertyTotalSquareMeters(int idProperty) {
         PropertyDTO property = propertyDAO.findById(idProperty);
         Double totalSquareMeters = 0.00;
 
@@ -50,6 +51,27 @@ public class PropertyServiceImple implements PropertyService{
         }
 
         ResponseDTO response = new ResponseDTO(200, "La propiedad con ID " + idProperty + " tiene un total de " + totalSquareMeters + " metros cuadrados.");
+
+        return response;
+    }
+
+    @Override
+    public ResponseDTO calculatePropertyPrice(int idProperty){
+        PropertyDTO property = propertyDAO.findById(idProperty);
+        DistrictDTO district = districtDAO.findByName(property.getDistrictName());
+        Double totalSquareMeters = 0.00;
+        Double price;
+
+        for (int i = 0; i < property.getEnvironments().size(); i++) {
+            EnvironmentDTO environment = property.getEnvironments().get(i);
+
+            Double environmentSquareMeters = environment.getEnvironmentLength() * environment.getEvironmentWidth();
+            totalSquareMeters = totalSquareMeters + environmentSquareMeters;
+        }
+
+        price = totalSquareMeters * district.getDistrictPrize();
+
+        ResponseDTO response = new ResponseDTO(200, "La propiedad con ID " + idProperty + " tiene un valor de " + price + " U$S");
 
         return response;
     }

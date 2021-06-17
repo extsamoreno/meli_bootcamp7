@@ -35,8 +35,20 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.addOneProperty(property), HttpStatus.CREATED);
     }
 
+    /**
+     * Calculates the total square meters of a property
+     *
+     * @param idProperty the property you want to calculate its total square meters
+     * @return
+     */
+
     @GetMapping("/calculateTotalSquareMeters")
-    public ResponseEntity<ResponseDTO> calculateTotalSquareMeters (@RequestParam int idProperty) {
-        return new ResponseEntity<>(propertyService.calculateTotalSquareMeters(idProperty), HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> calculatePropertyTotalSquareMeters (@RequestParam int idProperty) {
+        return new ResponseEntity<>(propertyService.calculatePropertyTotalSquareMeters(idProperty), HttpStatus.OK);
+    }
+
+    @GetMapping("/calculatePrice")
+    public ResponseEntity<ResponseDTO> calculatePropertyPrice (@RequestParam int idProperty) {
+        return new ResponseEntity<>(propertyService.calculatePropertyPrice(idProperty), HttpStatus.OK);
     }
 }
