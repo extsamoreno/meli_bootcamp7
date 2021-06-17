@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/properties")
 public class PropertyController {
@@ -51,7 +53,7 @@ public class PropertyController {
      * @author Sapaya Nicolás Martín
      */
     @PostMapping("/create")
-    public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyDTO propertyDTO)
+    public ResponseEntity<PropertyDTO> createProperty(@Valid @RequestBody PropertyDTO propertyDTO)
             throws PropertyAlreadyExistException {
         return new ResponseEntity<>(iPropertyService.createProperty(propertyDTO), HttpStatus.CREATED);
     }
@@ -64,10 +66,14 @@ public class PropertyController {
      * 200 -> OK
      * @throws NeighborhoodAlreadyExistException if there is no property with that id
      * Example: localhost:8081/properties/neighborhood/create
+     * {
+     *     "name": "Avellaneda",
+     *     "price": 1200.00
+     * }
      * @author Sapaya Nicolás Martín
      */
     @PostMapping("/neighborhood/create")
-    public ResponseEntity<NeighborhoodDTO> createNeighborhood(@RequestBody NeighborhoodDTO neighborhoodDTO)
+    public ResponseEntity<NeighborhoodDTO> createNeighborhood(@Valid @RequestBody NeighborhoodDTO neighborhoodDTO)
             throws NeighborhoodAlreadyExistException {
         return new ResponseEntity<>(iPropertyService.createNeighborhood(neighborhoodDTO), HttpStatus.CREATED);
     }

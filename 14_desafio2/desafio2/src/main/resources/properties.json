@@ -7,7 +7,7 @@
     "environments": [
       {
         "name": "Habitación 1",
-        "width": 30.0,
+        "width": 25.0,
         "length": 10.0
       },
       {
@@ -25,7 +25,7 @@
     "environments": [
       {
         "name": "Habitación 1",
-        "width": 30.0,
+        "width": 25.0,
         "length": 15.0
       },
       {
@@ -48,13 +48,13 @@
     "environments": [
       {
         "name": "Habitación 1",
-        "width": 30.0,
+        "width": 25.0,
         "length": 14.30
       },
       {
         "name": "Habitación 2",
         "width": 1.0,
-        "length": 3.0
+        "length": 33.0
       }
     ]
   },
