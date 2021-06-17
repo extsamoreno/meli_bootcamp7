@@ -2,6 +2,8 @@ package com.meli.testingchallenge.controllers;
 
 import com.meli.testingchallenge.dtos.EstateAssessmentDTO;
 import com.meli.testingchallenge.dtos.EstateDTO;
+import com.meli.testingchallenge.services.IEstateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +17,12 @@ import javax.validation.Valid;
 @RequestMapping("/estate")
 public class EstateController {
 
+    @Autowired
+    IEstateService estateService;
+
     @PostMapping("/assessment")
-    public ResponseEntity<EstateAssessmentDTO> getAssessment(@Valid @RequestBody EstateDTO house){
-//        System.out.println("house.toString() = " + house.toString());
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<EstateAssessmentDTO> getAssessment( @RequestBody EstateDTO house){
+        return new ResponseEntity<>(estateService.getAssessment(house), HttpStatus.OK);
     }
 
 }

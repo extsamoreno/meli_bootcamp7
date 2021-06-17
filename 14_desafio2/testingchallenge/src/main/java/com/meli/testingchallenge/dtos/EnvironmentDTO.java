@@ -2,11 +2,13 @@ package com.meli.testingchallenge.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class EnvironmentDTO {
 
     @NotNull(message = "El nombre del ambiente no puede estar vacío.")

@@ -23,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
 class EstateControllerTests {
 
     List<EnvironmentDTO> rightEnvironments;
@@ -37,13 +36,13 @@ class EstateControllerTests {
     @BeforeEach
     public void init(){
         rightEnvironments = new ArrayList<>();
-        rightEnvironments.add(new EnvironmentDTO("Living", 5,5));
-        rightEnvironments.add(new EnvironmentDTO("Bedroom", 1,5));
+        rightEnvironments.add(new EnvironmentDTO("Living", 5.0,5.0));
+        rightEnvironments.add(new EnvironmentDTO("Bedroom", 1.0,5.0));
         wrongEnvironments = new ArrayList<>();
-        wrongEnvironments.add(new EnvironmentDTO("bedroom 999", 50,50));
+        wrongEnvironments.add(new EnvironmentDTO("bedroom 999", 50.0,50.0));
 
-        rightHouse = new EstateDTO("House1", "Manhattan", 100, rightEnvironments);
-        wrongHouse = new EstateDTO("house1", "manhattan", 100, wrongEnvironments);
+        rightHouse = new EstateDTO("House1", "Manhattan", 100.0, rightEnvironments);
+        wrongHouse = new EstateDTO("house1", "manhattan", 100.0, wrongEnvironments);
     }
 
     @Test

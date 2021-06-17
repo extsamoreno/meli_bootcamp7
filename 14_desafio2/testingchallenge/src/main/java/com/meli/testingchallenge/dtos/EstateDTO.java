@@ -1,14 +1,15 @@
 package com.meli.testingchallenge.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class EstateDTO {
 
     @NotNull(message = "El nombre de la propiedad no puede estar vacío.")
@@ -25,4 +26,13 @@ public class EstateDTO {
     @NotEmpty(message = "Cada propiedad debe tener al menos un ambiente")
     private List<@Valid EnvironmentDTO> environments;
 
+    @Override
+    public String toString() {
+        return "EstateDTO{" +
+                "prop_name='" + prop_name + '\'' +
+                ", district_name='" + district_name + '\'' +
+                ", district_price=" + district_price +
+                ", environments=" + environments +
+                '}';
+    }
 }
