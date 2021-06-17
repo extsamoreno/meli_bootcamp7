@@ -7,6 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 public class EnvironmentDTO {
     private String name;
-    private double width;
-    private double length;
+    private Double width;
+    private Double length;
 }

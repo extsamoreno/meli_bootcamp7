@@ -1,6 +1,8 @@
 package com.example.desafio2.services;
 
 import com.example.desafio2.dtos.*;
+import com.example.desafio2.exceptions.NeighborhoodAlreadyExistException;
+import com.example.desafio2.exceptions.PropertyAlreadyExistException;
 import com.example.desafio2.exceptions.PropertyException;
 import com.example.desafio2.exceptions.PropertyNotFoundException;
 import com.example.desafio2.models.EnvironmentDTO;
@@ -18,6 +20,17 @@ public class PropertyService implements IPropertyService {
 
     @Autowired
     IPropertyRepository iPropertyRepository;
+
+    @Override
+    public PropertyDTO createProperty(PropertyDTO propertyDTO) throws PropertyAlreadyExistException {
+        return iPropertyRepository.saveProperty(propertyDTO);
+    }
+
+    @Override
+    public NeighborhoodDTO createNeighborhood(NeighborhoodDTO neighborhoodDTO)
+            throws NeighborhoodAlreadyExistException {
+        return iPropertyRepository.saveNeighborhood(neighborhoodDTO);
+    }
 
     @Override
     public ResponsePropertySquareDTO getSquareMeters(int propertyId) throws PropertyNotFoundException {
