@@ -5,18 +5,18 @@
     "prop_environment": [
       {
         "environment_name": "banio",
-        "environment_widht": 15.0,
-        "environment_lenght": 20.0
+        "environment_width": 15.0,
+        "environment_length": 20.0
       },
       {
         "environment_name": "cocina",
-        "environment_widht": 10.0,
-        "environment_lenght": 25.0
+        "environment_width": 10.0,
+        "environment_length": 25.0
       },
       {
         "environment_name": "living",
-        "environment_widht": 30.0,
-        "environment_lenght": 10.0
+        "environment_width": 30.0,
+        "environment_length": 10.0
       }
     ]
   },
@@ -26,18 +26,18 @@
     "prop_environment": [
       {
         "environment_name": "banio",
-        "environment_widht": 10.0,
-        "environment_lenght": 20.0
+        "environment_width": 10.0,
+        "environment_length": 20.0
       },
       {
         "environment_name": "cocina",
-        "environment_widht": 40.0,
-        "environment_lenght": 25.0
+        "environment_width": 40.0,
+        "environment_length": 25.0
       },
       {
         "environment_name": "living",
-        "environment_widht": 35.0,
-        "environment_lenght": 10.0
+        "environment_width": 35.0,
+        "environment_length": 10.0
       }
     ]
   },
@@ -47,18 +47,18 @@
     "prop_environment": [
       {
         "environment_name": "banio",
-        "environment_widht": 55.0,
-        "environment_lenght": 20.0
+        "environment_width": 55.0,
+        "environment_length": 20.0
       },
       {
         "environment_name": "cocina",
-        "environment_widht": 10.0,
-        "environment_lenght": 25.0
+        "environment_width": 10.0,
+        "environment_length": 25.0
       },
       {
         "environment_name": "living",
-        "environment_widht": 70.0,
-        "environment_lenght": 10.0
+        "environment_width": 70.0,
+        "environment_length": 10.0
       }
     ]
   }

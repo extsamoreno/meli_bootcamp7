@@ -19,5 +19,5 @@ public interface IPropertyService {
 
     ArrayList<PropertyEnvironmentDto> getEnvironmentSizesList(String propertyName) throws PropertyNameNotFoundException;
 
-    void addNewProperty (PropertyDto propertyDto) throws PropertyAlreadyExistsException;
+    void addNewProperty (PropertyDto propertyDto) throws PropertyAlreadyExistsException, PropertyDistrictNameNotFoundException;
 }

@@ -13,7 +13,6 @@ import com.example.desafio2.project.services.Dto.PropertyTotalSquareMetersDto;
 import com.example.desafio2.project.services.Dto.PropertyValueDto;
 import com.example.desafio2.project.services.mapper.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class PropertyService implements IPropertyService{
     public double getTotalMeters(Property property) {
         double totalSquareMeters = 0;
         for(Environment e : property.getProp_environment()){
-            totalSquareMeters+= e.getEnvironment_lenght() * e.getEnvironment_widht();
+            totalSquareMeters+= e.getEnvironment_length() * e.getEnvironment_width();
         }
         return totalSquareMeters;
     }
@@ -55,7 +54,7 @@ public class PropertyService implements IPropertyService{
         PropertyEnvironmentDto responseDto = new PropertyEnvironmentDto("Null",0.0);
 
         for(Environment e : environmentArrayList){
-            double environmentSize = e.getEnvironment_widht() * e.getEnvironment_lenght();
+            double environmentSize = e.getEnvironment_width() * e.getEnvironment_length();
             if (environmentSize > responseDto.getEnvironment_size()){
                 responseDto.setEnvironment_name(e.getEnvironment_name());
                 responseDto.setEnvironment_size(environmentSize);
@@ -71,14 +70,14 @@ public class PropertyService implements IPropertyService{
 
         for(Environment e : environmentArrayList){
             environmentSizesList.add(new PropertyEnvironmentDto(e.getEnvironment_name(),
-                    e.getEnvironment_lenght() * e.getEnvironment_widht()));
+                    e.getEnvironment_length() * e.getEnvironment_width()));
         }
 
         return environmentSizesList;
     }
 
     @Override
-    public void addNewProperty(PropertyDto propertyDto) throws PropertyAlreadyExistsException {
+    public void addNewProperty(PropertyDto propertyDto) throws PropertyAlreadyExistsException, PropertyDistrictNameNotFoundException {
         Property property = mapper.dtoToProperty(propertyDto);
         iPropertyRepository.saveProperty(property);
     }

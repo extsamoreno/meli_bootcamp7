@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
@@ -48,7 +49,7 @@ public class PropertyController {
 
     //Add new property
     @PostMapping("/newproperty")
-    public ResponseEntity<?> addNewProperty (@RequestBody PropertyDto propertyDto) throws PropertyAlreadyExistsException {
+    public ResponseEntity<?> addNewProperty (@Valid @RequestBody PropertyDto propertyDto) throws PropertyAlreadyExistsException, PropertyDistrictNameNotFoundException {
         this.iPropertyService.addNewProperty(propertyDto);
         ArrayList<String> response = new ArrayList<>();
         response.add("The property named: "+propertyDto.getProp_name()+" has been succesfully created");

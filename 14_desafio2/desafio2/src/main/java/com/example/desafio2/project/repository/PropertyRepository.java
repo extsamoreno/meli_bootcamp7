@@ -42,10 +42,15 @@ public class PropertyRepository implements IPropertyRepository{
     }
 
     @Override
-    public void saveProperty(Property property) throws PropertyAlreadyExistsException {
-        if(listProperties.stream().anyMatch(x -> x.getProp_name().equals(property.getProp_name()))){
+    public void saveProperty(Property property) throws PropertyAlreadyExistsException, PropertyDistrictNameNotFoundException {
+        if(listProperties.stream().anyMatch(x -> x.getProp_name().equals(property.getProp_name())))
             throw new PropertyAlreadyExistsException(property.getProp_name());
-        }
+
+
+        if(!listDistricts.stream().anyMatch(x -> x.getDistrict_name().equals(property.getProp_district_name())))
+            throw new PropertyDistrictNameNotFoundException(property.getProp_district_name());
+
+
         listProperties.add(property);
     }
 

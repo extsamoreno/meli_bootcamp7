@@ -11,5 +11,5 @@ public interface IPropertyRepository {
 
     District findDistrictByName(String districtName) throws PropertyDistrictNameNotFoundException;
 
-    void saveProperty(Property property) throws PropertyAlreadyExistsException;
+    void saveProperty(Property property) throws PropertyAlreadyExistsException, PropertyDistrictNameNotFoundException;
 }
