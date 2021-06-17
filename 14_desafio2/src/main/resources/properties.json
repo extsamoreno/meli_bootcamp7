@@ -1,0 +1,16 @@
+[
+  {
+    "propId": 1,
+    "propName": "Torre Cabildo",
+    "districtName": "Belgrano",
+    "districtPrize": 1000.0,
+    "environments": null
+  },
+  {
+    "propId": 2,
+    "propName": "Torre Libertador",
+    "districtName": "Belgrano",
+    "districtPrize": 1000.0,
+    "environments": null
+  }
+]
