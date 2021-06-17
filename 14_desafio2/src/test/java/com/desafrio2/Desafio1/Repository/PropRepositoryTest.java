@@ -18,7 +18,7 @@ class PropRepositoryTest {
     @Test
     void getDistrictByName() throws DistrictNotExist {
         //arrange
-        District district = new District("Villa Prado", 300.0);
+        District district = new District("Villa Prado", 400.0);
         //act
         District response = propRepository.getDistrictByName("Villa Prado");
         //assert
@@ -26,7 +26,7 @@ class PropRepositoryTest {
     }
 
     @Test
-    void getDistricNullName() {
+    void getDistrictNullName() {
         //assert
         assertThrows(DistrictNotExist.class, ()->  propRepository.getDistrictByName("Villa"));
     }
