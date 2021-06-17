@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Belgrano",
+    "price": 3700
+  },
+  {
+    "id": 2,
+    "name": "Villa Urquiza",
+    "price": 3200
+  },
+  {
+    "id": 3,
+    "name": "Palermo",
+    "price": 4000
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "name": "Juramento 5623",
+    "districtId": 2,
+    "environments": [
+      {
+        "name": "Living",
+        "width": 5.00,
+        "length": 7.00
+      },
+      {
+        "name": "Dormitorio principal",
+        "width": 7.00,
+        "length": 4.00
+      },
+      {
+        "name": "Segundo dormitorio",
+        "width": 3.50,
+        "length": 4.00
+      },
+      {
+        "name": "Tercer dormitorio",
+        "width": 3.50,
+        "length": 4.00
+      },
+      {
+        "name": "Patio trasero",
+        "width": 8.66,
+        "length": 10.00
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "O'Higgins 2191",
+    "districtId": 1,
+    "environments": [
+      {
+        "name": "Living",
+        "width": 6.00,
+        "length": 4.00
+      },
+      {
+        "name": "Dormitorio principal",
+        "width": 3.00,
+        "length": 3.00
+      }
+    ]
+  }
+]
