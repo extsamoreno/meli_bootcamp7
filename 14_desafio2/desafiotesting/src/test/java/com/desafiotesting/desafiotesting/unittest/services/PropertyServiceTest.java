@@ -1,9 +1,11 @@
 package com.desafiotesting.desafiotesting.unittest.services;
 import com.desafiotesting.desafiotesting.models.Property;
+import com.desafiotesting.desafiotesting.repositories.IDistrictRepository;
 import com.desafiotesting.desafiotesting.repositories.IPropertyRepository;
 import com.desafiotesting.desafiotesting.services.PropertyService;
 import com.desafiotesting.desafiotesting.services.dtos.EnviromentDTO;
 import com.desafiotesting.desafiotesting.services.dtos.EnviromentWithSquareMetersDTO;
+import com.desafiotesting.desafiotesting.services.dtos.PropertyDTO;
 import com.desafiotesting.desafiotesting.utils.TestUtilGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,6 +25,9 @@ public class PropertyServiceTest {
     IPropertyRepository propertyRepository;
 
     @Mock
+    IDistrictRepository districtRepository;
+
+    @Mock
     ModelMapper mapper;
 
     @InjectMocks
@@ -30,7 +35,7 @@ public class PropertyServiceTest {
 
     @Test
     public void totalSquareMetersTest(){
-        Property property = TestUtilGenerator.getProperty("district1");
+        Property property = TestUtilGenerator.getProperty("District1");
 
         Mockito.when(propertyRepository.findById(property.getId())).thenReturn(property);
 
@@ -42,7 +47,7 @@ public class PropertyServiceTest {
 
     @Test
     public void getBiggerEnviromentTest(){
-        Property property = TestUtilGenerator.getProperty("district1");
+        Property property = TestUtilGenerator.getProperty("District1");
         EnviromentDTO enviromentExpected = mapper.map(property.getEnviroments().get(0),EnviromentDTO.class);
 
         Mockito.when(propertyRepository.findById(property.getId())).thenReturn(property);
@@ -55,7 +60,7 @@ public class PropertyServiceTest {
 
     @Test
     public void getPricePropertyTest(){
-        Property property = TestUtilGenerator.getProperty("district1");
+        Property property = TestUtilGenerator.getProperty("District1");
 
         Mockito.when(propertyRepository.findById(property.getId())).thenReturn(property);
 
@@ -68,7 +73,7 @@ public class PropertyServiceTest {
 
     @Test
     public void getEnviromentsInfoTest(){
-        Property property = TestUtilGenerator.getProperty("district1");
+        Property property = TestUtilGenerator.getProperty("District1");
 
         Mockito.when(propertyRepository.findById(property.getId())).thenReturn(property);
 
