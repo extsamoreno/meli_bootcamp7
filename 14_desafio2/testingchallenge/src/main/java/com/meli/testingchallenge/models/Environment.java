@@ -15,11 +15,4 @@ public class Environment {
     private double environment_width;
     private double environment_length;
 
-    public double calculateSurface() {
-        return environment_length * environment_width;
-    }
-
-    public EnvironmentDTORes generateResponseDto() {
-        return new EnvironmentDTORes(environment_name, calculateSurface());
-    }
 }

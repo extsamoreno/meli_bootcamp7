@@ -21,37 +21,4 @@ public class Estate {
     private double district_price;
     private List<Environment> environments;
 
-    public double calculateSurface() {
-
-        return environments.stream()
-                .mapToDouble(e -> e.calculateSurface())
-                .sum();
-    }
-
-    public double calculatePrice(){
-
-        return calculateSurface() * district_price;
-
-    }
-
-    public List<EnvironmentDTORes> generateEnvironmentsCalculations(){
-
-        return environments.stream()
-                .map(Environment::generateResponseDto)
-                .collect(Collectors.toList());
-    }
-
-    public EnvironmentDTORes findBiggerEnvironment(){
-        Environment maxEnvironment;
-        try{
-            maxEnvironment = environments
-                    .stream()
-                    .max(Comparator.comparing(e -> e.calculateSurface()))
-                    .orElseThrow(NoSuchElementException::new);
-        } catch(Exception e) {
-            return null;
-        }
-        return maxEnvironment.generateResponseDto();
-    }
-
 }
