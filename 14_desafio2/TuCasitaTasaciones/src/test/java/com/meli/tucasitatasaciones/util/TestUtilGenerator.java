@@ -1,5 +1,9 @@
 package com.meli.tucasitatasaciones.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.tucasitatasaciones.dto.EnvironmentDTO;
 import com.meli.tucasitatasaciones.dto.PropertyDTO;
 import com.meli.tucasitatasaciones.model.District;
@@ -7,9 +11,13 @@ import com.meli.tucasitatasaciones.model.Environment;
 import com.meli.tucasitatasaciones.model.Property;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TestUtilGenerator {
+    static ObjectMapper mapper = new ObjectMapper();
+
     public static Property getProperty() {
         Environment env1 = new Environment("Habitacion 1",6.0,5.0);
         Environment env2 = new Environment("Habitacion 2",4.0,2.5);
@@ -42,8 +50,8 @@ public class TestUtilGenerator {
 
     public static List<PropertyDTO> getPropertiesDTO() {
         PropertyDTO prop1 = getPropertyDTO("D1");
-        PropertyDTO prop2 = getPropertyDTO("D2");
-        PropertyDTO prop3 = getPropertyDTO("D3");
+        PropertyDTO prop2 = getPropertyDTO("D1");
+        PropertyDTO prop3 = getPropertyDTO("D1");
 
         List<PropertyDTO> properties = new ArrayList<>();
         properties.add(prop1);
@@ -64,5 +72,30 @@ public class TestUtilGenerator {
         properties.add(prop3);
 
         return properties;
+    }
+
+    public static List<EnvironmentDTO> getEnvironmentsDTO() {
+        EnvironmentDTO env1 = new EnvironmentDTO("Habitacion 1",30.0);
+        EnvironmentDTO env2 = new EnvironmentDTO("Habitacion 2",10.0);
+
+        List<EnvironmentDTO> environments = new ArrayList<>();
+        environments.add(env1);
+        environments.add(env2);
+
+        return environments;
+    }
+
+    public static <T> String toJson(T object) throws JsonProcessingException {
+        ObjectWriter writer = mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false). writer().withDefaultPrettyPrinter();
+        return writer.writeValueAsString(object);
+    }
+
+    public static <T> T fromJson(String payloadJson, Class<T> oClass) throws JsonProcessingException {
+        return mapper.readValue(payloadJson, oClass);
+    }
+
+    public static <T> List<T> fromJsonToList(String payloadJson, Class<T> oClass) throws JsonProcessingException {
+        new ObjectMapper();
+        return mapper.readValue(payloadJson, mapper.getTypeFactory().constructCollectionType(ArrayList.class, oClass));
     }
 }
