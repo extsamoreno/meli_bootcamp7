@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class HouseBiggestRoomResponseDTO {
     private String nameHouse;
     private String nameRoom;

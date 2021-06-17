@@ -18,7 +18,7 @@ public class District {
     private String districtName;
 
     @NotNull(message = "The attribute 'squareMeterPrice' must not be Null")
-    @Max(value = 4000, message = "The 'squareMeterPrice' must be maximum 25")
+    @Max(value = 4000, message = "The 'squareMeterPrice' must be maximum 4000")
     @Min(value = 1, message = "The 'squareMeterPrice' must be minimum 1")
     @Positive(message = "The 'squareMeterPrice' must be positive")
     private double squareMeterPrice;

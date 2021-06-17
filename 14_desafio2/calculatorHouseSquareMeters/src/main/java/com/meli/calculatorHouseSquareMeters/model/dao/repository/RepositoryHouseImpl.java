@@ -1,10 +1,13 @@
 package com.meli.calculatorHouseSquareMeters.model.dao.repository;
 
 import com.meli.calculatorHouseSquareMeters.database.DataBaseHouses;
+import com.meli.calculatorHouseSquareMeters.model.dao.model.District;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.House;
+import com.meli.calculatorHouseSquareMeters.model.dao.model.Room;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Repository
 public class RepositoryHouseImpl implements RepositoryHouse{
@@ -38,5 +41,15 @@ public class RepositoryHouseImpl implements RepositoryHouse{
             }
         }
         return exist;
+    }
+
+    public void resetDataBase() {
+        House house = new House("Casa1", new District("Barrio Bajo",
+                800),
+                1,
+                100,
+                80000, new ArrayList<Room>(Arrays.asList(new Room("Habitación 1", 10, 10))));
+        dataBaseHouses.clear();
+        dataBaseHouses.add(house);
     }
 }

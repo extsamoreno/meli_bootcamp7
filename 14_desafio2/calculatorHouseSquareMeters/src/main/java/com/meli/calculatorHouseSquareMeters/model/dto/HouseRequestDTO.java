@@ -19,13 +19,13 @@ import java.util.ArrayList;
 public class HouseRequestDTO {
 
     @NotNull(message = "The attribute 'houseName' must not be Null")
-    @Size(min = 1, max = 30, message = "The 'houseName' attribute cannot exceed 30 characters")
+    @Size(max = 30, message = "The 'houseName' attribute cannot exceed 30 characters")
     @NotEmpty(message = "The 'houseName' attribute must not be empty")
     @Pattern(regexp = "^[A-Z].*$", message="The attribute 'houseName' must start in uppercase")
     private String houseName;
 
     @NotEmpty(message = "The attribute 'districtName' must not be Null")
-    @Size(min = 1, max = 45, message = "The 'districName' attribute cannot exceed 45 characters")
+    @Size(max = 45, message = "The 'districName' attribute cannot exceed 45 characters")
     @NotEmpty(message = "The 'districtName' attribute must not be empty")
     private String districtName;
 
