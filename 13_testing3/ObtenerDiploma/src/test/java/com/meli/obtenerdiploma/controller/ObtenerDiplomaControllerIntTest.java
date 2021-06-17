@@ -7,6 +7,7 @@ import com.meli.obtenerdiploma.exception.ObtenerDiplomaException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
+import org.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -70,7 +71,7 @@ public class ObtenerDiplomaControllerIntTest {
 
         MvcResult mvcResult =
             this.mockMvc.perform(MockMvcRequestBuilders.get(
-                    "/analyzeScores/{studentId}", 1L))
+                    "/analyzeScores/{studentId}", id))
                     .andDo(print()).andExpect(status().isOk())
                     .andExpect(content().contentType("application/json"))
                     .andExpect(MockMvcResultMatchers.jsonPath(
@@ -82,8 +83,8 @@ public class ObtenerDiplomaControllerIntTest {
                     .andReturn();
 
         Mockito.verify(iStudentDAO, Mockito.atLeastOnce()).findById(id);
-        Assertions. assertEquals("application/json" ,
-                mvcResult.getResponse().getContentType()) ;
+        //Assertions. assertEquals("application/json" ,
+        //        mvcResult.getResponse().getContentType()) ;
 
     }
 
@@ -97,8 +98,8 @@ public class ObtenerDiplomaControllerIntTest {
                 .writer().withDefaultPrettyPrinter();
 
         String response = writer.writeValueAsString(studentDTO);
-        
-        Mockito.when(iStudentDAO.findById(id)).thenReturn(studentDTO);
+
+        Mockito.when(iStudentDAO.findById(any())).thenReturn(studentDTO);
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}", id))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
