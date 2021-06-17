@@ -15,12 +15,12 @@ public class DistrictRepository implements IDistrictRepository{
     public DistrictRepository(){
         districts.add(
                 new District(
-                "El challao",
-                200.0
+                "District1",
+                        225.5
                 ));
         districts.add(new District(
-                        "Chacras",
-                        250.0
+                        "District2",
+                235.5
                 )
         );
     }

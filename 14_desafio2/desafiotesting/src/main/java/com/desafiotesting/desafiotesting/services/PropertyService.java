@@ -32,7 +32,7 @@ public class PropertyService implements IPropertyService{
         double total = 0.0;
         for (Enviroment enviroment: property.getEnviroments()
              ) {
-            total += enviroment.getWidth() * enviroment.getLength();
+            total += getEnviromentTotalSquareMeters(enviroment);
         }
         return total;
     }
@@ -49,8 +49,8 @@ public class PropertyService implements IPropertyService{
         double major = 0;
         int index = 0;
         for (int i = 0; i < property.getEnviroments().size() ; i++) {
-            if(major < property.getEnviroments().get(i).getLength() * property.getEnviroments().get(i).getWidth()){
-                major = property.getEnviroments().get(i).getLength() * property.getEnviroments().get(i).getWidth();
+            if(major < getEnviromentTotalSquareMeters(property.getEnviroments().get(i))){
+                major = getEnviromentTotalSquareMeters(property.getEnviroments().get(i));
                 index = i;
             }
         }
@@ -71,11 +71,15 @@ public class PropertyService implements IPropertyService{
                             enviroment.getName(),
                             enviroment.getWidth(),
                             enviroment.getLength(),
-                            (enviroment.getLength()*enviroment.getWidth())
-                    )
-            );
+                            getEnviromentTotalSquareMeters(enviroment)
+                            )
+                    );
         }
         return list;
+    }
+
+    private double getEnviromentTotalSquareMeters(Enviroment enviroment){
+        return enviroment.getLength()*enviroment.getWidth();
     }
 
     @Override
