@@ -4,6 +4,8 @@ import com.example.tucasita.domain.District;
 import com.example.tucasita.dto.DistrictDTO;
 import com.example.tucasita.dto.HouseDTO;
 import com.example.tucasita.dto.response.*;
+import com.example.tucasita.exception.NotFoundException;
+import com.example.tucasita.exception.PriceNotMatchException;
 import com.example.tucasita.repository.IDistrictRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -132,5 +135,44 @@ public class TuCasitaControllerIntegrationTest {
         assertEquals(expected, received);
     }
 
+    @Test
+    public void calculateTotalMetersNonExistingDistrict() throws Exception {
+        String payloadJson = toJson(houseDTONonExistingDistrict);
+        String expectedDescription = NotFoundException.class.getSimpleName();
+        ;
 
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/house/total-square-meters")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedDescription))
+                .andReturn();
+
+    }
+
+    @Test
+    public void calculateTotalMetersNotSamePriceDistrict() throws Exception {
+        String payloadJson = toJson(houseDTONotSamePriceDistrict);
+        String expectedDescription = PriceNotMatchException.class.getSimpleName();
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/house/total-square-meters")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedDescription))
+                .andReturn();
+
+    }
+
+    @Test
+    public void calculateTotalMetersNotValidHouse() throws Exception {
+        String payloadJson = toJson(new HouseDTO());
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/house/total-square-meters")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andReturn();
+
+    }
 }

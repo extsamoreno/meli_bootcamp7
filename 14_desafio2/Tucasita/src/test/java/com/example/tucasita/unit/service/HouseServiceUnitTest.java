@@ -5,7 +5,7 @@ import com.example.tucasita.dto.DistrictDTO;
 import com.example.tucasita.dto.HouseDTO;
 import com.example.tucasita.dto.response.*;
 import com.example.tucasita.exception.NotFoundException;
-import com.example.tucasita.exception.PriceException;
+import com.example.tucasita.exception.PriceNotMatchException;
 import com.example.tucasita.repository.IDistrictRepository;
 import com.example.tucasita.service.HouseService;
 import org.junit.jupiter.api.BeforeEach;
@@ -117,22 +117,22 @@ public class HouseServiceUnitTest {
      */
     @Test
     public void calculateTotalMetersNotSamePriceDistrict() {
-        assertThrows(PriceException.class, () -> houseService.calculateTotalMeters(houseDTONotSamePriceDistrict));
+        assertThrows(PriceNotMatchException.class, () -> houseService.calculateTotalMeters(houseDTONotSamePriceDistrict));
     }
 
     @Test
     public void calculateTotalValueNotSamePriceDistrict() {
-        assertThrows(PriceException.class, () -> houseService.calculateTotalValue(houseDTONotSamePriceDistrict));
+        assertThrows(PriceNotMatchException.class, () -> houseService.calculateTotalValue(houseDTONotSamePriceDistrict));
     }
 
     @Test
     public void calculateLargestRoomNotSamePriceDistrict() {
-        assertThrows(PriceException.class, () -> houseService.calculateLargestRoom(houseDTONotSamePriceDistrict));
+        assertThrows(PriceNotMatchException.class, () -> houseService.calculateLargestRoom(houseDTONotSamePriceDistrict));
     }
 
     @Test
     public void calculateRoomsSquareMetersNotSamePriceDistrict() {
-        assertThrows(PriceException.class, () -> houseService.calculateRoomsSquareMeters(houseDTONotSamePriceDistrict));
+        assertThrows(PriceNotMatchException.class, () -> houseService.calculateRoomsSquareMeters(houseDTONotSamePriceDistrict));
     }
 
 

@@ -8,7 +8,7 @@ import com.example.tucasita.dto.HouseDTO;
 import com.example.tucasita.dto.RoomDTO;
 import com.example.tucasita.dto.response.*;
 import com.example.tucasita.exception.NotFoundException;
-import com.example.tucasita.exception.PriceException;
+import com.example.tucasita.exception.PriceNotMatchException;
 import com.example.tucasita.repository.IDistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +63,7 @@ public class HouseService implements IHouseService {
 
     private District searchDistrict(DistrictDTO district) {
         District repoDistrict = districtRepository.findByName(district.getName()).orElseThrow(() -> new NotFoundException("District"));
-        if (repoDistrict.getPrice() != district.getPrice()) throw new PriceException();
+        if (repoDistrict.getPrice() != district.getPrice()) throw new PriceNotMatchException();
         return repoDistrict;
     }
 

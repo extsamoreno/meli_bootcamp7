@@ -2,9 +2,9 @@ package com.example.tucasita.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class PriceException extends TuCasitaException {
+public class PriceNotMatchException extends TuCasitaException {
 
-    public PriceException() {
+    public PriceNotMatchException() {
         super("District price does not match", HttpStatus.BAD_REQUEST);
     }
 }
