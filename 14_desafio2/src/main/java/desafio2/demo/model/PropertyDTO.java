@@ -3,8 +3,10 @@ package desafio2.demo.model;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Data
 public class PropertyDTO {
@@ -12,4 +14,8 @@ public class PropertyDTO {
     @Pattern(message = "El nombre de la propiedad debe comenzar con mayúscula.",regexp = "^[A-Z].*")
     @Length(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     String name;
+    @Valid
+    DistrictDTO district;
+    @Valid
+    List<EnvironmentDTO> environments;
 }
