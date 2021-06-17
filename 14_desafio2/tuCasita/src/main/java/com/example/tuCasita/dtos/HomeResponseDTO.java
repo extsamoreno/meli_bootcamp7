@@ -9,8 +9,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HomeResponseDTO {
-    Integer id;
-    String name;
-    District district;
-    List<EnviromentDTO> enviromentList;
+    private Integer id;
+    private String name;
+    private District district;
+    private List<EnviromentDTO> enviromentList;
 }

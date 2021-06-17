@@ -1,14 +1,15 @@
 package com.example.tuCasita.repositories;
 
+import com.example.tuCasita.exceptions.AlreadyExistDistrictException;
 import com.example.tuCasita.exceptions.AlreadyExistHomeException;
+import com.example.tuCasita.exceptions.HomeIdNotFoundException;
+import com.example.tuCasita.exceptions.HomeWithNoEnviromentsException;
 import com.example.tuCasita.models.District;
 import com.example.tuCasita.models.Enviroment;
 import com.example.tuCasita.models.Home;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class HomeRepository implements IHomeRepository{
@@ -68,10 +69,15 @@ public class HomeRepository implements IHomeRepository{
     }
 
     @Override
+    public District findDistrictById(Integer id) {
+        return districtMap.get(id);
+    }
+
+    @Override
     public void insertHome(Home home) throws AlreadyExistHomeException {
-        //Check if the home is not already inserted by the user
         Home exist = homeMap.get(home.getId());
 
+        //Check if the home is already inserted by the user
         if (exist != null){
             throw new AlreadyExistHomeException(home.getId());
         }
@@ -80,8 +86,67 @@ public class HomeRepository implements IHomeRepository{
     }
 
     @Override
-    public Double getSquareMeterByHome(Integer homeId) {
-        List<Enviroment> enviromentList = homeMap.get(homeId).getEnviromentList();
+    public void insertDistrict(District district) throws AlreadyExistDistrictException {
+        District exist = districtMap.get(district.getId());
+
+        //Check if the district is already inserted by the user
+        if (exist != null){
+            throw new AlreadyExistDistrictException(district.getId());
+        }
+
+        districtMap.put(district.getId(),district);
+    }
+
+    @Override
+    public Double getSquareMeterByHome(Integer homeId) throws HomeIdNotFoundException {
+        Home home = homeMap.get(homeId);
+
+        if (homeIdNotExist(homeId))
+            throw new HomeIdNotFoundException(homeId);
+
+        Double meters = getSquareMeters(home);
+
+        return meters;
+    }
+
+    @Override
+    public Double getPrice(Integer homeId) throws HomeIdNotFoundException {
+        Home home = homeMap.get(homeId);
+
+        if (homeIdNotExist(homeId))
+            throw new HomeIdNotFoundException(homeId);
+
+        Double districtPrice = home.getDistrict().getPrice();
+        Double result = districtPrice * getSquareMeterByHome(homeId);
+
+        return result;
+    }
+
+    @Override
+    public Enviroment getBiggest(Integer homeId) throws HomeIdNotFoundException, HomeWithNoEnviromentsException {
+        Home home = homeMap.get(homeId);
+
+        if (homeIdNotExist(homeId))
+            throw new HomeIdNotFoundException(homeId);
+
+        List<Enviroment> enviromentList = home.getEnviromentList();
+
+        if (enviromentList == null || enviromentList.isEmpty()){
+            throw new HomeWithNoEnviromentsException(homeId);
+        }
+
+        Optional<Enviroment> biggestEnv = enviromentList.stream().max(Comparator.comparing(e -> e.getLength() * e.getWidth()));
+
+        return biggestEnv.get();
+    }
+
+    @Override
+    public List<Enviroment> findEnviromentsById(Integer homeId) {
+        return homeMap.get(homeId).getEnviromentList();
+    }
+
+    private double getSquareMeters(Home home){
+        List<Enviroment> enviromentList = homeMap.get(home.getId()).getEnviromentList();
         Double meters = 0.0;
 
         for (int i = 0; i < enviromentList.size(); i++) {
@@ -91,18 +156,25 @@ public class HomeRepository implements IHomeRepository{
         return meters;
     }
 
-    @Override
-    public Double getPrice(Integer homeId) {
-        return null;
+    private boolean homeIdNotExist(Integer homeId){
+        boolean valid = false;
+
+        Home home = homeMap.get(homeId);
+
+        if (home == null)
+            valid = true;
+
+        return valid;
     }
 
-    @Override
-    public Enviroment getBiggest(Integer homeId) {
-        return null;
-    }
+    private boolean existEnviromentId(Integer envId){
+        boolean exist = false;
+        List<Enviroment> envList = new ArrayList<>();
 
-    @Override
-    public List<Enviroment> findEnviromentsById(Integer homeId) {
-        return null;
+        /*for (int i = 0; i < homeMap.size(); i++) {
+            envList.add(homeMap.get(i).getEnviromentList());
+        }*/
+
+        return exist;
     }
 }

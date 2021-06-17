@@ -1,10 +1,8 @@
 package com.example.tuCasita.services;
 
-import com.example.tuCasita.dtos.EnviromentDTO;
-import com.example.tuCasita.dtos.HomeDTO;
-import com.example.tuCasita.dtos.HomeResponseDTO;
-import com.example.tuCasita.exceptions.AlreadyExistHomeException;
-import com.example.tuCasita.exceptions.HomeIdNotFoundException;
+import com.example.tuCasita.dtos.*;
+import com.example.tuCasita.exceptions.*;
+import com.example.tuCasita.models.District;
 import com.example.tuCasita.models.Enviroment;
 import com.example.tuCasita.models.Home;
 import com.example.tuCasita.repositories.IHomeRepository;
@@ -22,13 +20,18 @@ public class HomeService implements IHomeService{
     private IHomeRepository homeRepository;
 
     @Override
-    public Double getSquareMeterByHome(Integer homeId) {
+    public Double getSquareMeterByHome(Integer homeId) throws HomeIdNotFoundException {
         return homeRepository.getSquareMeterByHome(homeId);
     }
 
     @Override
-    public HomeResponseDTO insertHome(HomeDTO homeDTO) throws AlreadyExistHomeException {
-        homeRepository.insertHome(HomeMapper.homeDTOtoModel(homeDTO));
+    public HomeResponseDTO insertHome(HomeDTO homeDTO) throws AlreadyExistHomeException, DistrictNotFoundException {
+        District district = homeRepository.findDistrictById(homeDTO.getDistrictId());
+
+        if(district == null)
+            throw new DistrictNotFoundException(homeDTO.getDistrictId());
+
+        homeRepository.insertHome(HomeMapper.homeDTOtoModel(homeDTO, district));
 
         Home home = homeRepository.getHomeById(homeDTO.getId());
 
@@ -39,37 +42,41 @@ public class HomeService implements IHomeService{
     }
 
     @Override
-    public Double getPrice(Integer homeId) {
+    public Double getPrice(Integer homeId) throws HomeIdNotFoundException {
         return homeRepository.getPrice(homeId);
     }
 
     @Override
-    public EnviromentDTO getBiggest(Integer homeId) throws HomeIdNotFoundException {
+    public EnviromentDTO getBiggest(Integer homeId) throws HomeIdNotFoundException, HomeWithNoEnviromentsException {
         Enviroment enviroment = homeRepository.getBiggest(homeId);
 
         if (enviroment == null){
             throw new HomeIdNotFoundException(homeId);
         }
 
-        Double meters = enviroment.getLength() * enviroment.getWidth();
-
-        return new EnviromentDTO(enviroment.getName(),meters);
+        return new EnviromentDTO(enviroment.getId(), enviroment.getName(), enviroment.getWidth(), enviroment.getLength());
     }
 
     @Override
-    public List<EnviromentDTO> getMeterCount(Integer homeId) throws HomeIdNotFoundException {
+    public List<EnviromentAreasDTO> getMeterCount(Integer homeId) throws HomeIdNotFoundException {
         List<Enviroment> enviromentDTOList = homeRepository.findEnviromentsById(homeId);
-        List<EnviromentDTO> result = new ArrayList<>();
+        List<EnviromentAreasDTO> result = new ArrayList<>();
 
         if (enviromentDTOList == null){
             throw new HomeIdNotFoundException(homeId);
         }
 
         for (int i = 0; i < enviromentDTOList.size(); i++) {
-            result.add(HomeMapper.toDTO(enviromentDTOList.get(i)));
+            result.add(HomeMapper.toAreasDTO(enviromentDTOList.get(i)));
         }
 
         return result;
+    }
+
+    @Override
+    public String insertDistrict(DistrictDTO districtDTO) throws AlreadyExistDistrictException {
+        homeRepository.insertDistrict(HomeMapper.districtDTOToModel(districtDTO));
+        return ("The district was added correctly");
     }
 
     private List<EnviromentDTO> enviromentListToEnviromentDTOList(List<Enviroment> enviromentList){
