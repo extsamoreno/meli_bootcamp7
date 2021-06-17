@@ -71,7 +71,27 @@ public class PropertyServiceImple implements PropertyService{
 
         price = totalSquareMeters * district.getDistrictPrize();
 
-        ResponseDTO response = new ResponseDTO(200, "La propiedad con ID " + idProperty + " tiene un valor de " + price + " U$S");
+        ResponseDTO response = new ResponseDTO(200, "La propiedad con ID " + idProperty + " tiene un valor de " + price + " U$S.");
+
+        return response;
+    }
+
+    @Override
+    public ResponseDTO getBiggestEnvironment(int idProperty){
+        PropertyDTO property = propertyDAO.findById(idProperty);
+        String biggestEnvironmentName = "";
+        Double environmentSquareMeters = 0.00;
+
+        for (int i = 0; i < property.getEnvironments().size(); i++) {
+            EnvironmentDTO environment = property.getEnvironments().get(i);
+
+            if(environment.getEnvironmentLength() * environment.getEvironmentWidth() > environmentSquareMeters){
+                environmentSquareMeters = environment.getEnvironmentLength() * environment.getEvironmentWidth();
+                biggestEnvironmentName = environment.getEnvironmentName();
+            }
+        }
+
+        ResponseDTO response = new ResponseDTO(200, "El ambiente más grande de la propiedad con ID " + idProperty + " es el ambiente " + biggestEnvironmentName + " con un total de " + environmentSquareMeters + " metros cuadrados.");
 
         return response;
     }

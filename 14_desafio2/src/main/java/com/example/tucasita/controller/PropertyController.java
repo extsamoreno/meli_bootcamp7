@@ -47,8 +47,27 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.calculatePropertyTotalSquareMeters(idProperty), HttpStatus.OK);
     }
 
+    /**
+     * Calculates de price of a property
+     *
+     * @param idProperty the property you want to calculate its price
+     * @return
+     */
+
     @GetMapping("/calculatePrice")
     public ResponseEntity<ResponseDTO> calculatePropertyPrice (@RequestParam int idProperty) {
         return new ResponseEntity<>(propertyService.calculatePropertyPrice(idProperty), HttpStatus.OK);
+    }
+
+    /**
+     * Retrieves the biggest environment of a property
+     *
+     * @param idProperty the property you want to know its biggest environment
+     * @return
+     */
+
+    @GetMapping("/biggestEnvironment")
+    public ResponseEntity<ResponseDTO> getBiggestEnvironment (@RequestParam int idProperty) {
+        return new ResponseEntity<>(propertyService.getBiggestEnvironment(idProperty), HttpStatus.OK);
     }
 }

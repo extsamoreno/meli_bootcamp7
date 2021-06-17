@@ -8,6 +8,11 @@
         "environmentName": "Cocina",
         "evironmentWidth": 5.00,
         "environmentLength": 5.00
+      },
+      {
+        "environmentName": "Living",
+        "evironmentWidth": 10.00,
+        "environmentLength": 5.00
       }
     ]
   }
