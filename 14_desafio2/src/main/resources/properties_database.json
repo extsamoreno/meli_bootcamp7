@@ -1,0 +1,49 @@
+[
+  {
+    "name": "Mendoza 1641",
+    "district": "Belgrano",
+    "rooms": [
+      {
+        "name": "Comedor",
+        "width": 5,
+        "length": 5
+      },
+      {
+        "name": "Dormitorio 1",
+        "width": 3,
+        "length": 3.5
+      },
+      {
+        "name": "Dormitorio 2",
+        "width": 3.5,
+        "length": 3.5
+      },
+      {
+        "name": "Cocina",
+        "width": 2,
+        "length": 4.5
+      }
+    ]
+  },
+  {
+    "name": "Maza 607",
+    "district": "Boedo",
+    "rooms": [
+      {
+        "name": "Comedor",
+        "width": 4,
+        "length": 4
+      },
+      {
+        "name": "Dormitorio 1",
+        "width": 3,
+        "length": 3.5
+      },
+      {
+        "name": "Cocina",
+        "width": 2,
+        "length": 4.5
+      }
+    ]
+  }
+]
