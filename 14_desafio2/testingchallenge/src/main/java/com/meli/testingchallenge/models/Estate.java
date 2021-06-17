@@ -1,10 +1,15 @@
 package com.meli.testingchallenge.models;
 
+import com.meli.testingchallenge.dtos.EnvironmentDTO;
+import com.meli.testingchallenge.dtos.EnvironmentDTORes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -24,9 +29,29 @@ public class Estate {
     }
 
     public double calculatePrice(){
+
         return calculateSurface() * district_price;
+
     }
 
+    public List<EnvironmentDTORes> generateEnvironmentsCalculations(){
 
+        return environments.stream()
+                .map(Environment::generateResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    public EnvironmentDTORes findBiggerEnvironment(){
+        Environment maxEnvironment;
+        try{
+            maxEnvironment = environments
+                    .stream()
+                    .max(Comparator.comparing(e -> e.calculateSurface()))
+                    .orElseThrow(NoSuchElementException::new);
+        } catch(Exception e) {
+            return null;
+        }
+        return maxEnvironment.generateResponseDto();
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.meli.testingchallenge.services;
 
 import com.meli.testingchallenge.dtos.EnvironmentDTO;
+import com.meli.testingchallenge.dtos.EnvironmentDTORes;
 import com.meli.testingchallenge.dtos.EstateAssessmentDTO;
 import com.meli.testingchallenge.dtos.EstateDTO;
 import com.meli.testingchallenge.models.Environment;
@@ -21,9 +22,12 @@ public class EstateService implements IEstateService{
     public EstateAssessmentDTO getAssessment(EstateDTO estateDto) {
 
         Estate estate = mapper.map(estateDto, Estate.class);
+
         return new EstateAssessmentDTO(estateDto.getProp_name(),
                 estate.calculateSurface(),
-                estate.calculatePrice());
+                estate.calculatePrice(),
+                estate.findBiggerEnvironment(),
+                estate.generateEnvironmentsCalculations());
     }
 
 

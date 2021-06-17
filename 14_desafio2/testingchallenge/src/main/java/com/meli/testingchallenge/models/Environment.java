@@ -1,6 +1,7 @@
 package com.meli.testingchallenge.models;
 
 
+import com.meli.testingchallenge.dtos.EnvironmentDTORes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,9 @@ public class Environment {
 
     public double calculateSurface() {
         return environment_length * environment_width;
+    }
+
+    public EnvironmentDTORes generateResponseDto() {
+        return new EnvironmentDTORes(environment_name, calculateSurface());
     }
 }

@@ -16,12 +16,12 @@ public class EnvironmentDTO {
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String environment_name;
     @NotNull(message = "El ancho del ambiente no puede estar vacío.")
-    @Max(value=25, message = "El máximo ancho permitido por ambiente es de 25 mts.")
-    @Min(value=0, message = "El mínimo ancho permitido por ambiente es de 0 mts.")
+    @DecimalMax(value= "25.0", message = "El máximo ancho permitido por ambiente es de 25 mts.")
+    @DecimalMin(value= "0.0", message = "El mínimo ancho permitido por ambiente es de 0 mts.")
     private double environment_width;
     @NotNull(message = "El ancho del ambiente no puede estar vacío.")
-    @Max(value=33, message = "El máximo largo permitido por ambiente es de 33 mts.")
-    @Min(value=0, message = "El mínimo largo permitido por ambiente es de 0 mts.")
+    @DecimalMax(value= "33.0", message = "El máximo largo permitido por ambiente es de 33 mts.")
+    @DecimalMin(value= "0.0", message = "El mínimo largo permitido por ambiente es de 0 mts.")
     private double environment_length;
 
 }
