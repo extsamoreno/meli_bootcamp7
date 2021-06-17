@@ -49,8 +49,11 @@ public class PropertyRepositoryTest {
         //Arrange
         Integer propertyId = 1;
 
-        //Act & Assert
-        Assertions.assertThrows(PropertyNotFoundException.class, () -> iPropertyRepository.findPropertyById(propertyId));
+        //Act
+        Property property = iPropertyRepository.findPropertyById(propertyId);
+
+        //Assert
+        Assertions.assertNull(property);
     }
 
     @Test

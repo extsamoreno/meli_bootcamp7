@@ -18,7 +18,6 @@ import org.modelmapper.ModelMapper;
 
 @ExtendWith(MockitoExtension.class)
 public class AppraisalServiceTest {
-    ModelMapper mapper = new ModelMapper();
 
     @Mock
     IPropertyRepository iPropertyRepository;
@@ -61,7 +60,7 @@ public class AppraisalServiceTest {
     public void getBiggestEnvironment() {
         //Arrange
         Property property = TestUtilGenerator.getProperty();
-        EnvironmentDTO env = mapper.map(property.getEnvironments().get(0),EnvironmentDTO.class);
+        EnvironmentDTO env = TestUtilGenerator.toEnvironmentDTO(property.getEnvironments().get(0));
         Mockito.when(iPropertyRepository.findPropertyById(property.getId())).thenReturn(property);
         Mockito.when(modelMapper.map(property.getEnvironments().get(0),EnvironmentDTO.class)).thenReturn(env);
 

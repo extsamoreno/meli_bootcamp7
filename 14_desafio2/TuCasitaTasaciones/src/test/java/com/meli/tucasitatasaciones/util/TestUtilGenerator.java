@@ -11,9 +11,7 @@ import com.meli.tucasitatasaciones.model.Environment;
 import com.meli.tucasitatasaciones.model.Property;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class TestUtilGenerator {
     static ObjectMapper mapper = new ObjectMapper();
@@ -83,6 +81,14 @@ public class TestUtilGenerator {
         environments.add(env2);
 
         return environments;
+    }
+
+    public static EnvironmentDTO toEnvironmentDTO(Environment env) {
+        EnvironmentDTO environmentDTO = new EnvironmentDTO();
+        environmentDTO.setName(env.getName());
+        environmentDTO.setLength(env.getLength());
+        environmentDTO.setWidth(env.getWidth());
+        return environmentDTO;
     }
 
     public static <T> String toJson(T object) throws JsonProcessingException {

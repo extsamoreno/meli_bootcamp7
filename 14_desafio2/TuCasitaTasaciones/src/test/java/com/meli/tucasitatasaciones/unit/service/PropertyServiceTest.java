@@ -21,7 +21,6 @@ import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class PropertyServiceTest {
-    ModelMapper mapper = new ModelMapper();
 
     @Mock
     IPropertyRepository iPropertyRepository;
@@ -40,7 +39,7 @@ public class PropertyServiceTest {
         //Arrange
         String districtName = "Alto Alberdi";
         PropertyDTO propertyDTO = TestUtilGenerator.getPropertyDTO(districtName);
-        Property property = mapper.map(propertyDTO,Property.class);
+        Property property = TestUtilGenerator.getProperty();
         Mockito.when(iDistrictRepository.findDistrictByName(districtName)).thenReturn(new District("Alto Alberdi",150.0));
         Mockito.when(modelMapper.map(propertyDTO,Property.class)).thenReturn(property);
 
@@ -66,13 +65,10 @@ public class PropertyServiceTest {
     public void getAllProperties() {
         //Arrange
         List<Property> properties = TestUtilGenerator.getProperties();
-//        Property property = TestUtilGenerator.getNewProperty();
-//        PropertyDTO propertyDTO = TestUtilGenerator.getPropertyDTO("Alto Alberdi");
-////        List<PropertyDTO> propertiesDTO = TestUtilGenerator.getPropertiesDTO();
         Mockito.when(iPropertyRepository.getAllProperties()).thenReturn(properties);
 
         //Act
-        List<PropertyDTO> foundProperties = propertyService.getAllProperties();
+        propertyService.getAllProperties();
 
         //Assert
         Mockito.verify(iPropertyRepository,Mockito.atLeastOnce()).getAllProperties();

@@ -23,7 +23,7 @@ public class PropertyRepository implements IPropertyRepository  {
 
     @Override
     public Property findPropertyById(Integer id) {
-        return this.properties.stream().filter(prop -> prop.getId().equals(id)).findFirst().orElseThrow(() -> new PropertyNotFoundException(id));
+        return this.properties.stream().filter(prop -> prop.getId().equals(id)).findFirst().orElse(null);
     }
 
     @Override

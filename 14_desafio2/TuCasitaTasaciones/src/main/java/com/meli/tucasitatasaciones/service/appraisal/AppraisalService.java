@@ -2,6 +2,7 @@ package com.meli.tucasitatasaciones.service.appraisal;
 
 import com.meli.tucasitatasaciones.dto.EnvironmentDTO;
 import com.meli.tucasitatasaciones.dto.ResponseDTO;
+import com.meli.tucasitatasaciones.exception.PropertyNotFoundException;
 import com.meli.tucasitatasaciones.model.Environment;
 import com.meli.tucasitatasaciones.model.Property;
 import com.meli.tucasitatasaciones.repository.property.IPropertyRepository;
@@ -25,6 +26,10 @@ public class AppraisalService implements IAppraisalService {
     public ResponseDTO getPropertyTotalSquareMeters(Integer propertyId) {
         Property property = iPropertyRepository.findPropertyById(propertyId);
 
+        if(property == null) {
+            throw new PropertyNotFoundException(propertyId);
+        }
+
         ResponseDTO response = new ResponseDTO();
         response.setTotalSquareMeters(this.calculateTotalSquareMeters(property.getEnvironments()));
         return response;
@@ -41,6 +46,11 @@ public class AppraisalService implements IAppraisalService {
     @Override
     public ResponseDTO getPropertyValue(Integer propertyId) {
         Property property = iPropertyRepository.findPropertyById(propertyId);
+
+        if(property == null) {
+            throw new PropertyNotFoundException(propertyId);
+        }
+
         Double propertyValue = calculateTotalSquareMeters(property.getEnvironments()) * property.getDistrict().getPrice();
 
         ResponseDTO response = new ResponseDTO();
@@ -51,6 +61,11 @@ public class AppraisalService implements IAppraisalService {
     @Override
     public ResponseDTO getBiggestEnvironment(Integer propertyId) {
         Property property = iPropertyRepository.findPropertyById(propertyId);
+
+        if(property == null) {
+            throw new PropertyNotFoundException(propertyId);
+        }
+
         EnvironmentDTO environmentDTO = findBiggestEnvironment(property.getEnvironments());
 
         ResponseDTO response = new ResponseDTO();
@@ -66,6 +81,10 @@ public class AppraisalService implements IAppraisalService {
     @Override
     public ResponseDTO getEnvironmentsSquareMeters(Integer propertyId) {
         Property property = iPropertyRepository.findPropertyById(propertyId);
+
+        if(property == null) {
+            throw new PropertyNotFoundException(propertyId);
+        }
 
         ResponseDTO response = new ResponseDTO();
         response.setEnvironmentsSquareMeters(getEnvironmentsDTO(property.getEnvironments()));
