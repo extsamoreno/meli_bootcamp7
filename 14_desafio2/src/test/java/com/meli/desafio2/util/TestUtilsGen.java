@@ -25,8 +25,6 @@ public class TestUtilsGen {
 
         prop1.setDistrictId(0);
         environments1.add(new EnvironmentDTO("Room 1", 20.0, 30.0));
-        environments1.add(new EnvironmentDTO("Room 2", 25.0, 20.0));
-        environments1.add(new EnvironmentDTO("Room 3", 10.0, 10.0));
         prop1.setEnvironments(environments1);
 
         return prop1;
@@ -42,8 +40,6 @@ public class TestUtilsGen {
 
         prop1.setDistrictId(0);
         environments1.add(new Environment("Room 1", 20.0, 30.0));
-        environments1.add(new Environment("Room 2", 25.0, 20.0));
-        environments1.add(new Environment("Room 3", 10.0, 10.0));
         prop1.setEnvironments(environments1);
 
         return prop1;
@@ -55,27 +51,30 @@ public class TestUtilsGen {
     }
 
     // Returns a ResponsePropTotalAreaDTO
-    public static ResponsePropTotalAreaDTO getResponsePropTotalAreaDTO(Integer propId){
-        return new ResponsePropTotalAreaDTO(propId, "House", 1200.0);
+    public static ResponsePropTotalAreaDTO getResponsePropTotalAreaDTO(Integer propId) {
+        return new ResponsePropTotalAreaDTO(propId, "House", 600.0);
     }
 
     // Returns a ResponsePropValueDTO
-    public static ResponsePropValueDTO getResponsePropValueDTO(Integer propId){
-        return new ResponsePropValueDTO(propId, "House", 180000.0);
+    public static ResponsePropValueDTO getResponsePropValueDTO(Integer propId) {
+        return new ResponsePropValueDTO(propId, "House", 90000.0);
     }
 
     // Returns a ResponseBigEnvironmentDTO
-    public static ResponseBigEnvironmentDTO getResponseBigEnvironmentDTO(){
+    public static ResponseBigEnvironmentDTO getResponseBigEnvironmentDTO() {
         return new ResponseBigEnvironmentDTO("Room 1", 20.0, 30.0);
     }
 
+    // Returns a ResponseEnvironmentDTO
+    public static ResponseEnvironmentDTO getResponseEnvironmentDTO() {
+        return new ResponseEnvironmentDTO("Room 1", 20.0, 30.0, 600.0);
+    }
+
     // Returns a List<ResponseEnvironmentDTO>
-    public static List<ResponseEnvironmentDTO> getListResponseEnvironmentDTO(){
+    public static List<ResponseEnvironmentDTO> getListResponseEnvironmentDTO() {
 
         List<ResponseEnvironmentDTO> listEnv = new ArrayList<>();
-
-        listEnv.add(new ResponseEnvironmentDTO("Room", 10.0, 10.0, 100.0));
-        listEnv.add(new ResponseEnvironmentDTO("Garden", 15.0, 15.0, 225.0));
+        listEnv.add(new ResponseEnvironmentDTO("Room 1", 20.0, 30.0, 600.0));
 
         return listEnv;
     }

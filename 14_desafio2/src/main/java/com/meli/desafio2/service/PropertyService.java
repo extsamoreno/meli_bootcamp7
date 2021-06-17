@@ -1,5 +1,6 @@
 package com.meli.desafio2.service;
 
+import com.meli.desafio2.dto.environment.EnvironmentDTO;
 import com.meli.desafio2.dto.environment.ResponseBigEnvironmentDTO;
 import com.meli.desafio2.dto.environment.ResponseEnvironmentDTO;
 import com.meli.desafio2.dto.property.PropertyDTO;
