@@ -29,14 +29,15 @@ public class TuCasitaService implements ITuCasitaService{
 
     @Override
     public Boolean newCasita(HouseDTO houseDTO) throws HouseExistException, PriceIncorrectException, NeighborhoodNotFounException {
-        return iTuCasitaRepository.newCasita(HouseMapper.toHouse(houseDTO));
+        boolean exist =iTuCasitaRepository.newCasita(HouseMapper.toHouse(houseDTO));
+        return exist;
     }
 
     @Override
     public TotalMetersResponseDTO totalMeters(String nameHouse) throws HouseNotFoundException {
         HouseDTO house = new HouseDTO();
         TotalMetersResponseDTO totalMetersResponseDTO = new TotalMetersResponseDTO();
-        house=HouseMapper.toDTO(iTuCasitaRepository.totalMeters(nameHouse));
+        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
         double suma=0;
         for (int i = 0; i <house.getEnvironments().size() ; i++) {
             suma=suma+(house.getEnvironments().get(i).getLeng()*house.getEnvironments().get(i).getWidth());
@@ -52,7 +53,7 @@ public class TuCasitaService implements ITuCasitaService{
         TotalMetersResponseDTO totalMetersResponseDTO= new TotalMetersResponseDTO();
         PriceMetersResponseDTO priceMetersResponseDTO = new PriceMetersResponseDTO();
         HouseDTO house = new HouseDTO();
-        house=HouseMapper.toDTO(iTuCasitaRepository.totalMeters(nameHouse));
+        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
         totalMetersResponseDTO= totalMeters(nameHouse);
         Double pricei = house.getNeighborhood().getPrice()*totalMetersResponseDTO.getTotalMeters();
         priceMetersResponseDTO.setNameHouse(house.getName());
@@ -64,7 +65,7 @@ public class TuCasitaService implements ITuCasitaService{
     public EnvironmentDTO biggerEnvironment(String nameHouse) throws HouseNotFoundException {
         HouseDTO house = new HouseDTO();
         EnvironmentDTO environment = new EnvironmentDTO();
-        house=HouseMapper.toDTO(iTuCasitaRepository.totalMeters(nameHouse));
+        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
         double comparador=0;
         for (int i = 0; i <house.getEnvironments().size() ; i++) {
             if((house.getEnvironments().get(i).getLeng()*house.getEnvironments().get(i).getWidth()) >= comparador){
@@ -83,7 +84,7 @@ public class TuCasitaService implements ITuCasitaService{
         EnvironmentsTotalDTO environmentsTotalDTO = new EnvironmentsTotalDTO();
         ArrayList<EnvironmentSquareTotalDTO> environmentSquareTotalDTOS = new ArrayList<>();
 
-        house=HouseMapper.toDTO(iTuCasitaRepository.totalMeters(nameHouse));
+        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
         environmentsTotalDTO.setNamneHouse(house.getName());
         for (int i = 0; i <house.getEnvironments().size() ; i++) {
             EnvironmentSquareTotalDTO environment = new EnvironmentSquareTotalDTO();
@@ -99,7 +100,7 @@ public class TuCasitaService implements ITuCasitaService{
     @Override
     public HouseDTO  viewHouse(String nameHouse) throws HouseNotFoundException {
         HouseDTO house;
-        house=HouseMapper.toDTO(iTuCasitaRepository.totalMeters(nameHouse));
+        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
         return house;
     }
     @Override

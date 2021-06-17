@@ -1,31 +1,5 @@
 [
-  {
-    "name": "Casa linda",
-    "neighborhood": {
-      "name": "Paraiso",
-      "price": 2000.0
-    },
-    "environments": [
-      {
-        "environmentId": 1,
-        "name": "Dormitorio1",
-        "width": 10.4,
-        "leng": 5.7
-      },
-      {
-        "environmentId": 2,
-        "name": "Baño",
-        "width": 5.4,
-        "leng": 3.7
-      },
-      {
-        "environmentId": 3,
-        "name": "Cocina",
-        "width": 11.4,
-        "leng": 3.7
-      }
-    ]
-  },
+
   {
     "name": "Casa Fea",
     "neighborhood": {
@@ -50,6 +24,33 @@
         "name": "Cocina",
         "width": 9.4,
         "leng": 5.7
+      }
+    ]
+  },
+  {
+    "name": "Casa Linda",
+    "neighborhood": {
+      "name": "Munich",
+      "price": 1900.0
+    },
+    "environments": [
+      {
+        "environmentId": 1,
+        "name": "Alcoba",
+        "width": 12.7,
+        "leng": 11.2
+      },
+      {
+        "environmentId": 2,
+        "name": "Cocina",
+        "width": 11.1,
+        "leng": 9.2
+      },
+      {
+        "environmentId": 3,
+        "name": "Baño",
+        "width": 8.1,
+        "leng": 1.2
       }
     ]
   }

@@ -13,7 +13,7 @@ import java.util.Set;
 public interface ITuCasitaRepository {
 
     Boolean newCasita(House house) throws NeighborhoodNotFounException, HouseExistException, PriceIncorrectException;
-    House totalMeters(String name) throws  HouseNotFoundException;
+    House getHouseByname(String name) throws  HouseNotFoundException;
     HashMap<String, Double> viewNeighborhoods();
 
 }

@@ -60,7 +60,7 @@ public class TuCasitaRepository implements ITuCasitaRepository{
     }
 
     @Override
-    public House totalMeters(String name) throws HouseNotFoundException {
+    public House getHouseByname(String name) throws HouseNotFoundException {
         return getHouseByName(name);
     }
 
@@ -68,9 +68,7 @@ public class TuCasitaRepository implements ITuCasitaRepository{
     @Override
     public Boolean newCasita(House house) throws NeighborhoodNotFounException, HouseExistException, PriceIncorrectException {
         boolean create=false;
-        System.out.println("entro ");
         if(!findHouseByName(house.getName())  & findNighborhoodByName(house.getNeighborhood().getName()) != null){
-            System.out.println("entro 2");
             if(findNighborhoodByName(house.getNeighborhood().getName()).equals(house.getNeighborhood().getPrice())){
                 houses.add(house);
                 saveData();
