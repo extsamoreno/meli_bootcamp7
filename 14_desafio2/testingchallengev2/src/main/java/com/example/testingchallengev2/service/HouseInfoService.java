@@ -10,11 +10,10 @@ import com.example.testingchallengev2.repository.house.IHouseDAO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.function.ServerResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+
 
 
 @Service
@@ -39,28 +38,32 @@ public class HouseInfoService implements IHouseInfoService{
     }
 
     @Override
-    public TotalHouseAreaResponseDTO getTotalHouseAreaResponseDTO(String houseName) throws HouseNotFoundException {
+    public TotalHouseAreaResponseDTO getTotalHouseAreaResponseDTO(String houseName)
+            throws HouseNotFoundException {
         House house = iHouseDAO.getHouseByName(houseName);
         double totalArea = getHouseArea(house);
         return new TotalHouseAreaResponseDTO(houseName, totalArea);
     }
 
     @Override
-    public HouseValueResponseDTO getHouseValueResponseDTO(String houseName) throws HouseNotFoundException, DistrictNotFoundException {
+    public HouseValueResponseDTO getHouseValueResponseDTO(String houseName)
+            throws HouseNotFoundException, DistrictNotFoundException {
         House house = iHouseDAO.getHouseByName(houseName);
         double price = getHousePrice(house);
         return new HouseValueResponseDTO(houseName, price);
     }
 
     @Override
-    public HouseBiggestRoomResponseDTO getHouseBiggestRoomResponseDTO(String houseName) throws HouseNotFoundException {
+    public HouseBiggestRoomResponseDTO getHouseBiggestRoomResponseDTO(String houseName)
+            throws HouseNotFoundException {
         House house = iHouseDAO.getHouseByName(houseName);
         Room bigRoom = getBiggestRoom(house.getRooms());
         return new HouseBiggestRoomResponseDTO(houseName, bigRoom.getName(), getRoomArea(bigRoom));
     }
 
     @Override
-    public RoomsSizeResponseDTO getRoomsSizeResponseDTO(String houseName) throws HouseNotFoundException {
+    public RoomsSizeResponseDTO getRoomsSizeResponseDTO(String houseName)
+            throws HouseNotFoundException {
         House house = iHouseDAO.getHouseByName(houseName);
         HashMap<String, Double> roomsSize = new HashMap<>();
         for (Room room :
@@ -99,7 +102,8 @@ public class HouseInfoService implements IHouseInfoService{
         return Math.round(houseArea*100.0)/100.0;
     }
 
-    private double getHousePrice(House house) throws DistrictNotFoundException {
+    private double getHousePrice(House house)
+            throws DistrictNotFoundException {
         double houseArea = getHouseArea(house);
         double price = iDistrictDAO.getPriceByName(house.getDistrictName());
         return Math.round(houseArea * price * 100.0)/100.0;
