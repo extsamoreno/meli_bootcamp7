@@ -1,8 +1,7 @@
-package repository;
+package com.meli.tucasita.repository;
 
 import com.meli.tucasita.exception.DistrictNotFoundException;
 import com.meli.tucasita.model.District;
-import com.meli.tucasita.repository.DistrictRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

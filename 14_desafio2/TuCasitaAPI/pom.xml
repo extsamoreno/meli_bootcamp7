@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent from com.meli.tucasita.repository -->
     </parent>
     <groupId>com.meli</groupId>
     <artifactId>tucasita</artifactId>

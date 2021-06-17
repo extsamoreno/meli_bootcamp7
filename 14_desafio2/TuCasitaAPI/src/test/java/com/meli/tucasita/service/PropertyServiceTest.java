@@ -1,4 +1,4 @@
-package service;
+package com.meli.tucasita.service;
 
 import com.meli.tucasita.exception.PropertyNotFoundException;
 import com.meli.tucasita.model.District;
@@ -6,9 +6,9 @@ import com.meli.tucasita.model.Environment;
 import com.meli.tucasita.model.Property;
 import com.meli.tucasita.repository.IDistrictRepository;
 import com.meli.tucasita.repository.IPropertyRepository;
-import com.meli.tucasita.service.PropertyService;
 import com.meli.tucasita.service.dto.EnvironmentResponseDTO;
 import com.meli.tucasita.service.dto.PropertyWithBiggerEnvDTO;
+import com.meli.tucasita.service.dto.PropertyWithEnvAndMetersDTO;
 import com.meli.tucasita.service.dto.PropertyWithM2DTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class PropertyServiceTest {
@@ -113,6 +112,29 @@ public class PropertyServiceTest {
         PropertyWithBiggerEnvDTO response= propertyService.getBiggerEnvironment(propertyName);
         // Assert
         Assertions.assertEquals(new PropertyWithBiggerEnvDTO(propertyName,new EnvironmentResponseDTO("Habitacion 2",225)),response);
+    }
+
+    @Test
+    public void matchTotalMetersPerEnvironment() throws PropertyNotFoundException {
+        // Arrange
+        String propertyName= "Propiedad prueba 1";
+        Property property= new Property(propertyName,new District("Fontibon",2000),new ArrayList<>(Arrays.asList(
+                new Environment("Baño",20,15),
+                new Environment("Cocina",24,30),
+                new Environment("Habitacion 1",15,19),
+                new Environment("Habitacion 2",19,19)
+        )));
+        Mockito.when(iPropertyRepository.getPropertyByName(propertyName)).thenReturn(property);
+        // Act
+        PropertyWithEnvAndMetersDTO response= propertyService.getMetersPerEnvironment(propertyName);
+        // Assert
+        PropertyWithEnvAndMetersDTO expected= new PropertyWithEnvAndMetersDTO(propertyName,new ArrayList<>(Arrays.asList(
+                new EnvironmentResponseDTO("Baño",300),
+                new EnvironmentResponseDTO("Cocina",720),
+                new EnvironmentResponseDTO("Habitacion 1",285),
+                new EnvironmentResponseDTO("Habitacion 2",361)
+        )));
+        Assertions.assertEquals(expected,response);
     }
 
 }
