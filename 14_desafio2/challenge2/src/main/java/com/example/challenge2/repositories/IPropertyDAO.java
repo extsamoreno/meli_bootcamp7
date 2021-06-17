@@ -1,11 +1,12 @@
 package com.example.challenge2.repositories;
 
+import com.example.challenge2.dtos.PropertyDTO;
 import com.example.challenge2.models.Property;
 
 public interface IPropertyDAO {
-    Property findByName(String propertyName);
+    PropertyDTO findByName(String propertyName);
 
-    Property save(Property property);
+    PropertyDTO save(PropertyDTO property);
 
     boolean delete(String propertyName);
 }

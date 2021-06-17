@@ -1,9 +1,12 @@
 package com.example.challenge2.repositories;
 
+import com.example.challenge2.dtos.PropertyDTO;
 import com.example.challenge2.exceptions.PropertyNotFoundException;
 import com.example.challenge2.models.Property;
+import com.example.challenge2.serivces.DistrictService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -11,16 +14,28 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 @Repository
 public class PropertyDAO implements IPropertyDAO {
 
     private String SCOPE;
-    Set<Property> properties;
+    Set<PropertyDTO> properties;
 
+    public PropertyDAO() {
+        Properties properties =  new Properties();
+
+        try {
+            properties.load(new ClassPathResource("application.properties").getInputStream());
+            this.SCOPE = properties.getProperty("api.scope");
+            this.loadData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
-    public Property findByName(String propertyName) {
+    public PropertyDTO findByName(String propertyName) {
         loadData();
         return properties.stream()
                 .filter(prop -> prop.getName().equals(propertyName))
@@ -28,7 +43,7 @@ public class PropertyDAO implements IPropertyDAO {
     }
 
     @Override
-    public Property save(Property property) {
+    public PropertyDTO save(PropertyDTO property) {
         this.delete(property.getName());
         properties.add(property);
         this.saveData();
@@ -40,7 +55,7 @@ public class PropertyDAO implements IPropertyDAO {
         boolean ret = false;
 
         try {
-            Property found = this.findByName(propertyName);
+            PropertyDTO found = this.findByName(propertyName);
 
             properties.remove(found);
             ret = true;
@@ -68,13 +83,13 @@ public class PropertyDAO implements IPropertyDAO {
 
 
     private void loadData() {
-        Set<Property> loadedData = new HashSet<>();
+        Set<PropertyDTO> loadedData = new HashSet<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/property.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<Property>>() {
+            loadedData = objectMapper.readValue(file, new TypeReference<Set<PropertyDTO>>() {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -83,7 +98,7 @@ public class PropertyDAO implements IPropertyDAO {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
-
+        Set<Property> date = new HashSet<>();
         this.properties = loadedData;
     }
 

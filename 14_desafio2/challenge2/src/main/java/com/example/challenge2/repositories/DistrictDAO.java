@@ -5,6 +5,7 @@ import com.example.challenge2.models.District;
 import com.example.challenge2.models.Property;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -12,12 +13,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
 
 @Repository
 public class DistrictDAO implements IDistrictDAO{
     private String SCOPE;
     Set<District> districts;
+
+    public DistrictDAO() {
+        Properties properties =  new Properties();
+
+        try {
+            properties.load(new ClassPathResource("application.properties").getInputStream());
+            this.SCOPE = properties.getProperty("api.scope");
+            this.loadData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     @Override
@@ -47,11 +63,16 @@ public class DistrictDAO implements IDistrictDAO{
     @Override
     public District findByName(String districtName) throws DistrictNotFoundException {
         loadData();
-        District res =  districts.stream().filter(district -> district.getName().equals(districtName)).findFirst().get();
-        if (res != null)
-            return res;
-        else
+        Optional<District> res =  districts.stream().filter(district -> district.getName().equals(districtName)).findFirst();
+        if (res.isPresent()){
+            System.out.println("Entro1");
+            return res.get();
+        }
+
+        else {
+            System.out.println("Entro");
             throw new DistrictNotFoundException(districtName);
+        }
     }
 
     private void saveData() {

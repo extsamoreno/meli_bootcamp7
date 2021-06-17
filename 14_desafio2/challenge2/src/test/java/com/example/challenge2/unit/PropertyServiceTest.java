@@ -40,15 +40,14 @@ public class PropertyServiceTest {
     @Test
     public void getTotalSizeWellCalculated() {
         //Arrange
-        Property property = new Property();
+        PropertyDTO property = new PropertyDTO();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,1.8);
-        District district = new District("Carrasco", 800.00);
         List<Environment> environments = new ArrayList<>();
         environments.add(cuarto1);
         environments.add(cuarto2);
         property.setName("Propiedad1");
-        property.setDistrict(district);
+        property.setDistrictName("Carrasco");
         property.setEnvironmentList(environments);
         Mockito.when(propertyDAO.findByName(property.getName())).thenReturn(property);
 
@@ -63,15 +62,14 @@ public class PropertyServiceTest {
     @Test
     public void getPriceWellCalculated() {
         //Arrange
-        Property property = new Property();
+        PropertyDTO property = new PropertyDTO();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
-        District district = new District("Carrasco", 800.00);
         List<Environment> environments = new ArrayList<>();
         environments.add(cuarto1);
         environments.add(cuarto2);
         property.setName("Propiedad1");
-        property.setDistrict(district);
+        property.setDistrictName("Carrasco");
         property.setEnvironmentList(environments);
         Mockito.when(propertyDAO.findByName(property.getName())).thenReturn(property);
 
@@ -86,15 +84,14 @@ public class PropertyServiceTest {
     @Test
     public void getBiggerEnvironmentWellCalculated() {
         //Arrange
-        Property property = new Property();
+        PropertyDTO property = new PropertyDTO();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
-        District district = new District("Carrasco", 800.00);
         List<Environment> environments = new ArrayList<>();
         environments.add(cuarto1);
         environments.add(cuarto2);
         property.setName("Propiedad1");
-        property.setDistrict(district);
+        property.setDistrictName("Carrasco");
         property.setEnvironmentList(environments);
         Mockito.when(propertyDAO.findByName(property.getName())).thenReturn(property);
 
@@ -110,7 +107,7 @@ public class PropertyServiceTest {
     @Test
     public void getEnvironmentsWellDone() {
         //Arrange
-        Property property = new Property();
+        PropertyDTO property = new PropertyDTO();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
         District district = new District("Carrasco", 800.00);
@@ -118,7 +115,7 @@ public class PropertyServiceTest {
         environments.add(cuarto1);
         environments.add(cuarto2);
         property.setName("Propiedad1");
-        property.setDistrict(district);
+        property.setDistrictName("Carrasco");
         property.setEnvironmentList(environments);
         Mockito.when(propertyDAO.findByName(property.getName())).thenReturn(property);
         EnvironmentSizesDTO res = new EnvironmentSizesDTO(property.getName(), new ArrayList<>());
@@ -137,33 +134,26 @@ public class PropertyServiceTest {
     @Test
     public void createPropertyCorrectly() {
         //Arrange
-        String districtName = "Alto Alberdi";
         PropertyDTO propertyDTO = new PropertyDTO();
-        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
-        District district = new District("Carrasco", 800.00);
         List<Environment> environments = new ArrayList<>();
         environments.add(cuarto1);
         environments.add(cuarto2);
         propertyDTO.setName("Propiedad1");
         propertyDTO.setDistrictName("Carrasco");
         propertyDTO.setEnvironmentList(environments);
-        property.setName("Propiedad1");
-        property.setDistrict(district);
-        property.setEnvironmentList(environments);
 
 
-        Mockito.when(districtService.find(districtName)).thenReturn(new District("Carrasco", 800.00));
-        Mockito.when(propertyMapper.propertyDTOToProperty(propertyDTO, district)).thenReturn(property);
+        Mockito.when(districtService.find("Carrasco")).thenReturn(new District("Carrasco", 800.00));
 
         //Act
         propertyService.create(propertyDTO);
 
         //Assert
-        Mockito.verify(propertyDAO, Mockito.atLeastOnce()).save(property);
-        Mockito.verify(districtService, Mockito.atLeastOnce()).find(districtName);
-        Assertions.assertEquals(property.getDistrict().getName(),districtName);
+        Mockito.verify(propertyDAO, Mockito.atLeastOnce()).save(propertyDTO);
+        Mockito.verify(districtService, Mockito.atLeastOnce()).find("Carrasco");
+        Assertions.assertEquals(propertyDTO.getDistrictName(),"Carrasco");
     }
 
     @Test
