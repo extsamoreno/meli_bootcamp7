@@ -1,4 +1,5 @@
 package com.desafiotesting.desafiotesting.controllers;
+import com.desafiotesting.desafiotesting.services.dtos.EnviromentDTO;
 import com.desafiotesting.desafiotesting.services.dtos.PropertyDTO;
 import com.desafiotesting.desafiotesting.services.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class PropertyController {
     @PostMapping("/priceproperty/{id}")
     public double getPriceProperty(@PathVariable int id){
         return propertyService.getPriceProperty(id);
+    }
+
+    @PostMapping("/biggerenviroment/{id}")
+    public EnviromentDTO getBiggerEnviroment(@PathVariable int id){
+        return propertyService.getBiggerEnviroment(id);
     }
 
 
