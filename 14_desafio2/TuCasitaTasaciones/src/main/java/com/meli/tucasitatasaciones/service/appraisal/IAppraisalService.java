@@ -6,8 +6,8 @@ import com.meli.tucasitatasaciones.dto.ResponseDTO;
 import java.util.List;
 
 public interface IAppraisalService {
-    Double getPropertyTotalSquareMeters(Integer propertyId);
-    Double getPropertyValue(Integer propertyId);
-    EnvironmentDTO getBiggerEnvironment(Integer propertyId);
-    List<EnvironmentDTO> getEnvironmentsSquareMeters(Integer propertyId);
+    ResponseDTO getPropertyTotalSquareMeters(Integer propertyId);
+    ResponseDTO getPropertyValue(Integer propertyId);
+    ResponseDTO getBiggerEnvironment(Integer propertyId);
+    ResponseDTO getEnvironmentsSquareMeters(Integer propertyId);
 }

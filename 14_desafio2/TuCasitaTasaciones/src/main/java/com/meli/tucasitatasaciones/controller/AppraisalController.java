@@ -2,6 +2,7 @@ package com.meli.tucasitatasaciones.controller;
 
 import com.meli.tucasitatasaciones.dto.ResponseDTO;
 import com.meli.tucasitatasaciones.service.appraisal.IAppraisalService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,13 @@ public class AppraisalController {
 
     //Requirement US-0001
     @GetMapping("/getTotalSquareMeters/{propertyId}")
-    public ResponseEntity<Double> getTotalSquareMeters(@PathVariable Integer propertyId) {
+    public ResponseEntity<ResponseDTO> getTotalSquareMeters(@PathVariable Integer propertyId) {
         return new ResponseEntity<>(iAppraisalService.getPropertyTotalSquareMeters(propertyId), HttpStatus.OK);
+    }
+
+    //Requirement US-0002
+    @GetMapping("/getPropertyValue/{propertyId}")
+    public ResponseEntity<ResponseDTO> getPropertyValue(@PathVariable Integer propertyId) {
+        return new ResponseEntity<>(iAppraisalService.getPropertyValue(propertyId),HttpStatus.OK);
     }
 }

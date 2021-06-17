@@ -5,6 +5,7 @@ import com.meli.tucasitatasaciones.dto.ResponseDTO;
 import com.meli.tucasitatasaciones.model.Environment;
 import com.meli.tucasitatasaciones.model.Property;
 import com.meli.tucasitatasaciones.repository.property.IPropertyRepository;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,12 @@ public class AppraisalService implements IAppraisalService {
     IPropertyRepository iPropertyRepository;
 
     @Override
-    public Double getPropertyTotalSquareMeters(Integer propertyId) {
+    public ResponseDTO getPropertyTotalSquareMeters(Integer propertyId) {
         Property property = iPropertyRepository.findPropertyById(propertyId);
-        Double totalSquareMeters = this.calculateTotalSquareMeters(property.getEnvironments());
-        return totalSquareMeters;
+
+        ResponseDTO response = new ResponseDTO();
+        response.setTotalSquareMeters(this.calculateTotalSquareMeters(property.getEnvironments()));
+        return response;
     }
 
     private Double calculateTotalSquareMeters(List<Environment> environments) {
@@ -31,17 +34,17 @@ public class AppraisalService implements IAppraisalService {
     }
 
     @Override
-    public Double getPropertyValue(Integer propertyId) {
+    public ResponseDTO getPropertyValue(Integer propertyId) {
         return null;
     }
 
     @Override
-    public EnvironmentDTO getBiggerEnvironment(Integer propertyId) {
+    public ResponseDTO getBiggerEnvironment(Integer propertyId) {
         return null;
     }
 
     @Override
-    public List<EnvironmentDTO> getEnvironmentsSquareMeters(Integer propertyId) {
+    public ResponseDTO getEnvironmentsSquareMeters(Integer propertyId) {
         return null;
     }
 }
