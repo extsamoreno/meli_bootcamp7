@@ -3,9 +3,14 @@ package com.desafiotesting.api.service;
 import com.desafiotesting.api.dto.*;
 import com.desafiotesting.api.exception.NotFoundDistrictException;
 import com.desafiotesting.api.repository.IDistrictsRepository;
+import com.desafiotesting.api.service.mapper.DistrictMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +18,8 @@ import java.util.List;
 public class TasacionesService implements ITasacionesService{
     @Autowired
     IDistrictsRepository repository;
+    @Autowired
+    DistrictMapper mapper;
 
     @Override //US 0001: Get total area of a house
     public TotalAreaDTO totalArea(PropertyDTO house){
@@ -73,11 +80,10 @@ public class TasacionesService implements ITasacionesService{
         return response;
     }
 
-
-
-
-
-
-
+    @Override //Add a new District to Repository
+    public String newDistrict (DistrictDTO district) throws Exception {
+        repository.getDistricts().put(district.getName(),mapper.dtoToModel(district));
+        return "District Added to repository.";
+    }
 
 }

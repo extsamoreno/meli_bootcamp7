@@ -11,4 +11,5 @@ public interface ITasacionesService {
     PriceDTO price(PropertyDTO house) throws NotFoundDistrictException;
     BiggerEnvironmentDTO biggerEnvironment(PropertyDTO house);
     ArrayList<EnvironmentAreaDTO> environmentsArea(PropertyDTO house);
+    String newDistrict(DistrictDTO district) throws Exception;
 }

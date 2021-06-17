@@ -1710,5 +1710,117 @@ public class RestControllerIntegrationTest {
         Assertions.assertEquals(responseJson, response.getResponse().getContentAsString());
     }
 
+    //////////////////////////////////////////////////////////////////////////////////
+    // Tests for newDistrict
+    //////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    public void newDistrictHappyPath() throws Exception {
+
+        DistrictDTO payloadDTO = new DistrictDTO("Oeste",40.0);
+
+        String responseDTO = "District Added to repository.";
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/newDistrict")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=UTF-8"))
+                .andReturn();
+        Assertions.assertEquals(responseDTO, response.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void newDistrictNameEmpty() throws Exception {
+
+        DistrictDTO payloadDTO = new DistrictDTO(null,40.0);
+
+        ErrorDTO responseDTO = new ErrorDTO("MethodArgumentNotValidException",
+                "The name of the district cant be empty.");
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        String responseJson = writer.writeValueAsString(responseDTO);
+        MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/newDistrict")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().is4xxClientError())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+        Assertions.assertEquals(responseJson, response.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void newDistrictLargeName() throws Exception {
+
+        DistrictDTO payloadDTO = new DistrictDTO("superlargenameofdistrictsuperlargenameofdistrictsuperlargenameofdistrict",40.0);
+
+        ErrorDTO responseDTO = new ErrorDTO("MethodArgumentNotValidException",
+                "The length of the district name no can exceed 45 characters.");
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        String responseJson = writer.writeValueAsString(responseDTO);
+        MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/newDistrict")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().is4xxClientError())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+        Assertions.assertEquals(responseJson, response.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void newDistrictHighPrice() throws Exception {
+
+        DistrictDTO payloadDTO = new DistrictDTO("Barrio",4000.1);
+
+        ErrorDTO responseDTO = new ErrorDTO("MethodArgumentNotValidException",
+                "The maximum price allowed per square meter no can exceed 4000 U$S.");
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        String responseJson = writer.writeValueAsString(responseDTO);
+        MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/newDistrict")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().is4xxClientError())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+        Assertions.assertEquals(responseJson, response.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void newDistrictNegativePrice() throws Exception {
+
+        DistrictDTO payloadDTO = new DistrictDTO("Barrio",-1.0);
+
+        ErrorDTO responseDTO = new ErrorDTO("MethodArgumentNotValidException",
+                "The price cant be negative.");
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+        String responseJson = writer.writeValueAsString(responseDTO);
+        MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/newDistrict")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().is4xxClientError())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+        Assertions.assertEquals(responseJson, response.getResponse().getContentAsString());
+    }
+
 }
 

@@ -5,6 +5,7 @@ import com.desafiotesting.api.exception.NotFoundDistrictException;
 import com.desafiotesting.api.model.District;
 import com.desafiotesting.api.repository.IDistrictsRepository;
 import com.desafiotesting.api.service.TasacionesService;
+import com.desafiotesting.api.service.mapper.DistrictMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -23,8 +25,11 @@ import java.util.Map;
 public class TasacionesServiceTest {
     @Mock
     IDistrictsRepository repository;
+    @Mock
+    DistrictMapper mapper;
     @InjectMocks
     TasacionesService service;
+
 
     PropertyDTO house = new PropertyDTO("Casa1", "Centro", new ArrayList<>(){
         {
@@ -109,4 +114,21 @@ public class TasacionesServiceTest {
         //assert
         Assertions.assertEquals(expected,received);
     }
+
+    @Test
+    public void newDistrictHappyPath() throws Exception {
+        //arrange
+        DistrictDTO dto = new DistrictDTO("Oeste", 34.0);
+
+        //act
+        String received = service.newDistrict(dto);
+        repository.getDistricts().remove(dto.getName());
+
+        //assert
+        Assertions.assertEquals("District Added to repository.",received);
+
+    }
+
+
+
 }

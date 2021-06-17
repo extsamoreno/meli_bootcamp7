@@ -115,4 +115,20 @@ public class TasacionesRestControllerTest {
         Mockito.verify(service,Mockito.atLeast(1)).environmentsArea(house);
         Assertions.assertEquals(expected,received);
     }
+
+    @Test
+    public void newDistrictHappyPath() throws Exception {
+        //arrange
+        ResponseEntity<String> expected = new ResponseEntity<>("District Added to repository.",HttpStatus.OK);
+        DistrictDTO dto = new DistrictDTO("Oeste", 34.0);
+        Mockito.when(service.newDistrict(dto)).thenReturn("District Added to repository.");
+
+        //act
+        ResponseEntity<String> received = controller.newDistrict(dto);
+
+        //assert
+        Assertions.assertEquals(expected,received);
+
+    }
+
 }

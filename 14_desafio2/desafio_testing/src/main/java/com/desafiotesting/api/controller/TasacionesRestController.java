@@ -40,5 +40,11 @@ public class TasacionesRestController {
         return new ResponseEntity<>(services.environmentsArea(house), HttpStatus.OK);
     }
 
+    //Add a new District to Repository
+    @PostMapping("/newDistrict")
+    public ResponseEntity<String> newDistrict (@Valid @RequestBody DistrictDTO district) throws Exception {
+        return new ResponseEntity<>(services.newDistrict(district), HttpStatus.OK);
+    }
+
 
 }
