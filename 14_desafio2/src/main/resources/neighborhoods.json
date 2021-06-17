@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "name": "Lanus",
+    "price": 78546.00
+  },
+  {
+    "id": 2,
+    "name": "Avellaneda",
+    "price": 86950.50
+  },
+  {
+    "id": 3,
+    "name": "Quilmes",
+    "price": 94586.00
+  },
+  {
+    "id": 4,
+    "name": "Wilde",
+    "price": 36548.50
+  },{
+  "id": 5,
+  "name": "Bernal",
+  "price": 23698.00
+},
+  {
+    "id": 6,
+    "name": "Gerli",
+    "price": 24999.50
+  },
+  {
+    "id": 7,
+    "name": "Temperley",
+    "price": 36000.00
+  },
+  {
+    "id": 8,
+    "name": "Lomas de Zamora",
+    "price": 99900.50
+  },
+  {
+    "id": 9,
+    "name": "Varela",
+    "price": 45852.00
+  },
+  {
+    "id": 10,
+    "name": "Banfield",
+    "price": 99999.50
+  }
+]

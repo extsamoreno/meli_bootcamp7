@@ -1,0 +1,207 @@
+[
+  {
+    "id": 1,
+    "name": "Casa1",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Lanus",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Casa2",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Avellaneda",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      },
+      {
+        "name": "Room3",
+        "width": 19.0,
+        "length": 9.0
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Casa3",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Quilmes",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Casa4",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Wilde",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      },
+      {
+        "name": "Room3",
+        "width": 19.0,
+        "length": 9.0
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Casa5",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Bernal",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Casa6",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Gerli",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      },
+      {
+        "name": "Room3",
+        "width": 19.0,
+        "length": 9.0
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Casa7",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Temperley",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Casa8",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Lomas de Zamora",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      },
+      {
+        "name": "Room3",
+        "width": 19.0,
+        "length": 9.0
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Casa9",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Varela",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Casa10",
+    "address": "Calle Falsa 123",
+    "neighborhood": "Banfield",
+    "environments": [
+      {
+        "name": "Room1",
+        "width": 35.0,
+        "length": 25.0
+      },
+      {
+        "name": "Room2",
+        "width": 5.0,
+        "length": 5.0
+      },
+      {
+        "name": "Room3",
+        "width": 19.0,
+        "length": 9.0
+      }
+    ]
+  }
+]
