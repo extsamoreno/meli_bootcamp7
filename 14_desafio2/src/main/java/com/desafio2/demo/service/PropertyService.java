@@ -1,11 +1,14 @@
 package com.desafio2.demo.service;
 
 import com.desafio2.demo.dtos.*;
+import com.desafio2.demo.exception.NeighborhoodAlreadyExistException;
+import com.desafio2.demo.exception.PropertyAlreadyExistException;
 import com.desafio2.demo.exception.PropertyException;
 import com.desafio2.demo.exception.PropertyNotFoundException;
 import com.desafio2.demo.model.Environment;
 import com.desafio2.demo.model.Neighborhood;
 import com.desafio2.demo.model.Property;
+import com.desafio2.demo.repository.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +19,18 @@ import java.util.List;
 public class PropertyService implements IPropertyService{
 
     @Autowired
-    IPropertyService iPropertyRepository;
+    IPropertyRepository iPropertyRepository;
+
+    @Override
+    public Property createProperty(Property propertyDTO) throws PropertyAlreadyExistException {
+        return iPropertyRepository.saveProperty(propertyDTO);
+    }
+
+    @Override
+    public Neighborhood createNeighborhood(Neighborhood neighborhood)
+            throws NeighborhoodAlreadyExistException {
+        return iPropertyRepository.saveNeighborhood(neighborhood);
+    }
 
     @Override
     public ResponsePropertySquareDTO getSquareMeters(int propertyId) throws PropertyNotFoundException {
@@ -33,10 +47,10 @@ public class PropertyService implements IPropertyService{
     public ResponsePropertyValueDTO getPropertyValue(int propertyId) throws PropertyException {
         ResponsePropertyValueDTO responsePropertyValue = new ResponsePropertyValueDTO();
         Property property = iPropertyRepository.getPropertyById(propertyId);
-        Neighborhood neighborhood = iPropertyRepository.getNeighborhoodById(property.getNeighborhood());
+        Neighborhood neighborhoodDTO = iPropertyRepository.getNeighborhoodById(property.getNeighborhood());
 
         responsePropertyValue.setPropertyName(property.getName());
-        responsePropertyValue.setValueOfProperty(calculatePropertyValue(property, neighborhood));
+        responsePropertyValue.setValueOfProperty(calculatePropertyValue(property, neighborhoodDTO));
 
         return responsePropertyValue;
     }
@@ -44,12 +58,12 @@ public class PropertyService implements IPropertyService{
     @Override
     public ResponseBiggestEnvironmentDTO getBiggestEnvironment(int propertyId) throws PropertyNotFoundException {
         ResponseBiggestEnvironmentDTO responseBiggestEnvironment = new ResponseBiggestEnvironmentDTO();
-        Property property = iPropertyRepository.getPropertyById(propertyId);
+        Property propertyDTO = iPropertyRepository.getPropertyById(propertyId);
 
-        responseBiggestEnvironment.setPropertyName(property.getName());
-        Environment Environment = calculateBiggestEnvironment(property);
-        responseBiggestEnvironment.setTotalSquareMeters(calculateEnvironmentSquareMeters(Environment));
-        responseBiggestEnvironment.setEnvironment(Environment);
+        responseBiggestEnvironment.setPropertyName(propertyDTO.getName());
+        Environment environment = calculateBiggestEnvironment(propertyDTO);
+        responseBiggestEnvironment.setTotalSquareMeters(calculateEnvironmentSquareMeters(environment));
+        responseBiggestEnvironment.setEnvironment(environment);
 
         return responseBiggestEnvironment;
     }
@@ -58,22 +72,12 @@ public class PropertyService implements IPropertyService{
     public ResponseSquareMetersEnvironmentDTO getSquareMetersOfEnvironments(int propertyId)
             throws PropertyNotFoundException {
         ResponseSquareMetersEnvironmentDTO response = new ResponseSquareMetersEnvironmentDTO();
-        Property property = iPropertyRepository.getPropertyById(propertyId);
+        Property propertyDTO = iPropertyRepository.getPropertyById(propertyId);
 
-        response.setPropertyName(property.getName());
-        response.setEnvironments(getEnvironmentsSquareMeters(property));
+        response.setPropertyName(propertyDTO.getName());
+        response.setEnvironments(getEnvironmentsSquareMeters(propertyDTO));
 
         return response;
-    }
-
-    @Override
-    public Property getPropertyById(int propertyId) {
-        return null;
-    }
-
-    @Override
-    public Neighborhood getNeighborhoodById(String neighborhood) {
-        return null;
     }
 
     public double calculateEnvironmentSquareMeters(Environment environment) {
@@ -88,16 +92,16 @@ public class PropertyService implements IPropertyService{
         return totalSquareMeters;
     }
 
-    private double calculatePropertyValue(Property property, Neighborhood neighborhood) {
-        double price = calculatePropertySquareMeters(property);
-        return price * neighborhood.getPrice();
+    private double calculatePropertyValue(Property propertyDTO, Neighborhood neighborhoodDTO) {
+        double price = calculatePropertySquareMeters(propertyDTO);
+        return price * neighborhoodDTO.getPrice();
     }
 
-    private Environment calculateBiggestEnvironment(Property property) {
+    private Environment calculateBiggestEnvironment(Property propertyDTO) {
         double squareMeters;
         double biggestEnvironment = 0;
         Environment biggest = null;
-        for (Environment env : property.getEnvironments()) {
+        for (Environment env : propertyDTO.getEnvironments()) {
             squareMeters = calculateEnvironmentSquareMeters(env);
             if (biggest == null || squareMeters > biggestEnvironment){
                 biggest = env;
@@ -107,10 +111,10 @@ public class PropertyService implements IPropertyService{
         return biggest;
     }
 
-    private List<ResponseEnvironmentDTO> getEnvironmentsSquareMeters(Property property) {
+    private List<ResponseEnvironmentDTO> getEnvironmentsSquareMeters(Property propertyDTO) {
         List<ResponseEnvironmentDTO> environments = new ArrayList<>();
         ResponseEnvironmentDTO environment;
-        for(Environment env : property.getEnvironments()) {
+        for(Environment env : propertyDTO.getEnvironments()) {
             environment = new ResponseEnvironmentDTO();
             environment.setEnvironmentName(env.getName());
             environment.setTotalSquareMeters(calculateEnvironmentSquareMeters(env));

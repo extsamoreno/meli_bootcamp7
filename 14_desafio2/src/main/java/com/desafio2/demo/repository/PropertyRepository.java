@@ -1,6 +1,8 @@
 package com.desafio2.demo.repository;
 
+import com.desafio2.demo.exception.NeighborhoodAlreadyExistException;
 import com.desafio2.demo.exception.NeighborhoodNotFoundException;
+import com.desafio2.demo.exception.PropertyAlreadyExistException;
 import com.desafio2.demo.exception.PropertyNotFoundException;
 import com.desafio2.demo.model.Neighborhood;
 import com.desafio2.demo.model.Property;
@@ -16,7 +18,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Repository
-public class PropertyRepository implements IPropertyRepository {
+public class PropertyRepository implements IPropertyRepository{
 
     private Map<Integer, Property> properties;
     private Map<Integer, Neighborhood> neighborhoods;
@@ -34,12 +36,58 @@ public class PropertyRepository implements IPropertyRepository {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public Property saveProperty(Property property) throws PropertyAlreadyExistException {
+        boolean exists = existsProperty(property.getName());
+
+        if(exists) {
+            throw new PropertyAlreadyExistException(property.getName());
+        }
+
+        int newId = this.properties.size() + 1;
+        property.setId(newId);
+        properties.put(property.getId(), property);
+
+        this.saveData(true);
+
+        return property;
+    }
+
+    @Override
+    public Neighborhood saveNeighborhood(Neighborhood neighborhood)
+            throws NeighborhoodAlreadyExistException {
+        boolean exists = existsNeighborhood(neighborhood.getName());
+
+        if(exists) {
+            throw new NeighborhoodAlreadyExistException(neighborhood.getName());
+        }
+
+        int newId = this.neighborhoods.size() + 1;
+        neighborhood.setId(newId);
+        neighborhoods.put(neighborhood.getId(), neighborhood);
+
+        this.saveData(false);
+
+        return neighborhood;
+    }
+
+    private boolean existsProperty(String name) {
+        return properties.values().stream()
+                .anyMatch(property -> property.getName().equals(name));
+    }
+
+    private boolean existsNeighborhood(String name) {
+        return neighborhoods.values().stream()
+                .anyMatch(neighborhood -> neighborhood.getName().equals(name));
+    }
+
     @Override
     public Property getPropertyById(int propertyId) throws PropertyNotFoundException {
         loadDataProperties();
 
         return properties.values().stream()
-                .filter(propertyDTO -> propertyDTO.getId() == propertyId)
+                .filter(property -> property.getId() == propertyId)
                 .findFirst().orElseThrow(() -> new PropertyNotFoundException(propertyId));
     }
 
@@ -63,10 +111,10 @@ public class PropertyRepository implements IPropertyRepository {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your resources files");
+            System.out.println("Fail while initializing DB, check the files.");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your JSON formatting.");
+            System.out.println("Fail while initializing DB, check your JSON.");
         }
 
         this.properties = toPropertyMap(loadedData);
@@ -83,10 +131,10 @@ public class PropertyRepository implements IPropertyRepository {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your resources files");
+            System.out.println("Fail while initializing DB, check the files.");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your JSON formatting.");
+            System.out.println("Fail while initializing DB, check your JSON.");
         }
 
         this.neighborhoods = toNeighborhoodMap(loadedData);
@@ -106,6 +154,25 @@ public class PropertyRepository implements IPropertyRepository {
             map.put(dto.getId(), dto);
         }
         return map;
+    }
+
+    private void saveData(boolean isProperties) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            if(isProperties) {
+                File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
+                objectMapper.writeValue(file, this.properties);
+            } else {
+                File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/neighborhoods.json");
+                objectMapper.writeValue(file, this.neighborhoods);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Fail while initializing DB, check the files.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Fail while initializing DB, check your JSON.");
+        }
     }
 
 }

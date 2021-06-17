@@ -4,16 +4,19 @@ import com.desafio2.demo.dtos.ResponseBiggestEnvironmentDTO;
 import com.desafio2.demo.dtos.ResponsePropertySquareDTO;
 import com.desafio2.demo.dtos.ResponsePropertyValueDTO;
 import com.desafio2.demo.dtos.ResponseSquareMetersEnvironmentDTO;
+import com.desafio2.demo.exception.NeighborhoodAlreadyExistException;
+import com.desafio2.demo.exception.PropertyAlreadyExistException;
 import com.desafio2.demo.exception.PropertyException;
 import com.desafio2.demo.exception.PropertyNotFoundException;
+import com.desafio2.demo.model.Neighborhood;
+import com.desafio2.demo.model.Property;
 import com.desafio2.demo.service.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/properties")
@@ -45,5 +48,16 @@ public class PropertyController {
             @PathVariable int propertyId)
             throws PropertyNotFoundException {
         return new ResponseEntity<>(iPropertyService.getSquareMetersOfEnvironments(propertyId), HttpStatus.OK);
+    }
+    @PostMapping("/create")
+    public ResponseEntity<Property> createProperty(@Validated @RequestBody Property property)
+            throws PropertyAlreadyExistException {
+        return new ResponseEntity<>(iPropertyService.createProperty(property), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/neighborhood/create")
+    public ResponseEntity<Neighborhood> createNeighborhood(@Validated @RequestBody Neighborhood neighborhood)
+            throws NeighborhoodAlreadyExistException {
+        return new ResponseEntity<>(iPropertyService.createNeighborhood(neighborhood), HttpStatus.CREATED);
     }
 }
