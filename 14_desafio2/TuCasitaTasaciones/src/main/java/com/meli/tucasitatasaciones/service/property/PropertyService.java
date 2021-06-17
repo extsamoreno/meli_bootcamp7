@@ -47,6 +47,4 @@ public class PropertyService implements IPropertyService {
         }
         return propertyDTOS;
     }
-
-
 }

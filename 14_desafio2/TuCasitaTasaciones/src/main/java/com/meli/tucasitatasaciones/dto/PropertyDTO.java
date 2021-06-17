@@ -21,4 +21,3 @@ public class PropertyDTO {
     private String districtName;
     private List<@Valid EnvironmentDTO> environments;
 }
-

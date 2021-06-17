@@ -1,6 +1,5 @@
 package com.meli.tucasitatasaciones.unit.repository;
 
-import com.meli.tucasitatasaciones.exception.DistrictNotFoundException;
 import com.meli.tucasitatasaciones.exception.PropertyNotFoundException;
 import com.meli.tucasitatasaciones.model.Property;
 import com.meli.tucasitatasaciones.repository.property.IPropertyRepository;

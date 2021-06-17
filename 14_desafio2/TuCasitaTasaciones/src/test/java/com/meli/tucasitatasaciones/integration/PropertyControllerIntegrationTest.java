@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.tucasitatasaciones.dto.PropertyDTO;
+import com.meli.tucasitatasaciones.exception.DistrictNotFoundException;
 import com.meli.tucasitatasaciones.model.District;
 import com.meli.tucasitatasaciones.model.Property;
 import com.meli.tucasitatasaciones.repository.district.IDistrictRepository;
@@ -79,28 +80,18 @@ public class PropertyControllerIntegrationTest {
                 .andDo(print()).andExpect(status().isBadRequest());
     }
 
-    //TODO: Agregar test cuando el barrio no existe y tira una excepcion
-
-    //TODO: revisar este test
     @Test
     public void getAllProperties() throws Exception {
-        List<PropertyDTO> propertiesDTO = TestUtilGenerator.getPropertiesDTO();
         List<Property> properties = TestUtilGenerator.getProperties();
-        Property property = TestUtilGenerator.getProperty();
-        PropertyDTO propertyDTO = TestUtilGenerator.getPropertyDTO("Alto Alberdi");
 
         Mockito.when(iPropertyRepository.getAllProperties()).thenReturn(properties);
-        Mockito.when(mapper.map(property,PropertyDTO.class)).thenReturn(propertyDTO);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/getAllProperties"))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.environmentsSquareMeters[0].name").value(environmentDTOS.get(0).getName()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.environmentsSquareMeters[0].squareMeters").value(environmentDTOS.get(0).getSquareMeters()));;
-
-//        Mockito.verify(mapper,Mockito.times(3)).map(TestUtilGenerator.getProperty(),PropertyDTO.class);
-//        List<PropertyDTO> responseList = TestUtilGenerator.fromJsonToList(response.getResponse().getContentAsString(), PropertyDTO.class);
-//        Assertions.assertEquals(propertyDTO,responseList.get(0));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").value("Casa 1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].districtName").value("Alto Alberdi"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[2].environments[0].name").value("Habitacion 1"));
     }
 }
