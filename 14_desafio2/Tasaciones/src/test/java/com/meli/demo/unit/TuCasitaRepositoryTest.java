@@ -51,6 +51,26 @@ public class TuCasitaRepositoryTest {
         Assertions.assertTrue(received);
 
     }
+    @Test
+    public void CreateCasitaprecioerr() throws HouseExistException, PriceIncorrectException, NeighborhoodNotFounException {
+        // arrange
+        NeighborhoodDTO neighborhoodDTO = new NeighborhoodDTO("Madrid",  11.0);
+        ArrayList<EnvironmentDTO> arrayEnvironmentDTOS = new ArrayList<>();
+        EnvironmentDTO environmentDTO1 = new EnvironmentDTO(1,"Alcoba",12.7,19.2);
+        EnvironmentDTO environmentDTO2 = new EnvironmentDTO(2,"Dormitorio",11.1,22.2);
+        EnvironmentDTO environmentDTO3 = new EnvironmentDTO(3,"Sala",2.1,1.2);
+        arrayEnvironmentDTOS.add(environmentDTO1);
+        arrayEnvironmentDTOS.add(environmentDTO2);
+        arrayEnvironmentDTOS.add(environmentDTO3);
+        HouseDTO house = new HouseDTO("Casa Prueba Ingreso2 ",neighborhoodDTO,arrayEnvironmentDTOS);
+
+        //assert
+        Assertions.assertThrows(PriceIncorrectException.class,() -> TuCasitaRepository.newCasita(HouseMapper.toHouse(house)));
+
+    }
+
+
+
 
 
     @Test
@@ -107,11 +127,11 @@ public class TuCasitaRepositoryTest {
     @Test
     public void getHouseByName() throws HouseNotFoundException {
         //arrange
-        NeighborhoodDTO neighborhoodDTO = new NeighborhoodDTO("Munich", 1900.0);
+        NeighborhoodDTO neighborhoodDTO = new NeighborhoodDTO("Paraiso", 2000.0);
         ArrayList<EnvironmentDTO> arrayEnvironmentDTOS = new ArrayList<>();
-        EnvironmentDTO environmentDTO1 = new EnvironmentDTO(1,"Alcoba",12.7,11.2);
-        EnvironmentDTO environmentDTO2 = new EnvironmentDTO(2,"Cocina",11.1,9.2);
-        EnvironmentDTO environmentDTO3 = new EnvironmentDTO(3,"Baño",8.1,1.2);
+        EnvironmentDTO environmentDTO1 = new EnvironmentDTO(1,"Dormitorio1",10.4,5.7);
+        EnvironmentDTO environmentDTO2 = new EnvironmentDTO(2,"Baño",5.4,3.7);
+        EnvironmentDTO environmentDTO3 = new EnvironmentDTO(3,"Cocina",11.4,3.7);
         arrayEnvironmentDTOS.add(environmentDTO1);
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
@@ -163,5 +183,8 @@ public class TuCasitaRepositoryTest {
         Assertions.assertEquals(neighborhoods, received);
 
     }
+
+
+
 
 }

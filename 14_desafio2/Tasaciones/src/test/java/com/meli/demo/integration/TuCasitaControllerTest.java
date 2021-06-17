@@ -192,7 +192,6 @@ public class TuCasitaControllerTest {
                 .content(payloadJson))
                 .andDo(print()).andExpect(status().isOk());
 
-
     }
 
    @Test
@@ -248,6 +247,8 @@ public class TuCasitaControllerTest {
                 .andDo(print()).andExpect(status().isOk());
 
     }
+
+
 
 
 

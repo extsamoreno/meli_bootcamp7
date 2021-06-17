@@ -128,8 +128,6 @@ public class TuCasitaRepository implements ITuCasitaRepository{
             e.printStackTrace();
             System.out.println("Failed while writing to DB, check your resources files");
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your JSON formatting.");
         }
         LoadHouses();
     }
