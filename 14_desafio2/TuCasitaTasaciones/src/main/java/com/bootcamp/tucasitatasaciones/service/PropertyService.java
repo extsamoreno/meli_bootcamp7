@@ -85,7 +85,7 @@ public class PropertyService implements IPropertyService {
         return property
                 .getEnvironments()
                 .stream()
-                .mapToDouble(env -> env.getWidth() * env.getLength())
+                .mapToDouble(env -> calculateSquareMeters(env))
                 .sum();
     }
 

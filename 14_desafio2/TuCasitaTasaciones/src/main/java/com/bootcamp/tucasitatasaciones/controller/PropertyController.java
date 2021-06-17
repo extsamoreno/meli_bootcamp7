@@ -44,7 +44,6 @@ public class PropertyController {
     }
 
 
-
     @GetMapping("/list")
     public ResponseEntity<List<Property>> listProperties() {
         return new ResponseEntity<>(propertyService.getAllProperties(), HttpStatus.OK);
