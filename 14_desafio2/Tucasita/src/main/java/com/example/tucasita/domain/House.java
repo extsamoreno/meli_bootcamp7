@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,5 +14,5 @@ import java.util.Set;
 public class House {
     private String name;
     private District district;
-    private Set<Room> room;
+    private List<Room> room;
 }

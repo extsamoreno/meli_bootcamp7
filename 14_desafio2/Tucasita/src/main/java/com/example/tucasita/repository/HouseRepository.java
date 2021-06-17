@@ -6,7 +6,9 @@ import com.example.tucasita.domain.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class HouseRepository implements IHouseRepository {
@@ -50,8 +52,8 @@ public class HouseRepository implements IHouseRepository {
         return listOfHouse;
     }
 
-    private Set<Room> setOf3Rooms(String name, double num1, double num2) {
-        Set<Room> rooms = new HashSet<>();
+    private List<Room> setOf3Rooms(String name, double num1, double num2) {
+        List<Room> rooms = new ArrayList<>();
         rooms.add(new Room(name + " 1", num1, num1));
         rooms.add(new Room(name + " 2", num2, num2));
         rooms.add(new Room(name + " 3", num1, num2));

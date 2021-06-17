@@ -13,7 +13,6 @@ import javax.validation.constraints.*;
 @Setter
 public class DistrictDTO {
     @NotBlank(message = "El barrio no puede estar vacío.")
-    @Pattern(regexp = "([A-Z][a-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+[\\p{Space}]*)*", message = "El nombre del barrio debe comenzar con mayúscula.")
     @Size(max = 45, message = "La longitud del nombre no puede superar los 45 caracteres.")
     private String name;
     @NotEmpty(message = "EL precio de un barrio no puede estar vacio")
