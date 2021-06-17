@@ -5,6 +5,7 @@ import com.example.ChallengeTwo.dto.HouseDTO;
 import com.example.ChallengeTwo.mapper.MapperHouse;
 import com.example.ChallengeTwo.model.District;
 import com.example.ChallengeTwo.model.House;
+import lombok.Data;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
+@Data
 public class HouseRepositoryImple implements IHouseRepository{
 
     HousesDB housesDB = new HousesDB();
@@ -20,7 +22,10 @@ public class HouseRepositoryImple implements IHouseRepository{
 
     @Override
     public House getHouseByName(String houseName) {
-        return dataBaseHouses.get(houseName);
+        if(dataBaseHouses.containsKey(houseName)){
+            return dataBaseHouses.get(houseName);
+        }
+        else return null;
     }
 
     @Override
@@ -40,6 +45,18 @@ public class HouseRepositoryImple implements IHouseRepository{
         dataBaseDistrics.put(district.getDistricName(),district);
         housesDB.addDistrict(district);
         return "Added district";
+    }
+
+    @Override
+    public Boolean existsHouse(House house) {
+        if(dataBaseHouses.containsKey(house.getHouseName())) return true;
+        else return false;
+    }
+
+    @Override
+    public Boolean existsDistrict(District district) {
+        if(dataBaseDistrics.containsKey(district.getDistricName())) return true;
+        else return false;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.ChallengeTwo.service;
 
 import com.example.ChallengeTwo.dto.*;
+import com.example.ChallengeTwo.exception.*;
 import com.example.ChallengeTwo.mapper.MapperEnvironment;
 import com.example.ChallengeTwo.mapper.MapperHouse;
 import com.example.ChallengeTwo.model.District;
@@ -46,26 +47,38 @@ public class HouseServiceImple implements  IHouseService{
     }
 
     @Override
-    public HouseTotalAreaDTO getTotalAreaHouse(String houseName) {
+    public HouseTotalAreaDTO getTotalAreaHouse(String houseName) throws ProgramException {
         House house = iHouseRepository.getHouseByName(houseName);
+        //Exception
+        if (house == null) throw new HouseNameNotFoundException(houseName);
+
         return MapperHouse.toHouseTotalAreaDTO(house, calculateTotalArea(house));
     }
 
     @Override
-    public HouseTotalValueDTO getTotalValueHouse(String houseName) {
+    public HouseTotalValueDTO getTotalValueHouse(String houseName) throws HouseNameNotFoundException {
         House house = iHouseRepository.getHouseByName(houseName);
+        //Exception
+        if (house == null) throw new HouseNameNotFoundException(houseName);
+
         return  MapperHouse.toHouseTotalValueDTO(house,calculateTotalArea(house),calculateTotalValue(house));
     }
 
     @Override
-    public BiggerEnvironmentDTO getBiggerEnviroment(String houseName) {
+    public BiggerEnvironmentDTO getBiggerEnviroment(String houseName) throws HouseNameNotFoundException {
         House house = iHouseRepository.getHouseByName(houseName);
+        //Exception
+        if (house == null) throw new HouseNameNotFoundException(houseName);
+
         return MapperEnvironment.toBiggerEnvironment(getBiggerEnvironment(house),houseName);
     }
 
     @Override
-    public List<EnvironmentAreaDTO> getAllEnviromentsArea(String houseName) {
+    public List<EnvironmentAreaDTO> getAllEnviromentsArea(String houseName) throws HouseNameNotFoundException {
+
         House house = iHouseRepository.getHouseByName(houseName);
+        //Exception
+        if (house == null) throw new HouseNameNotFoundException(houseName);
         List<EnvironmentAreaDTO> listResult = new ArrayList<>();
         for(Environment environment: house.getListEnvironment()){
             listResult.add(MapperEnvironment.toEnvironmentAreaDTO(environment));
@@ -73,14 +86,25 @@ public class HouseServiceImple implements  IHouseService{
         return listResult;
     }
     @Override
-    public String createNewHouse(HouseDTO house) {
-        House houseAdd = MapperHouse.toHouse(house,getDistricByName(house.getDistricName()));
+    public String createNewHouse(HouseDTO house) throws ProgramException {
+        District district = getDistricByName(house.getDistricName());
+        //Exeptions
+        if(district==null) throw new DistrictNameNotFoundException(house.getDistricName());
+        if(iHouseRepository.existsHouse(MapperHouse.toHouse(house,district))) throw new HouseAlreadyExistsException(house.getHouseName());
+
+        House houseAdd = MapperHouse.toHouse(house,district);
         return iHouseRepository.addNewHouse(houseAdd);
     }
 
     @Override
-    public String createNewDistrict(DistrictDTO districtDTO) {
+    public String createNewDistrict(DistrictDTO districtDTO) throws DistrictAlreadyExistsException {
+
         District district = new District(districtDTO.getDistrictName(),districtDTO.getPrice());
+        //Exceptions
+        if(iHouseRepository.existsDistrict(new District(district.getDistricName(),district.getDistricPrice()))) {
+            throw new DistrictAlreadyExistsException(district.getDistricName());
+        }
+
         return iHouseRepository.addNewDistrict(district);
     }
 

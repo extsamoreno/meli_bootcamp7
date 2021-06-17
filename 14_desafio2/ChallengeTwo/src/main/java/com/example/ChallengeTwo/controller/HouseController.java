@@ -1,6 +1,7 @@
 package com.example.ChallengeTwo.controller;
 
 import com.example.ChallengeTwo.dto.*;
+import com.example.ChallengeTwo.exception.ProgramException;
 import com.example.ChallengeTwo.model.House;
 import com.example.ChallengeTwo.service.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,31 +20,31 @@ public class HouseController {
     IHouseService iHouseService;
 
     @PostMapping("/createHouse")
-    public ResponseEntity<String> createHouse(@Valid @RequestBody HouseDTO house){
+    public ResponseEntity<String> createHouse(@Valid @RequestBody HouseDTO house) throws ProgramException {
         System.out.println(house);
         return new ResponseEntity<>(iHouseService.createNewHouse(house), HttpStatus.OK);
     }
     @PostMapping("/createDistrict")
-    public ResponseEntity<String> createDistrict(@Valid @RequestBody DistrictDTO districtDTO){
+    public ResponseEntity<String> createDistrict(@Valid @RequestBody DistrictDTO districtDTO) throws ProgramException {
         System.out.println(districtDTO);
         return new ResponseEntity<>(iHouseService.createNewDistrict(districtDTO), HttpStatus.OK);
     }
 
     @GetMapping ("/totalArea/{houseName}")
-    public ResponseEntity<HouseTotalAreaDTO> getTotalAreaHouse(@PathVariable String houseName){
+    public ResponseEntity<HouseTotalAreaDTO> getTotalAreaHouse(@PathVariable String houseName) throws ProgramException {
         return new ResponseEntity<>(iHouseService.getTotalAreaHouse(houseName), HttpStatus.OK);
 
     }
     @GetMapping("/value/{houseName}")
-    public ResponseEntity<HouseTotalValueDTO> getTotalValueHouse(@PathVariable String houseName){
+    public ResponseEntity<HouseTotalValueDTO> getTotalValueHouse(@PathVariable String houseName) throws ProgramException {
         return new ResponseEntity<>( iHouseService.getTotalValueHouse(houseName), HttpStatus.OK);
     }
     @GetMapping("/biggerEnvironment/{houseName}")
-    public ResponseEntity<BiggerEnvironmentDTO> getBiggerEnvironment(@PathVariable String houseName){
+    public ResponseEntity<BiggerEnvironmentDTO> getBiggerEnvironment(@PathVariable String houseName) throws ProgramException {
         return new ResponseEntity<>( iHouseService.getBiggerEnviroment(houseName), HttpStatus.OK);
     }
     @GetMapping("/environmentsAreaList/{houseName}")
-    public ResponseEntity<List<EnvironmentAreaDTO>> getAllEnviromentsArea(@PathVariable String houseName){
+    public ResponseEntity<List<EnvironmentAreaDTO>> getAllEnviromentsArea(@PathVariable String houseName) throws ProgramException {
         return new ResponseEntity<>( iHouseService.getAllEnviromentsArea(houseName), HttpStatus.OK);
     }
 

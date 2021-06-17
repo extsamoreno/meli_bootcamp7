@@ -11,4 +11,6 @@ public interface IHouseRepository {
     District getDistricByName(String districName);
     String addNewHouse(House houseAdd);
     String addNewDistrict(District district);
+    Boolean existsHouse(House house);
+    Boolean existsDistrict(District district);
 }
