@@ -170,7 +170,25 @@ public class PropertyServiceTests {
 
         assertFalse(biggestRoom.getM2() == expectedDimension);
     }
+    @Test
+    public void getBiggestRoomTest() throws PropertyNotFoundException {
+        // arrange
+        Long propertyId = 1L;
 
+        double expectedDimension = 100.0;
+        Property property = TestUtilsGenerator.getPropertyWith100M2BiggestRoom(propertyId);
+
+        when(iDataRepository.getPropertyById(propertyId)).thenReturn(property);
+
+
+        // act
+        RoomDTO biggestRoom = propertyService.getBiggestRoom(propertyId);
+
+        // assert
+        verify(iDataRepository, atLeastOnce()).getPropertyById(propertyId);
+
+        assertEquals(biggestRoom.getM2() , expectedDimension);
+    }
     @Test
     public void getBiggestRoomThrowsPropertyNotFoundExceptionTest() throws PropertyNotFoundException {
         // arrange

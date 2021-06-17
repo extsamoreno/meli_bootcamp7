@@ -128,12 +128,5 @@ public class TestUtilsGenerator {
 
         return rooms;
     }
-    public static Property getNoRoomsProperty(Long id){
-        Property property = new Property();
-        property.setName("House");
-        property.setId(id);
 
-        return property;
-
-    }
 }
