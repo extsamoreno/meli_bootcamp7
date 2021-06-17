@@ -30,7 +30,7 @@ public class DistrictController {
      * Creates a new district in local repository
      *
      * @param district the district you want to create in local repository
-     * @return
+     * @return validation of district creation
      */
 
     @PostMapping("/addOne")

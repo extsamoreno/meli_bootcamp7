@@ -11,6 +11,7 @@ import com.example.tucasita.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -94,6 +95,21 @@ public class PropertyServiceImple implements PropertyService{
         ResponseDTO response = new ResponseDTO(200, "El ambiente más grande de la propiedad con ID " + idProperty + " es el ambiente " + biggestEnvironmentName + " con un total de " + environmentSquareMeters + " metros cuadrados.");
 
         return response;
+    }
+
+    @Override
+    public List<EnvironmentDTO> calculateEnvironmentsSquareMeters(int idProperty){
+        PropertyDTO property = propertyDAO.findById(idProperty);
+        List<EnvironmentDTO> environments = property.getEnvironments();
+
+        for (int i = 0; i < property.getEnvironments().size(); i++) {
+            EnvironmentDTO environment = property.getEnvironments().get(i);
+
+            Double environmentSquareMeters = environment.getEnvironmentLength() * environment.getEvironmentWidth();
+            environment.setSquareMeters(environmentSquareMeters);
+        }
+
+        return environments;
     }
 
     @Override
