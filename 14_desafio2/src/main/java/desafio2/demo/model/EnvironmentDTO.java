@@ -16,8 +16,10 @@ public class EnvironmentDTO {
     String name;
     @NotNull(message = "El ancho del ambiente no puede estar vacío.")
     @Max(value = 25,message = "El máximo ancho permitido por propiedad es de 25 mts.")
+    @Positive(message = "El ancho tiene que ser positivo")
     double width;
     @NotNull(message = "El largo del ambiente no puede estar vacío.")
     @Max(value = 33,message = "El máximo largo permitido por propiedad es de 33 mts.")
+    @Positive(message = "El largo tiene que ser positivo")
     double length;
 }

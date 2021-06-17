@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +14,6 @@ public class DistrictDTO {
     String name;
     @NotNull(message = "El precio de un barrio no puede estar vacío.")
     @Max(value = 4000, message = "El precio máximo permitido por metro cuadrado no puede superar los 4000 U$S.")
+    @Positive(message = "El precio tiene que ser positivo")
     double price;
 }

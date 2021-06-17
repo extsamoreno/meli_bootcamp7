@@ -2,9 +2,10 @@ package desafio2.demo.exception;
 
 import desafio2.demo.model.ErrorDTO;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-@Data
+@Getter
 public class ApiException extends Exception{
     ErrorDTO errorDTO = new ErrorDTO();
     HttpStatus httpStatus;
