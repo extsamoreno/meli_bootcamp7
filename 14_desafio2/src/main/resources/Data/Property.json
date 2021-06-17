@@ -20,27 +20,6 @@
         "length": 3.0
       }
     ]
-  },
-  {
-    "id": 2,
-    "name": "House2",
-    "district": {
-      "name": "barrio 4",
-      "price": 5.0
-    },
-    "environments": [
-      {
-        "id": 1,
-        "name": "room 1",
-        "width": 5.0,
-        "length": 5.0
-      },
-      {
-        "id": 2,
-        "name": "room 2",
-        "width": 6.0,
-        "length": 6.0
-      }
-    ]
   }
+
 ]

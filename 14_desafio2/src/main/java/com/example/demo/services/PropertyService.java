@@ -68,7 +68,7 @@ public class PropertyService implements IPropertyService {
         }
         ResponseBiggerEnvironmentDTO response = new ResponseBiggerEnvironmentDTO();
         response.setName(property.getName());
-        response.setEnvironmentId(environment.getId());
+        response.setEnvironmentName(environment.getName());
         response.setBiggerEnvironmentMeters(total);
 
         return response;
@@ -88,7 +88,6 @@ public class PropertyService implements IPropertyService {
         List<EnvironmentDTO> list = new ArrayList<>();
         for (Environment environmentEntry : property.getEnvironments()) {
             EnvironmentDTO environment = new EnvironmentDTO();
-            environment.setId(environmentEntry.getId());
             environment.setName(environmentEntry.getName());
             environment.setTotalMeters(environmentEntry.getLength() * environmentEntry.getWidth());
             list.add(environment);

@@ -11,8 +11,6 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class EnvironmentDTO {
 
-    private int id;
-
     @NotBlank(message = "Name can't be empty")
     @Pattern(regexp = "([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$", message = "The name of the environment must begin with a capital letter")
     @Size(max = 30, message = "The length of the neighborhood cannot exceed 30 characters")
@@ -27,7 +25,6 @@ public class EnvironmentDTO {
     @DecimalMax(value = "33.0", message = "The maximum length allowed is 33 meters")
     @Positive(message = "The length cannot be negative or zero.")
     private Double length;
-
 
     private double totalMeters;
 

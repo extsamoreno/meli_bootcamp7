@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class ResponseBiggerEnvironmentDTO {
 
     private String name;
-    private int environmentId;
+    private String environmentName;
     private double biggerEnvironmentMeters;
     
 }

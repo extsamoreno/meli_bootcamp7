@@ -15,7 +15,6 @@ public class Mapper {
         List<Environment> result = new ArrayList<>();
         for (EnvironmentDTO environmentDTO : environments) {
             Environment environment = new Environment();
-            environment.setId(environmentDTO.getId());
             environment.setName(environmentDTO.getName());
             environment.setLength(environmentDTO.getLength());
             environment.setWidth(environmentDTO.getWidth());

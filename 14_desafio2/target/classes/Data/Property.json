@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "house1",
+    "name": "House1",
     "district": {
       "name": "barrio 1",
       "price": 7.0
@@ -21,4 +21,5 @@
       }
     ]
   }
+
 ]

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
 
@@ -21,5 +22,6 @@ public class PropertyDTO {
     @Size(max = 30, message = "The length of the name cannot exceed 30 characters")
     private String name;
     private String districtName;
-    private List<EnvironmentDTO> environments;
+    private @Valid List<EnvironmentDTO> environments;
+
 }
