@@ -25,8 +25,13 @@ public class CalculateController {
         return new ResponseEntity<>(URLBuilder.buildURL("calculate/getHouse", calculateService.save(houseDTO), ""), HttpStatus.OK);
     }
 
-    @GetMapping("/getHouse/{id}")
+    @GetMapping("/house/{id}")
     public ResponseEntity<HouseDTO> getHouse(@PathVariable Integer id) throws HouseNotFoundException {
         return new ResponseEntity<>(calculateService.getHouseById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/house/{id}/totalMeters")
+    public ResponseEntity<String> getTotalMeters(@PathVariable Integer id) throws HouseNotFoundException {
+        return new ResponseEntity<>(calculateService.getTotalMeters(id) + "m2", HttpStatus.OK);
     }
 }

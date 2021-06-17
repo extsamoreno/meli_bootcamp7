@@ -19,9 +19,9 @@ public class Room {
 
     @Positive
     @Max(value = 25, message = "The width of the room must be less than or equal to 25")
-    private Integer width;
+    private Double width;
 
     @Positive
     @Max(value = 33, message = "The length of the room bust be lees than or equal to 33")
-    private Integer length;
+    private Double length;
 }

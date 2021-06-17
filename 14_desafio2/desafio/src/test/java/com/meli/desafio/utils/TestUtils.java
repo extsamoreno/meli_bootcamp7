@@ -14,13 +14,13 @@ public class TestUtils {
         List<Room> rooms = new ArrayList<>();
         rooms.add(Room.builder()
                 .name("Room1")
-                .width(25)
-                .length(25)
+                .width(25.00)
+                .length(25.00)
                 .build());
         rooms.add(Room.builder()
                 .name("Room2")
-                .width(20)
-                .length(12)
+                .width(20.00)
+                .length(12.00)
                 .build());
 
         DistrictDTO district = DistrictDTO.builder()

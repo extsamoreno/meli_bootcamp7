@@ -119,7 +119,7 @@ public class HouseDistrictDTOValidations {
     public void addHouseShouldThrowExceptionWhenRoomNameDoesntBeingWithCapitalLetter() throws Exception {
         HouseDTO houseDTO = TestUtils.getTotalHouse("House");
         List<Room> rooms = new ArrayList<>();
-        rooms.add(Room.builder().name("room").width(10).length(10).build());
+        rooms.add(Room.builder().name("room").width(10.00).length(10.00).build());
         houseDTO.setRooms(rooms);
         ErrorDTO error = TestUtils.getValidationError("The name of the room must begin with a capital letter");
         callForValidationErrorAddHouse(houseDTO, error);
@@ -129,7 +129,7 @@ public class HouseDistrictDTOValidations {
     public void addHouseShouldThrowExceptionWhenRoomNameHaveMoreThan30Characters() throws Exception {
         HouseDTO houseDTO = TestUtils.getTotalHouse("House");
         List<Room> rooms = new ArrayList<>();
-        rooms.add(Room.builder().name("R".repeat(31)).width(10).length(10).build());
+        rooms.add(Room.builder().name("R".repeat(31)).width(10.00).length(10.00).build());
         houseDTO.setRooms(rooms);
         ErrorDTO error = TestUtils.getValidationError("The name of the room cannot contain more than 30 characters");
         callForValidationErrorAddHouse(houseDTO, error);
@@ -139,7 +139,7 @@ public class HouseDistrictDTOValidations {
     public void addHouseShouldThrowExceptionWhenRoomWidthIsGreaterThan30() throws Exception {
         HouseDTO houseDTO = TestUtils.getTotalHouse("House");
         List<Room> rooms = new ArrayList<>();
-        rooms.add(Room.builder().name("Room").width(35).length(10).build());
+        rooms.add(Room.builder().name("Room").width(35.00).length(10.00).build());
         houseDTO.setRooms(rooms);
         ErrorDTO error = TestUtils.getValidationError("The width of the room must be less than or equal to 25");
         callForValidationErrorAddHouse(houseDTO, error);
@@ -149,7 +149,7 @@ public class HouseDistrictDTOValidations {
     public void addHouseShouldThrowExceptionWhenRoomLengthIsGreaterThan33() throws Exception {
         HouseDTO houseDTO = TestUtils.getTotalHouse("House");
         List<Room> rooms = new ArrayList<>();
-        rooms.add(Room.builder().name("Room").width(10).length(35).build());
+        rooms.add(Room.builder().name("Room").width(10.00).length(35.00).build());
         houseDTO.setRooms(rooms);
         ErrorDTO error = TestUtils.getValidationError("The length of the room bust be lees than or equal to 33");
         callForValidationErrorAddHouse(houseDTO, error);
@@ -159,7 +159,7 @@ public class HouseDistrictDTOValidations {
     public void addHouseShouldThrowExceptionWhenRoomNotHaveName() throws Exception {
         HouseDTO houseDTO = TestUtils.getTotalHouse("House");
         List<Room> rooms = new ArrayList<>();
-        rooms.add(Room.builder().name(null).width(10).length(10).build());
+        rooms.add(Room.builder().name(null).width(10.00).length(10.00).build());
         houseDTO.setRooms(rooms);
         ErrorDTO error = TestUtils.getValidationError("The house must have a name");
         callForValidationErrorAddHouse(houseDTO, error);

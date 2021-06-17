@@ -8,4 +8,6 @@ public interface ICalculateService {
     Integer save(HouseDTO houseDTO) throws HouseAlreadyExistsException;
 
     HouseDTO getHouseById(Integer id) throws HouseNotFoundException;
+
+    Double getTotalMeters(Integer id) throws HouseNotFoundException;
 }

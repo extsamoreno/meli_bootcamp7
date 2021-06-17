@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.desafio.exceptions.dto.ErrorDTO;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
+import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;
 import com.meli.desafio.utils.TestUtils;
@@ -61,15 +62,13 @@ public class CalculateControllerIntegrationTests {
     @Test
     public void addHouseShouldThrowHouseAlreadyExistsException() throws Exception {
         HouseDTO houseDTO = TestUtils.getTotalHouse("House1");
-        Integer houseId = 1;
+
+        HouseAlreadyExistsException error = new HouseAlreadyExistsException(houseDTO.getName());
 
         String payloadJson = writer.writeValueAsString(houseDTO);
-        when(calculateRepository.save(houseDTO)).thenThrow(new HouseAlreadyExistsException(houseDTO.getName()));
+        when(calculateRepository.save(houseDTO)).thenThrow(error);
 
-        String errorDTO = writer.writeValueAsString(ErrorDTO.builder()
-                .name("HouseAlreadyExistsException")
-                .message("The house with the name " + houseDTO.getName() + " already exists")
-                .build());
+        String errorDTO = writer.writeValueAsString(error.getError());
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders.post("/calculate")
@@ -93,12 +92,61 @@ public class CalculateControllerIntegrationTests {
         String houseDtoString = writer.writeValueAsString(houseDto);
 
         this.mockMvc
-                .perform(MockMvcRequestBuilders.get("/calculate/getHouse/{id}", houseId))
+                .perform(MockMvcRequestBuilders.get("/calculate/house/{id}", houseId))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(houseDtoString))
                 .andReturn();
     }
 
-    
+    @Test
+    public void getHouseShouldThrowHouseNotFoundException() throws Exception{
+        Integer houseId = 1;
+
+        HouseNotFoundException exception = new HouseNotFoundException(houseId);
+
+        when(calculateRepository.getById(houseId)).thenThrow(exception);
+
+        String error = writer.writeValueAsString(exception.getError());
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/calculate/house/{id}", houseId))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().string(error))
+                .andReturn();
+    }
+
+    @Test
+    public void getHouseTotalMetersHappyPath() throws Exception{
+        Integer houseId = 1;
+        HouseDTO houseDTO = TestUtils.getTotalHouse("House1");
+
+        when(calculateRepository.getById(houseId)).thenReturn(houseDTO);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/totalMeters", houseId))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=UTF-8"))
+                .andExpect(content().string("865.0m2"))
+                .andReturn();
+    }
+
+    @Test
+    public void getHouseTotalMetersShouldThrowHouseNotFoundException() throws Exception{
+        Integer houseId = 1;
+
+        HouseNotFoundException exception = new HouseNotFoundException(houseId);
+
+        when(calculateRepository.getById(houseId)).thenThrow(exception);
+
+        String error = writer.writeValueAsString(exception.getError());
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/totalMeters", houseId))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().string(error))
+                .andReturn();
+    }
 }
