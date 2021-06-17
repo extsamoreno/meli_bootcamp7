@@ -1,4 +1,4 @@
-package com.springChallenge.api.repository.aux;
+package com.springChallenge.api.repository;
 
 import com.springChallenge.api.repository.entity.Product;
 import com.springChallenge.api.repository.entity.User;

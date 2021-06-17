@@ -1,7 +1,7 @@
 package com.springChallenge.api.repository.implementation;
 
 import com.springChallenge.api.controller.exception.user.UserNotFoundException;
-import com.springChallenge.api.repository.aux.DatabaseLoader;
+import com.springChallenge.api.repository.DatabaseLoader;
 import com.springChallenge.api.repository.contract.IUserRepository;
 import com.springChallenge.api.repository.entity.Post;
 import com.springChallenge.api.repository.entity.User;
