@@ -21,7 +21,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/properties")
-public class PropertiesController {
+public class PropertyController {
 
     @Autowired
     PropertyService propertyService;

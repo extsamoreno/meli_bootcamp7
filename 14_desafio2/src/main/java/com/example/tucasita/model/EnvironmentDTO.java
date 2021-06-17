@@ -15,10 +15,12 @@ public class EnvironmentDTO {
     String environmentName;
 
     @NotNull(message = "El ancho del ambiente no puede estar vacío.")
+    @DecimalMin(value= "0.0", message = "El mínimo ancho permitido por propiedad es de 0 mts.")
     @DecimalMax(value= "25.0", message = "El máximo ancho permitido por propiedad es de 25 mts.")
-    double evironmentWidth;
+    Double evironmentWidth;
 
     @NotNull(message = "El precio de un barrio no puede estar vacío.")
+    @DecimalMin(value= "0.0", message = "El mínimo largo permitido por propiedad es de 0 mts.")
     @DecimalMax(value= "33.0", message = "El máximo largo permitido por propiedad es de 33 mts.")
-    double environmentLength;
+    Double environmentLength;
 }

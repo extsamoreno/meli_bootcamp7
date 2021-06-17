@@ -1,8 +1,8 @@
 package com.example.tucasita.repository;
 
-import com.example.tucasita.exception.ExistentPropertyException;
-import com.example.tucasita.exception.PropertyNotFoundException;
-import com.example.tucasita.model.PropertyDTO;
+import com.example.tucasita.exception.DistrictNotFoundException;
+import com.example.tucasita.exception.ExistentDistrictException;
+import com.example.tucasita.model.DistrictDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
@@ -17,12 +17,12 @@ import java.util.Properties;
 import java.util.Set;
 
 @Repository
-public class PropertyDAOImple implements PropertyDAO{
+public class DistrictDAOImple implements DistrictDAO{
 
-    private Set<PropertyDTO> properties;
+    private Set<DistrictDTO> districts;
     private String SCOPE;
 
-    public PropertyDAOImple() {
+    public DistrictDAOImple() {
         Properties properties =  new Properties();
 
         try {
@@ -35,50 +35,34 @@ public class PropertyDAOImple implements PropertyDAO{
     }
 
     @Override
-    public void create(PropertyDTO property) {
+    public void create(DistrictDTO district) {
         try {
-            if (this.findById(property.getPropId()) != null) {
-                throw new ExistentPropertyException(property.getPropId());
+            if (this.findByName(district.getDistrictName()) != null) {
+                throw new ExistentDistrictException(district.getDistrictName());
             }
-        } catch (PropertyNotFoundException e) {
-            properties.add(property);
+        } catch (DistrictNotFoundException e) {
+            districts.add(district);
 
             this.saveData();
         }
     }
 
     @Override
-    public boolean delete(int idProperty) {
-        boolean deletedProperty = false;
-
-        try {
-            PropertyDTO foundproperty = this.findById(idProperty);
-
-            properties.remove(foundproperty);
-            deletedProperty  = true;
-
-            this.saveData();
-        } catch (PropertyNotFoundException e) {}
-
-        return deletedProperty;
-    }
-
-    @Override
-    public PropertyDTO findById(int idProperty) {
+    public DistrictDTO findByName(String districtName) {
         loadData();
-        return properties.stream()
-                .filter(property -> property.getPropId() == idProperty)
-                .findFirst().orElseThrow(() -> new PropertyNotFoundException(idProperty));
+        return districts.stream()
+                .filter(district -> district.getDistrictName().equals(districtName))
+                .findFirst().orElseThrow(() -> new DistrictNotFoundException(districtName));
     }
 
     private void loadData() {
-        Set<PropertyDTO> loadedData = new HashSet<>();
+        Set<DistrictDTO> loadedData = new HashSet<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
-            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<PropertyDTO>>(){});
+            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json");
+            loadedData = objectMapper.readValue(file, new TypeReference<Set<DistrictDTO>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");
@@ -87,14 +71,14 @@ public class PropertyDAOImple implements PropertyDAO{
             System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
 
-        this.properties = loadedData;
+        this.districts = loadedData;
     }
 
     private void saveData() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
-            objectMapper.writeValue(file, this.properties);
+            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json");
+            objectMapper.writeValue(file, this.districts);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while writing to DB, check your resources files");

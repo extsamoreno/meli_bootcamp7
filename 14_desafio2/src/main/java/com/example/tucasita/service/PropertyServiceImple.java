@@ -1,7 +1,9 @@
 package com.example.tucasita.service;
 
+import com.example.tucasita.exception.InvalidPropertyException;
 import com.example.tucasita.model.PropertyDTO;
 import com.example.tucasita.model.ResponseDTO;
+import com.example.tucasita.repository.DistrictDAO;
 import com.example.tucasita.repository.PropertyDAO;
 import com.example.tucasita.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,20 @@ public class PropertyServiceImple implements PropertyService{
     @Autowired
     PropertyRepository propertyRepository;
 
+    @Autowired
+    DistrictDAO districtDAO;
+
     @Override
     public ResponseDTO addOneProperty(PropertyDTO property) {
-        propertyDAO.create(property);
+        if (districtDAO.findByName(property.getDistrictName()) != null) {
+            propertyDAO.create(property);
 
-        ResponseDTO response = new ResponseDTO(201, "La propiedad se ha agregado con éxito al repositorio local");
+            ResponseDTO response = new ResponseDTO(201, "La propiedad se ha agregado con éxito al repositorio local");
 
-        return response;
+            return response;
+        } else {
+            throw new InvalidPropertyException(property.getDistrictName());
+        }
     }
 
     @Override

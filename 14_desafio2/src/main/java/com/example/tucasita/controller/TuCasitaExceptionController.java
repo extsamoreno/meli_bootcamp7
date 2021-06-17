@@ -1,5 +1,6 @@
 package com.example.tucasita.controller;
 
+import com.example.tucasita.exception.DistrictException;
 import com.example.tucasita.exception.PropertyException;
 import com.example.tucasita.model.ErrorDTO;
 import org.springframework.http.HttpStatus;
@@ -11,15 +12,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class TuCasitaExceptionController {
-    @ExceptionHandler(PropertyException.class)
-    ResponseEntity<ErrorDTO> handleGlobalExceptions(PropertyException e) {
-        return new ResponseEntity<>(e.getError(), e.getStatus());
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ErrorDTO> handleValidationExceptions(MethodArgumentNotValidException e) {
         ErrorDTO error = new ErrorDTO("MethodArgumentNotValidException", e.getBindingResult().getFieldError().getDefaultMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PropertyException.class)
+    ResponseEntity<ErrorDTO> handleGlobalPropertyExceptions(PropertyException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(DistrictException.class)
+    ResponseEntity<ErrorDTO> handleGlobalDistrictExceptions(DistrictException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
