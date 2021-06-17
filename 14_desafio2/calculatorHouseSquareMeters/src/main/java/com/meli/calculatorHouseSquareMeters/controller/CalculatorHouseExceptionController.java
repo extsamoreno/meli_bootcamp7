@@ -1,4 +1,4 @@
-package com.meli.calculatorHouseSquareMeters.integration.controller;
+package com.meli.calculatorHouseSquareMeters.controller;
 
 import com.meli.calculatorHouseSquareMeters.model.dto.ErrorDTO;
 import com.meli.calculatorHouseSquareMeters.model.exception.*;
