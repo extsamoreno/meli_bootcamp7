@@ -1,6 +1,7 @@
 package com.example.challenge2.controllers;
 
 import com.example.challenge2.dtos.*;
+import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.repositories.IPropertyDAO;
 import com.example.challenge2.serivces.IPropertyService;
@@ -20,17 +21,11 @@ public class PropertyController {
 
 
     @PostMapping("/record")
-    public ResponseEntity<PropertyDTO> registerProperty(@RequestBody @Valid PropertyDTO property) {
+    public ResponseEntity<PropertyDTO> registerProperty(@RequestBody @Valid PropertyDTO property) throws DistrictNotFoundException {
 
         return new ResponseEntity<>(this.propertyService.create(property), HttpStatus.CREATED);
     }
 
-
-    @PostMapping("/registerDistrict")
-    public ResponseEntity<District> registerDistrict(@RequestBody @Valid District district) {
-        this.propertyService.createDistrict(district);
-        return ResponseEntity.ok(null);
-    }
 
     @GetMapping("/getTotalSize/{propertyName}")
     public ResponseEntity<SizeResponseDTO> getSize(@PathVariable String propertyName) {

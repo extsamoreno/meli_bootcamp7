@@ -1,10 +1,10 @@
 package com.example.challenge2.serivces;
 
 import com.example.challenge2.dtos.*;
-import com.example.challenge2.models.District;
+import com.example.challenge2.exceptions.DistrictNotFoundException;
 
 public interface IPropertyService {
-    PropertyDTO create(PropertyDTO property);
+    PropertyDTO create(PropertyDTO property) throws DistrictNotFoundException;
 
     SizeResponseDTO getSize(String propertyName);
 
@@ -14,5 +14,4 @@ public interface IPropertyService {
 
     EnvironmentSizesDTO getEnvironments(String propertyName);
 
-    District createDistrict(District district);
 }

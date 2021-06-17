@@ -1,7 +1,9 @@
 package com.example.challenge2.serivces;
 
+import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 
 public interface IDistrictService {
-    District create(District district);
+    District create( District district);
+    District find(String districtName) throws DistrictNotFoundException;
 }

@@ -21,7 +21,7 @@ public class DistrictDAO implements IDistrictDAO{
 
 
     @Override
-    public District save(District district){
+    public District save(District district) throws DistrictNotFoundException{
 
         this.delete(district.getName());
         districts.add(district);
@@ -45,11 +45,13 @@ public class DistrictDAO implements IDistrictDAO{
     }
 
     @Override
-    public District findByName(String districtName) {
+    public District findByName(String districtName) throws DistrictNotFoundException {
         loadData();
-        return districts.stream()
-                .filter(district -> district.getName().equals(districtName))
-                .findFirst().orElseThrow(() -> new DistrictNotFoundException(districtName));
+        District res =  districts.stream().filter(district -> district.getName().equals(districtName)).findFirst().get();
+        if (res != null)
+            return res;
+        else
+            throw new DistrictNotFoundException(districtName);
     }
 
     private void saveData() {

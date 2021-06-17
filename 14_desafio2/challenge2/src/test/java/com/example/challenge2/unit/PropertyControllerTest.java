@@ -124,29 +124,4 @@ public class PropertyControllerTest {
     }
 
 
-
-
-
-    /*PropertyDTO property = new PropertyDTO("Propiedad1", "Carrasco", new ArrayList<>(){
-        {
-            add(new Environment("Cuarto1", 4.0, 2.0));
-            add(new Environment("Cuarto2", 2.0, 2.0));
-        }
-    });
-
-    @Test
-    public void totalSizeHappyPath() throws Exception {
-        //arrange
-        SizeResponseDTO dto= new SizeResponseDTO("Propiedad1",12.0);
-        ResponseEntity<?> expected = new ResponseEntity<>(dto, HttpStatus.OK);
-        Mockito.when(propertyService.getSize(property.getName())).thenReturn(new SizeResponseDTO("Propiedad1",12.0));
-
-        //act
-        ResponseEntity<?> received = propertyController.getSize(property.getName());
-
-        //assert
-        Mockito.verify(service,Mockito.atLeast(1)).totalArea(house);
-        Assertions.assertEquals(expected,received);
-    }*/
-
 }

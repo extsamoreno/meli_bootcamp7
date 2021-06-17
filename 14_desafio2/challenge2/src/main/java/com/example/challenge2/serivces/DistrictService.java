@@ -1,5 +1,6 @@
 package com.example.challenge2.serivces;
 
+import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.models.Property;
 import com.example.challenge2.repositories.IDistrictDAO;
@@ -16,5 +17,10 @@ public class DistrictService implements IDistrictService{
     @Override
     public District create(District district) {
         return districtDAO.save(district);
+    }
+
+    @Override
+    public District find(String districtName) throws DistrictNotFoundException {
+        return districtDAO.findByName(districtName);
     }
 }

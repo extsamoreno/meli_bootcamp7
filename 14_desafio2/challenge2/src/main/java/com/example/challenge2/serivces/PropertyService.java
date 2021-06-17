@@ -1,6 +1,7 @@
 package com.example.challenge2.serivces;
 
 import com.example.challenge2.dtos.*;
+import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.models.Environment;
 import com.example.challenge2.models.Property;
@@ -17,11 +18,14 @@ import java.util.List;
 public class PropertyService implements IPropertyService{
     @Autowired
     IPropertyDAO propertyDAO;
+    @Autowired
+    DistrictService districtService;
 
 
     @Override
-    public  PropertyDTO create(PropertyDTO propertyDTO) {
-        Property property = PropertyMapper.propertyDTOToProperty(propertyDTO);
+    public  PropertyDTO create(PropertyDTO propertyDTO) throws DistrictNotFoundException {
+        District district = districtService.find(propertyDTO.getDistrictName());
+        Property property = PropertyMapper.propertyDTOToProperty(propertyDTO, district);
         return PropertyMapper.propertyToPropertyDTO(propertyDAO.save(property));
     }
 
@@ -33,7 +37,7 @@ public class PropertyService implements IPropertyService{
         double size = 0;
         Property property = propertyDAO.findByName(propertyName);
         for(Environment environment : property.getEnvironmentList()){
-            size =+ getEnvironmentSize(environment);
+            size = size + getEnvironmentSize(environment);
         }
         return new SizeResponseDTO(propertyName,size);
 
@@ -71,8 +75,4 @@ public class PropertyService implements IPropertyService{
         return new EnvironmentSizesDTO(propertyName, environments);
     }
 
-    @Override
-    public District createDistrict(District district) {
-        return new District();
-    }
 }
