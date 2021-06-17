@@ -8,5 +8,5 @@ import java.util.Map;
 public interface IDistrictsRepository {
 
     Map<String, District> getDistricts();
-    void setDistricts(Map<String, District> districts);
+    //void setDistricts(Map<String, District> districts);
 }

@@ -23,9 +23,9 @@ public class DistrictsRepository implements IDistrictsRepository {
     @Override
     public Map<String, District> getDistricts() {return districts;}
 
-    @Override
-    public void setDistricts(Map<String, District> districts) {
-        DistrictsRepository.districts = districts;
-    }
+//    @Override
+//    public void setDistricts(Map<String, District> districts) {
+//        DistrictsRepository.districts = districts;
+//    }
 
 }
