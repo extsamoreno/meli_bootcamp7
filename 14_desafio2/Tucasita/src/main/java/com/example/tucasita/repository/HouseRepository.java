@@ -28,7 +28,7 @@ public class HouseRepository implements IHouseRepository {
 
     @Override
     public Optional<House> findByName(String name) {
-        return listOfHouse.stream().filter(district -> district.getName() == name).findFirst();
+        return listOfHouse.stream().filter(district -> district.getName().equals(name)).findFirst();
     }
 
     @Override

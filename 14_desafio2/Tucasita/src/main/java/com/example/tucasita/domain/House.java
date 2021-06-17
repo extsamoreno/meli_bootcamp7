@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Comparator;
 import java.util.List;
 
 @NoArgsConstructor
@@ -14,5 +15,17 @@ import java.util.List;
 public class House {
     private String name;
     private District district;
-    private List<Room> room;
+    private List<Room> rooms;
+
+    public double getTotalMeters() {
+        return rooms.stream().mapToDouble(Room::squareMeters).sum();
+    }
+
+    public double getTotalValue() {
+        return this.district.getPrice() * getTotalMeters();
+    }
+
+    public Room getLargestRoom() {
+        return rooms.stream().max(Comparator.comparing(Room::squareMeters)).get();
+    }
 }

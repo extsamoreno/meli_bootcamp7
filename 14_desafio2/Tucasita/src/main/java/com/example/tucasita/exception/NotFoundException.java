@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class NotFoundException extends TuCasitaException {
 
-    public NotFoundException() {
-        super("Invalid data or does not exist", HttpStatus.BAD_REQUEST);
+    public NotFoundException(String item) {
+        super(item + ": Invalid data or does not exist", HttpStatus.BAD_REQUEST);
     }
 }

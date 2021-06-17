@@ -11,5 +11,5 @@ import lombok.Setter;
 @Setter
 public class RoomWithMetersDTO {
     private String name;
-    private double totalMeters;
+    private double meters;
 }

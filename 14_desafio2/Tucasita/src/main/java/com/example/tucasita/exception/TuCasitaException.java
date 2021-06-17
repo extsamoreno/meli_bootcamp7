@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class TuCasitaException extends Exception {
+public class TuCasitaException extends RuntimeException {
 
     private ErrorDTO error;
     private HttpStatus status;

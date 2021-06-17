@@ -23,7 +23,7 @@ public class DistrictRepository implements IDistrictRepository {
 
     @Override
     public Optional<District> findByName(String name) {
-        return listOfDistrict.stream().filter(district -> district.getName() == name).findFirst();
+        return listOfDistrict.stream().filter(district -> district.getName().equals(name)).findFirst();
     }
 
     @Override
