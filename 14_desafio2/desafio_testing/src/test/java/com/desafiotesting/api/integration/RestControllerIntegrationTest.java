@@ -1823,4 +1823,3 @@ public class RestControllerIntegrationTest {
     }
 
 }
-
