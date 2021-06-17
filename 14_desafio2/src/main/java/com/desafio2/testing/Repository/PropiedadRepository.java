@@ -16,10 +16,12 @@ public class PropiedadRepository implements IPropiedadRepository{
 
 
 
-    public void altaPropiedad(String name, BarrioModel barrioModel, ArrayList<AmbienteModel> ambienteModels, int cant){
+    public boolean agregarPropiedad(String name, BarrioModel barrioModel, ArrayList<AmbienteModel> ambienteModels, int cant){
 
         PropiedadModel propiedadModel =new PropiedadModel(name, barrioModel, ambienteModels, cant);
         propiedadesDataBase.add(propiedadModel);
+
+        return true;
     }
 
 

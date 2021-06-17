@@ -1,4 +1,4 @@
-package com.desafio2.testing.Repository;
+package com.desafio2.testing.Service;
 
 
 import com.desafio2.testing.Model.AmbienteModel;
@@ -57,10 +57,10 @@ public class UtilDB implements IUtilDB {
 
 
 
-        iPropiedadRepository.altaPropiedad("Moldes 100",b1,ambientes3,3);
-        iPropiedadRepository.altaPropiedad("Jaramillo 200",b1,ambientes2,2);
-        iPropiedadRepository.altaPropiedad("Amenabar 300",b1,ambientes5,5);
-        iPropiedadRepository.altaPropiedad("Cabildo 400",b1,ambientes4,4);
+        iPropiedadRepository.agregarPropiedad("Moldes 100",b1,ambientes3,3);
+        iPropiedadRepository.agregarPropiedad("Jaramillo 200",b1,ambientes2,2);
+        iPropiedadRepository.agregarPropiedad("Amenabar 300",b1,ambientes5,5);
+        iPropiedadRepository.agregarPropiedad("Cabildo 400",b1,ambientes4,4);
 
         System.out.println("Se crearon propiedades");
 

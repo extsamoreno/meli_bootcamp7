@@ -17,12 +17,10 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class PropiedadModel {
 
-    @NotBlank(message = "El nombre de la propiedad no puede estar vacío.")
-    @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
-    @Pattern(regexp = "^[A-Z].*", message = "El nombre de la propiedad debe comenzar con mayúscula.")
+
     private String prop_name;
-    @Valid private BarrioModel district;
-    @Valid private ArrayList<AmbienteModel> ambientes;
+    private BarrioModel district;
+    private ArrayList<AmbienteModel> ambientes;
     private int cantAmbientes;
 
 

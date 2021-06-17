@@ -1,14 +1,11 @@
 package com.desafio2.testing.Controller;
 
 
-import com.desafio2.testing.Dto.AmbienteDTO;
-import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
-import com.desafio2.testing.Dto.PropiedadM2DTO;
-import com.desafio2.testing.Dto.PropiedadValorDTO;
+import com.desafio2.testing.Dto.*;
 import com.desafio2.testing.Exception.PropiedadInexistenteException;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
-import com.desafio2.testing.Repository.IUtilDB;
+import com.desafio2.testing.Service.IUtilDB;
 import com.desafio2.testing.Service.IPropiedadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,19 +29,17 @@ public class MiCasitaController {
     @Valid
     public void crearDB(){
     IUtilDB.crearDataBase();
-
     }
 
+
     @PostMapping("/prueba")
-    public ResponseEntity<?> registerStudent(@RequestBody @Valid BarrioModel ba) {
-        //this.studentService.create(stu);
+    public ResponseEntity<?> register(@RequestBody @Valid PropiedadRequestDTO ba) {
         return ResponseEntity.ok(null);
     }
 
 
     @GetMapping("/prueba2/{nombre}")
     public ResponseEntity<PropiedadM2DTO> prueba2(@PathVariable String nombre) throws PropiedadInexistenteException {
-
         return new ResponseEntity<>(iPropiedadService.calcularM2PropiedadDTO(nombre), HttpStatus.OK);
 
     }
@@ -69,7 +64,7 @@ public class MiCasitaController {
     }
 
     @PostMapping("/verificarValidaciones")
-    public ResponseEntity<?> verificarValidaciones (@Valid @RequestBody PropiedadModel propiedad){
+    public ResponseEntity<?> verificarValidaciones (@Valid @RequestBody PropiedadRequestDTO propiedad){
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

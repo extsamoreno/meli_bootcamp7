@@ -11,7 +11,7 @@ public interface IPropiedadRepository {
   PropiedadModel getPropiedadByName(String name) throws PropiedadInexistenteException;
 
 
-  void altaPropiedad(String name, BarrioModel barrioModel, ArrayList<AmbienteModel> ambienteModels, int cant);
+  boolean agregarPropiedad(String name, BarrioModel barrioModel, ArrayList<AmbienteModel> ambienteModels, int cant);
 
 
 }

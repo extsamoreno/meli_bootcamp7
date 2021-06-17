@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class AmbienteDTO {
 
+
     String nombre;
     double M2;
 

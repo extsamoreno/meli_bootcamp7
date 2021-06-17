@@ -5,19 +5,18 @@ import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
 import com.desafio2.testing.Dto.PropiedadM2DTO;
 import com.desafio2.testing.Exception.PropiedadInexistenteException;
 import com.desafio2.testing.Model.PropiedadModel;
-import com.desafio2.testing.Repository.IUtilDB;
 import com.desafio2.testing.Repository.IPropiedadRepository;
-import com.desafio2.testing.Repository.UtilDB;
 import com.desafio2.testing.Service.Mapper.IPropiedadMapper;
 import com.desafio2.testing.Service.PropiedadService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
@@ -113,6 +112,29 @@ public class ServiceTests {
         assertEquals(expected, received);
     }
 
+
+
+
+
+
+
+
+
+   /* @Test
+    public void createNewDistrictCorrectly() throws RepeatedDistrictException, DistrictNotCreatedException {
+        // Arrange
+        District district = new District("Barrio Nuevo", 1000);
+
+        Mockito.doNothing().when(serviceCalculatorHouse).createNewDistrict(district);
+
+        // Act
+        ResponseEntity<?> received = calculatorHouseController.createNewDistrict(district);
+
+        // Assert
+        Mockito.verify(serviceCalculatorHouse, Mockito.atLeastOnce()).createNewDistrict(district);
+        assertThat(received.getStatusCode().is2xxSuccessful());
+
+    }*/
 
 
 
