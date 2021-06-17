@@ -1,5 +1,7 @@
 package com.bootcamp.tucasitatasaciones.service;
 
+import com.bootcamp.tucasitatasaciones.DTO.EnvironmentDTO;
+import com.bootcamp.tucasitatasaciones.DTO.PropertyAppraisalDTO;
 import com.bootcamp.tucasitatasaciones.DTO.PropertyDTO;
 import com.bootcamp.tucasitatasaciones.DTO.TotalSquareMetersDTO;
 import com.bootcamp.tucasitatasaciones.exception.NotFoundException;
@@ -15,4 +17,7 @@ public interface IPropertyService {
 
     TotalSquareMetersDTO getTotalSquareMeters(Long propertyId) throws NotFoundException;
 
+    PropertyAppraisalDTO propertyAppraisal(Long propertyId) throws NotFoundException;
+
+    EnvironmentDTO getBiggestEnviroment(Long propertyId) throws NotFoundException;
 }

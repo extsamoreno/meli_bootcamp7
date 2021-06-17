@@ -2,16 +2,16 @@
   {
     "id": 1,
     "name": "Los Lapachos",
-    "price": 50
+    "price": 500
   },
   {
     "id": 2,
     "name": "Bella Vista",
-    "price": 90
+    "price": 900
   },
   {
     "id": 3,
     "name": "Estrella Roja",
-    "price": 40
+    "price": 400
   }
 ]

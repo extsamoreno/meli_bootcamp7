@@ -13,5 +13,5 @@ public class Property {
     private Long id;
     private String name;
     private Long districtId;
-    private List<Enviroment> enviroments;
+    private List<Environment> environments;
 }

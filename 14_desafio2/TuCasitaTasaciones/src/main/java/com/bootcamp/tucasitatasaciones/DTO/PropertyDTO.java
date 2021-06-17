@@ -25,5 +25,5 @@ public class PropertyDTO {
     private @Valid DistrictDTO district;
 
     @NotNull(message = "La lista de ambientes es un campo obligatorio")
-    private List<@Valid EnviromentDTO> enviroments;
+    private List<@Valid EnvironmentDTO> environments;
 }
