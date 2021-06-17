@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "167915fe-fd2b-4221-b9b0-69154c9a6d7f",
+		"name": "API RETO 2 SPRING BOOT TEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Creación de Nueva Casa",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"houseName\": \"Casa1\",\n    \"districtName\": \"Barrio Bajo\",\n    \"rooms\": [\n        {\n            \"name\": \"Habitación Principal\",\n            \"width\": 10.0,\n            \"length\": 10.0\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 3.0,\n            \"length\": 3.0\n        },\n        {\n            \"name\": \"Sala\",\n            \"width\": 5.0,\n            \"length\": 5.0\n        },\n        {\n            \"name\": \"Cosina\",\n            \"width\": 4.0,\n            \"length\": 3.0\n        },\n        {\n            \"name\": \"Garage\",\n            \"width\": 4.0,\n            \"length\": 4.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/meli/api/CalculatorHouseSquareMeters/v1/createHouse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meli",
+						"api",
+						"CalculatorHouseSquareMeters",
+						"v1",
+						"createHouse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error Validacion de Beans Creación de Nueva Casa",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"houseName\": \"casa1\",\n    \"districtName\": \"barrio Bajo\",\n    \"rooms\": [\n        {\n            \"name\": \"habitación Principal\",\n            \"width\": -10.0,\n            \"length\": 100.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/meli/api/CalculatorHouseSquareMeters/v1/createHouse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meli",
+						"api",
+						"CalculatorHouseSquareMeters",
+						"v1",
+						"createHouse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Creación de Nuevo Barrio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"districtName\": \"Nuevo Barrio\",\n    \"squareMeterPrice\": 100.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/meli/api/CalculatorHouseSquareMeters/v1/createDistrict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meli",
+						"api",
+						"CalculatorHouseSquareMeters",
+						"v1",
+						"createDistrict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Error Validacion Beans Creación de Nuevo Barrio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"districtName\": \"nuevo Barrio\",\n    \"squareMeterPrice\": 4001.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/meli/api/CalculatorHouseSquareMeters/v1/createDistrict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meli",
+						"api",
+						"CalculatorHouseSquareMeters",
+						"v1",
+						"createDistrict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta de Total Metros Cuadrados y Total Valor de la Casa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/meli/api/CalculatorHouseSquareMeters/v1/totalQuantity/Casa1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meli",
+						"api",
+						"CalculatorHouseSquareMeters",
+						"v1",
+						"totalQuantity",
+						"Casa1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta de la habitación más Grande",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/meli/api/CalculatorHouseSquareMeters/v1/biggestRoom/Casa1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meli",
+						"api",
+						"CalculatorHouseSquareMeters",
+						"v1",
+						"biggestRoom",
+						"Casa1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consulta Lista de habitaciones",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/meli/api/CalculatorHouseSquareMeters/v1/list/Casa1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meli",
+						"api",
+						"CalculatorHouseSquareMeters",
+						"v1",
+						"list",
+						"Casa1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
