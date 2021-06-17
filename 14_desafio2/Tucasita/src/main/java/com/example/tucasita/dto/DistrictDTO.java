@@ -1,9 +1,6 @@
 package com.example.tucasita.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
@@ -11,6 +8,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 public class DistrictDTO {
     @NotBlank(message = "El barrio no puede estar vacío.")
     @Size(max = 45, message = "La longitud del nombre no puede superar los 45 caracteres.")

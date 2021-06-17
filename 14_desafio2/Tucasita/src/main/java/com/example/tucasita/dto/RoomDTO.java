@@ -1,10 +1,7 @@
 package com.example.tucasita.dto;
 
 import com.example.tucasita.domain.Room;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
@@ -12,6 +9,7 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 public class RoomDTO {
     @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
     @Pattern(regexp = "([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$", message = "El nombre del ambiente debe comenzar con mayúscula.")

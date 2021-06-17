@@ -10,7 +10,6 @@ import com.example.tucasita.dto.response.*;
 import com.example.tucasita.exception.NotFoundException;
 import com.example.tucasita.exception.PriceException;
 import com.example.tucasita.repository.IDistrictRepository;
-import com.example.tucasita.repository.IHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +20,7 @@ import java.util.stream.Collectors;
 public class HouseService implements IHouseService {
 
     @Autowired
-    IHouseRepository houseRepository;
-    @Autowired
     IDistrictRepository districtRepository;
-
 
     @Override
     public HouseWithTotalMeters calculateTotalMeters(HouseDTO houseDTO) {

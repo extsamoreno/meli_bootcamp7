@@ -1,9 +1,6 @@
 package com.example.tucasita.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,6 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 public class HouseWithRoomsMetersDTO {
     private String name;
     private List<RoomWithMetersDTO> rooms;
