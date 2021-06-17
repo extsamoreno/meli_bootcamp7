@@ -123,8 +123,10 @@ public class TestUtilsGenerator {
         PrintWriter writer = null;
 
         try {
-            String content = Files.readString(new File("./src/" + SCOPE + "/resources/properties.json").getAbsoluteFile().toPath(), StandardCharsets.US_ASCII);
-            writer = new PrintWriter(ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json"));
+            String content = Files.readString(new File("./src/" + SCOPE +
+                    "/resources/properties.json").getAbsoluteFile().toPath(), StandardCharsets.US_ASCII);
+            writer = new PrintWriter(ResourceUtils.getFile("./src/" + SCOPE +
+                    "/resources/properties.json"));
 
             try {
                 String studentAsString = mapper.writeValueAsString(property);
@@ -143,51 +145,33 @@ public class TestUtilsGenerator {
         writer.close();
     }
 
+    public static void appendNewNeighborhood(NeighborhoodDTO neighborhood) {
+        mapper = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer().withDefaultPrettyPrinter();
 
-    /*
-    public static StudentDTO getStudentWith3SubjectsAverageOver9(String name) {
-        SubjectDTO subject1 = new SubjectDTO("Matemática", 8.0);
-        SubjectDTO subject2 = new SubjectDTO("Lengua", 9.0);
-        SubjectDTO subject3 = new SubjectDTO("Física", 10.0);
+        PrintWriter writer = null;
 
-        List<SubjectDTO> subjects = new ArrayList<>();
-        subjects.add(subject1);
-        subjects.add(subject2);
-        subjects.add(subject3);
+        try {
+            String content = Files.readString(new File("./src/" + SCOPE +
+                    "/resources/neighborhoods.json").getAbsoluteFile().toPath(), StandardCharsets.US_ASCII);
+            writer = new PrintWriter(ResourceUtils.getFile("./src/" + SCOPE +
+                    "/resources/neighborhoods.json"));
 
-        StudentDTO stu = new StudentDTO();
-        stu.setId(9999L);
-        stu.setStudentName(name);
-        stu.setSubjects(subjects);
+            try {
+                String studentAsString = mapper.writeValueAsString(neighborhood);
+                writer.print(content.substring(0, content.length()-1));
+                if (content.length()>2) writer.print(", ");
+                writer.print(studentAsString);
+                writer.print("]");
+            } catch (JsonProcessingException jsonProcessingException) {
+                jsonProcessingException.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return stu;
+        assert writer != null;
+        writer.close();
     }
-
-    public static StudentDTO getStudentWithId(Long id) {
-        SubjectDTO subject1 = new SubjectDTO("Matemática", 8.0);
-        SubjectDTO subject2 = new SubjectDTO("Lengua", 6.0);
-        SubjectDTO subject3 = new SubjectDTO("Física", 4.0);
-
-        List<SubjectDTO> subjects = new ArrayList<>();
-        subjects.add(subject1);
-        subjects.add(subject2);
-        subjects.add(subject3);
-
-        StudentDTO stu = new StudentDTO();
-        stu.setId(id);
-        stu.setStudentName("student1");
-        stu.setSubjects(subjects);
-
-        return stu;
-    }
-
-    public static Set<StudentDTO> getStudentSet() {
-        StudentDTO stu1 = getStudentWith3Subjects("Marco");
-        StudentDTO stu2 = getStudentWith3Subjects("Marco Polo");
-        StudentDTO stu3 = getStudentWith3Subjects("Julio");
-        StudentDTO stu4 = getStudentWith3Subjects("Julio Cesar");
-
-        return new HashSet<StudentDTO>(){{add(stu1); add(stu2); add(stu3); add(stu4);}};
-    }
- */
 }

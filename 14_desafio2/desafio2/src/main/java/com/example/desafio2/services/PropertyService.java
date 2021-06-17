@@ -47,7 +47,7 @@ public class PropertyService implements IPropertyService {
     public ResponsePropertyValueDTO getPropertyValue(int propertyId) throws PropertyException {
         ResponsePropertyValueDTO responsePropertyValue = new ResponsePropertyValueDTO();
         PropertyDTO propertyDTO = iPropertyRepository.getPropertyById(propertyId);
-        NeighborhoodDTO neighborhoodDTO = iPropertyRepository.getNeighborhoodById(propertyDTO.getNeighborhood());
+        NeighborhoodDTO neighborhoodDTO = iPropertyRepository.getNeighborhoodByName(propertyDTO.getNeighborhood());
 
         responsePropertyValue.setPropertyName(propertyDTO.getName());
         responsePropertyValue.setValueOfProperty(calculatePropertyValue(propertyDTO, neighborhoodDTO));

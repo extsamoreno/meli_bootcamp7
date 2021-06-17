@@ -12,5 +12,5 @@ public interface IPropertyRepository {
     PropertyDTO saveProperty(PropertyDTO propertyDTO) throws PropertyAlreadyExistException;
     NeighborhoodDTO saveNeighborhood(NeighborhoodDTO neighborhoodDTO) throws NeighborhoodAlreadyExistException;
     PropertyDTO getPropertyById(int propertyId) throws PropertyNotFoundException;
-    NeighborhoodDTO getNeighborhoodById(String neighborhood) throws NeighborhoodNotFoundException;
+    NeighborhoodDTO getNeighborhoodByName(String neighborhood) throws NeighborhoodNotFoundException;
 }

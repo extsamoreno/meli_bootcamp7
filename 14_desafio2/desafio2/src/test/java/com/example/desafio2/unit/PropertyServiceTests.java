@@ -18,11 +18,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -98,14 +95,14 @@ public class PropertyServiceTests {
         ResponsePropertyValueDTO expected = new ResponsePropertyValueDTO(property.getName(), value);
 
         when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
-        when(iPropertyRepository.getNeighborhoodById(property.getNeighborhood())).thenReturn(neighborhood);
+        when(iPropertyRepository.getNeighborhoodByName(property.getNeighborhood())).thenReturn(neighborhood);
 
         // act
         ResponsePropertyValueDTO received = propertyService.getPropertyValue(property.getId());
 
         // assert
         verify(iPropertyRepository, atLeastOnce()).getPropertyById(property.getId());
-        verify(iPropertyRepository, atLeastOnce()).getNeighborhoodById(property.getNeighborhood());
+        verify(iPropertyRepository, atLeastOnce()).getNeighborhoodByName(property.getNeighborhood());
         assertEquals(expected, received);
     }
 

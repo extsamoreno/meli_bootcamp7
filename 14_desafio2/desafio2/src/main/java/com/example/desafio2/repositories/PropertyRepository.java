@@ -92,7 +92,7 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public NeighborhoodDTO getNeighborhoodById(String neighborhood) throws NeighborhoodNotFoundException {
+    public NeighborhoodDTO getNeighborhoodByName(String neighborhood) throws NeighborhoodNotFoundException {
         loadDataNeighborhoods();
 
         return neighborhoods.values().stream()
