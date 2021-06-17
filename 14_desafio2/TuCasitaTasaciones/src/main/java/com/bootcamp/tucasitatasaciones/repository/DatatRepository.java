@@ -27,6 +27,14 @@ public class DatatRepository implements IDatatRepository {
     }
 
     @Override
+    public District findDistrictByName(String name) {
+        return districts.stream()
+                .filter(dist -> dist.getName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
     public Property findPropertyById(Long id) {
         return properties.stream()
                 .filter(prop -> prop.getId().equals(id))

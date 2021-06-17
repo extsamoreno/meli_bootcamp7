@@ -1,6 +1,9 @@
 package com.bootcamp.tucasitatasaciones.controller;
 
 import com.bootcamp.tucasitatasaciones.DTO.PropertyDTO;
+import com.bootcamp.tucasitatasaciones.exception.DistrictNotFoundException;
+import com.bootcamp.tucasitatasaciones.service.IPropertyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +17,12 @@ import javax.validation.Valid;
 @RequestMapping("/properties")
 public class PropertyController {
 
-    @PostMapping("register-property")
-    public ResponseEntity<?> registerProperty(@Valid @RequestBody PropertyDTO property) {
+    @Autowired
+    IPropertyService propertyService;
 
+    @PostMapping("register-property")
+    public ResponseEntity<?> registerProperty(@Valid @RequestBody PropertyDTO property) throws DistrictNotFoundException {
+        propertyService.registerProperty(property);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

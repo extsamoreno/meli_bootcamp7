@@ -7,5 +7,7 @@ public interface IDatatRepository {
 
     District findDistrictById(Long id);
 
+    District findDistrictByName(String name);
+
     Property findPropertyById(Long id);
 }
