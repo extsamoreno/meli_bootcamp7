@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "1753b440-1098-4f8a-b432-8e8f051c1491",
+		"name": "Desafio 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Calcular metros cuadrados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Calcular precio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Calcular ambiente más grande",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Lista de ambientes con metros cuadrados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Calcular todos los requerimientos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Casa",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\":\"Casa 3\",\n    \"district\": {\n        \"distric_name\":\"Compartir\"\n    },\n    \"environmentArrayList\": [\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": 3,\n            \"environment_length\": 4\n        },\n        {\n            \"environment_name\": \"Sala\",\n            \"environment_width\": 5,\n            \"environment_length\": 4\n        },\n        {\n            \"environment_name\": \"Habitacion\",\n            \"environment_width\": 4,\n            \"environment_length\": 4\n        }\n    ]    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/house/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"house",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Barrio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"distric_name\":\"Compartir\",\n    \"distric_price\": \"A5000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/district/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"district",
+						"new"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

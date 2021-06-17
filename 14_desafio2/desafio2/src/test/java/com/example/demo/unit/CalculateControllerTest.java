@@ -9,6 +9,7 @@ import com.example.demo.models.House;
 import com.example.demo.service.IHouseService;
 import com.example.demo.service.dto.HouseDTO;
 import com.example.demo.service.dto.HouseM2DTO;
+import com.example.demo.service.dto.HousePriceDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,6 +60,17 @@ public class CalculateControllerTest {
         ResponseEntity<HouseM2DTO> response = calculateController.getM2(name);
         //assert
         Assertions.assertEquals(expect,response);
-
+    }
+    @Test
+    public void getPriceHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
+        //arrange
+        String name = "Casa 1";
+        HousePriceDTO housePriceDTO = new HousePriceDTO(name,9600);
+        when(iHouseService.calculatePrice(name)).thenReturn(housePriceDTO.getPrice());
+        ResponseEntity<HousePriceDTO> expect = new ResponseEntity<>(housePriceDTO,HttpStatus.OK);
+        //act
+        ResponseEntity<HousePriceDTO> response = calculateController.getPrice(name);
+        //assert
+        Assertions.assertEquals(expect,response);
     }
 }
