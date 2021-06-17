@@ -1,5 +1,7 @@
 package com.example.desafio2.repositories;
 
+import com.example.desafio2.exceptions.NeighborhoodNotFoundException;
+import com.example.desafio2.exceptions.PropertyNotFoundException;
 import com.example.desafio2.models.NeighborhoodDTO;
 import com.example.desafio2.models.PropertyDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -33,18 +35,21 @@ public class PropertyRepository implements IPropertyRepository {
         }
     }
     @Override
-    public PropertyDTO getPropertyById(int id) throws FileNotFoundException {
+    public PropertyDTO getPropertyById(int propertyId) throws PropertyNotFoundException {
         loadDataProperties();
+
+        return properties.values().stream()
+                .filter(propertyDTO -> propertyDTO.getId() == propertyId)
+                .findFirst().orElseThrow(() -> new PropertyNotFoundException(propertyId));
+    }
+
+    @Override
+    public NeighborhoodDTO getNeighborhoodById(String neighborhood) throws NeighborhoodNotFoundException {
         loadDataNeighborhoods();
-        /*
-        return properties.stream()
-                .filter(prop -> prop.getName().equals(name))
-                .findFirst().orElseThrow(() -> new StudentNotFoundException(name));
-                */
-        return properties.entrySet().stream()
-                .filter(prop -> prop.getValue().getId() == id)
-                .map(Map.Entry::getValue)
-                .findFirst().orElseThrow(() -> new FileNotFoundException());
+
+        return neighborhoods.values().stream()
+                .filter(neighborhoodDTO -> neighborhoodDTO.getName().equals(neighborhood))
+                .findFirst().orElseThrow(() -> new NeighborhoodNotFoundException(neighborhood));
     }
 
     private void loadDataProperties() {

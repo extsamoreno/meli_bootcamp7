@@ -1,13 +1,17 @@
 package com.example.desafio2.services;
 
-import com.example.desafio2.dtos.ResponsePropertySquareDTO;
+import com.example.desafio2.dtos.*;
+import com.example.desafio2.exceptions.PropertyException;
+import com.example.desafio2.exceptions.PropertyNotFoundException;
 import com.example.desafio2.models.EnvironmentDTO;
+import com.example.desafio2.models.NeighborhoodDTO;
 import com.example.desafio2.models.PropertyDTO;
 import com.example.desafio2.repositories.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PropertyService implements IPropertyService {
@@ -16,14 +20,51 @@ public class PropertyService implements IPropertyService {
     IPropertyRepository iPropertyRepository;
 
     @Override
-    public ResponsePropertySquareDTO getSquareMeters(int id) throws FileNotFoundException {
+    public ResponsePropertySquareDTO getSquareMeters(int propertyId) throws PropertyNotFoundException {
         ResponsePropertySquareDTO responseProperty = new ResponsePropertySquareDTO();
-        PropertyDTO propertyDTO = iPropertyRepository.getPropertyById(id);
+        PropertyDTO propertyDTO = iPropertyRepository.getPropertyById(propertyId);
 
         responseProperty.setPropertyName(propertyDTO.getName());
         responseProperty.setTotalSquareMeters(calculatePropertySquareMeters(propertyDTO));
 
         return responseProperty;
+    }
+
+    @Override
+    public ResponsePropertyValueDTO getPropertyValue(int propertyId) throws PropertyException {
+        ResponsePropertyValueDTO responsePropertyValue = new ResponsePropertyValueDTO();
+        PropertyDTO propertyDTO = iPropertyRepository.getPropertyById(propertyId);
+        NeighborhoodDTO neighborhoodDTO = iPropertyRepository.getNeighborhoodById(propertyDTO.getNeighborhood());
+
+        responsePropertyValue.setPropertyName(propertyDTO.getName());
+        responsePropertyValue.setValueOfProperty(calculatePropertyValue(propertyDTO, neighborhoodDTO));
+
+        return responsePropertyValue;
+    }
+
+    @Override
+    public ResponseBiggestEnvironmentDTO getBiggestEnvironment(int propertyId) throws PropertyNotFoundException {
+        ResponseBiggestEnvironmentDTO responseBiggestEnvironment = new ResponseBiggestEnvironmentDTO();
+        PropertyDTO propertyDTO = iPropertyRepository.getPropertyById(propertyId);
+
+        responseBiggestEnvironment.setPropertyName(propertyDTO.getName());
+        EnvironmentDTO environmentDTO = calculateBiggestEnvironment(propertyDTO);
+        responseBiggestEnvironment.setTotalSquareMeters(calculateEnvironmentSquareMeters(environmentDTO));
+        responseBiggestEnvironment.setEnvironment(environmentDTO);
+
+        return responseBiggestEnvironment;
+    }
+
+    @Override
+    public ResponseSquareMetersEnvironmentDTO getSquareMetersOfEnvironments(int propertyId)
+            throws PropertyNotFoundException {
+        ResponseSquareMetersEnvironmentDTO response = new ResponseSquareMetersEnvironmentDTO();
+        PropertyDTO propertyDTO = iPropertyRepository.getPropertyById(propertyId);
+
+        response.setPropertyName(propertyDTO.getName());
+        response.setEnvironments(getEnvironmentsSquareMeters(propertyDTO));
+
+        return response;
     }
 
     public double calculateEnvironmentSquareMeters(EnvironmentDTO environment) {
@@ -36,5 +77,36 @@ public class PropertyService implements IPropertyService {
             totalSquareMeters += calculateEnvironmentSquareMeters(env);
         }
         return totalSquareMeters;
+    }
+
+    private double calculatePropertyValue(PropertyDTO propertyDTO, NeighborhoodDTO neighborhoodDTO) {
+        double price = calculatePropertySquareMeters(propertyDTO);
+        return price * neighborhoodDTO.getPrice();
+    }
+
+    private EnvironmentDTO calculateBiggestEnvironment(PropertyDTO propertyDTO) {
+        double squareMeters;
+        double biggestEnvironment = 0;
+        EnvironmentDTO biggest = null;
+        for (EnvironmentDTO env : propertyDTO.getEnvironments()) {
+            squareMeters = calculateEnvironmentSquareMeters(env);
+            if (biggest == null || squareMeters > biggestEnvironment){
+                biggest = env;
+                biggestEnvironment = squareMeters;
+            }
+        }
+        return biggest;
+    }
+
+    private List<ResponseEnvironmentDTO> getEnvironmentsSquareMeters(PropertyDTO propertyDTO) {
+        List<ResponseEnvironmentDTO> environments = new ArrayList<>();
+        ResponseEnvironmentDTO environment;
+        for(EnvironmentDTO env : propertyDTO.getEnvironments()) {
+            environment = new ResponseEnvironmentDTO();
+            environment.setEnvironmentName(env.getName());
+            environment.setTotalSquareMeters(calculateEnvironmentSquareMeters(env));
+            environments.add(environment);
+        }
+        return environments;
     }
 }
