@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Manhattan",
+    "price": 400
+  },
+  {
+    "name": "Brooklyn",
+    "price": 300
+  },
+  {
+  "name": "Queens",
+  "price": 300
+  },
+  {
+  "name": "The Bronx",
+  "price": 100
+  },
+  {
+  "name": "Staten Island",
+  "price": 100
+  }
+]

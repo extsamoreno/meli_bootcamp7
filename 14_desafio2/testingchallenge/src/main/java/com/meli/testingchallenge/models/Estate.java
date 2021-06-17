@@ -1,7 +1,5 @@
 package com.meli.testingchallenge.models;
 
-import com.meli.testingchallenge.dtos.EnvironmentDTO;
-import com.meli.testingchallenge.dtos.EnvironmentDTORes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
