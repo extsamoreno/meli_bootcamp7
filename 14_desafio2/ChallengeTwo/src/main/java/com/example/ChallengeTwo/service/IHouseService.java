@@ -1,9 +1,6 @@
 package com.example.ChallengeTwo.service;
 
-import com.example.ChallengeTwo.dto.BiggerEnvironmentDTO;
-import com.example.ChallengeTwo.dto.EnvironmentAreaDTO;
-import com.example.ChallengeTwo.dto.HouseTotalAreaDTO;
-import com.example.ChallengeTwo.dto.HouseTotalValueDTO;
+import com.example.ChallengeTwo.dto.*;
 
 import java.util.List;
 
@@ -14,4 +11,9 @@ public interface IHouseService {
     BiggerEnvironmentDTO getBiggerEnviroment(String houseName);
 
     List<EnvironmentAreaDTO> getAllEnviromentsArea(String houseName);
+
+    String createNewHouse(HouseDTO house);
+
+
+    String createNewDistrict(DistrictDTO districtDTO);
 }

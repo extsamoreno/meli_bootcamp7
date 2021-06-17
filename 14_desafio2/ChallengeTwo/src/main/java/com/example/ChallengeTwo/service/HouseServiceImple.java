@@ -1,11 +1,9 @@
 package com.example.ChallengeTwo.service;
 
-import com.example.ChallengeTwo.dto.BiggerEnvironmentDTO;
-import com.example.ChallengeTwo.dto.EnvironmentAreaDTO;
-import com.example.ChallengeTwo.dto.HouseTotalAreaDTO;
-import com.example.ChallengeTwo.dto.HouseTotalValueDTO;
+import com.example.ChallengeTwo.dto.*;
 import com.example.ChallengeTwo.mapper.MapperEnvironment;
 import com.example.ChallengeTwo.mapper.MapperHouse;
+import com.example.ChallengeTwo.model.District;
 import com.example.ChallengeTwo.model.Environment;
 import com.example.ChallengeTwo.model.House;
 import com.example.ChallengeTwo.repository.IHouseRepository;
@@ -43,6 +41,9 @@ public class HouseServiceImple implements  IHouseService{
         }
         return biggerEnvironment;
     }
+    public District getDistricByName(String districName){
+        return iHouseRepository.getDistricByName(districName);
+    }
 
     @Override
     public HouseTotalAreaDTO getTotalAreaHouse(String houseName) {
@@ -71,4 +72,17 @@ public class HouseServiceImple implements  IHouseService{
         }
         return listResult;
     }
+    @Override
+    public String createNewHouse(HouseDTO house) {
+        House houseAdd = MapperHouse.toHouse(house,getDistricByName(house.getDistricName()));
+        return iHouseRepository.addNewHouse(houseAdd);
+    }
+
+    @Override
+    public String createNewDistrict(DistrictDTO districtDTO) {
+        District district = new District(districtDTO.getDistrictName(),districtDTO.getPrice());
+        return iHouseRepository.addNewDistrict(district);
+    }
+
+
 }

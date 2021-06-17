@@ -1,44 +1,43 @@
 package com.example.ChallengeTwo.db;
 
-import com.example.ChallengeTwo.model.Distric;
+import com.example.ChallengeTwo.model.District;
 import com.example.ChallengeTwo.model.Environment;
 import com.example.ChallengeTwo.model.House;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class HousesDB {
 
 
 
     //Initialize Districs
-    public final HashMap<Integer, Distric> databaseDistrics = new HashMap<>();
-    Distric d1 = new Distric("Chapinero", 1300);
-    Distric d2 = new Distric("Engativa", 900);
-    Distric d3 = new Distric("Candelaria", 1500);
-    Distric d4 = new Distric("Usaquen", 2300);
-    Distric d5 = new Distric("Usme", 800);
-    Distric d6 = new Distric("Soacha", 690);
-    Distric d7 = new Distric("Suba", 1100);
+    public  final HashMap<String, District> databaseDistrics = new HashMap<>();
+    District d1 = new District("Chapinero", 1300);
+    District d2 = new District("Engativa", 900);
+    District d3 = new District("Candelaria", 1500);
+    District d4 = new District("Usaquen", 2300);
+    District d5 = new District("Usme", 800);
+    District d6 = new District("Soacha", 690);
+    District d7 = new District("Suba", 1100);
 
     //Initialize Enviroments
     Environment e1 = new Environment("living-room",6.3,3.2);
-    Environment e2 = new Environment("bedroom main",4.3,3);
+    Environment e2 = new Environment("bedroom main",4.3,3.0);
     Environment e3 = new Environment("dinnerroom",2.5,2.2);
     Environment e4 = new Environment("bedroom 2 ",3.3,2.5);
     Environment e5 = new Environment("kitchen",3.9,1.8);
     Environment e6 = new Environment("bathroom",8.1,2.5);
     Environment e7 = new Environment("living-room",10.5,4.2);
-    Environment e8 = new Environment("bedroom main",5.3,3);
-    Environment e9 = new Environment("dinnerroom",4.5,2);
-    Environment e10 = new Environment("bedroom 2 ",4.2,5);
-    Environment e11= new Environment("kitchen",1.5,3);
+    Environment e8 = new Environment("bedroom main",5.3,3.0);
+    Environment e9 = new Environment("dinnerroom",4.5,2.0);
+    Environment e10 = new Environment("bedroom 2 ",4.2,5.0);
+    Environment e11= new Environment("kitchen",1.5,3.0);
 
 
 
     //Initialize houses
-    public final HashMap<String, House> dataBaseHouses = new HashMap<>();
+    public  final HashMap<String, House> dataBaseHouses = new HashMap<>();
 
     ArrayList<Environment> listEnvironmentsH1 = new ArrayList<>();
     ArrayList<Environment> listEnvironmentsH2 = new ArrayList<>();
@@ -70,9 +69,21 @@ public class HousesDB {
         this.dataBaseHouses.put(h1.getHouseName(),h1);this.dataBaseHouses.put(h2.getHouseName(),h2);this.dataBaseHouses.put(h3.getHouseName(), h3);
         this.dataBaseHouses.put(h4.getHouseName(), h4);this.dataBaseHouses.put(h5.getHouseName(),h5);this.dataBaseHouses.put(h6.getHouseName(),h6);
 
+        //Adding Ditrics
+        this.databaseDistrics.put(d1.getDistricName(),d1);this.databaseDistrics.put(d2.getDistricName(),d2);this.databaseDistrics.put(d3.getDistricName(),d3);
+        this.databaseDistrics.put(d4.getDistricName(),d4);this.databaseDistrics.put(d5.getDistricName(),d5);this.databaseDistrics.put(d6.getDistricName(),d6);
+        this.databaseDistrics.put(d7.getDistricName(),d7);
     }
 
     public HashMap<String, House> getDataBaseHouses() {
         return dataBaseHouses;
+    }
+    public HashMap<String, District> getDataBaseDistrics() {
+        return databaseDistrics;
+    }
+    public void  addHouse(House house){
+        this.dataBaseHouses.put(house.getHouseName(),house);
+    }
+    public void addDistrict(District district) {this.databaseDistrics.put(district.getDistricName(),district);
     }
 }

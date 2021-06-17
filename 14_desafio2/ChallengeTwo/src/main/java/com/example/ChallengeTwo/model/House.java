@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class House {
     private String houseName;
-    private Distric distric;
+    private District distric;
     private List<Environment> listEnvironment;
 
 }

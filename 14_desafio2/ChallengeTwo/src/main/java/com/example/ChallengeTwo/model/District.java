@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Distric {
+public class District {
     private String districName;
     private double districPrice;
 }
