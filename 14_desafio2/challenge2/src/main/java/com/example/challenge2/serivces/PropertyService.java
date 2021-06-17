@@ -18,9 +18,6 @@ public class PropertyService implements IPropertyService{
     @Autowired
     IPropertyDAO propertyDAO;
 
-    @Autowired
-    IPropertyRepository propertyRepository;
-
 
     @Override
     public  PropertyDTO create(PropertyDTO propertyDTO) {

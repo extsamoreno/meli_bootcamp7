@@ -28,7 +28,32 @@ public class PropertyControllerTest {
 
 
     @Test
-    public void getTotalSquareMeters() {
+    public void registerNewProperty() {
+        //Arrange
+        PropertyDTO propertyDTO =new PropertyDTO();
+        Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
+        Environment cuarto2 = new Environment("Cuarto2",7.0,1.8);
+
+        List<Environment> environments = new ArrayList<>();
+        environments.add(cuarto1);
+        environments.add(cuarto2);
+
+        propertyDTO.setName("Propiedad1");
+        propertyDTO.setDistrictName("Carrasco");
+        propertyDTO.setEnvironmentList(environments);
+
+        //Act
+        ResponseEntity<?> received = propertyController.registerProperty(propertyDTO);
+
+        //Asset
+        Mockito.verify(propertyService,Mockito.atLeastOnce()).create(propertyDTO);
+        Assertions.assertEquals(HttpStatus.CREATED,received.getStatusCode());
+    }
+
+
+
+    @Test
+    public void getSize() {
         //arrange
         String name = "Propiedad1";
         SizeResponseDTO sizeResponseDTO = new SizeResponseDTO();

@@ -20,7 +20,7 @@ public class PropertyController {
 
 
     @PostMapping("/record")
-    public ResponseEntity<PropertyDTO> registerStudent(@RequestBody @Valid PropertyDTO property) {
+    public ResponseEntity<PropertyDTO> registerProperty(@RequestBody @Valid PropertyDTO property) {
 
         return new ResponseEntity<>(this.propertyService.create(property), HttpStatus.CREATED);
     }

@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Repository
-public class PropertyDAO implements IPropertyDAO{
+public class PropertyDAO implements IPropertyDAO {
 
     private String SCOPE;
     Set<Property> properties;
@@ -29,11 +29,12 @@ public class PropertyDAO implements IPropertyDAO{
 
     @Override
     public Property save(Property property) {
-        boolean removed = this.delete(property.getName());
+        this.delete(property.getName());
         properties.add(property);
         this.saveData();
-        return  property;
+        return property;
     }
+
     @Override
     public boolean delete(String propertyName) {
         boolean ret = false;
@@ -42,10 +43,11 @@ public class PropertyDAO implements IPropertyDAO{
             Property found = this.findByName(propertyName);
 
             properties.remove(found);
-            ret  = true;
+            ret = true;
             this.saveData();
 
-        } catch (PropertyNotFoundException e) {}
+        } catch (PropertyNotFoundException e) {
+        }
 
         return ret;
     }
@@ -72,7 +74,8 @@ public class PropertyDAO implements IPropertyDAO{
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/property.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<Property>>(){});
+            loadedData = objectMapper.readValue(file, new TypeReference<Set<Property>>() {
+            });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");
