@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PropertyService implements IPropertyService {
+    @Autowired
     ModelMapper mapper;
 
     @Autowired
@@ -19,10 +20,6 @@ public class PropertyService implements IPropertyService {
 
     @Autowired
     IDistrictRepository iDistrictRepository;
-
-    public PropertyService() {
-        this.mapper = new ModelMapper();
-    }
 
     @Override
     public void createProperty(PropertyDTO property) {

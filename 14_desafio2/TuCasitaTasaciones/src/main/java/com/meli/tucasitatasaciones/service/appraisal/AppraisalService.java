@@ -5,14 +5,18 @@ import com.meli.tucasitatasaciones.dto.ResponseDTO;
 import com.meli.tucasitatasaciones.model.Environment;
 import com.meli.tucasitatasaciones.model.Property;
 import com.meli.tucasitatasaciones.repository.property.IPropertyRepository;
-import org.apache.coyote.Response;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppraisalService implements IAppraisalService {
+    @Autowired
+    ModelMapper mapper;
+
     @Autowired
     IPropertyRepository iPropertyRepository;
 
@@ -35,12 +39,27 @@ public class AppraisalService implements IAppraisalService {
 
     @Override
     public ResponseDTO getPropertyValue(Integer propertyId) {
-        return null;
+        Property property = iPropertyRepository.findPropertyById(propertyId);
+        Double propertyValue = calculateTotalSquareMeters(property.getEnvironments()) * property.getDistrict().getPrice();
+
+        ResponseDTO response = new ResponseDTO();
+        response.setPropertyValue(propertyValue);
+        return response;
     }
 
     @Override
-    public ResponseDTO getBiggerEnvironment(Integer propertyId) {
-        return null;
+    public ResponseDTO getBiggestEnvironment(Integer propertyId) {
+        Property property = iPropertyRepository.findPropertyById(propertyId);
+        EnvironmentDTO environmentDTO = findBiggestEnvironment(property.getEnvironments());
+
+        ResponseDTO response = new ResponseDTO();
+        response.setBiggestEnvironment(environmentDTO);
+        return response;
+    }
+
+    private EnvironmentDTO findBiggestEnvironment(List<Environment> environments) {
+        Optional<Environment> biggestEnv = environments.stream().max((env1, env2) -> (int) (calculateSquareMeters(env1) - (calculateSquareMeters(env2))));
+        return biggestEnv.map(environment -> mapper.map(environment, EnvironmentDTO.class)).orElse(null);
     }
 
     @Override

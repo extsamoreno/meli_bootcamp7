@@ -8,6 +8,6 @@ import java.util.List;
 public interface IAppraisalService {
     ResponseDTO getPropertyTotalSquareMeters(Integer propertyId);
     ResponseDTO getPropertyValue(Integer propertyId);
-    ResponseDTO getBiggerEnvironment(Integer propertyId);
+    ResponseDTO getBiggestEnvironment(Integer propertyId);
     ResponseDTO getEnvironmentsSquareMeters(Integer propertyId);
 }

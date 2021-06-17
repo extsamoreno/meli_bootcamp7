@@ -1,5 +1,6 @@
 package com.meli.tucasitatasaciones.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.validation.constraints.*;
@@ -7,6 +8,7 @@ import javax.validation.constraints.*;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EnvironmentDTO {
     @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
     @Pattern(regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$", message = "El nombre del ambiente debe comenzar con mayúscula.")

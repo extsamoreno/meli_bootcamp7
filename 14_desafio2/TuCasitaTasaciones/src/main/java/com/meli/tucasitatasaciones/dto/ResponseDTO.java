@@ -12,7 +12,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseDTO {
     private Double totalSquareMeters;
-    private Double propertyPrice;
-    private EnvironmentDTO biggerEnvironment;
+    private Double propertyValue;
+    private EnvironmentDTO biggestEnvironment;
     private List<EnvironmentDTO> environmentsSquareMeters;
 }
