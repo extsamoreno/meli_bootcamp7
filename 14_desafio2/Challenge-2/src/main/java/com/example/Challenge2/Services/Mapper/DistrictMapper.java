@@ -10,4 +10,7 @@ public class DistrictMapper {
         return new DistrictDTO(district.getName(), district.getPricePerM2());
     }
 
+    public static District toDistrict(DistrictDTO district){
+        return new District(null,district.getName(), district.getPricePerM2());
+    }
 }

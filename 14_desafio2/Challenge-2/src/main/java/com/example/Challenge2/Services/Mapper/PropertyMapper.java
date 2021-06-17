@@ -13,5 +13,10 @@ public class PropertyMapper {
         return new PropertyDTO(property.getName(),RoomMapper.toDTOs(property.getRooms()),property.getDistrictId());
     }
 
+    public static Property toProperty(PropertyDTO property){
+
+        return new Property(property.getName(),null,RoomMapper.toRooms(property.getRooms()), property.getDistrictId());
+    }
+
 
 }

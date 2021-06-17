@@ -42,7 +42,7 @@ public class DataRepository implements IDataRepository{
     @Override
     public Property getPropertyById(Long id) {
         for (int i = 0; i < this.properties.size(); i++) {
-            if(this.properties.get(i).getId() == id){
+            if(this.properties.get(i).getId().equals(id)){
                 return this.properties.get(i);
             }
         }

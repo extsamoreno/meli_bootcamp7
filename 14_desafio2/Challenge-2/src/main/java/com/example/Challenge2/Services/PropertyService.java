@@ -55,6 +55,40 @@ public class PropertyService implements IPropertyService{
         return output;
 
     }
+
+    @Override
+    public Boolean storeProperty(PropertyDTO property) throws DistrictNotFoundException {
+        this.getDistrictById(property.getDistrictId());
+        Long id = this.genPropertyID();
+        Property newProperty = PropertyMapper.toProperty(property);
+        newProperty.setId(id);
+System.out.println(id);
+        iDataRepository.getAllProperties().add(newProperty);
+
+        return  true;
+
+    }
+    public List<Property> getall(){
+        return iDataRepository.getAllProperties();
+    }
+
+    private Long genPropertyID(){
+        Long id = new Long(iDataRepository.getAllProperties().size());
+        Boolean validId = false;
+        while(!validId){
+
+            try{
+                this.getPropertyById(id);
+                id++;
+            }
+            catch (PropertyNotFoundException e){
+                validId = true;
+            }
+        }
+
+        return id;
+    }
+
     public StructureDTO getPropertyDimensions(Long id) throws PropertyNotFoundException {
 
         PropertyDTO propertyDTO= this.getPropertyById(id);

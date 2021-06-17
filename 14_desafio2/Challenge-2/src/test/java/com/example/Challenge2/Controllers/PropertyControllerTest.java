@@ -3,10 +3,12 @@ package com.example.Challenge2.Controllers;
 import com.example.Challenge2.Exceptions.DistrictNotFoundException;
 import com.example.Challenge2.Exceptions.PropertyNotFoundException;
 import com.example.Challenge2.Models.Property;
+import com.example.Challenge2.Services.DTOs.PropertyDTO;
 import com.example.Challenge2.Services.DTOs.RoomDTO;
 import com.example.Challenge2.Services.DTOs.StructureDTO;
 import com.example.Challenge2.Services.DTOs.ValueDTO;
 import com.example.Challenge2.Services.IPropertyService;
+import com.example.Challenge2.Services.Mapper.PropertyMapper;
 import com.example.Challenge2.Services.Mapper.RoomMapper;
 import com.example.Challenge2.util.TestUtilsGenerator;
 import org.junit.jupiter.api.Test;
@@ -17,9 +19,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -167,5 +169,21 @@ public class PropertyControllerTest {
         // assert
         verify(iPropertyService, atLeastOnce()).getDimensionedRooms(id);
         assertNotEquals(structureResponse.getBody(), notExpectedStructures);
+    }
+
+    @Test
+    public void storeTest() throws DistrictNotFoundException {
+
+        // arrange,
+        Long id = 1L;
+        PropertyDTO propertyDTO = PropertyMapper.toDTO(TestUtilsGenerator.get50MtProperty(null));
+        when(iPropertyService.storeProperty(propertyDTO)).thenReturn(true);
+
+        // act
+        ResponseEntity<Boolean> structureResponse = propertyController.store(propertyDTO);
+
+        // assert
+        verify(iPropertyService, atLeastOnce()).storeProperty(propertyDTO);
+        assertTrue(structureResponse.getBody());
     }
 }

@@ -26,4 +26,17 @@ public class DistrictMapperTest {
 
         assertEquals(districtDTO,expectedDistrictDTO);
     }
+
+    @Test
+    public void toDistrictTest(){
+        Long id = 1L;
+        District expectedDistrict = TestUtilsGenerator.get100USDollarsDistrict(null);
+
+
+        DistrictDTO districtDTO = new DistrictDTO(expectedDistrict.getName(),expectedDistrict.getPricePerM2());
+
+        District district = DistrictMapper.toDistrict(districtDTO);
+
+        assertEquals(expectedDistrict,district);
+    }
 }

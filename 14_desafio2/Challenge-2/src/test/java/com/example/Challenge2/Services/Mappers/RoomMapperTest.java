@@ -22,6 +22,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RoomMapperTest {
 
     @Test
+    public void toRoomTest(){
+
+        Room ExpectedRoom = TestUtilsGenerator.get100Mt2Room();
+        RoomDTO roomDTO = new RoomDTO(ExpectedRoom.getName(),ExpectedRoom.getWidth(),ExpectedRoom.getLength());
+        Room room = RoomMapper.toRoom(roomDTO);
+
+        assertEquals(room,ExpectedRoom);
+    }
+    @Test
+    public void toRoomSTest(){
+
+        List<Room> ExpectedRooms = TestUtilsGenerator.getTwo25Mt2Rooms();
+
+        RoomDTO roomDTO1 = new RoomDTO(ExpectedRooms.get(0).getName(),ExpectedRooms.get(0).getWidth(),ExpectedRooms.get(0).getLength());
+        RoomDTO roomDTO2 = new RoomDTO(ExpectedRooms.get(1).getName(),ExpectedRooms.get(1).getWidth(),ExpectedRooms.get(1).getLength());
+        List<RoomDTO> roomDTOS = Arrays.asList(roomDTO1,roomDTO2);
+
+
+        List<Room> room = RoomMapper.toRooms(roomDTOS);
+
+        assertEquals(room,ExpectedRooms);
+    }
+    @Test
     public void toDTOTest(){
 
         Room room = TestUtilsGenerator.get100Mt2Room();

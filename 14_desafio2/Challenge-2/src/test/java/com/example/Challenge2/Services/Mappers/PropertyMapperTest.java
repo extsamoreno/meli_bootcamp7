@@ -27,4 +27,17 @@ public class PropertyMapperTest {
 
         assertEquals(propertyDTO,expectedPropertyDTO);
     }
+
+    @Test
+    public void toPropertyTest(){
+
+        Property expectedProperty = TestUtilsGenerator.get50MtProperty(null);
+
+        PropertyDTO propertyDTO = new PropertyDTO(expectedProperty.getName(), RoomMapper.toDTOs(expectedProperty.getRooms()), expectedProperty.getDistrictId());
+
+
+        Property property = PropertyMapper.toProperty(propertyDTO);
+
+        assertEquals(expectedProperty,property);
+    }
 }
