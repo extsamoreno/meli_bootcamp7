@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "bd85ab27-6bdf-4dbe-ab95-e73b1a0ef86d",
+		"name": "Desafio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1- Calculate total M2 Prop",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/prop/calcTotalM2/0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prop",
+						"calcTotalM2",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2- Calculate property value",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "3- Get Biggest Environment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "4- List with environments in M2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "5- New Property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 3,\n    \"name\": \"House 44\",\n    \"districtId\": 5,\n    \"environments\": \n    [\n        {\n            \"name\": \"Room 50\",\n            \"width\": 15.0,\n            \"length\": 10.0\n        },\n        {\n            \"name\": \"Garden\",\n            \"width\": 20.0,\n            \"length\": 20.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/prop/newProp",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prop",
+						"newProp"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
