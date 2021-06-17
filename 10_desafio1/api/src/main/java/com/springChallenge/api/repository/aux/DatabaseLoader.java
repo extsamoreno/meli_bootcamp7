@@ -5,7 +5,7 @@ import com.springChallenge.api.repository.entity.User;
 
 import java.util.ArrayList;
 
-public class DbLoader {
+public class DatabaseLoader {
     public static ArrayList<User> loadUsers(){
         ArrayList<User> list = new ArrayList<>();
 
