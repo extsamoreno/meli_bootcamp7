@@ -1,21 +1,20 @@
 package com.desafrio2.Desafio1.Service;
 
+import com.desafrio2.Desafio1.Exception.DistrictNotExist;
 import com.desafrio2.Desafio1.Model.DTO.EnvironmentDTO;
 import com.desafrio2.Desafio1.Model.DTO.PropDTOTMeters;
+import com.desafrio2.Desafio1.Model.DTO.PropDTOTPrice;
 import com.desafrio2.Desafio1.Model.DTO.PropRequest;
 import com.desafrio2.Desafio1.Model.Environment;
-import com.desafrio2.Desafio1.Model.Prop;
-import com.desafrio2.Desafio1.Repository.IPropRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public interface IPropService {
 
 
-    PropDTOTMeters totalSquarMeters(PropRequest prop);
+    PropDTOTMeters totalSquartMeters(PropRequest prop);
 
-    double priceProp(PropRequest prop);
+    PropDTOTPrice priceProp(PropRequest prop) throws DistrictNotExist;
 
     Environment bigEnviroment(PropRequest prop);
 

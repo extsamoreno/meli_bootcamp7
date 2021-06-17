@@ -10,4 +10,8 @@ import lombok.NoArgsConstructor;
 public class District {
     private String name;
     private double pricePorMeter2;
+
+    public District(String name) {
+        this.name = name;
+    }
 }
