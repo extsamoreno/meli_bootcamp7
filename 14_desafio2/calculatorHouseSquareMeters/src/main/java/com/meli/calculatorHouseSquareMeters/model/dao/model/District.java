@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 public class District {
 
     @NotNull(message = "The attribute 'districtName' must not be Null")
-    @Size(min = 1, max = 45, message = "The 'districtName' attribute cannot exceed 30 characters")
+    @Size(max = 45, message = "The 'districtName' attribute cannot exceed 30 characters")
     @NotEmpty(message = "The 'districtName' attribute must not be empty")
     @Pattern(regexp = "^[A-Z].*$", message="The attribute 'districtName' must start in uppercase")
     private String districtName;

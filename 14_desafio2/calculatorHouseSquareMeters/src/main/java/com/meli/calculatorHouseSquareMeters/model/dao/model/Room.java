@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 public class Room {
 
     @NotNull(message = "The attribute 'name' must not be Null")
-    @Size(min = 1, max = 30, message = "The 'name' attribute cannot exceed 30 characters")
+    @Size(max = 30, message = "The 'name' attribute cannot exceed 30 characters")
     @NotEmpty(message = "The 'name' attribute must not be empty")
     @Pattern(regexp = "^[A-Z].*$", message="The attribute 'name' must start in uppercase")
     private String name;
@@ -24,7 +24,7 @@ public class Room {
     private double width;
 
     @NotNull(message = "The attribute 'length' must not be Null")
-    @Max(value = 33, message = "The 'length' must be maximum 25")
+    @Max(value = 33, message = "The 'length' must be maximum 33")
     @Min(value = 1, message = "The 'length' must be minimum 1")
     @Positive(message = "The 'length' must be positive")
     private double length;
