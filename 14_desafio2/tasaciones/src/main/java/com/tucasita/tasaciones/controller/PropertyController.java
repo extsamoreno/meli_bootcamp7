@@ -28,4 +28,9 @@ public class PropertyController {
     public ResponseEntity<Double> getSquareMeters(@PathVariable int id) throws PropertyNotFoundException {
         return ResponseEntity.ok(propertyService.calculateSquareMeters(id));
     }
+
+    @GetMapping("/price/{id}")
+    public ResponseEntity<Double> getPropertyPrice(@PathVariable int id)  throws PropertyNotFoundException {
+        return ResponseEntity.ok(propertyService.getPropertyPrice(id));
+    }
 }

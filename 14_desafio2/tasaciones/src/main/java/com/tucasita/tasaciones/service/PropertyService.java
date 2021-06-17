@@ -9,4 +9,5 @@ public interface PropertyService {
 
     void saveProperty(PropertyDTO property) throws IOException;
     Double calculateSquareMeters(int id) throws PropertyNotFoundException;
+    Double getPropertyPrice(int id) throws PropertyNotFoundException;
 }

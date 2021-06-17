@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class PropertyNotFoundException extends PropertyException {
 
-    public PropertyNotFoundException(String message) {
-        super("Property not found", HttpStatus.BAD_REQUEST);
+    public PropertyNotFoundException(int id) {
+        super("Property with id " + id + " not found", HttpStatus.BAD_REQUEST);
     }
 }
