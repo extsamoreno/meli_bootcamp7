@@ -25,11 +25,11 @@ public class HouseRequestDTO {
     private String houseName;
 
     @NotEmpty(message = "The attribute 'districtName' must not be Null")
-    @Size(max = 45, message = "The 'districName' attribute cannot exceed 45 characters")
+    @Size(max = 45, message = "The 'districtName' attribute cannot exceed 45 characters")
     @NotEmpty(message = "The 'districtName' attribute must not be empty")
     private String districtName;
 
-    @NotNull(message = "The atribute 'rooms' must not be null")
+    @NotNull(message = "The attribute 'rooms' must not be null")
     @Size(min = 1, message = "Minimum length of rooms is 1")
     @Valid
     private ArrayList<Room> rooms;

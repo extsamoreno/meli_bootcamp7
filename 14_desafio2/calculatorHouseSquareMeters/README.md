@@ -5,8 +5,8 @@ _BOOTCAMP BACKEND JAVA - Challenge Testing_
 
 
 ![coverage](https://img.shields.io/badge/Coverage_Classes-100%25-greendark)
-![coverage](https://img.shields.io/badge/Coverage_Methods-91%25-greendark)
-![coverage](https://img.shields.io/badge/Coverage_Lines-95%25-greendark)
+![coverage](https://img.shields.io/badge/Coverage_Methods-92%25-greendark)
+![coverage](https://img.shields.io/badge/Coverage_Lines-96%25-greendark)
 
 ### Prerequisites 📋
 
@@ -22,7 +22,7 @@ _The export of the json file to perform the tests in postman is located in the r
 ```
 ### Things to keep in mind 📌
 
-_1. When starting the API, the following houses are automatically loaded:_
+_1. When starting the API, the following house is automatically loaded:_
 ```
 {
     "houseName": "Casa1",
@@ -91,18 +91,18 @@ _3.1. The following are the validations of the fields to make a correct creation
   |width|Must not be Null <br> Must be maximum 25 <br> Must be minimum 1 <br> Must be positive|
   |length|Must not be Null <br> Must be maximum 33 <br> Must be minimum 1 <br> Must be positive|
 
-_4. The following is the body of the Json to perform the correct creation of a new house:_
+_4. The following is the body of the Json to perform the correct creation of a new district:_
 ```
 {
     "districtName": String(Name of the district),
     "squareMeterPrice": Double(Square meter price of the district)
 }
 ```
-_4.1. The following are the validations of the fields to make a correct creation of a new house:_
+_4.1. The following are the validations of the fields to make a correct creation of a new district:_
 
 | Atributo | Validations |
   |   :---:  |-------------|
-|houseName|Must not be Null. <br> Can not exceed 30 characters. <br> Must not be empty. <br> Must start in uppercase.|
+|districtName|Must not be Null. <br> Can not exceed 45 characters. <br> Must not be empty. <br> Must start in uppercase.|
 |squareMeterPrice|Must not be Null <br> Must be maximum 4000 <br> Must be minimum 1 <br> Must be positive|
 
 ### User Stories Solution 👨‍💻
