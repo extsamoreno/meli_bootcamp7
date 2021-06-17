@@ -54,35 +54,35 @@ public class EstateService implements IEstateService{
     }
 
 
-    public double calculateEnvironmentSurface(Environment environment) {
+    private double calculateEnvironmentSurface(Environment environment) {
         return environment.getEnvironment_length() * environment.getEnvironment_width();
     }
 
-    public EnvironmentDTORes generateResponseDto(Environment environment) {
+    private EnvironmentDTORes generateResponseDto(Environment environment) {
         return new EnvironmentDTORes(environment.getEnvironment_name(), calculateEnvironmentSurface(environment));
     }
 
-    public double calculateEstateSurface(List<Environment> environments) {
+    private double calculateEstateSurface(List<Environment> environments) {
 
         return environments.stream()
                 .mapToDouble(e -> calculateEnvironmentSurface(e))
                 .sum();
     }
 
-    public double calculatePrice(Estate estate, Double price){
+    private double calculatePrice(Estate estate, Double price){
 
         return calculateEstateSurface(estate.getEnvironments()) * price;
 
     }
 
-    public List<EnvironmentDTORes> generateEnvironmentsCalculations(List<Environment> environments){
+    private List<EnvironmentDTORes> generateEnvironmentsCalculations(List<Environment> environments){
 
         return environments.stream()
                 .map(e -> generateResponseDto(e))
                 .collect(Collectors.toList());
     }
 
-    public EnvironmentDTORes findBiggerEnvironment(List<Environment> environments){
+    private EnvironmentDTORes findBiggerEnvironment(List<Environment> environments){
         Environment maxEnvironment;
         try{
             maxEnvironment = environments

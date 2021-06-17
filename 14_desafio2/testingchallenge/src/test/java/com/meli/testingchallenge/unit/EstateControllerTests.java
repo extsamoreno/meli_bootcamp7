@@ -1,49 +1,41 @@
 package com.meli.testingchallenge.unit;
 
+import com.meli.testingchallenge.controllers.EstateController;
 import com.meli.testingchallenge.dtos.*;
 import com.meli.testingchallenge.exceptions.DistrictNotFoundException;
 import com.meli.testingchallenge.exceptions.ExistentDistrictNameException;
-import com.meli.testingchallenge.models.District;
-import com.meli.testingchallenge.models.Estate;
-import com.meli.testingchallenge.repositories.IDistrictRepository;
 import com.meli.testingchallenge.services.EstateService;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class EstateServiceTests {
+public class EstateControllerTests {
 
     @Mock
-    IDistrictRepository repository;
-
-    @Mock
-    ModelMapper modelMapper;
-
-    @InjectMocks
     EstateService service;
 
-    private ModelMapper localMapper;
+    @InjectMocks
+    EstateController controller;
+
     private String districtName;
     private DistrictDTO districtDto;
     private EstateAssessmentDTO expected;
     private EstateDTO estateDto;
 
-
     @BeforeEach
     public void init(){
-        localMapper = new ModelMapper();
         String propName = "House1";
         districtName= "District1";
         String environmentName1 = "bigger";
@@ -70,46 +62,35 @@ public class EstateServiceTests {
     }
 
     @Test
-    public void should_calculate_correctly_all_parameters() throws DistrictNotFoundException {
+    public void should_call_assessment_service_and_return_correct_response() throws DistrictNotFoundException {
 
         // Arrange
-        District district = localMapper.map(districtDto, District.class);
-        when(modelMapper.map(estateDto, Estate.class)).thenReturn(localMapper.map(estateDto, Estate.class));
-        when(repository.findDistrictByName(districtName)).thenReturn(district);
+        when(service.getAssessment(estateDto)).thenReturn(expected);
 
         // Act
-        EstateAssessmentDTO received = service.getAssessment(estateDto);
+        ResponseEntity<EstateAssessmentDTO> received = controller.getAssessment(estateDto);
 
         // Assert
-        Assertions.assertEquals(expected, received);
+        verify(service, times(1)).getAssessment(estateDto);
+        Assert.assertEquals(HttpStatus.OK, received.getStatusCode());
+        Assert.assertEquals(expected, received.getBody());
+
     }
 
     @Test
-    public void should_throes_exception_when_district_name_is_not_on_repository() {
+    public void should_call_add_district_service_and_return_correct_response() throws ExistentDistrictNameException {
 
         // Arrange
-        when(repository.findDistrictByName(districtName)).thenReturn(null);
-
-        when(modelMapper.map(estateDto, Estate.class)).thenReturn(localMapper.map(estateDto, Estate.class));
-        // Act
-        assertThrows(DistrictNotFoundException.class, () -> service.getAssessment(estateDto));
-    }
-
-    @Test
-    public void should_call_repository_passing_district_model_and_return_message() throws ExistentDistrictNameException {
-
-        // Arrange
-        District district = localMapper.map(districtDto, District.class);
-        when(modelMapper.map(districtDto, District.class)).thenReturn(district);
-        doNothing().when(repository).addDistrict(district);
-        String expected =  "District was added Successfully";
+        String expected = "District was added Successfully";
+        when(service.addDistrict(districtDto)).thenReturn(expected);
 
         // Act
-        String received = service.addDistrict(districtDto);
+        ResponseEntity<String> received = controller.addDistrict(districtDto);
 
         // Assert
-        verify(repository, times(1)).addDistrict(district);
-        Assertions.assertEquals(expected, received);
-    }
+        verify(service, times(1)).addDistrict(districtDto);
+        Assert.assertEquals(HttpStatus.OK, received.getStatusCode());
+        Assert.assertEquals(expected, received.getBody());
 
+    }
 }
