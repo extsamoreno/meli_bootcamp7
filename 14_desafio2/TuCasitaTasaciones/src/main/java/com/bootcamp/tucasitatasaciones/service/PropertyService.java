@@ -47,7 +47,7 @@ public class PropertyService implements IPropertyService {
     }
 
     @Override
-    public PropertyAppraisalDTO propertyAppraisal(Long propertyId) throws NotFoundException {
+    public PropertyAppraisalDTO appraiseProperty(Long propertyId) throws NotFoundException {
         Property property = datatRepository.findPropertyById(propertyId);
         if (property == null) {
             throw new NotFoundException("Propiedad con id " + propertyId + " no encontrada." );

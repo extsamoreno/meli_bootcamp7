@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TotalSquareMetersDTO {
     private String propertyName;
-    private double totalSquareMeter;
+    private Double totalSquareMeter;
 }

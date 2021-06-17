@@ -14,7 +14,7 @@ public interface IPropertyService {
 
     TotalSquareMetersDTO getTotalSquareMeters(Long propertyId) throws NotFoundException;
 
-    PropertyAppraisalDTO propertyAppraisal(Long propertyId) throws NotFoundException;
+    PropertyAppraisalDTO appraiseProperty(Long propertyId) throws NotFoundException;
 
     EnvironmentDTO getBiggestEnviroment(Long propertyId) throws NotFoundException;
 

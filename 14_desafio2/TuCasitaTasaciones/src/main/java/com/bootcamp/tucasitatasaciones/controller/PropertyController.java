@@ -31,8 +31,8 @@ public class PropertyController {
     }
 
     @GetMapping("/appraisal/{propertyId}")
-    public ResponseEntity<PropertyAppraisalDTO> propertyAppraisal(@PathVariable Long propertyId) throws NotFoundException {
-        return new ResponseEntity<>(propertyService.propertyAppraisal(propertyId), HttpStatus.OK);
+    public ResponseEntity<PropertyAppraisalDTO> appraiseProperty(@PathVariable Long propertyId) throws NotFoundException {
+        return new ResponseEntity<>(propertyService.appraiseProperty(propertyId), HttpStatus.OK);
     }
 
     @GetMapping("/get-biggest-environment/{propertyId}")
