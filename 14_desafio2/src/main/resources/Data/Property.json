@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "name": "house1",
+    "district": {
+      "id": 1,
+      "name": "barrio 1",
+      "price": 7
+    },
+    "environments": [
+      {
+        "id": 1,
+        "name": "room1",
+        "width": 3,
+        "length": 4
+      },
+      {
+        "id": 2,
+        "name": "room2",
+        "width": 3,
+        "length": 3
+      }
+    ]
+  }
+]
