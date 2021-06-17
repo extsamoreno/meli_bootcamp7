@@ -1,0 +1,736 @@
+{
+	"info": {
+		"_postman_id": "af06b11a-f2a3-4694-b5c4-9d840a4fb4b1",
+		"name": "TuCasitaAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Adding new property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Propiedad 1\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n        {\n            \"name\": \"Cocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"add"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Propiedad 1\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n        {\n            \"name\": \"Cocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 17:45:38 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "\"CREATED\""
+				},
+				{
+					"name": "Empty name",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n        {\n            \"name\": \"Cocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 17:49:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{name=The property's name can't be null or empty}\",\n    \"name\": \"MethodArgumentNotValidException\"\n}"
+				},
+				{
+					"name": "Missing capital letter",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"propiedad\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n        {\n            \"name\": \"Cocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 17:50:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{name=The property's name must start with capital letter}\",\n    \"name\": \"MethodArgumentNotValidException\"\n}"
+				},
+				{
+					"name": "Larger than required",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"PropiedadxPropiedadxPropiedadxPropiedadxPropiedadxPropiedadxPropiedadx\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n        {\n            \"name\": \"Cocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 17:50:52 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{name=The property's name can't be larger than 30 length}\",\n    \"name\": \"MethodArgumentNotValidException\"\n}"
+				},
+				{
+					"name": "Missing capital letter/ environment",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Propiedad 1\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n        {\n            \"name\": \"cocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 18:32:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{environments[0].name=The environment's name must start with capital letter}\",\n    \"name\": \"MethodArgumentNotValidException\"\n}"
+				},
+				{
+					"name": "Largen than required/ environment",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Propiedad 1\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n        {\n            \"name\": \"CocinaCocinaCocinaCocinaCocinaCocinaCocinaCocinaCocinaCocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 18:33:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{environments[0].name=The environment's name can't be larger than 30 length}\",\n    \"name\": \"MethodArgumentNotValidException\"\n}"
+				},
+				{
+					"name": "Larger and wider/ environment",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Propiedad 1\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n        {\n            \"name\": \"Cocina\",\n            \"width\": 26,\n            \"length\":34\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 18:33:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{environments[0].length=The environment's length can't be more than 33 mts, environments[0].width=The environment's width can't be more than 25 mts}\",\n    \"name\": \"MethodArgumentNotValidException\"\n}"
+				},
+				{
+					"name": "Empty district",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Propiedad 1\",\n    \"district\": \"\",\n    \"environments\":[\n        {\n            \"name\": \"Cocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 18:35:02 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{district=The property's district can't be null or empty}\",\n    \"name\": \"MethodArgumentNotValidException\"\n}"
+				},
+				{
+					"name": "District not found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Propiedad 1\",\n    \"district\": \"C\",\n    \"environments\":[\n        {\n            \"name\": \"Cocina\",\n            \"width\": 15,\n            \"length\":20\n        },\n        {\n            \"name\": \"Baño\",\n            \"width\": 20,\n            \"length\":20\n        },\n        {\n            \"name\": \"Habitacion\",\n            \"width\": 20,\n            \"length\":15\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 18:36:57 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"The district with name C was not found\",\n    \"name\": \"DistrictNotFoundException\"\n}"
+				},
+				{
+					"name": "Empty environments",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Propiedad 1\",\n    \"district\": \"Fontibon\",\n    \"environments\":[\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/property/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"add"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 18:38:34 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"{environments=The property's environments can't be null or empty}\",\n    \"name\": \"MethodArgumentNotValidException\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get total M2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/totalM2/Propiedad 1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"totalM2",
+						"Propiedad 1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/property/totalM2/Propiedad 1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"totalM2",
+								"Propiedad 1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 18:42:00 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"Propiedad 1\",\n    \"total_m2\": 1000\n}"
+				},
+				{
+					"name": "Property not found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/property/totalM2/Propiedad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"property",
+								"totalM2",
+								"Propiedad"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jun 2021 19:03:44 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"The property with name Propiedad was not found\",\n    \"name\": \"PropertyNotFoundException\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get total price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/price/Propiedad 1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"price",
+						"Propiedad 1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get bigger environment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/bigger_env/Propiedad 1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"bigger_env",
+						"Propiedad 1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get meters per environment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/meters_per_environment/Propiedad 1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"meters_per_environment",
+						"Propiedad 1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
