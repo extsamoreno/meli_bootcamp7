@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "25d2a57c-affd-4e85-969b-878b959a1e31",
+		"name": "desafio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getTotalM2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Nombre propiedad\",\n    \"district\": {\n        \"name\": \"Palermo\",\n        \"price\": 500\n    },\n    \"environments\": [\n        {\n            \"name\": \"Cuarto1\",\n            \"width\": 1,\n            \"length\": \"20\"\n        },\n        {\n            \"name\": \"Cuarto2\",\n            \"width\": 2,\n            \"length\": \"20\"\n        },\n        {\n            \"name\": \"Cuarto3\",\n            \"width\": 3,\n            \"length\": \"20\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/totalM2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"totalM2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTotalPrice",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Nombre propiedad\",\n    \"district\": {\n        \"name\": \"Palermo\",\n        \"price\": 500\n    },\n    \"environments\": [\n        {\n            \"name\": \"Cuarto1\",\n            \"width\": 1,\n            \"length\": \"20\"\n        },\n        {\n            \"name\": \"Cuarto2\",\n            \"width\": 2,\n            \"length\": \"20\"\n        },\n        {\n            \"name\": \"Cuarto3\",\n            \"width\": 3,\n            \"length\": \"20\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/totalPrice",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"totalPrice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBiggestEnvironment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Nombre propiedad\",\n    \"district\": {\n        \"name\": \"Palermo\",\n        \"price\": 500\n    },\n    \"environments\": [\n        {\n            \"name\": \"Cuarto1\",\n            \"width\": 1,\n            \"length\": \"20\"\n        },\n        {\n            \"name\": \"Cuarto2\",\n            \"width\": 2,\n            \"length\": \"33\"\n        },\n        {\n            \"name\": \"Cuarto3\",\n            \"width\": 3,\n            \"length\": \"20\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/biggestEnvironment",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"biggestEnvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEnvironmentsArea",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Nombre propiedad\",\n    \"district\": {\n        \"name\": \"Palermo\",\n        \"price\": 500\n    },\n    \"environments\": [\n        {\n            \"name\": \"Cuarto1\",\n            \"width\": 1,\n            \"length\": \"20\"\n        },\n        {\n            \"name\": \"Cuarto2\",\n            \"width\": 2,\n            \"length\": \"33\"\n        },\n        {\n            \"name\": \"Cuarto3\",\n            \"width\": 3,\n            \"length\": \"20\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/environmentsArea",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"environmentsArea"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
