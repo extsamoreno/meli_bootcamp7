@@ -22,7 +22,7 @@ public class SubjectDTO {
 
   @NotNull(message = "La nota no puede ser vacía.")
   @Min(value = 0, message = "La mínima es 0.0")
-  @Max(value = 10, message = "La nota máxima es 10.0")
+  @Max(value = 10, message = "La nota máxima es 10.0
   private Integer score;
 
 }

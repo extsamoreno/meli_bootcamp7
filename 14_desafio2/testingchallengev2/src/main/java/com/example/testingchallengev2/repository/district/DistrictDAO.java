@@ -1,5 +1,6 @@
 package com.example.testingchallengev2.repository.district;
 
+import com.example.testingchallengev2.exception.DistrictNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,9 +15,16 @@ public class DistrictDAO implements IDistrictDAO{
     private HashMap<String, Double> districts;
 
     @Override
-    public double getPriceByName(String districtName) {
+    public double getPriceByName(String districtName) throws DistrictNotFoundException {
         updateDistrictRepository();
-        return districts.get(districtName);
+        if(findDistrictByName(districtName))
+        {
+            return districts.get(districtName);
+        }
+        else
+        {
+            throw new DistrictNotFoundException();
+        }
     }
 
     @Override

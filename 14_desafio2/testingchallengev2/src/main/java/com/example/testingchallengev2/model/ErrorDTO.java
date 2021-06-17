@@ -1,15 +1,14 @@
 package com.example.testingchallengev2.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorDTO extends Exception{
+public class ErrorDTO {
     private String name;
-    private String description;
+    private String message;
 
 }
 

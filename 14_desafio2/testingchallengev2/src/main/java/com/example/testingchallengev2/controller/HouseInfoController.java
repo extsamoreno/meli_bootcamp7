@@ -1,5 +1,7 @@
 package com.example.testingchallengev2.controller;
 
+import com.example.testingchallengev2.exception.DistrictNotFoundException;
+import com.example.testingchallengev2.exception.HouseNotFoundException;
 import com.example.testingchallengev2.model.response.*;
 import com.example.testingchallengev2.service.IHouseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -31,26 +35,22 @@ public class HouseInfoController {
     }
 
     @GetMapping("/totalArea/{houseName}")
-    public ResponseEntity<TotalHouseAreaResponseDTO> getTotalHouseArea(@PathVariable String houseName)
-    {
+    public ResponseEntity<TotalHouseAreaResponseDTO> getTotalHouseArea(@PathVariable String houseName) throws HouseNotFoundException {
         return new ResponseEntity<>(iHouseInfoService.getTotalHouseAreaResponseDTO(houseName), HttpStatus.OK);
     }
 
     @GetMapping("/price/{houseName}")
-    public ResponseEntity<HouseValueResponseDTO> getHousePrice(@PathVariable String houseName)
-    {
+    public ResponseEntity<HouseValueResponseDTO> getHousePrice(@PathVariable String houseName) throws HouseNotFoundException, DistrictNotFoundException {
         return new ResponseEntity<>(iHouseInfoService.getHouseValueResponseDTO(houseName), HttpStatus.OK);
     }
 
     @GetMapping("/biggestRoom/{houseName}")
-    public ResponseEntity<HouseBiggestRoomResponseDTO> getBiggestRoom(@PathVariable String houseName)
-    {
+    public ResponseEntity<HouseBiggestRoomResponseDTO> getBiggestRoom(@PathVariable String houseName) throws HouseNotFoundException {
         return new ResponseEntity<>(iHouseInfoService.getHouseBiggestRoomResponseDTO(houseName), HttpStatus.OK);
     }
 
     @GetMapping("/rooms/{houseName}")
-    public ResponseEntity<RoomsSizeResponseDTO> getRoomsSize(@PathVariable String houseName)
-    {
+    public ResponseEntity<RoomsSizeResponseDTO> getRoomsSize(@PathVariable String houseName) throws HouseNotFoundException {
         return new ResponseEntity<>(iHouseInfoService.getRoomsSizeResponseDTO(houseName), HttpStatus.OK);
     }
 }

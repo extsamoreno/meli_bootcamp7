@@ -1,5 +1,6 @@
 package com.example.testingchallengev2.repository.house;
 
+import com.example.testingchallengev2.exception.HouseNotFoundException;
 import com.example.testingchallengev2.model.House;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,9 +17,16 @@ public class HouseDAO implements IHouseDAO{
 
 
     @Override
-    public House getHouseByName(String houseName) {
+    public House getHouseByName(String houseName) throws HouseNotFoundException {
         updateHouseRepository();
-        return houses.get(houseName);
+        if(findHouseByName(houseName))
+        {
+            return houses.get(houseName);
+        }
+        else
+        {
+            throw new HouseNotFoundException();
+        }
     }
 
     @Override
