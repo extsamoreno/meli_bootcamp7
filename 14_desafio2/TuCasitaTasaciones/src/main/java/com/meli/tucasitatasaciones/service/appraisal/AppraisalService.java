@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,6 +65,25 @@ public class AppraisalService implements IAppraisalService {
 
     @Override
     public ResponseDTO getEnvironmentsSquareMeters(Integer propertyId) {
-        return null;
+        Property property = iPropertyRepository.findPropertyById(propertyId);
+
+        ResponseDTO response = new ResponseDTO();
+        response.setEnvironmentsSquareMeters(getEnvironmentsDTO(property.getEnvironments()));
+        return response;
+    }
+
+    private List<EnvironmentDTO> getEnvironmentsDTO(List<Environment> environments) {
+        List<EnvironmentDTO> environmentDTOS = new ArrayList<>();
+        for(Environment env : environments) {
+            environmentDTOS.add(createEnvironmentDTO(env));
+        }
+        return environmentDTOS;
+    }
+
+    private EnvironmentDTO createEnvironmentDTO(Environment environment) {
+        EnvironmentDTO environmentDTO = new EnvironmentDTO();
+        environmentDTO.setName(environment.getName());
+        environmentDTO.setSquareMeters(calculateSquareMeters(environment));
+        return environmentDTO;
     }
 }

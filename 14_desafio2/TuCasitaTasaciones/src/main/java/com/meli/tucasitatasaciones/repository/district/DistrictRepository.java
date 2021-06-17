@@ -19,10 +19,6 @@ public class DistrictRepository implements IDistrictRepository {
     public DistrictRepository() {
         this.districts = loadDatabase();
     }
-    @Override
-    public List<District> getAllDistricts() {
-        return this.districts;
-    }
 
     @Override
     public District findDistrictByName(String name) {

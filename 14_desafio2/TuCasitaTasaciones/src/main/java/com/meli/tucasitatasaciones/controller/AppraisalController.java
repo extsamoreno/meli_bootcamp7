@@ -34,4 +34,10 @@ public class AppraisalController {
     public ResponseEntity<ResponseDTO> getBiggestEnvironment(@PathVariable Integer propertyId) {
         return new ResponseEntity<>(iAppraisalService.getBiggestEnvironment(propertyId),HttpStatus.OK);
     }
+
+    //Requirement US-0004
+    @GetMapping("/getEnvironmentsSquareMeters/{propertyId}")
+    public ResponseEntity<ResponseDTO> getEnvironmentsSquareMeters(@PathVariable Integer propertyId) {
+        return new ResponseEntity<>(iAppraisalService.getEnvironmentsSquareMeters(propertyId),HttpStatus.OK);
+    }
 }

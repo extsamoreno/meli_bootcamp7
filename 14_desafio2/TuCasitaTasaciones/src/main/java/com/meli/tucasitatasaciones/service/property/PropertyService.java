@@ -10,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PropertyService implements IPropertyService {
     @Autowired
@@ -35,7 +38,15 @@ public class PropertyService implements IPropertyService {
     }
 
     @Override
-    public PropertyDTO findProperty(Integer id) {
-        return mapper.map(iPropertyRepository.findPropertyById(id),PropertyDTO.class);
+    public List<PropertyDTO> getAllProperties() {
+        List<Property> properties = iPropertyRepository.getAllProperties();
+        List<PropertyDTO> propertyDTOS = new ArrayList<>();
+
+        for(Property prop : properties) {
+            propertyDTOS.add(mapper.map(prop,PropertyDTO.class));
+        }
+        return propertyDTOS;
     }
+
+
 }
