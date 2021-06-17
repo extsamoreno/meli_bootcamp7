@@ -1,7 +1,6 @@
 package com.example.challenge_2.exception;
 
 import com.example.challenge_2.service.dto.ErrorDTO;
-import com.example.desafio_1.service.dto.ErrorDTO;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

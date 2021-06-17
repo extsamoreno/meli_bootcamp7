@@ -1,16 +1,13 @@
-package com.example.challenge_2.models;
+package com.example.challenge_2.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-
-public class District {
+public class EnvironmentSquareMetersDTO {
     private String name;
-    private double price;
+    private double squareMeters;
 }

@@ -1,14 +1,13 @@
 package com.example.challenge_2.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
+
 public class EnvironmentDTO {
     @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
     @Pattern(regexp = "^[A-Z]\\w*$", message = "El nombre del ambiente debe comenzar con mayúscula.")

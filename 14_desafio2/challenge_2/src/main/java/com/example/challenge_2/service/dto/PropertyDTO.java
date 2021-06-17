@@ -2,6 +2,7 @@ package com.example.challenge_2.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PropertyDTO {
 
     @NotBlank(message = "El nombre de la propiedad no puede estar vacío.")
