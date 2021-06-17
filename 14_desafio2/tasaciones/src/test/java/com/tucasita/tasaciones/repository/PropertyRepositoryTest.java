@@ -15,7 +15,7 @@ public class PropertyRepositoryTest {
     PropertyRepository propertyRepository;
 
     @BeforeEach @AfterEach
-    private void setUp() throws IOException {
+    private void init() throws IOException {
         TestUtilGenerator.emptyPropertiesFile();
         this.propertyRepository = new PropertyRepositoryImpl();
     }

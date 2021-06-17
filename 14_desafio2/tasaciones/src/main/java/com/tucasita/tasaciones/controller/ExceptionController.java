@@ -2,8 +2,6 @@ package com.tucasita.tasaciones.controller;
 
 import com.tucasita.tasaciones.dto.ErrorResponse;
 import com.tucasita.tasaciones.exception.PropertyException;
-import com.tucasita.tasaciones.exception.PropertyNotFoundException;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,11 +11,6 @@ import java.io.IOException;
 
 @ControllerAdvice
 public class ExceptionController {
-
-    @ExceptionHandler(PropertyNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handlePropertyNotFoundException(PropertyNotFoundException e) {
-        return new ResponseEntity<>(e.getError(), e.getStatus());
-    }
 
     @ExceptionHandler(PropertyException.class)
     public ResponseEntity<ErrorResponse> handlePropertyException(PropertyException e) {

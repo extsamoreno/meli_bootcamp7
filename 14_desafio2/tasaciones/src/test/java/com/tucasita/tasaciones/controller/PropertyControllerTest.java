@@ -5,6 +5,7 @@ import com.tucasita.tasaciones.dto.NeighborhoodDTO;
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
 import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
+import com.tucasita.tasaciones.exception.NeighborhoodNotFoundException;
 import com.tucasita.tasaciones.exception.PropertyNotFoundException;
 import com.tucasita.tasaciones.service.PropertyService;
 import com.tucasita.tasaciones.util.TestUtilGenerator;
@@ -34,7 +35,7 @@ public class PropertyControllerTest {
     PropertyController propertyController;
 
     @Test
-    public void savePropertyTest() throws IOException {
+    public void savePropertyTest() throws IOException, NeighborhoodNotFoundException {
         PropertyDTO property = TestUtilGenerator.getPropertyDTOWithFourRooms();
         Assertions.assertEquals(ResponseEntity.ok().build(), propertyController.saveProperty(property));
 

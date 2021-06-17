@@ -12,7 +12,7 @@ public class NeighborhoodDTO {
     @JsonProperty("district_name")
     @Size(max = 45, message = "La longitud del nombre no puede superar los 45 caracteres.")
     @NotNull
-    @NotEmpty(message = "El nombre de la propiedad no puede estar vacío.")
+    @NotEmpty(message = "El nombre del barrio no puede estar vacío.")
     private String name;
 
     @JsonProperty("district_price")

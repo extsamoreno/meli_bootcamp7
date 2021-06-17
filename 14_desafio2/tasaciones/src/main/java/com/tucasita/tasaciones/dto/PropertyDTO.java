@@ -15,18 +15,18 @@ public class PropertyDTO {
     @NotNull
     @NotEmpty(message = "El nombre de la propiedad no puede estar vacío.")
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
-    @Pattern(regexp = "([A-Z]([a-z]*))", message = "El nombre de la propiedad debe comenzar con mayúscula")
+    @Pattern(regexp = "^[A-Z].*", message = "El nombre de la propiedad debe comenzar con mayúscula")
     private String name;
 
-    @JsonProperty("district")
+    @JsonProperty("district_name")
     @NotNull
-    private NeighborhoodDTO neighborhood;
+    private String neighborhood;
 
     @JsonProperty("environments")
     @NotNull
     private List<RoomDTO> rooms;
 
-    public PropertyDTO(String name, NeighborhoodDTO neighborhood, List<RoomDTO> rooms) {
+    public PropertyDTO(String name, String neighborhood, List<RoomDTO> rooms) {
         this.name = name;
         this.neighborhood = neighborhood;
         this.rooms = rooms;
@@ -43,11 +43,11 @@ public class PropertyDTO {
         this.name = name;
     }
 
-    public NeighborhoodDTO getNeighborhood() {
+    public String getNeighborhood() {
         return neighborhood;
     }
 
-    public void setNeighborhood(NeighborhoodDTO neighborhood) {
+    public void setNeighborhood(String neighborhood) {
         this.neighborhood = neighborhood;
     }
 

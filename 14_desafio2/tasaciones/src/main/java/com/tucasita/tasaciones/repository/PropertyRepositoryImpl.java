@@ -2,6 +2,8 @@ package com.tucasita.tasaciones.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tucasita.tasaciones.exception.NeighborhoodNotFoundException;
+import com.tucasita.tasaciones.model.Neighborhood;
 import com.tucasita.tasaciones.model.Property;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
@@ -25,7 +27,7 @@ public class PropertyRepositoryImpl implements PropertyRepository {
             Properties properties = new Properties();
             properties.load(new ClassPathResource("application.properties").getInputStream());
             this.SCOPE = properties.getProperty("api.scope");
-            this.loadDatabase();
+            this.loadProperties();
     }
 
     @Override
@@ -36,13 +38,15 @@ public class PropertyRepositoryImpl implements PropertyRepository {
 
     @Override
     public void saveProperty(Property property) throws IOException {
-       property.setId(++currentId);
-       this.properties.add(property);
-       ObjectMapper objectMapper = new ObjectMapper();
-       objectMapper.writeValue(ResourceUtils.getFile(System.getProperty("user.dir") + "/src/" + SCOPE + "/resources/properties.json"), this.properties);
+           property.setId(++currentId);
+           this.properties.add(property);
+           ObjectMapper objectMapper = new ObjectMapper();
+           objectMapper.writeValue(ResourceUtils.getFile(System.getProperty("user.dir") + "/src/" + SCOPE + "/resources/properties.json"), this.properties);
     }
 
-    private void loadDatabase() throws IOException {
+
+
+    private void loadProperties() throws IOException {
         File file = ResourceUtils.getFile(System.getProperty("user.dir") + "/src/" + SCOPE + "/resources/properties.json");
         ObjectMapper objectMapper = new ObjectMapper();
         TypeReference<List<Property>> typeRef = new TypeReference<>() {};

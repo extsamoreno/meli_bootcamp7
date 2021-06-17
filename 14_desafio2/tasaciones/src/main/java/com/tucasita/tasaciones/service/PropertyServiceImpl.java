@@ -3,9 +3,12 @@ package com.tucasita.tasaciones.service;
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
 import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
+import com.tucasita.tasaciones.exception.NeighborhoodNotFoundException;
 import com.tucasita.tasaciones.exception.PropertyNotFoundException;
+import com.tucasita.tasaciones.model.Neighborhood;
 import com.tucasita.tasaciones.model.Property;
 import com.tucasita.tasaciones.model.Room;
+import com.tucasita.tasaciones.repository.NeighborhoodRepository;
 import com.tucasita.tasaciones.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +25,14 @@ public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
+    @Autowired
+    private NeighborhoodRepository neighborhoodRepository;
+
     @Override
-    public void saveProperty(PropertyDTO property) throws IOException {
-        propertyRepository.saveProperty(PropertyMapper.toEntity(property));
+    public void saveProperty(PropertyDTO property) throws IOException, NeighborhoodNotFoundException {
+        Neighborhood neighborhood = neighborhoodRepository.getByName(property.getNeighborhood());
+        if (neighborhood == null) throw new NeighborhoodNotFoundException(property.getNeighborhood());
+        propertyRepository.saveProperty(PropertyMapper.toEntity(property, neighborhood));
     }
 
     @Override
@@ -47,6 +55,7 @@ public class PropertyServiceImpl implements PropertyService {
         Property property = propertyRepository.getPropertyById(id);
         if (property == null) throw new PropertyNotFoundException(id);
         Optional<Room> room = property.getRooms().stream().max(Comparator.comparingDouble(a -> a.getLength() * a.getWidth()));
+        RoomDTO room2 = PropertyMapper.toRoomDTO(room.get());
         return room.map(PropertyMapper::toRoomDTO).orElse(null);
     }
 

@@ -36,8 +36,39 @@ public class TestUtilGenerator {
 
     }
 
+    public static void filledNeighborhoodFile() {
+        Properties properties = new Properties();
+
+        PrintWriter writer = null;
+        try {
+            properties.load(new ClassPathResource("application.properties").getInputStream());
+            SCOPE = properties.getProperty("api.scope");
+            writer = new PrintWriter(ResourceUtils.getFile("./src/" + SCOPE + "/resources/neighborhoods.json"));
+            writer.print("[\n" +
+                    "  {\n" +
+                    "    \"name\": \"Caballito\",\n" +
+                    "    \"price\": 400\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"name\": \"Palermo\",\n" +
+                    "    \"price\": 4000\n" +
+                    "  },\n" +
+                    "  {\n" +
+                    "    \"name\": \"La Plata\",\n" +
+                    "    \"price\": 2500\n" +
+                    "  }\n" +
+                    "]");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Neighborhood getNeighborhood() {
+        return new Neighborhood("Palermo", 4000.0);
+    }
+
     public static PropertyDTO getPropertyDTOWithFourRooms() {
-        NeighborhoodDTO neigh = new NeighborhoodDTO("La Plata", 400.0);
         RoomDTO room1 = new RoomDTO("Living room", 5, 4);
         RoomDTO room2 = new RoomDTO("Kitchen", 3.5, 2);
         RoomDTO room3 = new RoomDTO("Bathroom", 1.6, 3);
@@ -47,7 +78,7 @@ public class TestUtilGenerator {
         rooms.add(room2);
         rooms.add(room3);
         rooms.add(room4);
-        PropertyDTO property = new PropertyDTO("home", neigh, rooms);
+        PropertyDTO property = new PropertyDTO("home", "Palermo", rooms);
         return property;
     }
 

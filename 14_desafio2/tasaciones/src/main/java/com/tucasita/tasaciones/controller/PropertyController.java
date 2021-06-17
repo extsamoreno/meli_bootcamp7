@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
 import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
+import com.tucasita.tasaciones.exception.NeighborhoodNotFoundException;
 import com.tucasita.tasaciones.exception.PropertyNotFoundException;
 import com.tucasita.tasaciones.service.PropertyService;
 import org.apache.coyote.Response;
@@ -23,7 +24,7 @@ public class PropertyController {
     private PropertyService propertyService;
 
     @PostMapping("/")
-    public ResponseEntity<?> saveProperty(@Valid @RequestBody PropertyDTO property) throws IOException {
+    public ResponseEntity<?> saveProperty(@Valid @RequestBody PropertyDTO property) throws IOException, NeighborhoodNotFoundException {
         propertyService.saveProperty(property);
         return ResponseEntity.ok().build();
     }
