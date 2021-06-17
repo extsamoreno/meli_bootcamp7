@@ -1,8 +1,7 @@
-package com.bootcamp.desafio2.model;
+package com.bootcamp.desafio2.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data

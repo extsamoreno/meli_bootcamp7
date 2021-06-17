@@ -17,7 +17,7 @@
                           "environment_length" : 3.0
                         },
                         {
-                          "environment_name" : "Bath_Room",
+                          "environment_name" : "Bath Room",
                           "environment_width" : 2.0,
                           "environment_length" : 2.0
                         }
@@ -41,12 +41,12 @@
         "environment_length": 3.0
       },
       {
-        "environment_name": "Bath_Room",
+        "environment_name": "Bath Room",
         "environment_width": 2.0,
         "environment_length": 2.0
       },
       {
-        "environment_name": "Living_Room",
+        "environment_name": "Living Room",
         "environment_width": 5.0,
         "environment_length": 5.0
       },
@@ -75,12 +75,12 @@
         "environment_length": 3.0
       },
       {
-        "environment_name": "Bath_Room",
+        "environment_name": "Bath Room",
         "environment_width": 2.0,
         "environment_length": 2.0
       },
       {
-        "environment_name" : "Dinner_Room",
+        "environment_name" : "Dinner Room",
         "environment_width" : 3.5,
         "environment_length" : 3.5
       }

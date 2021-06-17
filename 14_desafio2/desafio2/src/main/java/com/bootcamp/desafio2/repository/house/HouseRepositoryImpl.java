@@ -1,7 +1,7 @@
 package com.bootcamp.desafio2.repository.house;
 
 import com.bootcamp.desafio2.exception.house.HouseNotFoundException;
-import com.bootcamp.desafio2.model.House;
+import com.bootcamp.desafio2.entity.House;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -52,10 +52,23 @@ public class HouseRepositoryImpl implements IHouseRepository {
     }
 
     @Override
+    public boolean existsPropertyName(String prop_name) {
+        boolean exists = false;
+        if ( propertiesDB.containsKey(prop_name))
+            exists = true;
+        return exists;
+    }
+
+    @Override
     public House findHouseByPropName(String prop_name) throws HouseNotFoundException {
         if (propertiesDB.containsKey(prop_name))
             return propertiesDB.get(prop_name);
         else
             throw new HouseNotFoundException(prop_name);
+    }
+
+    @Override
+    public void saveNewProperty(House house) {
+        propertiesDB.put(house.getProp_name(), house);
     }
 }

@@ -4,6 +4,7 @@ import com.bootcamp.desafio2.dto.request.HouseDTO;
 import com.bootcamp.desafio2.dto.response.EnvironmentShortDTO;
 import com.bootcamp.desafio2.dto.response.HouseFeaturesDTO;
 import com.bootcamp.desafio2.exception.district.DistrictNotFoundException;
+import com.bootcamp.desafio2.exception.house.HouseAlreadyExistsException;
 import com.bootcamp.desafio2.exception.house.HouseNotFoundException;
 import com.bootcamp.desafio2.service.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +31,14 @@ public class HouseController {
 
     // US-0004
     @GetMapping("/environments/{prop_name}")
-    public ResponseEntity<?> showEnvironmentList(@PathVariable String prop_name) throws HouseNotFoundException, DistrictNotFoundException {
+    public ResponseEntity<?> showEnvironmentList(@PathVariable String prop_name) throws HouseNotFoundException {
         ArrayList<EnvironmentShortDTO> environmentList = houseService.generateEnvironmentList(prop_name);
         return new ResponseEntity(environmentList, HttpStatus.OK);
     }
 
     @PostMapping("/registerProperty")
     @ResponseStatus(HttpStatus.OK)
-    public void registerProperty(@RequestBody @Valid HouseDTO houseDTO) {
+    public void registerProperty(@RequestBody @Valid HouseDTO houseDTO) throws HouseAlreadyExistsException, DistrictNotFoundException {
         houseService.addNewProperty(houseDTO);
     }
 

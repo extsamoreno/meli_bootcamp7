@@ -21,8 +21,9 @@ public class HouseDTO {
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String prop_name;
 
-    @Valid
-    private DistrictDTO district;
+    @NotBlank(message = "El barrio no puede estar vacío.")
+    @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")
+    private String district_name;
 
     @NotEmpty(message = "La lista de ambientes no puede estar vacía.")
     private ArrayList<@Valid EnvironmentDTO> environments;

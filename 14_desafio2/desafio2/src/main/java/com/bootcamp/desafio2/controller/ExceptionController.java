@@ -2,6 +2,7 @@ package com.bootcamp.desafio2.controller;
 
 import com.bootcamp.desafio2.dto.response.ErrorDTO;
 import com.bootcamp.desafio2.exception.district.DistrictNotFoundException;
+import com.bootcamp.desafio2.exception.house.HouseAlreadyExistsException;
 import com.bootcamp.desafio2.exception.house.HouseNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,11 @@ public class ExceptionController {
         return new ResponseEntity(e.getError(), e.getStatus());
     }
 
+    @ExceptionHandler(HouseAlreadyExistsException.class)
+    public ResponseEntity<ErrorDTO> handlePostAlreadyExistsException(HouseAlreadyExistsException e) {
+        return new ResponseEntity(e.getError(), e.getStatus());
+    }
+
 
     // Validations Handler
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -30,6 +36,20 @@ public class ExceptionController {
         ErrorDTO error = new ErrorDTO("MethodArgumentNotValidException", e.getBindingResult().getFieldError().getDefaultMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+    /*
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+     */
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<ErrorDTO> handleValidationExceptions(HttpMessageNotReadableException e) {
