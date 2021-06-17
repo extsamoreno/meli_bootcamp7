@@ -45,6 +45,26 @@ public class CalculateService implements ICalculateService{
         return calculateTotalPrice(house.getRooms(), district.getPrice());
     }
 
+    @Override
+    public Room getBiggerRoom(Integer id) throws HouseNotFoundException {
+        List<Room> rooms = calculateRepository.getById(id).getRooms();
+        return biggerRoom(rooms);
+    }
+
+    private Room biggerRoom(List<Room> rooms) {
+        Room biggerRoom = new Room();
+        double meters = 0;
+
+        for(Room r: rooms){
+            double meterRoom = this.calculateSquareMeters(r);
+            if(meterRoom > meters){
+                meters = meterRoom;
+                biggerRoom = r;
+            }
+        }
+        return biggerRoom;
+    }
+
     private Double calculateTotalPrice(List<Room> rooms, double price) {
         return calculateTotalMeters(rooms) * price;
     }

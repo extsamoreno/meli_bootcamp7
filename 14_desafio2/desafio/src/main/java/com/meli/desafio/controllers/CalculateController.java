@@ -3,6 +3,7 @@ package com.meli.desafio.controllers;
 import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
+import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.services.ICalculateService;
 import com.meli.desafio.utils.URLBuilder;
@@ -41,5 +42,8 @@ public class CalculateController {
         return new ResponseEntity<>("U$D " + calculateService.getTotalPrice(id), HttpStatus.OK);
     }
 
-    @GetMapping("/house/{id}/")
+    @GetMapping("/house/{id}/biggerRoom")
+    public ResponseEntity<Room> getBiggerRoom(@PathVariable Integer id) throws HouseNotFoundException {
+        return new ResponseEntity<>(calculateService.getBiggerRoom(id), HttpStatus.OK);
+    }
 }

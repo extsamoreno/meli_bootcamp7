@@ -8,6 +8,7 @@ import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.District;
 import com.meli.desafio.models.House;
+import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.DistrictDTO;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;
@@ -167,6 +168,22 @@ public class CalculateControllerIntegrationTests {
                 .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/totalPrice", houseId))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("text/plain;charset=UTF-8"))
+                .andExpect(content().string(expected))
+                .andReturn();
+    }
+
+    @Test
+    public void getHouseBiggerRoomHappyPath() throws Exception{
+        House house = TestUtils.getTotalHouse("House");
+        Integer houseId = house.getId();
+        when(calculateRepository.getById(houseId)).thenReturn(house);
+        Room room = house.getRooms().get(0);
+        String expected = writer.writeValueAsString(room);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/biggerRoom", houseId))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected))
                 .andReturn();
     }

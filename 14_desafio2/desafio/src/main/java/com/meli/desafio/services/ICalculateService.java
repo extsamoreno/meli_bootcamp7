@@ -3,6 +3,7 @@ package com.meli.desafio.services;
 import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
+import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.HouseDTO;
 
 public interface ICalculateService {
@@ -13,4 +14,6 @@ public interface ICalculateService {
     Double getTotalMeters(Integer id) throws HouseNotFoundException, DistrictNotFoundException;
 
     Double getTotalPrice(Integer id) throws HouseNotFoundException, DistrictNotFoundException;
+
+    Room getBiggerRoom(Integer id) throws HouseNotFoundException;
 }
