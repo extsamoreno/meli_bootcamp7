@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "prop_name": "house1",
+    "district": {
+      "id": 1,
+      "name": "Center",
+      "price": 500
+    },
+    "environment": [
+      {
+        "name": "bath",
+        "width": 2,
+        "length": 2
+      },
+      {
+        "name": "room",
+        "width": 6,
+        "length": 6
+      },
+      {
+        "name": "yard",
+        "width": 15,
+        "length": 20
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "prop_name": "house2",
+    "district": {
+        "id": 1,
+        "name": "Center",
+        "price": 500
+    },
+    "environment": [
+      {
+        "name": "bath",
+        "width": 3,
+        "length": 2
+      },
+      {
+        "name": "room",
+        "width": 5,
+        "length": 6
+      },
+      {
+        "name": "yard",
+        "width": 15,
+        "length": 10
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "prop_name": "house3",
+    "district": {
+        "id": 1,
+        "name": "south",
+        "price": 400
+      },
+    "environment": [
+      {
+        "name": "bath",
+        "width": 3,
+        "length": 9
+      },
+      {
+        "name": "room",
+        "width": 5,
+        "length": 7
+      },
+      {
+        "name": "yard",
+        "width": 5,
+        "length": 10
+      }
+    ]
+  }
+]
