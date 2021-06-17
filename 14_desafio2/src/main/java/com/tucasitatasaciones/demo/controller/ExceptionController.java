@@ -1,6 +1,7 @@
 package com.tucasitatasaciones.demo.controller;
 
 import com.tucasitatasaciones.demo.dto.ErrorDTO;
+import com.tucasitatasaciones.demo.exception.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -20,5 +21,10 @@ public class ExceptionController {
             errorDTO.setMessage(errorDTO.getMessage().concat(((FieldError)error).getField() + "=" + error.getDefaultMessage()));
         });
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(BadRequestException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }

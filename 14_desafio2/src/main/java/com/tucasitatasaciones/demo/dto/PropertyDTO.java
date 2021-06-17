@@ -7,11 +7,14 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PropertyDTO {
+
+    private int id;
 
     @Valid
     @NotBlank(message = "El nombre de la propiedad no puede estar vacío.")
@@ -28,5 +31,5 @@ public class PropertyDTO {
     private int districtId;
 
     @Valid
-    private EnvironmentDTO environment;
+    private ArrayList<EnvironmentDTO> environments;
 }
