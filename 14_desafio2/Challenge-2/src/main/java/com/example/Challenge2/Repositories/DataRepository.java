@@ -32,10 +32,8 @@ public class DataRepository implements IDataRepository{
                 return this.districts.get(i);
             }
         }
-
         return null;
     }
-
     @Override
     public List<District> getAllDistricts() {
         return this.districts;

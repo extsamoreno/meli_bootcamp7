@@ -1,13 +1,17 @@
 package com.example.Challenge2.util;
 
+import com.example.Challenge2.Exceptions.DistrictNotFoundException;
+import com.example.Challenge2.Exceptions.PropertyNotFoundException;
 import com.example.Challenge2.Models.District;
 import com.example.Challenge2.Models.Property;
 import com.example.Challenge2.Models.Room;
-import com.example.Challenge2.Services.DTOs.PropertyDTO;
-import com.example.Challenge2.Services.DTOs.RoomDTO;
+import com.example.Challenge2.Services.DTOs.*;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.springframework.core.MethodParameter;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -116,8 +120,16 @@ public class TestUtilsGenerator {
 
         return property;
     }
+    public static Room get100Mt2Room() {
 
+        Room room = new Room("Cocina", 10.0, 10.0);
+        return room;
+    }
+    public static Room get25Mt2Room() {
 
+        Room room = new Room("Cocina", 5.0, 5.0);
+        return room;
+    }
     public static List<Room> getTwo25Mt2Rooms() {
         Room room1 = new Room("Cocina", 5.0, 5.0);
         Room room2 = new Room("Living",5.0, 5.0);
@@ -128,5 +140,72 @@ public class TestUtilsGenerator {
 
         return rooms;
     }
+    public static Property getPropertyWithTwo25MTsRooms(Long id){
+        return new Property("property",id,TestUtilsGenerator.getTwo25Mt2Rooms(),1L);
+    }
+    public static StructureDTO get101Mts2Structure(){
+        return new StructureDTO(101.0,"structure1");
 
+    }
+    public static StructureDTO get100Mts2Structure(){
+        return new StructureDTO(100.0,"structure1");
+
+    }
+    public static List<StructureDTO> getThree25Mts2Structures(){
+        StructureDTO structure1 = new StructureDTO(25.0,"structure1");
+        StructureDTO structure2 = new StructureDTO(25.0,"structure2");
+        StructureDTO structure3 = new StructureDTO(25.0,"structure3");
+
+
+        List<StructureDTO> structures = new ArrayList<>();
+        structures.add(structure1);
+        structures.add(structure2);
+        structures.add(structure3);
+
+        return structures;
+    }
+    public static List<StructureDTO> getThree30Mts2Structures(){
+        StructureDTO structure1 = new StructureDTO(30.0,"structure1");
+        StructureDTO structure2 = new StructureDTO(30.0,"structure2");
+        StructureDTO structure3 = new StructureDTO(30.0,"structure3");
+
+
+        List<StructureDTO> structures = new ArrayList<>();
+        structures.add(structure1);
+        structures.add(structure2);
+        structures.add(structure3);
+
+        return structures;
+    }
+    public static ValueDTO get1000USDValue(){
+        return new ValueDTO(1000.0);
+    }
+    public static ValueDTO get10000USDValue(){
+        return new ValueDTO(10000.0);
+    }
+
+    public static PropertyNotFoundException getPropertyNotFoundException(Long id){
+
+        return new PropertyNotFoundException(id);
+
+    }
+
+    public static DistrictNotFoundException getDistrictNotFoundException(Long id){
+
+        return new DistrictNotFoundException(id);
+
+    }
+
+    public static ErrorDTO getDistrictNotFoundError(Long id){
+
+        DistrictNotFoundException e = new DistrictNotFoundException(id);
+        return e.getError();
+
+    }
+    public static ErrorDTO getPropertyNotFoundError(Long id){
+
+        PropertyNotFoundException e = new PropertyNotFoundException(id);
+        return e.getError();
+
+    }
 }

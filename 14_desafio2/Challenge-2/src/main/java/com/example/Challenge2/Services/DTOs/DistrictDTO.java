@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor
 public class DistrictDTO {
 
     @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")

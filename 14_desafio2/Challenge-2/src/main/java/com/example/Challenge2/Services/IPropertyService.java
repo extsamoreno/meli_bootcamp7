@@ -10,7 +10,7 @@ public interface IPropertyService {
 
 
     public RoomDTO getBiggestRoom(Long id) throws PropertyNotFoundException;
-
+    public PropertyDTO getPropertyById(Long id) throws PropertyNotFoundException;
     public StructureDTO getPropertyDimensions(Long id) throws PropertyNotFoundException;
     public ValueDTO getPropertyValue(Long id) throws PropertyNotFoundException, DistrictNotFoundException;
     public List<StructureDTO> getDimensionedRooms(Long id) throws PropertyNotFoundException;

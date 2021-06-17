@@ -12,8 +12,6 @@ public class PropertyMapper {
 
         return new PropertyDTO(property.getName(),RoomMapper.toDTOs(property.getRooms()),property.getDistrictId());
     }
-    public static Room toDRoom(RoomDTO roomDTO){
-        return new Room(roomDTO.getName(),roomDTO.getWidth(),roomDTO.getLength());
-    }
+
 
 }

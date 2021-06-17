@@ -14,9 +14,7 @@ public class RoomMapper {
     public static RoomDTO toDTO(Room room){
         return new RoomDTO(room.getName(), room.getWidth(),room.getLength());
     }
-    public static Room toDRoom(RoomDTO roomDTO){
-        return new Room(roomDTO.getName(),roomDTO.getWidth(),roomDTO.getLength());
-    }
+
 
     public static List<RoomDTO> toDTOs(List<Room> rooms){
         List<RoomDTO> output = new ArrayList<>();

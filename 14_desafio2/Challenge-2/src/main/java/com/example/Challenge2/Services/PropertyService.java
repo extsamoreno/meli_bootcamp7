@@ -19,11 +19,11 @@ public class PropertyService implements IPropertyService{
 
     @Autowired
     IDataRepository iDataRepository;
-    private Property getPropertyById(Long id) throws PropertyNotFoundException {
+    public PropertyDTO getPropertyById(Long id) throws PropertyNotFoundException {
         Property property = iDataRepository.getPropertyById(id);
 
         if(property != null){
-            return property;
+            return PropertyMapper.toDTO(property);
         }
         else {
             throw new PropertyNotFoundException(id);
@@ -43,7 +43,7 @@ public class PropertyService implements IPropertyService{
     public List<StructureDTO> getDimensionedRooms(Long id) throws PropertyNotFoundException {
 
         List<StructureDTO> output = new ArrayList<>();
-        PropertyDTO propertyDTO= PropertyMapper.toDTO(this.getPropertyById(id));
+        PropertyDTO propertyDTO= this.getPropertyById(id);
 
         for (int i = 0; i < propertyDTO.getRooms().size(); i++) {
 
@@ -57,7 +57,7 @@ public class PropertyService implements IPropertyService{
     }
     public StructureDTO getPropertyDimensions(Long id) throws PropertyNotFoundException {
 
-        PropertyDTO propertyDTO= PropertyMapper.toDTO(this.getPropertyById(id));
+        PropertyDTO propertyDTO= this.getPropertyById(id);
 
 
         double dimentions = this.calculatePropertyDimensions(propertyDTO.getRooms());
@@ -68,7 +68,7 @@ public class PropertyService implements IPropertyService{
     }
     public ValueDTO getPropertyValue(Long id) throws PropertyNotFoundException, DistrictNotFoundException {
 
-        PropertyDTO propertyDTO= PropertyMapper.toDTO(this.getPropertyById(id));
+        PropertyDTO propertyDTO= this.getPropertyById(id);
 
         double dimentions = this.calculatePropertyDimensions(propertyDTO.getRooms());
 
@@ -79,7 +79,7 @@ public class PropertyService implements IPropertyService{
     }
     public RoomDTO getBiggestRoom(Long id) throws PropertyNotFoundException {
 
-        PropertyDTO propertyDTO= PropertyMapper.toDTO(this.getPropertyById(id));
+        PropertyDTO propertyDTO= this.getPropertyById(id);
 
         RoomDTO output = new RoomDTO("",0.0,0.0);
 
