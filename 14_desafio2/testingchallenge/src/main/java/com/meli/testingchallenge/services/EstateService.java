@@ -21,7 +21,9 @@ public class EstateService implements IEstateService{
     public EstateAssessmentDTO getAssessment(EstateDTO estateDto) {
 
         Estate estate = mapper.map(estateDto, Estate.class);
-        return new EstateAssessmentDTO(estateDto.getProp_name(), estate.calculateSurface());
+        return new EstateAssessmentDTO(estateDto.getProp_name(),
+                estate.calculateSurface(),
+                estate.calculatePrice());
     }
 
 

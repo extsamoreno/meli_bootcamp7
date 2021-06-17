@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class EstateAssessmentDTO {
 
 
-    private String prop_name;
+    private String name;
     private double totalSquareMeters;
+    private double totalPrice;
 
 }
