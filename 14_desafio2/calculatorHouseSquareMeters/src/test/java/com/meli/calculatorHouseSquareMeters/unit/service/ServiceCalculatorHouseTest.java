@@ -1,4 +1,4 @@
-package unit.service;
+package com.meli.calculatorHouseSquareMeters.unit.service;
 
 import com.meli.calculatorHouseSquareMeters.model.dao.model.District;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.House;

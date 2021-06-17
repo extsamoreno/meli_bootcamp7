@@ -1,4 +1,4 @@
-package unit.mapper;
+package com.meli.calculatorHouseSquareMeters.unit.mapper;
 
 import com.meli.calculatorHouseSquareMeters.model.dao.model.District;
 import com.meli.calculatorHouseSquareMeters.model.dao.model.House;
