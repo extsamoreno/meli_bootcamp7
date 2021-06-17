@@ -22,10 +22,8 @@ public class MiCasitaRepositoryInit implements IMiCasitaRespositoryInit{
     IPropiedadRepository iPropiedadRepository;
 
 
-    //private ArrayList<PropiedadDAO> propiedades;
-    private ArrayList<PropiedadRepository> propiedades;
-    private ArrayList<BarrioRepository> barrio;
-
+    private  ArrayList<PropiedadRepository> propiedades;
+    private  ArrayList<BarrioRepository> barrio;
 
 
      public void crearDataBase(){
@@ -46,8 +44,8 @@ public class MiCasitaRepositoryInit implements IMiCasitaRespositoryInit{
         AmbienteModel l1= new AmbienteModel("Living",2.8, 3.4);
         AmbienteModel l2= new AmbienteModel("Living",4.5, 2.9);
         AmbienteModel l3= new AmbienteModel("Living",4.9, 5.4);
-        AmbienteModel cocina1= new AmbienteModel("Comedor",5.0, 3.4);
-        AmbienteModel cocina2= new AmbienteModel("Comedor",6.0, 2.1);
+        AmbienteModel cocina1= new AmbienteModel("Cocina",5.0, 3.4);
+        AmbienteModel cocina2= new AmbienteModel("Cocina",6.0, 2.1);
 
         System.out.println("Se crearon ambientes");
 
@@ -58,10 +56,10 @@ public class MiCasitaRepositoryInit implements IMiCasitaRespositoryInit{
 
 
 
-        iPropiedadRepository.altaPropiedad("Gonzalez",b1,ambientes3,3);
-        iPropiedadRepository.altaPropiedad("Perez",b1,ambientes2,2);
-        iPropiedadRepository.altaPropiedad("Victorias",b1,ambientes5,5);
-        iPropiedadRepository.altaPropiedad("Leif",b1,ambientes4,4);
+        iPropiedadRepository.altaPropiedad("Moldes 100",b1,ambientes3,3);
+        iPropiedadRepository.altaPropiedad("Jaramillo 200",b1,ambientes2,2);
+        iPropiedadRepository.altaPropiedad("Amenabar 300",b1,ambientes5,5);
+        iPropiedadRepository.altaPropiedad("Cabildo 400",b1,ambientes4,4);
 
         System.out.println("Se crearon propiedades");
 

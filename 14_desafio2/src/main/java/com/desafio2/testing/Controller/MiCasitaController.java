@@ -5,6 +5,7 @@ import com.desafio2.testing.Dto.AmbienteDTO;
 import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
 import com.desafio2.testing.Dto.PropiedadM2DTO;
 import com.desafio2.testing.Dto.PropiedadValorDTO;
+import com.desafio2.testing.Exception.PropiedadInexistenteException;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
 import com.desafio2.testing.Repository.IMiCasitaRespositoryInit;
@@ -42,27 +43,27 @@ public class MiCasitaController {
 
 
     @GetMapping("/prueba2/{nombre}")
-    public ResponseEntity<PropiedadM2DTO> prueba2(@PathVariable String nombre){
+    public ResponseEntity<PropiedadM2DTO> prueba2(@PathVariable String nombre) throws PropiedadInexistenteException {
 
         return new ResponseEntity<>(iPropiedadService.calcularM2PropiedadDTO(nombre), HttpStatus.OK);
 
     }
 
     @GetMapping("/prueba3/{nombre}")
-    public ResponseEntity<PropiedadValorDTO> prueba3(@PathVariable String nombre){
+    public ResponseEntity<PropiedadValorDTO> prueba3(@PathVariable String nombre) throws PropiedadInexistenteException {
 
         return new ResponseEntity<>(iPropiedadService.calcularValorPropiedadDTO(nombre), HttpStatus.OK);
 
     }
     @GetMapping("/prueba4/{nombre}")
-    public ResponseEntity<AmbienteDTO> prueba4(@PathVariable String nombre){
+    public ResponseEntity<AmbienteDTO> prueba4(@PathVariable String nombre) throws PropiedadInexistenteException {
 
         return new ResponseEntity<>(iPropiedadService.calcularAmbienteMasGrande(nombre), HttpStatus.OK);
 
     }
 
     @GetMapping("/prueba5/{nombre}")
-    public ResponseEntity<PropiedadListaAmbientesM2DTO> prueba5(@PathVariable String nombre){
+    public ResponseEntity<PropiedadListaAmbientesM2DTO> prueba5(@PathVariable String nombre) throws PropiedadInexistenteException {
         return new ResponseEntity<>(iPropiedadService.calcularListaAmbientesM2(nombre), HttpStatus.OK);
 
     }

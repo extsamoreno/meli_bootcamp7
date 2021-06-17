@@ -1,5 +1,6 @@
 package com.desafio2.testing.Repository;
 
+import com.desafio2.testing.Exception.PropiedadInexistenteException;
 import com.desafio2.testing.Model.AmbienteModel;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
@@ -23,15 +24,15 @@ public class PropiedadRepository implements IPropiedadRepository{
 
 
     @Override
-    public PropiedadModel getPropiedadByName(String name) {
+    public PropiedadModel getPropiedadByName(String name) throws PropiedadInexistenteException {
 
         for (PropiedadModel p : propiedadesDataBase) {
             if (p.getProp_name().equals(name)) {
                 return p;
             }
         }
-        return null;
-       // TODO Exception de null
+        throw new PropiedadInexistenteException(name);
+
 
     }
 }

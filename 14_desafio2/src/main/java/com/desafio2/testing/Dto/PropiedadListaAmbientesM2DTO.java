@@ -5,8 +5,7 @@ import lombok.*;
 import java.util.ArrayList;
 
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PropiedadListaAmbientesM2DTO {

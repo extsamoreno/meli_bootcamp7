@@ -4,6 +4,7 @@ import com.desafio2.testing.Dto.AmbienteDTO;
 import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
 import com.desafio2.testing.Dto.PropiedadM2DTO;
 import com.desafio2.testing.Dto.PropiedadValorDTO;
+import com.desafio2.testing.Exception.PropiedadInexistenteException;
 import com.desafio2.testing.Model.AmbienteModel;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
@@ -27,7 +28,7 @@ public class PropiedadService implements IPropiedadService {
 
     //Calcula los M2 de una propiedad por nombre y devuelve un DTO para mostrar
     //CU0001
-   public PropiedadM2DTO calcularM2PropiedadDTO(String nombre){
+   public PropiedadM2DTO calcularM2PropiedadDTO(String nombre) throws PropiedadInexistenteException {
         double m2=0;
 
         PropiedadModel propiedad = iPropiedadRepository.getPropiedadByName(nombre);
@@ -53,7 +54,7 @@ public class PropiedadService implements IPropiedadService {
     }
 
     //CU0002
-    public PropiedadValorDTO calcularValorPropiedadDTO(String nombre){
+    public PropiedadValorDTO calcularValorPropiedadDTO(String nombre) throws PropiedadInexistenteException {
         double m2=0, valor=0;
 
         PropiedadModel propiedad = iPropiedadRepository.getPropiedadByName(nombre);
@@ -67,7 +68,7 @@ public class PropiedadService implements IPropiedadService {
 
     //CU0003
     //Calcula el ambiente mas grande de una propiedad por nombre y retorna un ambiente DTO
-    public AmbienteDTO calcularAmbienteMasGrande(String nombre){
+    public AmbienteDTO calcularAmbienteMasGrande(String nombre) throws PropiedadInexistenteException {
         PropiedadModel propiedad = iPropiedadRepository.getPropiedadByName(nombre);
         AmbienteModel ambienteMax= new AmbienteModel();
         double maxM2=0, m2=0;
@@ -83,7 +84,7 @@ public class PropiedadService implements IPropiedadService {
     }
 
     //CU0004
-    public PropiedadListaAmbientesM2DTO calcularListaAmbientesM2(String nombre) {
+    public PropiedadListaAmbientesM2DTO calcularListaAmbientesM2(String nombre) throws PropiedadInexistenteException {
         ArrayList<AmbienteDTO> ambientesDTOS= new ArrayList<>();
         double m2=0;
 
