@@ -4,17 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class District {
 
-    @Max(value = 45, message = "The district's name can't be larger than 45 length")
+    @Size(max = 45, message = "The district's name can't be larger than 45 length")
     @NotEmpty(message = "The district's name can't be null or empty")
     private String name;
     @PositiveOrZero(message = "The district's price can't be less than 0$")

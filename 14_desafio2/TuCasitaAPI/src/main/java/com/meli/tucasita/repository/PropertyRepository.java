@@ -2,6 +2,7 @@ package com.meli.tucasita.repository;
 
 import com.meli.tucasita.exception.PropertyNotFoundException;
 import com.meli.tucasita.model.Property;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -18,5 +19,11 @@ public class PropertyRepository implements IPropertyRepository{
             throw new PropertyNotFoundException(name);
         }
         return prop;
+    }
+
+    @Override
+    public HttpStatus addNewProperty(Property property) {
+        properties.put(property.getName(),property);
+        return HttpStatus.CREATED;
     }
 }

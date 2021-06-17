@@ -10,9 +10,9 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Environment {
-    @Max(value = 30,message = "The environment's name can't be larger than 30 length")
+    @Size(max = 30,message = "The environment's name can't be larger than 30 length")
     @NotEmpty(message = "The environment's name can't be null or empty")
-    @Pattern(regexp = "^[A-Z]([A-Za-z])*", message = "The environment's name must start with capital letter")
+    @Pattern(regexp = "^[A-Z].*", message = "The environment's name must start with capital letter")
     private String name;
     @PositiveOrZero(message = "The environment's width can't be less than 0")
     @NotNull(message = "The environment's width can't be null")
