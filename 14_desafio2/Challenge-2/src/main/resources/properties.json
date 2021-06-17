@@ -1,0 +1,108 @@
+[
+
+  {
+    "id": 0,
+    "rooms": [
+      {
+        "name": "Cocina",
+        "width": 3.0,
+        "length": 5.0
+      },
+      {
+        "name": "Baño",
+        "width": 3.0,
+        "length": 3.0
+      },
+      {
+        "name": "Living",
+        "width": 4.0,
+        "length": 4.0
+      },
+      {
+        "name": "Dormitorio",
+        "width": 6.0,
+        "length": 6.0
+      }
+    ],
+    "districtId": 3
+
+  },
+  {
+    "id": 1,
+    "rooms": [
+      {
+        "name": "Cocina",
+        "width": 3.0,
+        "length": 5.0
+      },
+      {
+        "name": "Baño",
+        "width": 3.0,
+        "length": 3.0
+      },
+      {
+        "name": "Baño 2",
+        "width": 4.0,
+        "length": 4.0
+      },
+      {
+        "name": "Dormitorio",
+        "width": 6.0,
+        "length": 6.0
+      }
+    ],
+    "districtId": 1
+
+  },
+
+  {
+    "id": 2,
+    "rooms": [
+      {
+        "name": "Cocina",
+        "width": 6.0,
+        "length": 5.0
+      },
+      {
+        "name": "Baño",
+        "width": 6.0,
+        "length": 3.0
+      },
+      {
+        "name": "Garage",
+        "width": 6.0,
+        "length": 4.0
+      },
+      {
+        "name": "Dormitorio",
+        "width": 6.0,
+        "length": 6.0
+      }
+    ],
+    "districtId": 6
+
+  },
+
+  {
+    "id": 3,
+    "rooms": [
+      {
+        "name": "Cocina",
+        "width": 6.0,
+        "length": 5.0
+      },
+      {
+        "name": "Baño",
+        "width": 1.0,
+        "length": 3.0
+      },
+      {
+        "name": "Dormitorio",
+        "width": 3.0,
+        "length": 6.0
+      }
+    ],
+    "districtId": 4
+
+  }
+]

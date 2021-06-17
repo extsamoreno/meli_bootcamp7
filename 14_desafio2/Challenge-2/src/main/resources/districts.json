@@ -1,0 +1,33 @@
+[
+  {
+    "id": 0,
+    "name": "Viña",
+    "pricePerM2": 200
+  },
+  {
+    "id": 1,
+    "name": "Valparaiso",
+    "pricePerM2": 400
+
+  },
+  {
+    "id": 3,
+    "name": "Quilpue",
+    "pricePerM2": 1050
+  },
+  {
+    "id": 4,
+    "name": "Calera",
+    "pricePerM2": 700
+  },
+  {
+    "id": 5,
+    "name": "Villa Alemana",
+    "pricePerM2": 90
+  },
+  {
+    "id": 6,
+    "name": "Reñaca",
+    "pricePerM2": 10
+  }
+]
