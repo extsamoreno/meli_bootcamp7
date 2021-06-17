@@ -16,7 +16,8 @@ public class DistrictServiceImpl implements IDistrictService {
     @Autowired
     IDistrictDAO suburbDAO;
 
-    ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    ModelMapper modelMapper;
 
     @Override
     public void saveDistrict(DistrictDTO districtDTO) {

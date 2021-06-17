@@ -10,4 +10,6 @@ public interface IDistrictService {
 
     List<DistrictDTO> getDistrictList();
 
+
+
 }

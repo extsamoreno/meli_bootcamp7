@@ -28,4 +28,14 @@ public class RealStateController {
         realStateService.addNewRealState(realStateInDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/realStateByName/{realStateName}")
+    public ResponseEntity<RealStateOutDTO> getRealStateByName(@PathVariable String realStateName){
+        return new ResponseEntity<>(realStateService.getRealStateOutDTOByRealStateName(realStateName), HttpStatus.OK);
+    }
+
+    @GetMapping("/realStateById/{realStateId}")
+    public ResponseEntity<RealStateOutDTO> getRealStateById(@PathVariable Integer realStateId){
+        return new ResponseEntity<>(realStateService.getRealStateOutDTOByRealStateId(realStateId), HttpStatus.OK);
+    }
 }

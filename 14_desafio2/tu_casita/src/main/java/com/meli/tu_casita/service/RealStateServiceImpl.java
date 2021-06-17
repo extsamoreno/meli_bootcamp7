@@ -23,14 +23,13 @@ import java.util.stream.Collectors;
 public class RealStateServiceImpl implements IRealStateService {
 
     @Autowired
-    IRealStateDAO realStateDAO;
+    private IRealStateDAO realStateDAO;
     @Autowired
-    IDistrictDAO districtDAO;
+    private IDistrictDAO districtDAO;
     @Autowired
-    IEnvironmentDAO environmentDAO;
-
-    ModelMapper modelMapper = new ModelMapper();
-
+    private IEnvironmentDAO environmentDAO;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public float getRealStateTotalMeters(int realStateId) {
@@ -78,7 +77,7 @@ public class RealStateServiceImpl implements IRealStateService {
 
     @Override
     public List<RealStateOutDTO> getRealStateList() {
-        return realStateDAO.getRealStateList().stream().map(this::realStateModelToRealStateOutDTO).collect(Collectors.toList());
+        return realStateDAO.getRealStateList().stream().map(this::MapperRealStateModelToRealStateOutDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -94,18 +93,34 @@ public class RealStateServiceImpl implements IRealStateService {
         }//TODO:add exception
     }
 
+    @Override
+    public RealStateOutDTO getRealStateOutDTOByRealStateName(String name) {
+        return MapperRealStateModelToRealStateOutDTO(realStateDAO.findByName(name));
+    }
+
+    @Override
+    public RealStateOutDTO getRealStateOutDTOByRealStateId(int id) {
+        return MapperRealStateModelToRealStateOutDTO(realStateDAO.findById(id));
+    }
+
     private List<EnvironmentDTO> getEnvironmentDTOListFromRealStateId(int realStateId) {
         List<Environment> environmentList = environmentDAO.getEnvironmentsListByRealStateId(realStateId);
         List<EnvironmentDTO> environmentDTOList = new ArrayList<>();
-        for (Environment environment : environmentList) {
-            EnvironmentDTO environmentDTO = modelMapper.map(environment, EnvironmentDTO.class);
+        Integer indexBiggestEnvironment = null;
+        for (int i = 0 ; i < environmentList.size() ; i++ ) {
+            EnvironmentDTO environmentDTO = modelMapper.map(environmentList.get(i), EnvironmentDTO.class);
             environmentDTO.setMetersTotal(environmentDTO.getLength() * environmentDTO.getWidth());
             environmentDTOList.add(environmentDTO);
+            if (indexBiggestEnvironment == null) indexBiggestEnvironment = i;
+            if (environmentDTOList.get(indexBiggestEnvironment).getMetersTotal() < environmentDTO.getMetersTotal()) indexBiggestEnvironment = i ;
+        }
+        if (indexBiggestEnvironment != null) {
+            environmentDTOList.get(indexBiggestEnvironment).setTheBiggest(true);
         }
         return environmentDTOList;
     }
 
-    private RealStateOutDTO realStateModelToRealStateOutDTO(RealState model) {
+    private RealStateOutDTO MapperRealStateModelToRealStateOutDTO(RealState model) {
         RealStateOutDTO realStateOutDTO = new RealStateOutDTO();
         realStateOutDTO.setId(model.getId());
         realStateOutDTO.setName(model.getName());

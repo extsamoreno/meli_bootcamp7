@@ -19,4 +19,8 @@ public interface IRealStateService {
     List<RealStateOutDTO> getRealStateList();
 
     void addNewRealState(RealStateInDTO realStateInDTO);
+
+    RealStateOutDTO getRealStateOutDTOByRealStateName(String name);
+
+    RealStateOutDTO getRealStateOutDTOByRealStateId(int id);
 }
