@@ -25,7 +25,7 @@ public class PropService implements IPropService {
 
     @Override
     public PropDTOTPrice priceProp(PropRequest prop) throws DistrictNotExist {
-        District district = iPropRequestRepository.getDistrictByName(prop.getDistrict().getName());
+        District district = iPropRequestRepository.getDistrictByName(prop.getDistrictName());
         double totalPrice = district.getPricePorMeter2() * totalArea(prop);
         return propMapper.toDTOPrice(prop, totalPrice);
     }

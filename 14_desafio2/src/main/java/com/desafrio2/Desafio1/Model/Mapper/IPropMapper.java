@@ -9,7 +9,7 @@ import org.mapstruct.Named;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface IPropMapper {
     @Mapping(source = "totalMeters", target = "totalMeters")
     PropDTOTMeters toDTOMeters(PropRequest prop, double totalMeters);

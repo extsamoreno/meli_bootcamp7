@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,6 +43,6 @@ public class PropRepository implements IPropRepository {
         return districtData.stream()
                 .filter(district -> district.getName().equals(name))
                 .findFirst()
-                .orElseThrow(()-> new DistrictNotExist(name));
+                .orElseThrow(()->  new DistrictNotExist(name));
     }
 }
