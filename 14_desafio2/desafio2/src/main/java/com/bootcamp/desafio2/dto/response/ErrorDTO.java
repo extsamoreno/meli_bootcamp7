@@ -1,4 +1,4 @@
-package com.bootcamp.desafio2.dto;
+package com.bootcamp.desafio2.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnvironmentDTO {
+public class ErrorDTO {
 
-    private String environment_name;
-    private double environment_area;
-
+    private String name;
+    private String message;
 }

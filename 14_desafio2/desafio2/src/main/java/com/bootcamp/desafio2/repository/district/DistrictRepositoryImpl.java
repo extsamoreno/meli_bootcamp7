@@ -1,5 +1,7 @@
 package com.bootcamp.desafio2.repository.district;
 
+import com.bootcamp.desafio2.exception.district.DistrictNotFoundException;
+import com.bootcamp.desafio2.exception.house.HouseNotFoundException;
 import com.bootcamp.desafio2.model.District;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,4 +54,11 @@ public class DistrictRepositoryImpl implements IDistrictRepository{
         return districtList;
     }
 
+    @Override
+    public boolean existsDistrictInDB(String district_name) throws DistrictNotFoundException {
+        if ( districtsDB.containsKey(district_name))
+            return true;
+        else
+            throw new DistrictNotFoundException(district_name);
+    }
 }

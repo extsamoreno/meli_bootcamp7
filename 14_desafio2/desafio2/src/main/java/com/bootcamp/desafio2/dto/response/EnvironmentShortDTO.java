@@ -1,18 +1,17 @@
-package com.bootcamp.desafio2.dto;
+package com.bootcamp.desafio2.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnvironmentsListDTO {
+public class EnvironmentShortDTO {
 
-    private ArrayList<EnvironmentDTO> environments = new ArrayList<>();
+    private String environment_name;
+    private double environment_area;
 
 }

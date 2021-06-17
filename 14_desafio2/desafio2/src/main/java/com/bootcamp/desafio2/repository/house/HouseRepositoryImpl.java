@@ -1,6 +1,7 @@
-package com.bootcamp.desafio2.repository.property;
+package com.bootcamp.desafio2.repository.house;
 
-import com.bootcamp.desafio2.model.Property;
+import com.bootcamp.desafio2.exception.house.HouseNotFoundException;
+import com.bootcamp.desafio2.model.House;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -13,17 +14,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Repository
-public class PropertyRepositoryImpl implements IPropertyRepository{
+public class HouseRepositoryImpl implements IHouseRepository {
 
     // Properties Data Base
-    private HashMap<String, Property> propertiesDB = loadDateBase();
+    private HashMap<String, House> propertiesDB = loadDateBase();
 
 
     // Method to Load the data to the DataBase
-    public HashMap<String, Property> loadDateBase(){
-        HashMap<String, Property> propertiesDB = new HashMap<>();
-        ArrayList<Property> propertiesList = readDateBase();
-        for(Property x : propertiesList){
+    public HashMap<String, House> loadDateBase(){
+        HashMap<String, House> propertiesDB = new HashMap<>();
+        ArrayList<House> propertiesList = readDateBase();
+        for(House x : propertiesList){
             propertiesDB.put(x.getProp_name(), x);
         }
         return propertiesDB;
@@ -31,7 +32,7 @@ public class PropertyRepositoryImpl implements IPropertyRepository{
 
 
     // Method to Read the data from JSON to List of properties called propertiesList
-    public ArrayList<Property> readDateBase() {
+    public ArrayList<House> readDateBase() {
         File file = null;
         try {
             file = ResourceUtils.getFile("classpath:properties.json");
@@ -39,9 +40,9 @@ public class PropertyRepositoryImpl implements IPropertyRepository{
             e.printStackTrace();
         }
         ObjectMapper om = new ObjectMapper();
-        TypeReference<ArrayList<Property>> typeDef = new TypeReference<>() {
+        TypeReference<ArrayList<House>> typeDef = new TypeReference<>() {
         };
-        ArrayList<Property> PropertiesList = null;
+        ArrayList<House> PropertiesList = null;
         try {
             PropertiesList = om.readValue(file, typeDef);
         } catch (IOException e) {
@@ -50,4 +51,11 @@ public class PropertyRepositoryImpl implements IPropertyRepository{
         return PropertiesList;
     }
 
+    @Override
+    public House findHouseByPropName(String prop_name) throws HouseNotFoundException {
+        if (propertiesDB.containsKey(prop_name))
+            return propertiesDB.get(prop_name);
+        else
+            throw new HouseNotFoundException(prop_name);
+    }
 }
