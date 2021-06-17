@@ -1,12 +1,15 @@
 package com.example.Challenge2.Integration;
 
 import com.example.Challenge2.Controllers.PropertyController;
+import com.example.Challenge2.Exceptions.DistrictNotFoundException;
 import com.example.Challenge2.Models.District;
 import com.example.Challenge2.Models.Property;
 import com.example.Challenge2.Repositories.IDataRepository;
+import com.example.Challenge2.Services.DTOs.PropertyDTO;
 import com.example.Challenge2.Services.DTOs.RoomDTO;
 import com.example.Challenge2.Services.DTOs.StructureDTO;
 import com.example.Challenge2.Services.DTOs.ValueDTO;
+import com.example.Challenge2.Services.Mapper.PropertyMapper;
 import com.example.Challenge2.Services.Mapper.RoomMapper;
 import com.example.Challenge2.util.TestUtilsGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -131,6 +135,64 @@ public class PropertyControllerIntegrationTest {
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/rooms", propertyId))
                 .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+
+        Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void storeHappyPath() throws Exception{
+        Long propertyId = 1L;
+        PropertyDTO property = PropertyMapper.toDTO(TestUtilsGenerator.getPropertyWithTwo25MTsRooms(propertyId));
+
+        District district = TestUtilsGenerator.get100USDollarsDistrict(property.getDistrictId());
+
+        Mockito.when(iDataRepository.getAllProperties()).thenReturn(new ArrayList<>());
+        Mockito.when(iDataRepository.getDistrictById(district.getId())).thenReturn(district);
+
+
+
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer();
+        String responseJson = writer.writeValueAsString(true);
+
+        String payLoadJson = writer.writeValueAsString(property);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/property")
+                .contentType("application/json")
+                .content(payLoadJson))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+
+        Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void storeThrowsDistrictNotFoundException() throws Exception{
+        Long propertyId = 1L;
+        PropertyDTO property = PropertyMapper.toDTO(TestUtilsGenerator.getPropertyWithTwo25MTsRooms(propertyId));
+
+        Mockito.when(iDataRepository.getAllProperties()).thenReturn(new ArrayList<>());
+        Mockito.when(iDataRepository.getDistrictById(property.getDistrictId())).thenReturn(null);
+
+        DistrictNotFoundException e = new DistrictNotFoundException(property.getDistrictId());
+
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer();
+        String responseJson = writer.writeValueAsString(e.getError());
+
+        String payLoadJson = writer.writeValueAsString(property);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/property")
+                .contentType("application/json")
+                .content(payLoadJson))
+                .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
 

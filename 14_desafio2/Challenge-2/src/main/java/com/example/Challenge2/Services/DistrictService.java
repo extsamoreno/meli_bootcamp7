@@ -47,10 +47,6 @@ public class DistrictService implements IDistrictService{
     }
 
 
-    public List<District> getall(){
-        return iDataRepository.getAllDistricts();
-    }
-
     private Long genPropertyID(){
         Long id = new Long(iDataRepository.getAllDistricts().size());
         Boolean validId = false;

@@ -6,9 +6,9 @@ import com.example.Challenge2.Models.District;
 import com.example.Challenge2.Models.Property;
 import com.example.Challenge2.Models.Room;
 import com.example.Challenge2.Repositories.IDataRepository;
-import com.example.Challenge2.Services.DTOs.StructureDTO;
-import com.example.Challenge2.Services.DTOs.RoomDTO;
-import com.example.Challenge2.Services.DTOs.ValueDTO;
+import com.example.Challenge2.Services.DTOs.*;
+import com.example.Challenge2.Services.Mapper.DistrictMapper;
+import com.example.Challenge2.Services.Mapper.PropertyMapper;
 import com.example.Challenge2.util.TestUtilsGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -263,5 +263,37 @@ public class PropertyServiceTests {
         assertThrows(PropertyNotFoundException.class, () -> propertyService.getDimensionedRooms(id));
     }
 
+    @Test
+    public void storeTest() throws DistrictNotFoundException {
+
+        // arrange
+        Long propertyId = 1L;
+        Long districtId = 2L;
+        PropertyDTO propertyDTO = PropertyMapper.toDTO(TestUtilsGenerator.getPropertyWithTwo25MTsRooms(propertyId));
+        District district = TestUtilsGenerator.get100USDollarsDistrict(districtId);
+
+        when(iDataRepository.getDistrictById(propertyDTO.getDistrictId())).thenReturn(district);
+        when(iDataRepository.getAllProperties()).thenReturn(new ArrayList<>());
+
+        // act
+        Boolean response = propertyService.storeProperty(propertyDTO);
+
+        // assert
+        verify(iDataRepository, atLeastOnce()).getAllProperties();
+        assertTrue(response);
+    }
+
+    @Test
+    public void storeThrowsDistrictNotFoundExceptionTest() throws DistrictNotFoundException {
+
+        // arrange
+        Long propertyId = 1L;
+        PropertyDTO propertyDTO = PropertyMapper.toDTO(TestUtilsGenerator.getPropertyWithTwo25MTsRooms(propertyId));
+        when(iDataRepository.getDistrictById(propertyDTO.getDistrictId())).thenReturn(null);
+
+        // assert
+
+        assertThrows(DistrictNotFoundException.class, () -> propertyService.storeProperty(propertyDTO));
+    }
 
 }

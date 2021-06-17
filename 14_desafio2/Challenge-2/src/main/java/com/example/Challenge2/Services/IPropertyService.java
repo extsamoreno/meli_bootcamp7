@@ -17,5 +17,5 @@ public interface IPropertyService {
     public List<StructureDTO> getDimensionedRooms(Long id) throws PropertyNotFoundException;
     public Boolean storeProperty(PropertyDTO property) throws DistrictNotFoundException;
 
-    public List<Property> getall();
+
 }

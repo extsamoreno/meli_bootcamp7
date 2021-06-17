@@ -35,7 +35,7 @@ public class DistrictControllerTest {
 
 
     @Test
-    public void storeTest() throws DistrictNotFoundException {
+    public void storeTest() {
 
         // arrange,
         Long id = 1L;

@@ -45,8 +45,4 @@ public class PropertyController {
         return new ResponseEntity<>(iPropertyService.storeProperty(property),HttpStatus.OK);
     }
 
-    @GetMapping("/property")
-    public ResponseEntity<List<Property>>getall() {
-        return new ResponseEntity<>(iPropertyService.getall(),HttpStatus.OK);
-    }
 }

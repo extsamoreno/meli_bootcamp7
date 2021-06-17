@@ -13,5 +13,4 @@ public interface IDistrictService {
 
     public Boolean storeDistrict(DistrictDTO district);
 
-    public List<District> getall();
 }

@@ -62,15 +62,13 @@ public class PropertyService implements IPropertyService{
         Long id = this.genPropertyID();
         Property newProperty = PropertyMapper.toProperty(property);
         newProperty.setId(id);
-System.out.println(id);
+
         iDataRepository.getAllProperties().add(newProperty);
 
         return  true;
 
     }
-    public List<Property> getall(){
-        return iDataRepository.getAllProperties();
-    }
+
 
     private Long genPropertyID(){
         Long id = new Long(iDataRepository.getAllProperties().size());

@@ -141,20 +141,20 @@ public class TestUtilsGenerator {
         return rooms;
     }
     public static Property getPropertyWithTwo25MTsRooms(Long id){
-        return new Property("property",id,TestUtilsGenerator.getTwo25Mt2Rooms(),1L);
+        return new Property("Property",id,TestUtilsGenerator.getTwo25Mt2Rooms(),1L);
     }
     public static StructureDTO get101Mts2Structure(){
-        return new StructureDTO(101.0,"structure1");
+        return new StructureDTO(101.0,"Structure1");
 
     }
     public static StructureDTO get100Mts2Structure(){
-        return new StructureDTO(100.0,"structure1");
+        return new StructureDTO(100.0,"Structure1");
 
     }
     public static List<StructureDTO> getThree25Mts2Structures(){
-        StructureDTO structure1 = new StructureDTO(25.0,"structure1");
-        StructureDTO structure2 = new StructureDTO(25.0,"structure2");
-        StructureDTO structure3 = new StructureDTO(25.0,"structure3");
+        StructureDTO structure1 = new StructureDTO(25.0,"Structure1");
+        StructureDTO structure2 = new StructureDTO(25.0,"Structure2");
+        StructureDTO structure3 = new StructureDTO(25.0,"Structure3");
 
 
         List<StructureDTO> structures = new ArrayList<>();
@@ -165,9 +165,9 @@ public class TestUtilsGenerator {
         return structures;
     }
     public static List<StructureDTO> getThree30Mts2Structures(){
-        StructureDTO structure1 = new StructureDTO(30.0,"structure1");
-        StructureDTO structure2 = new StructureDTO(30.0,"structure2");
-        StructureDTO structure3 = new StructureDTO(30.0,"structure3");
+        StructureDTO structure1 = new StructureDTO(30.0,"Structure1");
+        StructureDTO structure2 = new StructureDTO(30.0,"Structure2");
+        StructureDTO structure3 = new StructureDTO(30.0,"Structure3");
 
 
         List<StructureDTO> structures = new ArrayList<>();
