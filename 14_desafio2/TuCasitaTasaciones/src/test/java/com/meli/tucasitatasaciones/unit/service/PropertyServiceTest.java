@@ -78,7 +78,3 @@ public class PropertyServiceTest {
         Mockito.verify(iPropertyRepository,Mockito.atLeastOnce()).getAllProperties();
     }
 }
-
-//Arrange
-//Act
-//Assert

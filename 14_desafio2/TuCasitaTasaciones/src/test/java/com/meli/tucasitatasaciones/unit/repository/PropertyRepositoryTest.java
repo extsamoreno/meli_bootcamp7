@@ -21,7 +21,7 @@ public class PropertyRepositoryTest {
     @Test
     public void saveNewProperty() {
         //Arrange
-        Property property = TestUtilGenerator.getNewProperty();
+        Property property = TestUtilGenerator.getProperty();
 
         //Act
         iPropertyRepository.saveProperty(property);
@@ -34,7 +34,7 @@ public class PropertyRepositoryTest {
     @Test
     public void findExistentPropertyById() {
         //Arrange
-        Property property = TestUtilGenerator.getNewProperty();
+        Property property = TestUtilGenerator.getProperty();
         iPropertyRepository.saveProperty(property);
 
         //Act

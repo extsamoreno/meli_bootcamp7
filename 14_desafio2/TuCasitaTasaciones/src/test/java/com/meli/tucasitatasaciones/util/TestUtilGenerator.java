@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestUtilGenerator {
-    public static Property getNewProperty() {
+    public static Property getProperty() {
         Environment env1 = new Environment("Habitacion 1",6.0,5.0);
         Environment env2 = new Environment("Habitacion 2",4.0,2.5);
 
@@ -54,9 +54,9 @@ public class TestUtilGenerator {
     }
 
     public static List<Property> getProperties() {
-        Property prop1 = getNewProperty();
-        Property prop2 = getNewProperty();
-        Property prop3 = getNewProperty();
+        Property prop1 = getProperty();
+        Property prop2 = getProperty();
+        Property prop3 = getProperty();
 
         List<Property> properties = new ArrayList<>();
         properties.add(prop1);
