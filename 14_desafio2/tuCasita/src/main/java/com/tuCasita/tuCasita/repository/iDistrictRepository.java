@@ -8,6 +8,6 @@ import java.util.List;
 public interface iDistrictRepository {
 
     List<District> loadDataBase();
-    void loadDistricts();
+    HashMap<String, Double> loadDistricts();
     HashMap<String, Double> getDistricts();
 }

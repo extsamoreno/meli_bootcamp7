@@ -38,7 +38,7 @@ public class TuCasitaController {
     }
 
     @PostMapping("/roomM2")
-    public ResponseEntity<ResponseRoomsDTO> calcularM2Habitacion(@RequestBody @Valid House house){
+    public ResponseEntity<ResponseRoomsDTO> calculateRoomM2(@RequestBody @Valid House house){
         return (new ResponseEntity<>(service.calculateRoomM2(house), HttpStatus.OK));
     }
 }

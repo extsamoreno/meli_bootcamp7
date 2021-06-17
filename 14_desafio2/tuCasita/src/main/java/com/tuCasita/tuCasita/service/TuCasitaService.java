@@ -1,5 +1,7 @@
 package com.tuCasita.tuCasita.service;
 
+import com.tuCasita.tuCasita.exceptions.DistrictNotFoundError;
+import com.tuCasita.tuCasita.exceptions.InvalidPriceException;
 import com.tuCasita.tuCasita.models.DTO.HouseDTO;
 import com.tuCasita.tuCasita.models.DTO.ResponseRoomsDTO;
 import com.tuCasita.tuCasita.models.DTO.RoomDTO;
@@ -45,6 +47,7 @@ public class TuCasitaService implements iTuCasitaService{
 
     @Override
     public Room biggestRoom(House house) {
+        validateDistrict(house.getDistrict());
         Room biggestRoom = new Room();
         double m2 = 0;
 
@@ -59,6 +62,7 @@ public class TuCasitaService implements iTuCasitaService{
 
     @Override
     public ResponseRoomsDTO calculateRoomM2 (House house){
+        validateDistrict(house.getDistrict());
         ArrayList<RoomDTO> m2Habitaciones = new ArrayList<>();
 
         for (Room room: house.getRooms())
@@ -68,8 +72,15 @@ public class TuCasitaService implements iTuCasitaService{
     }
 
     @Override
-    public void validateDistrict (District district) {
-        repository.getDistricts().get(district);
+    public boolean validateDistrict (District district) {
+        boolean isValid = false;
+        if (repository.getDistricts().get(district.getName()) == null)
+            throw new DistrictNotFoundError();
+        else if (!repository.getDistricts().get(district.getName()).equals(district.getPrice()))
+            throw new InvalidPriceException();
+        else
+            isValid = true;
+        return isValid;
     }
 
     public static double calculateM2(Room room) {

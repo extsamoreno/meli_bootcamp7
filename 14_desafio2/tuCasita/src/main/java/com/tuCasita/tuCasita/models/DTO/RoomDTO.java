@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class RoomDTO {
 
     private String roomName;
-    private double m2;
+    private Double m2;
 }

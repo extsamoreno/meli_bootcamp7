@@ -21,4 +21,10 @@ public class HandlerException {
         ErrorDTO error = new ErrorDTO("HttpMessageNotReadableException", e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(TuCasitaException.class)
+    protected ResponseEntity<ErrorDTO> tuCasitaException(TuCasitaException e) {
+        ErrorDTO error = new ErrorDTO(e.getError().getName(), e.getError().getDescription());
+        return new ResponseEntity<>(error, e.getStatus());
+    }
 }

@@ -10,7 +10,7 @@ public interface iTuCasitaService {
 
     HouseDTO calculateTotalM2(House house);
     HouseDTO calculateHouseValue(House house);
-    void validateDistrict (District district);
+    boolean validateDistrict (District district);
     Room biggestRoom(House house);
     ResponseRoomsDTO calculateRoomM2 (House house);
 }

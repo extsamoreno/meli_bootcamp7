@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HouseDTO {
 
-
     private String name;
-    private double totalM2;
+    private Double result;
 }

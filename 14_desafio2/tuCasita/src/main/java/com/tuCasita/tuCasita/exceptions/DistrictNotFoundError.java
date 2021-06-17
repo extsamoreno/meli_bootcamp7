@@ -2,14 +2,10 @@ package com.tuCasita.tuCasita.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class DistrictNotFoundError extends RuntimeException{
+public class DistrictNotFoundError extends TuCasitaException{
 
-    private ErrorDTO error;
-    private HttpStatus status;
-
-    public DistrictNotFoundError(String message, HttpStatus status) {
-        this.error = new ErrorDTO(this.getClass().getSimpleName(), message);
-        this.status = status;
+    public DistrictNotFoundError() {
+        super(new ErrorDTO("District Not Found", "No se encontro el barrio solicitado"), HttpStatus.NOT_FOUND);
     }
 
 }

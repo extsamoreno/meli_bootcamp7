@@ -5,27 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d75b3f77-2b5a-4820-8c7f-fa11d911ca9a" name="Default Changelist" comment="Testing_1 - ObtenerDiploma + Tests Unitarios">
-      <change afterPath="$PROJECT_DIR$/../../12_testing2/ObtenerDiploma 2/src/test/java/com/meli/obtenerdiploma/unit/StudentDAOTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../12_testing2/ObtenerDiploma 2/src/test/java/com/meli/obtenerdiploma/unit/StudentRepositoryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/controller/TuCasitaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/DistrictNotFoundError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/ErrorDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/HandlerException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/DTO/HouseDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/DTO/ResponseRoomsDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/DTO/RoomDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/District.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/House.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/Room.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/repository/DistrictRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/repository/iDistrictRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/service/TuCasitaService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/service/iTuCasitaService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/resources/districts.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../12_testing2/ObtenerDiploma 2/src/main/java/com/meli/obtenerdiploma/model/StudentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../12_testing2/ObtenerDiploma 2/src/main/java/com/meli/obtenerdiploma/model/StudentDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../12_testing2/ObtenerDiploma 2/src/main/java/com/meli/obtenerdiploma/model/SubjectDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../12_testing2/ObtenerDiploma 2/src/main/java/com/meli/obtenerdiploma/model/SubjectDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../12_testing2/ObtenerDiploma 2/src/main/java/com/meli/obtenerdiploma/repository/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../12_testing2/ObtenerDiploma 2/src/main/java/com/meli/obtenerdiploma/repository/StudentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/DeserializeJsonException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/FileOpenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/InvalidPriceException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/TuCasitaException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tuCasita/src/test/java/com/tuCasita/tuCasita/integration/TestTuCasitaIntegration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tuCasita/src/test/java/com/tuCasita/tuCasita/unit/TestTuCasitaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tuCasita/src/test/java/com/tuCasita/tuCasita/unit/TestTuCasitaModels.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../tuCasita/src/test/java/com/tuCasita/tuCasita/unit/TestTuCasitaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/controller/TuCasitaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/controller/TuCasitaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/DistrictNotFoundError.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/DistrictNotFoundError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/HandlerException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/exceptions/HandlerException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/DTO/HouseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/DTO/HouseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/DTO/RoomDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/DTO/RoomDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/District.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/District.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/House.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/House.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/models/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/repository/DistrictRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/repository/DistrictRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/repository/iDistrictRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/repository/iDistrictRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/service/TuCasitaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/service/TuCasitaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/service/iTuCasitaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/java/com/tuCasita/tuCasita/service/iTuCasitaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tuCasita/src/main/resources/districts.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tuCasita/src/main/resources/districts.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
