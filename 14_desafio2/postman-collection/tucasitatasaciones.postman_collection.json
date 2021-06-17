@@ -87,6 +87,24 @@
 			"response": []
 		},
 		{
+			"name": "Get All Properties",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/properties/getAllProperties",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"properties",
+						"getAllProperties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "US-0001",
 			"request": {
 				"method": "GET",
@@ -99,6 +117,63 @@
 					"path": [
 						"appraisals",
 						"getTotalSquareMeters",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0002",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/appraisals/getPropertyValue/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"appraisals",
+						"getPropertyValue",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0003",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/appraisals/getBiggestEnvironment/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"appraisals",
+						"getBiggestEnvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0004",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/appraisals/getEnvironmentsSquareMeters/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"appraisals",
+						"getEnvironmentsSquareMeters",
 						"1"
 					]
 				}
