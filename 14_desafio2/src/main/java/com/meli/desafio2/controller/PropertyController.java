@@ -24,7 +24,7 @@ public class PropertyController {
     @Autowired
     IPropertyService propertyService;
 
-    // 1- Calculate property total square meters (M2)
+    // 1- Calculate property total Area (m2)
     @GetMapping("/calcTotalM2/{propId}")
     public ResponseEntity<ResponsePropTotalM2DTO> calcTotalM2(@PathVariable Integer propId) throws PropertyIdNotFoundException {
         return new ResponseEntity<>(propertyService.calcTotalM2(propId), HttpStatus.OK);
@@ -42,7 +42,7 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getBigEnvironment(propId), HttpStatus.OK);
     }
 
-    // 4- Get a list with environments in M2 of a property
+    // 4- Get a list with environments Area of a property
     @GetMapping("/listEnvInM2/{propId}")
     public ResponseEntity<List<ResponseEnvironmentDTO>> listEnvInM2(@PathVariable Integer propId) throws PropertyIdNotFoundException {
         return new ResponseEntity<>(propertyService.listEnvironmentsM2(propId), HttpStatus.OK);

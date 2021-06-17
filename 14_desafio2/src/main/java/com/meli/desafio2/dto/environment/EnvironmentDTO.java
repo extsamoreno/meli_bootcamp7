@@ -18,11 +18,11 @@ public class EnvironmentDTO {
 
     @NotNull(message = "El ancho del ambiente no puede estar vacio")
     @DecimalMax(value = "25.0", message = "El máximo ancho permitido por ambiente es de 25 mts")
-    @DecimalMin(value = "0.0", message = "El minimo ancho permitido por ambiente es de 0 mts")
+    @DecimalMin(value = "1.0", message = "El minimo ancho permitido por ambiente es de 1 mts")
     private Double width;
 
     @NotNull(message = "El largo del ambiente no puede estar vacio")
     @DecimalMax(value = "33.0", message = "El máximo largo permitido por ambiente es de 33 mts")
-    @DecimalMin(value = "0.0", message = "El minimo largo permitido por ambiente es de 0 mts")
+    @DecimalMin(value = "1.0", message = "El minimo largo permitido por ambiente es de 1 mts")
     private Double length;
 }

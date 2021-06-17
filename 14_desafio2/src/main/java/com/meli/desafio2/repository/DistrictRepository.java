@@ -38,6 +38,8 @@ public class DistrictRepository implements IDistrictRepository {
         defaultDistricts.add(new District(1, "District 2", 180.0));
         defaultDistricts.add(new District(2, "District 3", 200.0));
         defaultDistricts.add(new District(3, "District 4", 250.0));
+        defaultDistricts.add(new District(4, "District 5", 260.0));
+        defaultDistricts.add(new District(5, "District 6", 500.0));
 
         return defaultDistricts;
     }

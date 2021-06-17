@@ -30,8 +30,8 @@ public class PropertyService implements IPropertyService {
     @Autowired
     IDistrictRepository districtRepository;
 
+    // Mapper
     private ModelMapper mapper;
-
     public PropertyService(ModelMapper mapper) {
         this.mapper = mapper;
     }
@@ -72,8 +72,8 @@ public class PropertyService implements IPropertyService {
         return new ResponseBigEnvironmentDTO(biggestEnv.get().getName(), biggestEnv.get().getWidth(), biggestEnv.get().getLength());
     }
 
-    @Override
     // Get all property environments in M2
+    @Override
     public List<ResponseEnvironmentDTO> listEnvironmentsM2(Integer propId) throws PropertyIdNotFoundException {
 
         Property prop = propertyRepository.getPropertybyId(propId);
