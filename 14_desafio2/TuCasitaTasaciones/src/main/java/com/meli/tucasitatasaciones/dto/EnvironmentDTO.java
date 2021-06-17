@@ -26,4 +26,10 @@ public class EnvironmentDTO {
     private Double length;
 
     private Double squareMeters;
+
+    public EnvironmentDTO(String name,Double width,Double length) {
+        this.name = name;
+        this.width = width;
+        this.length = length;
+    }
 }
