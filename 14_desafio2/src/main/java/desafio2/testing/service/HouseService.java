@@ -2,6 +2,7 @@ package desafio2.testing.service;
 
 import desafio2.testing.domian.EnvironmentHouse;
 import desafio2.testing.domian.House;
+import desafio2.testing.exception.DisctictException;
 import desafio2.testing.exception.HouseExistException;
 import desafio2.testing.exception.NotFoundException;
 import desafio2.testing.repository.IHouseRepository;
@@ -18,36 +19,36 @@ public class HouseService implements IHouseService{
     IHouseRepository houseRepository;
 
     @Override
-    public void newHouse(HouseDTO houseDTO) throws HouseExistException {
+    public void newHouse(HouseDTO houseDTO) throws HouseExistException, DisctictException {
         houseRepository.addHouse(houseDTO);
     }
 
     @Override
     public HouseMeterPropertyDTO meterProperty(int id) throws NotFoundException {
-        double result = calculateSquareMetersTotal(houseRepository.findUserById(id));
-        return new HouseMeterPropertyDTO(houseRepository.findUserById(id).getProp_name(), result);
+        double result = calculateSquareMetersTotal(houseRepository.findHouseById(id));
+        return new HouseMeterPropertyDTO(houseRepository.findHouseById(id).getProp_name(), result);
 
     }
 
     @Override
     public HousePriceDTO priceProperty(int id) throws NotFoundException {
-        double result = calculateSquareMetersTotal(houseRepository.findUserById(id));
-        return new HousePriceDTO(houseRepository.findUserById(id).getProp_name(), result * houseRepository.findUserById(id).getDistrict().getPrice());
+        double result = calculateSquareMetersTotal(houseRepository.findHouseById(id));
+        return new HousePriceDTO(houseRepository.findHouseById(id).getProp_name(), result * houseRepository.findHouseById(id).getDistrict().getPrice());
     }
 
     @Override
-    public HouseLargestEnvironmentDTO largestEnvironmente(int id) throws NotFoundException {
+    public HouseLargestEnvironmentDTO largestEnvironment(int id) throws NotFoundException {
          EnvironmentHouse biggest = null;
         double maxRoom = 0.0;
 
-        for (EnvironmentHouse environment : houseRepository.findUserById(id).getEnvironments()) {
+        for (EnvironmentHouse environment : houseRepository.findHouseById(id).getEnvironments()) {
             double squareFeet = environment.getLength()*environment.getWidth();
             if (biggest == null || squareFeet > maxRoom){
                 biggest = environment;
                 maxRoom = squareFeet;
             }
         }
-        return new HouseLargestEnvironmentDTO(houseRepository.findUserById(id).getProp_name() , biggest , maxRoom);
+        return new HouseLargestEnvironmentDTO(houseRepository.findHouseById(id).getProp_name() , biggest , maxRoom);
     }
 
     @Override
@@ -55,11 +56,11 @@ public class HouseService implements IHouseService{
         HouseMeterPerEnvironmentDTO house = new HouseMeterPerEnvironmentDTO();
         HashMap<String, Double> meterEnvironment = new HashMap<>();
 
-        for(EnvironmentHouse e : houseRepository.findUserById(id).getEnvironments()){
+        for(EnvironmentHouse e : houseRepository.findHouseById(id).getEnvironments()){
             meterEnvironment.put(e.getName(), e.getLength()*e.getWidth());
         }
 
-        house.setProp_name(houseRepository.findUserById(id).getProp_name());
+        house.setProp_name(houseRepository.findHouseById(id).getProp_name());
         house.setMeterPerEnvironment(meterEnvironment);
         return house;
     }

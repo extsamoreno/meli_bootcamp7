@@ -3,6 +3,7 @@ package desafio2.testing.repository;
 import desafio2.testing.domian.District;
 import desafio2.testing.domian.EnvironmentHouse;
 import desafio2.testing.domian.House;
+import desafio2.testing.exception.DisctictException;
 import desafio2.testing.exception.HouseExistException;
 import desafio2.testing.exception.NotFoundException;
 import desafio2.testing.service.dto.EnvironmentHouseDTO;
@@ -37,9 +38,9 @@ public class HouseRepository implements IHouseRepository{
         EnvironmentHouse e22 = new EnvironmentHouse("room", 5.0,6.0);
         EnvironmentHouse e32 = new EnvironmentHouse("yard", 15.0,10.0);
         List<EnvironmentHouse> eList12 = new ArrayList<>();
-        eList1.add(e12);
-        eList1.add(e22);
-        eList1.add(e32);
+        eList12.add(e12);
+        eList12.add(e22);
+        eList12.add(e32);
         houseList.add(new House(1,"house1", new District(2, "center", 500.0), eList12));
 
 
@@ -47,9 +48,9 @@ public class HouseRepository implements IHouseRepository{
         EnvironmentHouse e223 = new EnvironmentHouse("room", 5.0,7.0);
         EnvironmentHouse e323 = new EnvironmentHouse("yard", 5.0,10.0);
         List<EnvironmentHouse> eList123 = new ArrayList<>();
-        eList1.add(e123);
-        eList1.add(e223);
-        eList1.add(e323);
+        eList123.add(e123);
+        eList123.add(e223);
+        eList123.add(e323);
         houseList.add(new House(1,"house1", new District(3, "south", 400.0), eList123));
 
         return houseList;
@@ -62,8 +63,7 @@ public class HouseRepository implements IHouseRepository{
     }
 
 
-    @Override
-    public House findUserById(int houseId) throws NotFoundException {
+    public House findHouseById(int houseId) throws NotFoundException {
 
         House houseResult = null;
 
@@ -83,7 +83,7 @@ public class HouseRepository implements IHouseRepository{
     }
 
     @Override
-    public void addHouse(HouseDTO houseDTO) throws HouseExistException {
+    public void addHouse(HouseDTO houseDTO) throws HouseExistException, DisctictException {
         Optional<House> item = houseList.stream().filter(
                 h -> h.getId()== houseDTO.getId()).findFirst();
 
@@ -91,7 +91,12 @@ public class HouseRepository implements IHouseRepository{
             throw new HouseExistException();
         }
 
+        Optional<District> item2 = districtList.stream().filter(
+                d-> d.getId() == houseDTO.getDistrict().getId()).findFirst();
 
+        if(item2.isEmpty()){
+            throw new DisctictException(houseDTO.getDistrict().getId());
+        }
 
         List<EnvironmentHouse> environmentHouseList = new ArrayList<>();
         for(EnvironmentHouseDTO e : houseDTO.getEnvironments()){

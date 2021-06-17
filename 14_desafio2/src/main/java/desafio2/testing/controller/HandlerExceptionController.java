@@ -1,5 +1,6 @@
 package desafio2.testing.controller;
 
+import desafio2.testing.exception.DisctictException;
 import desafio2.testing.exception.ErrorDTO;
 import desafio2.testing.exception.HouseExistException;
 import desafio2.testing.exception.NotFoundException;
@@ -23,6 +24,11 @@ public class HandlerExceptionController {
 
     @ExceptionHandler(HouseExistException.class)
     public ResponseEntity<ErrorDTO> houseExistException(HouseExistException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(DisctictException.class)
+    public ResponseEntity<ErrorDTO> disctictException(DisctictException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 

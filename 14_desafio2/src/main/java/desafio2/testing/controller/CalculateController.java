@@ -1,5 +1,6 @@
 package desafio2.testing.controller;
 
+import desafio2.testing.exception.DisctictException;
 import desafio2.testing.exception.HouseExistException;
 import desafio2.testing.exception.NotFoundException;
 import desafio2.testing.service.IHouseService;
@@ -19,7 +20,7 @@ public class CalculateController {
     IHouseService houseService;
 
     @PostMapping("/newHouse")
-    public ResponseEntity<?> newHouse(@Valid @RequestBody HouseDTO houseDTO) throws NotFoundException, HouseExistException {
+    public ResponseEntity<?> newHouse(@Valid @RequestBody HouseDTO houseDTO) throws NotFoundException, HouseExistException, DisctictException {
         houseService.newHouse(houseDTO);
         return new ResponseEntity<>("¡Exit!",HttpStatus.OK);
     }
@@ -35,8 +36,8 @@ public class CalculateController {
     }
 
     @GetMapping("/largestEnvironmente/{id}")
-    public ResponseEntity<HouseLargestEnvironmentDTO> largestEnvironmente(@PathVariable int id) throws NotFoundException {
-        return new ResponseEntity<>(houseService.largestEnvironmente(id), HttpStatus.OK);
+    public ResponseEntity<HouseLargestEnvironmentDTO> largestEnvironment(@PathVariable int id) throws NotFoundException {
+        return new ResponseEntity<>(houseService.largestEnvironment(id), HttpStatus.OK);
     }
 
     @GetMapping("/meterPerEnvironment/{id}")
