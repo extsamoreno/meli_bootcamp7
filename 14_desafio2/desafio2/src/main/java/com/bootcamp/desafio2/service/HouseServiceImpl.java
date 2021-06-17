@@ -33,52 +33,60 @@ public class HouseServiceImpl implements IHouseService {
     @Override
     public HouseFeaturesDTO calculateFeatures(String prop_name) throws HouseNotFoundException, DistrictNotFoundException {
 
-        // Get the complete property with the name
-        House currentHouse = houseRepository.findHouseByPropName(prop_name);
-        String district_name = currentHouse.getDistrict().getDistrict_name();
+        // Validate that the prop_name exist in the Data Base
+        if( houseRepository.existsPropertyName(prop_name) ){
 
-        // Validate that the district exist in the Data Base
-        if ( districtRepository.existsDistrictInDB(district_name) ){
+            // Get the complete property with the name
+            House currentHouse = houseRepository.findHouseByPropName(prop_name);
+            String district_name = currentHouse.getDistrict().getDistrict_name();
 
-            // Variables to create the response
-            String name = currentHouse.getProp_name();
-            double totalArea = 0;
-            double biggestArea = 0;
-            EnvironmentShortDTO biggestEnvironment = null;
+            // Validate that the district exist in the Data Base
+            if ( districtRepository.existsDistrictInDB(district_name) ){
 
-            for (Environment room : currentHouse.getEnvironments()) {
-                EnvironmentShortDTO actualEnv = createEnvironmentDTO(room);
-                double actualArea = actualEnv.getEnvironment_area();
+                // Variables to create the response
+                String name = currentHouse.getProp_name();
+                double totalArea = 0;
+                double biggestArea = 0;
+                EnvironmentShortDTO biggestEnvironment = null;
 
-                totalArea += actualArea;
-                if( biggestEnvironment == null || actualArea > biggestArea ){
-                    biggestEnvironment = actualEnv;
-                    biggestArea = actualArea;
+                for (Environment room : currentHouse.getEnvironments()) {
+                    EnvironmentShortDTO actualEnv = createEnvironmentDTO(room);
+                    double actualArea = actualEnv.getEnvironment_area();
+
+                    totalArea += actualArea;
+                    if( biggestEnvironment == null || actualArea > biggestArea ){
+                        biggestEnvironment = actualEnv;
+                        biggestArea = actualArea;
+                    }
                 }
+                double price =  totalArea * currentHouse.getDistrict().getDistrict_price();
+                return new HouseFeaturesDTO(name, totalArea, price, biggestEnvironment);
             }
-            double price =  totalArea * currentHouse.getDistrict().getDistrict_price();
-            return new HouseFeaturesDTO(name, totalArea, price, biggestEnvironment);
-
+            else
+                throw new DistrictNotFoundException(district_name);
         }
         else
-            throw new DistrictNotFoundException(district_name);
+            throw new HouseNotFoundException(prop_name);
     }
 
 
     @Override
     public ArrayList<EnvironmentShortDTO> generateEnvironmentList(String prop_name) throws HouseNotFoundException {
-        // Get the complete property with the name
-        House currentHouse = houseRepository.findHouseByPropName(prop_name);
-        ArrayList<EnvironmentShortDTO> environments = new ArrayList<>();
+        // Validate that the prop_name exist in the Data Base
+        if( houseRepository.existsPropertyName(prop_name) ){
 
-        // Validate that the district exist in the Data Base
-        //districtRepository.existsDistrictInDB(currentHouse.getDistrict().getDistrict_name());
+            // Get the complete property with the name
+            House currentHouse = houseRepository.findHouseByPropName(prop_name);
+            ArrayList<EnvironmentShortDTO> environments = new ArrayList<>();
 
-        for (Environment room : currentHouse.getEnvironments()) {
-            EnvironmentShortDTO actualEnv = createEnvironmentDTO(room);
-            environments.add(actualEnv);
+            for (Environment room : currentHouse.getEnvironments()) {
+                EnvironmentShortDTO actualEnv = createEnvironmentDTO(room);
+                environments.add(actualEnv);
+            }
+            return environments;
         }
-        return environments;
+        else
+            throw new HouseNotFoundException(prop_name);
     }
 
     @Override
@@ -90,7 +98,7 @@ public class HouseServiceImpl implements IHouseService {
 
             // Validate that the district exist in the Data Base and the prop_name do not exist already
             String district_name = houseDTO.getDistrict_name();
-            if (districtRepository.existsDistrictInDB(district_name) ){
+            if ( districtRepository.existsDistrictInDB(district_name) ){
 
                 // Map HouseDTO to House
                 House newHouse = mapper.map(houseDTO, House.class);
