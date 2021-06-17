@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +41,7 @@ public class PropertyControllerTest {
 
         PropertyDTO prop = new PropertyDTO(1,"Casa Blanca", new DistrictDTO("ParkWay",700),env1,0.0,0.0);
         prop.setSquareMeters(159.0);
-        ResponseEntity<PropertyDTO> expected = new ResponseEntity<PropertyDTO>(prop, HttpStatus.OK);
+        ResponseEntity<PropertyDTO> expected = new ResponseEntity<>(prop, HttpStatus.OK);
         Integer id = 1;
         when(service.calculateSquareMeter(id)).thenReturn(prop);
 
@@ -65,7 +64,7 @@ public class PropertyControllerTest {
         env1.add(new EnvironmentDTO("Kitchen", 5,3,0));
 
         PropertyDTO prop = new PropertyDTO(1,"Casa Blanca", new DistrictDTO("ParkWay",700),env1,0.0,0.0);
-        ResponseEntity<PropertyDTO> expected = new ResponseEntity<PropertyDTO>(prop, HttpStatus.OK);
+        ResponseEntity<PropertyDTO> expected = new ResponseEntity<>(prop, HttpStatus.OK);
         prop.setPrice(111300.0);
         Integer id = 1;
         when(service.calculatePrice(id)).thenReturn(prop);
@@ -90,7 +89,7 @@ public class PropertyControllerTest {
         env3.add(new EnvironmentDTO("Kitchen", 7,4,0));
 
         PropertyDTO prop = new PropertyDTO(3,"Casa familiar", new DistrictDTO("Colina",1000),env3,301.0,0.0);
-        ResponseEntity<PropertyDTO> expected = new ResponseEntity<PropertyDTO>(prop, HttpStatus.OK);
+        ResponseEntity<PropertyDTO> expected = new ResponseEntity<>(prop, HttpStatus.OK);
         when(service.calculateBigger()).thenReturn(prop);
 
         // act
@@ -113,7 +112,7 @@ public class PropertyControllerTest {
         env1.add(new EnvironmentDTO("Kitchen", 5,3,15.0));
 
         PropertyDTO prop = new PropertyDTO(1,"Casa Blanca", new DistrictDTO("ParkWay",700),env1,0.0,0.0);
-        ResponseEntity<PropertyDTO> expected = new ResponseEntity<PropertyDTO>(prop, HttpStatus.OK);
+        ResponseEntity<PropertyDTO> expected = new ResponseEntity<>(prop, HttpStatus.OK);
         prop.setPrice(111300.0);
         Integer id = 1;
         when(service.calculateSquareMeterByEnvironment(id)).thenReturn(prop);
@@ -154,7 +153,6 @@ public class PropertyControllerTest {
         env1.add(new EnvironmentDTO("Cocina", 5,1,5.0));
 
         PropertyDTO prop = new PropertyDTO(5,"Casa prueba", new DistrictDTO("ParkWa",700),env1,0.0,0.0);
-        ResponseEntity<Void> expected = new ResponseEntity<>(HttpStatus.OK);
 
         // act & assert
         doThrow(DistrictNotFoundException.class).doNothing().when(service).addProperty(prop);

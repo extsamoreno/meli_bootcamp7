@@ -3,7 +3,6 @@ package com.example.demo.services;
 import com.example.demo.DTO.DistrictDTO;
 import com.example.demo.DTO.EnvironmentDTO;
 import com.example.demo.DTO.PropertyDTO;
-import com.example.demo.controller.PropertyController;
 import com.example.demo.exception.DistrictNotFoundException;
 import com.example.demo.repository.IPropertyRepository;
 import com.example.demo.repository.RepositoryData;
@@ -13,8 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +19,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.atLeastOnce;
 
 @ExtendWith(MockitoExtension.class)
 public class PropertyServicesTest {
@@ -90,7 +86,6 @@ public class PropertyServicesTest {
         env3.add(new EnvironmentDTO("BathRoom", 3,2,0));
         env3.add(new EnvironmentDTO("Kitchen", 7,4,0));
 
-        PropertyDTO prop = new PropertyDTO(3,"Casa familiar", new DistrictDTO("Colina",1000),env3,0.0,0.0);
         PropertyDTO expected = new PropertyDTO(3,"Casa familiar", new DistrictDTO("Colina",1000),env3,301.0,0.0);
 
         HashMap<Integer,PropertyDTO> propertyData = RepositoryData.loadProperty();
@@ -155,7 +150,7 @@ public class PropertyServicesTest {
     }
 
     @Test
-    public  void addPropertyDistrictNotFoundException() throws DistrictNotFoundException {
+    public  void addPropertyDistrictNotFoundException()  {
         // arrange
         List<EnvironmentDTO> env1 = new ArrayList<>();
         env1.add(new EnvironmentDTO("Cuarto", 10,8.5,85.0));
