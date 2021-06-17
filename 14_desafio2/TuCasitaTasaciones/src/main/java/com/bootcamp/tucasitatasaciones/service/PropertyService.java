@@ -1,9 +1,6 @@
 package com.bootcamp.tucasitatasaciones.service;
 
-import com.bootcamp.tucasitatasaciones.DTO.EnvironmentDTO;
-import com.bootcamp.tucasitatasaciones.DTO.PropertyAppraisalDTO;
-import com.bootcamp.tucasitatasaciones.DTO.PropertyDTO;
-import com.bootcamp.tucasitatasaciones.DTO.TotalSquareMetersDTO;
+import com.bootcamp.tucasitatasaciones.DTO.*;
 import com.bootcamp.tucasitatasaciones.exception.NotFoundException;
 import com.bootcamp.tucasitatasaciones.model.District;
 import com.bootcamp.tucasitatasaciones.model.Environment;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyService implements IPropertyService {
@@ -74,6 +72,19 @@ public class PropertyService implements IPropertyService {
                 .get();
 
         return mapper.map(biggestEnvironment, EnvironmentDTO.class);
+    }
+
+    @Override
+    public List<EnvironmentWithSquareMetersDTO> getAllEnvironmentsWithSquareMeters(Long propertyId) throws NotFoundException {
+        Property property = datatRepository.findPropertyById(propertyId);
+        if (property == null) {
+            throw new NotFoundException("Propiedad con id " + propertyId + " no encontrada." );
+        }
+
+        return property.getEnvironments()
+                .stream()
+                .map(env -> new EnvironmentWithSquareMetersDTO(env.getName(), calculateSquareMeters(env)))
+                .collect(Collectors.toList());
     }
 
     @Override

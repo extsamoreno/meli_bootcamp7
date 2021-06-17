@@ -1,9 +1,6 @@
 package com.bootcamp.tucasitatasaciones.controller;
 
-import com.bootcamp.tucasitatasaciones.DTO.EnvironmentDTO;
-import com.bootcamp.tucasitatasaciones.DTO.PropertyAppraisalDTO;
-import com.bootcamp.tucasitatasaciones.DTO.PropertyDTO;
-import com.bootcamp.tucasitatasaciones.DTO.TotalSquareMetersDTO;
+import com.bootcamp.tucasitatasaciones.DTO.*;
 import com.bootcamp.tucasitatasaciones.exception.NotFoundException;
 import com.bootcamp.tucasitatasaciones.model.Property;
 import com.bootcamp.tucasitatasaciones.service.IPropertyService;
@@ -43,6 +40,11 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getBiggestEnviroment(propertyId), HttpStatus.OK);
     }
 
+    @GetMapping("/list-environments/{propertyId}")
+    public ResponseEntity<List<EnvironmentWithSquareMetersDTO>> getAllEnvironmentsWithSquareMeters(@PathVariable Long propertyId)
+            throws NotFoundException {
+        return new ResponseEntity<>(propertyService.getAllEnvironmentsWithSquareMeters(propertyId), HttpStatus.OK);
+    }
 
     @GetMapping("/list")
     public ResponseEntity<List<Property>> listProperties() {
