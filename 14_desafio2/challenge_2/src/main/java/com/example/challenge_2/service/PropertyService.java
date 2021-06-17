@@ -1,8 +1,6 @@
 package com.example.challenge_2.service;
 
 import com.example.challenge_2.exception.DistrictNotFoundException;
-import com.example.challenge_2.exception.PropertyException;
-import com.example.challenge_2.exception.PropertyExceptionNotValid;
 import com.example.challenge_2.exception.PropertyNotFoundException;
 import com.example.challenge_2.models.Property;
 import com.example.challenge_2.repository.IPropertyRepository;
@@ -17,9 +15,6 @@ import java.util.List;
 public class PropertyService implements IPropertyService {
 
     @Autowired
-    PropertyMapper propertyMapper;
-
-    @Autowired
     IDistrictService districtService;
 
     @Autowired
@@ -30,7 +25,7 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public NewIdDTO createProperty(PropertyDTO property) throws DistrictNotFoundException {
-        Property propertyMapped = propertyMapper.toModel(property);
+        Property propertyMapped = PropertyMapper.toModel(property);
         isValidProperty(propertyMapped);
         propertyRepository.add(propertyMapped);
         return new NewIdDTO(propertyMapped.getId());
@@ -75,7 +70,7 @@ public class PropertyService implements IPropertyService {
 
         //validatePropertyFields(property);
     }
-
+    /*
     private void validatePropertyFields(Property property) throws PropertyException {
         try {
             Utils.validateStringEmpty(property.getName(), "name");
@@ -84,7 +79,7 @@ public class PropertyService implements IPropertyService {
         } catch (Exception e) {
             throw new PropertyExceptionNotValid(e.getMessage());
         }
-    }
+    } */
 
     private void setDistrictToProperty(Property property) throws DistrictNotFoundException {
         property.setDistrict(districtService.getDistrictByName(property.getDistrict().getName()));

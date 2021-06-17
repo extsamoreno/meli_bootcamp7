@@ -15,9 +15,6 @@ import java.util.stream.Collectors;
 @Service
 public class EnvironmentService implements IEnvironmentService{
 
-    @Autowired
-    EnviromentMapper enviromentMapper;
-
     @Override
     public double calculateSquareMeters(Environment enviroment) {
         return enviroment.getHeight() * enviroment.getWidth();
@@ -27,7 +24,7 @@ public class EnvironmentService implements IEnvironmentService{
     public EnvironmentDTO getBiggestEnviroment(List<Environment> enviroments) {
         Environment enviromentMax = enviroments.stream().max(Comparator.comparing(this::calculateSquareMeters)).get();
 
-        return enviromentMapper.toDTO(enviromentMax);
+        return EnviromentMapper.toDTO(enviromentMax);
     }
 
     @Override
