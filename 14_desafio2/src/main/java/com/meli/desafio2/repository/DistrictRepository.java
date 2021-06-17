@@ -2,12 +2,10 @@ package com.meli.desafio2.repository;
 
 import com.meli.desafio2.exception.DistrictIdNotFoundException;
 import com.meli.desafio2.model.District;
-import com.meli.desafio2.model.Property;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class DistrictRepository implements IDistrictRepository {
@@ -16,7 +14,6 @@ public class DistrictRepository implements IDistrictRepository {
     List<District> districts;
 
     public DistrictRepository() {
-
         districts = loadDistricts();
     }
 
@@ -26,14 +23,15 @@ public class DistrictRepository implements IDistrictRepository {
 
         District dist = districts.stream().filter(i -> i.getId().equals(distId)).findFirst().orElse(null);
 
-        if(dist == null){
+        // Exception: district id not found
+        if (dist == null) {
             throw new DistrictIdNotFoundException(distId);
         }
         return dist;
     }
 
     // Load default districts
-    private List<District> loadDistricts(){
+    private List<District> loadDistricts() {
 
         List<District> defaultDistricts = new ArrayList<>();
         defaultDistricts.add(new District(0, "District 1", 150.0));

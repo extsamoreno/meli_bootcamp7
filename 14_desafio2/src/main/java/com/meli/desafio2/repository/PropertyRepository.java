@@ -32,6 +32,7 @@ public class PropertyRepository implements IPropertyRepository {
 
         Property prop = properties.stream().filter(i -> i.getId().equals(propId)).findFirst().orElse(null);
 
+        // Exception: property id not found
         if(prop == null){
             throw new PropertyIdNotFoundException(propId);
         }
@@ -44,10 +45,11 @@ public class PropertyRepository implements IPropertyRepository {
 
         Property newProp = properties.stream().filter(i -> i.getId().equals(prop.getId())).findFirst().orElse(null);
 
+        // Exception: property id already exists
         if(newProp != null) {
             throw new PropertyIdAlreadyExistException(prop.getId());
         }
-
+        // Check if district exists
         districtRepository.getDistrictbyId(prop.getDistrictId());
         properties.add(prop);
     }

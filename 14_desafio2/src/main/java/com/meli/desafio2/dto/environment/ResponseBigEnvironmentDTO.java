@@ -1,4 +1,4 @@
-package com.meli.desafio2.dto;
+package com.meli.desafio2.dto.environment;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponsePropTotalM2DTO {
+public class ResponseBigEnvironmentDTO {
 
-    private Integer id;
     private String name;
-    private Double totalMeters;
+    private Double widthEnv;
+    private Double lengthEnv;
 }

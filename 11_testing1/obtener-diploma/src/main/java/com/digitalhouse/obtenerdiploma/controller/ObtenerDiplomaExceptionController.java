@@ -32,4 +32,4 @@ public class ObtenerDiplomaExceptionController {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-}
+}<

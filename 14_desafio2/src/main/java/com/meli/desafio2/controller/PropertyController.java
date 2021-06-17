@@ -1,6 +1,10 @@
 package com.meli.desafio2.controller;
 
-import com.meli.desafio2.dto.*;
+import com.meli.desafio2.dto.environment.ResponseBigEnvironmentDTO;
+import com.meli.desafio2.dto.environment.ResponseEnvironmentDTO;
+import com.meli.desafio2.dto.property.PropertyDTO;
+import com.meli.desafio2.dto.property.ResponsePropTotalM2DTO;
+import com.meli.desafio2.dto.property.ResponsePropValueDTO;
 import com.meli.desafio2.exception.DistrictIdNotFoundException;
 import com.meli.desafio2.exception.PropertyIdAlreadyExistException;
 import com.meli.desafio2.exception.PropertyIdNotFoundException;
@@ -10,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,13 +44,13 @@ public class PropertyController {
 
     // 4- Get a list with environments in M2 of a property
     @GetMapping("/listEnvInM2/{propId}")
-    public ResponseEntity<List<EnvironmentDTO>> listEnvInM2(@PathVariable Integer propId) throws PropertyIdNotFoundException {
+    public ResponseEntity<List<ResponseEnvironmentDTO>> listEnvInM2(@PathVariable Integer propId) throws PropertyIdNotFoundException {
         return new ResponseEntity<>(propertyService.listEnvironmentsM2(propId), HttpStatus.OK);
     }
 
     // Create a new property
     @PostMapping("/newProp")
-    public ResponseEntity<String> createPost(@RequestBody PropertyDTO propDTO) throws PropertyIdAlreadyExistException, DistrictIdNotFoundException {
+    public ResponseEntity<String> createPost(@Valid @RequestBody PropertyDTO propDTO) throws PropertyIdAlreadyExistException, DistrictIdNotFoundException {
         return new ResponseEntity<>(propertyService.createNewProperty(propDTO), HttpStatus.OK);
     }
 }

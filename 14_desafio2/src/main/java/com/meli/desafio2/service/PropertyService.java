@@ -1,6 +1,10 @@
 package com.meli.desafio2.service;
 
-import com.meli.desafio2.dto.*;
+import com.meli.desafio2.dto.environment.ResponseBigEnvironmentDTO;
+import com.meli.desafio2.dto.environment.ResponseEnvironmentDTO;
+import com.meli.desafio2.dto.property.PropertyDTO;
+import com.meli.desafio2.dto.property.ResponsePropTotalM2DTO;
+import com.meli.desafio2.dto.property.ResponsePropValueDTO;
 import com.meli.desafio2.exception.DistrictIdNotFoundException;
 import com.meli.desafio2.exception.PropertyIdAlreadyExistException;
 import com.meli.desafio2.exception.PropertyIdNotFoundException;
@@ -28,7 +32,7 @@ public class PropertyService implements IPropertyService {
 
     private ModelMapper mapper;
 
-    public PropertyService(ModelMapper mapper){
+    public PropertyService(ModelMapper mapper) {
         this.mapper = mapper;
     }
 
@@ -61,23 +65,23 @@ public class PropertyService implements IPropertyService {
     public ResponseBigEnvironmentDTO getBigEnvironment(Integer propId) throws PropertyIdNotFoundException {
 
         Property prop = propertyRepository.getPropertybyId(propId);
-        List<EnvironmentDTO> listEnvM2 = listEnvironmentsM2(prop.getId());
+        List<ResponseEnvironmentDTO> listEnvM2 = listEnvironmentsM2(prop.getId());
 
-        final Optional<EnvironmentDTO> biggestEnv = listEnvM2.stream().max((r1, r2) -> (int) (r1.getEnvM2() - r2.getEnvM2()));
+        final Optional<ResponseEnvironmentDTO> biggestEnv = listEnvM2.stream().max((r1, r2) -> (int) (r1.getEnvM2() - r2.getEnvM2()));
 
         return new ResponseBigEnvironmentDTO(biggestEnv.get().getName(), biggestEnv.get().getWidth(), biggestEnv.get().getLength());
     }
 
     @Override
     // Get all property environments in M2
-    public List<EnvironmentDTO> listEnvironmentsM2(Integer propId) throws PropertyIdNotFoundException {
+    public List<ResponseEnvironmentDTO> listEnvironmentsM2(Integer propId) throws PropertyIdNotFoundException {
 
         Property prop = propertyRepository.getPropertybyId(propId);
-        List<EnvironmentDTO> listEnvDTO = new ArrayList();
+        List<ResponseEnvironmentDTO> listEnvDTO = new ArrayList();
 
         for (Environment env : prop.getEnvironments()) {
 
-            EnvironmentDTO envDTO = mapper.map(env, EnvironmentDTO.class);
+            ResponseEnvironmentDTO envDTO = mapper.map(env, ResponseEnvironmentDTO.class);
             envDTO.setEnvM2(calcEnvironmentM2(env));
 
             listEnvDTO.add(envDTO);
