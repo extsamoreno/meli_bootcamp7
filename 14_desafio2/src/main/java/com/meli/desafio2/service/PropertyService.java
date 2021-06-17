@@ -3,7 +3,7 @@ package com.meli.desafio2.service;
 import com.meli.desafio2.dto.environment.ResponseBigEnvironmentDTO;
 import com.meli.desafio2.dto.environment.ResponseEnvironmentDTO;
 import com.meli.desafio2.dto.property.PropertyDTO;
-import com.meli.desafio2.dto.property.ResponsePropTotalM2DTO;
+import com.meli.desafio2.dto.property.ResponsePropTotalAreaDTO;
 import com.meli.desafio2.dto.property.ResponsePropValueDTO;
 import com.meli.desafio2.exception.DistrictIdNotFoundException;
 import com.meli.desafio2.exception.PropertyIdAlreadyExistException;
@@ -30,23 +30,20 @@ public class PropertyService implements IPropertyService {
     @Autowired
     IDistrictRepository districtRepository;
 
-    // Mapper
-    private ModelMapper mapper;
-    public PropertyService(ModelMapper mapper) {
-        this.mapper = mapper;
-    }
+    @Autowired
+    ModelMapper mapper;
 
-    // Calculate property total M2
+    // Calculate property Area (M2)
     @Override
-    public ResponsePropTotalM2DTO calcTotalM2(Integer propId) throws PropertyIdNotFoundException {
+    public ResponsePropTotalAreaDTO calcTotalArea(Integer propId) throws PropertyIdNotFoundException {
 
         Property prop = propertyRepository.getPropertybyId(propId);
-        double totalM2 = 0;
+        double totalArea = 0;
 
         for (Environment env : prop.getEnvironments()) {
-            totalM2 += calcEnvironmentM2(env);
+            totalArea += calcEnvironmentArea(env);
         }
-        return new ResponsePropTotalM2DTO(prop.getId(), prop.getName(), totalM2);
+        return new ResponsePropTotalAreaDTO(prop.getId(), prop.getName(), totalArea);
     }
 
     // Calculate property value ($$)
@@ -56,7 +53,7 @@ public class PropertyService implements IPropertyService {
         Property prop = propertyRepository.getPropertybyId(propId);
         District dist = districtRepository.getDistrictbyId(prop.getDistrictId());
 
-        double propValue = calcTotalM2(prop.getId()).getTotalMeters() * dist.getPrice();
+        double propValue = calcTotalArea(prop.getId()).getTotalArea() * dist.getPrice();
         return new ResponsePropValueDTO(prop.getId(), prop.getName(), propValue);
     }
 
@@ -65,16 +62,16 @@ public class PropertyService implements IPropertyService {
     public ResponseBigEnvironmentDTO getBigEnvironment(Integer propId) throws PropertyIdNotFoundException {
 
         Property prop = propertyRepository.getPropertybyId(propId);
-        List<ResponseEnvironmentDTO> listEnvM2 = listEnvironmentsM2(prop.getId());
+        List<ResponseEnvironmentDTO> listEnvArea = listEnvironmentsArea(prop.getId());
 
-        final Optional<ResponseEnvironmentDTO> biggestEnv = listEnvM2.stream().max((r1, r2) -> (int) (r1.getEnvM2() - r2.getEnvM2()));
+        final Optional<ResponseEnvironmentDTO> biggestEnv = listEnvArea.stream().max((r1, r2) -> (int) (r1.getEnvArea() - r2.getEnvArea()));
 
         return new ResponseBigEnvironmentDTO(biggestEnv.get().getName(), biggestEnv.get().getWidth(), biggestEnv.get().getLength());
     }
 
-    // Get all property environments in M2
+    // Get all property environments with Area
     @Override
-    public List<ResponseEnvironmentDTO> listEnvironmentsM2(Integer propId) throws PropertyIdNotFoundException {
+    public List<ResponseEnvironmentDTO> listEnvironmentsArea(Integer propId) throws PropertyIdNotFoundException {
 
         Property prop = propertyRepository.getPropertybyId(propId);
         List<ResponseEnvironmentDTO> listEnvDTO = new ArrayList();
@@ -82,7 +79,7 @@ public class PropertyService implements IPropertyService {
         for (Environment env : prop.getEnvironments()) {
 
             ResponseEnvironmentDTO envDTO = mapper.map(env, ResponseEnvironmentDTO.class);
-            envDTO.setEnvM2(calcEnvironmentM2(env));
+            envDTO.setEnvArea(calcEnvironmentArea(env));
 
             listEnvDTO.add(envDTO);
         }
@@ -97,8 +94,8 @@ public class PropertyService implements IPropertyService {
         return "Property successfully created";
     }
 
-    // Calculate environment M2
-    private Double calcEnvironmentM2(Environment env) {
+    // Calculate environment Area (M2)
+    private Double calcEnvironmentArea(Environment env) {
         return env.getLength() * env.getWidth();
     }
 }

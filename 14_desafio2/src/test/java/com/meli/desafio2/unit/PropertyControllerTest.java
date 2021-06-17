@@ -4,12 +4,11 @@ import com.meli.desafio2.controller.PropertyController;
 import com.meli.desafio2.dto.environment.ResponseBigEnvironmentDTO;
 import com.meli.desafio2.dto.environment.ResponseEnvironmentDTO;
 import com.meli.desafio2.dto.property.PropertyDTO;
-import com.meli.desafio2.dto.property.ResponsePropTotalM2DTO;
+import com.meli.desafio2.dto.property.ResponsePropTotalAreaDTO;
 import com.meli.desafio2.dto.property.ResponsePropValueDTO;
 import com.meli.desafio2.exception.DistrictIdNotFoundException;
 import com.meli.desafio2.exception.PropertyIdAlreadyExistException;
 import com.meli.desafio2.exception.PropertyIdNotFoundException;
-import com.meli.desafio2.model.Property;
 import com.meli.desafio2.service.IPropertyService;
 import com.meli.desafio2.util.TestUtilsGen;
 import org.apache.commons.collections4.CollectionUtils;
@@ -41,14 +40,14 @@ public class PropertyControllerTest {
 
         // Arrange
         int propId = 0;
-        ResponsePropTotalM2DTO prop = TestUtilsGen.getResponsePropTotalM2DTO(propId);
-        when(propertyService.calcTotalM2(propId)).thenReturn(prop);
+        ResponsePropTotalAreaDTO prop = TestUtilsGen.getResponsePropTotalAreaDTO(propId);
+        when(propertyService.calcTotalArea(propId)).thenReturn(prop);
 
         // Act
-        ResponseEntity<ResponsePropTotalM2DTO> responseProp = propertyController.calcTotalM2(propId);
+        ResponseEntity<ResponsePropTotalAreaDTO> responseProp = propertyController.calcTotalArea(propId);
 
         // Assert
-        verify(propertyService, atLeastOnce()).calcTotalM2(propId);
+        verify(propertyService, atLeastOnce()).calcTotalArea(propId);
         Assertions.assertEquals(prop, responseProp.getBody());
         Assertions.assertEquals(HttpStatus.OK, responseProp.getStatusCode());
     }
@@ -95,13 +94,13 @@ public class PropertyControllerTest {
         // Arrange
         int propId = 0;
         List<ResponseEnvironmentDTO> listEnv = TestUtilsGen.getListResponseEnvironmentDTO();
-        when(propertyService.listEnvironmentsM2(propId)).thenReturn(listEnv);
+        when(propertyService.listEnvironmentsArea(propId)).thenReturn(listEnv);
 
         // Act
-        ResponseEntity<List<ResponseEnvironmentDTO>> responseListEnv = propertyController.listEnvInM2(propId);
+        ResponseEntity<List<ResponseEnvironmentDTO>> responseListEnv = propertyController.listEnvArea(propId);
 
         // Assert
-        verify(propertyService, atLeastOnce()).listEnvironmentsM2(propId);
+        verify(propertyService, atLeastOnce()).listEnvironmentsArea(propId);
         Assertions.assertTrue(CollectionUtils.isEqualCollection(listEnv, responseListEnv.getBody()));
         Assertions.assertEquals(HttpStatus.OK, responseListEnv.getStatusCode());
     }
@@ -113,7 +112,7 @@ public class PropertyControllerTest {
         // Arrange
         int propId = 5;
         String message = "Property successfully created";
-        PropertyDTO prop = TestUtilsGen.getPropWithId(0);
+        PropertyDTO prop = TestUtilsGen.getPropDTOWithId(0);
         when(propertyService.createNewProperty(prop)).thenReturn(message);
 
         // Act

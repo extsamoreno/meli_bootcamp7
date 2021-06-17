@@ -3,7 +3,7 @@ package com.meli.desafio2.controller;
 import com.meli.desafio2.dto.environment.ResponseBigEnvironmentDTO;
 import com.meli.desafio2.dto.environment.ResponseEnvironmentDTO;
 import com.meli.desafio2.dto.property.PropertyDTO;
-import com.meli.desafio2.dto.property.ResponsePropTotalM2DTO;
+import com.meli.desafio2.dto.property.ResponsePropTotalAreaDTO;
 import com.meli.desafio2.dto.property.ResponsePropValueDTO;
 import com.meli.desafio2.exception.DistrictIdNotFoundException;
 import com.meli.desafio2.exception.PropertyIdAlreadyExistException;
@@ -26,8 +26,8 @@ public class PropertyController {
 
     // 1- Calculate property total Area (m2)
     @GetMapping("/calcTotalM2/{propId}")
-    public ResponseEntity<ResponsePropTotalM2DTO> calcTotalM2(@PathVariable Integer propId) throws PropertyIdNotFoundException {
-        return new ResponseEntity<>(propertyService.calcTotalM2(propId), HttpStatus.OK);
+    public ResponseEntity<ResponsePropTotalAreaDTO> calcTotalArea(@PathVariable Integer propId) throws PropertyIdNotFoundException {
+        return new ResponseEntity<>(propertyService.calcTotalArea(propId), HttpStatus.OK);
     }
 
     // 2- Calculate property value ($$)
@@ -44,8 +44,8 @@ public class PropertyController {
 
     // 4- Get a list with environments Area of a property
     @GetMapping("/listEnvInM2/{propId}")
-    public ResponseEntity<List<ResponseEnvironmentDTO>> listEnvInM2(@PathVariable Integer propId) throws PropertyIdNotFoundException {
-        return new ResponseEntity<>(propertyService.listEnvironmentsM2(propId), HttpStatus.OK);
+    public ResponseEntity<List<ResponseEnvironmentDTO>> listEnvArea(@PathVariable Integer propId) throws PropertyIdNotFoundException {
+        return new ResponseEntity<>(propertyService.listEnvironmentsArea(propId), HttpStatus.OK);
     }
 
     // Create a new property

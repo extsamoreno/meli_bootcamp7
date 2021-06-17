@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponsePropTotalM2DTO {
+public class ResponsePropTotalAreaDTO {
 
     private Integer id;
     private String name;
-    private Double totalMeters;
+    private Double totalArea;
 }

@@ -12,5 +12,5 @@ public class ResponseEnvironmentDTO {
     private String name;
     private Double width;
     private Double length;
-    private Double envM2;
+    private Double envArea;
 }
