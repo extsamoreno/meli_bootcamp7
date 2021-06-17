@@ -40,7 +40,7 @@ public class PropertyController {
     }
 
     @GetMapping("/{propertyId}/rooms/area")
-    public ResponseEntity<List<RoomAreaDTO>> getSquareMetersPerRoom(@PathVariable int propertyId) throws PropertyIdNotValidException {
+    public ResponseEntity<List<RoomAreaDTO>> getAreaPerRoom(@PathVariable int propertyId) throws PropertyIdNotValidException {
         return new ResponseEntity<>(iPropertyService.getRoomsAreas(propertyId), HttpStatus.OK);
     }
 }

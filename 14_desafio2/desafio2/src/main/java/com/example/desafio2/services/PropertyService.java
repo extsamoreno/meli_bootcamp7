@@ -40,7 +40,7 @@ public class PropertyService implements IPropertyService {
         if(property == null)
             throw new PropertyIdNotValidException(propertyId);
 
-        return PropertyUtil.calculateArea(property);
+        return property.getArea();
     }
 
     @Override

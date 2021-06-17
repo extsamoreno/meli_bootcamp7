@@ -24,4 +24,12 @@ public class Property {
                 ", roomList=" + roomList.size() +
                 '}';
     }
+
+    public double getArea(){
+        double sqMeters = 0;
+        for (Room room : this.getRoomList()) {
+            sqMeters += room.getLength() * room.getWidth();
+        }
+        return sqMeters;
+    }
 }
