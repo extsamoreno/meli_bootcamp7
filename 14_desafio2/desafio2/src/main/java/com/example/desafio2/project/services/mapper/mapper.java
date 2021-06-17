@@ -13,7 +13,7 @@ public class mapper {
         return new PropertyDto(property.getProp_name(), property.getProp_district_name(), property.getProp_environment());
     }
 
-    public static Property dtoToProperty (PropertyDto propertyDto){
+    public static Property propertyDtoToProperty(PropertyDto propertyDto){
         return new Property(propertyDto.getProp_name(),propertyDto.getProp_district_name(),propertyDto.getProp_environment());
     }
 

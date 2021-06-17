@@ -78,7 +78,7 @@ public class PropertyService implements IPropertyService{
 
     @Override
     public void addNewProperty(PropertyDto propertyDto) throws PropertyAlreadyExistsException, PropertyDistrictNameNotFoundException {
-        Property property = mapper.dtoToProperty(propertyDto);
+        Property property = mapper.propertyDtoToProperty(propertyDto);
         iPropertyRepository.saveProperty(property);
     }
 

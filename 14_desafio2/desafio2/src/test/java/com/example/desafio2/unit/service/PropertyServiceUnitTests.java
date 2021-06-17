@@ -4,12 +4,14 @@ import com.example.desafio2.TestUtils.TestUtils;
 import com.example.desafio2.project.exceptions.PropertyAlreadyExistsException;
 import com.example.desafio2.project.exceptions.PropertyDistrictNameNotFoundException;
 import com.example.desafio2.project.exceptions.PropertyNameNotFoundException;
+import com.example.desafio2.project.models.District;
 import com.example.desafio2.project.models.Environment;
 import com.example.desafio2.project.models.Property;
 import com.example.desafio2.project.repository.IPropertyRepository;
 import com.example.desafio2.project.services.Dto.PropertyDto;
 import com.example.desafio2.project.services.Dto.PropertyEnvironmentDto;
 import com.example.desafio2.project.services.Dto.PropertyTotalSquareMetersDto;
+import com.example.desafio2.project.services.Dto.PropertyValueDto;
 import com.example.desafio2.project.services.IPropertyService;
 import com.example.desafio2.project.services.PropertyService;
 import com.example.desafio2.project.services.mapper.mapper;
@@ -86,6 +88,27 @@ public class PropertyServiceUnitTests {
         Assertions.assertEquals(response.get(0),expected1);
         Assertions.assertEquals(response.get(1),expected2);
         Assertions.assertEquals(response.get(2),expected3);
+    }
+
+    @Test
+    public void getPropertyValue() throws PropertyNameNotFoundException, PropertyDistrictNameNotFoundException {
+        //Arrange
+        String propertyName = "Casa1";
+        Double expected = 300000.00;
+
+        Property property = TestUtils.getNewProperty(propertyName);
+        District district = new District("Villa Herrero",1000.0);
+
+        when(iPropertyRepository.findPropertyByName(propertyName)).thenReturn(property);
+        when(iPropertyRepository.findDistrictByName(property.getProp_district_name())).thenReturn(district);
+
+        //Act
+        PropertyValueDto response = this.propertyService.getPropertyValue(propertyName);
+
+        //Asserts
+        verify(iPropertyRepository,atLeastOnce()).findPropertyByName(propertyName);
+        verify(iPropertyRepository,atLeastOnce()).findDistrictByName(property.getProp_district_name());
+        Assertions.assertEquals(response.getProperty_value(), expected);
     }
 
 }
