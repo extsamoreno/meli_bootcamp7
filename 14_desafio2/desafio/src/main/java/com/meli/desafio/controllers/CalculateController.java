@@ -5,6 +5,7 @@ import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.HouseDTO;
+import com.meli.desafio.models.dto.RoomResponseDTO;
 import com.meli.desafio.services.ICalculateService;
 import com.meli.desafio.utils.URLBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping("/calculate")
@@ -45,5 +47,10 @@ public class CalculateController {
     @GetMapping("/house/{id}/biggerRoom")
     public ResponseEntity<Room> getBiggerRoom(@PathVariable Integer id) throws HouseNotFoundException {
         return new ResponseEntity<>(calculateService.getBiggerRoom(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/house/{id}/mettersByRoom")
+    public ResponseEntity<List<RoomResponseDTO>> getmettersByRoom(@PathVariable Integer id) throws HouseNotFoundException {
+        return new ResponseEntity<>(calculateService.getmetterByRoom(id), HttpStatus.OK);
     }
 }

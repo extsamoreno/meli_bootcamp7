@@ -11,6 +11,7 @@ import com.meli.desafio.models.House;
 import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.DistrictDTO;
 import com.meli.desafio.models.dto.HouseDTO;
+import com.meli.desafio.models.dto.RoomResponseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;
 import com.meli.desafio.utils.Mappers;
 import com.meli.desafio.utils.TestUtils;
@@ -23,6 +24,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -182,6 +186,25 @@ public class CalculateControllerIntegrationTests {
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/biggerRoom", houseId))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().string(expected))
+                .andReturn();
+    }
+
+    @Test
+    public void getHouseMettersByRoomHappyPath() throws Exception{
+        House house = TestUtils.getTotalHouse("House");
+        Integer houseId = house.getId();
+        when(calculateRepository.getById(houseId)).thenReturn(house);
+        List<RoomResponseDTO> roomsExpected = new ArrayList<>();
+        for(Room r: house.getRooms()){
+            roomsExpected.add(Mappers.roomToResponseDTO(r, r.getLength() * r.getWidth()));
+        }
+        String expected = writer.writeValueAsString(roomsExpected);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/mettersByRoom", houseId))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().string(expected))

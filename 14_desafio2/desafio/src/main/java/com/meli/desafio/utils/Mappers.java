@@ -2,8 +2,10 @@ package com.meli.desafio.utils;
 
 import com.meli.desafio.models.District;
 import com.meli.desafio.models.House;
+import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.DistrictDTO;
 import com.meli.desafio.models.dto.HouseDTO;
+import com.meli.desafio.models.dto.RoomResponseDTO;
 
 public class Mappers {
 
@@ -26,6 +28,13 @@ public class Mappers {
                 .name(houseDTO.getName())
                 .districtId(districtId)
                 .rooms(houseDTO.getRooms())
+                .build();
+    }
+
+    public static RoomResponseDTO roomToResponseDTO(Room r, double metters) {
+        return RoomResponseDTO.builder()
+                .name(r.getName())
+                .totalMeters(metters)
                 .build();
     }
 }

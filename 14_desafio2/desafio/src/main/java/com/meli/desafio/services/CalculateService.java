@@ -7,11 +7,13 @@ import com.meli.desafio.models.District;
 import com.meli.desafio.models.House;
 import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.HouseDTO;
+import com.meli.desafio.models.dto.RoomResponseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;
 import com.meli.desafio.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,6 +51,17 @@ public class CalculateService implements ICalculateService{
     public Room getBiggerRoom(Integer id) throws HouseNotFoundException {
         List<Room> rooms = calculateRepository.getById(id).getRooms();
         return biggerRoom(rooms);
+    }
+
+    @Override
+    public List<RoomResponseDTO> getmetterByRoom(Integer id) throws HouseNotFoundException {
+        House house = calculateRepository.getById(id);
+        List<RoomResponseDTO> roomsResponse = new ArrayList<>();
+        for(Room r: house.getRooms()){
+            roomsResponse.add(Mappers.roomToResponseDTO(r, this.calculateSquareMeters(r)));
+        }
+
+        return roomsResponse;
     }
 
     private Room biggerRoom(List<Room> rooms) {
