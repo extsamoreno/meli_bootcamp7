@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "512273fd-fb22-49e7-a26f-52ee11ae1435",
+		"name": "TestingChallenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Total Square Meters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luxury house\",\r\n    \"district\":{\r\n        \"name\": \"Riverside\",\r\n        \"price\": 123.5\r\n    },\r\n    \"environments\":[\r\n        {\r\n            \"name\":\"Bathroom\",\r\n            \"width\":5,\r\n            \"length\":10\r\n        },\r\n        {\r\n            \"name\":\"Kitchen\",\r\n            \"width\":10,\r\n            \"length\":10\r\n        },\r\n        {\r\n            \"name\":\"Livingroom\",\r\n            \"width\":30,\r\n            \"length\":5\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/properties/totalsquaremeters",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"totalsquaremeters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total Value",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luxury house\",\r\n    \"district\":{\r\n        \"name\": \"Riverside\",\r\n        \"price\": 123.5\r\n    },\r\n    \"environments\":[\r\n        {\r\n            \"name\":\"Bathroom\",\r\n            \"width\":5,\r\n            \"length\":10\r\n        },\r\n        {\r\n            \"name\":\"Kitchen\",\r\n            \"width\":10,\r\n            \"length\":10\r\n        },\r\n        {\r\n            \"name\":\"Livingroom\",\r\n            \"width\":30,\r\n            \"length\":5\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/properties/totalvalue",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"totalvalue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Biggest Environment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luxury house\",\r\n    \"district\":{\r\n        \"name\": \"Riverside\",\r\n        \"price\": 123.5\r\n    },\r\n    \"environments\":[\r\n        {\r\n            \"name\":\"Bathroom\",\r\n            \"width\":5,\r\n            \"length\":10\r\n        },\r\n        {\r\n            \"name\":\"Kitchen\",\r\n            \"width\":10,\r\n            \"length\":10\r\n        },\r\n        {\r\n            \"name\":\"Livingroom\",\r\n            \"width\":30,\r\n            \"length\":5\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/properties/biggestenvironment",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"biggestenvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total Square Meters By Environment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luxury house\",\r\n    \"district\":{\r\n        \"name\": \"Riverside\",\r\n        \"price\": 123.5\r\n    },\r\n    \"environments\":[\r\n        {\r\n            \"name\":\"Bathroom\",\r\n            \"width\":5,\r\n            \"length\":10\r\n        },\r\n        {\r\n            \"name\":\"Kitchen\",\r\n            \"width\":10,\r\n            \"length\":10\r\n        },\r\n        {\r\n            \"name\":\"Livingroom\",\r\n            \"width\":30,\r\n            \"length\":5\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/properties/totalsquaremetersbyenvironment",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"totalsquaremetersbyenvironment"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
