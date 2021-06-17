@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Util {
     public static PropRequest getPropRequest(){
-        return new PropRequest("Casa1", new District("Villa Prado"),
-                List.of(new Environment("Cocina", 4, 3), new Environment("Habitacion", 6, 5)));
+        return new PropRequest("House1", new District("Villa Prado"),
+                List.of(new Environment("Kitchen", 4, 3), new Environment("Habitation", 6, 5)));
     }
 }

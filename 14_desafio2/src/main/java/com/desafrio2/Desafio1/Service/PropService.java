@@ -1,20 +1,13 @@
 package com.desafrio2.Desafio1.Service;
 
 import com.desafrio2.Desafio1.Exception.DistrictNotExist;
-import com.desafrio2.Desafio1.Model.DTO.EnvironmentDTO;
-import com.desafrio2.Desafio1.Model.DTO.PropDTOTMeters;
-import com.desafrio2.Desafio1.Model.DTO.PropDTOTPrice;
-import com.desafrio2.Desafio1.Model.DTO.PropRequest;
+import com.desafrio2.Desafio1.Model.DTO.*;
 import com.desafrio2.Desafio1.Model.District;
 import com.desafrio2.Desafio1.Model.Environment;
 import com.desafrio2.Desafio1.Model.Mapper.IPropMapper;
-import com.desafrio2.Desafio1.Model.Prop;
 import com.desafrio2.Desafio1.Repository.IPropRepository;
-import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PropService implements IPropService {
@@ -26,7 +19,7 @@ public class PropService implements IPropService {
     IPropMapper propMapper;
 
     @Override
-    public PropDTOTMeters totalSquartMeters(PropRequest prop) {
+    public PropDTOTMeters totalSquareMeters(PropRequest prop) {
         return propMapper.toDTOMeters(prop, totalArea(prop));
     }
 
@@ -37,14 +30,14 @@ public class PropService implements IPropService {
         return propMapper.toDTOPrice(prop, totalPrice);
     }
 
-    @Override
-    public Environment bigEnviroment(PropRequest prop) {
-        return null;
+    public EnvironmentDTO bigEnvironment(PropRequest prop) {
+        Environment maxEnv = prop.getEnvironments().stream().max((e1, e2)-> (int) (e1.area() - e2.area())).get();
+        return propMapper.toEnvDTO(maxEnv);
     }
 
     @Override
-    public List<EnvironmentDTO> meterByEnviaroment(PropRequest prop) {
-        return null;
+    public PropDTOTMeterByEnvironment meterByEnvironment(PropRequest prop) {
+        return propMapper.toPropByMeter(prop);
     }
 
     private double totalArea(PropRequest prop){
