@@ -3,10 +3,12 @@ package com.example.tucasita.service;
 import com.example.tucasita.domain.District;
 import com.example.tucasita.domain.House;
 import com.example.tucasita.domain.Room;
+import com.example.tucasita.dto.DistrictDTO;
 import com.example.tucasita.dto.HouseDTO;
 import com.example.tucasita.dto.RoomDTO;
 import com.example.tucasita.dto.response.*;
 import com.example.tucasita.exception.NotFoundException;
+import com.example.tucasita.exception.PriceException;
 import com.example.tucasita.repository.IDistrictRepository;
 import com.example.tucasita.repository.IHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +51,11 @@ public class HouseService implements IHouseService {
     }
 
     private House getHouseFromDTO(HouseDTO houseDTO) {
-        District district = searchDistrictByName(houseDTO.getDistrict().getName());
+        District district = searchDistrict(houseDTO.getDistrict());
         List<Room> rooms = getRoomsFromDTO(houseDTO.getRooms());
         return new House(houseDTO.getName(), district, rooms);
     }
+
 
     private List<Room> getRoomsFromDTO(List<RoomDTO> rooms) {
         return rooms.stream().map(this::getRoomFromDTO).collect(Collectors.toList());
@@ -62,8 +65,10 @@ public class HouseService implements IHouseService {
         return new Room(r.getName(), r.getWidth(), r.getLength());
     }
 
-    private District searchDistrictByName(String name) {
-        return districtRepository.findByName(name).orElseThrow(() -> new NotFoundException("District"));
+    private District searchDistrict(DistrictDTO district) {
+        District repoDistrict = districtRepository.findByName(district.getName()).orElseThrow(() -> new NotFoundException("District"));
+        if (repoDistrict.getPrice() != district.getPrice()) throw new PriceException();
+        return repoDistrict;
     }
 
     private HouseWithTotalMeters toHouseWithMeters(House house) {
