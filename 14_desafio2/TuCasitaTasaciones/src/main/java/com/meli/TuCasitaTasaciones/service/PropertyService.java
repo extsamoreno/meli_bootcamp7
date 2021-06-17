@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,13 +33,16 @@ public class PropertyService implements IPropertyService {
     @Override
     public double calculatePrice(HouseDTO houseDTO) {
         String district = houseDTO.getDistrict();
-        double price = iPropertyDAO.getDistrictList().get(district);
+
+        HashMap<String, Double> districtsList = iPropertyDAO.getDistrictList();
+
+        double price = districtsList.get(district);
 
         return calculateArea(houseDTO.getEnvironments()) * price;
     }
 
     @Override
-    public EnvironmentAreaResponseDTO environmentsBigger(List<EnvironmentDTO> environmentDTOS) {
+    public EnvironmentAreaResponseDTO environmentsBiggest(List<EnvironmentDTO> environmentDTOS) {
         Optional<EnvironmentDTO> bigger = environmentDTOS.stream()
                 .max(Comparator.comparing(o -> o.getWidth() * o.getLength()));
 

@@ -18,7 +18,7 @@ public interface IPropertyService {
 
     double calculateArea(List<EnvironmentDTO> environmentDTOS);
     double calculatePrice(HouseDTO houseDTO);
-    EnvironmentAreaResponseDTO environmentsBigger(List<EnvironmentDTO> environmentDTOS);
+    EnvironmentAreaResponseDTO environmentsBiggest(List<EnvironmentDTO> environmentDTOS);
     List<EnvironmentAreaResponseDTO> environmentArea(List<EnvironmentDTO> environmentDTOS);
 
      void addProperty(PropertyDTO propertyDTO);

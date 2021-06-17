@@ -49,9 +49,9 @@ public class PropertyController {
         return new ResponseEntity<>(service.calculatePrice(houseDTO), HttpStatus.OK);
     }
 
-    @PostMapping("Property/environmentsBigger")
-    public ResponseEntity<EnvironmentAreaResponseDTO> environmentsBigger( @Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
-        return new ResponseEntity<>(service.environmentsBigger(environmentDTOS), HttpStatus.OK);
+    @PostMapping("Property/environmentsBiggest")
+    public ResponseEntity<EnvironmentAreaResponseDTO> environmentsBiggest( @Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
+        return new ResponseEntity<>(service.environmentsBiggest(environmentDTOS), HttpStatus.OK);
     }
 
     @PostMapping("Property/environmentArea")

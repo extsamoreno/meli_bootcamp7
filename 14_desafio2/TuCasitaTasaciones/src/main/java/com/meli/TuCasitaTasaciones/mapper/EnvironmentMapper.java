@@ -13,4 +13,13 @@ public class EnvironmentMapper {
 
         return eResponse;
     }
+
+    public static EnvironmentDTO ToEnvironmentDTO(EnvironmentAreaResponseDTO e){
+        EnvironmentDTO eResponse = new EnvironmentDTO();
+        eResponse.setEnvironmentName(e.getEnvironmentName());
+        eResponse.setLength(e.getLength());
+        eResponse.setWidth(e.getWidth());
+
+        return eResponse;
+    }
 }
