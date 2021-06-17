@@ -15,13 +15,13 @@ import java.util.ArrayList;
 @Data
 public class PropertyDTO {
 
-    @NotEmpty(message = "The name of the property it cant be empty.")
+    @NotBlank(message = "The name of the property it cant be empty.")
     @Pattern(regexp="^[A-Z].*",message="The name of the property should start with capital letter.")
-    @Size(max = 50, message = "The length of the name no can exceed 30 characters.")
+    @Size(max = 30, message = "The length of the name no can exceed 30 characters.")
     private String name;
 
     @NotEmpty(message = "The name of the district it cant be empty.")
-    @Size(max = 30, message = "The length of the district name no can exceed 30 characters.")
+    @Size(max = 45, message = "The length of the district name no can exceed 45 characters.")
     private String district;
     private ArrayList<@Valid EnvironmentDTO> environments;
 }

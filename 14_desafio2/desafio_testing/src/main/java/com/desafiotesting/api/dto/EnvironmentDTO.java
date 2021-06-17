@@ -12,7 +12,7 @@ public class EnvironmentDTO {
 
     @NotEmpty(message = "The name of the environment it cant be empty.")
     @Pattern(regexp="^[A-Z].*",message="The name of the environment should start with capital letter.")
-    @Size(max = 50, message = "The length of the name no can exceed 30 characters.")
+    @Size(max = 30, message = "The length of the name no can exceed 30 characters.")
     private String name;
 
     @NotNull(message = "The width of the environment it cant be empty.")

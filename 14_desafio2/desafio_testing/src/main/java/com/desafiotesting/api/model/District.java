@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 public class District {
 
     @NotEmpty(message = "The name of the district cant be empty.")
-    @Size(max = 30, message = "The length of the district name no can exceed 30 characters.")
+    @Size(max = 45, message = "The length of the district name no can exceed 45 characters.")
     private String name;
 
     @NotNull(message = "The price of a neighborhood cant be empty.")
