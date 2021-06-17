@@ -1,0 +1,14 @@
+[
+  {
+  "district_name" : "Villa Herrero",
+  "district_price" : 1000.0
+  },
+  {
+    "district_name" : "La perlita",
+    "district_price" : 700.0
+  },
+  {
+    "district_name" : "Las Catonas",
+    "district_price" : 400.0
+  }
+]

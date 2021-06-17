@@ -3,6 +3,7 @@ package com.meli.obtenerdiploma.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.meli.obtenerdiploma.exception.StudentNotFoundException;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
@@ -76,6 +77,21 @@ public class StudentControllerIntegrationTest {
     }
 
     @Test
+    public void getByIdThrowStudentNotFoundException() throws Exception {
+        Mockito.when(iStudentDAO.findById(1L)).thenThrow(new StudentNotFoundException(1L));
+
+        String expectedDescription = "El alumno con Id 1 no se encuentra registrado";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}", 1))
+                .andDo( print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(expectedDescription));
+
+    }
+
+
+    @Test
     public void registerStudentHappyPath() throws Exception {
         Long studentId = 1L;
         SubjectDTO subjectOne = new SubjectDTO("Matematica", 10d);
@@ -106,7 +122,7 @@ public class StudentControllerIntegrationTest {
     }
 
     @Test
-    public void registerStudentTest() throws Exception {
+    public void modifyStudentTest() throws Exception {
         Long studentId = 1L;
         SubjectDTO subjectOne = new SubjectDTO("Matematica", 10d);
         SubjectDTO subjectTwo = new SubjectDTO("Fisica", 10d);
@@ -193,5 +209,25 @@ public class StudentControllerIntegrationTest {
                 .andReturn();
 
         Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void registerStudentNullPayload() throws Exception {
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/student/registerStudent"))
+                .andDo(print()).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void registerStudentEmptyStudent() throws Exception {
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+
+        String payloadJson = writer.writeValueAsString(new StudentDTO());
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/student/registerStudent")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 }
