@@ -1,6 +1,8 @@
 package com.example.demo.repository;
 
+import com.example.demo.exception.DistrictNotFoundException;
 import com.example.demo.models.District;
+import com.example.demo.models.House;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
@@ -17,7 +19,7 @@ public class DistrictRepository implements IDistrictRepository {
 
 
     @Override
-    public District findDistrictByName(String name) {
+    public District findDistrictByName(String name) throws DistrictNotFoundException {
         List<District> districtList = null;
         districtList = loadDatabase();
         District result = null;
@@ -26,6 +28,9 @@ public class DistrictRepository implements IDistrictRepository {
             if (item.isPresent()){
                 result = item.get();
             }
+            else
+                throw new DistrictNotFoundException(name);
+
         }
         return result;
 
@@ -48,6 +53,24 @@ public class DistrictRepository implements IDistrictRepository {
             e.printStackTrace();
         }
         return publications;
+    }
+    public void addDistrict(District district) {
+        List<District> districtList = this.loadDatabase();
+        districtList.add(district);
+        File file = null;
+        try {
+            file = ResourceUtils.getFile("src/main/resources/static/district.json");
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(file,districtList);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

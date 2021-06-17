@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseM2DTO{
+public class ErrorDTO {
+    private String message;
     private String name;
-    private double squareMeter;
 }
