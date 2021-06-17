@@ -59,4 +59,13 @@ public class PropertyServiceTest {
         when(propertyRepository.getPropertyById(1)).thenReturn(property);
         assertEquals(propertyService.getPropertyPrice(1), 18000);
     }
+
+    @Test
+    public void getBiggestRoom() throws PropertyNotFoundException {
+
+        Property property = TestUtilGenerator.getPropertyWithTwoRooms();
+
+        when(propertyRepository.getPropertyById(1)).thenReturn(property);
+        assertEquals(property.getRooms().get(1).getName(), propertyService.getBiggestRoom(1).getName());
+    }
 }

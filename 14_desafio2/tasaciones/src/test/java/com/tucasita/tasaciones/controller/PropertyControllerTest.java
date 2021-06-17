@@ -48,4 +48,11 @@ public class PropertyControllerTest {
         when(propertyService.getPropertyPrice(1)).thenReturn(18000.0);
         assertEquals(ResponseEntity.ok(18000.0), propertyController.getPropertyPrice(1));
     }
+
+    @Test
+    public void getBiggestRoom() throws PropertyNotFoundException {
+        PropertyDTO property = TestUtilGenerator.getPropertyDTOWithFourRooms();
+        when(propertyService.getBiggestRoom(1)).thenReturn(property.getRooms().get(0));
+        assertEquals(ResponseEntity.ok(property.getRooms().get(0)), propertyController.getBiggestRoom(1));
+    }
 }

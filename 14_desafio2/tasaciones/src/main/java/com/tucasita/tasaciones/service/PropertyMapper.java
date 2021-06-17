@@ -21,4 +21,7 @@ public class PropertyMapper {
         return new Property(0, dto.getName(), neighborhood, rooms);
     }
 
+    public static RoomDTO toRoomDTO(Room room) {
+        return new RoomDTO(room.getName(), room.getWidth(), room.getLength());
+    }
 }

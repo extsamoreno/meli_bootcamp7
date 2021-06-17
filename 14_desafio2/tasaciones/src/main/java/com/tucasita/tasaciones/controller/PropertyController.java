@@ -1,6 +1,7 @@
 package com.tucasita.tasaciones.controller;
 
 import com.tucasita.tasaciones.dto.PropertyDTO;
+import com.tucasita.tasaciones.dto.RoomDTO;
 import com.tucasita.tasaciones.exception.PropertyNotFoundException;
 import com.tucasita.tasaciones.service.PropertyService;
 import org.apache.coyote.Response;
@@ -32,5 +33,10 @@ public class PropertyController {
     @GetMapping("/price/{id}")
     public ResponseEntity<Double> getPropertyPrice(@PathVariable int id)  throws PropertyNotFoundException {
         return ResponseEntity.ok(propertyService.getPropertyPrice(id));
+    }
+
+    @GetMapping("/biggest-room/{id}")
+    public ResponseEntity<RoomDTO> getBiggestRoom(@PathVariable int id) throws PropertyNotFoundException {
+        return ResponseEntity.ok(propertyService.getBiggestRoom(id));
     }
 }
