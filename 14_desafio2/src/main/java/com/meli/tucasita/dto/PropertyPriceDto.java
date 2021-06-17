@@ -1,4 +1,4 @@
-package com.meli.tucasita.service.dto;
+package com.meli.tucasita.dto;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class PropertyPriceDTO {
+public class PropertyPriceDto {
   private String name;
   private double price;
 }

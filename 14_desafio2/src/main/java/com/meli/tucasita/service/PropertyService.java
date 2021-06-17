@@ -1,16 +1,17 @@
 package com.meli.tucasita.service;
 
-import com.meli.tucasita.model.Property;
-import com.meli.tucasita.service.dto.*;
+import com.meli.tucasita.dto.*;
+
 
 import java.util.List;
 import java.util.Map;
 
 
 public interface PropertyService {
-  Map<Integer, Property> addNewProperty (Property property);
-  PropertyAreaDTO getPropertyArea(int id);
-  PropertyPriceDTO getPropertyPrice(int id);
-  EnvironmentAreaDTO getBiggestEnvironment(int id);
-  List<EnvironmentAreaDTO> getPropertyEnvironments(int id);
+  Map<Integer, PropertyDto> addNewProperty (PropertyDto propertyDto);
+  Map<Integer, DistrictDto> addNewDistrict (DistrictDto districtDto);
+  PropertyAreaDto getPropertyArea(int id);
+  PropertyPriceDto getPropertyPrice(int id);
+  EnvironmentAreaDto getBiggestEnvironment(int id);
+  List<EnvironmentAreaDto> getPropertyEnvironments(int id);
 }
