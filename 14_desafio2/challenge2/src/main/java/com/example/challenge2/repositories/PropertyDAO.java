@@ -28,10 +28,11 @@ public class PropertyDAO implements IPropertyDAO{
     }
 
     @Override
-    public void save(Property property) {
+    public Property save(Property property) {
         boolean removed = this.delete(property.getName());
         properties.add(property);
         this.saveData();
+        return  property;
     }
     @Override
     public boolean delete(String propertyName) {

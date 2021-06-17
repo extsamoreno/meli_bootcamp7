@@ -5,7 +5,7 @@ import com.example.challenge2.models.Property;
 public interface IPropertyDAO {
     Property findByName(String propertyName);
 
-    void save(Property property);
+    Property save(Property property);
 
     boolean delete(String propertyName);
 }

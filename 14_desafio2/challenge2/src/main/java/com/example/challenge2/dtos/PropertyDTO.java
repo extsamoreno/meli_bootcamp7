@@ -9,17 +9,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PropertyDTO {
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @NotNull
-    public class District {
 
-        private String name;
-        private String districtName;
-        private List<Environment> environmentList;
+    private String name;
+    private String districtName;
+    private List<Environment> environmentList;
 
-    }
 
 }

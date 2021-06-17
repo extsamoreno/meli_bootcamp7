@@ -5,7 +5,6 @@ import com.example.challenge2.models.District;
 import com.example.challenge2.models.Environment;
 import com.example.challenge2.models.Property;
 import com.example.challenge2.repositories.IPropertyDAO;
-import com.example.challenge2.repositories.IPropertyRepository;
 import com.example.challenge2.serivces.mappers.PropertyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +23,9 @@ public class PropertyService implements IPropertyService{
 
 
     @Override
-    public void create(PropertyDTO propertyDTO) {
+    public  PropertyDTO create(PropertyDTO propertyDTO) {
         Property property = PropertyMapper.propertyDTOToProperty(propertyDTO);
-        propertyDAO.save(property);
+        return PropertyMapper.propertyToPropertyDTO(propertyDAO.save(property));
     }
 
     private double getEnvironmentSize(Environment environment){
@@ -76,7 +75,7 @@ public class PropertyService implements IPropertyService{
     }
 
     @Override
-    public void createDistrict(District district) {
-
+    public District createDistrict(District district) {
+        return new District();
     }
 }

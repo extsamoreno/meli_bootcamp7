@@ -4,7 +4,7 @@ import com.example.challenge2.dtos.*;
 import com.example.challenge2.models.District;
 
 public interface IPropertyService {
-    void create(PropertyDTO property);
+    PropertyDTO create(PropertyDTO property);
 
     SizeResponseDTO getSize(String propertyName);
 
@@ -14,5 +14,5 @@ public interface IPropertyService {
 
     EnvironmentSizesDTO getEnvironments(String propertyName);
 
-    void createDistrict(District district);
+    District createDistrict(District district);
 }
