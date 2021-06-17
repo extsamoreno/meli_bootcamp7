@@ -25,12 +25,12 @@ public class CalculateRepository implements ICalculateRepository{
                 throw new HouseAlreadyExistsException(h.getName());
         }
         Integer districtId = listDistrict.values().stream()
-                .filter(d -> d.getName() == houseDTO.getDistrict().getName())
+                .filter(d -> d.getName().equalsIgnoreCase(houseDTO.getDistrict().getName()))
                 .collect(Collectors.toList()).get(0).getId();
 
         House house = Mappers.houseDTOtoHouse(houseDTO, districtId);
 
-        Integer id = listHouses.size();
+        Integer id = listHouses.size() + 1;
         listHouses.put(id, house);
         return id;
     }
@@ -47,5 +47,15 @@ public class CalculateRepository implements ICalculateRepository{
         District district = listDistrict.get(districtId);
         if(district == null) throw new DistrictNotFoundException(districtId);
         return district;
+    }
+
+    public Integer getSizeHouses(){
+        return listHouses.size();
+    }
+
+    public void reset(){
+        listHouses = DataBase.listHouses;
+
+        listDistrict = DataBase.listDistricts;
     }
 }

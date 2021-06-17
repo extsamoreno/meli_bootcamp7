@@ -4,6 +4,7 @@ package com.meli.desafio.integration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.District;
@@ -94,11 +95,12 @@ public class CalculateControllerIntegrationTests {
     public void getHouseHappyPath() throws Exception{
         House house = TestUtils.getTotalHouse("House1");
         Integer houseId = house.getId();
-        DistrictDTO district = TestUtils.getDistrictDTO("Avellaneda");
+        District district = TestUtils.getDistrict("Avellaneda");
 
         when(calculateRepository.getById(houseId)).thenReturn(house);
+        when(calculateRepository.getDistrict(house.getDistrictId())).thenReturn(district);
 
-        String houseDtoString = writer.writeValueAsString(Mappers.houseToDTO(house, district));
+        String houseDtoString = writer.writeValueAsString(Mappers.houseToDTO(house, Mappers.districtToDTO(district)));
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/calculate/house/{id}", houseId))
@@ -127,11 +129,30 @@ public class CalculateControllerIntegrationTests {
     }
 
     @Test
+    public void getHouseShouldThrowDistrictNotFoundException() throws Exception{
+        House house = TestUtils.getTotalHouse("House1");
+        Integer houseId = house.getId();
+        DistrictNotFoundException exception = new DistrictNotFoundException(house.getDistrictId());
+        when(calculateRepository.getById(houseId)).thenReturn(house);
+        when(calculateRepository.getDistrict(house.getDistrictId())).thenThrow(exception);
+
+        String error = writer.writeValueAsString(exception.getError());
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/calculate/house/{id}", houseId))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().string(error))
+                .andReturn();
+    }
+
+    @Test
     public void getHouseTotalMetersHappyPath() throws Exception{
         House house = TestUtils.getTotalHouse("House1");
         Integer houseId = house.getId();
-
+        District district = TestUtils.getDistrict("Avellaneda");
         when(calculateRepository.getById(houseId)).thenReturn(house);
+        when(calculateRepository.getDistrict(house.getDistrictId())).thenReturn(district);
 
         this.mockMvc
                 .perform(MockMvcRequestBuilders.get("/calculate/house/{id}/totalMeters", houseId))

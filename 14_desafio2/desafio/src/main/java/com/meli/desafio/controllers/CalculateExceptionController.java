@@ -4,6 +4,7 @@ import com.meli.desafio.exceptions.ExceptionModel;
 import com.meli.desafio.exceptions.dto.ErrorDTO;
 import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
+import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,6 +26,11 @@ public class CalculateExceptionController {
 
     @ExceptionHandler(HouseAlreadyExistsException.class)
     public ResponseEntity<ErrorDTO> handleHouseAlreadyExistException(HouseAlreadyExistsException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(HouseNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handleHouseNotFoundException(HouseNotFoundException e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 

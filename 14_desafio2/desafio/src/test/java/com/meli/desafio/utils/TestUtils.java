@@ -73,4 +73,12 @@ public class TestUtils {
     public static DistrictDTO getDistrictDTO(String name) {
         return DistrictDTO.builder().name(name).build();
     }
+
+    public static Room getRoom(String name) {
+        return Room.builder()
+                .name(name)
+                .length(10.0)
+                .width(20.0)
+                .build();
+    }
 }

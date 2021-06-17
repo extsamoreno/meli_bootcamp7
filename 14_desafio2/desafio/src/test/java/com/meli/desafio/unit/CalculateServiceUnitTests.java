@@ -5,6 +5,7 @@ import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.District;
 import com.meli.desafio.models.House;
+import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;
 import com.meli.desafio.services.CalculateService;
@@ -83,6 +84,42 @@ public class CalculateServiceUnitTests {
         Double expected = 625.0;
 
         Double response = calculateService.calculateSquareMeters(house.getRooms().get(0));
+
+        Assertions.assertEquals(response, expected);
+    }
+
+    @Test
+    public void getTotalPriceHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
+        House house = TestUtils.getTotalHouse("House");
+        Integer houseId = house.getId();
+        District district = TestUtils.getDistrict("Avellaneda");
+        when(calculateRepository.getById(houseId)).thenReturn(house);
+        when(calculateRepository.getDistrict(house.getDistrictId())).thenReturn(district);
+        Double expected = 86500.0;
+
+        Double response = calculateService.getTotalPrice(houseId);
+
+        Assertions.assertEquals(response, expected);
+    }
+
+    @Test
+    public void calculateTotalPriceHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
+        House house = TestUtils.getTotalHouse("House");
+        Double expected = 1730.0;
+
+        Double response = calculateService.calculateTotalPrice(house.getRooms(), 2);
+
+        Assertions.assertEquals(response, expected);
+    }
+
+    @Test
+    public void getBiggerRoomHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
+        House house = TestUtils.getTotalHouse("House");
+        Integer houseId = house.getId();
+        when(calculateRepository.getById(houseId)).thenReturn(house);
+        Room expected = house.getRooms().get(0);
+
+        Room response = calculateService.getBiggerRoom(houseId);
 
         Assertions.assertEquals(response, expected);
     }

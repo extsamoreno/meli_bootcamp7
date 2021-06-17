@@ -49,7 +49,8 @@ public class CalculateService implements ICalculateService{
 
     @Override
     public Room getBiggerRoom(Integer id) throws HouseNotFoundException {
-        List<Room> rooms = calculateRepository.getById(id).getRooms();
+        House house = calculateRepository.getById(id);
+        List<Room> rooms = house.getRooms();
         return biggerRoom(rooms);
     }
 
@@ -64,7 +65,7 @@ public class CalculateService implements ICalculateService{
         return roomsResponse;
     }
 
-    private Room biggerRoom(List<Room> rooms) {
+    public Room biggerRoom(List<Room> rooms) {
         Room biggerRoom = new Room();
         double meters = 0;
 
@@ -78,7 +79,7 @@ public class CalculateService implements ICalculateService{
         return biggerRoom;
     }
 
-    private Double calculateTotalPrice(List<Room> rooms, double price) {
+    public Double calculateTotalPrice(List<Room> rooms, double price) {
         return calculateTotalMeters(rooms) * price;
     }
 
