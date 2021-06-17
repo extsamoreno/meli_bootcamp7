@@ -2,7 +2,6 @@ package com.example.desafio2.unit;
 
 import com.example.desafio2.controllers.PropertyController;
 import com.example.desafio2.dtos.*;
-import com.example.desafio2.exceptions.NeighborhoodAlreadyExistException;
 import com.example.desafio2.exceptions.PropertyAlreadyExistException;
 import com.example.desafio2.exceptions.PropertyException;
 import com.example.desafio2.exceptions.PropertyNotFoundException;
@@ -55,23 +54,6 @@ public class PropertyControllerTests {
 
         // assert
         verify(iPropertyService, atLeastOnce()).createProperty(property);
-        boolean result = (received.getStatusCode() == expectedStatus && Objects.equals(received.getBody(), expected));
-        assertTrue(result);
-    }
-
-    @Test
-    public void createNeighborhoodOk() throws NeighborhoodAlreadyExistException {
-        // arrange
-        NeighborhoodDTO neighborhood = TestUtilsGenerator.getNeighborhoodPriceTen("Liniers");
-        NeighborhoodDTO expected = TestUtilsGenerator.getNeighborhoodPriceTen("Liniers");
-        HttpStatus expectedStatus = HttpStatus.CREATED;
-        when(iPropertyService.createNeighborhood(neighborhood)).thenReturn(neighborhood);
-
-        // act
-        ResponseEntity<NeighborhoodDTO> received = propertyController.createNeighborhood(neighborhood);
-
-        // assert
-        verify(iPropertyService, atLeastOnce()).createNeighborhood(neighborhood);
         boolean result = (received.getStatusCode() == expectedStatus && Objects.equals(received.getBody(), expected));
         assertTrue(result);
     }

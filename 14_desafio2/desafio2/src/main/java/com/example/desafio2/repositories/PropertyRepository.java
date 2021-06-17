@@ -1,10 +1,7 @@
 package com.example.desafio2.repositories;
 
-import com.example.desafio2.exceptions.NeighborhoodAlreadyExistException;
-import com.example.desafio2.exceptions.NeighborhoodNotFoundException;
 import com.example.desafio2.exceptions.PropertyAlreadyExistException;
 import com.example.desafio2.exceptions.PropertyNotFoundException;
-import com.example.desafio2.models.NeighborhoodDTO;
 import com.example.desafio2.models.PropertyDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +18,6 @@ import java.util.*;
 public class PropertyRepository implements IPropertyRepository {
 
     private Map<Integer, PropertyDTO> properties;
-    private Map<Integer, NeighborhoodDTO> neighborhoods;
     private String SCOPE;
 
     public PropertyRepository() {
@@ -31,7 +27,6 @@ public class PropertyRepository implements IPropertyRepository {
             properties.load(new ClassPathResource("application.properties").getInputStream());
             this.SCOPE = properties.getProperty("api.scope");
             this.loadDataProperties();
-            this.loadDataNeighborhoods();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,37 +44,14 @@ public class PropertyRepository implements IPropertyRepository {
         propertyDTO.setId(newId);
         properties.put(propertyDTO.getId(), propertyDTO);
 
-        this.saveData(true);
+        this.saveData();
 
         return propertyDTO;
-    }
-
-    @Override
-    public NeighborhoodDTO saveNeighborhood(NeighborhoodDTO neighborhoodDTO)
-            throws NeighborhoodAlreadyExistException {
-        boolean exists = existsNeighborhood(neighborhoodDTO.getName());
-
-        if(exists) {
-            throw new NeighborhoodAlreadyExistException(neighborhoodDTO.getName());
-        }
-
-        int newId = this.neighborhoods.size() + 1;
-        neighborhoodDTO.setId(newId);
-        neighborhoods.put(neighborhoodDTO.getId(), neighborhoodDTO);
-
-        this.saveData(false);
-
-        return neighborhoodDTO;
     }
 
     private boolean existsProperty(String name) {
         return properties.values().stream()
                 .anyMatch(propertyDTO -> propertyDTO.getName().equals(name));
-    }
-
-    private boolean existsNeighborhood(String name) {
-        return neighborhoods.values().stream()
-                .anyMatch(neighborhoodDTO -> neighborhoodDTO.getName().equals(name));
     }
 
     @Override
@@ -89,15 +61,6 @@ public class PropertyRepository implements IPropertyRepository {
         return properties.values().stream()
                 .filter(propertyDTO -> propertyDTO.getId() == propertyId)
                 .findFirst().orElseThrow(() -> new PropertyNotFoundException(propertyId));
-    }
-
-    @Override
-    public NeighborhoodDTO getNeighborhoodByName(String neighborhood) throws NeighborhoodNotFoundException {
-        loadDataNeighborhoods();
-
-        return neighborhoods.values().stream()
-                .filter(neighborhoodDTO -> neighborhoodDTO.getName().equals(neighborhood))
-                .findFirst().orElseThrow(() -> new NeighborhoodNotFoundException(neighborhood));
     }
 
     private void loadDataProperties() {
@@ -120,26 +83,6 @@ public class PropertyRepository implements IPropertyRepository {
         this.properties = toPropertyMap(loadedData);
     }
 
-    private void loadDataNeighborhoods() {
-        List<NeighborhoodDTO> loadedData = new ArrayList<>();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        File file;
-        try {
-            file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/neighborhoods.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<List<NeighborhoodDTO>>() {
-            });
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your resources files");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your JSON formatting.");
-        }
-
-        this.neighborhoods = toNeighborhoodMap(loadedData);
-    }
-
     private Map<Integer, PropertyDTO> toPropertyMap(List<PropertyDTO> list) {
         Map<Integer, PropertyDTO> map = new HashMap<>();
         for(PropertyDTO dto : list) {
@@ -148,24 +91,11 @@ public class PropertyRepository implements IPropertyRepository {
         return map;
     }
 
-    private Map<Integer, NeighborhoodDTO> toNeighborhoodMap(List<NeighborhoodDTO> list) {
-        Map<Integer, NeighborhoodDTO> map = new HashMap<>();
-        for(NeighborhoodDTO dto : list) {
-            map.put(dto.getId(), dto);
-        }
-        return map;
-    }
-
-    private void saveData(boolean isProperties) {
+    private void saveData() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            if(isProperties) {
-                File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
-                objectMapper.writeValue(file, this.properties);
-            } else {
-                File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/neighborhoods.json");
-                objectMapper.writeValue(file, this.neighborhoods);
-            }
+            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
+            objectMapper.writeValue(file, this.properties);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while writing to DB, check your resources files");

@@ -59,26 +59,6 @@ public class PropertyController {
     }
 
     /**
-     * Add a neighborhood to the database
-     * @param neighborhoodDTO property to add to database
-     * @return NeighborhoodDTO that contains the neighborhood
-     * Response
-     * 200 -> OK
-     * @throws NeighborhoodAlreadyExistException if there is no property with that id
-     * Example: localhost:8081/properties/neighborhood/create
-     * {
-     *     "name": "Avellaneda",
-     *     "price": 1200.00
-     * }
-     * @author Sapaya Nicolás Martín
-     */
-    @PostMapping("/neighborhood/create")
-    public ResponseEntity<NeighborhoodDTO> createNeighborhood(@Valid @RequestBody NeighborhoodDTO neighborhoodDTO)
-            throws NeighborhoodAlreadyExistException {
-        return new ResponseEntity<>(iPropertyService.createNeighborhood(neighborhoodDTO), HttpStatus.CREATED);
-    }
-
-    /**
      * Calculate the total square meters of the property
      * @param propertyId id of the property to calculate square meters
      * @return ResponsePropertySquareDTO that contains propertyName and totalSquareMeters

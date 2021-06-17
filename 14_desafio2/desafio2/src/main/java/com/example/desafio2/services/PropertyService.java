@@ -1,13 +1,13 @@
 package com.example.desafio2.services;
 
 import com.example.desafio2.dtos.*;
-import com.example.desafio2.exceptions.NeighborhoodAlreadyExistException;
 import com.example.desafio2.exceptions.PropertyAlreadyExistException;
 import com.example.desafio2.exceptions.PropertyException;
 import com.example.desafio2.exceptions.PropertyNotFoundException;
 import com.example.desafio2.models.EnvironmentDTO;
 import com.example.desafio2.models.NeighborhoodDTO;
 import com.example.desafio2.models.PropertyDTO;
+import com.example.desafio2.repositories.INeighborhoodRepository;
 import com.example.desafio2.repositories.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +21,12 @@ public class PropertyService implements IPropertyService {
     @Autowired
     IPropertyRepository iPropertyRepository;
 
+    @Autowired
+    INeighborhoodRepository neighborhoodRepository;
+
     @Override
     public PropertyDTO createProperty(PropertyDTO propertyDTO) throws PropertyAlreadyExistException {
         return iPropertyRepository.saveProperty(propertyDTO);
-    }
-
-    @Override
-    public NeighborhoodDTO createNeighborhood(NeighborhoodDTO neighborhoodDTO)
-            throws NeighborhoodAlreadyExistException {
-        return iPropertyRepository.saveNeighborhood(neighborhoodDTO);
     }
 
     @Override
@@ -47,7 +44,7 @@ public class PropertyService implements IPropertyService {
     public ResponsePropertyValueDTO getPropertyValue(int propertyId) throws PropertyException {
         ResponsePropertyValueDTO responsePropertyValue = new ResponsePropertyValueDTO();
         PropertyDTO propertyDTO = iPropertyRepository.getPropertyById(propertyId);
-        NeighborhoodDTO neighborhoodDTO = iPropertyRepository.getNeighborhoodByName(propertyDTO.getNeighborhood());
+        NeighborhoodDTO neighborhoodDTO = neighborhoodRepository.getNeighborhoodByName(propertyDTO.getNeighborhood());
 
         responsePropertyValue.setPropertyName(propertyDTO.getName());
         responsePropertyValue.setValueOfProperty(calculatePropertyValue(propertyDTO, neighborhoodDTO));
