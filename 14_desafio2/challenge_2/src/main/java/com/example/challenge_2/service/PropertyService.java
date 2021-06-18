@@ -78,12 +78,7 @@ public class PropertyService implements IPropertyService {
     }
 
     private void validateDistrict(Property property) throws DistrictNotFoundException {
-        try {
-            districtRepository.getByName(property.getDistrict().getName()); //Throws excpetion if not exists, for solidity, set in another function
-        }
-        catch(Exception e) {
-            throw e;
-        }
+        districtRepository.getByName(property.getDistrict().getName()); //Throws excpetion if not exists, for solidity, set in another function
     }
 
     private double calculateSquareMeters(Environment enviroment) {
