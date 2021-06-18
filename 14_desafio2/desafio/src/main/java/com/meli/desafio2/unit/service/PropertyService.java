@@ -86,13 +86,10 @@ public class PropertyService implements IPropertyService {
                 .map(room -> mapper.map(room, RoomSquareMDTO.class))
                 .collect(Collectors.toList());
 
-        System.out.println(roomsDTO);
-
         roomsDTO.stream().forEach(item -> item.setSquareMeters(item.getWidth() * item.getLength()));
 
         return roomsDTO;
     }
-
     private Double calculateSquareMeters(Property prop) {
         return prop.getRooms().stream().map(item -> item.getWidth() * item.getLength()).reduce(0d, (a, b) -> a + b);
     }

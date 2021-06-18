@@ -26,28 +26,6 @@ public class TestUtilsGenerator {
     private static String SCOPE;
     private static ObjectWriter mapper;
 
-    public static void emptyUsersFile() {
-        Properties properties = new Properties();
-
-        try {
-            properties.load(new ClassPathResource("application.properties").getInputStream());
-            SCOPE = properties.getProperty("api.scope");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        PrintWriter writer = null;
-
-        try {
-            writer = new PrintWriter(ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json"));
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        }
-
-        writer.print("[]");
-        writer.close();
-    }
     private static double randomNumber() {
         Random random = new Random();
         return random.nextInt(23 - 1 + 1) + 1;
@@ -115,43 +93,5 @@ public class TestUtilsGenerator {
         return prop;
     }
 
-    public static Set<PropertyDTO> getPropertySet() {
-        PropertyDTO prop1 = getPropertyWith3Rooms("Marco");
-        PropertyDTO prop2 = getPropertyWith3Rooms("Marco Polo");
-        PropertyDTO prop3 = getPropertyWith3Rooms("Julio");
-        PropertyDTO prop4 = getPropertyWith3Rooms("Julio Cesar");
-
-        return new HashSet<PropertyDTO>(){{add(prop1); add(prop2); add(prop3); add(prop4);}};
-    }
-
-    public static void appendProperty(PropertyDTO stu) {
-        mapper = new ObjectMapper()
-                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
-                .writer().withDefaultPrettyPrinter();
-
-        PrintWriter writer = null;
-
-        try {
-            String content = Files.readString(new File("./src/" + SCOPE + "/resources/districts.json").getAbsoluteFile().toPath(), StandardCharsets.US_ASCII);
-            writer = new PrintWriter(ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json"));
-
-            try {
-                String studentAsString = mapper.writeValueAsString(stu);
-                writer.print(content.substring(0, content.length()-1));
-                if (content.length()>2) writer.print(", ");
-                writer.print(studentAsString);
-                writer.print("]");
-            } catch (JsonProcessingException jsonProcessingException) {
-                jsonProcessingException.printStackTrace();
-            }
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        writer.close();
-    }
 
 }

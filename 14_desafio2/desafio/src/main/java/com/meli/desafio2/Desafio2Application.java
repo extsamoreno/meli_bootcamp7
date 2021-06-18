@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class ObtenerDiplomaApplication {
+public class Desafio2Application {
 
 	@Bean
 	public ModelMapper modelMapper() {
@@ -14,7 +14,7 @@ public class ObtenerDiplomaApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(ObtenerDiplomaApplication.class, args);
+		SpringApplication.run(Desafio2Application.class, args);
 	}
 
 }

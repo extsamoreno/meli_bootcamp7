@@ -132,7 +132,10 @@ public class PropertyServiceTests {
         verify(mapper, atLeastOnce()).map(prop.getRooms().get(0), RoomSquareMDTO.class);
         verify(mapper, atLeastOnce()).map(prop.getRooms().get(1), RoomSquareMDTO.class);
         verify(mapper, atLeastOnce()).map(prop.getRooms().get(2), RoomSquareMDTO.class);
-        assertTrue(CollectionUtils.isEqualCollection(expected, result));
+
+        assertEquals(12d*15d, result.get(0).getSquareMeters());
+        assertEquals(20d*20d, result.get(1).getSquareMeters());
+        assertEquals(10d*10d, result.get(2).getSquareMeters());
     }
 
     @Test

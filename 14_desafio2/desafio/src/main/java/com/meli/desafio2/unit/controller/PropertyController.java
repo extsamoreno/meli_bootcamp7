@@ -45,22 +45,4 @@ public class PropertyController {
         return new ResponseEntity<>(this.propertyService.roomsWithSquareMeters(id), HttpStatus.OK);
     }
 
-/*
-    @PostMapping("/modifyStudent")
-    public ResponseEntity<?> modifyStudent(@RequestBody @Valid PropertyDTO stu) {
-        this.studentService.update(stu);
-        return ResponseEntity.ok(null);
-    }
-
-    @GetMapping("/removeStudent/{id}")
-    public ResponseEntity<?> removeStudent(@PathVariable Long id) {
-        this.studentService.delete(id);
-        return ResponseEntity.ok(null);
-    }
-
-    @GetMapping("/listStudents")
-    public Set<PropertyDTO> listStudents() {
-        return this.studentService.getAll();
-    }*/
-
 }
