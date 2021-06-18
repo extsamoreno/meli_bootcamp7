@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "382e651a-78ee-466c-aa71-19e45fc326bd",
+		"name": "TuCasitaTasaciones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register Property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Casa 4\",\n    \"district\": {\n        \"name\": \"Estrella Roja\"\n    },\n    \"environments\": [\n        {\n            \"name\": \"Habitación 1\",\n            \"width\": 5,\n            \"length\": 7\n        },\n        {\n            \"name\": \"Habitación 2\",\n            \"width\": 3,\n            \"length\": 3\n        },\n        {\n            \"name\": \"Habitación 3\",\n            \"width\": 5,\n            \"length\": 8\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/properties/register-property",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"register-property"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Properties",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/properties/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US001 - Get Total Square Meters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/properties/total-square-meters/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"total-square-meters",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US002 - Property Appraisal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/properties/appraisal/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"appraisal",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US003 - Get Biggest Environment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/properties//get-biggest-environment/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"",
+						"get-biggest-environment",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US004 - Square meters per enviroment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/properties//list-environments/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"",
+						"list-environments",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

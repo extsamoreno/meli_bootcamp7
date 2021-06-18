@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "name": "Casa 1",
+    "districtId": 1,
+    "environments": [
+      {
+        "name": "Habitación 1",
+        "width": 12,
+        "length": 9
+      },
+      {
+        "name": "Habitación 2",
+        "width": 4,
+        "length": 9
+      },
+      {
+        "name": "Habitación 3",
+        "width": 8,
+        "length": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Casa 2",
+    "districtId": 2,
+    "environments": [
+      {
+        "name": "Habitación 1",
+        "width": 7,
+        "length": 9
+      },
+      {
+        "name": "Habitación 2",
+        "width": 12,
+        "length": 9
+      },
+      {
+        "name": "Habitación 3",
+        "width": 8,
+        "length": 4
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Casa 3",
+    "districtId": 3,
+    "environments": [
+      {
+        "name": "Habitación 1",
+        "width": 7,
+        "length": 9
+      },
+      {
+        "name": "Habitación 2",
+        "width": 12,
+        "length": 9
+      },
+      {
+        "name": "Habitación 3",
+        "width": 8,
+        "length": 4
+      }
+    ]
+  }
+]

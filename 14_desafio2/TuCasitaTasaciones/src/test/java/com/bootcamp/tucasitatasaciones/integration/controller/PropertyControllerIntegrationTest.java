@@ -41,7 +41,6 @@ public class PropertyControllerIntegrationTest {
     static PropertyDTO propertyDTO;
     static Property property;
     static TotalSquareMetersDTO totalSquareMetersDTO;
-    static Environment biggestEnvironment;
     static EnvironmentDTO biggestEnvironmentDTO;
     static List<EnvironmentWithSquareMetersDTO> environmentWithSquareMeters;
     static PropertyAppraisalDTO propertyAppraisalDTO;
@@ -66,7 +65,6 @@ public class PropertyControllerIntegrationTest {
 
         totalSquareMetersDTO = new TotalSquareMetersDTO("Casa 1", 275.0);
 
-        biggestEnvironment = new Environment("Env1", 10.0, 20.0);
         biggestEnvironmentDTO = new EnvironmentDTO("Env1", 10.0, 20.0);
 
         environmentWithSquareMeters = new ArrayList<>() {{
@@ -106,6 +104,19 @@ public class PropertyControllerIntegrationTest {
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("NotFoundException"));
+    }
+
+    @Test
+    public void registerPropertyInvalidPayload() throws Exception {
+        Mockito.when(dataRepository.findDistrictByName(propertyDTO.getDistrict().getName())).thenReturn(district);
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/properties/register-property")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{ }"))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("MethodArgumentNotValidException"));
     }
 
     @Test

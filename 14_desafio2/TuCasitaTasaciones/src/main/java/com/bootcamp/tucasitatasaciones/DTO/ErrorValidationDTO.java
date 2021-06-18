@@ -15,16 +15,16 @@ import java.util.Map;
 @NoArgsConstructor
 public class ErrorValidationDTO {
     private String name;
-    private Map<String, String> messages;
+    private Map<String, String> description;
 
     public ErrorValidationDTO(String name, List<ObjectError> errors) {
         this.name = name;
-        messages = new HashMap<>();
+        description = new HashMap<>();
 
         errors.forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
-            messages.put(fieldName, errorMessage);
+            description.put(fieldName, errorMessage);
         });
     }
 }

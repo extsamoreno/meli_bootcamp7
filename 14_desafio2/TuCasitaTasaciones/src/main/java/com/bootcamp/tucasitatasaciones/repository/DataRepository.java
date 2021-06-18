@@ -17,7 +17,7 @@ import java.util.List;
 public class DataRepository implements IDataRepository {
 
     static List<District> districts = loadDistricts();
-    static List<Property> properties = new ArrayList<>();
+    static List<Property> properties = loadProperties();
 
     @Override
     public District findDistrictById(Long id) {
@@ -76,5 +76,27 @@ public class DataRepository implements IDataRepository {
         }
 
         return districts;
+    }
+
+    private static List<Property> loadProperties() {
+        File file = null;
+        try {
+            file = ResourceUtils.getFile("classpath:properties.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<List<Property>> typeRef = new TypeReference<>() {
+        };
+        List<Property> properties = null;
+
+        try {
+            properties = objectMapper.readValue(file, typeRef);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return properties;
     }
 }
