@@ -1,3 +1,9 @@
+## Bootcamp Desafio 2 - tuCasita
+
+Software Developer: Pozzolo Lautaro
+
+### Informacion General
+
 - Dentro de la carpeta Consignas se encuentra las consignas sobre el desafío y sus especificaciones técnicas
 - En la carpeta PostMan se encuentra el .json para importar en postman la colección con todos los endpoints necesarios para probar las consignas solicitadas
 - La carpeta tuCasita contiene la api donde se implemento toda la lógica
