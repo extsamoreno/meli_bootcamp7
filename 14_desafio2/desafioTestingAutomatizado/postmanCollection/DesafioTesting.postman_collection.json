@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "9ca860f8-f051-46e8-a9df-acf9b16577b1",
+		"name": "Desafio Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DesafioTesting",
+			"item": [
+				{
+					"name": "newProperty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"prop_name\": \"Myhome\",\n    \"district_name\": \"King\",\n    \"environmentList\": [\n        {\n            \"environment_name\": \"Bathroom\",\n            \"environment_length\": 1,\n            \"environment_width\": 1\n        },\n        {\n            \"environment_name\": \"Kitchen\",\n            \"environment_length\": 2,\n            \"environment_width\": 3\n        },\n        {\n            \"environment_name\": \"Bedroom\",\n            \"environment_length\": 2,\n            \"environment_width\": 2\n        },\n        {\n            \"environment_name\": \"Living\",\n            \"environment_length\": 3,\n            \"environment_width\": 3\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/newProperty",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"newProperty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProperties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/getProperties",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getProperties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculateSquareMeters/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/calculateSquareMeters/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calculateSquareMeters",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculatePropertyValue/{id}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/calculatePropertyValue/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calculatePropertyValue",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculatePropertyLargestRoom/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/calculatePropertyLargestRoom/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calculatePropertyLargestRoom",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calculateEnvironmentsSquareMeters/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/calculateEnvironmentsSquareMeters/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calculateEnvironmentsSquareMeters",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
