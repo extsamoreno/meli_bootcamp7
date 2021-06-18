@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "4fcdeccc-a243-41b8-9933-d33bab6d79a8",
+		"name": "desafio testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"My Department Palermo\",\n    \"district_name\": \"Palermo\",\n    \"environments\": [\n        {\n            \"environment_name\": \"\",\n            \"environment_width\": \"\",\n            \"environment_length\": \"\"\n        },\n        {\n            \"environment_name\": \"Kitchen\",\n            \"environment_width\": 3.5,\n            \"environment_length\": 2\n        },\n        {\n            \"environment_name\": \"bathroom\",\n            \"environment_width\": 1.6,\n            \"environment_length\": 3\n        },\n        {\n            \"environment_name\": \"Bedroom\",\n            \"environment_width\": 2.6,\n            \"environment_length\": 3.7\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/properties",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllProperties",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSquareMeters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/area/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"area",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPrice",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/price/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"price",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBiggestRoom",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/biggest-room/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"biggest-room",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRoomsArea",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/rooms/area/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"rooms",
+						"area",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
