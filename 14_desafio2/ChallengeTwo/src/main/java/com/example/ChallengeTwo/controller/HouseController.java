@@ -19,7 +19,7 @@ public class HouseController {
     IHouseService iHouseService;
 
     @PostMapping("/createHouse")
-    public ResponseEntity<String> createHouse(@Valid @RequestBody HouseDTO house) throws ProgramException {
+    public ResponseEntity<Boolean> createHouse(@Valid @RequestBody HouseDTO house) throws ProgramException {
         return new ResponseEntity<>(iHouseService.createNewHouse(house), HttpStatus.OK);
     }
     @PostMapping("/createDistrict")

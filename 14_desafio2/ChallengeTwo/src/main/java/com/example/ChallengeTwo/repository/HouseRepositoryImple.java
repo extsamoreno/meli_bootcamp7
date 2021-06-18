@@ -34,10 +34,10 @@ public class HouseRepositoryImple implements IHouseRepository{
     }
 
     @Override
-    public String addNewHouse(House houseAdd) {
+    public Boolean addNewHouse(House houseAdd) {
         dataBaseHouses.put(houseAdd.getHouseName(),houseAdd);
         housesDB.addHouse(houseAdd);
-        return "Added house";
+        return true;
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface IHouseService {
 
     List<EnvironmentAreaDTO> getAllEnviromentsArea(String houseName) throws ProgramException;
 
-    String createNewHouse(HouseDTO house) throws ProgramException;
+    Boolean createNewHouse(HouseDTO house) throws ProgramException;
 
 
     String createNewDistrict(DistrictDTO districtDTO) throws ProgramException;

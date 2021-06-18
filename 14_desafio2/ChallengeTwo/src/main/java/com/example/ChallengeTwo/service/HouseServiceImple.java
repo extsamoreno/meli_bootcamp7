@@ -86,7 +86,7 @@ public class HouseServiceImple implements  IHouseService{
         return listResult;
     }
     @Override
-    public String createNewHouse(HouseDTO house) throws ProgramException {
+    public Boolean createNewHouse(HouseDTO house) throws ProgramException {
         District district = getDistricByName(house.getDistricName());
         //Exeptions
         if(district==null) throw new DistrictNameNotFoundException(house.getDistricName());

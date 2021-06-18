@@ -9,7 +9,7 @@ import java.util.List;
 public interface IHouseRepository {
     House getHouseByName(String houseName);
     District getDistricByName(String districName);
-    String addNewHouse(House houseAdd);
+    Boolean addNewHouse(House houseAdd);
     String addNewDistrict(District district);
     Boolean existsHouse(House house);
     Boolean existsDistrict(District district);
