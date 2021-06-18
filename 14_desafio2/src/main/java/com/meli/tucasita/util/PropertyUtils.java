@@ -1,9 +1,7 @@
 package com.meli.tucasita.util;
 
-import com.meli.tucasita.dto.RoomAreaDTO;
 import com.meli.tucasita.dto.RoomDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyUtils {
