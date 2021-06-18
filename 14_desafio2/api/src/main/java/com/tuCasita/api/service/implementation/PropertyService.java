@@ -15,6 +15,13 @@ public class PropertyService implements IPropertyService {
     @Autowired
     IPropertyRepository iPropertyRepository;
 
+    /**
+     * Creates a new {@link PropertyWithTotalSquareMetersDTO} that includes the property's total area in square meters
+     * with the information provided in the incoming DTO
+     * @param dto The propertyDTO received in controller
+     * @return a PropertyWithTotalSquareMeters
+     * @throws DistrictNameNotFoundException
+     */
     @Override
     public PropertyWithTotalSquareMetersDTO getTotalSquareMeters(PropertyDTO dto) throws DistrictNameNotFoundException {
         checkValidDistrict(dto.getDistrict().getName());
@@ -29,6 +36,13 @@ public class PropertyService implements IPropertyService {
         );
     }
 
+    /**
+     * Creates a new {@link PropertyWithTotalValueDTO} that includes the property's total value by the district's price
+     * with the information provided in the incoming DTO
+     * @param dto The propertyDTO received in controller
+     * @return
+     * @throws DistrictNameNotFoundException
+     */
     @Override
     public PropertyWithTotalValueDTO getTotalValue(PropertyDTO dto) throws DistrictNameNotFoundException {
         checkValidDistrict(dto.getDistrict().getName());
@@ -44,6 +58,13 @@ public class PropertyService implements IPropertyService {
         );
     }
 
+    /**
+     * Creates a new {@link PropertyWithBiggestEnvironmentDTO} that includes the property's biggest environment with its total area in square meters
+     * with the information provided in the incoming DTO
+     * @param dto The propertyDTO received in controller
+     * @return
+     * @throws DistrictNameNotFoundException
+     */
     @Override
     public PropertyWithBiggestEnvironmentDTO calculateBiggestEnvironment(PropertyDTO dto) throws DistrictNameNotFoundException {
         checkValidDistrict(dto.getDistrict().getName());
@@ -58,6 +79,13 @@ public class PropertyService implements IPropertyService {
         );
     }
 
+    /**
+     * Creates a new {@link PropertyWithTotalSquareMetersByEnvironmentDTO} that includes the total area for each environment in square meters
+     * with the information provided in the incoming DTO
+     * @param dto The propertyDTO received in controller
+     * @return
+     * @throws DistrictNameNotFoundException
+     */
     @Override
     public PropertyWithTotalSquareMetersByEnvironmentDTO getTotalSquareMetersByEnvironment(PropertyDTO dto) throws DistrictNameNotFoundException {
         checkValidDistrict(dto.getDistrict().getName());
