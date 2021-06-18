@@ -4,6 +4,7 @@ import com.example.demo.controller.DistrictController;
 import com.example.demo.exception.DistrictNotFoundException;
 import com.example.demo.models.District;
 import com.example.demo.service.IHouseService;
+import com.example.demo.service.dto.DistrictDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,11 +25,12 @@ public class DistrictControllerTest {
     @Test
     public void addNewDistrictHappyPath () throws DistrictNotFoundException {
         //arrange
-        District expect = new District("Compartir",300);
+        DistrictDTO expected = new DistrictDTO("Compartir",300);
+
         //act
-        ResponseEntity<Void> response = districtController.addNewDistrict(expect);
+        ResponseEntity<Void> response = districtController.addNewDistrict(expected);
         //assert
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).addDistrict(expect);
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).addDistrict(expected);
         assert (response.getStatusCode()== HttpStatus.OK);
     }
 }

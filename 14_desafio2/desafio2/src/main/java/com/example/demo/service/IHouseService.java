@@ -5,6 +5,7 @@ import com.example.demo.exception.HouseNotFoundException;
 import com.example.demo.models.District;
 import com.example.demo.models.Environment;
 import com.example.demo.models.House;
+import com.example.demo.service.dto.*;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 @Service
@@ -15,6 +16,11 @@ public interface IHouseService {
     double calculatePrice(String name) throws HouseNotFoundException, DistrictNotFoundException;
     String biggestEnvironment(String name) throws HouseNotFoundException, DistrictNotFoundException;
     ArrayList<String> environmentM2 (String name) throws HouseNotFoundException;
-    void addHouse (House house) throws DistrictNotFoundException;
-    void addDistrict (District district) throws DistrictNotFoundException;
+    void addHouse (HouseDTO houseDTO) throws DistrictNotFoundException;
+    void addDistrict (DistrictDTO districtDTO) throws DistrictNotFoundException;
+    ResponseHouseDTO calculateAllRequirements (String name) throws HouseNotFoundException, DistrictNotFoundException;
+    HouseM2DTO getM2 (String name) throws HouseNotFoundException, DistrictNotFoundException;
+    HousePriceDTO getPrice (String name) throws HouseNotFoundException, DistrictNotFoundException;
+    HouseBiggestEnvironmentDTO getBiggestEnvironment (String name) throws HouseNotFoundException, DistrictNotFoundException;
+    HouseListEnvironmentDTO getListEnvironmentWhitM2 (String name) throws HouseNotFoundException;
 }

@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.example.demo.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,10 +8,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 @Data
+@Valid
 @AllArgsConstructor
 @NoArgsConstructor
-@Valid
-public class District {
+public class DistrictDTO {
     @NotEmpty(message = "El barrio no puede estar vacío")
     @Size(min = 1, max = 45, message = "La longitud del barrio no puede superar los 45 caracteres")
     private String distric_name;

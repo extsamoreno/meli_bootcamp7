@@ -5,6 +5,7 @@ import com.example.demo.exception.DistrictNotFoundException;
 import com.example.demo.models.Environment;
 import com.example.demo.models.House;
 import com.example.demo.service.IHouseService;
+import com.example.demo.service.dto.HouseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +26,7 @@ public class HouseControllerTest {
     @Test
     public void addNewHouseHappyPath() throws DistrictNotFoundException {
         //arrange
-        House expect = new House();
+        HouseDTO expect = new HouseDTO();
         expect.setProp_name("Casa 1");
         expect.setDistric_name("Cañiza");
         ArrayList<Environment> environments = new ArrayList<>();

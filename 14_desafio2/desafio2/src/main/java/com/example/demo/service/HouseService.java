@@ -7,19 +7,26 @@ import com.example.demo.models.Environment;
 import com.example.demo.models.House;
 import com.example.demo.repository.IDistrictRepository;
 import com.example.demo.repository.IHouseRepository;
+import com.example.demo.service.dto.*;
+import com.example.demo.service.mapper.IDistricMapper;
+import com.example.demo.service.mapper.IHouseMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class HouseService implements IHouseService {
     private final IDistrictRepository iDistrictRepository;
     private final IHouseRepository iHouseRepository;
+    private final IHouseMapper iHouseMapper;
+    private final IDistricMapper iDistricMapper;
 
-    public HouseService(IDistrictRepository iDistrictRepository, IHouseRepository iHouseRepository) {
+    public HouseService(IDistrictRepository iDistrictRepository, IHouseRepository iHouseRepository,
+                        IHouseMapper iHouseMapper, IDistricMapper iDistricMapper) {
         this.iDistrictRepository = iDistrictRepository;
         this.iHouseRepository = iHouseRepository;
+        this.iHouseMapper = iHouseMapper;
+        this.iDistricMapper = iDistricMapper;
     }
     @Override
     public double calculateM2(String name) throws HouseNotFoundException, DistrictNotFoundException {
@@ -73,7 +80,8 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public void addHouse(House house) throws DistrictNotFoundException {
+    public void addHouse(HouseDTO houseDTO) throws DistrictNotFoundException {
+        House house = iHouseMapper.houseDTOToHouse(houseDTO);
         String houseName = house.getProp_name();
         iDistrictRepository.findDistrictByName(house.getDistric_name());
         try {
@@ -85,13 +93,40 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public void addDistrict(District district) {
+    public void addDistrict(DistrictDTO districtDTO) {
+        District district = iDistricMapper.districtDTOToDistrict(districtDTO);
         String districtName = district.getDistric_name();
         try {
             District district1 = iDistrictRepository.findDistrictByName(districtName);
         } catch (DistrictNotFoundException e) {
             iDistrictRepository.addDistrict(district);
         }
-
     }
+
+    @Override
+    public ResponseHouseDTO calculateAllRequirements(String name) throws HouseNotFoundException, DistrictNotFoundException {
+        return new ResponseHouseDTO(name, this.calculateM2(name), this.calculatePrice(name),
+                this.biggestEnvironment(name), this.environmentM2(name));
+    }
+
+    @Override
+    public HouseM2DTO getM2(String name) throws HouseNotFoundException, DistrictNotFoundException {
+        return new HouseM2DTO(name,this.calculateM2(name));
+    }
+
+    @Override
+    public HousePriceDTO getPrice(String name) throws HouseNotFoundException, DistrictNotFoundException {
+        return new HousePriceDTO(name,this.calculatePrice(name));
+    }
+
+    @Override
+    public HouseBiggestEnvironmentDTO getBiggestEnvironment(String name) throws HouseNotFoundException, DistrictNotFoundException {
+        return new HouseBiggestEnvironmentDTO(name,this.biggestEnvironment(name));
+    }
+
+    @Override
+    public HouseListEnvironmentDTO getListEnvironmentWhitM2(String name) throws HouseNotFoundException{
+        return new HouseListEnvironmentDTO(name,this.environmentM2(name));
+    }
+
 }

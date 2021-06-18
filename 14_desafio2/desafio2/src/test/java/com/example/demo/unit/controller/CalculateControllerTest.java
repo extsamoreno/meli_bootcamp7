@@ -3,9 +3,6 @@ package com.example.demo.unit.controller;
 import com.example.demo.controller.CalculateController;
 import com.example.demo.exception.DistrictNotFoundException;
 import com.example.demo.exception.HouseNotFoundException;
-import com.example.demo.models.District;
-import com.example.demo.models.Environment;
-import com.example.demo.models.House;
 import com.example.demo.service.IHouseService;
 import com.example.demo.service.dto.*;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,19 +33,13 @@ public class CalculateControllerTest {
         arrayList.add("Cocina 12.0");
         arrayList.add("Sala 20.0");
         arrayList.add("Habitacion 16.0");
-        HouseDTO houseDTO = new HouseDTO(name,48,9600,"El ambiente más grande es Sala con un área de 20.0",arrayList);
-        when(iHouseService.calculateM2(name)).thenReturn(houseDTO.getSquareMeter());
-        when(iHouseService.calculatePrice(name)).thenReturn(houseDTO.getPrice());
-        when(iHouseService.biggestEnvironment(name)).thenReturn(houseDTO.getBiggestEnvironment());
-        when(iHouseService.environmentM2(name)).thenReturn(houseDTO.getListEnvironment());
-        ResponseEntity<HouseDTO> expect = new ResponseEntity<>(houseDTO,HttpStatus.OK);
+        ResponseHouseDTO responseHouseDTO = new ResponseHouseDTO(name,48,9600,"El ambiente más grande es Sala con un área de 20.0",arrayList);
+        when(iHouseService.calculateAllRequirements(name)).thenReturn(responseHouseDTO);
+        ResponseEntity<ResponseHouseDTO> expect = new ResponseEntity<>(responseHouseDTO,HttpStatus.OK);
         //act
-        ResponseEntity<HouseDTO> response = calculateController.calculateAllRequirements(name);
+        ResponseEntity<ResponseHouseDTO> response = calculateController.calculateAllRequirements(name);
         //assert
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).calculateM2(name);
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).calculatePrice(name);
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).biggestEnvironment(name);
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).environmentM2(name);
+        //Mockito.verify(iHouseService,Mockito.atLeast(1)).calculateAllRequirements(name);
         Assertions.assertEquals(expect,response);
     }
     @Test
@@ -56,12 +47,12 @@ public class CalculateControllerTest {
         //arrange
         String name = "Casa 1";
         HouseM2DTO houseM2DTO = new HouseM2DTO(name,48);
-        when(iHouseService.calculateM2(name)).thenReturn(houseM2DTO.getSquareMeter());
+        when(iHouseService.getM2(name)).thenReturn(houseM2DTO);
         ResponseEntity<HouseM2DTO> expect = new ResponseEntity<>(houseM2DTO,HttpStatus.OK);
         //act
         ResponseEntity<HouseM2DTO> response = calculateController.getM2(name);
         //assert
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).calculateM2(name);
+        //Mockito.verify(iHouseService,Mockito.atLeast(1)).getM2(name);
         Assertions.assertEquals(expect,response);
     }
     @Test
@@ -69,12 +60,12 @@ public class CalculateControllerTest {
         //arrange
         String name = "Casa 1";
         HousePriceDTO housePriceDTO = new HousePriceDTO(name,9600);
-        when(iHouseService.calculatePrice(name)).thenReturn(housePriceDTO.getPrice());
+        when(iHouseService.getPrice(name)).thenReturn(housePriceDTO);
         ResponseEntity<HousePriceDTO> expect = new ResponseEntity<>(housePriceDTO,HttpStatus.OK);
         //act
         ResponseEntity<HousePriceDTO> response = calculateController.getPrice(name);
         //assert
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).calculatePrice(name);
+        //Mockito.verify(iHouseService,Mockito.atLeast(1)).getPrice(name);
         Assertions.assertEquals(expect,response);
     }
     @Test
@@ -82,12 +73,12 @@ public class CalculateControllerTest {
         //arrange
         String name = "Casa 1";
         HouseBiggestEnvironmentDTO houseBiggestEnvironmentDTO = new HouseBiggestEnvironmentDTO(name,"El ambiente más grande es Sala con un área de 20.0");
-        when(iHouseService.biggestEnvironment(name)).thenReturn(houseBiggestEnvironmentDTO.getBiggestEnvironment());
+        when(iHouseService.getBiggestEnvironment(name)).thenReturn(houseBiggestEnvironmentDTO);
         ResponseEntity<HouseBiggestEnvironmentDTO> expect = new ResponseEntity<>(houseBiggestEnvironmentDTO,HttpStatus.OK);
         //act
         ResponseEntity<HouseBiggestEnvironmentDTO> response = calculateController.getBiggestEnvironment(name);
         //assert
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).biggestEnvironment(name);
+        //Mockito.verify(iHouseService,Mockito.atLeast(1)).getBiggestEnvironment(name);
         Assertions.assertEquals(expect,response);
     }
     @Test
@@ -99,12 +90,12 @@ public class CalculateControllerTest {
         arrayList.add("Sala 20.0");
         arrayList.add("Habitacion 16.0");
         HouseListEnvironmentDTO houseListEnvironmentDTO = new HouseListEnvironmentDTO(name,arrayList);
-        when(iHouseService.environmentM2(name)).thenReturn(houseListEnvironmentDTO.getListEnvironment());
+        when(iHouseService.getListEnvironmentWhitM2(name)).thenReturn(houseListEnvironmentDTO);
         ResponseEntity<HouseListEnvironmentDTO> expect = new ResponseEntity<>(houseListEnvironmentDTO,HttpStatus.OK);
         //act
         ResponseEntity<HouseListEnvironmentDTO> response = calculateController.getListEnvironment(name);
         //assert
-        Mockito.verify(iHouseService,Mockito.atLeast(1)).environmentM2(name);
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).getListEnvironmentWhitM2(name);
         Assertions.assertEquals(expect,response);
     }
 }
