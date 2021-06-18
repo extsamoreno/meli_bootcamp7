@@ -1,6 +1,7 @@
 package com.example.testing;
 
 import com.example.testing.dto.EnvironmentDTO;
+import com.example.testing.exceptions.DistrictNotFoundException;
 import com.example.testing.model.District;
 import com.example.testing.model.Environment;
 import com.example.testing.model.Property;
@@ -9,6 +10,7 @@ import com.example.testing.services.IPropertiesService;
 import com.example.testing.services.PropertiesService;
 import com.example.testing.services.mapper.Mapper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,8 +22,7 @@ import org.modelmapper.internal.util.Assert;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,12 +37,15 @@ public class PropertiesServiceTest {
     @InjectMocks
     PropertiesService propertiesService;
 
-    @Test
-    public void getSquareMeters(){
+    static Property property;
 
-        //arrange
+    static ArrayList<EnvironmentDTO> environmentDTOS = new ArrayList<>();
 
-        Property property = new Property(1,
+    static Environment environment;
+
+    @BeforeAll
+    public static void setUp(){
+        property = new Property(1,
                 "House1",
                 new District("District1", 1000.0),
                 new ArrayList<Environment>(Arrays.asList(
@@ -49,6 +53,19 @@ public class PropertiesServiceTest {
                         new Environment("Kitchen", 6.0, 6.0),
                         new Environment("Bedroom", 5.0, 5.0),
                         new Environment("LivingRoom", 8.0, 8.0))));
+        environment = new Environment("LivingRoom", 8.0, 8.0);
+
+        environmentDTOS.add(new EnvironmentDTO("Bathroom", 16.0));
+        environmentDTOS.add(new EnvironmentDTO("Kitchen", 36.0));
+        environmentDTOS.add(new EnvironmentDTO("Bedroom", 25.0));
+        environmentDTOS.add(new EnvironmentDTO("LivingRoom", 64.0));
+    }
+
+    @Test
+    public void getSquareMeters(){
+
+        //arrange
+
         Mockito.when(propertiesRepository.getPropertyById(property.getId())).thenReturn(property);
 
         //act
@@ -66,18 +83,8 @@ public class PropertiesServiceTest {
     public void getBiggestEnvironment(){
 
         //arrange
-        Environment environment = new Environment("LivingRoom", 8.0, 8.0);
-        Property property = new Property(1,
-                "House1",
-                new District("District1", 1000.0),
-                new ArrayList<Environment>(Arrays.asList(
-                        new Environment("Bathroom", 4.0, 4.0),
-                        new Environment("Kitchen", 6.0, 6.0),
-                        new Environment("Bedroom", 5.0, 5.0),
-                        new Environment("LivingRoom", 8.0, 8.0))));
+
         Mockito.when(propertiesRepository.getPropertyById(property.getId())).thenReturn(property);
-
-
 
         //act
 
@@ -94,37 +101,34 @@ public class PropertiesServiceTest {
 
         //arrange
 
-        ArrayList<EnvironmentDTO> environments = new ArrayList<>();
-        Property property = new Property(1,
-                "House1",
-                new District("District1", 1000.0),
-                new ArrayList<Environment>(Arrays.asList(
-                        new Environment("Bathroom", 4.0, 4.0),
-                        new Environment("Kitchen", 6.0, 6.0),
-                        new Environment("Bedroom", 5.0, 5.0),
-                        new Environment("LivingRoom", 8.0, 8.0))));
-
-        environments.add(new EnvironmentDTO("Bathroom", 16.0));
-        environments.add(new EnvironmentDTO("Kitchen", 36.0));
-        environments.add(new EnvironmentDTO("Bedroom", 25.0));
-        environments.add(new EnvironmentDTO("LivingRoom", 64.0));
-
         when(propertiesRepository.getPropertyById(property.getId())).thenReturn(property);
 
-        for (Environment e: property.getEnvironments()) {
-            for(EnvironmentDTO eDTO : environments){
-                when(mapper.toDTO(e)).thenReturn(eDTO);
-            }
-        }
-
+        when(mapper.listToDTO(property.getEnvironments())).thenReturn(environmentDTOS);
         //act
 
-        ArrayList<EnvironmentDTO> environmentsActual = propertiesService.getEnvironments(property.getId());
+        propertiesService.getEnvironments(property.getId());
 
         //assert
 
         verify(propertiesRepository, atLeastOnce()).getPropertyById(property.getId());
-        assertEquals(environments.get(3), environmentsActual.get(0));
+        assertEquals(environmentDTOS, propertiesService.getEnvironments(property.getId()));
+    }
+
+    @Test
+    public void createDistrictNotFoundException() {
+        // arrange
+
+        property.getDistrict().setName("hohohohooho");
+
+
+        // act
+        DistrictNotFoundException exception = assertThrows(DistrictNotFoundException.class, () -> {
+            propertiesService.createProperty(property);
+        });
+
+        String expectedException = "DistrictNotFoundException";
+        String actualException = exception.getError().getName();
+        assertTrue(actualException.contains(expectedException));
     }
 
 }

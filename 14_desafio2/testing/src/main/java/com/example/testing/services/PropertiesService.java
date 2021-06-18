@@ -1,6 +1,9 @@
 package com.example.testing.services;
 
+import com.example.testing.databse.DataBaseDistrict;
 import com.example.testing.dto.EnvironmentDTO;
+import com.example.testing.exceptions.DistrictNotFoundException;
+import com.example.testing.model.District;
 import com.example.testing.model.Environment;
 import com.example.testing.model.Property;
 import com.example.testing.repositories.IPropertiesRepository;
@@ -18,7 +21,6 @@ public class PropertiesService implements IPropertiesService {
 
     @Autowired
     Mapper mapper;
-
 
     @Override
     public Double totalSquareMeters(int id) {
@@ -57,17 +59,17 @@ public class PropertiesService implements IPropertiesService {
     @Override
     public ArrayList<EnvironmentDTO> getEnvironments(int id) {
         Property property = propertiesRepository.getPropertyById(id);
-        ArrayList<EnvironmentDTO> environments = new ArrayList<>();
-
-        for (Environment e: property.getEnvironments()) {
-            environments.add(mapper.toDTO(e));
-        }
-
-        return environments;
+        return mapper.listToDTO(property.getEnvironments());
     }
 
     @Override
     public void createProperty(Property p) {
+
+        if(p.getDistrict().getName() != "District1" && p.getDistrict().getName() != "District2"){
+            throw new DistrictNotFoundException(p.getDistrict().getName());
+        }
+
         propertiesRepository.createProperty(p);
+
     }
 }

@@ -2,10 +2,12 @@ package com.example.testing.databse;
 
 import com.example.testing.model.District;
 import com.example.testing.model.Property;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@Data
 public class DataBaseDistrict {
 
     public static ArrayList<District> dataBaseDistricts= new ArrayList<>(Arrays.asList(

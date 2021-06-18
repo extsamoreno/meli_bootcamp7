@@ -8,12 +8,23 @@ import com.example.testing.services.IPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class Mapper {
 
     public EnvironmentDTO toDTO(Environment e){
-
         return new EnvironmentDTO(e.getName(), e.getSquareMeters());
+    }
+
+    public ArrayList<EnvironmentDTO> listToDTO(ArrayList<Environment> environments){
+        ArrayList<EnvironmentDTO> environmentDTOS = new ArrayList<>();
+
+        for (Environment e: environments) {
+            environmentDTOS.add(toDTO(e));
+        }
+
+        return environmentDTOS;
     }
 
 
