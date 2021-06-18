@@ -124,7 +124,7 @@ public class ITControllerService {
     }
 
     @Test
-    public void testGetFEnvironmentList() throws Exception {
+    public void testGetEnvironmentList() throws Exception {
 
         String prop_name = "Casa101";
         House modelHouse = UtilsGenerator.genererateHouse();
@@ -140,9 +140,6 @@ public class ITControllerService {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/environments/{prop_name}", "Casa101"))
                 .andDo(print()) .andExpect( status().isOk())
                 .andExpect(content().contentType("application/json"))
-                //.andExpect(content().string(String.valueOf(expectedList)))
-                //.andExpect(MockMvcResultMatchers.jsonPath("").value(expected));
-                //.andExpect(MockMvcResultMatchers.content().string(String.valueOf(expectedList)));
                 .andReturn();
 
         Assertions.assertEquals(expectedJson, mvcResult.getResponse().getContentAsString());
