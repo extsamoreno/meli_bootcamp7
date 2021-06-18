@@ -1,6 +1,5 @@
 package com.desafiotesting.desafiotesting.services.dtos;
 import lombok.*;
-
 import javax.validation.constraints.*;
 
 @Getter

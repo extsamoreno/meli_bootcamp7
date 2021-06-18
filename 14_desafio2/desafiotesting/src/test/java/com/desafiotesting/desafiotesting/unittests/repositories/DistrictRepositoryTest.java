@@ -1,4 +1,4 @@
-package com.desafiotesting.desafiotesting.unittest.repositories;
+package com.desafiotesting.desafiotesting.unittests.repositories;
 import com.desafiotesting.desafiotesting.exceptions.DistrictNotFoundException;
 import com.desafiotesting.desafiotesting.models.District;
 import com.desafiotesting.desafiotesting.repositories.DistrictRepository;

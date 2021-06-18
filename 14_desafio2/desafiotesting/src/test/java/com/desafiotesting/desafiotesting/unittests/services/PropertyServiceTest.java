@@ -1,4 +1,4 @@
-package com.desafiotesting.desafiotesting.unittest.services;
+package com.desafiotesting.desafiotesting.unittests.services;
 import com.desafiotesting.desafiotesting.models.Property;
 import com.desafiotesting.desafiotesting.repositories.IDistrictRepository;
 import com.desafiotesting.desafiotesting.repositories.IPropertyRepository;
