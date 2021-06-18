@@ -73,6 +73,11 @@ public class PropiedadService implements IPropiedadService {
     //Calcula el ambiente mas grande de una propiedad por nombre y retorna un ambiente DTO
     public AmbienteDTO calcularAmbienteMasGrande(String nombre) throws PropiedadInexistenteException {
         PropiedadModel propiedad = iPropiedadRepository.getPropiedadByName(nombre);
+
+        if (propiedad == null) {
+            throw new PropiedadInexistenteException(nombre);
+        }
+
         AmbienteModel ambienteMax= new AmbienteModel();
         double maxM2=0, m2=0;
 
@@ -92,6 +97,10 @@ public class PropiedadService implements IPropiedadService {
         double m2=0;
 
         PropiedadModel propiedad = iPropiedadRepository.getPropiedadByName(nombre);
+        if (propiedad == null) {
+            throw new PropiedadInexistenteException(nombre);
+        }
+
         for (AmbienteModel a: propiedad.getAmbientes()) {
             m2=calcularMetrosPorAmbiente(a);
             ambientesDTOS.add(PropiedadMapper.toAmbienteDTO(a,m2));
@@ -108,7 +117,7 @@ public class PropiedadService implements IPropiedadService {
             throw new PropiedadYaRegistradaException(nombrePropiedad);
         }
 
-       BarrioModel barrioM= iBarrioRepository.getBarrioByName(nombreBarrio);
+       BarrioModel barrioM= obtenerBarrioPorNombre(nombreBarrio);
         if (barrioM == null) {
             throw new BarrioNoExistException(nombreBarrio);
         }
@@ -117,16 +126,20 @@ public class PropiedadService implements IPropiedadService {
         return iPropiedadRepository.agregarPropiedad(propModel);
     }
 
+
     public BarrioModel crearBarrio(String nombreBarrio, double precio) throws BarrioYaExistente {
 
-        BarrioModel barrioM= iBarrioRepository.getBarrioByName(nombreBarrio);
+        BarrioModel barrioM= obtenerBarrioPorNombre(nombreBarrio);
         if (barrioM != null) {
             throw new BarrioYaExistente(nombreBarrio);
         }
         BarrioModel barrioModel =new BarrioModel(nombreBarrio,precio);
         iBarrioRepository.agregarBarrio(barrioModel);
         return barrioModel;
+    }
 
+    public BarrioModel obtenerBarrioPorNombre(String name){
+        return iBarrioRepository.getBarrioByName(name);
     }
 
 

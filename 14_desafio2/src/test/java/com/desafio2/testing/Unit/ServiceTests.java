@@ -11,7 +11,6 @@ import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
 import com.desafio2.testing.Repository.IBarrioRepository;
 import com.desafio2.testing.Repository.IPropiedadRepository;
-import com.desafio2.testing.Service.Mapper.IPropiedadMapper;
 import com.desafio2.testing.Service.Mapper.PropiedadMapper;
 import com.desafio2.testing.Service.PropiedadService;
 import org.junit.jupiter.api.Test;
@@ -20,11 +19,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
@@ -42,21 +39,6 @@ public class ServiceTests {
 
     @InjectMocks
     PropiedadService propiedadService;
-
-    //crear un metodo de init, con @BeforeEach/ Before all
-
-   /* @BeforeAll
-    public static void init (){
-        System.out.println("aaa");
-        IUtilDB utilDB = new UtilDB();
-        utilDB.crearDataBase();
-    }
-
-    @Test
-    public void impr(){
-        System.out.println("Luz");
-    }
-*/
 
 
     @Test  //Test CU0001
@@ -80,12 +62,9 @@ public class ServiceTests {
         String nombre= "NoExiste";
         Mockito.when(iPropiedadRepository.getPropiedadByName(nombre)).thenReturn(null);
 
-
         // assert
         assertThrows(PropiedadInexistenteException.class, () -> propiedadService.calcularM2PropiedadDTO(nombre));
     }
-
-
 
 
     @Test//Test CU0003
@@ -102,6 +81,17 @@ public class ServiceTests {
         // assert
         verify(iPropiedadRepository,Mockito.atLeastOnce()).getPropiedadByName(propiedad.getProp_name());
         assertEquals(expected, received);
+    }
+
+    @Test//Test CU0003
+    public void calcularAmbienteMasGrandeNotFound() throws PropiedadInexistenteException {
+        // arrange
+        String nombre= "Libertador 5";
+        PropiedadModel propiedad = UtilTest.createPropiedadModel();
+        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(null);
+
+        // assert
+        assertThrows(PropiedadInexistenteException.class, () -> propiedadService.calcularAmbienteMasGrande(nombre));
     }
 
 
@@ -121,6 +111,17 @@ public class ServiceTests {
         assertEquals(expected, received);
     }
 
+    @Test //Test CU0004
+    public void calcularListaAmbientesM2NotFound() throws PropiedadInexistenteException {
+        // arrange
+        String nombre= "Libertador 5";
+        PropiedadModel propiedad = UtilTest.createPropiedadModel();
+        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(null);
+
+        // assert
+        assertThrows(PropiedadInexistenteException.class, () -> propiedadService.calcularListaAmbientesM2(nombre));
+
+    }
 
         @Test
         public void crearPropiedadOk() throws BarrioNoExistException, PropiedadYaRegistradaException {
@@ -130,7 +131,7 @@ public class ServiceTests {
             PropiedadModel propiedadM= PropiedadMapper.toPropiedadModel(propiedadRequestDTO,barrio);
 
             Mockito.when(iPropiedadRepository.getPropiedadByName(propiedadRequestDTO.getProp_name())).thenReturn(null); //Que no exista la propiedad
-            Mockito.when(iBarrioRepository.getBarrioByName(propiedadRequestDTO.getDistrict_name())).thenReturn(barrio);
+            Mockito.when(propiedadService.obtenerBarrioPorNombre(propiedadRequestDTO.getDistrict_name())).thenReturn(barrio);
             Mockito.when(iPropiedadRepository.agregarPropiedad(propiedadM)).thenReturn(true);
 
             // Act
@@ -138,18 +139,56 @@ public class ServiceTests {
 
             // Assert
             verify(iPropiedadRepository,atLeastOnce()).agregarPropiedad(propiedadM);  //Verifica que se agregue la propiedad correcta
+        }
+
+    @Test
+    public void crearPropiedadBarrioNoExist() throws BarrioNoExistException, PropiedadYaRegistradaException {
+        // Arrange
+        PropiedadRequestDTO propiedadRequestDTO = UtilTest.crearPropiedadRequestDTO();
+        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedadRequestDTO.getProp_name())).thenReturn(null);
+        Mockito.when(propiedadService.obtenerBarrioPorNombre(propiedadRequestDTO.getDistrict_name())).thenReturn(null);
+
+        // Assert
+        assertThrows(BarrioNoExistException.class, () -> propiedadService.crearPropiedad(propiedadRequestDTO));
+    }
+
+    @Test
+    public void crearPropiedadPropiedadYaRegistrada() throws BarrioNoExistException, PropiedadYaRegistradaException {
+        // Arrange
+        PropiedadRequestDTO propiedadRequestDTO = UtilTest.crearPropiedadRequestDTO();
+        BarrioModel barrio = new BarrioModel("Almagro", 1200.3);
+        PropiedadModel propiedadM= PropiedadMapper.toPropiedadModel(propiedadRequestDTO,barrio);
+        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedadRequestDTO.getProp_name())).thenReturn(propiedadM);
+
+        // Assert
+        assertThrows(PropiedadYaRegistradaException.class, () -> propiedadService.crearPropiedad(propiedadRequestDTO));
+    }
 
 
+        @Test
+    public void  obtenerBarrioPorNombreOk(){
+        // Arrange
+            BarrioModel expected = new BarrioModel("Lugano", 1200.3);
+            String name= "Lugano";
+            Mockito.when(iBarrioRepository.getBarrioByName("Lugano")).thenReturn(expected);
+
+        // Act
+            BarrioModel received= propiedadService.obtenerBarrioPorNombre(name);
+
+        // Assert
+            assertEquals(expected, received);
         }
 
 
+    @Test
+    public void  obtenerBarrioPorNombreNoExist(){
+        // Arrange
+        String name= "Lugano";
+        Mockito.when(iBarrioRepository.getBarrioByName("Lugano")).thenReturn(null);
 
-
-
-
-
-
-
+        // Assert
+        assertNull(propiedadService.obtenerBarrioPorNombre(name));
+    }
 
 
 

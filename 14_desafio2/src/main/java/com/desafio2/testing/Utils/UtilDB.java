@@ -1,10 +1,11 @@
-package com.desafio2.testing.Service;
+package com.desafio2.testing.Utils;
 
 
 import com.desafio2.testing.Exception.BarrioYaExistente;
 import com.desafio2.testing.Model.AmbienteModel;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Repository.*;
+import com.desafio2.testing.Service.IPropiedadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -15,7 +15,6 @@ public class BarrioRepository implements IBarrioRepository {
 
     @Override
     public BarrioModel getBarrioByName(String name) {
-
         for (BarrioModel b : barriosDataBase) {
             if (b.getDistrict_name().equals(name)) {
                 return b;
@@ -24,26 +23,10 @@ public class BarrioRepository implements IBarrioRepository {
         return null;
     }
 
-   /* public boolean agregarPropiedad(PropiedadModel propiedad){
-        return propiedadesDataBase.add(propiedad);
-    }*/
-
-
-
-
-
 
     public boolean agregarBarrio(BarrioModel barrioModel){
-
-        //BarrioModel barrioModel =new BarrioModel(name,precio);
-
         return barriosDataBase.add(barrioModel);
-
     }
-
-
-
-
 
 
 }

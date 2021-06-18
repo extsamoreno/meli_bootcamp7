@@ -17,6 +17,7 @@ public interface IPropiedadService {
      PropiedadListaAmbientesM2DTO calcularListaAmbientesM2(String nombre) throws PropiedadInexistenteException;
      boolean crearPropiedad (PropiedadRequestDTO propiedadRequestDTO) throws BarrioNoExistException, PropiedadYaRegistradaException;
      BarrioModel crearBarrio(String nombreBarrio, double precio) throws BarrioYaExistente;
+     BarrioModel obtenerBarrioPorNombre(String name);
 
 
 }

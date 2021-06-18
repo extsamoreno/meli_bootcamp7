@@ -4,7 +4,7 @@ import com.desafio2.testing.Dto.*;
 import com.desafio2.testing.Model.AmbienteModel;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
-import com.desafio2.testing.Service.IUtilDB;
+import com.desafio2.testing.Utils.IUtilDB;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
