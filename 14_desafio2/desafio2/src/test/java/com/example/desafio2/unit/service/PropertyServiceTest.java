@@ -1,5 +1,7 @@
 package com.example.desafio2.unit.service;
 
+import com.example.desafio2.exception.NeighborhoodExceptionNotFound;
+import com.example.desafio2.exception.PropertyAlreadyExistsException;
 import com.example.desafio2.exception.PropertyExceptionNotFound;
 import com.example.desafio2.model.Property;
 import com.example.desafio2.model.Room;
@@ -16,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,148 +35,125 @@ public class PropertyServiceTest {
     PropertyService service;
 
     @Test
-    public void getTotalMetresSuccesful() {
+    public void getTotalMetresSuccesful() throws PropertyExceptionNotFound {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
-        try {
-            when(iPropertyRepository.findPropertyByName(property.getName())).thenReturn(property);
 
-            // act
-            Double total = service.getTotalMetres(property.getName());
-            Double totalExpected = (double) 6.0;
-            // assert
-            verify(iPropertyRepository, atLeastOnce()).findPropertyByName(property.getName());
-            assertEquals(totalExpected, total);
-        }
-        catch (Exception ex){
+        when(iPropertyRepository.findPropertyByName(property.getName())).thenReturn(property);
 
-        }
+        // act
+        Double total = service.getTotalMetres(property.getName());
+        Double totalExpected = (double) 6.0;
+        // assert
+        verify(iPropertyRepository, atLeastOnce()).findPropertyByName(property.getName());
+        assertEquals(totalExpected, total);
     }
     @Test
-    public void getTotalMetresNotFound() {
+    public void getTotalMetresNotFound() throws PropertyExceptionNotFound {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
-        try {
-            when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
 
-            // act
+        // act
+        when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
 
-            // assert
-            assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
-        }
-        catch (Exception ex){
+        // assert
+        assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
 
-        }
     }
 
     @Test
-    public void getPropertyValueSuccesful() {
+    public void getPropertyValueSuccesful() throws PropertyExceptionNotFound {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
-        try {
-            when(iPropertyRepository.findPropertyByName(property.getName())).thenReturn(property);
+        when(iPropertyRepository.findPropertyByName(property.getName())).thenReturn(property);
 
-            // act
-            Double total = service.getValue(property.getName());
-            Double totalExpected = (double) 60.0;
+        // act
+        Double total = service.getValue(property.getName());
+        Double totalExpected = (double) 60.0;
 
-            // assert
-            verify(iPropertyRepository, atLeastOnce()).findPropertyByName(property.getName());
-            assertEquals(totalExpected, total);        }
-        catch (Exception ex){
-
-        }
+        // assert
+        verify(iPropertyRepository, atLeastOnce()).findPropertyByName(property.getName());
+        assertEquals(totalExpected, total);
     }
     @Test
-    public void getPropertyValueNotFound() {
+    public void getPropertyValueNotFound() throws PropertyExceptionNotFound {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
-        try {
-            when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
+        // act
+        when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
 
-            // act
+        // assert
+        assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
 
-            // assert
-            assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
-        }
-        catch (Exception ex){
-
-        }
     }
     @Test
-    public void getBiggestRoomSuccesful() {
+    public void getBiggestRoomSuccesful() throws PropertyExceptionNotFound {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
-        try {
-            when(iPropertyRepository.findPropertyByName(property.getName())).thenReturn(property);
+        when(iPropertyRepository.findPropertyByName(property.getName())).thenReturn(property);
 
-            // act
-            RoomDTO room = service.getBiggestRoom(property.getName());
-            RoomDTO biggestExpected = new RoomDTO("Bathroom",2,2);
+        // act
+        RoomDTO room = service.getBiggestRoom(property.getName());
+        RoomDTO biggestExpected = new RoomDTO("Bathroom",2,2);
 
-            // assert
-            verify(iPropertyRepository, atLeastOnce()).findPropertyByName(property.getName());
-            assertEquals(room, biggestExpected);
-        }
-        catch (Exception ex){
+        // assert
+        verify(iPropertyRepository, atLeastOnce()).findPropertyByName(property.getName());
+        assertEquals(biggestExpected,room);
 
-        }
     }
     @Test
-    public void getBiggestRoomNotFound() {
+    public void getBiggestRoomNotFound() throws PropertyExceptionNotFound {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
-        try {
-            when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
+        // act
+        when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
 
-            // act
 
-            // assert
-            assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
-        }
-        catch (Exception ex){
 
-        }
+        // assert
+        assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
+
     }
     @Test
-    public void getMetresAmountOfEachRoomSuccesful() {
+    public void getMetresAmountOfEachRoomSuccesful() throws PropertyExceptionNotFound {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith1Room("Centro");
-        try {
             when(iPropertyRepository.findPropertyByName(property.getName())).thenReturn(property);
 
             // act
             List<PropertyTotalMetresRoomDTO> rooms = service.getTotalEachRoom(property.getName());
-            PropertyTotalMetresRoomDTO expectedRoom1 = new PropertyTotalMetresRoomDTO("Bathroom",1);
-
+            PropertyTotalMetresRoomDTO expectedRoom1 = new PropertyTotalMetresRoomDTO(property.getRooms().get(0).getName(),1);
+            List<PropertyTotalMetresRoomDTO> expectedRooms = new LinkedList<PropertyTotalMetresRoomDTO>();
+            expectedRooms.add(expectedRoom1);
 
             // assert
             verify(iPropertyRepository, atLeastOnce()).findPropertyByName(property.getName());
-            assertEquals(rooms.size(), 1);
-            for(PropertyTotalMetresRoomDTO room : rooms){
-                if(room.equals(expectedRoom1.getName()))
-                    assertEquals(room.getTotalMetres(),expectedRoom1.getTotalMetres());
-            }
-        }
-        catch (Exception ex){
-
-        }
+            assertEquals(expectedRooms.size(), rooms.size());
+            assertEquals(expectedRooms.get(0).getName(), rooms.get(0).getName());
+            assertEquals(expectedRooms.get(0).getTotalMetres(), rooms.get(0).getTotalMetres());
     }
     @Test
-    public void getMetresAmountOfEachRoomNotFound() {
+    public void getMetresAmountOfEachRoomNotFound() throws PropertyExceptionNotFound {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith1Room("Centro");
-        try {
-            when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
+        // act
+        when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
 
-            // act
-
-            // assert
-            assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
-        }
-        catch (Exception ex){
-
-        }
+        // assert
+        assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
     }
+    @Test
+    public void createPropertySuccesful() throws NeighborhoodExceptionNotFound, PropertyAlreadyExistsException { //throws NeighborhoodExceptionNotFound, PropertyAlreadyExistsException
+        List<Property> properties = new LinkedList<>();
+        properties.add(TestUtilsGenerator.getPropertyWith1Room("Centro"));
 
+        when(iPropertyRepository.getProperties()).thenReturn(properties);
+        when(iPropertyRepository.findNeighborhoodByName(properties.get(0).getNeighborhood().getName())).thenReturn(properties.get(0).getNeighborhood());
+
+        List<Property> propertiesFromRepo = iPropertyRepository.getProperties();
+        service.createProperty(TestUtilsGenerator.getPropertyDTOWith1Room("Bathroom","Centro"));
+
+        assertEquals(2,propertiesFromRepo.size());
+
+    }
 }

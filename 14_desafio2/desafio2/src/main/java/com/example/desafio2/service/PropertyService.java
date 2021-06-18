@@ -12,6 +12,7 @@ import com.example.desafio2.service.DTO.PropertyTotalMetresRoomDTO;
 import com.example.desafio2.service.DTO.RoomDTO;
 import com.example.desafio2.service.Mapper.PropertyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;

@@ -3,10 +3,10 @@ package com.example.desafio2.service;
 import com.example.desafio2.exception.NeighborhoodExceptionNotFound;
 import com.example.desafio2.exception.PropertyAlreadyExistsException;
 import com.example.desafio2.exception.PropertyExceptionNotFound;
-import com.example.desafio2.model.Room;
 import com.example.desafio2.service.DTO.PropertyDTO;
 import com.example.desafio2.service.DTO.PropertyTotalMetresRoomDTO;
 import com.example.desafio2.service.DTO.RoomDTO;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
