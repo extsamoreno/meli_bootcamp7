@@ -1,4 +1,4 @@
-package com.example.testing;
+package com.example.testing.unittests;
 
 import com.example.testing.dto.EnvironmentDTO;
 import com.example.testing.exceptions.DistrictNotFoundException;
@@ -129,6 +129,18 @@ public class PropertiesServiceTest {
         String expectedException = "DistrictNotFoundException";
         String actualException = exception.getError().getName();
         assertTrue(actualException.contains(expectedException));
+    }
+
+    @Test
+    public void create() {
+        // arrange
+
+
+        // act
+        propertiesService.createProperty(property);
+
+        // assert
+        verify(propertiesRepository, atLeastOnce()).createProperty(property);
     }
 
 }
