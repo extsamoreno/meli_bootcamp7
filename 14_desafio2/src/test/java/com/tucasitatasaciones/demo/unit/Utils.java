@@ -1,12 +1,18 @@
 package com.tucasitatasaciones.demo.unit;
 
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.tucasitatasaciones.demo.dto.*;
 import com.tucasitatasaciones.demo.models.District;
 import com.tucasitatasaciones.demo.models.Environment;
 import com.tucasitatasaciones.demo.models.Property;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Properties;
 
 public class Utils {
 
@@ -54,4 +60,5 @@ public class Utils {
     public static DistrictDTO getDistrictDTO(){
         return new DistrictDTO(3, "Nueva Cordoba", 20);
     }
+
 }

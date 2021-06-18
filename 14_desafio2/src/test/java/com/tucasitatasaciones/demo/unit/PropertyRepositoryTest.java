@@ -38,8 +38,6 @@ public class PropertyRepositoryTest {
         //Arrange
         int propertyId = 1;
         Property propertyExpected = property;
-        propertyExpected.setName("Las corzuelas");
-        propertyExpected.getEnvironments().get(0).setName("Patio");
         //Act
         Property propertyReceived = propertyRepository.findPropertyById(propertyId);
 
@@ -50,15 +48,13 @@ public class PropertyRepositoryTest {
     @Test
     public void testFindByName(){
         //Arrange
-        String name = "Las corzuelas";
-        Property propertyExpected = property;
-        propertyExpected.setName(name);
-        propertyExpected.getEnvironments().get(0).setName("Patio");
+        String name = "Las fincas";
+
         //Act
         Property propertyReceived = propertyRepository.findPropertyByName(name);
 
         //Assert
-        assertEquals(propertyExpected, propertyReceived);
+        assertEquals(property, propertyReceived);
     }
 
     @Test

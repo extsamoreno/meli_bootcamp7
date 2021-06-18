@@ -1,9 +1,9 @@
 [ {
   "id" : 1,
-  "name" : "Las corzuelas",
+  "name" : "Las fincas",
   "districtId" : 3,
   "environments" : [ {
-    "name" : "Patio",
+    "name" : "Comedor",
     "width" : 15.5,
     "length" : 25.0
   }, {

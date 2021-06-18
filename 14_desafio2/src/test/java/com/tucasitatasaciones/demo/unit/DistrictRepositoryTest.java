@@ -23,7 +23,7 @@ public class DistrictRepositoryTest {
     public void testFindDistrictByIdWithExistDistrict(){
         //Arrange
         int districtId = 1;
-        District district = new District(1, "Alta cordoba", 50);
+        District district = new District(1, "Guemes", 100);
 
         //Act
         District districtReceived = districtRepository.findDistrictById(districtId);
@@ -36,7 +36,7 @@ public class DistrictRepositoryTest {
     @Test
     public void testFindDistrictByIdWithNotExistDistrict(){
         //Arrange
-        int districtId = 11;
+        int districtId = 2;
 
         //Act
         District districtReceived = districtRepository.findDistrictById(districtId);

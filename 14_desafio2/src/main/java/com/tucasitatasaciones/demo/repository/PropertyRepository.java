@@ -19,8 +19,20 @@ import java.util.Properties;
 
 @Repository
 public class PropertyRepository implements IPropertyRepository{
-
+    private String SCOPE;
     private ArrayList<Property> listProperties;
+
+    public PropertyRepository() {
+        Properties properties =  new Properties();
+
+        try {
+            properties.load(new ClassPathResource("application.properties").getInputStream());
+            this.SCOPE = properties.getProperty("api.scope");
+            this.loadData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public Property addProperty(Property property) {
@@ -55,7 +67,7 @@ public class PropertyRepository implements IPropertyRepository{
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
         try {
-            File file = ResourceUtils.getFile("./src/main/resources/properties.json");
+            File file = ResourceUtils.getFile("./src/" + SCOPE +"/resources/properties.json");
             writer.writeValue(file, property);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -72,7 +84,7 @@ public class PropertyRepository implements IPropertyRepository{
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
-            file = ResourceUtils.getFile("./src/main/resources/properties.json");
+            file = ResourceUtils.getFile("./src/" + SCOPE +"/resources/properties.json");
             loadedData = objectMapper.readValue(file, new TypeReference<ArrayList<Property>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
