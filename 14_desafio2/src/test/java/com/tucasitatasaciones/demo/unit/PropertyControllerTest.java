@@ -30,11 +30,20 @@ public class PropertyControllerTest {
     PropertyController propertyController;
 
     private PropertyDTO propertyDTO;
+    private PropertySquareMettersDTO propertySquareMetters;
+    private PropertyPriceDTO propertyPrice;
+    private PropertyBiggestEnvironmentDTO propertyBiggestEnvironment;
+    private PropertyEnvironmentSquareMetterDTO propertyEnvironmentMetters;
 
     @BeforeEach  @AfterEach
     public void init(){
         propertyDTO = Utils.getPropertyDTO();
+        propertySquareMetters = Utils.getPropertySquareMetters();
+        propertyPrice = Utils.getPropertyPrice();
+        propertyBiggestEnvironment = Utils.getPropertyBiggestEnvironment();
+        propertyEnvironmentMetters = Utils.getPropertyEnviromentsSquareMetters();
     }
+
     @Test
     public void testPostPropertyWithValidPayload() throws BadRequestException {
         //Arrange
@@ -54,93 +63,62 @@ public class PropertyControllerTest {
     @Test
     public void testGetSquareMettersByIdWithValidId() throws BadRequestException {
         //Arrange
-        int propertyId = 1;
-        PropertySquareMettersDTO propertyExpected = new PropertySquareMettersDTO(propertyId, propertyDTO.getName(), 1500);
         HttpStatus statusExpected = HttpStatus.OK;
-        when(propertyService.calculateSquareMettersById(propertyId)).thenReturn(propertyExpected);
+        when(propertyService.calculateSquareMettersById(1)).thenReturn(propertySquareMetters);
 
         //Act
-        ResponseEntity<PropertySquareMettersDTO> response = propertyController.getSquareMettersById(propertyId);
+        ResponseEntity<PropertySquareMettersDTO> response = propertyController.getSquareMettersById(1);
 
         //Assert
-        verify(propertyService, atLeastOnce()).calculateSquareMettersById(propertyId);
-        assertEquals(propertyExpected, response.getBody());
+        verify(propertyService, atLeastOnce()).calculateSquareMettersById(1);
+        assertEquals(propertySquareMetters, response.getBody());
         assertEquals(statusExpected, response.getStatusCode());
-    }
-
-    //TODO: Revisar.
-    @Test
-    public void testGetSquareMettersWithInvalidId() throws BadRequestException {
-        //Arrange
-        int propertyId = 11;
-        when(propertyService.calculateSquareMettersById(propertyId)).thenThrow(new BadRequestException());
-
-        //Act
-        //Assert
-        assertThrows(BadRequestException.class, () -> {
-            propertyController.getSquareMettersById(propertyId);
-        });
-
     }
 
     @Test
     public void testGetPropertyPriceWithValidId() throws BadRequestException {
         //Arrange
-        int propertyId = 1;
-        PropertyPriceDTO propertyExpected = new PropertyPriceDTO(propertyId, propertyDTO.getName(), 113850);
         HttpStatus statusExpected = HttpStatus.OK;
-        when(propertyService.calculatePropertyPriceById(propertyId)).thenReturn(propertyExpected);
+        when(propertyService.calculatePropertyPriceById(1)).thenReturn(propertyPrice);
 
         //Act
-        ResponseEntity<PropertyPriceDTO> response = propertyController.getPropertyPriceById(propertyId);
+        ResponseEntity<PropertyPriceDTO> response = propertyController.getPropertyPriceById(1);
 
         //Assert
-        verify(propertyService, atLeastOnce()).calculatePropertyPriceById(propertyId);
-        assertEquals(propertyExpected, response.getBody());
+        verify(propertyService, atLeastOnce()).calculatePropertyPriceById(1);
+        assertEquals(propertyPrice, response.getBody());
         assertEquals(statusExpected, response.getStatusCode());
     }
 
     @Test
     public void testGetBiggestEnvironmentByIdWithValidId() throws BadRequestException {
         //Arrange
-        int propertyId = 1;
-        EnvironmentDTO environmentExpected = new EnvironmentDTO("Habitacion", 20, 30);
-        PropertyBiggestEnvironmentDTO propertyExpected = new PropertyBiggestEnvironmentDTO(propertyId, propertyDTO.getName(),
-                environmentExpected);
-
         HttpStatus statusExpected = HttpStatus.OK;
 
-        when(propertyService.calculateBiggestEnvironmentById(propertyId)).thenReturn(propertyExpected);
+        when(propertyService.calculateBiggestEnvironmentById(1)).thenReturn(propertyBiggestEnvironment);
 
         //Act
-        ResponseEntity<PropertyBiggestEnvironmentDTO> response = propertyController.getBiggestEnvironmentById(propertyId);
+        ResponseEntity<PropertyBiggestEnvironmentDTO> response = propertyController.getBiggestEnvironmentById(1);
 
         //Assert
-        verify(propertyService, atLeastOnce()).calculateBiggestEnvironmentById(propertyId);
-        assertEquals(propertyExpected, response.getBody());
+        verify(propertyService, atLeastOnce()).calculateBiggestEnvironmentById(1);
+        assertEquals(propertyBiggestEnvironment, response.getBody());
         assertEquals(statusExpected, response.getStatusCode());
     }
 
     @Test
     public void testGetPropertyEnvironmentsSquareMetters() throws BadRequestException {
         //Arrange
-        int propertyId = 1;
-        ArrayList<EnvironmentSquareMetterDTO> environmentsExpected = new ArrayList<>();
-        environmentsExpected.add(new EnvironmentSquareMetterDTO("Baño", 20, 25,500));
-        environmentsExpected.add(new EnvironmentSquareMetterDTO("Cocina", 10, 33,330));
-        PropertyEnvironmentSquareMetterDTO propertyExpected = new PropertyEnvironmentSquareMetterDTO(propertyId, propertyDTO.getName(),
-                environmentsExpected);
-
         HttpStatus statusExpected = HttpStatus.OK;
 
-        when(propertyService.calculateSquareMettersEnvironmentsById(propertyId)).thenReturn(propertyExpected);
+        when(propertyService.calculateSquareMettersEnvironmentsById(1)).thenReturn(propertyEnvironmentMetters);
 
         //Act
-        ResponseEntity<PropertyEnvironmentSquareMetterDTO> response = propertyController.getPropertyEnvironmentsSquareMetters(propertyId);
+        ResponseEntity<PropertyEnvironmentSquareMetterDTO> response = propertyController.getPropertyEnvironmentsSquareMetters(1);
 
         //Assert
-        verify(propertyService, atLeastOnce()).calculateSquareMettersEnvironmentsById(propertyId);
-        assertEquals(propertyExpected, response.getBody());
+        verify(propertyService, atLeastOnce()).calculateSquareMettersEnvironmentsById(1);
+        assertEquals(propertyEnvironmentMetters, response.getBody());
         assertEquals(statusExpected, response.getStatusCode());
     }
 
