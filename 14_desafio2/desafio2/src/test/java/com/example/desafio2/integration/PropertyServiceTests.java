@@ -7,7 +7,6 @@ import com.example.desafio2.exceptions.PropertyNotFoundException;
 import com.example.desafio2.models.EnvironmentDTO;
 import com.example.desafio2.models.NeighborhoodDTO;
 import com.example.desafio2.models.PropertyDTO;
-import com.example.desafio2.repositories.PropertyRepository;
 import com.example.desafio2.services.IPropertyService;
 import com.example.desafio2.utils.TestUtilsGenerator;
 import org.junit.jupiter.api.AfterEach;
@@ -16,17 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
