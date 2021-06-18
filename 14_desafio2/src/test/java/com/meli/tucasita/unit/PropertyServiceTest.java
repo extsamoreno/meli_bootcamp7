@@ -36,7 +36,7 @@ public class PropertyServiceTest {
     // Arrange
     PropertyDto testProperty = Utils.getPropertyDto();
     int id = testProperty.getId(); // id = 18
-    double area = calculateArea(testProperty);
+    double area = Utils.calculateArea(testProperty);
 
     PropertyAreaDto expectedPropertyAreaDto = new PropertyAreaDto(testProperty.getName(), area);
     when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
@@ -54,7 +54,7 @@ public class PropertyServiceTest {
     // Arrange
     PropertyDto testProperty = Utils.getPropertyDto();
     int id = testProperty.getId();
-    double area = calculateArea(testProperty);
+    double area = Utils.calculateArea(testProperty);
 
     DistrictDto testDistrict = Utils.getDistrictDto();
     int distId = testDistrict.getId();
@@ -62,7 +62,7 @@ public class PropertyServiceTest {
 
     PropertyPriceDto expectedPropertyPriceDto = new PropertyPriceDto(testProperty.getName(), area * price);
     when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
-    when(propertyRepository.findDistrictById(id)).thenReturn(testDistrict);
+    when(propertyRepository.findDistrictById(distId)).thenReturn(testDistrict);
 
     // Act
     PropertyPriceDto currentPropertyPriceDto = propertyService.getPropertyPrice(id);
@@ -88,17 +88,8 @@ public class PropertyServiceTest {
     // Arrange
     PropertyDto testProperty = Utils.getPropertyDto();
     int id = testProperty.getId(); // id = 18
-    double area = 0.00;
-    double maxArea = 0.00;
-    String maxEnvironment = "";
-    for (EnvironmentDto e: testProperty.getEnvironments()) {
-      area = e.getLength() * e.getWidth();
-      if (area > maxArea) {
-        maxArea = area;
-        maxEnvironment = e.getName();
-      }
-    }
-    EnvironmentAreaDto expectedBiggestEnvironment = new EnvironmentAreaDto(maxEnvironment, maxArea);
+
+    EnvironmentAreaDto expectedBiggestEnvironment = Utils.calculateBiggestEnvironment(testProperty);
     when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
 
     // Act
@@ -114,6 +105,7 @@ public class PropertyServiceTest {
     // Assert
     PropertyDto testProperty = Utils.getPropertyDto();
     int id = testProperty.getId();
+
     List<EnvironmentAreaDto> expectedEnvironments = new ArrayList<>();
     for (EnvironmentDto e: testProperty.getEnvironments()) {
       expectedEnvironments.add(new EnvironmentAreaDto(e.getName(), e.getLength()*e.getWidth()));
@@ -128,11 +120,5 @@ public class PropertyServiceTest {
     Assertions.assertThat(expectedEnvironments).isEqualTo(currentEnvironments);
   }
 
-  private double calculateArea(PropertyDto propertyDto) {
-    double area = 0.00;
-    for (EnvironmentDto e: propertyDto.getEnvironments()) {
-      area += e.getLength() * e.getWidth();
-    }
-    return area;
-  }
+
 }

@@ -52,22 +52,29 @@ public class PropertyControllerIntegrationTest {
             .andDo(print()).andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(testProperty.getName()))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.area").value(21));
+            .andExpect(MockMvcResultMatchers.jsonPath("$.area")
+                    .value(Utils.calculateArea(testProperty)));
   }
 
-//  @Test
-//  public void testCalculatePriceHappyPath() throws Exception {
-//
-//    PropertyDto testProperty = Utils.getPropertyDto();
-//    int id = testProperty.getId(); // id = 18
-//    when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
-//
-//    this.mockMvc.perform(MockMvcRequestBuilders.get("/calculatePrice/{id}", id))
-//            .andDo(print()).andExpect(status().isOk())
-//            .andExpect(content().contentType("application/json"))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Testing Property"))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(67200.0));
-//  }
+  @Test
+  public void testCalculatePriceHappyPath() throws Exception {
+
+    PropertyDto testProperty = Utils.getPropertyDto();
+    int id = testProperty.getId(); // id = 18
+
+    DistrictDto testDistrict = Utils.getDistrictDto();
+    int distId = testDistrict.getId(); // id = 18
+
+    when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
+    when(propertyRepository.findDistrictById(id)).thenReturn(testDistrict);
+
+    this.mockMvc.perform(MockMvcRequestBuilders.get("/calculatePrice/{id}", id))
+            .andDo(print()).andExpect(status().isOk())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(testProperty.getName()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.price")
+                    .value(Utils.calculateArea(testProperty) * testDistrict.getPrice()));
+  }
 
 //  @Test
 //  public void testBiggestEnvironmentHappyPath() throws Exception {

@@ -17,4 +17,26 @@ public class Utils {
   public static DistrictDto getDistrictDto(){
     return new DistrictDto(18, "Testing District", 1000.0);
   }
+
+  public static EnvironmentAreaDto calculateBiggestEnvironment (PropertyDto propertyDto) {
+    double area = 0.00;
+    double maxArea = 0.00;
+    String maxEnvironment = "";
+    for (EnvironmentDto e: propertyDto.getEnvironments()) {
+      area = e.getLength() * e.getWidth();
+      if (area > maxArea) {
+        maxArea = area;
+        maxEnvironment = e.getName();
+      }
+    }
+    return new EnvironmentAreaDto(maxEnvironment, maxArea);
+  }
+
+  public static double calculateArea(PropertyDto propertyDto) {
+    double area = 0.00;
+    for (EnvironmentDto e: propertyDto.getEnvironments()) {
+      area += e.getLength() * e.getWidth();
+    }
+    return area;
+  }
 }
