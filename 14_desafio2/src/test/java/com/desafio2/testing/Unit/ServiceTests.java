@@ -1,9 +1,6 @@
 package com.desafio2.testing.Unit;
 
-import com.desafio2.testing.Dto.AmbienteDTO;
-import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
-import com.desafio2.testing.Dto.PropiedadM2DTO;
-import com.desafio2.testing.Dto.PropiedadRequestDTO;
+import com.desafio2.testing.Dto.*;
 import com.desafio2.testing.Exception.BarrioNoExistException;
 import com.desafio2.testing.Exception.PropiedadInexistenteException;
 import com.desafio2.testing.Exception.PropiedadYaRegistradaException;
@@ -35,8 +32,6 @@ public class ServiceTests {
     @Mock
     IBarrioRepository iBarrioRepository;
 
-
-
     @InjectMocks
     PropiedadService propiedadService;
 
@@ -66,6 +61,23 @@ public class ServiceTests {
         assertThrows(PropiedadInexistenteException.class, () -> propiedadService.calcularM2PropiedadDTO(nombre));
     }
 
+    @Test  //Test CU0002
+    public void calcularValorPropiedadOk() throws PropiedadInexistenteException {
+        // arrange
+        PropiedadModel propiedad = UtilTest.createPropiedadModel();
+        PropiedadValorDTO expected = UtilTest.crearPropiedadValorDto();
+        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(propiedad);
+
+        // act
+        PropiedadValorDTO received= propiedadService.calcularValorPropiedadDTO(propiedad.getProp_name());
+
+        // assert
+        verify(iPropiedadRepository,Mockito.atLeastOnce()).getPropiedadByName(propiedad.getProp_name());
+        assertEquals(expected, received);
+    }
+
+
+
 
     @Test//Test CU0003
     public void calcularAmbienteMasGrandeOk() throws PropiedadInexistenteException {
@@ -93,7 +105,6 @@ public class ServiceTests {
         // assert
         assertThrows(PropiedadInexistenteException.class, () -> propiedadService.calcularAmbienteMasGrande(nombre));
     }
-
 
     @Test //Test CU0004
     public void calcularListaAmbientesM2ok() throws PropiedadInexistenteException {
@@ -123,8 +134,8 @@ public class ServiceTests {
 
     }
 
-        @Test
-        public void crearPropiedadOk() throws BarrioNoExistException, PropiedadYaRegistradaException {
+    @Test
+    public void crearPropiedadOk() throws BarrioNoExistException, PropiedadYaRegistradaException {
             // Arrange
             PropiedadRequestDTO propiedadRequestDTO = UtilTest.crearPropiedadRequestDTO();
             BarrioModel barrio = new BarrioModel("Almagro", 1200.3);
@@ -164,8 +175,7 @@ public class ServiceTests {
         assertThrows(PropiedadYaRegistradaException.class, () -> propiedadService.crearPropiedad(propiedadRequestDTO));
     }
 
-
-        @Test
+    @Test
     public void  obtenerBarrioPorNombreOk(){
         // Arrange
             BarrioModel expected = new BarrioModel("Lugano", 1200.3);
@@ -179,7 +189,6 @@ public class ServiceTests {
             assertEquals(expected, received);
         }
 
-
     @Test
     public void  obtenerBarrioPorNombreNoExist(){
         // Arrange
@@ -189,6 +198,7 @@ public class ServiceTests {
         // Assert
         assertNull(propiedadService.obtenerBarrioPorNombre(name));
     }
+
 
 
 

@@ -71,5 +71,9 @@ public class UtilTest {
        return propiedadRequestDTO;
     }
 
+    public static PropiedadValorDTO crearPropiedadValorDto(){
+        return new PropiedadValorDTO("Libertador 5",164608.00);
+    }
+
 
 }
