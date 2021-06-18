@@ -1,7 +1,9 @@
 package com.meli.desafio2.integration;
 
+import com.meli.desafio2.exception.PropertyException;
 import com.meli.desafio2.model.District;
 import com.meli.desafio2.model.Property;
+import com.meli.desafio2.model.dto.EnvironmentDTO;
 import com.meli.desafio2.repository.DistrictRepository;
 import com.meli.desafio2.repository.PropertyRepository;
 import com.meli.desafio2.util.TestUtilGenerator;
@@ -11,12 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -69,6 +74,79 @@ public class PropertyControllerIntegrationTest {
 
     @Test
     public void calculateMts2HappyPath() throws Exception{
+        Property prop = TestUtilGenerator.getProperty();
+        Mockito.when(propertyRepository.getProperty()).thenReturn(prop);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/property/calculateMts2"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_name").value("Casa del Barba"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value("131.0"));
 
     }
+
+    /*
+    @Test
+    public void calculateMts2WithoutProperty() throws Exception{
+        Mockito.when(propertyRepository.getProperty()).thenThrow();
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/property/calculateMts2"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_name").value("Casa del Barba"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value("131.0"));
+
+    }
+     */
+
+    @Test
+    public void calculatePriceHappyPath() throws Exception{
+        Property prop = TestUtilGenerator.getProperty();
+        Mockito.when(propertyRepository.getProperty()).thenReturn(prop);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/property/calculatePrice"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_name").value("Casa del Barba"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value(131.0))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_price").value(39365.5));
+
+    }
+
+    @Test
+    public void obtainMostGreaterEnvironment() throws Exception{
+        Property prop = TestUtilGenerator.getProperty();
+        Mockito.when(propertyRepository.getProperty()).thenReturn(prop);
+        EnvironmentDTO env = new EnvironmentDTO("Cocina",56);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/property/obtainMostGreaterEnvironment"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_name").value("Casa del Barba"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value(131.0))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_environment_most_great").value(env));
+
+    }
+
+    @Test
+    public void calculateEnvironmentMts2() throws Exception{
+        Property prop = TestUtilGenerator.getProperty();
+        Mockito.when(propertyRepository.getProperty()).thenReturn(prop);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/property/calculateEnvironmentMts2"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_name").value("Casa del Barba"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value(131.0))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.environmentList").value(TestUtilGenerator.environmentDTOList()));
+
+    }
+
+
+
 }
