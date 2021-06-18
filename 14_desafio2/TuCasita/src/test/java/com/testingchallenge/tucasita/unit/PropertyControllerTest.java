@@ -41,7 +41,8 @@ public class PropertyControllerTest {
                         new Room("Comedor", (double) 25, (double) 20),
                         new Room("Cocina", (double) 15, (double) 10),
                         new Room("Dormitorio", (double) 12, (double) 10)
-                )));
+                ))
+        );
         Mockito.when(iPropertyService.addProperty(expected)).thenReturn(HttpStatus.CREATED);
 
         // act
@@ -63,7 +64,8 @@ public class PropertyControllerTest {
                         new Room("Comedor", (double) 25, (double) 20),
                         new Room("Cocina", (double) 15, (double) 10),
                         new Room("Dormitorio", (double) 12, (double) 10)
-                )));
+                ))
+        );
 
         // assert
         Mockito.verify(iPropertyService, Mockito.never()).addProperty(expected);
@@ -83,7 +85,8 @@ public class PropertyControllerTest {
                         new Room("Comedor", (double) 25, (double) 20),
                         new Room("Cocina", (double) 15, (double) 10),
                         new Room("Dormitorio", (double) 12, (double) 10)
-                )));
+                ))
+        );
         PropertyValueDTO expected = new PropertyValueDTO(propertyName, (double) 770000);
 
         Mockito.when(iPropertyService.getValue(propertyName)).thenReturn(expected);
@@ -108,7 +111,8 @@ public class PropertyControllerTest {
                         new Room("Comedor", (double) 25, (double) 20),
                         new Room("Cocina", (double) 15, (double) 10),
                         new Room("Dormitorio", (double) 12, (double) 10)
-                )));
+                ))
+        );
 
         Mockito.when(iPropertyService.getValue(propertyName)).thenThrow(PropertyNotFoundException.class);
 
