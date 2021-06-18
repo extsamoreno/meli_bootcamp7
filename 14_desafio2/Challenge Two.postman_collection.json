@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "bbd1f833-1ef6-4e08-b254-89188a82e6c3",
+		"name": "Challenge Two",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TotalArea",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/house/totalArea/House5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"totalArea",
+						"House5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TotalValue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/house/value/House5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"value",
+						"House5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BiggerEnvironment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/house/biggerEnvironment/House5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"biggerEnvironment",
+						"House5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListAllnviroments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/house/environmentsAreaList/House5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"environmentsAreaList",
+						"House5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddHouse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"houseName\": \"House10\",\n    \"districName\": \"Engativa\",\n    \"listEnvironment\": [\n        {\n            \"environmentName\": \"Bath\",\n            \"environmentWidth\": 4.3,\n            \"environmentLength\": 6.2\n        },\n        {\n            \"environmentName\": \"Bedroom\",\n            \"environmentWidth\": 6.3,\n            \"environmentLength\": 2.9\n        }\n\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/house/createHouse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"createHouse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddDistrict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"districtName\": \"center\",\n    \"price\": 100\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/house/createDistrict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"createDistrict"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
