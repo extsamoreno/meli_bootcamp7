@@ -1,21 +1,18 @@
 package com.example.demo.services;
 
 import com.example.demo.DTO.*;
-import com.example.demo.Exceptions.NotFoundException;
-import com.example.demo.Mapper;
+import com.example.demo.exceptions.BadRequestException;
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.Utils.UtilTest;
-import com.example.demo.controllers.PropertyController;
 import com.example.demo.entities.Property;
 import com.example.demo.repositories.IDistrictRepository;
 import com.example.demo.repositories.IPropertyRepository;
-import com.example.demo.repositories.PropertyRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -134,11 +131,22 @@ public class PropertyServiceTest {
         verify(iPropertyRepository, times(1)).addProperty(property);
     }
 
-   /* @Test
+    @Test
     public void addPropertyNotFoundDistrictTest() throws Exception {
-        PropertyDTO propertyDTO = UtilTest.getPropertyDTOWithEnvironments();
+        PropertyDTO propertyDTO = UtilTest.getPropertyWithoutDistrict();
 
-        when(iDistrictRepository.findDistrictByName("test")).thenReturn(null);
+        when(iDistrictRepository.findDistrictByName(propertyDTO.getDistrictName())).thenReturn(null);
         Assertions.assertThrows(NotFoundException.class, () -> propertyService.addProperty(propertyDTO));
-    }*/
+    }
+
+    @Test
+    public void addPropertyBadRequestPropertyAlreadyExistsTest() throws Exception {
+
+        Property property = UtilTest.getPropertyWithEnvironments();
+
+        when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
+
+        Assertions.assertThrows(BadRequestException.class, () -> propertyService.addProperty(UtilTest.toPropertyDTO(property)));
+
+    }
 }

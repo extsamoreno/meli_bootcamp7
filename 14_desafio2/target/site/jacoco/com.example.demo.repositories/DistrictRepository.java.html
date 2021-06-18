@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DistrictRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.repositories</a> &gt; <span class="el_source">DistrictRepository.java</span></div><h1>DistrictRepository.java</h1><pre class="source lang-java linenums">package com.example.demo.repositories;
+
+
+import com.example.demo.entities.District;
+import com.example.demo.entities.Property;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+
+@Repository
+<span class="fc" id="L17">public class DistrictRepository implements IDistrictRepository {</span>
+
+<span class="fc" id="L19">    String districtPathFile = System.getProperty(&quot;user.dir&quot;) + &quot;/src/main/resources/data/District.json&quot;;</span>
+
+<span class="fc" id="L21">    List&lt;District&gt; districts = loadDistrict();</span>
+
+    @Override
+    public List&lt;District&gt; loadDistrict() {
+<span class="fc" id="L25">        File file = null;</span>
+        try {
+<span class="fc" id="L27">            file = ResourceUtils.getFile(districtPathFile);</span>
+<span class="nc" id="L28">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L29">            e.printStackTrace();</span>
+<span class="fc" id="L30">        }</span>
+<span class="fc" id="L31">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L32">        TypeReference&lt;List&lt;District&gt;&gt; typeRef = new TypeReference&lt;&gt;() {</span>
+        };
+<span class="fc" id="L34">        List&lt;District&gt; districts = null;</span>
+        try {
+<span class="fc" id="L36">            districts = objectMapper.readValue(file, typeRef);</span>
+<span class="nc" id="L37">        } catch (IOException e) {</span>
+<span class="nc" id="L38">            e.printStackTrace();</span>
+<span class="fc" id="L39">        }</span>
+<span class="fc" id="L40">        return districts;</span>
+    }
+
+    @Override
+    public void saveDistrict() {
+<span class="fc" id="L45">        File file = null;</span>
+        try {
+<span class="fc" id="L47">            file = ResourceUtils.getFile(districtPathFile);</span>
+<span class="nc" id="L48">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L49">            e.printStackTrace();</span>
+<span class="fc" id="L50">        }</span>
+<span class="fc" id="L51">        ObjectMapper objectMapper = new ObjectMapper();</span>
+
+        try {
+<span class="fc" id="L54">            objectMapper.writeValue(file, districts);</span>
+<span class="nc" id="L55">        } catch (IOException e) {</span>
+<span class="nc" id="L56">            e.printStackTrace();</span>
+<span class="fc" id="L57">        }</span>
+<span class="fc" id="L58">    }</span>
+
+    @Override
+    public District findDistrictByName(String districtName) {
+<span class="fc" id="L62">        District result = null;</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (this.districts != null) {</span>
+<span class="fc" id="L64">            result = this.districts.stream()</span>
+<span class="fc" id="L65">                    .filter(district -&gt; district.getName().equals(districtName))</span>
+<span class="fc" id="L66">                    .findAny().orElse(null);</span>
+        }
+<span class="fc" id="L68">        return result;</span>
+    }
+
+    public void addDistrict(District district){
+<span class="fc" id="L72">        districts.add(district);</span>
+<span class="fc" id="L73">        saveDistrict();</span>
+<span class="fc" id="L74">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

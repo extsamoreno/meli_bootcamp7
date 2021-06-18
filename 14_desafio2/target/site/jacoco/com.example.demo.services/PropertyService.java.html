@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertyService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.services</a> &gt; <span class="el_source">PropertyService.java</span></div><h1>PropertyService.java</h1><pre class="source lang-java linenums">package com.example.demo.services;
+
+import com.example.demo.DTO.*;
+import com.example.demo.exceptions.BadRequestException;
+import com.example.demo.exceptions.NotFoundException;
+import com.example.demo.Mapper;
+import com.example.demo.entities.District;
+import com.example.demo.entities.Environment;
+import com.example.demo.entities.Property;
+import com.example.demo.repositories.IDistrictRepository;
+import com.example.demo.repositories.IPropertyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+<span class="fc" id="L19">public class PropertyService implements IPropertyService {</span>
+
+    @Autowired
+    IPropertyRepository iPropertyRepository;
+
+    @Autowired
+    IDistrictRepository iDistrictRepository;
+
+    @Override
+    public ResponseCalculateTotalMetersDTO getResponseCalculateTotalMetersDTO(int propertyId) throws Exception {
+<span class="fc" id="L29">        ResponseCalculateTotalMetersDTO response = new ResponseCalculateTotalMetersDTO();</span>
+<span class="fc" id="L30">        Property property = iPropertyRepository.getPropertyById(propertyId);</span>
+
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (property == null) {</span>
+<span class="fc" id="L33">            throw new NotFoundException(&quot;Property does not exists&quot;);</span>
+        }
+<span class="fc" id="L35">        response.setName(property.getName());</span>
+<span class="fc" id="L36">        response.setTotalMeters(getTotalMeters(property.getEnvironments()));</span>
+
+<span class="fc" id="L38">        return response;</span>
+    }
+
+    private double getTotalMeters(List&lt;Environment&gt; environments) {
+<span class="fc" id="L42">        double total = 0;</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (int i = 0; i &lt; environments.size(); i++) {</span>
+<span class="fc" id="L44">            total += environments.get(i).getLength() * environments.get(i).getWidth();</span>
+        }
+<span class="fc" id="L46">        return total;</span>
+    }
+
+    @Override
+    public ResponseBiggerEnvironmentDTO getBiggerEnvironment(int propertyId) throws Exception {
+<span class="fc" id="L51">        Property property = iPropertyRepository.getPropertyById(propertyId);</span>
+
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (property == null) {</span>
+<span class="fc" id="L54">            throw new NotFoundException(&quot;Property does not exists&quot;);</span>
+        }
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (property.getEnvironments() == null) {</span>
+<span class="fc" id="L57">            throw new NotFoundException(&quot;Property has not environment&quot;);</span>
+        }
+
+<span class="fc" id="L60">        double total = 0;</span>
+<span class="fc" id="L61">        Environment environment = null;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        for (Environment environmentEntry : property.getEnvironments()) {</span>
+
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">            if (environmentEntry.getLength() * environmentEntry.getWidth() &gt; total) {</span>
+<span class="fc" id="L65">                total = environmentEntry.getLength() * environmentEntry.getWidth();</span>
+<span class="fc" id="L66">                environment = environmentEntry;</span>
+            }
+<span class="fc" id="L68">        }</span>
+<span class="fc" id="L69">        ResponseBiggerEnvironmentDTO response = new ResponseBiggerEnvironmentDTO();</span>
+<span class="fc" id="L70">        response.setName(property.getName());</span>
+<span class="fc" id="L71">        response.setEnvironmentName(environment.getName());</span>
+<span class="fc" id="L72">        response.setBiggerEnvironmentMeters(total);</span>
+
+<span class="fc" id="L74">        return response;</span>
+    }
+
+    @Override
+    public ResponseTotalMetersByEnvironmentDTO getTotalMetersByEnvironment(int propertyId) throws Exception {
+<span class="fc" id="L79">        Property property = iPropertyRepository.getPropertyById(propertyId);</span>
+
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        if (property == null) {</span>
+<span class="fc" id="L82">            throw new NotFoundException(&quot;Property does not exists&quot;);</span>
+        }
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (property.getEnvironments() == null) {</span>
+<span class="fc" id="L85">            throw new NotFoundException(&quot;Property has not environment&quot;);</span>
+        }
+
+<span class="fc" id="L88">        List&lt;EnvironmentDTO&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        for (Environment environmentEntry : property.getEnvironments()) {</span>
+<span class="fc" id="L90">            EnvironmentDTO environment = new EnvironmentDTO();</span>
+<span class="fc" id="L91">            environment.setName(environmentEntry.getName());</span>
+<span class="fc" id="L92">            environment.setLength(environmentEntry.getLength());</span>
+<span class="fc" id="L93">            environment.setWidth(environmentEntry.getWidth());</span>
+<span class="fc" id="L94">            environment.setTotalMeters(environmentEntry.getLength() * environmentEntry.getWidth());</span>
+<span class="fc" id="L95">            list.add(environment);</span>
+<span class="fc" id="L96">        }</span>
+
+<span class="fc" id="L98">        ResponseTotalMetersByEnvironmentDTO response = new ResponseTotalMetersByEnvironmentDTO();</span>
+<span class="fc" id="L99">        response.setNameProperty(property.getName());</span>
+<span class="fc" id="L100">        response.setEnvironments(list);</span>
+
+<span class="fc" id="L102">        return response;</span>
+    }
+
+    @Override
+    public ResponsePriceDTO getPrice(int propertyId) throws Exception {
+<span class="fc" id="L107">        Property property = iPropertyRepository.getPropertyById(propertyId);</span>
+
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (property == null) {</span>
+<span class="fc" id="L110">            throw new NotFoundException(&quot;Property does not exists&quot;);</span>
+        }
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (property.getEnvironments() == null) {</span>
+<span class="fc" id="L113">            throw new NotFoundException(&quot;Property has not environment&quot;);</span>
+        }
+
+<span class="fc" id="L116">        double priceByMeter = property.getDistrict().getPrice();</span>
+<span class="fc" id="L117">        double totalPrice = getTotalMeters(property.getEnvironments()) * priceByMeter;</span>
+
+<span class="fc" id="L119">        ResponsePriceDTO response = new ResponsePriceDTO();</span>
+<span class="fc" id="L120">        response.setPropertyId(propertyId);</span>
+<span class="fc" id="L121">        response.setPropertyName(property.getName());</span>
+<span class="fc" id="L122">        response.setPrice(totalPrice);</span>
+
+<span class="fc" id="L124">        return response;</span>
+    }
+
+    @Override
+    public void addProperty(PropertyDTO propertyDTO) throws Exception {
+<span class="fc" id="L129">        Property aux = iPropertyRepository.getPropertyById(propertyDTO.getId());</span>
+
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        if(aux != null){</span>
+<span class="fc" id="L132">            throw new BadRequestException(&quot;Property already exist&quot;);</span>
+        }
+
+<span class="fc" id="L135">        District district = iDistrictRepository.findDistrictByName(propertyDTO.getDistrictName());</span>
+
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (district == null) {</span>
+<span class="fc" id="L138">            throw new NotFoundException(&quot;District does not exists&quot;);</span>
+        }
+<span class="fc" id="L140">        Property property = new Property();</span>
+<span class="fc" id="L141">        property.setId(propertyDTO.getId());</span>
+<span class="fc" id="L142">        property.setName(propertyDTO.getName());</span>
+<span class="fc" id="L143">        property.setDistrict(district);</span>
+<span class="fc" id="L144">        property.setEnvironments(Mapper.toEnvironment(propertyDTO.getEnvironments()));</span>
+<span class="fc" id="L145">        iPropertyRepository.addProperty(property);</span>
+<span class="fc" id="L146">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

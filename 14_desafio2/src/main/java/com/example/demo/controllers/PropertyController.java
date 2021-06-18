@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("property")
 public class PropertyController {
@@ -44,7 +46,7 @@ public class PropertyController {
     }
 
     @PostMapping("/addProperty")
-    public ResponseEntity addProperty(@RequestBody PropertyDTO property) throws Exception {
+    public ResponseEntity addProperty(@Valid @RequestBody PropertyDTO property) throws Exception {
         propertyService.addProperty(property);
         return ResponseEntity.ok().build();
     }

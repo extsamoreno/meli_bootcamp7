@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertyController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.controllers</a> &gt; <span class="el_source">PropertyController.java</span></div><h1>PropertyController.java</h1><pre class="source lang-java linenums">package com.example.demo.controllers;
+
+import com.example.demo.DTO.*;
+import com.example.demo.entities.Property;
+import com.example.demo.repositories.IDistrictRepository;
+import com.example.demo.repositories.IPropertyRepository;
+import com.example.demo.services.IPropertyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.source.IterableConfigurationPropertySource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping(&quot;property&quot;)
+<span class="fc" id="L18">public class PropertyController {</span>
+
+    @Autowired
+    IPropertyService propertyService;
+
+    @GetMapping(&quot;/calculateTotalMeters/{propertyId}&quot;)
+    public ResponseEntity&lt;ResponseCalculateTotalMetersDTO&gt; calculateTotalMeters(@PathVariable int propertyId) throws Exception {
+<span class="fc" id="L25">        ResponseCalculateTotalMetersDTO response = propertyService.getResponseCalculateTotalMetersDTO(propertyId);</span>
+<span class="fc" id="L26">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/price/{propertyId}&quot;)
+    public ResponseEntity&lt;ResponsePriceDTO&gt; price(@PathVariable int propertyId) throws Exception {
+<span class="fc" id="L31">        ResponsePriceDTO response = propertyService.getPrice(propertyId);</span>
+<span class="fc" id="L32">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+
+    @GetMapping(&quot;/biggerEnvironment/{propertyId}&quot;)
+    public ResponseEntity&lt;ResponseBiggerEnvironmentDTO&gt; biggerEnvironment(@PathVariable int propertyId) throws Exception {
+<span class="fc" id="L38">        ResponseBiggerEnvironmentDTO response = propertyService.getBiggerEnvironment(propertyId);</span>
+<span class="fc" id="L39">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/metersByEnvironment/{propertyId}&quot;)
+    public ResponseEntity&lt;ResponseTotalMetersByEnvironmentDTO&gt; totalMetersByEnvironment(@PathVariable int propertyId) throws Exception {
+<span class="fc" id="L44">        ResponseTotalMetersByEnvironmentDTO response = propertyService.getTotalMetersByEnvironment(propertyId);</span>
+<span class="fc" id="L45">        return new ResponseEntity&lt;&gt;(response, HttpStatus.OK);</span>
+    }
+
+    @PostMapping(&quot;/addProperty&quot;)
+    public ResponseEntity addProperty(@Valid @RequestBody PropertyDTO property) throws Exception {
+<span class="fc" id="L50">        propertyService.addProperty(property);</span>
+<span class="fc" id="L51">        return ResponseEntity.ok().build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

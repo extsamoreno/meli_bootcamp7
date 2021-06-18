@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HandlerException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.exceptions</a> &gt; <span class="el_source">HandlerException.java</span></div><h1>HandlerException.java</h1><pre class="source lang-java linenums">package com.example.demo.exceptions;
+
+import com.example.demo.DTO.ErrorDTO;
+import com.example.demo.DTO.ErrorPropertyDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@ControllerAdvice
+<span class="fc" id="L16">public class HandlerException {</span>
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;ErrorDTO&gt; handleValidationExceptions(MethodArgumentNotValidException ex) {
+<span class="nc" id="L20">        Map&lt;String, String&gt; errors = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L21">        ex.getBindingResult().getAllErrors().forEach((error) -&gt; {</span>
+<span class="nc" id="L22">            String fieldName = ((FieldError) error).getField();</span>
+<span class="nc" id="L23">            String errorMessage = error.getDefaultMessage();</span>
+<span class="nc" id="L24">            errors.put(fieldName, errorMessage);</span>
+<span class="nc" id="L25">        });</span>
+<span class="nc" id="L26">        ErrorPropertyDTO errorDTO = new ErrorPropertyDTO(MethodArgumentNotValidException.class.getSimpleName(), errors);</span>
+<span class="nc" id="L27">        return new ResponseEntity(errorDTO, HttpStatus.BAD_REQUEST);</span>
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity&lt;ErrorDTO&gt; badRequestException(BadRequestException ex){
+<span class="nc" id="L32">        return ResponseEntity.status(ex.getStatus()).body(new ErrorDTO(ex.getErrorMessage()));</span>
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity&lt;ErrorDTO&gt; notFoundException(NotFoundException ex){
+<span class="nc" id="L37">        return ResponseEntity.status(ex.getStatus()).body(new ErrorDTO(ex.getErrorMessage()));</span>
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity&lt;ErrorDTO&gt; internalException(Exception ex){
+<span class="nc" id="L42">        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDTO(ex.getMessage()));</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

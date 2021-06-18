@@ -1,1 +1,10 @@
-[{"name":"Barrio 1","price":7.0},{"name":"Barrio 4","price":5.0},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null},{"name":null,"price":null}]
+[
+  {
+    "name": "Barrio 1",
+    "price": 7.0
+  },
+  {
+    "name": "Barrio 4",
+    "price": 5.0
+  }
+]

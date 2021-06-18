@@ -57,6 +57,7 @@ public class PropertyRepository implements IPropertyRepository {
         }
     }
     @Override
+
     public Property getPropertyById(int id){
         Property result = null;
         if (properties != null) {

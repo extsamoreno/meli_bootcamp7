@@ -47,6 +47,11 @@ public class UtilTest {
         Property property = new Property(1, "home", district, null);
         return property;
     }
+
+    public static PropertyDTO getPropertyWithoutDistrict() {
+        PropertyDTO property = new PropertyDTO(1, "home", null, null);
+        return property;
+    }
     public static Property getPropertyWithEnvironments() {
 
         Environment room1 = new Environment("Bathroom", 3.0, 3.0);
@@ -84,6 +89,15 @@ public class UtilTest {
         property.setEnvironments(Mapper.toEnvironment(propertyDTO.getEnvironments()));
 
         return property;
+    }
+    public static PropertyDTO toPropertyDTO(Property property) {
+        PropertyDTO propertyDTO = new PropertyDTO();
+        propertyDTO.setId(property.getId());
+        propertyDTO.setName(property.getName());
+        propertyDTO.setDistrictName(property.getDistrict().getName());
+        propertyDTO.setEnvironments(toEnvironmentsDTO(property.getEnvironments()));
+
+        return propertyDTO;
     }
 
 }

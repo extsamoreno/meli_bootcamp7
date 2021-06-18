@@ -1,19 +1,17 @@
 package com.example.demo.services;
 
 import com.example.demo.DTO.*;
-import com.example.demo.Exceptions.NotFoundException;
+import com.example.demo.exceptions.BadRequestException;
+import com.example.demo.exceptions.NotFoundException;
 import com.example.demo.Mapper;
 import com.example.demo.entities.District;
 import com.example.demo.entities.Environment;
 import com.example.demo.entities.Property;
-import com.example.demo.repositories.DistrictRepository;
 import com.example.demo.repositories.IDistrictRepository;
 import com.example.demo.repositories.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.DocFlavor;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,6 +126,12 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public void addProperty(PropertyDTO propertyDTO) throws Exception {
+        Property aux = iPropertyRepository.getPropertyById(propertyDTO.getId());
+
+        if(aux != null){
+            throw new BadRequestException("Property already exist");
+        }
+
         District district = iDistrictRepository.findDistrictByName(propertyDTO.getDistrictName());
 
         if (district == null) {

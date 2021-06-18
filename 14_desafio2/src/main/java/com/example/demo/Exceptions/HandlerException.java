@@ -1,4 +1,4 @@
-package com.example.demo.Exceptions;
+package com.example.demo.exceptions;
 
 import com.example.demo.DTO.ErrorDTO;
 import com.example.demo.DTO.ErrorPropertyDTO;
