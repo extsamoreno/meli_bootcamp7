@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "f45df5ab-fe68-412f-bc50-aeb922ebed68",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "StoreProperty",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"name\":\"Casa1\",\n    \"rooms\": [\n      {\n        \"name\": \"Cocina1\",\n        \"width\": 3.0,\n        \"length\": null\n      },\n      {\n        \"name\": \"Bano\",\n        \"width\": 3.0,\n        \"length\": 3.0\n      },\n      {\n        \"name\": \"Living\",\n        \"width\": 4.0,\n        \"length\": 4.0\n      },\n      {\n        \"name\": \"Dormitorio\",\n        \"width\": 3.0,\n        \"length\": 6.0\n      }\n    ],\n    \"districtId\": 1\n\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/properties",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPropertyValue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/1/value",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"1",
+						"value"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StoreDistrict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "      {\n        \"name\": \"Llay-Llay\",\n        \"pricePerM2\": 500.0\n      }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/districts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"districts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPropertyDimensions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/1/dimensions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"1",
+						"dimensions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPropertyBiggestRooms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/1/biggestRoom",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"1",
+						"biggestRoom"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPropertyRooms",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/1/rooms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"1",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
