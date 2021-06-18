@@ -3,6 +3,7 @@ package com.example.challenge2.unit;
 import com.example.challenge2.controllers.PropertyController;
 import com.example.challenge2.dtos.*;
 import com.example.challenge2.models.Environment;
+import com.example.challenge2.models.Property;
 import com.example.challenge2.serivces.IPropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class PropertyControllerTest {
     @Test
     public void registerNewProperty() {
         //Arrange
-        PropertyDTO propertyDTO =new PropertyDTO();
+        Property property =new Property();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,1.8);
 
@@ -38,15 +39,15 @@ public class PropertyControllerTest {
         environments.add(cuarto1);
         environments.add(cuarto2);
 
-        propertyDTO.setName("Propiedad1");
-        propertyDTO.setDistrictName("Carrasco");
-        propertyDTO.setEnvironmentList(environments);
+        property.setName("Propiedad1");
+        property.setDistrictName("Carrasco");
+        property.setEnvironmentList(environments);
 
         //Act
-        ResponseEntity<?> received = propertyController.registerProperty(propertyDTO);
+        ResponseEntity<?> received = propertyController.registerProperty(property);
 
         //Asset
-        Mockito.verify(propertyService,Mockito.atLeastOnce()).create(propertyDTO);
+        Mockito.verify(propertyService,Mockito.atLeastOnce()).create(property);
         Assertions.assertEquals(HttpStatus.CREATED,received.getStatusCode());
     }
 
@@ -66,7 +67,7 @@ public class PropertyControllerTest {
         //asset
         Mockito.verify(propertyService,Mockito.atLeastOnce()).getSize(name);
         Assertions.assertEquals(HttpStatus.OK,received.getStatusCode());
-        Assertions.assertEquals(sizeResponseDTO.getSize(),received.getBody().getSize());
+        Assertions.assertEquals(sizeResponseDTO,received.getBody());
     }
 
     @Test
@@ -83,7 +84,7 @@ public class PropertyControllerTest {
         //asset
         Mockito.verify(propertyService,Mockito.atLeastOnce()).getPrice(name);
         Assertions.assertEquals(HttpStatus.OK,received.getStatusCode());
-        Assertions.assertEquals(priceResponseDTO.getPrice(),received.getBody().getPrice());
+        Assertions.assertEquals(priceResponseDTO,received.getBody());
     }
 
     @Test
@@ -99,7 +100,7 @@ public class PropertyControllerTest {
         //asset
         Mockito.verify(propertyService,Mockito.atLeastOnce()).getBiggerEnvironment(name);
         Assertions.assertEquals(HttpStatus.OK,received.getStatusCode());
-        Assertions.assertEquals(biggerEnvironmentResponseDTO.getBiggerEnvironment(),received.getBody().getBiggerEnvironment());
+        Assertions.assertEquals(biggerEnvironmentResponseDTO,received.getBody());
     }
 
 
@@ -120,7 +121,7 @@ public class PropertyControllerTest {
         //assert
         Mockito.verify(propertyService,Mockito.atLeastOnce()).getEnvironments(name);
         Assertions.assertEquals(HttpStatus.OK,received.getStatusCode());
-        Assertions.assertEquals(environmentSizesDTO.getEnvironments(),received.getBody().getEnvironments());
+        Assertions.assertEquals(environmentSizesDTO,received.getBody());
     }
 
 

@@ -4,6 +4,7 @@ import com.example.challenge2.dtos.*;
 import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.models.Environment;
+import com.example.challenge2.models.Property;
 import com.example.challenge2.repositories.IDistrictDAO;
 import com.example.challenge2.repositories.IPropertyDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,11 @@ public class PropertyService implements IPropertyService {
 
 
     @Override
-    public PropertyDTO create(PropertyDTO propertyDTO) throws DistrictNotFoundException {
-        if (districtDAO.exist(propertyDTO.getDistrictName()))
-            return propertyDAO.save(propertyDTO);
+    public Property create(Property property) throws DistrictNotFoundException {
+        if (districtDAO.exist(property.getDistrictName()))
+            return propertyDAO.save(property);
         else
-            throw new DistrictNotFoundException(propertyDTO.getDistrictName());
+            throw new DistrictNotFoundException(property.getDistrictName());
     }
 
     private double getEnvironmentSize(Environment environment) {
@@ -36,7 +37,7 @@ public class PropertyService implements IPropertyService {
     @Override
     public SizeResponseDTO getSize(String propertyName) {
         double size = 0;
-        PropertyDTO property = propertyDAO.findByName(propertyName);
+        Property property = propertyDAO.findByName(propertyName);
         for (Environment environment : property.getEnvironmentList()) {
             size = size + getEnvironmentSize(environment);
         }
@@ -46,7 +47,7 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public PriceResponseDTO getPrice(String propertyName) {
-        PropertyDTO property = propertyDAO.findByName(propertyName);
+        Property property = propertyDAO.findByName(propertyName);
         District district = districtDAO.findByName(property.getDistrictName());
         double price = getSize(propertyName).getSize() * district.getPrice();
         return new PriceResponseDTO(propertyName, price);
@@ -54,7 +55,7 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public BiggerEnvironmentResponseDTO getBiggerEnvironment(String propertyName) {
-        PropertyDTO property = propertyDAO.findByName(propertyName);
+        Property property = propertyDAO.findByName(propertyName);
         Environment biggerEnvironment = property.getEnvironmentList().get(1);
         double max = 0;
         for (Environment environment : property.getEnvironmentList()) {
@@ -69,7 +70,7 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public EnvironmentSizesDTO getEnvironments(String propertyName) {
-        PropertyDTO property = propertyDAO.findByName(propertyName);
+        Property property = propertyDAO.findByName(propertyName);
         List<SizeResponseDTO> environments = new ArrayList<>();
         for (Environment environment : property.getEnvironmentList()) {
             environments.add(new SizeResponseDTO(environment.getName(), getEnvironmentSize(environment)));

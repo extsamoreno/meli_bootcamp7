@@ -1,9 +1,7 @@
 package com.example.challenge2.controllers;
 
-import com.example.challenge2.dtos.PropertyDTO;
 import com.example.challenge2.models.District;
 import com.example.challenge2.serivces.IDistrictService;
-import com.example.challenge2.serivces.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

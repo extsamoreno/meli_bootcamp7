@@ -1,5 +1,6 @@
 package com.example.challenge2.repositories;
 
+import com.example.challenge2.exceptions.DistrictAlreadyExistException;
 import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -37,28 +38,15 @@ public class DistrictDAO implements IDistrictDAO {
     @Override
     public District save(District district) throws DistrictNotFoundException {
 
-        this.delete(district.getName());
+        if (districts.stream().anyMatch(dist -> dist.getName().equals(district.getName())))
+            throw new DistrictAlreadyExistException(district.getName());
+
         districts.add(district);
         this.saveData();
         return district;
 
     }
 
-    public boolean delete(String districtName) {
-        boolean ret = false;
-
-        try {
-            District found = this.findByName(districtName);
-
-            districts.remove(found);
-            ret = true;
-            this.saveData();
-
-        } catch (DistrictNotFoundException e) {
-        }
-
-        return ret;
-    }
 
     @Override
     public District findByName(String districtName) throws DistrictNotFoundException {
@@ -103,7 +91,7 @@ public class DistrictDAO implements IDistrictDAO {
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/district.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<District>>() {
+            loadedData = objectMapper.readValue(file, new TypeReference<>() {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -4,9 +4,9 @@ import com.example.challenge2.dtos.*;
 import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.models.Environment;
+import com.example.challenge2.models.Property;
 import com.example.challenge2.repositories.IDistrictDAO;
 import com.example.challenge2.repositories.IPropertyDAO;
-import com.example.challenge2.serivces.DistrictService;
 import com.example.challenge2.serivces.PropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ public class PropertyServiceTest {
     @Test
     public void getTotalSizeWellCalculated() {
         //Arrange
-        PropertyDTO property = new PropertyDTO();
+        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,1.8);
         List<Environment> environments = new ArrayList<>();
@@ -60,7 +60,7 @@ public class PropertyServiceTest {
     @Test
     public void getPriceWellCalculated() {
         //Arrange
-        PropertyDTO property = new PropertyDTO();
+        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
         List<Environment> environments = new ArrayList<>();
@@ -84,7 +84,7 @@ public class PropertyServiceTest {
     @Test
     public void getBiggerEnvironmentWellCalculated() {
         //Arrange
-        PropertyDTO property = new PropertyDTO();
+        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
         List<Environment> environments = new ArrayList<>();
@@ -107,7 +107,7 @@ public class PropertyServiceTest {
     @Test
     public void getEnvironmentsWellDone() {
         //Arrange
-        PropertyDTO property = new PropertyDTO();
+        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
         List<Environment> environments = new ArrayList<>();
@@ -133,7 +133,7 @@ public class PropertyServiceTest {
     @Test
     public void createPropertyCorrectly(){
         //Arrange
-        PropertyDTO propertyDTO = new PropertyDTO();
+        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
         List<Environment> environments = new ArrayList<>();
@@ -142,36 +142,36 @@ public class PropertyServiceTest {
         district.setPrice(800.00);
         environments.add(cuarto1);
         environments.add(cuarto2);
-        propertyDTO.setName("Propiedad1");
-        propertyDTO.setDistrictName(district.getName());
-        propertyDTO.setEnvironmentList(environments);
+        property.setName("Propiedad1");
+        property.setDistrictName(district.getName());
+        property.setEnvironmentList(environments);
         Mockito.when(districtDAO.exist(district.getName())).thenReturn(true);
-        Mockito.when(propertyService.create(propertyDTO)).thenReturn(propertyDTO);
+        Mockito.when(propertyService.create(property)).thenReturn(property);
 
         //Act
-        PropertyDTO res = propertyService.create(propertyDTO);
+        Property res = propertyService.create(property);
 
         //Assert
         Mockito.verify(districtDAO, Mockito.atLeastOnce()).exist(district.getName());
-        Mockito.verify(propertyDAO, Mockito.atLeastOnce()).save(propertyDTO);
-        Assertions.assertEquals(propertyDTO,res);
+        Mockito.verify(propertyDAO, Mockito.atLeastOnce()).save(property);
+        Assertions.assertEquals(property,res);
     }
 
     @Test
     public void createPropertyWithNonExistingDistrict() {
         //Arrange
-        PropertyDTO propertyDTO = new PropertyDTO();
+        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
         List<Environment> environments = new ArrayList<>();
         environments.add(cuarto1);
         environments.add(cuarto2);
-        propertyDTO.setName("Propiedad1");
-        propertyDTO.setDistrictName("Districto1");
-        propertyDTO.setEnvironmentList(environments);
+        property.setName("Propiedad1");
+        property.setDistrictName("Districto1");
+        property.setEnvironmentList(environments);
 
         //Act & Assert
-        Assertions.assertThrows(DistrictNotFoundException.class, () -> propertyService.create(propertyDTO));
+        Assertions.assertThrows(DistrictNotFoundException.class, () -> propertyService.create(property));
     }
 
 

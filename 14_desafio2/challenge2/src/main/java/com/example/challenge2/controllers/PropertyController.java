@@ -2,8 +2,7 @@ package com.example.challenge2.controllers;
 
 import com.example.challenge2.dtos.*;
 import com.example.challenge2.exceptions.DistrictNotFoundException;
-import com.example.challenge2.models.District;
-import com.example.challenge2.repositories.IPropertyDAO;
+import com.example.challenge2.models.Property;
 import com.example.challenge2.serivces.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ public class PropertyController {
 
 
     @PostMapping("/record")
-    public ResponseEntity<PropertyDTO> registerProperty(@RequestBody @Valid PropertyDTO property) throws DistrictNotFoundException {
+    public ResponseEntity<Property> registerProperty(@RequestBody @Valid Property property) throws DistrictNotFoundException {
 
         return new ResponseEntity<>(this.propertyService.create(property), HttpStatus.CREATED);
     }
@@ -46,6 +45,4 @@ public class PropertyController {
     public ResponseEntity<EnvironmentSizesDTO> getEnvironments(@PathVariable String propertyName) {
         return new ResponseEntity<>(this.propertyService.getEnvironments(propertyName), HttpStatus.OK);
     }
-
-
 }

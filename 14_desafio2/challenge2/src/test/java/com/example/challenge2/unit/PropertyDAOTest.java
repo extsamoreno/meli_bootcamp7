@@ -1,6 +1,6 @@
 package com.example.challenge2.unit;
 
-import com.example.challenge2.dtos.PropertyDTO;
+import com.example.challenge2.models.Property;
 import com.example.challenge2.exceptions.PropertyNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.models.Environment;
@@ -25,7 +25,7 @@ public class PropertyDAOTest {
     @Test
     public void savePropertyOk() {
         // arrange
-        PropertyDTO propertyDTO = new PropertyDTO();
+        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",4.0,5.0);
         Environment cuarto2 = new Environment("Cuarto2",6.0,5.0);
         List<Environment> environments = new ArrayList<>();
@@ -34,21 +34,21 @@ public class PropertyDAOTest {
         district.setPrice(800.00);
         environments.add(cuarto1);
         environments.add(cuarto2);
-        propertyDTO.setName("Propiedad1");
-        propertyDTO.setDistrictName(district.getName());
-        propertyDTO.setEnvironmentList(environments);
+        property.setName("Propiedad1");
+        property.setDistrictName(district.getName());
+        property.setEnvironmentList(environments);
         // act
-        PropertyDTO received = propertyDAO.save(propertyDTO);
+        Property received = propertyDAO.save(property);
 
         // assert
-        Assertions.assertEquals(propertyDAO.findByName(received.getName()), propertyDTO);
+        Assertions.assertEquals(propertyDAO.findByName(received.getName()), property);
     }
 
 
     @Test
     public void findExistentPropertyById() {
         //Arrange
-        PropertyDTO propertyDTO = new PropertyDTO();
+        Property property = new Property();
         Environment cuarto1 = new Environment("Cuarto1",4.0,5.0);
         Environment cuarto2 = new Environment("Cuarto2",6.0,5.0);
         List<Environment> environments = new ArrayList<>();
@@ -57,16 +57,16 @@ public class PropertyDAOTest {
         district.setPrice(800.00);
         environments.add(cuarto1);
         environments.add(cuarto2);
-        propertyDTO.setName("Propiedad1");
-        propertyDTO.setDistrictName(district.getName());
-        propertyDTO.setEnvironmentList(environments);
-        propertyDAO.save(propertyDTO);
+        property.setName("Propiedad1");
+        property.setDistrictName(district.getName());
+        property.setEnvironmentList(environments);
+        propertyDAO.save(property);
 
         //Act
-        PropertyDTO found = propertyDAO.findByName(propertyDTO.getName());
+        Property found = propertyDAO.findByName(property.getName());
 
         //Assert
-        Assertions.assertEquals(found,propertyDTO);
+        Assertions.assertEquals(found, property);
     }
 
     @Test

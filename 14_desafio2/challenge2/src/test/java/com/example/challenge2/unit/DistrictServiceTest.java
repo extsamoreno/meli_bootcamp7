@@ -1,13 +1,8 @@
 package com.example.challenge2.unit;
 
-import com.example.challenge2.dtos.PropertyDTO;
-import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
-import com.example.challenge2.models.Environment;
 import com.example.challenge2.repositories.IDistrictDAO;
-import com.example.challenge2.repositories.IPropertyDAO;
 import com.example.challenge2.serivces.DistrictService;
-import com.example.challenge2.serivces.PropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +11,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)

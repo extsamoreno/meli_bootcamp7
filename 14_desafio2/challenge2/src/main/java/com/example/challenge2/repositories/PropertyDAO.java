@@ -1,6 +1,7 @@
 package com.example.challenge2.repositories;
 
-import com.example.challenge2.dtos.PropertyDTO;
+import com.example.challenge2.models.Property;
+import com.example.challenge2.exceptions.PropertyAlreadyExistException;
 import com.example.challenge2.exceptions.PropertyNotFoundException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,10 +20,10 @@ import java.util.Set;
 public class PropertyDAO implements IPropertyDAO {
 
     private String SCOPE;
-    Set<PropertyDTO> properties;
+    Set<Property> properties;
 
     public PropertyDAO() {
-        Properties properties =  new Properties();
+        Properties properties = new Properties();
 
         try {
             properties.load(new ClassPathResource("application.properties").getInputStream());
@@ -32,8 +33,9 @@ public class PropertyDAO implements IPropertyDAO {
             e.printStackTrace();
         }
     }
+
     @Override
-    public PropertyDTO findByName(String propertyName) {
+    public Property findByName(String propertyName) {
         loadData();
         return properties.stream()
                 .filter(prop -> prop.getName().equals(propertyName))
@@ -41,28 +43,13 @@ public class PropertyDAO implements IPropertyDAO {
     }
 
     @Override
-    public PropertyDTO save(PropertyDTO property) {
-        this.delete(property.getName());
+    public Property save(Property property) {
+        if (properties.stream().anyMatch(prop -> prop.getName().equals(property.getName())))
+            throw new PropertyAlreadyExistException(property.getName());
+
         properties.add(property);
         this.saveData();
         return property;
-    }
-
-    @Override
-    public boolean delete(String propertyName) {
-        boolean ret = false;
-
-        try {
-            PropertyDTO found = this.findByName(propertyName);
-
-            properties.remove(found);
-            ret = true;
-            this.saveData();
-
-        } catch (PropertyNotFoundException e) {
-        }
-
-        return ret;
     }
 
     private void saveData() {
@@ -81,13 +68,13 @@ public class PropertyDAO implements IPropertyDAO {
 
 
     private void loadData() {
-        Set<PropertyDTO> loadedData = new HashSet<>();
+        Set<Property> loadedData = new HashSet<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/property.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<PropertyDTO>>() {
+            loadedData = objectMapper.readValue(file, new TypeReference<>() {
             });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
