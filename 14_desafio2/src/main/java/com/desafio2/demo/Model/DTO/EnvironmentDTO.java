@@ -17,10 +17,12 @@ public class EnvironmentDTO {
     private String name;
 
     @NotNull
+    @Positive
     @Max(value = 25, message = "El máximo ancho permitido por propiedad es de 25 mts.")
     private double width;
 
     @NotNull
+    @Positive
     @Max(value = 33, message = "El máximo largo permitido por propiedad es de 33 mts.")
     private double length;
 
