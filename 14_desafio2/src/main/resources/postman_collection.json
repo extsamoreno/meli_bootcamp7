@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "29b41a52-a4ec-4cc2-a8e4-cf01a60b662b",
+		"name": "desafio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/house/newHouse",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/house/meterProperty/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/house/meterProperty/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"meterProperty",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/house/priceProperty/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/house/largestEnvironmente/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/house/meterPerEnvironment/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}

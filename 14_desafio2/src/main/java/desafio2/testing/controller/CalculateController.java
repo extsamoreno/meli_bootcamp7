@@ -35,7 +35,7 @@ public class CalculateController {
         return new ResponseEntity<>(houseService.priceProperty(id), HttpStatus.OK);
     }
 
-    @GetMapping("/largestEnvironmente/{id}")
+    @GetMapping("/largestEnvironment/{id}")
     public ResponseEntity<HouseLargestEnvironmentDTO> largestEnvironment(@PathVariable int id) throws NotFoundException {
         return new ResponseEntity<>(houseService.largestEnvironment(id), HttpStatus.OK);
     }
