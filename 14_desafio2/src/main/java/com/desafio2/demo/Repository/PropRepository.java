@@ -1,6 +1,6 @@
 package com.desafio2.demo.Repository;
 
-import com.desafio2.demo.Exception.DistrictNotExist;
+import com.desafio2.demo.Exception.DistrictNotExistException;
 import com.desafio2.demo.Model.District;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,10 +38,10 @@ public class PropRepository implements IPropRepository {
     }
 
     @Override
-    public District getDistrictByName(String name) throws DistrictNotExist {
+    public District getDistrictByName(String name) throws DistrictNotExistException {
         return districtData.stream()
                 .filter(district -> district.getName().equals(name))
                 .findFirst()
-                .orElseThrow(()->  new DistrictNotExist(name));
+                .orElseThrow(()->  new DistrictNotExistException(name));
     }
 }

@@ -118,7 +118,7 @@
 			"response": []
 		},
 		{
-			"name": "Total square meters",
+			"name": "Square meters by enviroment",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -132,14 +132,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/TuCasita/totalMeters",
+					"raw": "localhost:8080/TuCasita/totalMetersByEnvironments",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"TuCasita",
-						"totalMeters"
+						"totalMetersByEnvironments"
 					]
 				}
 			},

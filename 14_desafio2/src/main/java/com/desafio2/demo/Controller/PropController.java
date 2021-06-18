@@ -1,7 +1,7 @@
 package com.desafio2.demo.Controller;
 
 import com.desafio2.demo.Model.DTO.*;
-import com.desafio2.demo.Exception.DistrictNotExist;
+import com.desafio2.demo.Exception.DistrictNotExistException;
 import com.desafio2.demo.Service.IPropService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -37,7 +37,7 @@ public class PropController {
     @PostMapping("/totalPrice")
     public ResponseEntity<PropDTOTPrice> totalPrice(
             @ApiParam(value = "Property with district and environments. The name must start with upperCase and cant be empty.")
-            @Valid @RequestBody PropRequest propRequest) throws DistrictNotExist {
+            @Valid @RequestBody PropRequest propRequest) throws DistrictNotExistException {
         return new ResponseEntity<>(propService.priceProp(propRequest), HttpStatus.OK);
     }
 
@@ -50,7 +50,7 @@ public class PropController {
     }
 
     @ApiOperation("Total square meters by environment of property")
-    @PostMapping("/totalMetersByMeters")
+    @PostMapping("/totalMetersByEnvironments")
     public ResponseEntity<PropDTOTMeterByEnvironment> totalMetersByEnvironments(
             @ApiParam(value = "Property with district and environments. The name must start with upperCase and cant be empty.")
             @Valid @RequestBody PropRequest propRequest){

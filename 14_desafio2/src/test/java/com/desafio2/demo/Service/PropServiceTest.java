@@ -1,6 +1,6 @@
 package com.desafio2.demo.Service;
 
-import com.desafio2.demo.Exception.DistrictNotExist;
+import com.desafio2.demo.Exception.DistrictNotExistException;
 import com.desafio2.demo.Model.DTO.*;
 import com.desafio2.demo.Model.District;
 import com.desafio2.demo.Model.Mapper.IPropMapper;
@@ -41,7 +41,7 @@ class PropServiceTest {
     }
 
     @Test
-    void priceProp() throws DistrictNotExist {
+    void priceProp() throws DistrictNotExistException {
         //arrange
         PropRequest propRequests = Util.getPropRequest();
         District district = new District("Villa Prado", 300.0);

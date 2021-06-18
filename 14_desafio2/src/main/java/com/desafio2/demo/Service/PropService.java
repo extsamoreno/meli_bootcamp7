@@ -2,8 +2,7 @@ package com.desafio2.demo.Service;
 
 import com.desafio2.demo.Model.DTO.*;
 import com.desafio2.demo.Model.District;
-import com.desafio2.demo.Exception.DistrictNotExist;
-import com.desafio2.demo.Model.Environment;
+import com.desafio2.demo.Exception.DistrictNotExistException;
 import com.desafio2.demo.Model.Mapper.IPropMapper;
 import com.desafio2.demo.Repository.IPropRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class PropService implements IPropService {
     }
 
     @Override
-    public PropDTOTPrice priceProp(PropRequest prop) throws DistrictNotExist {
+    public PropDTOTPrice priceProp(PropRequest prop) throws DistrictNotExistException {
         District district = iPropRequestRepository.getDistrictByName(prop.getDistrictName());
         double totalPrice = district.getPricePorMeter2() * totalArea(prop);
         return propMapper.toDTOPrice(prop, totalPrice);

@@ -1,8 +1,7 @@
 package com.desafio2.demo.Repository;
 
-import com.desafio2.demo.Exception.DistrictNotExist;
+import com.desafio2.demo.Exception.DistrictNotExistException;
 import com.desafio2.demo.Model.District;
-import com.desafio2.demo.Repository.PropRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +16,7 @@ class PropRepositoryTest {
     PropRepository propRepository;
 
     @Test
-    void getDistrictByName() throws DistrictNotExist {
+    void getDistrictByName() throws DistrictNotExistException {
         //arrange
         District district = new District("Villa Prado", 400.0);
         //act
@@ -29,7 +28,7 @@ class PropRepositoryTest {
     @Test
     void getDistrictNullName() {
         //assert
-        assertThrows(DistrictNotExist.class, ()->  propRepository.getDistrictByName("Villa"));
+        assertThrows(DistrictNotExistException.class, ()->  propRepository.getDistrictByName("Villa"));
     }
 
 

@@ -1,6 +1,6 @@
 package com.desafio2.demo.Controller;
 
-import com.desafio2.demo.Exception.DistrictNotExist;
+import com.desafio2.demo.Exception.DistrictNotExistException;
 import com.desafio2.demo.Model.DTO.*;
 import com.desafio2.demo.Service.IPropService;
 import com.desafio2.demo.Util.Util;
@@ -41,7 +41,7 @@ class PropControllerTest {
     }
 
     @Test
-    void totalPrice() throws DistrictNotExist {
+    void totalPrice() throws DistrictNotExistException {
         //arrange
         PropRequest propRequest = Util.getPropRequest();
         PropDTOTPrice propDTO = new PropDTOTPrice(propRequest.getName(), 12600.0);
@@ -55,11 +55,11 @@ class PropControllerTest {
     }
 
     @Test
-    void totalPriceDistrictNotExistException() throws DistrictNotExist {
+    void totalPriceDistrictNotExistException() throws DistrictNotExistException {
         //arrange
-        when(propService.priceProp(any())).thenThrow(DistrictNotExist.class);
+        when(propService.priceProp(any())).thenThrow(DistrictNotExistException.class);
         //assert
-        assertThrows(DistrictNotExist.class, ()-> propController.totalPrice(null));
+        assertThrows(DistrictNotExistException.class, ()-> propController.totalPrice(null));
         verify(propService, atLeastOnce()).priceProp(any());
     }
 
