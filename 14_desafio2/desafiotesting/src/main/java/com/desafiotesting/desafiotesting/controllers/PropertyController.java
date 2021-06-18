@@ -42,6 +42,4 @@ public class PropertyController {
     public List<EnviromentWithSquareMetersDTO> getEnviromentsInfo(@PathVariable int id){
         return propertyService.getEnviromentsInfo(id);
     }
-
-
 }
