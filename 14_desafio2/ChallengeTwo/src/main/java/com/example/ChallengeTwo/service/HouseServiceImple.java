@@ -19,7 +19,7 @@ public class HouseServiceImple implements  IHouseService{
     @Autowired
     IHouseRepository iHouseRepository;
 
-    public double calculateTotalArea(House house){
+    public Double calculateTotalArea(House house){
         double totalArea=0;
         for (Environment room: house.getListEnvironment()) {
             totalArea+=room.getTotalArea();

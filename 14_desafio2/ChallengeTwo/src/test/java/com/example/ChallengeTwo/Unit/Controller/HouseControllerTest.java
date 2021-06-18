@@ -31,7 +31,7 @@ public class HouseControllerTest {
     @Test
     public void createHouseSuccesfullTest() throws ProgramException {
         //arrange
-        HouseDTO house = TestUtilsGenerator.getHouseWith4Environments("House1","Chapinero");
+        HouseDTO house = TestUtilsGenerator.getHouseDTOWith4Environments("House1","Chapinero");
         //act
         houseController.createHouse(house);
         //assert
@@ -102,9 +102,5 @@ public class HouseControllerTest {
         assertEquals(HttpStatus.OK,environmentReceived.getStatusCode());
         assertEquals(environmentExpect,environmentReceived.getBody());
     }
-
-
-
-
 
 }
