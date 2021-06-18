@@ -1,1 +1,52 @@
-[{"id":1,"houseName":"Agustin","district":{"districtName":"Banda Nrte","pricePerMeter2":200.0},"ambient":[{"name":"Cosina","longAmbient":5.0,"widthAmbient":3.0},{"name":"Pieza","longAmbient":4.0,"widthAmbient":3.0}]},{"id":1,"houseName":"Agustin","district":{"districtName":"Banda Nrte","pricePerMeter2":200.0},"ambient":[{"name":"Cosina","longAmbient":5.0,"widthAmbient":3.0},{"name":"Pieza","longAmbient":4.0,"widthAmbient":3.0}]},{"id":1,"houseName":"Agustin","district":{"districtName":"Banda Nrte","pricePerMeter2":200.0},"ambient":[{"name":"Cosina","longAmbient":5.0,"widthAmbient":3.0},{"name":"Pieza","longAmbient":4.0,"widthAmbient":3.0}]},{"id":1,"houseName":"Agustin","district":{"districtName":"Banda Nrte","pricePerMeter2":200.0},"ambient":[{"name":"Cosina","longAmbient":5.0,"widthAmbient":3.0},{"name":"Pieza","longAmbient":4.0,"widthAmbient":3.0}]},{"id":1,"houseName":"Agustin","district":{"districtName":"Banda Nrte","pricePerMeter2":200.0},"ambient":[{"name":"Cosina","longAmbient":5.0,"widthAmbient":3.0},{"name":"Pieza","longAmbient":4.0,"widthAmbient":3.0}]},{"id":1,"houseName":"Agustin","district":{"districtName":"Banda Nrte","pricePerMeter2":200.0},"ambient":[{"name":"Cosina","longAmbient":5.0,"widthAmbient":3.0},{"name":"Pieza","longAmbient":4.0,"widthAmbient":3.0}]},{"id":1,"houseName":"Agustin","district":{"districtName":"Banda Nrte","pricePerMeter2":200.0},"ambient":[{"name":"Cosina","longAmbient":5.0,"widthAmbient":3.0},{"name":"Pieza","longAmbient":4.0,"widthAmbient":3.0}]},{"id":1,"houseName":"Agustin","district":{"districtName":"Banda Nrte","pricePerMeter2":200.0},"ambient":[{"name":"Cosina","longAmbient":5.0,"widthAmbient":3.0},{"name":"Pieza","longAmbient":4.0,"widthAmbient":3.0}]}]
+[
+  {
+    "id":1,
+    "houseName":"Agustin",
+    "district":{
+      "districtName":"Banda Nrte",
+      "pricePerMeter2":200.0},
+    "ambient":[
+      {
+        "name":"Cosina",
+        "longAmbient":5.0,
+        "widthAmbient":3.0},
+      {
+        "name":"Pieza",
+        "longAmbient":4.0,
+        "widthAmbient":3.0}
+    ]
+  },
+  {
+    "id":2,
+    "houseName":"Pepe",
+    "district":{
+      "districtName":"Centro",
+      "pricePerMeter2":400.0},
+    "ambient":[
+      {
+        "name":"Cosina",
+        "longAmbient":5.0,
+        "widthAmbient":3.0},
+      {"name":"Pieza",
+        "longAmbient":4.0,
+        "widthAmbient":3.0}
+    ]
+  },
+  {
+    "id":3,
+    "houseName":"Nicolas",
+    "district":{
+      "districtName":"Higueras",
+      "pricePerMeter2":300.0},
+    "ambient":[
+      {
+        "name":"Cosina",
+        "longAmbient":5.0,
+        "widthAmbient":3.0},
+      {
+        "name":"Pieza",
+        "longAmbient":4.0,
+        "widthAmbient":3.0}
+    ]
+  }
+]
