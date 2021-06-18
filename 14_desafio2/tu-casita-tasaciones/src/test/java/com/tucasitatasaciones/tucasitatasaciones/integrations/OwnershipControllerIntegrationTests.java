@@ -6,7 +6,6 @@ import com.tucasitatasaciones.tucasitatasaciones.repositories.entities.District;
 import com.tucasitatasaciones.tucasitatasaciones.repositories.entities.Ownership;
 import com.tucasitatasaciones.tucasitatasaciones.repositories.entities.Room;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,8 +46,8 @@ public class OwnershipControllerIntegrationTests {
 
         Ownership expectedOwnership = new Ownership(1, "Ownership Test", expectedRooms, 1);
 
-        Mockito.when(districtRepository.findAny(expectedDistrict.getId())).thenReturn(expectedDistrict);
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(districtRepository.findAny(expectedDistrict.getId())).thenReturn(expectedDistrict);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/ownerships/{ownershipId}/price", 1))
@@ -55,12 +55,13 @@ public class OwnershipControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(8400D)
                 );
-
+        verify(districtRepository, atLeastOnce()).findAny(expectedDistrict.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
     }
 
     @Test
     public void calculatePriceByOwnershipWithoutOwnershipErrorTest() throws Exception {
-        Mockito.when(ownerRepository.findFirst(99)).thenReturn(null);
+        when(ownerRepository.findFirst(99)).thenReturn(null);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/ownerships/{ownershipId}/price", 99))
@@ -68,14 +69,15 @@ public class OwnershipControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("OwnershipNotFoundException")
                 );
+        verify(ownerRepository, atLeastOnce()).findFirst(99);
     }
 
     @Test
     public void calculatePriceByOwnershipWithoutDistrictErrorTest() throws Exception {
         Ownership expectedOwnership = new Ownership(1, "Ownership Test", null, 99);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
-        Mockito.when(districtRepository.findAny(expectedOwnership.getId())).thenReturn(null);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(districtRepository.findAny(expectedOwnership.getDistrictId())).thenReturn(null);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/ownerships/{ownershipId}/price", 1))
@@ -83,6 +85,9 @@ public class OwnershipControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("DistrictNotFoundException")
                 );
+
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(districtRepository, atLeastOnce()).findAny(expectedOwnership.getDistrictId());
     }
 
     @Test
@@ -93,7 +98,7 @@ public class OwnershipControllerIntegrationTests {
 
         Ownership expectedOwnership = new Ownership(1, "Ownership Test", expectedRooms, 1);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/ownerships/{ownershipId}/square-meter", 1))
@@ -101,17 +106,18 @@ public class OwnershipControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.squareMeter").value(420D)
                 );
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
     }
 
     @Test
     public void calculateSquareMeterByOwnershipWithoutOwnershipErrorTest() throws Exception {
-        Mockito.when(ownerRepository.findFirst(99)).thenReturn(null);
-
+        when(ownerRepository.findFirst(anyInt())).thenReturn(null);
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/ownerships/{ownershipId}/square-meter", 99))
                 .andDo(print()).andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("OwnershipNotFoundException")
                 );
+        verify(ownerRepository, atLeastOnce()).findFirst(anyInt());
     }
 }

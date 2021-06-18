@@ -4,7 +4,6 @@ import com.tucasitatasaciones.tucasitatasaciones.repositories.IOwnerRepository;
 import com.tucasitatasaciones.tucasitatasaciones.repositories.entities.Ownership;
 import com.tucasitatasaciones.tucasitatasaciones.repositories.entities.Room;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +16,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,24 +39,26 @@ public class RoomControllerIntegrationTests {
 
         Ownership expectedOwnership = new Ownership(1, "Ownership Test", expectedRooms, 1);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/rooms/any").param("ownership", "1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Bedroom"));
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
     }
 
     @Test
     public void getBiggestRoomByOwnershipWithoutOwnershipIdErrorTest() throws Exception {
-        Mockito.when(ownerRepository.findFirst(99)).thenReturn(null);
+        when(ownerRepository.findFirst(99)).thenReturn(null);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/rooms/any").param("ownership", "99"))
                 .andDo(print()).andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("OwnershipNotFoundException"));
+        verify(ownerRepository, atLeastOnce()).findFirst(99);
     }
 
     @Test
@@ -67,22 +69,24 @@ public class RoomControllerIntegrationTests {
 
         Ownership expectedOwnership = new Ownership(1, "Ownership Test", expectedRooms, 1);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/rooms/all").param("ownership", "1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
     }
 
     @Test
     public void getRoomsByOwnershipWithoutOwnershipIdErrorTest() throws Exception {
-        Mockito.when(ownerRepository.findFirst(99)).thenReturn(null);
+        when(ownerRepository.findFirst(99)).thenReturn(null);
 
         this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/rooms/all").param("ownership", "99"))
                 .andDo(print()).andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("OwnershipNotFoundException"));
+        verify(ownerRepository, atLeastOnce()).findFirst(99);
     }
 }
