@@ -7,8 +7,6 @@ import com.example.tucasita.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-
 @Service
 public class DistrictServiceImple implements DistrictService{
 
@@ -27,8 +25,8 @@ public class DistrictServiceImple implements DistrictService{
         return response;
     }
 
-    @Override
+    /*@Override
     public Set<DistrictDTO> getAllDistricts() {
         return this.districtRepository.findAll();
-    }
+    }*/
 }

@@ -112,8 +112,8 @@ public class PropertyServiceImple implements PropertyService{
         return environments;
     }
 
-    @Override
+    /*@Override
     public Set<PropertyDTO> getAllProperties() {
         return this.propertyRepository.findAll();
-    }
+    }*/
 }

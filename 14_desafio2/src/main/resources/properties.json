@@ -6,13 +6,15 @@
     "environments": [
       {
         "environmentName": "Cocina",
-        "evironmentWidth": 5.00,
-        "environmentLength": 5.00
+        "evironmentWidth": 5.0,
+        "environmentLength": 5.0,
+        "squareMeters": null
       },
       {
         "environmentName": "Living",
-        "evironmentWidth": 10.00,
-        "environmentLength": 5.00
+        "evironmentWidth": 10.0,
+        "environmentLength": 5.0,
+        "squareMeters": null
       }
     ]
   }

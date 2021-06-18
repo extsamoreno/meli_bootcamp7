@@ -48,22 +48,6 @@ public class PropertyDAOImple implements PropertyDAO{
     }
 
     @Override
-    public boolean delete(int idProperty) {
-        boolean deletedProperty = false;
-
-        try {
-            PropertyDTO foundproperty = this.findById(idProperty);
-
-            properties.remove(foundproperty);
-            deletedProperty  = true;
-
-            this.saveData();
-        } catch (PropertyNotFoundException e) {}
-
-        return deletedProperty;
-    }
-
-    @Override
     public PropertyDTO findById(int idProperty) {
         loadData();
         return properties.stream()

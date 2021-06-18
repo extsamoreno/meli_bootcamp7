@@ -15,5 +15,5 @@ public interface PropertyService {
     ResponseDTO calculatePropertyPrice(int idProperty);
     ResponseDTO getBiggestEnvironment(int idProperty);
     List<EnvironmentDTO> calculateEnvironmentsSquareMeters(int idProperty);
-    Set<PropertyDTO> getAllProperties();
+    //Set<PropertyDTO> getAllProperties();
 }

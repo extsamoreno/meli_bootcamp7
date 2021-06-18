@@ -9,5 +9,5 @@ import java.util.Set;
 @Service
 public interface DistrictService {
     ResponseDTO addOneDistrict(DistrictDTO district);
-    Set<DistrictDTO> getAllDistricts();
+    //Set<DistrictDTO> getAllDistricts();
 }
