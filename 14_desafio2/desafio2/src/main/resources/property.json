@@ -1,63 +1,63 @@
 [
   {
-    "prop_name": "casa1",
+    "prop_name": "Casa1",
     "prop_district_name":  "Villa Herrero",
     "prop_environment": [
       {
-        "environment_name": "banio",
+        "environment_name": "Banio",
         "environment_width": 15.0,
         "environment_length": 20.0
       },
       {
-        "environment_name": "cocina",
+        "environment_name": "Cocina",
         "environment_width": 10.0,
         "environment_length": 25.0
       },
       {
-        "environment_name": "living",
+        "environment_name": "Living",
         "environment_width": 30.0,
         "environment_length": 10.0
       }
     ]
   },
   {
-    "prop_name": "casa2",
-    "prop_district_name":  "La perlita",
+    "prop_name": "Casa2",
+    "prop_district_name":  "La Perlita",
     "prop_environment": [
       {
-        "environment_name": "banio",
+        "environment_name": "Banio",
         "environment_width": 10.0,
         "environment_length": 20.0
       },
       {
-        "environment_name": "cocina",
+        "environment_name": "Cocina",
         "environment_width": 40.0,
         "environment_length": 25.0
       },
       {
-        "environment_name": "living",
-        "environment_width": 35.0,
+        "environment_name": "Living",
+        "environment_width": 17.0,
         "environment_length": 10.0
       }
     ]
   },
   {
-    "prop_name": "casa3",
+    "prop_name": "Casa3",
     "prop_district_name":  "Las Catonas",
     "prop_environment": [
       {
-        "environment_name": "banio",
-        "environment_width": 55.0,
+        "environment_name": "Banio",
+        "environment_width": 15.0,
         "environment_length": 20.0
       },
       {
-        "environment_name": "cocina",
+        "environment_name": "Cocina",
         "environment_width": 10.0,
         "environment_length": 25.0
       },
       {
-        "environment_name": "living",
-        "environment_width": 70.0,
+        "environment_name": "Living",
+        "environment_width": 20.0,
         "environment_length": 10.0
       }
     ]
