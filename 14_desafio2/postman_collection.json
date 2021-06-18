@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "871836e1-9d31-4e62-b67b-e9b79c62102c",
+		"name": "DesafioTesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PostNewHouse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa1\",\n    \"district_name\": \"Manhattan\",\n    \"environments\":[\n        {\n            \"environment_name\": \"Living\",\n            \"environment_width\": 10,\n            \"environment_length\": 2\n        },\n        {\n            \"environment_name\": \"Bedroom\",\n            \"environment_width\": 2,\n            \"environment_length\": 5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/estate/assessment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"estate",
+						"assessment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostNewDistrict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Casa1\",\n    \"district\":{\n        \"name\": \"Manhatan\",\n        \"price\": 100\n    },\n    \"roomList\":[\n        {\n            \"name\": \"Living\",\n            \"width\": 10,\n            \"length\": 5\n        },\n        {\n            \"name\": \"Biving\",\n            \"width\": 2,\n            \"length\": 5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/properties/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
