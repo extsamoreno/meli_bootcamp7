@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "4edc0b83-3602-4fe9-9789-e6ef0c06a233",
+		"name": "properties",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Property1\",\n    \"districtName\":\"District1\",\n    \"enviroments\" : [\n        {\n            \"name\" : \"Baño\",\n            \"width\": 23,\n            \"length\": 33\n        },\n              {\n            \"name\" : \"Cocina\",\n            \"width\": 12,\n            \"length\": 21\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/registerproperty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"registerproperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0001",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/totalsquaremeters/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"totalsquaremeters",
+						"1"
+					]
+				},
+				"description": "total square meters"
+			},
+			"response": []
+		},
+		{
+			"name": "US-0002",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/priceproperty/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"priceproperty",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0003",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/biggerenviroment/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"biggerenviroment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0004",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/enviromentsinfo/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"enviromentsinfo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
