@@ -1,1 +1,6 @@
-{"carretera":{"district_name":"carretera","district_price":3800.0}}
+{
+  "carretera": {
+    "district_name": "carretera",
+    "district_price": 3800.0
+  }
+}

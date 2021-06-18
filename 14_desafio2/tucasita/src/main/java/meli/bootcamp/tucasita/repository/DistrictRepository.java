@@ -40,7 +40,7 @@ public class DistrictRepository implements IDistrictRepository{
     @Override
     public District save(District district) {
         Optional<District> result=
-                districs.stream().filter(district1 -> district.getDistrict_name().equals(district.getDistrict_name())).findFirst();
+                districs.stream().filter(district1 -> district1.getDistrict_name().equals(district.getDistrict_name())).findFirst();
         if (result.isPresent()){
             return result.get();
         }

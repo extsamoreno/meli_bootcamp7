@@ -102,7 +102,7 @@ public class TestUtilsGenerator {
         environments.add(environment2);
         environments.add(environment3);
 
-        District district= getDistrict(null);
+        District district= getDistrict(districtName);
         return new Property(name,district,environments);
     }
 
