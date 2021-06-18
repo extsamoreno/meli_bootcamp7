@@ -17,6 +17,7 @@ public class DistrictDTO {
 
     @NotNull(message = "El precio de un barrio no puede estar vacío.")
     @DecimalMax(value ="4000", message = "El precio máximo permitido por metro cuadrado no puede superar los 4000 US$.")
+    @DecimalMin(value ="1", message = "El precio minimo permitido por metro cuadrado no puede estar por debajo de 1 US$.")
     private double district_price;
 
 }

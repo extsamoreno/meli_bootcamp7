@@ -11,6 +11,7 @@ import meli.bootcamp.tucasita.service.mapper.PropertyDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class PropertyService implements IPropertyService{
     IPropertyRepository propertyRepository;
 
 
+    private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.00");
 
     @Override
     public PropertyResponseDTO getMetersProperty(PropertyDTO property) {

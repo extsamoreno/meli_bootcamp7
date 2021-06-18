@@ -18,10 +18,12 @@ public class Environment {
 
     @NotNull(message = "El ancho del ambiente no puede estar vacío.")
     @DecimalMax(value = "25", message = "El máximo ancho permitido por propiedad es de 25 mts.")
+    @DecimalMin(value = "1", message = "El minimo de ancho permitido por propiedad es de 1 mts.")
     private double environment_width;
 
     @NotNull(message = "El ancho del ambiente no puede estar vacío.")
     @DecimalMax(value = "33", message = "El máximo largo permitido por propiedad es de 33 mts.")
+    @DecimalMin(value = "1", message = "El minimo sw largo permitido por propiedad es de 1 mts.")
     private double environment_length;
 
 
