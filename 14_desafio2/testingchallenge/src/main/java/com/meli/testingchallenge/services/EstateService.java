@@ -19,6 +19,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+/**
+ * Services for Real Estate Assessment
+ *
+ * @author Matias Stefanutti.
+ */
+
 @Service
 public class EstateService implements IEstateService{
 
@@ -28,6 +34,12 @@ public class EstateService implements IEstateService{
     @Autowired
     private IDistrictRepository respository;
 
+    /**
+     * Return all calculation for a estate (house, apartment, etc) received as argument.
+     * @param estateDto should receive a estate object parsed from the http request.
+     * @return the Dto with the assessment calculated.
+     * @throws DistrictNotFoundException
+     */
     @Override
     public EstateAssessmentDTO getAssessment(EstateDTO estateDto) throws DistrictNotFoundException {
 
@@ -46,6 +58,14 @@ public class EstateService implements IEstateService{
                 generateEnvironmentsCalculations(estate.getEnvironments()));
     }
 
+
+
+    /**
+     * Add a new district received as argument.
+     * @param districtDto should receive a district object parsed from the http request.
+     * @return a message to inform the success of the action
+     * @throws ExistentDistrictNameException
+     */
     @Override
     public String addDistrict(DistrictDTO districtDto) throws ExistentDistrictNameException {
         District district = mapper.map(districtDto, District.class);
