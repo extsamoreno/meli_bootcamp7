@@ -1,0 +1,11 @@
+com.meli.tucasita
+com.meli.tucasita.controller
+com.meli.tucasita.dto
+com.meli.tucasita.exception
+com.meli.tucasita.integration
+com.meli.tucasita.mapper
+com.meli.tucasita.models
+com.meli.tucasita.repository
+com.meli.tucasita.service
+com.meli.tucasita.unit
+com.meli.tucasita.util
