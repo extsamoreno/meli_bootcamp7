@@ -37,7 +37,7 @@ public class PropertyController {
 
     @GetMapping("/get-biggest-environment/{propertyId}")
     public ResponseEntity<EnvironmentDTO> getBiggestEnvironment(@PathVariable Long propertyId) throws NotFoundException {
-        return new ResponseEntity<>(propertyService.getBiggestEnviroment(propertyId), HttpStatus.OK);
+        return new ResponseEntity<>(propertyService.getBiggestEnvironment(propertyId), HttpStatus.OK);
     }
 
     @GetMapping("/list-environments/{propertyId}")

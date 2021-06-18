@@ -5,7 +5,7 @@ import com.bootcamp.tucasitatasaciones.model.Property;
 
 import java.util.List;
 
-public interface IDatatRepository {
+public interface IDataRepository {
 
     District findDistrictById(Long id);
 

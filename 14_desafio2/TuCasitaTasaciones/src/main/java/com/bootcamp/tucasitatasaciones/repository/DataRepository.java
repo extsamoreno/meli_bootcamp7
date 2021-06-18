@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class DatatRepository implements IDatatRepository {
+public class DataRepository implements IDataRepository {
 
     static List<District> districts = loadDistricts();
     static List<Property> properties = new ArrayList<>();

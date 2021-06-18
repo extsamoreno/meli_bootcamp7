@@ -5,7 +5,7 @@ import com.bootcamp.tucasitatasaciones.exception.NotFoundException;
 import com.bootcamp.tucasitatasaciones.model.District;
 import com.bootcamp.tucasitatasaciones.model.Environment;
 import com.bootcamp.tucasitatasaciones.model.Property;
-import com.bootcamp.tucasitatasaciones.repository.IDatatRepository;
+import com.bootcamp.tucasitatasaciones.repository.IDataRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 public class PropertyService implements IPropertyService {
 
     @Autowired
-    IDatatRepository datatRepository;
+    IDataRepository dataRepository;
 
     @Autowired
     ModelMapper mapper;
 
     @Override
     public void registerProperty(PropertyDTO propertyDTO) throws NotFoundException {
-        District district = datatRepository.findDistrictByName(propertyDTO.getDistrict().getName());
+        District district = dataRepository.findDistrictByName(propertyDTO.getDistrict().getName());
         if (district == null) {
             throw new NotFoundException("Barrio " + propertyDTO.getDistrict().getName() + " no encontrado");
         }
@@ -33,12 +33,12 @@ public class PropertyService implements IPropertyService {
         Property property = mapper.map(propertyDTO, Property.class);
         property.setDistrictId(district.getId());
 
-        datatRepository.saveProperty(property);
+        dataRepository.saveProperty(property);
     }
 
     @Override
     public TotalSquareMetersDTO getTotalSquareMeters(Long propertyId) throws NotFoundException {
-        Property property = datatRepository.findPropertyById(propertyId);
+        Property property = dataRepository.findPropertyById(propertyId);
         if (property == null) {
             throw new NotFoundException("Propiedad con id " + propertyId + " no encontrada." );
         }
@@ -48,20 +48,20 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public PropertyAppraisalDTO appraiseProperty(Long propertyId) throws NotFoundException {
-        Property property = datatRepository.findPropertyById(propertyId);
+        Property property = dataRepository.findPropertyById(propertyId);
         if (property == null) {
             throw new NotFoundException("Propiedad con id " + propertyId + " no encontrada." );
         }
 
-        District district = datatRepository.findDistrictById(property.getDistrictId());
+        District district = dataRepository.findDistrictById(property.getDistrictId());
 
         return new PropertyAppraisalDTO(property.getName(),
                 calculateTotalSquareMeters(property) * district.getPrice());
     }
 
     @Override
-    public EnvironmentDTO getBiggestEnviroment(Long propertyId) throws NotFoundException {
-        Property property = datatRepository.findPropertyById(propertyId);
+    public EnvironmentDTO getBiggestEnvironment(Long propertyId) throws NotFoundException {
+        Property property = dataRepository.findPropertyById(propertyId);
         if (property == null) {
             throw new NotFoundException("Propiedad con id " + propertyId + " no encontrada." );
         }
@@ -76,7 +76,7 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public List<EnvironmentWithSquareMetersDTO> getAllEnvironmentsWithSquareMeters(Long propertyId) throws NotFoundException {
-        Property property = datatRepository.findPropertyById(propertyId);
+        Property property = dataRepository.findPropertyById(propertyId);
         if (property == null) {
             throw new NotFoundException("Propiedad con id " + propertyId + " no encontrada." );
         }
@@ -89,7 +89,7 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public List<Property> getAllProperties() {
-        return datatRepository.getAllProperties();
+        return dataRepository.getAllProperties();
     }
 
     private Double calculateTotalSquareMeters(Property property) {

@@ -16,7 +16,7 @@ public interface IPropertyService {
 
     PropertyAppraisalDTO appraiseProperty(Long propertyId) throws NotFoundException;
 
-    EnvironmentDTO getBiggestEnviroment(Long propertyId) throws NotFoundException;
+    EnvironmentDTO getBiggestEnvironment(Long propertyId) throws NotFoundException;
 
     List<EnvironmentWithSquareMetersDTO> getAllEnvironmentsWithSquareMeters(Long propertyId) throws NotFoundException;
 }

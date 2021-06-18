@@ -5,7 +5,7 @@ import com.bootcamp.tucasitatasaciones.exception.NotFoundException;
 import com.bootcamp.tucasitatasaciones.model.District;
 import com.bootcamp.tucasitatasaciones.model.Environment;
 import com.bootcamp.tucasitatasaciones.model.Property;
-import com.bootcamp.tucasitatasaciones.repository.IDatatRepository;
+import com.bootcamp.tucasitatasaciones.repository.IDataRepository;
 import com.bootcamp.tucasitatasaciones.service.PropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,7 +24,7 @@ import java.util.List;
 public class PropertyServiceTest {
 
     @Mock
-    IDatatRepository datatRepository;
+    IDataRepository dataRepository;
 
     @Mock
     ModelMapper mapper;
@@ -75,122 +75,122 @@ public class PropertyServiceTest {
     @Test
     public void registerPropertyHappyPath() throws NotFoundException {
         //arrange
-        Mockito.when(datatRepository.findDistrictByName(propertyDTO.getDistrict().getName())).thenReturn(district);
+        Mockito.when(dataRepository.findDistrictByName(propertyDTO.getDistrict().getName())).thenReturn(district);
         Mockito.when(mapper.map(propertyDTO, Property.class)).thenReturn(property);
-        Mockito.doNothing().when(datatRepository).saveProperty(property);
+        Mockito.doNothing().when(dataRepository).saveProperty(property);
 
         //act
         propertyService.registerProperty(propertyDTO);
 
         //assert
         Mockito.verify(mapper, Mockito.atLeast(1)).map(propertyDTO, Property.class);
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).saveProperty(property);
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).saveProperty(property);
     }
 
     @Test
     public void registerPropertyDistrictNotFound() {
         //arrange
-        Mockito.when(datatRepository.findDistrictByName(propertyDTO.getDistrict().getName())).thenReturn(null);
+        Mockito.when(dataRepository.findDistrictByName(propertyDTO.getDistrict().getName())).thenReturn(null);
 
         //assert
         Assertions.assertThrows(NotFoundException.class, () -> propertyService.registerProperty(propertyDTO));
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findDistrictByName(propertyDTO.getDistrict().getName());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findDistrictByName(propertyDTO.getDistrict().getName());
     }
 
     @Test
     public void getTotalSquareMetersHappyPath() throws NotFoundException {
         //arrange
-        Mockito.when(datatRepository.findPropertyById(property.getId())).thenReturn(property);
+        Mockito.when(dataRepository.findPropertyById(property.getId())).thenReturn(property);
 
         //act
         TotalSquareMetersDTO received = propertyService.getTotalSquareMeters(property.getId());
 
         //assert
         Assertions.assertEquals(275, received.getTotalSquareMeter());
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
     }
 
     @Test
     public void getTotalSquareMetersPropertyNotFound() {
         //arrange
-        Mockito.when(datatRepository.findPropertyById(property.getId())).thenReturn(null);
+        Mockito.when(dataRepository.findPropertyById(property.getId())).thenReturn(null);
 
         //assert
         Assertions.assertThrows(NotFoundException.class, () -> propertyService.getTotalSquareMeters(property.getId()));
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
     }
 
     @Test
     public void appraiseProperty() throws NotFoundException {
         //arrange
-        Mockito.when(datatRepository.findPropertyById(property.getId())).thenReturn(property);
-        Mockito.when(datatRepository.findDistrictById(property.getDistrictId())).thenReturn(district);
+        Mockito.when(dataRepository.findPropertyById(property.getId())).thenReturn(property);
+        Mockito.when(dataRepository.findDistrictById(property.getDistrictId())).thenReturn(district);
 
         //act
         PropertyAppraisalDTO received = propertyService.appraiseProperty(property.getId());
 
         //assert
         Assertions.assertEquals(propertyAppraisalDTO, received);
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findDistrictById(property.getDistrictId());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findDistrictById(property.getDistrictId());
     }
 
     @Test
     public void appraisePropertyNotFound() {
         //arrange
-        Mockito.when(datatRepository.findPropertyById(property.getId())).thenReturn(null);
+        Mockito.when(dataRepository.findPropertyById(property.getId())).thenReturn(null);
 
         //assert
         Assertions.assertThrows(NotFoundException.class, () -> propertyService.appraiseProperty(property.getId()));
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
     }
 
     @Test
     public void getBiggestEnviromentHappyPath() throws NotFoundException {
         //arrange
-        Mockito.when(datatRepository.findPropertyById(property.getId())).thenReturn(property);
+        Mockito.when(dataRepository.findPropertyById(property.getId())).thenReturn(property);
         Mockito.when(mapper.map(biggestEnvironment, EnvironmentDTO.class)).thenReturn(biggestEnvironmentDTO);
 
         //act
-        EnvironmentDTO received = propertyService.getBiggestEnviroment(property.getId());
+        EnvironmentDTO received = propertyService.getBiggestEnvironment(property.getId());
 
         //assert
         Assertions.assertEquals(biggestEnvironmentDTO, received);
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
         Mockito.verify(mapper, Mockito.atLeast(1)).map(biggestEnvironment, EnvironmentDTO.class);
     }
 
     @Test
     public void getBiggestEnvironmetPropertyNotFound() {
         //arrange
-        Mockito.when(datatRepository.findPropertyById(property.getId())).thenReturn(null);
+        Mockito.when(dataRepository.findPropertyById(property.getId())).thenReturn(null);
 
         //assert
-        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getBiggestEnviroment(property.getId()));
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getBiggestEnvironment(property.getId()));
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
     }
 
     @Test
     public void getAllEnvironmentsWithSquareMetersHappyPath() throws NotFoundException {
         //arrange
-        Mockito.when(datatRepository.findPropertyById(property.getId())).thenReturn(property);
+        Mockito.when(dataRepository.findPropertyById(property.getId())).thenReturn(property);
 
         //act
         List<EnvironmentWithSquareMetersDTO> received = propertyService.getAllEnvironmentsWithSquareMeters(property.getId());
 
         //assert
         Assertions.assertEquals(environmentWithSquareMeters, received);
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
     }
 
     @Test
     public void getAllEnvironmentsWithSquareMetersPropertyNotFound() {
         //arrange
-        Mockito.when(datatRepository.findPropertyById(property.getId())).thenReturn(null);
+        Mockito.when(dataRepository.findPropertyById(property.getId())).thenReturn(null);
 
         //assert
         Assertions.assertThrows(NotFoundException.class, () -> propertyService.getAllEnvironmentsWithSquareMeters(property.getId()));
-        Mockito.verify(datatRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
+        Mockito.verify(dataRepository, Mockito.atLeast(1)).findPropertyById(property.getId());
     }
 
 }
