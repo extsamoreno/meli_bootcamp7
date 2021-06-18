@@ -1,9 +1,11 @@
 package com.meli.tuCasita.controller;
 
+import com.meli.tuCasita.exception.HouseNotFoundException;
 import com.meli.tuCasita.model.AmbientDTO;
 import com.meli.tuCasita.model.DistrictDTO;
 import com.meli.tuCasita.model.HouseDTO;
 import com.meli.tuCasita.service.IHouseService;
+import org.apache.coyote.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -24,6 +27,29 @@ public class HouseControllerTest {
 
     @InjectMocks
     HousesController housesController;
+    @Test
+    public void meter2Exceptions() {
+
+        // arrange,
+        Long id = 1L;
+        Long houseID = 1L;
+        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
+        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
+        AmbientDTO ambientDTO2 = new AmbientDTO("Pieza", 4.0, 3.0);//12
+        ambientDTOS.add(ambientDTO1);
+        ambientDTOS.add(ambientDTO2);
+        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
+        HouseDTO houseDTO = new HouseDTO(houseID, "Agustin", districtDTO, ambientDTOS);
+
+        // act
+
+        // assert
+        Mockito.when(houseService.getMeter2(houseID)).thenThrow(new HouseNotFoundException(houseID));
+
+        //Assert
+        Assertions.assertThrows(HouseNotFoundException.class, () -> housesController.getMeter2(houseID));
+    }
+
 
     @Test
     public void meter2Exact() {
@@ -50,7 +76,7 @@ public class HouseControllerTest {
     }
 
     @Test
-    public void meterNotExact() {
+    public void meter2NotExact() {
         //Arrange
         Long houseID = 1L;
         ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
@@ -72,6 +98,7 @@ public class HouseControllerTest {
         Assertions.assertNotEquals((double) structureResponse.getBody(), 30D);
     }
 
+
     @Test
     public void getPriceExist() {
         //Arrange
@@ -92,6 +119,29 @@ public class HouseControllerTest {
 
         Mockito.verify(houseService, Mockito.atLeastOnce()).getPrice(houseID);
         Assertions.assertEquals(value, received);
+    }
+    @Test
+    public void getPriceExact() {
+
+        // arrange,
+        Long id = 1L;
+        Long houseID = 1L;
+        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
+        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
+        AmbientDTO ambientDTO2 = new AmbientDTO("Pieza", 4.0, 3.0);//12
+        ambientDTOS.add(ambientDTO1);
+        ambientDTOS.add(ambientDTO2);
+        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
+        HouseDTO houseDTO = new HouseDTO(houseID, "Agustin", districtDTO, ambientDTOS);
+
+        Mockito.when(houseService.getPrice(houseID)).thenReturn(5400D);
+
+        // act
+        ResponseEntity<?> structureResponse = housesController.getPrice(houseID);
+
+        // assert
+        Mockito.verify(houseService, Mockito.atLeastOnce()).getPrice(houseID);
+        Assertions.assertEquals((double) structureResponse.getBody(), 5400D);
     }
 
     @Test
@@ -140,6 +190,29 @@ public class HouseControllerTest {
 
         Mockito.verify(houseService, Mockito.atLeastOnce()).getMaxAmbient(houseID);
         Assertions.assertEquals(ambientDTO1, received);
+    }
+    @Test
+    public void AmbientWithMaxSizeExact() {
+
+        // arrange,
+        Long id = 1L;
+        Long houseID = 1L;
+        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
+        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
+        AmbientDTO ambientDTO2 = new AmbientDTO("Pieza", 4.0, 3.0);//12
+        ambientDTOS.add(ambientDTO1);
+        ambientDTOS.add(ambientDTO2);
+        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
+        HouseDTO houseDTO = new HouseDTO(houseID, "Agustin", districtDTO, ambientDTOS);
+
+        Mockito.when(houseService.getMaxAmbient(houseID)).thenReturn(ambientDTO1);
+
+        // act
+        ResponseEntity<?> structureResponse = housesController.getMaxAmbient(houseID);
+
+        // assert
+        Mockito.verify(houseService, Mockito.atLeastOnce()).getMaxAmbient(houseID);
+        Assertions.assertEquals((AmbientDTO) structureResponse.getBody(), ambientDTO1);
     }
 
     @Test
@@ -190,6 +263,31 @@ public class HouseControllerTest {
         Mockito.verify(houseService, Mockito.atLeastOnce()).getmaxambientforambient(houseID, ambientDTO1.getName());
         Assertions.assertEquals(expect, received);
     }
+    @Test
+    public void GetmaxambientforambientExact() {
+
+        // arrange,
+        //Arrange
+        Long houseID = 1L;
+        String district = "Banda Norte";
+        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
+        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
+        ambientDTOS.add(ambientDTO1);
+        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
+        DistrictDTO districtDTO1 = new DistrictDTO("Centro", 200.0);
+        HouseDTO houseDTO = new HouseDTO(houseID, "Agustin", districtDTO, ambientDTOS);
+        HashMap<String, Double> expect = new HashMap<String, Double>();
+        expect.put(ambientDTO1.getName(), 15.0D);
+        Mockito.when(houseService.getmaxambientforambient(houseID, ambientDTO1.getName())).thenReturn(expect);
+
+        // act
+        ResponseEntity<?> structureResponse = housesController.getmaxambient(houseID,"Cosina");
+
+        // assert
+        Mockito.verify(houseService, Mockito.atLeastOnce()).getmaxambientforambient(houseID, ambientDTO1.getName());
+        Assertions.assertEquals(structureResponse.getBody(), expect);
+    }
+
 }
 
 
