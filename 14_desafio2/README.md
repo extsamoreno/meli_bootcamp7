@@ -22,7 +22,7 @@ Se agregó las colleciones de postman para poder pobrar los endpoints.
 
 Hi here I leave some data of my project of Challenge Nº2 Testing:
 
-The api have 5 enpoints POST:
+The api have 5 POST enpoints:
 
 http://localhost:8080/totalArea  (Calculates and returns the amount of square meters of the property sent in the body)
 
