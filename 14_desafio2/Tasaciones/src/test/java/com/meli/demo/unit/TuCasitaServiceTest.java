@@ -11,6 +11,7 @@ import com.meli.demo.exepciones.HouseExistException;
 import com.meli.demo.exepciones.HouseNotFoundException;
 import com.meli.demo.exepciones.NeighborhoodNotFounException;
 import com.meli.demo.exepciones.PriceIncorrectException;
+import com.meli.demo.model.House;
 import com.meli.demo.repository.ITuCasitaRepository;
 import com.meli.demo.service.TuCasitaService;
 import com.meli.demo.service.mapper.HouseMapper;
@@ -21,6 +22,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -32,6 +34,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TuCasitaServiceTest {
+
+    @Mock
+    ModelMapper modelMapper;
 
     @Mock
     ITuCasitaRepository iTuCasitaRepository;
@@ -50,14 +55,18 @@ public class TuCasitaServiceTest {
         arrayEnvironmentDTOS.add(environmentDTO1);
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
-        HouseDTO House = new HouseDTO("Casa Test",neighborhoodDTO,arrayEnvironmentDTOS);
-        Mockito.when(iTuCasitaRepository.newCasita(HouseMapper.toHouse(House))).thenReturn(true);
+        HouseDTO House1 = new HouseDTO("Casa Test",neighborhoodDTO,arrayEnvironmentDTOS);
+        House House2 = new House("Casa Test",neighborhoodDTO,arrayEnvironmentDTOS);
+        //Mockito.when(iTuCasitaRepository.newCasita(HouseMapper.toHouse(House))).thenReturn(true);
+        Mockito.when(iTuCasitaRepository.newCasita(House2)).thenReturn(true);
+        Mockito.when(modelMapper.map(House1,House.class)).thenReturn(House2);
 
         //act
-        Boolean received = tuCasitaService.newCasita(House);
+        Boolean received = tuCasitaService.newCasita(House1);
 
         //assert
-        Mockito.verify(iTuCasitaRepository, Mockito.atLeast(1)).newCasita(HouseMapper.toHouse(House));
+       // Mockito.verify(iTuCasitaRepository, Mockito.atLeast(1)).newCasita(HouseMapper.toHouse(House1));
+        Mockito.verify(iTuCasitaRepository, Mockito.atLeast(1)).newCasita(House2);
         Assertions.assertTrue(received);
 
     }
@@ -74,8 +83,12 @@ public class TuCasitaServiceTest {
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
         HouseDTO expected = new HouseDTO("Casa Test",neighborhoodDTO,arrayEnvironmentDTOS);
+        House expected2 = new House("Casa Test",neighborhoodDTO,arrayEnvironmentDTOS);
 
-        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Test")).thenReturn(HouseMapper.toHouse(expected));
+        //Mockito.when(iTuCasitaRepository.getHouseByname("Casa Test")).thenReturn(HouseMapper.toHouse(expected));
+        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Test")).thenReturn(expected2);
+        Mockito.when(modelMapper.map(expected2,HouseDTO.class)).thenReturn(expected);
+
 
         //act
         HouseDTO received = tuCasitaService.viewHouse("Casa Test");
@@ -118,12 +131,16 @@ public class TuCasitaServiceTest {
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
         HouseDTO House = new HouseDTO("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
+        House House2 = new House("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
 
 
         HouseDTO house = new HouseDTO();
         TotalMetersResponseDTO TotalMetersResponseDTO = new TotalMetersResponseDTO("Casa Linda",254.07999999999996);
 
-        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(HouseMapper.toHouse(House));
+        //Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(HouseMapper.toHouse(House));
+        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(House2);
+        Mockito.when(modelMapper.map(House2,HouseDTO.class)).thenReturn(House);
+
         //act
         TotalMetersResponseDTO received = tuCasitaService.totalMeters("Casa Linda");
 
@@ -144,12 +161,14 @@ public class TuCasitaServiceTest {
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
         HouseDTO House = new HouseDTO("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
-
+        House House2 = new House("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
 
         HouseDTO house = new HouseDTO();
         PriceMetersResponseDTO expected = new PriceMetersResponseDTO("Casa Linda",482751.99999999994);
 
-        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(HouseMapper.toHouse(House));
+        //Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(HouseMapper.toHouse(House));
+        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(House2);
+        Mockito.when(modelMapper.map(House2,HouseDTO.class)).thenReturn(House);
         //act
         PriceMetersResponseDTO received = tuCasitaService.priceMeters("Casa Linda");
 
@@ -171,12 +190,15 @@ public class TuCasitaServiceTest {
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
         HouseDTO House = new HouseDTO("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
+        House House2 = new House("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
 
 
         HouseDTO house = new HouseDTO();
         EnvironmentDTO expected = new EnvironmentDTO(1,"Alcoba",12.7,11.2);
 
-        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(HouseMapper.toHouse(House));
+        //Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(HouseMapper.toHouse(House));
+        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(House2);
+        Mockito.when(modelMapper.map(House2,HouseDTO.class)).thenReturn(House);
         //act
         EnvironmentDTO received = tuCasitaService.biggerEnvironment("Casa Linda");
 
@@ -197,6 +219,7 @@ public class TuCasitaServiceTest {
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
         HouseDTO House = new HouseDTO("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
+        House House2 = new House("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
 
         EnvironmentsTotalDTO environmentsTotalDTO = new EnvironmentsTotalDTO();
         ArrayList<EnvironmentSquareTotalDTO> environmentSquareTotalDTOS = new ArrayList<>();
@@ -211,9 +234,12 @@ public class TuCasitaServiceTest {
 
 
         HouseDTO house = new HouseDTO();
+
         EnvironmentDTO expected = new EnvironmentDTO(1,"Alcoba",12.7,11.2);
 
-        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(HouseMapper.toHouse(House));
+        //Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(HouseMapper.toHouse(House));
+        Mockito.when(iTuCasitaRepository.getHouseByname("Casa Linda")).thenReturn(House2);
+        Mockito.when(modelMapper.map(House2,HouseDTO.class)).thenReturn(House);
         //act
         EnvironmentsTotalDTO received = tuCasitaService.totalMetersByEnvironment("Casa Linda");
 

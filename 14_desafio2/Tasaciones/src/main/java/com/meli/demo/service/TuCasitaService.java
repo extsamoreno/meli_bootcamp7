@@ -25,8 +25,8 @@ import java.util.HashMap;
 public class TuCasitaService implements ITuCasitaService{
 
 
-    //@Autowired
-    //ModelMapper mapper;
+    @Autowired
+    ModelMapper mapper;
 
     @Autowired
     ITuCasitaRepository iTuCasitaRepository;
@@ -35,8 +35,8 @@ public class TuCasitaService implements ITuCasitaService{
 
     @Override
     public Boolean newCasita(HouseDTO houseDTO) throws HouseExistException, PriceIncorrectException, NeighborhoodNotFounException {
-        boolean exist =iTuCasitaRepository.newCasita(HouseMapper.toHouse(houseDTO));
-        //boolean exist =iTuCasitaRepository.newCasita(mapper.map(houseDTO, House.class));
+       // boolean exist =iTuCasitaRepository.newCasita(HouseMapper.toHouse(houseDTO));
+        boolean exist =iTuCasitaRepository.newCasita(mapper.map(houseDTO, House.class));
         return exist;
     }
 
@@ -44,8 +44,8 @@ public class TuCasitaService implements ITuCasitaService{
     public TotalMetersResponseDTO totalMeters(String nameHouse) throws HouseNotFoundException {
         HouseDTO house = new HouseDTO();
         TotalMetersResponseDTO totalMetersResponseDTO = new TotalMetersResponseDTO();
-        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
-        //house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
+        //house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
+        house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
 
         double suma=0;
         for (int i = 0; i <house.getEnvironments().size() ; i++) {
@@ -62,8 +62,8 @@ public class TuCasitaService implements ITuCasitaService{
         TotalMetersResponseDTO totalMetersResponseDTO= new TotalMetersResponseDTO();
         PriceMetersResponseDTO priceMetersResponseDTO = new PriceMetersResponseDTO();
         HouseDTO house = new HouseDTO();
-        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
-        //house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
+        //house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
+        house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
 
         totalMetersResponseDTO= totalMeters(nameHouse);
         Double pricei = house.getNeighborhood().getPrice()*totalMetersResponseDTO.getTotalMeters();
@@ -76,8 +76,8 @@ public class TuCasitaService implements ITuCasitaService{
     public EnvironmentDTO biggerEnvironment(String nameHouse) throws HouseNotFoundException {
         HouseDTO house = new HouseDTO();
         EnvironmentDTO environment = new EnvironmentDTO();
-        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
-        //house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
+        //house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
+        house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
         double comparador=0;
         for (int i = 0; i <house.getEnvironments().size() ; i++) {
             if((house.getEnvironments().get(i).getLeng()*house.getEnvironments().get(i).getWidth()) >= comparador){
@@ -96,8 +96,8 @@ public class TuCasitaService implements ITuCasitaService{
         EnvironmentsTotalDTO environmentsTotalDTO = new EnvironmentsTotalDTO();
         ArrayList<EnvironmentSquareTotalDTO> environmentSquareTotalDTOS = new ArrayList<>();
 
-        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
-        //house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
+       // house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
+        house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
         environmentsTotalDTO.setNamneHouse(house.getName());
         for (int i = 0; i <house.getEnvironments().size() ; i++) {
             EnvironmentSquareTotalDTO environment = new EnvironmentSquareTotalDTO();
@@ -113,8 +113,8 @@ public class TuCasitaService implements ITuCasitaService{
     @Override
     public HouseDTO  viewHouse(String nameHouse) throws HouseNotFoundException {
         HouseDTO house;
-        house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
-        //house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
+        //house=HouseMapper.toDTO(iTuCasitaRepository.getHouseByname(nameHouse));
+        house=mapper.map(iTuCasitaRepository.getHouseByname(nameHouse),HouseDTO.class);
         return house;
     }
     @Override

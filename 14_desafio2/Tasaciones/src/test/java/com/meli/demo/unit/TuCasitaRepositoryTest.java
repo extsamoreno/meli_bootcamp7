@@ -43,9 +43,9 @@ public class TuCasitaRepositoryTest {
         arrayEnvironmentDTOS.add(environmentDTO1);
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
-        HouseDTO house = new HouseDTO("Casa Prueba Ingreso ",neighborhoodDTO,arrayEnvironmentDTOS);
+        House house2 = new House("Casa Prueba Ingreso ",neighborhoodDTO,arrayEnvironmentDTOS);
         //act
-        Boolean received =TuCasitaRepository.newCasita(HouseMapper.toHouse(house));
+        Boolean received =TuCasitaRepository.newCasita(house2);
 
         //assert
         Assertions.assertTrue(received);
@@ -62,10 +62,10 @@ public class TuCasitaRepositoryTest {
         arrayEnvironmentDTOS.add(environmentDTO1);
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
-        HouseDTO house = new HouseDTO("Casa Prueba Ingreso2 ",neighborhoodDTO,arrayEnvironmentDTOS);
+        House house2 = new House("Casa Prueba Ingreso2 ",neighborhoodDTO,arrayEnvironmentDTOS);
 
         //assert
-        Assertions.assertThrows(PriceIncorrectException.class,() -> TuCasitaRepository.newCasita(HouseMapper.toHouse(house)));
+        Assertions.assertThrows(PriceIncorrectException.class,() -> TuCasitaRepository.newCasita(house2));
 
     }
 
@@ -84,10 +84,10 @@ public class TuCasitaRepositoryTest {
         arrayEnvironmentDTOS.add(environmentDTO1);
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
-        HouseDTO house = new HouseDTO("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
+        House house = new House("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
 
         // act & assert
-        Assertions.assertThrows(HouseExistException.class,() -> TuCasitaRepository.newCasita(HouseMapper.toHouse(house)));
+        Assertions.assertThrows(HouseExistException.class,() -> TuCasitaRepository.newCasita(house));
     }
 
     @Test
@@ -101,10 +101,10 @@ public class TuCasitaRepositoryTest {
         arrayEnvironmentDTOS.add(environmentDTO1);
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
-        HouseDTO house = new HouseDTO("Casa urbana",neighborhoodDTO,arrayEnvironmentDTOS);
+        House house = new House("Casa urbana",neighborhoodDTO,arrayEnvironmentDTOS);
 
         // act & assert
-        Assertions.assertThrows(NeighborhoodNotFounException.class,() -> TuCasitaRepository.newCasita(HouseMapper.toHouse(house)));
+        Assertions.assertThrows(NeighborhoodNotFounException.class,() -> TuCasitaRepository.newCasita(house));
     }
 
     @Test
@@ -118,10 +118,10 @@ public class TuCasitaRepositoryTest {
         arrayEnvironmentDTOS.add(environmentDTO1);
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
-        HouseDTO house = new HouseDTO("Casa urbana",neighborhoodDTO,arrayEnvironmentDTOS);
+        House house = new House("Casa urbana",neighborhoodDTO,arrayEnvironmentDTOS);
 
         // act & assert
-        Assertions.assertThrows(PriceIncorrectException.class,() -> TuCasitaRepository.newCasita(HouseMapper.toHouse(house)));
+        Assertions.assertThrows(PriceIncorrectException.class,() -> TuCasitaRepository.newCasita(house));
     }
 
     @Test
@@ -136,9 +136,11 @@ public class TuCasitaRepositoryTest {
         arrayEnvironmentDTOS.add(environmentDTO2);
         arrayEnvironmentDTOS.add(environmentDTO3);
         HouseDTO expected = new HouseDTO("Casa Linda",neighborhoodDTO,arrayEnvironmentDTOS);
+
         HouseDTO received = new HouseDTO();
 
         //act
+
         received = HouseMapper.toDTO(TuCasitaRepository.getHouseByname("Casa Linda"));
 
         //assert

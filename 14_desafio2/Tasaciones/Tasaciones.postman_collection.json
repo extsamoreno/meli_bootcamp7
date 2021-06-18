@@ -6,6 +6,185 @@
 	},
 	"item": [
 		{
+			"name": "POST validaciones",
+			"item": [
+				{
+					"name": "Barrio en error",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"name\": \"La casa de dios\",\n    \"neighborhood\":\n    {\n      \"name\": \"unich\",\n      \"price\": 1900.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"Estudio\",\n        \"width\": 10.4,\n        \"leng\": 20.8\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"Baño\",\n        \"width\": 3.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"Cocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tucasita/insertCasita",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tucasita",
+								"insertCasita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nombre en mayuscula",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"name\": \"Asadasdasdasdasdasdasdasdasdasdasdasdasda casa de dios\",\n    \"neighborhood\":\n    {\n      \"name\": \"Munich\",\n      \"price\": 1900.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"Estudio\",\n        \"width\": 10.4,\n        \"leng\": 20.8\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"Baño\",\n        \"width\": 3.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"Cocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tucasita/insertCasita",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tucasita",
+								"insertCasita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Longitud del nombre",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"name\": \"La casa de dios\",\n    \"neighborhood\":\n    {\n      \"name\": \"unich\",\n      \"price\": 1900.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"Estudio\",\n        \"width\": 10.4,\n        \"leng\": 20.8\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"Baño\",\n        \"width\": 3.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"Cocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tucasita/insertCasita",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tucasita",
+								"insertCasita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Precio maximo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"name\": \"La casa de dios\",\n    \"neighborhood\":\n    {\n      \"name\": \"Munich\",\n      \"price\": 19020.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"Estudio\",\n        \"width\": 10.4,\n        \"leng\": 20.8\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"Baño\",\n        \"width\": 3.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"Cocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tucasita/insertCasita",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tucasita",
+								"insertCasita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Letras de los ambientes en mayuscula",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"name\": \"La casa de dios\",\n    \"neighborhood\":\n    {\n      \"name\": \"Munich\",\n      \"price\": 19020.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"studio\",\n        \"width\": 10.4,\n        \"leng\": 20.8\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"año\",\n        \"width\": 3.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"ocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tucasita/insertCasita",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tucasita",
+								"insertCasita"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Max largos y Max anchos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"name\": \"La casa de dios\",\n    \"neighborhood\":\n    {\n      \"name\": \"Munich\",\n      \"price\": 1900.0\n    },\n    \"environments\": [\n      {\n        \"environmentId\": 1,\n        \"name\": \"Estudio\",\n        \"width\": 10.4,\n        \"leng\": 50.8\n      },\n      {\n        \"environmentId\": 2,\n        \"name\": \"Baño\",\n        \"width\": 90.4,\n        \"leng\": 14.0\n      },\n      {\n        \"environmentId\": 3,\n        \"name\": \"Cocina\",\n        \"width\":9.4,\n        \"leng\": 8.0\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/tucasita/insertCasita",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tucasita",
+								"insertCasita"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Nueva casa",
 			"request": {
 				"method": "POST",
@@ -40,7 +219,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/tucasita/squareMeters/Casa linda",
+					"raw": "http://localhost:8080/tucasita/squareMeters/Casa Linda",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -49,7 +228,28 @@
 					"path": [
 						"tucasita",
 						"squareMeters",
-						"Casa linda"
+						"Casa Linda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total metros por casa exepcion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/squareMeters/Casa lind",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"squareMeters",
+						"Casa lind"
 					]
 				}
 			},
@@ -57,6 +257,27 @@
 		},
 		{
 			"name": "Total precio por casa",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/metersPrice/Casa Linda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"metersPrice",
+						"Casa Linda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total precio por casa exepcion",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -82,7 +303,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/tucasita/biggerEnvironment/Casa Fea",
+					"raw": "http://localhost:8080/tucasita/biggerEnvironment/La casa de dios",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -91,7 +312,28 @@
 					"path": [
 						"tucasita",
 						"biggerEnvironment",
-						"Casa Fea"
+						"La casa de dios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ambiente mas grande exepcion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/biggerEnvironment/Casa Fe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"biggerEnvironment",
+						"Casa Fe"
 					]
 				}
 			},
@@ -113,6 +355,27 @@
 						"tucasita",
 						"squareMetersByEnvironment",
 						"Casa Fea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total metros por ambiente Exepcion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tucasita/squareMetersByEnvironment/Casa Fe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"squareMetersByEnvironment",
+						"Casa Fe"
 					]
 				}
 			},
