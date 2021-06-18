@@ -65,7 +65,7 @@ public class HouseServiceImple implements  IHouseService{
     }
 
     @Override
-    public BiggerEnvironmentDTO getBiggerEnviroment(String houseName) throws HouseNameNotFoundException {
+    public BiggestEnvironmentDTO getBiggestEnviroment(String houseName) throws HouseNameNotFoundException {
         House house = iHouseRepository.getHouseByName(houseName);
         //Exception
         if (house == null) throw new HouseNameNotFoundException(houseName);

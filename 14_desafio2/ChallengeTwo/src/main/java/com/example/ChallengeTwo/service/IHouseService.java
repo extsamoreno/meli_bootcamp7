@@ -9,7 +9,7 @@ public interface IHouseService {
     HouseTotalAreaDTO getTotalAreaHouse(String houseName) throws ProgramException;
     HouseTotalValueDTO getTotalValueHouse(String houseName) throws ProgramException;
 
-    BiggerEnvironmentDTO getBiggerEnviroment(String houseName) throws ProgramException;
+    BiggestEnvironmentDTO getBiggestEnviroment(String houseName) throws ProgramException;
 
     List<EnvironmentAreaDTO> getAllEnviromentsArea(String houseName) throws ProgramException;
 

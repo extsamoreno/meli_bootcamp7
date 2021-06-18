@@ -2,7 +2,6 @@ package com.example.ChallengeTwo.controller;
 
 import com.example.ChallengeTwo.dto.*;
 import com.example.ChallengeTwo.exception.ProgramException;
-import com.example.ChallengeTwo.model.House;
 import com.example.ChallengeTwo.service.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,6 @@ public class HouseController {
 
     @PostMapping("/createHouse")
     public ResponseEntity<String> createHouse(@Valid @RequestBody HouseDTO house) throws ProgramException {
-        System.out.println(house);
         return new ResponseEntity<>(iHouseService.createNewHouse(house), HttpStatus.OK);
     }
     @PostMapping("/createDistrict")
@@ -40,8 +38,8 @@ public class HouseController {
         return new ResponseEntity<>( iHouseService.getTotalValueHouse(houseName), HttpStatus.OK);
     }
     @GetMapping("/biggerEnvironment/{houseName}")
-    public ResponseEntity<BiggerEnvironmentDTO> getBiggerEnvironment(@PathVariable String houseName) throws ProgramException {
-        return new ResponseEntity<>( iHouseService.getBiggerEnviroment(houseName), HttpStatus.OK);
+    public ResponseEntity<BiggestEnvironmentDTO> getBiggestEnvironment(@PathVariable String houseName) throws ProgramException {
+        return new ResponseEntity<>( iHouseService.getBiggestEnviroment(houseName), HttpStatus.OK);
     }
     @GetMapping("/environmentsAreaList/{houseName}")
     public ResponseEntity<List<EnvironmentAreaDTO>> getAllEnviromentsArea(@PathVariable String houseName) throws ProgramException {

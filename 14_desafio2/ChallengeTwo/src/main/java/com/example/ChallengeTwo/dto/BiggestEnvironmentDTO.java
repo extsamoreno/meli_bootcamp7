@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BiggerEnvironmentDTO {
+public class BiggestEnvironmentDTO {
     private String houseName, environmentName;
     private double areaEnvironment;
 }
