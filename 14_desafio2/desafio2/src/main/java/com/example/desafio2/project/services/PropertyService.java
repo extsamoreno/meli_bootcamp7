@@ -44,8 +44,8 @@ public class PropertyService implements IPropertyService{
         Property property = iPropertyRepository.findPropertyByName(propertyName);
         double totalSquareMeters = getTotalMeters(property);
         District district = iPropertyRepository.findDistrictByName(property.getProp_district_name());
-
-        return new PropertyValueDto(totalSquareMeters * district.getDistrict_price());
+        double value = totalSquareMeters * district.getDistrict_price();
+        return new PropertyValueDto(value);
     }
 
     @Override

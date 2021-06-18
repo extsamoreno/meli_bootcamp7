@@ -1,17 +1,22 @@
 package com.example.desafio2.integration.controller;
 
 import com.example.desafio2.TestUtils.TestUtils;
+import com.example.desafio2.project.controllers.PropertyController;
 import com.example.desafio2.project.exceptions.PropertyAlreadyExistsException;
+import com.example.desafio2.project.exceptions.PropertyDistrictNameNotFoundException;
+import com.example.desafio2.project.exceptions.PropertyNameNotFoundException;
 import com.example.desafio2.project.models.District;
 import com.example.desafio2.project.models.Property;
 import com.example.desafio2.project.repository.IPropertyRepository;
 import com.example.desafio2.project.services.Dto.PropertyDto;
 import com.example.desafio2.project.services.Dto.PropertyEnvironmentDto;
 import com.example.desafio2.project.services.mapper.mapper;
+import com.example.desafio2.project.utils.Database;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +41,9 @@ public class PropertyControllerIntegrationTest {
 
     @MockBean
     IPropertyRepository iPropertyRepository;
+
+    @InjectMocks
+    PropertyController propertyController;
 
     @Test
     public void getTotalSquareMetersHappyPath() throws Exception {
@@ -181,5 +189,57 @@ public class PropertyControllerIntegrationTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void propertyNameNotFoundExceptionThrown() throws Exception {
+        String propertyName = "Casa1";
+        PropertyNameNotFoundException exception = new PropertyNameNotFoundException(propertyName);
 
+        ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+
+        String error = writer.writeValueAsString(exception.getError());
+
+        when(iPropertyRepository.findPropertyByName(propertyName)).thenThrow(exception);
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/properties/{propertyName}/meters", propertyName))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().string(error))
+                .andReturn();
+
+        verify(iPropertyRepository,atLeastOnce()).findPropertyByName(propertyName);
+
+    }
+
+    @Test
+    public void districtNameNotFoundExceptionThrown() throws Exception {
+        String propertyName = "Casa1";
+        Property property = TestUtils.getNewProperty(propertyName);
+
+        PropertyDistrictNameNotFoundException exception = new PropertyDistrictNameNotFoundException(property.getProp_district_name());
+
+        ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+
+
+        when(iPropertyRepository.findPropertyByName(propertyName)).thenReturn(property);
+        when(iPropertyRepository.findDistrictByName(property.getProp_district_name())).thenThrow(exception);
+
+
+        String error = writer.writeValueAsString(exception.getError());
+
+        this.mockMvc
+                .perform(MockMvcRequestBuilders.get("/properties/{propertyName}/value", propertyName))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().string(error))
+                .andReturn();
+
+
+        verify(iPropertyRepository,atLeastOnce()).findPropertyByName(propertyName);
+        verify(iPropertyRepository,atLeastOnce()).findDistrictByName(property.getProp_district_name());
+
+    }
 }
