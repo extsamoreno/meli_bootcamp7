@@ -3,6 +3,9 @@ package com.meli.tu_casita.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meli.tu_casita.model.Environment;
+import com.meli.tu_casita.model.dto.EnvironmentDTO;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
@@ -17,6 +20,9 @@ import java.util.stream.Collectors;
 
 @Repository
 public class EnvironmentDAOImpl implements IEnvironmentDAO {
+
+    @Autowired
+    ModelMapper modelMapper;
 
     private List<Environment> environments;
     private String path;

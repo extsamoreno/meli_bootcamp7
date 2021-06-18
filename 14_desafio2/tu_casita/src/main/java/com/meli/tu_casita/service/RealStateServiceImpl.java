@@ -12,9 +12,11 @@ import com.meli.tu_casita.repository.IDistrictDAO;
 import com.meli.tu_casita.repository.IEnvironmentDAO;
 import com.meli.tu_casita.repository.IRealStateDAO;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -34,13 +36,9 @@ public class RealStateServiceImpl implements IRealStateService {
 
     @Override
     public float getRealStateTotalMeters(int realStateId) {
-        RealState realState = realStateDAO.findById(realStateId);
-        if (realState != null) {
-            List<Environment> environmentList = environmentDAO.getEnvironmentsListByRealStateId(realStateId);
-            double totalMeters = environmentList.stream().mapToDouble(environment -> environment.getWidth() * environment.getLength()).sum();
-            return (float) totalMeters;
-        }//TODO: add exception
-        return 0;
+        List<Environment> environmentList = environmentDAO.getEnvironmentsListByRealStateId(realStateId);
+        double totalMeters = environmentList.stream().mapToDouble(environment -> environment.getWidth() * environment.getLength()).sum();
+        return (float) totalMeters;
     }
 
     @Override
@@ -53,22 +51,15 @@ public class RealStateServiceImpl implements IRealStateService {
 
     @Override
     public EnvironmentDTO getRealStateBiggestEnvironmentByRealStateId(int realStateId) {
-        RealState realState = realStateDAO.findById(realStateId);
-        if (realState != null) {
-            List<Environment> environmentList = environmentDAO.getEnvironmentsListByRealStateId(realStateId);
-            environmentList.stream().max(Comparator.comparing(environment -> (environment.getWidth() * environment.getLength()))).get();
-        }
-        return null;
+        List<Environment> environmentList = environmentDAO.getEnvironmentsListByRealStateId(realStateId);
+        Environment environment = environmentList.stream().max(Comparator.comparing(environmentB -> (environmentB.getWidth() * environmentB.getLength()))).get();
+        return modelMapper.map(environment, EnvironmentDTO.class);
     }
 
     @Override
     public List<EnvironmentDTO> getEnvironmentTotalMetersListByRealStateId(int realStateId) {
-        RealState realState = realStateDAO.findById(realStateId);
-        List<EnvironmentDTO> environmentList = new ArrayList<>();
-        if (realState != null) {
-            environmentList = getEnvironmentDTOListFromRealStateId(realStateId);
-            environmentList.forEach(environmentDTO -> environmentDTO.setMetersTotal(environmentDTO.getLength() * environmentDTO.getWidth()));
-        }//TODO: add exception
+        List<EnvironmentDTO> environmentList = getEnvironmentDTOListFromRealStateId(realStateId);
+        environmentList.forEach(environmentDTO -> environmentDTO.setMetersTotal(environmentDTO.getLength() * environmentDTO.getWidth()));
         return environmentList;
     }
 
@@ -82,8 +73,9 @@ public class RealStateServiceImpl implements IRealStateService {
         if (existsDistrict(realStateInDTO.getDistrictId())) {
             RealState realState = modelMapper.map(realStateInDTO, RealState.class);
             realStateDAO.save(realState);
-            for (EnvironmentDTO environmentDTO : realStateInDTO.getEnvironments()) {
-                Environment environment = modelMapper.map(environmentDTO, Environment.class);
+            Type listType = new TypeToken<List<Environment>>(){}.getType();
+            List<Environment> environmentList = modelMapper.map(realStateInDTO.getEnvironments(),listType);
+            for(Environment environment: environmentList){
                 environment.setRealStateId(realState.getId());
                 environmentDAO.save(environment);
             }
@@ -102,20 +94,20 @@ public class RealStateServiceImpl implements IRealStateService {
         return MapperRealStateModelToRealStateOutDTO(realStateDAO.findById(id));
     }
 
-    private boolean existsDistrict(int districtId){
+    private boolean existsDistrict(int districtId) {
         return districtDAO.findById(districtId).isPresent();
     }
 
     private List<EnvironmentDTO> getEnvironmentDTOListFromRealStateId(int realStateId) {
         List<Environment> environmentList = environmentDAO.getEnvironmentsListByRealStateId(realStateId);
-        List<EnvironmentDTO> environmentDTOList = new ArrayList<>();
         Integer indexBiggestEnvironment = null;
-        for (int i = 0 ; i < environmentList.size() ; i++ ) {
-            EnvironmentDTO environmentDTO = modelMapper.map(environmentList.get(i), EnvironmentDTO.class);
-            environmentDTO.setMetersTotal(environmentDTO.getLength() * environmentDTO.getWidth());
-            environmentDTOList.add(environmentDTO);
+        Type listType = new TypeToken<List<EnvironmentDTO>>(){}.getType();
+        List<EnvironmentDTO> environmentDTOList = modelMapper.map(environmentList,listType);
+        for (int i = 0; i < environmentDTOList.size(); i++) {
+            environmentDTOList.get(i).setMetersTotal(environmentDTOList.get(i).getLength() * environmentDTOList.get(i).getWidth());
             if (indexBiggestEnvironment == null) indexBiggestEnvironment = i;
-            if (environmentDTOList.get(indexBiggestEnvironment).getMetersTotal() < environmentDTO.getMetersTotal()) indexBiggestEnvironment = i ;
+            if (environmentDTOList.get(indexBiggestEnvironment).getMetersTotal() < environmentDTOList.get(i).getMetersTotal())
+                indexBiggestEnvironment = i;
         }
         if (indexBiggestEnvironment != null) {
             environmentDTOList.get(indexBiggestEnvironment).setTheBiggest(true);
@@ -127,7 +119,7 @@ public class RealStateServiceImpl implements IRealStateService {
         RealStateOutDTO realStateOutDTO = new RealStateOutDTO();
         realStateOutDTO.setId(model.getId());
         realStateOutDTO.setName(model.getName());
-        realStateOutDTO.setDistrictDTO(modelMapper.map(districtDAO.findById(model.getDistrictId()), DistrictDTO.class));
+        realStateOutDTO.setDistrictDTO(modelMapper.map(districtDAO.findById(model.getDistrictId()).get(), DistrictDTO.class));
         realStateOutDTO.setEnvironments(getEnvironmentDTOListFromRealStateId(model.getId()));
         realStateOutDTO.setMetersTotal(getRealStateTotalMeters(model.getId()));
         realStateOutDTO.setPrice(getRealStateTotalPrice(model.getId()));

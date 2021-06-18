@@ -1,5 +1,6 @@
 package com.meli.tu_casita.service;
 
+import com.meli.tu_casita.exception.DistrictAlreadyExistsException;
 import com.meli.tu_casita.model.District;
 import com.meli.tu_casita.repository.IDistrictDAO;
 import com.meli.tu_casita.model.dto.DistrictDTO;
@@ -15,23 +16,25 @@ import java.util.Optional;
 public class DistrictServiceImpl implements IDistrictService {
 
     @Autowired
-    IDistrictDAO suburbDAO;
+    IDistrictDAO districtDAO;
 
     @Autowired
     ModelMapper modelMapper;
 
     @Override
     public void saveDistrict(DistrictDTO districtDTO) {
-        Optional<District> district = suburbDAO.findByName(districtDTO.getName());
+        Optional<District> district = districtDAO.findByName(districtDTO.getName());
         if (district.isEmpty()) {
             district = Optional.of(modelMapper.map(districtDTO, District.class));
-            suburbDAO.save(district.get());
+            districtDAO.save(district.get());
+        } else {
+            throw new DistrictAlreadyExistsException(districtDTO.getName());
         }
     }
 
     @Override
     public List<DistrictDTO> getDistrictList() {
-        List<District> districts = suburbDAO.getDistrictList();
+        List<District> districts = districtDAO.getDistrictList();
         List<DistrictDTO> districtDTOList = new ArrayList<>();
         for (District district : districts ) {
             districtDTOList.add(modelMapper.map(district, DistrictDTO.class));
