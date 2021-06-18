@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "22542e95-9fac-4dda-a572-fd9c9e51134c",
+		"name": "Challenge tucasita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Genaro\",\n    \"district\" : {\n        \"name\" : \"Carrasco\",\n        \"price\" : 100\n    },\n    \"environments\" : [{\n        \"name\" : \"Cuarto\",\n        \"width\" : 10,\n        \"length\" : 10\n    },\n    {\n        \"name\" : \"Banio\",\n        \"width\" : 10,\n        \"length\" : 10\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/property",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"property"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get square meters",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Genaro's Apartament\",\n    \"district\" : {\n        \"name\" : \"Carrasco\",\n        \"price\" : 100\n    },\n    \"environments\" : [{\n        \"name\" : \"Cuarto\",\n        \"width\" : 10,\n        \"height\" : 10\n    },\n    {\n        \"name\" : \"Banio\",\n        \"width\" : 10,\n        \"height\" : 10\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/property/get-square-meters/6",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"property",
+						"get-square-meters",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get property price",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Genaro's Apartament\",\n    \"district\" : {\n        \"name\" : \"Carrasco\",\n        \"price\" : 100\n    },\n    \"environments\" : [{\n        \"name\" : \"Cuarto\",\n        \"width\" : 10,\n        \"height\" : 10\n    },\n    {\n        \"name\" : \"Banio\",\n        \"width\" : 10,\n        \"height\" : 10\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/property/get-property-price/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"property",
+						"get-property-price",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get biggest environment",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Genaro's Apartament\",\n    \"district\" : {\n        \"name\" : \"Carrasco\",\n        \"price\" : 100\n    },\n    \"environments\" : [{\n        \"name\" : \"Cuarto\",\n        \"width\" : 10,\n        \"height\" : 10\n    },\n    {\n        \"name\" : \"Banio\",\n        \"width\" : 10,\n        \"height\" : 10\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/property/get-biggest-environment/3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"property",
+						"get-biggest-environment",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get biggest environment Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Genaro's Apartament\",\n    \"district\" : {\n        \"name\" : \"Carrasco\",\n        \"price\" : 100\n    },\n    \"environments\" : [{\n        \"name\" : \"Cuarto\",\n        \"width\" : 10,\n        \"height\" : 10\n    },\n    {\n        \"name\" : \"Banio\",\n        \"width\" : 10,\n        \"height\" : 10\n    }]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/property/get-square-meters-each-environment/2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"property",
+						"get-square-meters-each-environment",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
