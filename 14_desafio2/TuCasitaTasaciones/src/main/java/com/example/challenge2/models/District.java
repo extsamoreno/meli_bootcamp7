@@ -19,4 +19,8 @@ public class District {
     public District(String las_condes, double v) {
 
     }
+
+    public long getPrice() {
+        return 0;
+    }
 }

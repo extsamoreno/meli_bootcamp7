@@ -25,5 +25,8 @@ public class EnvironmentDTO {
     @DecimalMax(value = "33", message = "El largo máximo permitido por propiedad es de 33 mts ")
     @DecimalMin(value = "0", message = "El largo de la propiedad no puede ser negativo")
     private Double length;
+
+    public EnvironmentDTO(String environment2, double v) {
+    }
 }
 

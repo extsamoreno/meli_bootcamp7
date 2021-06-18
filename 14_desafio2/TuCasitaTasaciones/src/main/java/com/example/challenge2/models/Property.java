@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Property {
 
-   private String name;
+   private int propId;
+   private String prop_Name;
    private District district;
-}
+
+   }
+
