@@ -1,0 +1,57 @@
+Tu Casita Api
+
+Es una herramienta diseñada para la tasación de casas.
+
+Se puede calcular los m2 de una casa, sus habitaciones, calcular su precios, etc.
+
+
+endpoints:
+
+/district/create
+POST
+{
+    "district_name": "Palermo",
+    "district_price": 200.0
+}
+
+//=========
+
+/property/create
+POST
+{
+    "prop_name": "Sarmiento 1234",
+    "district_id": 2,
+    "environments": [
+        {
+            "environment_name": "Habitacion 1",
+            "environment_width": 5.0,
+            "environment_length": 3.0
+        },
+        {
+            "environment_name": "Habitacion 2",
+            "environment_width": 4.0,
+            "environment_length": 4.0
+        }
+    ]
+}
+
+//========
+//US0001 - calcular m2 de una casa por id
+/property/m2/1
+GET
+
+//========
+//US0002 - calcular precio de una casa por id
+/property/price/3
+GET
+
+//=======
+//US0003 - obtener la habitación más grande de una casa por id
+/property/environment/biggest/1
+GET
+
+//=======
+//US0004 - calcular los m2 de cada hambiente de una casa dada por id
+/property/environments/m2/1
+GET
+
