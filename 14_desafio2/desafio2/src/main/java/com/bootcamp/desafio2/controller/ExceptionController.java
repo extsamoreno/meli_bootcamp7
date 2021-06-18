@@ -16,17 +16,17 @@ public class ExceptionController {
 
     @ExceptionHandler(HouseNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleHouseNotFoundException(HouseNotFoundException e) {
-        return new ResponseEntity(e.getError(), e.getStatus());
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(DistrictNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleDistrictNotFoundException(DistrictNotFoundException e) {
-        return new ResponseEntity(e.getError(), e.getStatus());
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(HouseAlreadyExistsException.class)
-    public ResponseEntity<ErrorDTO> handlePostAlreadyExistsException(HouseAlreadyExistsException e) {
-        return new ResponseEntity(e.getError(), e.getStatus());
+    public ResponseEntity<ErrorDTO> handleHouseAlreadyExistsException(HouseAlreadyExistsException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
 

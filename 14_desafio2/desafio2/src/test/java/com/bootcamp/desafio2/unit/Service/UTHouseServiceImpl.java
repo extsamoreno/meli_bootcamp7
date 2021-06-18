@@ -1,7 +1,6 @@
 package com.bootcamp.desafio2.unit.Service;
 
 import com.bootcamp.desafio2.UtilsGenerator;
-import com.bootcamp.desafio2.controller.HouseController;
 import com.bootcamp.desafio2.dto.request.HouseDTO;
 import com.bootcamp.desafio2.dto.response.EnvironmentShortDTO;
 import com.bootcamp.desafio2.dto.response.HouseFeaturesDTO;
@@ -12,7 +11,6 @@ import com.bootcamp.desafio2.exception.house.HouseNotFoundException;
 import com.bootcamp.desafio2.repository.district.IDistrictRepository;
 import com.bootcamp.desafio2.repository.house.IHouseRepository;
 import com.bootcamp.desafio2.service.HouseServiceImpl;
-import com.bootcamp.desafio2.service.IHouseService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +18,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
+import org.modelmapper.ModelMapper;
+
 
 import java.util.ArrayList;
 
@@ -34,6 +33,9 @@ public class UTHouseServiceImpl {
 
     @Mock
     IDistrictRepository districtRepository;
+
+    @Mock
+    ModelMapper mapper;
 
     @InjectMocks
     HouseServiceImpl houseService;
@@ -206,19 +208,19 @@ public class UTHouseServiceImpl {
         Assertions.assertThrows(HouseNotFoundException.class,() -> houseService.generateEnvironmentList(prop_name));
     }
 
-    /*
+
     @Test
     public void addNewPropertySuccessfully() throws HouseAlreadyExistsException, DistrictNotFoundException {
         // arrange
-        String prop_name = "Casa101";
-        String district_name = "Santa Fe";
-        double district_price = 500.0;
+        String prop_name = "Apto101";
+        String district_name = "Palermo";
+        double district_price = 1000.0;
         HouseDTO newHouseDTO = UtilsGenerator.generateNewHouseDTO();
-        House modelHouse = UtilsGenerator.genererateHouse();
+        House modelHouse = UtilsGenerator.genererateNewModelHouse();
 
         Mockito.when(houseRepository.existsPropertyName(prop_name)).thenReturn(false);
         Mockito.when(districtRepository.existsDistrictInDB(district_name)).thenReturn(true);
-
+        Mockito.when(mapper.map(newHouseDTO, House.class)).thenReturn(modelHouse);
         Mockito.when(districtRepository.getDistrictPrice(district_name)).thenReturn(district_price);
 
         Mockito.doNothing().when(houseRepository).saveNewProperty(modelHouse);
@@ -232,10 +234,41 @@ public class UTHouseServiceImpl {
         Mockito.verify(districtRepository, atLeastOnce()).existsDistrictInDB(district_name);
     }
 
-/*
+    /*
+    @Test
+    public void addNewPropertyTrowHouseAlreadyExistsException() throws HouseAlreadyExistsException, DistrictNotFoundException {
+        // arrange
+        String prop_name = "Casa101";
+        String district_name = "Palermo";
+        double district_price = 1000.0;
+        HouseDTO newHouseDTO = UtilsGenerator.generateNewHouseDTO();
+        House modelHouse = UtilsGenerator.genererateNewModelHouse();
 
-    void addNewProperty(HouseDTO houseDTO) throws DistrictNotFoundException, HouseAlreadyExistsException;
+        Mockito.when(houseRepository.existsPropertyName(prop_name)).thenReturn(true);
+        //Mockito.when(districtRepository.existsDistrictInDB(district_name)).thenReturn(true);
+        //Mockito.when(mapper.map(newHouseDTO, House.class)).thenReturn(modelHouse);
+        //Mockito.when(districtRepository.getDistrictPrice(district_name)).thenReturn(district_price);
 
- */
+        // Act & Assert
+        Assertions.assertTrue(houseRepository.existsPropertyName(prop_name));
+        Assertions.assertThrows(HouseAlreadyExistsException.class, () -> houseService.addNewProperty(newHouseDTO));
+    }
+
+     */
+
+    @Test
+    public void addNewPropertyTrowDistrictNotFoundException() throws HouseAlreadyExistsException, DistrictNotFoundException {
+        // arrange
+        String prop_name = "Apto101";
+        String district_name = "Palermo";
+        HouseDTO newHouseDTO = UtilsGenerator.generateNewHouseDTO();
+
+        Mockito.when(houseRepository.existsPropertyName(prop_name)).thenReturn(false);
+        Mockito.when(districtRepository.existsDistrictInDB(district_name)).thenReturn(false);
+
+        // Act & Assert
+        Assertions.assertFalse(districtRepository.existsDistrictInDB(district_name));
+        Assertions.assertThrows(DistrictNotFoundException.class,() -> houseService.addNewProperty(newHouseDTO));
+    }
 
 }

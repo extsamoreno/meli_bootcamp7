@@ -4,6 +4,7 @@ import com.bootcamp.desafio2.exception.house.HouseNotFoundException;
 import com.bootcamp.desafio2.entity.House;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Repository
+@NoArgsConstructor
 public class HouseRepositoryImpl implements IHouseRepository {
 
     // Properties Data Base

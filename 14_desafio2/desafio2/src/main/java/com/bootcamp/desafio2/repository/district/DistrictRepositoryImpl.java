@@ -3,6 +3,7 @@ package com.bootcamp.desafio2.repository.district;
 import com.bootcamp.desafio2.entity.District;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Repository
+@NoArgsConstructor
 public class DistrictRepositoryImpl implements IDistrictRepository{
 
     // Data Base of Districts
@@ -20,7 +22,7 @@ public class DistrictRepositoryImpl implements IDistrictRepository{
 
 
     // Method to Load the data to the DataBase
-    private HashMap<String, Double> loadDateBase(){
+    public HashMap<String, Double> loadDateBase(){
         HashMap<String, Double> districtsDB = new HashMap<>();
         ArrayList<District> districtList = readDateBase();
         for(District x :  districtList){
@@ -60,6 +62,6 @@ public class DistrictRepositoryImpl implements IDistrictRepository{
 
     @Override
     public Double getDistrictPrice(String district_name) {
-        return districtsDB.get(district_name);
+        return districtsDB.getOrDefault(district_name, null);
     }
 }

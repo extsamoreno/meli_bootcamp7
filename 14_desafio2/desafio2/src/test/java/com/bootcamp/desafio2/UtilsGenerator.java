@@ -64,81 +64,19 @@ public abstract class UtilsGenerator {
         return new House(prop_name, district, environments);
     }
 
+    public static House genererateNewModelHouse(){
+        String prop_name = "Apto101";
+        District district = new District("Palermo", 1000.0);
+        ArrayList<Environment> environments = new ArrayList<>();
 
-/*
-    {
-        "prop_name" : "Casa101",
-            "district" : {
-        "district_name": "Santa Fe",
-                "district_price": 500.0
-    },
-        "environments" : [
-        {
-            "environment_name" : "Kitchen",
-                "environment_width" : 2.5,
-                "environment_length" : 2.0
-        },
-        {
-            "environment_name" : "Room1",
-                "environment_width" : 5.0,
-                "environment_length" : 3.0
-        },
-        {
-            "environment_name" : "Bath Room",
-                "environment_width" : 2.0,
-                "environment_length" : 2.0
-        }
-                      ]
-    },
-    /*
-    {
-        "prop_name": "Apto101",
-            "district_name": "Palermo",
-            "environments": [
-        {
-            "environment_name": "Kitchen",
-                "environment_width": 2.5,
-                "environment_length": 2.0
-        },
-        {
-            "environment_name": "Room1",
-                "environment_width": 5.0,
-                "environment_length": 3.0
-        },
-        {
-            "environment_name": "Bath Room",
-                "environment_width": 2.0,
-                "environment_length": 2.0
-        }
-    ]
+        Environment env1 = new Environment("Kitchen", 2.5, 2.0);
+        Environment env2 = new Environment("Room1", 5.0, 3.0);
+        Environment env3 = new Environment("Bath Room", 2.0, 2.0);
+        environments.add(env1);
+        environments.add(env2);
+        environments.add(env3);
+
+        return new House(prop_name, district, environments);
     }
 
-
-/*
-    {
-        "prop_name": "Casa101",
-            "total_area": 24.0,
-            "price": 12000.0,
-            "biggest_environment": {
-        "environment_name": "Room1",
-                "environment_area": 15.0
-    }
-    }
-
-    [
-    {
-        "environment_name": "Kitchen",
-            "environment_area": 5.0
-    },
-    {
-        "environment_name": "Room1",
-            "environment_area": 15.0
-    },
-    {
-        "environment_name": "Bath Room",
-            "environment_area": 4.0
-    }
-]
-
- */
 }

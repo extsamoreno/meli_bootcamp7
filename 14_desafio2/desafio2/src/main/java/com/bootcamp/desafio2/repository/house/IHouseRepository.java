@@ -7,7 +7,7 @@ public interface IHouseRepository {
 
     boolean existsPropertyName(String prop_name);
 
-    House findHouseByPropName(String prop_name) ;
+    House findHouseByPropName(String prop_name);
 
     void saveNewProperty(House house);
 }
