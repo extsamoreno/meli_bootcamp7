@@ -5,7 +5,9 @@ import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.models.Environment;
 import com.example.challenge2.repositories.IDistrictDAO;
+import com.example.challenge2.repositories.IPropertyDAO;
 import com.example.challenge2.serivces.DistrictService;
+import com.example.challenge2.serivces.PropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +23,9 @@ import java.util.List;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class DistrictServiceTest {
+    @InjectMocks
+    DistrictService districtService;
+
     @Mock
     IDistrictDAO districtDAO;
 
@@ -33,7 +38,7 @@ public class DistrictServiceTest {
         Mockito.when(districtDAO.save(district)).thenReturn(district);
 
         //Act
-        District res = districtDAO.save(district);
+        District res = districtService.create(district);
 
         //Assert
         Assertions.assertEquals(district,res);

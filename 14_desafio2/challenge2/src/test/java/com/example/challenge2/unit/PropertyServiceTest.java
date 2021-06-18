@@ -33,8 +33,7 @@ public class PropertyServiceTest {
     @Mock
     IDistrictDAO districtDAO;
 
-    @InjectMocks
-    DistrictService districtService;
+
 
     @Test
     public void getTotalSizeWellCalculated() {
