@@ -4,6 +4,7 @@ import com.example.demo.DTO.DistrictDTO;
 import com.example.demo.DTO.EnvironmentDTO;
 import com.example.demo.DTO.PropertyDTO;
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.PropertyNotFoundException;
 import com.example.demo.repository.IPropertyRepository;
 import com.example.demo.repository.RepositoryData;
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,11 +28,14 @@ public class PropertyServicesTest {
     @Mock
     IPropertyRepository repository;
 
+    @Mock
+    ModelMapper modelMapper;
+
     @InjectMocks
     PropertyServices services;
 
     @Test
-    public void calculateSquareMeterHappyPath(){
+    public void calculateSquareMeterHappyPath() throws PropertyNotFoundException {
         // arrange
         List<EnvironmentDTO> env1 = new ArrayList<>();
         env1.add(new EnvironmentDTO("First Room", 10,8.5,0));
@@ -42,6 +47,7 @@ public class PropertyServicesTest {
         PropertyDTO prop = new PropertyDTO(1,"Casa Blanca", new DistrictDTO("ParkWay",700),env1,0.0,0.0);
         Integer id = 1;
         when(repository.findPropertyById(id)).thenReturn(prop);
+        when(modelMapper.map(prop,PropertyDTO.class)).thenReturn(prop);
         PropertyDTO expected = new PropertyDTO(1,"Casa Blanca", new DistrictDTO("ParkWay",700),env1,159.0,0.0);
 
         // act
@@ -53,7 +59,7 @@ public class PropertyServicesTest {
     }
 
     @Test
-    public void calculatePriceHappyPath(){
+    public void calculatePriceHappyPath() throws PropertyNotFoundException {
         // arrange
         List<EnvironmentDTO> env1 = new ArrayList<>();
         env1.add(new EnvironmentDTO("First Room", 10,8.5,0));
@@ -62,9 +68,11 @@ public class PropertyServicesTest {
         env1.add(new EnvironmentDTO("BathRoom", 3,2,0));
         env1.add(new EnvironmentDTO("Kitchen", 5,3,0));
 
-        PropertyDTO prop = new PropertyDTO(1,"Casa Blanca", new DistrictDTO("ParkWay",700),env1,0.0,0.0);
+        PropertyDTO propRepo = new PropertyDTO(1,"Casa Blanca", new DistrictDTO("ParkWay",700),env1,0.0,0.0);
         Integer id = 1;
-        when(repository.findPropertyById(id)).thenReturn(prop);
+        when(repository.findPropertyById(id)).thenReturn(propRepo);
+        when(modelMapper.map(propRepo,PropertyDTO.class)).thenReturn(propRepo);
+
         PropertyDTO expected = new PropertyDTO(1,"Casa Blanca", new DistrictDTO("ParkWay",700),env1,159.0,111300.0);
 
         // act
@@ -100,7 +108,7 @@ public class PropertyServicesTest {
     }
 
     @Test
-    public void calculateSquareMeterByEnvironmentHappyPath(){
+    public void calculateSquareMeterByEnvironmentHappyPath() throws PropertyNotFoundException {
         // arrange
         List<EnvironmentDTO> env1 = new ArrayList<>();
         env1.add(new EnvironmentDTO("First Room", 10,8.5,85.0));
@@ -122,6 +130,8 @@ public class PropertyServicesTest {
 
         Integer id = 1;
         when(repository.findPropertyById(id)).thenReturn(propIn);
+        when(modelMapper.map(propIn,PropertyDTO.class)).thenReturn(propIn);
+
 
         // act
         PropertyDTO result = services.calculateSquareMeterByEnvironment(id);

@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "fb6c777f-c280-4d3c-a9c1-29de8beed909",
+		"name": "Ejercicio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0001",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/getSquareMeter/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getSquareMeter",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0002",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/getPrice/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getPrice",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0003",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/getBigger",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getBigger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0005",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":5,\n    \"name\":\"Casa prueba\",\n    \"district\":{\n        \"name\":\"ParkWay\",\n        \"price\":500.0\n    },\n    \"listEnvironment\":[{\n        \"name\":\"Prueba 1\",\n        \"width\":2.0,\n        \"length\":2.0\n    }]\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/addProperty",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addProperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "0004",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/getSquareMeterByEnvironment/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getSquareMeterByEnvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

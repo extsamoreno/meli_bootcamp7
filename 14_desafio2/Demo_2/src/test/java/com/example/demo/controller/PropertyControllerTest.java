@@ -4,6 +4,7 @@ import com.example.demo.DTO.DistrictDTO;
 import com.example.demo.DTO.EnvironmentDTO;
 import com.example.demo.DTO.PropertyDTO;
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.PropertyNotFoundException;
 import com.example.demo.services.IPropertyServices;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class PropertyControllerTest {
     PropertyController controller;
 
     @Test
-    public void calculateSquareMeterHappyPath(){
+    public void calculateSquareMeterHappyPath() throws PropertyNotFoundException {
         // arrange
         List<EnvironmentDTO> env1 = new ArrayList<>();
         env1.add(new EnvironmentDTO("First Room", 10,8.5,0));
@@ -54,7 +55,7 @@ public class PropertyControllerTest {
     }
 
     @Test
-    public void calculatePriceHappyPath(){
+    public void calculatePriceHappyPath() throws PropertyNotFoundException {
         // arrange
         List<EnvironmentDTO> env1 = new ArrayList<>();
         env1.add(new EnvironmentDTO("First Room", 10,8.5,0));
@@ -102,7 +103,7 @@ public class PropertyControllerTest {
     }
 
     @Test
-    public void calculateSquareMeterByEnvironmentHappyPath(){
+    public void calculateSquareMeterByEnvironmentHappyPath() throws PropertyNotFoundException {
         // arrange
         List<EnvironmentDTO> env1 = new ArrayList<>();
         env1.add(new EnvironmentDTO("First Room", 10,8.5,85.0));

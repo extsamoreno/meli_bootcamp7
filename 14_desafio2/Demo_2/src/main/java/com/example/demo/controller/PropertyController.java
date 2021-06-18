@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.DTO.PropertyDTO;
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.PropertyNotFoundException;
 import com.example.demo.services.IPropertyServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,12 @@ public class PropertyController {
 
 
     @GetMapping("/getSquareMeter/{id}")
-    public ResponseEntity<PropertyDTO> calculateSquareMeter(@PathVariable int id){
+    public ResponseEntity<PropertyDTO> calculateSquareMeter(@PathVariable int id) throws PropertyNotFoundException {
         return new ResponseEntity<>(propertyServices.calculateSquareMeter(id), HttpStatus.OK);
     }
 
     @GetMapping("/getPrice/{id}")
-    public ResponseEntity<PropertyDTO> calculatePrice(@PathVariable int id){
+    public ResponseEntity<PropertyDTO> calculatePrice(@PathVariable int id) throws PropertyNotFoundException {
         return new ResponseEntity<>(propertyServices.calculatePrice(id), HttpStatus.OK);
     }
 
@@ -34,7 +35,7 @@ public class PropertyController {
     }
 
     @GetMapping("/getSquareMeterByEnvironment/{id}")
-    public ResponseEntity<PropertyDTO> calculateSquareMeterByEnvironment(@PathVariable Integer id){
+    public ResponseEntity<PropertyDTO> calculateSquareMeterByEnvironment(@PathVariable Integer id) throws PropertyNotFoundException {
         return new ResponseEntity<>(propertyServices.calculateSquareMeterByEnvironment(id), HttpStatus.OK);
     }
 
