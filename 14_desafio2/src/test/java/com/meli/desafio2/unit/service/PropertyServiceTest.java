@@ -1,4 +1,4 @@
-package com.meli.desafio2.unit;
+package com.meli.desafio2.unit.service;
 
 import com.meli.desafio2.dto.environment.EnvironmentDTO;
 import com.meli.desafio2.dto.environment.ResponseBigEnvironmentDTO;

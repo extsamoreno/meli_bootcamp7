@@ -1,4 +1,4 @@
-package com.meli.desafio2.unit;
+package com.meli.desafio2.unit.controller;
 
 import com.meli.desafio2.controller.PropertyController;
 import com.meli.desafio2.dto.environment.ResponseBigEnvironmentDTO;

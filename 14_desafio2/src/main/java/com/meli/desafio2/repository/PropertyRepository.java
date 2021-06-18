@@ -82,8 +82,20 @@ public class PropertyRepository implements IPropertyRepository {
         environments2.add(new Environment("Garden", 15.0, 15.0));
         prop2.setEnvironments(environments2);
 
+        // Property 3
+        Property prop3 = new Property();
+        prop3.setId(2);
+        prop3.setName("House");
+        List<Environment> environments3 = new ArrayList<>();
+
+        prop3.setDistrictId(0);
+        environments3.add(new Environment("Room 1", 20.0, 30.0));
+        prop3.setEnvironments(environments3);
+
+        // Add properties to the list
         defaultProperties.add(prop1);
         defaultProperties.add(prop2);
+        defaultProperties.add(prop3);
 
         return defaultProperties;
     }

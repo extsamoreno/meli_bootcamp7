@@ -1,4 +1,4 @@
-package com.meli.desafio2.unit;
+package com.meli.desafio2.unit.repository;
 
 import com.meli.desafio2.exception.DistrictIdNotFoundException;
 import com.meli.desafio2.model.District;
