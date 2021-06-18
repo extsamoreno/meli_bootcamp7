@@ -1,11 +1,9 @@
 package com.example.testingchallengev2.unit;
 
-import com.example.testingchallengev2.exception.DistrictNotFoundException;
-import com.example.testingchallengev2.exception.HouseNotFoundException;
 import com.example.testingchallengev2.model.House;
 import com.example.testingchallengev2.model.response.*;
-import com.example.testingchallengev2.repository.district.IDistrictDAO;
-import com.example.testingchallengev2.repository.house.IHouseDAO;
+import com.example.testingchallengev2.repository.district.IDistrictRepository;
+import com.example.testingchallengev2.repository.house.IHouseRepository;
 import com.example.testingchallengev2.service.HouseInfoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,10 +22,10 @@ import static com.example.testingchallengev2.unit.TestUtils.getHouseWithName;
 public class HouseInfoServiceTest {
 
     @Mock
-    IHouseDAO iHouseDAO;
+    IHouseRepository iHouseRepository;
 
     @Mock
-    IDistrictDAO iDistrictDAO;
+    IDistrictRepository iDistrictRepository;
 
     @Mock
     ModelMapper modelMapper;
@@ -42,11 +40,11 @@ public class HouseInfoServiceTest {
         dist.put("Centro", 150.0);
         dist.put("Nueva Córdoba", 160.0);
         DistrictListResponseDTO expected = new DistrictListResponseDTO(dist);
-        Mockito.when(modelMapper.map(iDistrictDAO.getDistricts(), DistrictListResponseDTO.class)).thenReturn(expected);
+        Mockito.when(modelMapper.map(iDistrictRepository.getDistricts(), DistrictListResponseDTO.class)).thenReturn(expected);
 
         DistrictListResponseDTO received = houseInfoService.getDistrictListDTO();
 
-        Mockito.verify(iDistrictDAO, Mockito.atLeastOnce()).getDistricts();
+        Mockito.verify(iDistrictRepository, Mockito.atLeastOnce()).getDistricts();
         Assertions.assertEquals(expected, received);
     }
 
@@ -59,12 +57,12 @@ public class HouseInfoServiceTest {
         houses.put(casa1.getName(), casa1);
         houses.put(casa2.getName(), casa2);
         HouseListResponseDTO expected = new HouseListResponseDTO(houses);
-        Mockito.when(modelMapper.map(iHouseDAO.getHouses(), HouseListResponseDTO.class))
+        Mockito.when(modelMapper.map(iHouseRepository.getHouses(), HouseListResponseDTO.class))
                 .thenReturn(expected);
 
         HouseListResponseDTO received = houseInfoService.getHouseListDTO();
 
-        Mockito.verify(iHouseDAO, Mockito.atLeastOnce()).getHouses();
+        Mockito.verify(iHouseRepository, Mockito.atLeastOnce()).getHouses();
         Assertions.assertEquals(expected, received);
     }
 
@@ -73,11 +71,11 @@ public class HouseInfoServiceTest {
         String name = "casa";
         House house = getHouseWithName(name);
         TotalHouseAreaResponseDTO expected = new TotalHouseAreaResponseDTO(name, 4.0);
-        Mockito.when(iHouseDAO.getHouseByName(name)).thenReturn(house);
+        Mockito.when(iHouseRepository.getHouseByName(name)).thenReturn(house);
 
         TotalHouseAreaResponseDTO received = houseInfoService.getTotalHouseAreaResponseDTO(name);
 
-        Mockito.verify(iHouseDAO, Mockito.atLeastOnce()).getHouseByName(name);
+        Mockito.verify(iHouseRepository, Mockito.atLeastOnce()).getHouseByName(name);
         Assertions.assertEquals(expected, received);
     }
 
@@ -85,14 +83,14 @@ public class HouseInfoServiceTest {
     public void getHouseValueResponseDTOTest() throws Exception {
         String name = "casa";
         House house = getHouseWithName(name);
-        Mockito.when(iHouseDAO.getHouseByName(name)).thenReturn(house);
-        Mockito.when(iDistrictDAO.getPriceByName(house.getDistrictName())).thenReturn(100.0);
+        Mockito.when(iHouseRepository.getHouseByName(name)).thenReturn(house);
+        Mockito.when(iDistrictRepository.getPriceByName(house.getDistrictName())).thenReturn(100.0);
         HouseValueResponseDTO expected = new HouseValueResponseDTO(name, 400.0);
 
         HouseValueResponseDTO received = houseInfoService.getHouseValueResponseDTO(name);
 
-        Mockito.verify(iHouseDAO, Mockito.atLeastOnce()).getHouseByName(name);
-        Mockito.verify(iDistrictDAO, Mockito.atLeastOnce()).getPriceByName(house.getDistrictName());
+        Mockito.verify(iHouseRepository, Mockito.atLeastOnce()).getHouseByName(name);
+        Mockito.verify(iDistrictRepository, Mockito.atLeastOnce()).getPriceByName(house.getDistrictName());
         Assertions.assertEquals(expected, received);
     }
 
@@ -100,12 +98,12 @@ public class HouseInfoServiceTest {
     public void getHouseBiggestRoomResponseDTOTest() throws Exception {
         String name = "casa";
         House house = getHouseWithName(name);
-        Mockito.when(iHouseDAO.getHouseByName(name)).thenReturn(house);
+        Mockito.when(iHouseRepository.getHouseByName(name)).thenReturn(house);
         HouseBiggestRoomResponseDTO expected = new HouseBiggestRoomResponseDTO(name, "baño", 4.0);
 
         HouseBiggestRoomResponseDTO received = houseInfoService.getHouseBiggestRoomResponseDTO(name);
 
-        Mockito.verify(iHouseDAO, Mockito.atLeastOnce()).getHouseByName(name);
+        Mockito.verify(iHouseRepository, Mockito.atLeastOnce()).getHouseByName(name);
         Assertions.assertEquals(expected, received);
     }
 
@@ -115,12 +113,12 @@ public class HouseInfoServiceTest {
         House house = getHouseWithName(name);
         HashMap<String, Double> roomsSize = new HashMap<>();
         roomsSize.put(house.getRooms().get(0).getName(), 4.0);
-        Mockito.when(iHouseDAO.getHouseByName(name)).thenReturn(house);
+        Mockito.when(iHouseRepository.getHouseByName(name)).thenReturn(house);
         RoomsSizeResponseDTO expected = new RoomsSizeResponseDTO(roomsSize);
 
         RoomsSizeResponseDTO received = houseInfoService.getRoomsSizeResponseDTO(name);
 
-        Mockito.verify(iHouseDAO, Mockito.atLeastOnce()).getHouseByName(name);
+        Mockito.verify(iHouseRepository, Mockito.atLeastOnce()).getHouseByName(name);
         Assertions.assertEquals(expected, received);
     }
 }

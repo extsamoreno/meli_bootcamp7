@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/tucasita")
+@RequestMapping("/tuCasita")
 public class HouseInfoController {
 
     @Autowired

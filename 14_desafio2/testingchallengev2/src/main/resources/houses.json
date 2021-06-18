@@ -1,20 +1,20 @@
 {
-  "casa1": {
-    "name": "casa1",
+  "Mi Casa": {
+    "name": "Mi Casa",
     "districtName": "Acosta",
     "rooms": [
       {
-        "name": "cocina",
+        "name": "Cocina",
         "width": 2.0,
         "length": 2.8
       },
       {
-        "name": "baño",
+        "name": "Baño",
         "width": 2.0,
         "length": 2.3
       },
       {
-        "name": "dormitorio",
+        "name": "Dormitorio",
         "width": 2.8,
         "length": 3.3
       }
