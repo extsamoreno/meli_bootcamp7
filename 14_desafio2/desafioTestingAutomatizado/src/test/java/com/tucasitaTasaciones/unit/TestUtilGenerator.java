@@ -1,25 +1,19 @@
 package com.tucasitaTasaciones.unit;
 
-import com.tucasitaTasaciones.dto.DistrictDTO;
 import com.tucasitaTasaciones.dto.EnvironmentDTO;
 import com.tucasitaTasaciones.dto.PropertyDTO;
 import com.tucasitaTasaciones.model.District;
 import com.tucasitaTasaciones.model.Environment;
 import com.tucasitaTasaciones.model.Property;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.ResourceUtils;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class TestUtilGenerator {
 
 
     public static PropertyDTO getPropertyDTO(String districtName) {
-        EnvironmentDTO e1 = new EnvironmentDTO("Living Room", 2, 3);
+        EnvironmentDTO e1 = new EnvironmentDTO("Living", 2, 3);
         EnvironmentDTO e2 = new EnvironmentDTO("Kitchen", 1, 2);
 
         List<EnvironmentDTO> environments = new ArrayList<>();
@@ -34,7 +28,7 @@ public class TestUtilGenerator {
     }
 
     public static Property getProperty() {
-        Environment e1 = new Environment("Living Room", 2, 3);
+        Environment e1 = new Environment("Living", 2, 3);
         Environment e2 = new Environment("Kitchen", 1, 2);
 
         List<Environment> environments = new ArrayList<>();
@@ -58,8 +52,6 @@ public class TestUtilGenerator {
 
         return properties;
     }
-
-
 
 
 }

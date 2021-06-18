@@ -15,12 +15,12 @@ import javax.validation.constraints.Size;
 public class DistrictDTO {
 
     @NotNull(message = "District name cannot be empty")
-    @Size(min=1, max = 45, message = "The length of the name cannot exceed 45 characters.")
+    @Size(max = 45, message = "The length of the name cannot exceed 45 characters.")
     private String district_name;
 
     @NotNull(message = "District price cannot be empty")
     @DecimalMin(value = "100.0", message = "Minimum price allowed per square meter should be at least u$S100.")
-    @DecimalMax(value= "4000.0", message = "Maximum price allowed per square meter cannot exceed U$S4000.")
+    @DecimalMax(value = "4000.0", message = "Maximum price allowed per square meter cannot exceed U$S4000.")
     private Double district_price;
 
 }

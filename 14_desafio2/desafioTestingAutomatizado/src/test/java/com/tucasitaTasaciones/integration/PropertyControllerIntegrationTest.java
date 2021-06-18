@@ -37,9 +37,6 @@ public class PropertyControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
-    ModelMapper mapper;
-
     @MockBean
     IPropertyRepository propertyRepository;
 
@@ -48,7 +45,7 @@ public class PropertyControllerIntegrationTest {
 
 
     @Test
-    void addNewProperty() throws Exception {
+    void addNewPropertyTest() throws Exception {
         String districtName = "King";
         PropertyDTO property = TestUtilGenerator.getPropertyDTO(districtName);
 
@@ -65,29 +62,23 @@ public class PropertyControllerIntegrationTest {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    void addNewPropertyWithException() throws Exception {
-//
-//        String districtName = "King";
-//        PropertyDTO property = TestUtilGenerator.getPropertyDTO(districtName);
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String payload = objectMapper.writeValueAsString(property);
-//
-//        Mockito.when(districtRepository.findDistrictByName(districtName))
-//                .thenReturn(new District(districtName, 3100.0));
-//
-//        this.mockMvc.perform(post("/newProperty")
-//                .contentType("application/json")
-//                .content(payload))
-//                .andDo(print())
-//                .andExpect(status().isBadRequest());
-//
-//
-//    }
+    @Test
+    void addNewPropertyWithExceptionTest() throws Exception {
+        String districtName = "Capital";
+        PropertyDTO property = TestUtilGenerator.getPropertyDTO(districtName);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String payload = objectMapper.writeValueAsString(property);
+
+        this.mockMvc.perform(post("/newProperty")
+                .contentType("application/json")
+                .content(payload))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
 
     @Test
-    void getProperties() throws Exception {
+    void getPropertiesTest() throws Exception {
         List<Property> propertiesList = TestUtilGenerator.getProperties();
 
         Mockito.when(propertyRepository.getProperties()).thenReturn(propertiesList);
@@ -97,9 +88,7 @@ public class PropertyControllerIntegrationTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].prop_name").value("MyHome"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[1].district_name").value("Snohomish"));
-
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].prop_name").value("MyHome"));
     }
 
 

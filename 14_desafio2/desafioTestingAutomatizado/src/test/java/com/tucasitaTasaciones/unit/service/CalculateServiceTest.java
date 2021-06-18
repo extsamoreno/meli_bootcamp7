@@ -1,6 +1,7 @@
 package com.tucasitaTasaciones.unit.service;
 
-import com.tucasitaTasaciones.dto.CalculateResponseDTO;
+import com.tucasitaTasaciones.dto.ResponseDTO.CalculateResponseDTO;
+import com.tucasitaTasaciones.exceptions.PropertyNotFoundException;
 import com.tucasitaTasaciones.model.Environment;
 import com.tucasitaTasaciones.model.Property;
 import com.tucasitaTasaciones.repository.IPropertyRepository;
@@ -17,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +30,7 @@ public class CalculateServiceTest {
     @InjectMocks
     CalculateService calculateService;
 
+
     @Test
     public void calculateSquareMeters() {
         Property property = TestUtilGenerator.getProperty();
@@ -36,7 +39,13 @@ public class CalculateServiceTest {
         CalculateResponseDTO responseDTO = calculateService.calculateSquareMeters(property.getPropId());
 
         verify(propertyRepository, Mockito.atLeastOnce()).findProperty(property.getPropId());
-        Assertions.assertEquals(8, responseDTO.getTotalSquareFeet());
+        Assertions.assertEquals(8, responseDTO.getTotalSquareMeters());
+    }
+
+    @Test
+    public void calculateSquareMetersException() {
+        when(propertyRepository.findProperty(1)).thenReturn(null);
+        assertThrows(PropertyNotFoundException.class, () -> calculateService.calculateSquareMeters(1));
     }
 
     @Test
@@ -51,15 +60,27 @@ public class CalculateServiceTest {
     }
 
     @Test
-    public void getBiggestEnvironment() {
+    public void calculateValueException() {
+        when(propertyRepository.findProperty(1)).thenReturn(null);
+        assertThrows(PropertyNotFoundException.class, () -> calculateService.calculateValue(1));
+    }
+
+    @Test
+    public void getLargestEnvironment() {
         Property property = TestUtilGenerator.getProperty();
         when(propertyRepository.findProperty(property.getPropId())).thenReturn(property);
 
         CalculateResponseDTO responseDTO = calculateService.calculateLargestRoom(property.getPropId());
 
         verify(propertyRepository, Mockito.atLeastOnce()).findProperty(property.getPropId());
-        Assertions.assertEquals("Living Room", responseDTO.getLargestRoom());
+        Assertions.assertEquals("Living", responseDTO.getLargestRoom());
 
+    }
+
+    @Test
+    public void getLargestEnvironmentException() {
+        when(propertyRepository.findProperty(1)).thenReturn(null);
+        assertThrows(PropertyNotFoundException.class, () -> calculateService.calculateLargestRoom(1));
     }
 
     @Test
@@ -72,10 +93,16 @@ public class CalculateServiceTest {
             environmentsSquareFeetExpected.put(r.getEnvironment_name(), r.getSquareFeet());
         }
 
-        CalculateResponseDTO responseDTO = calculateService.calculateEnvironments(property.getPropId());
+        CalculateResponseDTO responseDTO = calculateService.calculateEnvironmentsSquareMeters(property.getPropId());
 
         verify(propertyRepository, Mockito.atLeastOnce()).findProperty(property.getPropId());
-        Assertions.assertEquals(environmentsSquareFeetExpected, responseDTO.getEnvironmentsSquareFeet());
+        Assertions.assertEquals(environmentsSquareFeetExpected, responseDTO.getEnvironmentsSquareMeters());
 
+    }
+
+    @Test
+    public void getEnvironmentSquareMetersWellCalculatedException() {
+        when(propertyRepository.findProperty(1)).thenReturn(null);
+        assertThrows(PropertyNotFoundException.class, () -> calculateService.calculateEnvironmentsSquareMeters(1));
     }
 }

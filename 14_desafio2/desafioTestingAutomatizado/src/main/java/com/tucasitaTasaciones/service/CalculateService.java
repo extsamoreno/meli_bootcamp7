@@ -1,6 +1,7 @@
 package com.tucasitaTasaciones.service;
 
-import com.tucasitaTasaciones.dto.CalculateResponseDTO;
+import com.tucasitaTasaciones.dto.ResponseDTO.CalculateResponseDTO;
+import com.tucasitaTasaciones.exceptions.PropertyNotFoundException;
 import com.tucasitaTasaciones.model.Environment;
 import com.tucasitaTasaciones.model.Property;
 import com.tucasitaTasaciones.repository.IDistrictRepository;
@@ -24,7 +25,9 @@ public class CalculateService implements ICalculateService {
     @Override
     public CalculateResponseDTO calculateSquareMeters(Integer id) {
         Property property = propertyRepository.findProperty(id);
-
+        if (property == null) {
+            throw new PropertyNotFoundException(id);
+        }
         Integer totalSquareFeet = 0;
         for (Environment r : property.getEnvironmentList()) {
             Integer squareFeet = r.getSquareFeet();
@@ -32,7 +35,7 @@ public class CalculateService implements ICalculateService {
         }
 
         CalculateResponseDTO response = new CalculateResponseDTO();
-        response.setTotalSquareFeet(totalSquareFeet);
+        response.setTotalSquareMeters(totalSquareFeet);
 
         return response;
     }
@@ -40,11 +43,12 @@ public class CalculateService implements ICalculateService {
     @Override
     public CalculateResponseDTO calculateValue(Integer id) {
         Property property = propertyRepository.findProperty(id);
+        if (property == null) {
+            throw new PropertyNotFoundException(id);
+        }
         CalculateResponseDTO response = new CalculateResponseDTO();
-
-        Integer totalSquareFeet = calculateSquareMeters(id).getTotalSquareFeet();
+        Integer totalSquareFeet = calculateSquareMeters(id).getTotalSquareMeters();
         Double value = totalSquareFeet * property.getDistrict().getDistrict_price();
-
         response.setPropertyPrice(value);
         return response;
     }
@@ -52,6 +56,9 @@ public class CalculateService implements ICalculateService {
     @Override
     public CalculateResponseDTO calculateLargestRoom(Integer id) {
         Property property = propertyRepository.findProperty(id);
+        if (property == null) {
+            throw new PropertyNotFoundException(id);
+        }
         Environment biggest = null;
         Integer maxRoom = 0;
         for (Environment room : property.getEnvironmentList()) {
@@ -67,10 +74,15 @@ public class CalculateService implements ICalculateService {
     }
 
     @Override
-    public CalculateResponseDTO calculateEnvironments(Integer id) {
+    public CalculateResponseDTO calculateEnvironmentsSquareMeters(Integer id) {
         Property property = propertyRepository.findProperty(id);
+
+        if (property == null) {
+            throw new PropertyNotFoundException(id);
+        }
+
         CalculateResponseDTO response = new CalculateResponseDTO();
-        response.setEnvironmentsSquareFeet(getEnvironmentsSquareMeters(property.getEnvironmentList()));
+        response.setEnvironmentsSquareMeters(getEnvironmentsSquareMeters(property.getEnvironmentList()));
         return response;
     }
 

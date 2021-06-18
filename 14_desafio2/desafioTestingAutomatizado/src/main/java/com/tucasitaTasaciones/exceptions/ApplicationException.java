@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data
-public class ApplicationException extends RuntimeException{
+public class ApplicationException extends RuntimeException {
     private final ErrorDTO error;
     private final HttpStatus status;
 

@@ -12,21 +12,15 @@ import com.tucasitaTasaciones.unit.TestUtilGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.util.CollectionUtils;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
-
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PropertyServiceTest {
@@ -60,6 +54,12 @@ public class PropertyServiceTest {
         Assertions.assertEquals(property.getDistrict().getDistrict_name(),districtName);
     }
 
+    @Test
+    public void addNewPropertyWithException() {
+        PropertyDTO propertyDTO = TestUtilGenerator.getPropertyDTO("Washington");
+
+        Assertions.assertThrows(DistrictNotFoundException.class, () -> propertyService.addNewProperty(propertyDTO));
+    }
 
 
     @Test

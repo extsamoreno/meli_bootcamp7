@@ -1,6 +1,7 @@
 package com.tucasitaTasaciones.service;
 
 import com.tucasitaTasaciones.dto.PropertyDTO;
+import com.tucasitaTasaciones.exceptions.DistrictNotFoundException;
 import com.tucasitaTasaciones.model.District;
 import com.tucasitaTasaciones.model.Property;
 import com.tucasitaTasaciones.repository.IDistrictRepository;
@@ -28,24 +29,22 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public void addNewProperty(PropertyDTO property) {
-
-        District district= districtRepository.findDistrictByName(property.getDistrict_name());
-
-        Property newProperty = mapper.map(property,Property.class);
+        District district = districtRepository.findDistrictByName(property.getDistrict_name());
+        if (district == null) {
+            throw new DistrictNotFoundException(property.getDistrict_name());
+        }
+        Property newProperty = mapper.map(property, Property.class);
         newProperty.setDistrict(district);
         propertyRepository.addNewProperty(newProperty);
-
     }
 
     @Override
     public List<PropertyDTO> getProperties() {
         List<PropertyDTO> propertyDTOList = new ArrayList<>();
-
-        for (Property p: propertyRepository.getProperties()) {
-            PropertyDTO newProperty = mapper.map(p,PropertyDTO.class);
+        for (Property p : propertyRepository.getProperties()) {
+            PropertyDTO newProperty = mapper.map(p, PropertyDTO.class);
             propertyDTOList.add(newProperty);
         }
-
         return propertyDTOList;
     }
 }

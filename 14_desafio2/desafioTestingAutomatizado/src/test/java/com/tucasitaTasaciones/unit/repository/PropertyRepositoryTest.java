@@ -1,6 +1,5 @@
 package com.tucasitaTasaciones.unit.repository;
 
-import com.tucasitaTasaciones.exceptions.PropertyNotFoundException;
 import com.tucasitaTasaciones.model.Property;
 import com.tucasitaTasaciones.repository.IPropertyRepository;
 import com.tucasitaTasaciones.repository.PropertyRepository;
@@ -11,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PropertyRepositoryTest {
 
@@ -23,38 +24,35 @@ public class PropertyRepositoryTest {
     }
 
     @Test
-    public void addNewProperty() {
+    public void addNewPropertyTest() {
         Property property = TestUtilGenerator.getProperty();
-
         repository.addNewProperty(property);
 
-        Assertions.assertEquals(1, property.getPropId());
-        Assertions.assertEquals(repository.findProperty(property.getPropId()), property);
+        assertEquals(1, property.getPropId());
+        assertEquals(repository.findProperty(property.getPropId()), property);
 
     }
 
     @Test
-    public void findExistentProperty() {
+    public void findExistentPropertyTest() {
         Property property = TestUtilGenerator.getProperty();
         repository.addNewProperty(property);
 
         Property found = repository.findProperty(property.getPropId());
 
-        Assertions.assertEquals(found, property);
+        assertEquals(found, property);
 
     }
 
     @Test
-    public void findNonExistentProperty() {
-        Integer id = 5;
-
-        Assertions.assertThrows(PropertyNotFoundException.class,
-                () -> repository.findProperty(id));
-
+    public void findNonExistentPropertyTest() {
+        Property property = repository.findProperty(1);
+        Assertions.assertNull(property);
     }
 
+
     @Test
-    public void getProperties() {
+    public void getPropertiesTest() {
         List<Property> propertyList = TestUtilGenerator.getProperties();
         for (Property p : propertyList) {
             repository.addNewProperty(p);
@@ -62,14 +60,8 @@ public class PropertyRepositoryTest {
 
         List<Property> found = repository.getProperties();
 
-        Assertions.assertEquals(found, propertyList);
+        assertEquals(found, propertyList);
     }
 
 
 }
-
-/*void addNewProperty(Property property);
-
-    Property findProperty(Integer id);
-
-    List<Property> getProperties();*/

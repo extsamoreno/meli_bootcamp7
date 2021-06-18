@@ -1,12 +1,10 @@
 package com.tucasitaTasaciones.integration;
 
-import com.tucasitaTasaciones.dto.CalculateResponseDTO;
 import com.tucasitaTasaciones.exceptions.PropertyNotFoundException;
 import com.tucasitaTasaciones.model.Environment;
 import com.tucasitaTasaciones.model.Property;
 import com.tucasitaTasaciones.repository.IDistrictRepository;
 import com.tucasitaTasaciones.repository.IPropertyRepository;
-import com.tucasitaTasaciones.service.ICalculateService;
 import com.tucasitaTasaciones.unit.TestUtilGenerator;
 
 import org.junit.jupiter.api.Test;
@@ -40,7 +38,7 @@ public class CalculatorControllerIntegrationTest {
     IDistrictRepository districtRepository;
 
     @Test
-    void calculateSquareMeters() throws Exception {
+    void calculateSquareMetersTest() throws Exception {
         Property property = TestUtilGenerator.getProperty();
         Mockito.when(repository.findProperty(1)).thenReturn(property);
 
@@ -49,15 +47,14 @@ public class CalculatorControllerIntegrationTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.totalSquareFeet").value(8));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.totalSquareMeters").value(8));
     }
 
     @Test
     void calculateSquareMetersWithException() throws Exception {
 
-        Mockito.when(repository.findProperty(1)).thenThrow(new PropertyNotFoundException(1));;
-
         String messageName = "Property with ID: 1 doesn't exists";
+        Mockito.when(repository.findProperty(1)).thenThrow(new PropertyNotFoundException(1));
 
         mockMvc.perform(
                 get("/calculateSquareMeters/1"))
@@ -67,12 +64,12 @@ public class CalculatorControllerIntegrationTest {
 
 
     @Test
-    void calculatePropertyValue() throws Exception {
+    void calculatePropertyValueTest() throws Exception {
         Property property = TestUtilGenerator.getProperty();
         Mockito.when(repository.findProperty(1)).thenReturn(property);
 
         mockMvc.perform(
-                get("/calculateValue/1"))
+                get("/calculatePropertyValue/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
@@ -81,37 +78,38 @@ public class CalculatorControllerIntegrationTest {
     }
 
     @Test
-    void calculateLargestRoom() throws Exception {
+    void calculateLargestRoomTest() throws Exception {
 
         Property property = TestUtilGenerator.getProperty();
         Mockito.when(repository.findProperty(1)).thenReturn(property);
 
         mockMvc.perform(
-                get("/calculateLargestRoom/1"))
+                get("/calculatePropertyLargestRoom/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.largestRoom").value("Living Room"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.largestRoom").value("Living"));
 
     }
 
     @Test
-    void calculateEnvironmentsSquareFeet() throws Exception {
+    void calculateEnvironmentsSquareMetersTest() throws Exception {
 
         Property property = TestUtilGenerator.getProperty();
-        Map<String, Integer> environmentsSquareFeetExpected = new HashMap<>();
+        Map<String, Integer> environmentsSquareMetersExpected = new HashMap<>();
         for (Environment r : property.getEnvironmentList()) {
-            environmentsSquareFeetExpected.put(r.getEnvironment_name(), r.getSquareFeet());
+            environmentsSquareMetersExpected.put(r.getEnvironment_name(), r.getSquareFeet());
         }
 
         Mockito.when(repository.findProperty(1)).thenReturn(property);
 
         mockMvc.perform(
-                get("/calculateEnvironments/1"))
+                get("/calculateEnvironmentsSquareMeters/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.environmentsSquareFeet").value(environmentsSquareFeetExpected));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.environmentsSquareMeters")
+                        .value(environmentsSquareMetersExpected));
 
     }
 

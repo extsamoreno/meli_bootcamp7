@@ -28,7 +28,7 @@ public class PropertyRepository implements IPropertyRepository {
 
         Property property = properties.stream()
                 .filter(prop -> prop.getPropId().equals(id))
-                .findFirst().orElseThrow(() -> new PropertyNotFoundException(id));
+                .findFirst().orElse(null);
 
         return property;
     }

@@ -1,4 +1,4 @@
-package com.tucasitaTasaciones.dto;
+package com.tucasitaTasaciones.dto.ResponseDTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -12,8 +12,8 @@ import java.util.Map;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CalculateResponseDTO {
-    private Integer totalSquareFeet;
+    private Integer totalSquareMeters;
     private Double propertyPrice;
     private String largestRoom;
-    private Map<String,Integer> environmentsSquareFeet;
+    private Map<String, Integer> environmentsSquareMeters;
 }

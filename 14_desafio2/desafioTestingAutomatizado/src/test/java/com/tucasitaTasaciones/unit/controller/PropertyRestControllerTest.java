@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
@@ -26,14 +27,16 @@ public class PropertyRestControllerTest {
     PropertyRestController controller;
 
     @Test
-    public void addNewProperty() {
-        PropertyDTO p = TestUtilGenerator.getPropertyDTO("king");
+    public void addNewPropertyTest() {
+        PropertyDTO p = TestUtilGenerator.getPropertyDTO("King");
         ResponseEntity<?> found = controller.addNewProperty(p);
+        Mockito.verify(service, Mockito.atLeastOnce()).addNewProperty(p);
         Assertions.assertEquals(200, found.getStatusCodeValue());
     }
 
+
     @Test
-    public void getAllProperties() {
+    public void getAllPropertiesTest() {
         ResponseEntity<List<PropertyDTO>> found = controller.getAllProperties();
         Assertions.assertEquals(200, found.getStatusCodeValue());
     }

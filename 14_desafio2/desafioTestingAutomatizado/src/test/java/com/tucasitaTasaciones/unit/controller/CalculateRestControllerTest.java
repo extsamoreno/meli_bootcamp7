@@ -1,8 +1,7 @@
 package com.tucasitaTasaciones.unit.controller;
 
 import com.tucasitaTasaciones.controller.CalculateRestController;
-import com.tucasitaTasaciones.dto.CalculateResponseDTO;
-import com.tucasitaTasaciones.dto.EnvironmentDTO;
+import com.tucasitaTasaciones.dto.ResponseDTO.CalculateResponseDTO;
 import com.tucasitaTasaciones.service.ICalculateService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,54 +26,54 @@ public class CalculateRestControllerTest {
     CalculateRestController controller;
 
     @Test
-    public void calculateSquareMeters() {
+    public void calculateSquareMetersTest() {
         Integer propertyId = 1;
         CalculateResponseDTO expected = new CalculateResponseDTO();
-        expected.setTotalSquareFeet(90);
+        expected.setTotalSquareMeters(90);
         Mockito.when(service.calculateSquareMeters(propertyId)).thenReturn(expected);
 
         ResponseEntity<CalculateResponseDTO> found = controller.calculateSquareMeters(propertyId);
 
-        Mockito.verify(service,Mockito.atLeastOnce()).calculateSquareMeters(propertyId);
-        Assertions.assertEquals(expected, found.getBody());
+        Mockito.verify(service, Mockito.atLeastOnce()).calculateSquareMeters(propertyId);
+        Assertions.assertEquals(expected.getTotalSquareMeters(), found.getBody().getTotalSquareMeters());
         Assertions.assertEquals(200, found.getStatusCodeValue());
 
     }
 
     @Test
-    public void calculateValue() {
+    public void calculateValueTest() {
 
         Integer propertyId = 1;
         CalculateResponseDTO expected = new CalculateResponseDTO();
         expected.setPropertyPrice(500.00);
         Mockito.when(service.calculateValue(propertyId)).thenReturn(expected);
 
-        ResponseEntity<CalculateResponseDTO> found = controller.calculateValue(propertyId);
+        ResponseEntity<CalculateResponseDTO> found = controller.calculatePropertyValue(propertyId);
 
-        Mockito.verify(service,Mockito.atLeastOnce()).calculateValue(propertyId);
-        Assertions.assertEquals(expected, found.getBody());
+        Mockito.verify(service, Mockito.atLeastOnce()).calculateValue(propertyId);
+        Assertions.assertEquals(expected.getPropertyPrice(), found.getBody().getPropertyPrice());
         Assertions.assertEquals(200, found.getStatusCodeValue());
 
     }
 
     @Test
-    public void calculateLargestRoom() {
+    public void calculateLargestRoomTest() {
 
         Integer propertyId = 1;
         CalculateResponseDTO expected = new CalculateResponseDTO();
         expected.setLargestRoom("Living");
         Mockito.when(service.calculateLargestRoom(propertyId)).thenReturn(expected);
 
-        ResponseEntity<CalculateResponseDTO> found = controller.calculateLargestRoom(propertyId);
+        ResponseEntity<CalculateResponseDTO> found = controller.calculatePropertyLargestRoom(propertyId);
 
-        Mockito.verify(service,Mockito.atLeastOnce()).calculateLargestRoom(propertyId);
-        Assertions.assertEquals(expected, found.getBody());
+        Mockito.verify(service, Mockito.atLeastOnce()).calculateLargestRoom(propertyId);
+        Assertions.assertEquals(expected.getLargestRoom(), found.getBody().getLargestRoom());
         Assertions.assertEquals(200, found.getStatusCodeValue());
 
     }
 
     @Test
-    public void calculateRoomsSquareMeters() {
+    public void calculateEnvironmentsSquareMetersTest() {
 
         Integer propertyId = 1;
         CalculateResponseDTO expected = new CalculateResponseDTO();
@@ -82,14 +81,14 @@ public class CalculateRestControllerTest {
 
         environmentDTOList.put("Living", 80);
         environmentDTOList.put("Kitchen", 60);
-        expected.setEnvironmentsSquareFeet(environmentDTOList);
-        Mockito.when(service.calculateEnvironments(propertyId)).thenReturn(expected);
+        expected.setEnvironmentsSquareMeters(environmentDTOList);
+        Mockito.when(service.calculateEnvironmentsSquareMeters(propertyId)).thenReturn(expected);
 
-        ResponseEntity<CalculateResponseDTO> received = controller.calculateRoomsSquareMeters(propertyId);
+        ResponseEntity<CalculateResponseDTO> received = controller.calculateEnvironmentsSquareMeters(propertyId);
 
-        Mockito.verify(service,Mockito.atLeastOnce()).calculateEnvironments(propertyId);
-        Assertions.assertEquals(200,received.getStatusCodeValue());
-        Assertions.assertEquals(expected.getEnvironmentsSquareFeet(),received.getBody().getEnvironmentsSquareFeet());
+        Mockito.verify(service, Mockito.atLeastOnce()).calculateEnvironmentsSquareMeters(propertyId);
+        Assertions.assertEquals(200, received.getStatusCodeValue());
+        Assertions.assertEquals(expected.getEnvironmentsSquareMeters(), received.getBody().getEnvironmentsSquareMeters());
 
     }
 
