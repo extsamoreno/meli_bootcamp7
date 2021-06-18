@@ -34,6 +34,18 @@ public class PropertyServiceTest {
     PropertyService propertyService;
 
     @Test
+    public void createTest(){
+        PropertyDTO propertyDTO = TestUtilGenerator.getPropertyDTO("District1");
+        Property property = TestUtilGenerator.getProperty("District1");
+        Mockito.when(mapper.map(propertyDTO,Property.class)).thenReturn(property);
+
+        propertyService.create(propertyDTO);
+
+        Mockito.verify(propertyRepository,Mockito.atLeast(1)).save(property);
+        Mockito.verify(districtRepository,Mockito.atLeast(1)).findByName("District1");
+    }
+
+    @Test
     public void totalSquareMetersTest(){
         Property property = TestUtilGenerator.getProperty("District1");
 
@@ -84,10 +96,5 @@ public class PropertyServiceTest {
         Assertions.assertEquals(741.75,responseList.get(1).getSquareMeters());
         Assertions.assertEquals(431.25,responseList.get(2).getSquareMeters());
     }
-
-
-
-
-
 
 }
