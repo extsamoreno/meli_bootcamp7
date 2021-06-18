@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.el.EvaluationListener;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -14,7 +13,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PropertyBiggestEnviromentDTO {
+public class PropertyBiggestEnvironmentDTO {
     int prop_id;
     @NotEmpty(message = "El nombre de la propiedad no puede estar vacío.")
     @Pattern(regexp = "^[A-Z].*", message = "El nombre de la propiedad debe comenzar con mayúscula.")
@@ -22,5 +21,5 @@ public class PropertyBiggestEnviromentDTO {
     String prop_name;
     @NotNull(message = "La propiedad debe contener hambientes")
     @Valid
-    EnviromentSquareDTO enviroment;
+    EnvironmentSquareDTO environment;
 }

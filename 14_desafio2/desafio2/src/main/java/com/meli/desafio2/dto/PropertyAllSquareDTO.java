@@ -21,5 +21,5 @@ public class PropertyAllSquareDTO {
     private String prop_name;
     @NotEmpty(message = "La propiedad debe contener hambientes")
     @Valid
-    private ArrayList<EnviromentSquareDTO> enviroments;
+    private ArrayList<EnvironmentSquareDTO> environments;
 }

@@ -21,5 +21,5 @@ public class PropertyDTO {
     private String prop_name;
     private int district_id;
     @Valid
-    private ArrayList<EnviromentDTO> enviroments;
+    private ArrayList<EnvironmentDTO> environments;
 }

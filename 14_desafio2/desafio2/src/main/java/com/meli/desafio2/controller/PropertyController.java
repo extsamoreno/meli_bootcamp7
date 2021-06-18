@@ -17,10 +17,10 @@ public class PropertyController {
     @Autowired
     IPropertyService propertyService;
 
-    @PostMapping(value = "/newpropierty")
+    @PostMapping(value = "/newproperty")
     public ResponseEntity<String> newProperty(@Valid @RequestBody PropertyInputDTO property){
-        int id = propertyService.newProperty(property);
-        return new ResponseEntity<>("La propiedad ha sido registrada existosamente con el ID: "+id,HttpStatus.OK);
+        String message = propertyService.newProperty(property);
+        return new ResponseEntity<>(message,HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}",produces = "application/json;charset=UTF-8")
@@ -38,13 +38,13 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getValue(id),HttpStatus.OK);
     }
 
-    @GetMapping(value = "/biggestenviroment/{id}", produces = "application/json;charset=UTF-8")
-    public ResponseEntity<PropertyBiggestEnviromentDTO> getBiggestEnviroment(@PathVariable("id") int id) {
-        return new ResponseEntity<>(propertyService.getBiggestEnviroment(id),HttpStatus.OK);
+    @GetMapping(value = "/biggestenvironment/{id}", produces = "application/json;charset=UTF-8")
+    public ResponseEntity<PropertyBiggestEnvironmentDTO> getBiggestEnvironment(@PathVariable("id") int id) {
+        return new ResponseEntity<>(propertyService.getBiggestEnvironment(id),HttpStatus.OK);
     }
 
-    @GetMapping(value = "/enviromentssquare/{id}", produces = "application/json;charset=UTF-8")
-    public ResponseEntity<PropertyAllSquareDTO> getEnviromentsSquare(@PathVariable("id") int id) {
-        return new ResponseEntity<>(propertyService.getEnviromentsSquare(id),HttpStatus.OK);
+    @GetMapping(value = "/environmentssquare/{id}", produces = "application/json;charset=UTF-8")
+    public ResponseEntity<PropertyAllSquareDTO> getEnvironmentsSquare(@PathVariable("id") int id) {
+        return new ResponseEntity<>(propertyService.getEnvironmentsSquare(id),HttpStatus.OK);
     }
 }

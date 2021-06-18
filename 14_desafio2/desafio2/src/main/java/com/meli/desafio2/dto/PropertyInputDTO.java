@@ -24,5 +24,5 @@ public class PropertyInputDTO {
     private DistrictInputDTO district;
     @NotNull(message = "La propiedad debe contener hambientes")
     @Valid
-    private ArrayList<EnviromentDTO> enviroments;
+    private ArrayList<EnvironmentDTO> environments;
 }

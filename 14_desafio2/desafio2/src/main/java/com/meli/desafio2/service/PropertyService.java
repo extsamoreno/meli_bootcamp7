@@ -1,9 +1,10 @@
 package com.meli.desafio2.service;
 
 import com.meli.desafio2.dto.*;
+import com.meli.desafio2.exception.DistrictNotFoundException;
 import com.meli.desafio2.exception.PropertyNotFoundException;
 import com.meli.desafio2.mapper.DistrictMapper;
-import com.meli.desafio2.mapper.EnviromentMapper;
+import com.meli.desafio2.mapper.EnvironmentMapper;
 import com.meli.desafio2.mapper.PropertyMapper;
 import com.meli.desafio2.repository.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,29 +19,34 @@ public class PropertyService implements IPropertyService{
     IPropertyRepository propertyRepository;
 
     @Override
-    public int newProperty(PropertyInputDTO propertyInput) {
+    public String newProperty(PropertyInputDTO propertyInput) {
+        String message = "";
         PropertyDTO property = PropertyMapper.InputDTOToDTO(propertyInput);
         DistrictDTO district = propertyRepository.getDistrictByName(propertyInput.getDistrict().getDistrict_name());
-        if(district==null){
-            district= DistrictMapper.InputDTOToDto(propertyInput.getDistrict());
-            propertyRepository.newDistrict(district);
-        }
+        if(district==null) throw  new DistrictNotFoundException();
         property.setDistrict_id(district.getDistrict_id());
-        return propertyRepository.newProperty(property);
+        int id = propertyRepository.newProperty(property);
+        return "La propiedad "+ property.getProp_name() +" ha sido registrada correctamente con el ID: "+id+"."+message;
     }
 
     @Override
     public PropertyFullDTO getProperty(int id) {
-        return propertyRepository.getFullById(id);
+        PropertyFullDTO property = propertyRepository.getFullById(id);
+        if(property!=null){
+            return propertyRepository.getFullById(id);
+        }else throw new PropertyNotFoundException();
     }
 
     @Override
     public PropertySquareDTO getSquareMeters(int id) {
         PropertyFullDTO property=propertyRepository.getFullById(id);
+        if(property==null){
+            throw new PropertyNotFoundException();
+        }
         Double squareMeters=0.0;
 
-        for (EnviromentSquareDTO enviromentSquare:calculateSquare(property.getEnviroments())) {
-            squareMeters+=enviromentSquare.getSquare_meters();
+        for (EnvironmentSquareDTO environmentSquare:calculateSquare(property.getEnvironments())) {
+            squareMeters+=environmentSquare.getSquare_meters();
         }
         return PropertyMapper.DTOToSqusreDTO(property,squareMeters);
     }
@@ -48,39 +54,48 @@ public class PropertyService implements IPropertyService{
     @Override
     public PropertyValueDTO getValue(int id) {
         PropertyFullDTO property = propertyRepository.getFullById(id);
+        if(property==null){
+            throw new PropertyNotFoundException();
+        }
         double value=0;
-        for (EnviromentSquareDTO enviromentSquare : calculateSquare(property.getEnviroments())) {
-            value+= enviromentSquare.getSquare_meters()*property.getDistrict().getDistrict_price();
+        for (EnvironmentSquareDTO environmentSquare : calculateSquare(property.getEnvironments())) {
+            value+= environmentSquare.getSquare_meters()*property.getDistrict().getDistrict_price();
         }
         return PropertyMapper.fullDTOtoValueDTO(property,value);
     }
 
     @Override
-    public PropertyBiggestEnviromentDTO getBiggestEnviroment(int id) {
+    public PropertyBiggestEnvironmentDTO getBiggestEnvironment(int id) {
         PropertyDTO property = propertyRepository.getById(id);
-        EnviromentSquareDTO biggest=null;
-        for (EnviromentSquareDTO enviromentSquare : calculateSquare(property.getEnviroments())) {
-            if(biggest==null || enviromentSquare.getSquare_meters()> biggest.getSquare_meters()){
-                biggest=enviromentSquare;
+        if(property==null){
+            throw new PropertyNotFoundException();
+        }
+        EnvironmentSquareDTO biggest=null;
+        for (EnvironmentSquareDTO environmentSquare : calculateSquare(property.getEnvironments())) {
+            if(biggest==null || environmentSquare.getSquare_meters()> biggest.getSquare_meters()){
+                biggest=environmentSquare;
             }
         }
         return PropertyMapper.DTOToBiggestDTO(property,biggest);
     }
 
     @Override
-    public PropertyAllSquareDTO getEnviromentsSquare(int id) {
+    public PropertyAllSquareDTO getEnvironmentsSquare(int id) {
         PropertyDTO property = propertyRepository.getById(id);
-        ArrayList<EnviromentSquareDTO> enviromentSquareList = calculateSquare(property.getEnviroments());
-        return PropertyMapper.DTOToAllSquareDTO(property,enviromentSquareList);
+        if(property==null){
+            throw new PropertyNotFoundException();
+        }
+        ArrayList<EnvironmentSquareDTO> environmentSquareList = calculateSquare(property.getEnvironments());
+        return PropertyMapper.DTOToAllSquareDTO(property,environmentSquareList);
     }
 
-    private ArrayList<EnviromentSquareDTO> calculateSquare(ArrayList<EnviromentDTO> enviromentList){
-        ArrayList<EnviromentSquareDTO> enviromentSquareList= new ArrayList<>();
+    private ArrayList<EnvironmentSquareDTO> calculateSquare(ArrayList<EnvironmentDTO> environmentList){
+        ArrayList<EnvironmentSquareDTO> environmentSquareList= new ArrayList<>();
         double square=0;
-        for (EnviromentDTO enviroment:enviromentList) {
-            square=enviroment.getEnviroment_length()* enviroment.getEnviroment_width();
-            enviromentSquareList.add(EnviromentMapper.DTOToSquareDTO(enviroment,square));
+        for (EnvironmentDTO environment:environmentList) {
+            square=environment.getEnvironment_length()* environment.getEnvironment_width();
+            environmentSquareList.add(EnvironmentMapper.DTOToSquareDTO(environment,square));
         }
-        return enviromentSquareList;
+        return environmentSquareList;
     }
 }

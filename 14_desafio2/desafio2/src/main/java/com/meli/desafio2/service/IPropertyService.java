@@ -1,11 +1,10 @@
 package com.meli.desafio2.service;
 
 import com.meli.desafio2.dto.*;
-import com.meli.desafio2.exception.PropertyNotFoundException;
 
 public interface IPropertyService {
 
-    int newProperty(PropertyInputDTO propertyInput);
+    String newProperty(PropertyInputDTO propertyInput);
 
     PropertyFullDTO getProperty(int id);
 
@@ -13,7 +12,7 @@ public interface IPropertyService {
 
     PropertyValueDTO getValue(int id);
 
-    PropertyBiggestEnviromentDTO getBiggestEnviroment(int id);
+    PropertyBiggestEnvironmentDTO getBiggestEnvironment(int id);
 
-    PropertyAllSquareDTO getEnviromentsSquare(int id);
+    PropertyAllSquareDTO getEnvironmentsSquare(int id);
 }

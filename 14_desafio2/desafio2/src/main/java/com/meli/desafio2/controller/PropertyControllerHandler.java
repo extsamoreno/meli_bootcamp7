@@ -1,5 +1,6 @@
 package com.meli.desafio2.controller;
 
+import com.meli.desafio2.exception.DistrictNotFoundException;
 import com.meli.desafio2.exception.PropertyNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,11 @@ import java.util.Map;
 public class PropertyControllerHandler {
     @ExceptionHandler(PropertyNotFoundException.class)
     public ResponseEntity<String> propertyNotFoundHandler(PropertyNotFoundException e){
+        return new ResponseEntity<>(e.getError().getDescription(),e.getStatus());
+    }
+
+    @ExceptionHandler(DistrictNotFoundException.class)
+    public ResponseEntity<String> districtNotFoundHandler(DistrictNotFoundException e){
         return new ResponseEntity<>(e.getError().getDescription(),e.getStatus());
     }
 

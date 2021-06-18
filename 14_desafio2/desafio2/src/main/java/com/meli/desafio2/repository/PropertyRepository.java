@@ -18,7 +18,7 @@ public class PropertyRepository implements IPropertyRepository{
         if(property!=null){
             return property;
         }else{
-            throw new PropertyNotFoundException();
+            return null;
         }
     }
 
@@ -29,7 +29,7 @@ public class PropertyRepository implements IPropertyRepository{
             DistrictDTO district = Tables.getDistrictByid(property.getDistrict_id());
             return PropertyMapper.DTOToResponseDTO(property,district);
         }else{
-            throw new PropertyNotFoundException();
+            return null;
         }
     }
 

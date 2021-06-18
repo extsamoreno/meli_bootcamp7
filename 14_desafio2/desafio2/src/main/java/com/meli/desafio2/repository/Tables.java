@@ -1,7 +1,7 @@
 package com.meli.desafio2.repository;
 
 import com.meli.desafio2.dto.DistrictDTO;
-import com.meli.desafio2.dto.EnviromentDTO;
+import com.meli.desafio2.dto.EnvironmentDTO;
 import com.meli.desafio2.dto.PropertyDTO;
 
 import java.util.ArrayList;
@@ -12,27 +12,27 @@ public class Tables {
 
     public static void fillDB(){
         DistrictDTO district1;
-        ArrayList<EnviromentDTO> enviromentList1 = new ArrayList<>();
-        enviromentList1.add(new EnviromentDTO("Dormitorio_1",5,6));
-        enviromentList1.add(new EnviromentDTO("Dormitorio_2",3,5));
-        enviromentList1.add(new EnviromentDTO("Cocina",5,5));
+        ArrayList<EnvironmentDTO> environmentList1 = new ArrayList<>();
+        environmentList1.add(new EnvironmentDTO("Dormitorio_1",5,6));
+        environmentList1.add(new EnvironmentDTO("Dormitorio_2",3,5));
+        environmentList1.add(new EnvironmentDTO("Cocina",5,5));
         district1 = new DistrictDTO(-1,"Klee",160.0);
-        addProperty(new PropertyDTO(-1,"Departamento1",addDistrict(district1),enviromentList1));
+        addProperty(new PropertyDTO(-1,"Departamento1",addDistrict(district1),environmentList1));
 
         DistrictDTO district2;
-        ArrayList<EnviromentDTO> enviromentList2 = new ArrayList<>();
-        enviromentList2.add(new EnviromentDTO("Dormitorio",3,4));
-        enviromentList2.add(new EnviromentDTO("Living",7,8));
-        enviromentList2.add(new EnviromentDTO("Comedor",6,5));
+        ArrayList<EnvironmentDTO> environmentList2 = new ArrayList<>();
+        environmentList2.add(new EnvironmentDTO("Dormitorio",3,4));
+        environmentList2.add(new EnvironmentDTO("Living",7,8));
+        environmentList2.add(new EnvironmentDTO("Comedor",6,5));
         district2 = new DistrictDTO(-1,"Qiqi",160.0);
-        addProperty(new PropertyDTO(-1,"Departamento2",addDistrict(district2),enviromentList2));
+        addProperty(new PropertyDTO(-1,"Departamento2",addDistrict(district2),environmentList2));
 
         DistrictDTO district3;
-        ArrayList<EnviromentDTO> enviromentList3 = new ArrayList<>();
-        enviromentList3.add(new EnviromentDTO("Cocina",6,4));
-        enviromentList3.add(new EnviromentDTO("Dormitorio",3,5));
+        ArrayList<EnvironmentDTO> environmentList3 = new ArrayList<>();
+        environmentList3.add(new EnvironmentDTO("Cocina",6,4));
+        environmentList3.add(new EnvironmentDTO("Dormitorio",3,5));
         district3 = new DistrictDTO(-1,"Diona",160.0);
-        addProperty(new PropertyDTO(-1,"Departamento3",addDistrict(district3),enviromentList3));
+        addProperty(new PropertyDTO(-1,"Departamento3",addDistrict(district3),environmentList3));
     }
 
     public static int addProperty(PropertyDTO property){

@@ -6,11 +6,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Util {
+    public static PropertyDTO PropertyHappy(String name){
+        PropertyDTO property = new PropertyDTO(
+                1,
+                name,
+                1,
+                new ArrayList<EnvironmentDTO>(environmentListHappy())
+        );
+        return property;
+    }
+
     public static PropertyInputDTO PropertyInputHappy(String name){
         PropertyInputDTO property = new PropertyInputDTO(
                 name,
                 districtInputHappy("Amber"),
-                new ArrayList<EnviromentDTO>(enviromentListHappy())
+                new ArrayList<EnvironmentDTO>(environmentListHappy())
         );
         return property;
     }
@@ -20,7 +30,7 @@ public class Util {
                 1,
                 name,
                 districtHappy("Amber"),
-                enviromentListHappy()
+                environmentListHappy()
         );
         return property;
     }
@@ -33,12 +43,12 @@ public class Util {
         return new PropertyValueDTO(1,name,11000);
     }
 
-    public static PropertyBiggestEnviromentDTO propertyBiggestEnviromentHappy(String name) {
-        return new PropertyBiggestEnviromentDTO(1,name,new EnviromentSquareDTO("Cocina",6,7,42));
+    public static PropertyBiggestEnvironmentDTO propertyBiggestEnvironmentHappy(String name) {
+        return new PropertyBiggestEnvironmentDTO(1,name,new EnvironmentSquareDTO("Living",8,6,48));
     }
 
     public static PropertyAllSquareDTO propertyAllSquareHappy(String name) {
-        return new PropertyAllSquareDTO(1,name,enviromentSquareListHappy());
+        return new PropertyAllSquareDTO(1,name,environmentSquareListHappy());
     }
 
     public static DistrictInputDTO districtInputHappy(String name){
@@ -49,23 +59,23 @@ public class Util {
         return new DistrictDTO(1,name,100.0);
     }
 
-    public static ArrayList<EnviromentDTO> enviromentListHappy(){
-        EnviromentDTO[] enviromentArr = {
-                new EnviromentDTO("Cocina",6,7),
-                new EnviromentDTO("Dormitorio",4,5),
-                new EnviromentDTO("Living",8,6)};
-        ArrayList<EnviromentDTO> enviromentList = new ArrayList<>();
-        enviromentList.addAll(Arrays.asList(enviromentArr));
-        return enviromentList;
+    public static ArrayList<EnvironmentDTO> environmentListHappy(){
+        EnvironmentDTO[] environmentArr = {
+                new EnvironmentDTO("Cocina",6,7),
+                new EnvironmentDTO("Dormitorio",4,5),
+                new EnvironmentDTO("Living",8,6)};
+        ArrayList<EnvironmentDTO> environmentList = new ArrayList<>();
+        environmentList.addAll(Arrays.asList(environmentArr));
+        return environmentList;
     }
 
-    public static ArrayList<EnviromentSquareDTO> enviromentSquareListHappy(){
-        EnviromentSquareDTO[] enviromentArr = {
-                new EnviromentSquareDTO("Cocina",6,7,42),
-                new EnviromentSquareDTO("Dormitorio",4,5.,20),
-                new EnviromentSquareDTO("Living",8,6,48)};
-        ArrayList<EnviromentSquareDTO> enviromentList = new ArrayList<>();
-        enviromentList.addAll(Arrays.asList(enviromentArr));
-        return enviromentList;
+    public static ArrayList<EnvironmentSquareDTO> environmentSquareListHappy(){
+        EnvironmentSquareDTO[] environmentArr = {
+                new EnvironmentSquareDTO("Cocina",6,7,42),
+                new EnvironmentSquareDTO("Dormitorio",4,5.,20),
+                new EnvironmentSquareDTO("Living",8,6,48)};
+        ArrayList<EnvironmentSquareDTO> environmentList = new ArrayList<>();
+        environmentList.addAll(Arrays.asList(environmentArr));
+        return environmentList;
     }
 }

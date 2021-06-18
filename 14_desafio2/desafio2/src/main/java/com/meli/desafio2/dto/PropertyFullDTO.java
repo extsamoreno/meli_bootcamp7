@@ -22,6 +22,6 @@ public class PropertyFullDTO {
     @Valid
     private DistrictDTO district;
     @Valid
-    private ArrayList<EnviromentDTO> enviroments;
+    private ArrayList<EnvironmentDTO> environments;
 }
 

@@ -26,7 +26,7 @@ public class NewPropertyTest {
     public void happyPath(){
         //Arr
         PropertyInputDTO property = Util.PropertyInputHappy("Departamento1");
-        Mockito.when(propertyService.newProperty(property)).thenReturn(1);
+        Mockito.when(propertyService.newProperty(property)).thenReturn("La propiedad ha sido registrada existosamente con el ID: 1");
         String expected = "La propiedad ha sido registrada existosamente con el ID: 1";
 
         //Act
