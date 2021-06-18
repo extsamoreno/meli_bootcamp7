@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class TestUtilGenerator {
-    private static String SCOPE;
+    private static String SCOPE ;
     private static ObjectWriter mapper;
 
     public static void emptyFiles() {
@@ -28,7 +28,7 @@ public class TestUtilGenerator {
 
         try {
             properties.load(new ClassPathResource("application.properties").getInputStream());
-            SCOPE = properties.getProperty("api.scope");
+            SCOPE = "test";
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class TestUtilGenerator {
     }
 
     public static void appendNewDistrict(District district) {
-        mapper = (ObjectWriter) new ObjectMapper()
+        mapper = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer().withDefaultPrettyPrinter();
 
@@ -81,6 +81,37 @@ public class TestUtilGenerator {
 
             try {
                 String studentAsString = mapper.writeValueAsString(district);
+                writer.print(content.substring(0, content.length()-1));
+                if (content.length()>2) writer.print(", ");
+                writer.print(studentAsString);
+                writer.print("]");
+            } catch (JsonProcessingException jsonProcessingException) {
+                jsonProcessingException.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        assert writer != null;
+        writer.close();
+    }
+
+
+    public static void appendNewProperty(Property property) {
+        mapper = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer().withDefaultPrettyPrinter();
+
+        PrintWriter writer = null;
+
+        try {
+            String content = Files.readString(new File("./src/" + SCOPE +
+                    "/resources/property.json").getAbsoluteFile().toPath(), StandardCharsets.US_ASCII);
+            writer = new PrintWriter(ResourceUtils.getFile("./src/" + SCOPE +
+                    "/resources/property.json"));
+
+            try {
+                String studentAsString = mapper.writeValueAsString(property);
                 writer.print(content.substring(0, content.length()-1));
                 if (content.length()>2) writer.print(", ");
                 writer.print(studentAsString);

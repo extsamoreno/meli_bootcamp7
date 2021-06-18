@@ -7,6 +7,9 @@ import com.example.challenge2.models.Property;
 import com.example.challenge2.repositories.IDistrictDAO;
 import com.example.challenge2.repositories.IPropertyDAO;
 import com.example.challenge2.util.TestUtilGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
@@ -52,6 +45,31 @@ public class PropertyControllerIntegrationTest {
 
     @MockBean
     ModelMapper mapper;
+
+    @Test
+    public void createProperty() throws Exception {
+        Property property = TestUtilGenerator.getProperty();
+
+
+        ObjectWriter writer =
+                new ObjectMapper()
+                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                        .writer()
+                        .withDefaultPrettyPrinter();
+        String payloadJson = writer.writeValueAsString(property);
+
+        Mockito.when(propertyDAO.save(property)).thenReturn(property);
+        District district = new District("Carrasco", 400.0);
+        Mockito.when(districtDAO.exist(property.getDistrictName())).thenReturn(true);
+
+        // Act & Assert
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/property/record")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print())
+                .andExpect(content().json(payloadJson))
+                .andExpect(status().isCreated());
+    }
 
     @Test
     public void getSizeWithExistingProperty() throws Exception {
@@ -105,7 +123,7 @@ public class PropertyControllerIntegrationTest {
         String name = property.getName();
         Mockito.when(propertyDAO.findByName(name)).thenReturn(property);
         List<SizeResponseDTO> environments = new ArrayList<>();
-        environments.add(new SizeResponseDTO("Cuarto1",24.00 ));
+        environments.add(new SizeResponseDTO("Cuarto1", 24.00));
         environments.add(new SizeResponseDTO("Cuarto2", 33.25));
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/property/getEnviromentsSizes/{propertyName}", name))
@@ -117,10 +135,6 @@ public class PropertyControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.environments[1].name").value("Cuarto2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.environments[1].size").value(33.25));
     }
-
-
-
-
 
 
 }
