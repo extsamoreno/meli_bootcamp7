@@ -1,7 +1,49 @@
 [
   {
     "prop_name": "Casa 1",
-      "distric_name": "Cañiza",
+    "distric_name": "Cañiza",
+    "environmentArrayList": [
+      {
+        "environment_name": "Cocina",
+        "environment_width": 3.0,
+        "environment_length": 4.0
+      },
+      {
+        "environment_name": "Sala",
+        "environment_width": 5.0,
+        "environment_length": 4.0
+      },
+      {
+        "environment_name": "Habitacion",
+        "environment_width": 4.0,
+        "environment_length": 4.0
+      }
+    ]
+  },
+  {
+    "prop_name": "Casa 1",
+    "distric_name": "Compartir",
+    "environmentArrayList": [
+      {
+        "environment_name": "Cocina",
+        "environment_width": 3.0,
+        "environment_length": 4.0
+      },
+      {
+        "environment_name": "Sala",
+        "environment_width": 5.0,
+        "environment_length": 4.0
+      },
+      {
+        "environment_name": "Habitacion",
+        "environment_width": 4.0,
+        "environment_length": 4.0
+      }
+    ]
+  },
+  {
+    "prop_name": "Casa 1",
+    "distric_name": "Cañiza",
     "environmentArrayList": [
       {
         "environment_name": "Cocina",

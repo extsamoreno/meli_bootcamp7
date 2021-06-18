@@ -56,6 +56,7 @@ public class HouseRepository implements IHouseRepository {
     public List<House> getAllHouses() {
         return this.loadDatabase();
     }
+
     private List<House> loadDatabase() {
         File file = null;
         try {
@@ -74,6 +75,5 @@ public class HouseRepository implements IHouseRepository {
             e.printStackTrace();
         }
         return houseList;
-
     }
 }

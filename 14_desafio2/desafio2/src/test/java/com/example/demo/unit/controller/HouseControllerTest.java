@@ -1,4 +1,4 @@
-package com.example.demo.unit;
+package com.example.demo.unit.controller;
 
 import com.example.demo.controller.HouseController;
 import com.example.demo.exception.DistrictNotFoundException;
@@ -39,4 +39,5 @@ public class HouseControllerTest {
         Mockito.verify(iHouseService,Mockito.atLeast(1)).addHouse(expect);
         assert (response.getStatusCode()== HttpStatus.OK);
     }
+
 }

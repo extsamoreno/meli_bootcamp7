@@ -85,7 +85,7 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public void addDistrict(District district) throws DistrictNotFoundException {
+    public void addDistrict(District district) {
         String districtName = district.getDistric_name();
         try {
             District district1 = iDistrictRepository.findDistrictByName(districtName);

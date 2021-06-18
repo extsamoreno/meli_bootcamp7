@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.exception.HouseNotFoundException;
+import com.example.demo.models.District;
 import com.example.demo.models.House;
 import org.springframework.stereotype.Repository;
 

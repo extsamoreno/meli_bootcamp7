@@ -1,4 +1,4 @@
-package com.example.demo.unit;
+package com.example.demo.unit.controller;
 
 import com.example.demo.controller.CalculateController;
 import com.example.demo.exception.DistrictNotFoundException;
@@ -7,9 +7,7 @@ import com.example.demo.models.District;
 import com.example.demo.models.Environment;
 import com.example.demo.models.House;
 import com.example.demo.service.IHouseService;
-import com.example.demo.service.dto.HouseDTO;
-import com.example.demo.service.dto.HouseM2DTO;
-import com.example.demo.service.dto.HousePriceDTO;
+import com.example.demo.service.dto.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,6 +45,10 @@ public class CalculateControllerTest {
         //act
         ResponseEntity<HouseDTO> response = calculateController.calculateAllRequirements(name);
         //assert
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).calculateM2(name);
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).calculatePrice(name);
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).biggestEnvironment(name);
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).environmentM2(name);
         Assertions.assertEquals(expect,response);
     }
     @Test
@@ -59,6 +61,7 @@ public class CalculateControllerTest {
         //act
         ResponseEntity<HouseM2DTO> response = calculateController.getM2(name);
         //assert
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).calculateM2(name);
         Assertions.assertEquals(expect,response);
     }
     @Test
@@ -71,6 +74,37 @@ public class CalculateControllerTest {
         //act
         ResponseEntity<HousePriceDTO> response = calculateController.getPrice(name);
         //assert
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).calculatePrice(name);
+        Assertions.assertEquals(expect,response);
+    }
+    @Test
+    public void getBiggestEnvironmentHappyPath() throws HouseNotFoundException, DistrictNotFoundException {
+        //arrange
+        String name = "Casa 1";
+        HouseBiggestEnvironmentDTO houseBiggestEnvironmentDTO = new HouseBiggestEnvironmentDTO(name,"El ambiente más grande es Sala con un área de 20.0");
+        when(iHouseService.biggestEnvironment(name)).thenReturn(houseBiggestEnvironmentDTO.getBiggestEnvironment());
+        ResponseEntity<HouseBiggestEnvironmentDTO> expect = new ResponseEntity<>(houseBiggestEnvironmentDTO,HttpStatus.OK);
+        //act
+        ResponseEntity<HouseBiggestEnvironmentDTO> response = calculateController.getBiggestEnvironment(name);
+        //assert
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).biggestEnvironment(name);
+        Assertions.assertEquals(expect,response);
+    }
+    @Test
+    public void getListEnvironmentHappyPath() throws HouseNotFoundException {
+        //arrange
+        String name = "Casa 1";
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Cocina 12.0");
+        arrayList.add("Sala 20.0");
+        arrayList.add("Habitacion 16.0");
+        HouseListEnvironmentDTO houseListEnvironmentDTO = new HouseListEnvironmentDTO(name,arrayList);
+        when(iHouseService.environmentM2(name)).thenReturn(houseListEnvironmentDTO.getListEnvironment());
+        ResponseEntity<HouseListEnvironmentDTO> expect = new ResponseEntity<>(houseListEnvironmentDTO,HttpStatus.OK);
+        //act
+        ResponseEntity<HouseListEnvironmentDTO> response = calculateController.getListEnvironment(name);
+        //assert
+        Mockito.verify(iHouseService,Mockito.atLeast(1)).environmentM2(name);
         Assertions.assertEquals(expect,response);
     }
 }

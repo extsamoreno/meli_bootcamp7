@@ -73,4 +73,9 @@ public class DistrictRepository implements IDistrictRepository {
         }
 
     }
+
+    @Override
+    public List<District> getAllDistricts() {
+        return this.loadDatabase();
+    }
 }

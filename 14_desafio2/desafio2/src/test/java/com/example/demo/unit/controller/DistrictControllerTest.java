@@ -1,4 +1,4 @@
-package com.example.demo.unit;
+package com.example.demo.unit.controller;
 
 import com.example.demo.controller.DistrictController;
 import com.example.demo.exception.DistrictNotFoundException;
@@ -24,9 +24,7 @@ public class DistrictControllerTest {
     @Test
     public void addNewDistrictHappyPath () throws DistrictNotFoundException {
         //arrange
-        District expect = new District();
-        expect.setDistric_name("Compartir");
-        expect.setDistric_price(300);
+        District expect = new District("Compartir",300);
         //act
         ResponseEntity<Void> response = districtController.addNewDistrict(expect);
         //assert
