@@ -13,25 +13,25 @@ public class PropertyController {
     @Autowired
     IPropertyService iPropertyService;
 
-    //Requirement US-0001
+    //US0001
     @GetMapping("/totalSquareMeters/{propertyId}")
     public ResponseEntity<ResponseDTO> totalSquareMeters(@PathVariable Integer propertyId) {
         return new ResponseEntity<>(iPropertyService.totalSquareMeters(propertyId), HttpStatus.OK);
     }
 
-    //Requirement US-0002
+    //US0002
     @GetMapping("/propertyValue/{propertyId}")
     public ResponseEntity<ResponseDTO> propertyValue(@PathVariable Integer propertyId) {
         return new ResponseEntity<>(iPropertyService.propertyValue(propertyId),HttpStatus.OK);
     }
 
-    //Requirement US-0003
+    //US0003
     @GetMapping("/largestEnvironment/{propertyId}")
     public ResponseEntity<ResponseDTO> largestEnvironment(@PathVariable Integer propertyId) {
         return new ResponseEntity<>(iPropertyService.largestEnvironment(propertyId),HttpStatus.OK);
     }
 
-    //Requirement US-0004
+    //US0004
     @GetMapping("/roomsSquareMeters/{propertyId}")
     public ResponseEntity<ResponseDTO> roomsSquareMeters(@PathVariable Integer propertyId) {
         return new ResponseEntity<>(iPropertyService.roomsSquareMeters(propertyId),HttpStatus.OK);

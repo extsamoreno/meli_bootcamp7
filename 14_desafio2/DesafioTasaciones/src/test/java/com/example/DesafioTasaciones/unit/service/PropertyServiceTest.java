@@ -40,7 +40,7 @@ public class PropertyServiceTest {
         String districtName = "Capital";
         PropertyDTO propertyDTO = TestUtilGenerator.getPropertyDTO(districtName);
         Property property = mapper.map(propertyDTO, Property.class);
-        Mockito.when(iPropertyRepository.findDistrictByName(districtName)).thenReturn(new District("Capital",200.0));
+        Mockito.when(iPropertyRepository.findDistrictByName(districtName)).thenReturn(new District("Capital",100.0));
         Mockito.when(modelMapper.map(propertyDTO, Property.class)).thenReturn(property);
 
         //Act
