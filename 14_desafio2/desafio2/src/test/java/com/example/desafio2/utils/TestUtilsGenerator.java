@@ -77,10 +77,44 @@ public class TestUtilsGenerator {
         return property;
     }
 
+    public static PropertyDTO getPropertyWithId(String name, int id) {
+        EnvironmentDTO environment1 = new EnvironmentDTO("Habitación 1", 8.0, 33.0);
+        EnvironmentDTO environment2 = new EnvironmentDTO("Habitación 2", 25.0, 1.0);
+        EnvironmentDTO environment3 = new EnvironmentDTO("Habitación 3", 4.0, 4.0);
+
+        List<EnvironmentDTO> environments = new ArrayList<>();
+        environments.add(environment1);
+        environments.add(environment2);
+        environments.add(environment3);
+
+        PropertyDTO property = new PropertyDTO();
+        String address = "Av. Los Colibries 123";
+        String neighborhood = "Liniers";
+        property.setId(id);
+        property.setName(name);
+        property.setAddress(address);
+        property.setNeighborhood(neighborhood);
+        property.setEnvironments(environments);
+
+        return property;
+    }
+
     public static NeighborhoodDTO getNeighborhoodPriceTen(String name) {
         NeighborhoodDTO neighborhood = new NeighborhoodDTO();
 
         int id = 9999;
+        Double price = 10.00;
+
+        neighborhood.setId(id);
+        neighborhood.setName(name);
+        neighborhood.setPrice(price);
+
+        return neighborhood;
+    }
+
+    public static NeighborhoodDTO getNeighborhoodWithId(String name, int id) {
+        NeighborhoodDTO neighborhood = new NeighborhoodDTO();
+
         Double price = 10.00;
 
         neighborhood.setId(id);
