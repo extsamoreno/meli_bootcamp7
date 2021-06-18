@@ -27,7 +27,8 @@ public class PropiedadRequestDTO {
     @Max(value = 4000, message = "El precio máximo permitido por metro cuadrado no puede superar los 4000 U$S")
     private double district_price;
 
-    @Valid private ArrayList<RoomRequestDTO> rooms;
+    @Valid
+    private ArrayList<RoomRequestDTO> rooms;
 
 
 }

@@ -6,8 +6,7 @@ import com.desafio2.testing.Repository.IDistrictRepository;
 import com.desafio2.testing.Repository.IPropertyRepository;
 import com.desafio2.testing.Service.IPropertyService;
 import com.desafio2.testing.Service.Mapper.IPropertyMapper;
-import com.desafio2.testing.Unit.UtilTest;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.desafio2.testing.UtilsTest.UtilTest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -41,10 +40,9 @@ public class ControllerTestIntegration {
     IPropertyMapper iPropertyMapper;
 
 
-
     @Test
-    public void createPropertyHappyPath() throws Exception{
-        PropiedadRequestDTO propiedadDto= UtilTest.createPropRequestDTO();
+    public void createPropertyHappyPath() throws Exception {
+        PropiedadRequestDTO propiedadDto = UtilTest.createPropRequestDTO();
         PropertyModel property = UtilTest.createPropiedadModel();
         String propJson = UtilTest.toJson(propiedadDto);
 
@@ -53,7 +51,7 @@ public class ControllerTestIntegration {
         Mockito.when(iPropertyRepository.addProperty(iPropertyMapper.toPropiedadModel(propiedadDto, property.getDistrict()))).thenReturn(true);
 
 
-       this.mockMvc.perform(MockMvcRequestBuilders.post("/crearPropiedad")
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/crearPropiedad")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(propJson))
                 .andDo(print()).andExpect(status().isOk());

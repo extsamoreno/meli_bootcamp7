@@ -9,33 +9,33 @@ import java.util.ArrayList;
 
 public class PropertyMapper {
 
-    public static PropertyM2DTO toPropiedadM2DTO(PropertyModel propiedad, double m2){
-       return new PropertyM2DTO(propiedad.getProp_name(), m2);
+    public static PropertyM2DTO toPropiedadM2DTO(PropertyModel propiedad, double m2) {
+        return new PropertyM2DTO(propiedad.getProp_name(), m2);
     }
 
 
-    public static PropertyValueDTO toPropiedadValorDTO (PropertyModel propiedad, double valor){
+    public static PropertyValueDTO toPropiedadValorDTO(PropertyModel propiedad, double valor) {
         return new PropertyValueDTO(propiedad.getProp_name(), valor);
     }
 
-    public static RoomDTO toAmbienteDTO (RoomModel ambiente, double m2){
+    public static RoomDTO toAmbienteDTO(RoomModel ambiente, double m2) {
         return new RoomDTO(ambiente.getEnviroment_name(), m2);
     }
 
 
-    public static PropertyRoomListM2DTO toPropiedadListaAmbientesM2DTO(PropertyModel propiedad, ArrayList<RoomDTO> ambientes){
-        return new PropertyRoomListM2DTO(propiedad.getProp_name(),ambientes);
+    public static PropertyRoomListM2DTO toPropiedadListaAmbientesM2DTO(PropertyModel propiedad, ArrayList<RoomDTO> ambientes) {
+        return new PropertyRoomListM2DTO(propiedad.getProp_name(), ambientes);
     }
 
-    public static RoomModel toAmbienteModel (RoomRequestDTO ambiente){
-      return new RoomModel(ambiente.getEnviroment_name(),ambiente.getEnviroment_width(), ambiente.getEnviroment_length());
+    public static RoomModel toAmbienteModel(RoomRequestDTO ambiente) {
+        return new RoomModel(ambiente.getEnviroment_name(), ambiente.getEnviroment_width(), ambiente.getEnviroment_length());
     }
 
-    public static PropertyModel toPropiedadModel (PropiedadRequestDTO propiedad, DistrictModel barrio){
-       ArrayList<RoomModel> ambientesM= new ArrayList<>();
-       PropertyModel propertyModel = new PropertyModel();
+    public static PropertyModel toPropiedadModel(PropiedadRequestDTO propiedad, DistrictModel barrio) {
+        ArrayList<RoomModel> ambientesM = new ArrayList<>();
+        PropertyModel propertyModel = new PropertyModel();
 
-        for (RoomRequestDTO a: propiedad.getRooms()) {
+        for (RoomRequestDTO a : propiedad.getRooms()) {
             ambientesM.add(toAmbienteModel(a));
         }
         propertyModel.setProp_name(propiedad.getProp_name());

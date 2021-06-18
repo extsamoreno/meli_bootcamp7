@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ExceptionController {
 
 
-    @ExceptionHandler(value= MethodArgumentNotValidException.class)
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<ArrayList<ErrorDTO>> handleValidationExceptions(MethodArgumentNotValidException ex) {
 
         ArrayList<ErrorDTO> errors = new ArrayList<>();
@@ -27,31 +27,31 @@ public class ExceptionController {
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String name = ((FieldError) error).getField();
             String message = error.getDefaultMessage();
-            ErrorDTO errorDto= new ErrorDTO(name,message);
+            ErrorDTO errorDto = new ErrorDTO(name, message);
             errors.add(errorDto);
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(PropertyNonExistentException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(PropertyNonExistentException e){
-        return new ResponseEntity<>(e.getError(),e.getStatus());
+    public ResponseEntity<ErrorDTO> handleGlobalException(PropertyNonExistentException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(DistrictNonExistentException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(DistrictNonExistentException e){
-        return new ResponseEntity<>(e.getError(),e.getStatus());
+    public ResponseEntity<ErrorDTO> handleGlobalException(DistrictNonExistentException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
 
     @ExceptionHandler(ExistenPropertyException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(ExistenPropertyException e){
-        return new ResponseEntity<>(e.getError(),e.getStatus());
+    public ResponseEntity<ErrorDTO> handleGlobalException(ExistenPropertyException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(ExistentDistrictException.class)
-    public ResponseEntity<ErrorDTO> handleGlobalException(ExistentDistrictException e){
-        return new ResponseEntity<>(e.getError(),e.getStatus());
+    public ResponseEntity<ErrorDTO> handleGlobalException(ExistentDistrictException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
 }

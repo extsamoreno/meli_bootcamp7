@@ -24,7 +24,7 @@ public class PropertyController {
 
     @PostMapping("/crearPropiedad")
     public ResponseEntity<?> createProperty(@Valid @RequestBody PropiedadRequestDTO property) throws DistrictNonExistentException, ExistenPropertyException {
-        return new ResponseEntity<>(iPropertyService.createNewProperty(property),HttpStatus.OK);
+        return new ResponseEntity<>(iPropertyService.createNewProperty(property), HttpStatus.OK);
     }
 
 
@@ -50,7 +50,6 @@ public class PropertyController {
     public ResponseEntity<PropertyRoomListM2DTO> calcRoomListM2(@PathVariable String name) throws PropertyNonExistentException {
         return new ResponseEntity<>(iPropertyService.calcRoomListM2(name), HttpStatus.OK);
     }
-
 
 
 }

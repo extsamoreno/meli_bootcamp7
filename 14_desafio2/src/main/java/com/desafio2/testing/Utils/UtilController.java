@@ -1,4 +1,4 @@
-package com.desafio2.testing.Controller;
+package com.desafio2.testing.Utils;
 
 
 import com.desafio2.testing.Dto.PropiedadRequestDTO;
@@ -20,8 +20,8 @@ public class UtilController {
     com.desafio2.testing.Utils.IUtilDB IUtilDB;
 
 
-    @PostMapping("/verificarValidaciones")  //  para prueba, borrar
-    public ResponseEntity<?> verificarValidaciones (@Valid @RequestBody PropiedadRequestDTO propiedad){
+    @PostMapping("/verificarValidaciones")
+    public ResponseEntity<?> verificarValidaciones(@Valid @RequestBody PropiedadRequestDTO propiedad) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
