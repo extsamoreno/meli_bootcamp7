@@ -3,7 +3,6 @@ package com.example.desafio2.controllers;
 import com.example.desafio2.exceptions.NeighborhoodAlreadyExistException;
 import com.example.desafio2.models.NeighborhoodDTO;
 import com.example.desafio2.services.INeighborhoodService;
-import com.example.desafio2.services.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

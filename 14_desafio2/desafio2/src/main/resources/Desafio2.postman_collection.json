@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "d590fb06-e80c-42cf-bef6-308b5e211178",
+		"name": "Desafio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Casa de Walter\",\n    \"address\": \"Av. Emilio Castro 6677\",\n    \"neighborhood\": \"Liniers\",\n    \"environments\": [\n      {\n        \"name\": \"Habitación 1\",\n        \"width\": 20.0,\n        \"length\": 33.0\n      },\n      {\n        \"name\": \"Habitación 2\",\n        \"width\": 10.0,\n        \"length\": 10.0\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/properties/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"properties",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create neighborhood",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Avellaneda Uno\",\n    \"price\": 1200.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/properties/neighborhood/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"properties",
+						"neighborhood",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "square meters of property",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/properties/1/squareMeters",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"properties",
+						"1",
+						"squareMeters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "property value",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/properties/1/value",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"properties",
+						"1",
+						"value"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bigger place of property",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/properties/1/biggestEnvironment",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"properties",
+						"1",
+						"biggestEnvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "square meters of each place of property",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/properties/1/environments/squareMeters",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"properties",
+						"1",
+						"environments",
+						"squareMeters"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
