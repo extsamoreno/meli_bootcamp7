@@ -28,10 +28,10 @@ public class PropertyController {
     /**
      * Add a property to the database
      * @param propertyDTO property to add to database
-     * @return PropertyDTO that contains the property
+     * @return PropertyDTO contains the property
      * Response
      * 200 -> OK
-     * @throws PropertyAlreadyExistException if there is no property with that id
+     * @throws PropertyAlreadyExistException if there is already a property with that id
      * Example: localhost:8081/properties/create
      * {
      *     "name": "Casa de Walter",
@@ -82,7 +82,7 @@ public class PropertyController {
      * 200 -> OK
      * @throws PropertyException
      * PropertyNotFoundException if there is no property with that id
-     * NeighborhoodNotFoundException if there is no property with that id
+     * NeighborhoodNotFoundException if there is no neighborhood with that name
      * Example: localhost:8081/properties/1/value
      * @author Sapaya Nicolás Martín
      */
@@ -109,7 +109,7 @@ public class PropertyController {
     }
 
     /**
-     * Calculate the value of the property
+     * Calculate the square meters of all environments of the property
      * @param propertyId id of the property to calculate square meters of all environments
      * @return ResponseSquareMetersEnvironmentDTO that contains propertyName, and a list of pairs containing
      * totalSquareMeters and environment

@@ -2,6 +2,7 @@ package com.example.desafio2.repositories;
 
 import com.example.desafio2.exceptions.NeighborhoodAlreadyExistException;
 import com.example.desafio2.exceptions.NeighborhoodNotFoundException;
+import com.example.desafio2.mappers.NeighborhoodMapper;
 import com.example.desafio2.models.NeighborhoodDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,22 +80,15 @@ public class NeighborhoodRepository implements INeighborhoodRepository {
             System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
 
-        this.neighborhoods = toNeighborhoodMap(loadedData);
-    }
-
-    private Map<Integer, NeighborhoodDTO> toNeighborhoodMap(List<NeighborhoodDTO> list) {
-        Map<Integer, NeighborhoodDTO> map = new HashMap<>();
-        for(NeighborhoodDTO dto : list) {
-            map.put(dto.getId(), dto);
-        }
-        return map;
+        this.neighborhoods = NeighborhoodMapper.toNeighborhoodMap(loadedData);
     }
 
     private void saveData() {
+        List<NeighborhoodDTO> savedData = NeighborhoodMapper.toNeighborhoodList(this.neighborhoods);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/neighborhoods.json");
-            objectMapper.writeValue(file, this.neighborhoods);
+            objectMapper.writeValue(file, savedData);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while writing to DB, check your resources files");

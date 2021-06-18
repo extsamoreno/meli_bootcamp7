@@ -2,6 +2,7 @@ package com.example.desafio2.repositories;
 
 import com.example.desafio2.exceptions.PropertyAlreadyExistException;
 import com.example.desafio2.exceptions.PropertyNotFoundException;
+import com.example.desafio2.mappers.PropertyMapper;
 import com.example.desafio2.models.PropertyDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -80,22 +81,15 @@ public class PropertyRepository implements IPropertyRepository {
             System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
 
-        this.properties = toPropertyMap(loadedData);
-    }
-
-    private Map<Integer, PropertyDTO> toPropertyMap(List<PropertyDTO> list) {
-        Map<Integer, PropertyDTO> map = new HashMap<>();
-        for(PropertyDTO dto : list) {
-            map.put(dto.getId(), dto);
-        }
-        return map;
+        this.properties = PropertyMapper.toPropertyMap(loadedData);
     }
 
     private void saveData() {
+        List<PropertyDTO> savedData = PropertyMapper.toPropertyList(this.properties);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
-            objectMapper.writeValue(file, this.properties);
+            objectMapper.writeValue(file, savedData);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while writing to DB, check your resources files");

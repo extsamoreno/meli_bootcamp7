@@ -23,14 +23,14 @@ public class NeighborhoodController {
 
     /**
      * Add a neighborhood to the database
-     * @param neighborhoodDTO property to add to database
+     * @param neighborhoodDTO neighborhood to add to database
      * @return NeighborhoodDTO that contains the neighborhood
      * Response
      * 200 -> OK
-     * @throws NeighborhoodAlreadyExistException if there is no property with that id
+     * @throws NeighborhoodAlreadyExistException if there is already a neighborhood with that name
      * Example: localhost:8081/properties/neighborhood/create
      * {
-     *     "name": "Avellaneda",
+     *     "name": "Avellaneda Uno",
      *     "price": 1200.00
      * }
      * @author Sapaya Nicolás Martín
