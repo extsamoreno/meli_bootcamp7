@@ -1,5 +1,6 @@
 package com.example.desafio2.unit.service;
 
+import com.example.desafio2.exception.PropertyExceptionNotFound;
 import com.example.desafio2.model.Property;
 import com.example.desafio2.model.Room;
 import com.example.desafio2.repository.IPropertyRepository;
@@ -17,8 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
@@ -32,7 +32,7 @@ public class PropertyServiceTest {
     PropertyService service;
 
     @Test
-    public void getTotalMetresWellCalculated() {
+    public void getTotalMetresSuccesful() {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
         try {
@@ -50,7 +50,24 @@ public class PropertyServiceTest {
         }
     }
     @Test
-    public void getPropertyValueWellPath() {
+    public void getTotalMetresNotFound() {
+        // arrange
+        Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
+        try {
+            when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
+
+            // act
+
+            // assert
+            assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
+        }
+        catch (Exception ex){
+
+        }
+    }
+
+    @Test
+    public void getPropertyValueSuccesful() {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
         try {
@@ -68,7 +85,23 @@ public class PropertyServiceTest {
         }
     }
     @Test
-    public void getBiggestRoomWellPath() {
+    public void getPropertyValueNotFound() {
+        // arrange
+        Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
+        try {
+            when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
+
+            // act
+
+            // assert
+            assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
+        }
+        catch (Exception ex){
+
+        }
+    }
+    @Test
+    public void getBiggestRoomSuccesful() {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
         try {
@@ -80,14 +113,30 @@ public class PropertyServiceTest {
 
             // assert
             verify(iPropertyRepository, atLeastOnce()).findPropertyByName(property.getName());
-            assertEquals(room.getName(), biggestExpected.getName());
+            assertEquals(room, biggestExpected);
         }
         catch (Exception ex){
 
         }
     }
     @Test
-    public void getMetresAmountOfEachRoomWell() {
+    public void getBiggestRoomNotFound() {
+        // arrange
+        Property property = TestUtilsGenerator.getPropertyWith3Room("Centro");
+        try {
+            when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
+
+            // act
+
+            // assert
+            assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
+        }
+        catch (Exception ex){
+
+        }
+    }
+    @Test
+    public void getMetresAmountOfEachRoomSuccesful() {
         // arrange
         Property property = TestUtilsGenerator.getPropertyWith1Room("Centro");
         try {
@@ -105,6 +154,22 @@ public class PropertyServiceTest {
                 if(room.equals(expectedRoom1.getName()))
                     assertEquals(room.getTotalMetres(),expectedRoom1.getTotalMetres());
             }
+        }
+        catch (Exception ex){
+
+        }
+    }
+    @Test
+    public void getMetresAmountOfEachRoomNotFound() {
+        // arrange
+        Property property = TestUtilsGenerator.getPropertyWith1Room("Centro");
+        try {
+            when(iPropertyRepository.findPropertyByName(property.getName())).thenThrow(PropertyExceptionNotFound.class);
+
+            // act
+
+            // assert
+            assertThrows(PropertyExceptionNotFound.class, () -> iPropertyRepository.findPropertyByName(property.getName()));
         }
         catch (Exception ex){
 

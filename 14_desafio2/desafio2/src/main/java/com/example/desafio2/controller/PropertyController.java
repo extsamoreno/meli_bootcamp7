@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,7 +39,7 @@ public class PropertyController {
         return new ResponseEntity<List<PropertyTotalMetresRoomDTO>>(propertyService.getTotalEachRoom(name), HttpStatus.OK);
     }
     @PostMapping("/createProperty")
-    public ResponseEntity<?> createProperty(@RequestBody PropertyDTO property) throws PropertyExceptionNotFound, NeighborhoodExceptionNotFound, PropertyAlreadyExistsException {
+    public ResponseEntity<?> createProperty(@RequestBody @Valid PropertyDTO property) throws PropertyExceptionNotFound, NeighborhoodExceptionNotFound, PropertyAlreadyExistsException {
         propertyService.createProperty(property);
         return new ResponseEntity<>(HttpStatus.OK);
     }

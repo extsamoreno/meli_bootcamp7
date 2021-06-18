@@ -1,16 +1,13 @@
 package com.example.desafio2.service.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class RoomDTO
 {
     @NotEmpty(message = "El nombre del ambiente no puede estar vacío.")
@@ -19,10 +16,10 @@ public class RoomDTO
     private String name;
     @DecimalMax(value = "30.0", message = "El máximo ancho permitido por propiedad es de 25 mts.")
     @DecimalMin(value = "0.0", message = "El ancho minimo permitido no puede ser inferior a los 0 mts.")
-    @NotEmpty(message = "El ancho del ambiente no puede estar vacío.")
+    @NotNull(message = "El ancho del ambiente no puede estar vacío.")
     private double width;
     @DecimalMax(value = "33.0", message = "El máximo largo permitido por propiedad es de 33 mts.")
     @DecimalMin(value = "0.0", message = "El width minimo permitido no puede ser inferior a los 0 mts.")
-    @NotEmpty(message = "El largo del ambiente no puede estar vacío.")
+    @NotNull(message = "El largo del ambiente no puede estar vacío.")
     private double length;
 }

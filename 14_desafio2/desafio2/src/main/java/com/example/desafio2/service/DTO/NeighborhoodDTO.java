@@ -1,9 +1,6 @@
 package com.example.desafio2.service.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -14,6 +11,7 @@ import javax.validation.constraints.Size;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class NeighborhoodDTO {
     @NotBlank(message = "El barrio no puede estar vacío.")
     @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")

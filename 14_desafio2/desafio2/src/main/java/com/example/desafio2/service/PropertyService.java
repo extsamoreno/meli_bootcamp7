@@ -72,7 +72,7 @@ public class PropertyService implements IPropertyService{
             if(prop.getName().equals(property.getName()))
                 throw new PropertyAlreadyExistsException(property.getName());
         }
-        Neighborhood neighborhood = iPropertyRepository.findNeighborhoodByName(property.getName());
+        Neighborhood neighborhood = iPropertyRepository.findNeighborhoodByName(property.getNeighborhood().getName());
         properties.add(PropertyMapper.propDTOtoProp(property));
     }
 }
