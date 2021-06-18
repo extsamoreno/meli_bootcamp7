@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.testingchallenge.dtos.*;
+import com.meli.testingchallenge.exceptions.ExistentDistrictNameException;
 import com.meli.testingchallenge.models.District;
 import com.meli.testingchallenge.repositories.IDistrictRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -137,6 +139,47 @@ class EstateControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("prop_name").value("El nombre de la propiedad no puede estar vacío."))
                 .andExpect(MockMvcResultMatchers.jsonPath("district_name").value("El barrio no puede estar vacío."))
                 .andExpect(MockMvcResultMatchers.jsonPath("environments").value("Cada propiedad debe tener al menos un ambiente."));
+    }
+
+
+    @Test
+    public void should_add_a_new_district() throws Exception {
+
+        ObjectWriter writer =
+                new ObjectMapper()
+                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                        .writer()
+                        .withDefaultPrettyPrinter();
+        String payloadJson = writer.writeValueAsString(districtDto);
+
+        doNothing().when(repository).addDistrict(district);
+
+        // Act & Assert
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/estate/new/district")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
+    public void should_received_exception_when_district_is_already_on_dataBase() throws Exception {
+
+        ObjectWriter writer =
+                new ObjectMapper()
+                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                        .writer()
+                        .withDefaultPrettyPrinter();
+        String payloadJson = writer.writeValueAsString(districtDto);
+
+        doThrow(new ExistentDistrictNameException(districtName))
+                .when(repository)
+                .addDistrict(district);
+
+        // Act & Assert
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/estate/new/district")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().isBadRequest());
     }
 
 }

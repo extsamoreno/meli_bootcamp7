@@ -45,7 +45,6 @@ public class DistrictRepository implements IDistrictRepository{
         }else{
             throw new ExistentDistrictNameException(district.getName());
         }
-
     }
 
     private List<District> loadDistrictsDB() {
