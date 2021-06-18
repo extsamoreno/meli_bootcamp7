@@ -3,7 +3,7 @@ package com.meli.tu_casita.service;
 import com.meli.tu_casita.exception.DistrictAlreadyExistsException;
 import com.meli.tu_casita.model.District;
 import com.meli.tu_casita.model.dto.DistrictDTO;
-import com.meli.tu_casita.repository.IDistrictDAO;
+import com.meli.tu_casita.repository.IDistrictRepository;
 import com.meli.tu_casita.util.TestUtilGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import java.util.List;
 public class DistrictServiceTest {
 
     @Mock
-    IDistrictDAO districtDAO;
+    IDistrictRepository districtDAO;
 
     @Mock
     ModelMapper modelMapper;

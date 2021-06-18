@@ -15,18 +15,30 @@ import java.util.List;
 import java.util.Properties;
 
 @Repository
-public class RealStateDAOImpl implements IRealStateDAO {
+public class RealStateRepositoryImpl implements IRealStateRepository {
 
     private List<RealState> realStates;
     private String path;
     private ObjectMapper objectMapper;
 
-    public RealStateDAOImpl() {
+    public RealStateRepositoryImpl() {
         Properties properties = new Properties();
         try {
             properties.load(new ClassPathResource("application.properties").getInputStream());
             String scope = properties.getProperty("api.scope");
             this.path = "./src/" + scope + "/resources/realStates.json";
+            this.loadData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public RealStateRepositoryImpl(String fileName) {
+        Properties properties = new Properties();
+        try {
+            properties.load(new ClassPathResource("application.properties").getInputStream());
+            String scope = properties.getProperty("api.scope");
+            this.path = "./src/" + scope + "/resources/"+fileName+".json";
             this.loadData();
         } catch (IOException e) {
             e.printStackTrace();

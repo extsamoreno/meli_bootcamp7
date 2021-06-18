@@ -2,13 +2,14 @@ package com.meli.tu_casita.service;
 
 import com.meli.tu_casita.exception.DistrictAlreadyExistsException;
 import com.meli.tu_casita.model.District;
-import com.meli.tu_casita.repository.IDistrictDAO;
 import com.meli.tu_casita.model.dto.DistrictDTO;
+import com.meli.tu_casita.repository.IDistrictRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,17 +17,17 @@ import java.util.Optional;
 public class DistrictServiceImpl implements IDistrictService {
 
     @Autowired
-    IDistrictDAO districtDAO;
+    IDistrictRepository districtRepository;
 
     @Autowired
     ModelMapper modelMapper;
 
     @Override
     public void saveDistrict(DistrictDTO districtDTO) {
-        Optional<District> district = districtDAO.findByName(districtDTO.getName());
+        Optional<District> district = districtRepository.findByName(districtDTO.getName());
         if (district.isEmpty()) {
             district = Optional.of(modelMapper.map(districtDTO, District.class));
-            districtDAO.save(district.get());
+            districtRepository.save(district.get());
         } else {
             throw new DistrictAlreadyExistsException(districtDTO.getName());
         }
@@ -34,12 +35,10 @@ public class DistrictServiceImpl implements IDistrictService {
 
     @Override
     public List<DistrictDTO> getDistrictList() {
-        List<District> districts = districtDAO.getDistrictList();
-        List<DistrictDTO> districtDTOList = new ArrayList<>();
-        for (District district : districts ) {
-            districtDTOList.add(modelMapper.map(district, DistrictDTO.class));
-        }
-        return districtDTOList;
+        List<District> districts = districtRepository.getDistrictList();
+        Type listType = new TypeToken<List<DistrictDTO>>() {
+        }.getType();
+        return modelMapper.map(districts, listType);
     }
 
 }

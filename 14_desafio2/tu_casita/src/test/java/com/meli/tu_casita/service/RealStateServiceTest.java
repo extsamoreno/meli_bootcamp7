@@ -8,9 +8,9 @@ import com.meli.tu_casita.model.dto.DistrictDTO;
 import com.meli.tu_casita.model.dto.EnvironmentDTO;
 import com.meli.tu_casita.model.dto.RealStateInDTO;
 import com.meli.tu_casita.model.dto.RealStateOutDTO;
-import com.meli.tu_casita.repository.IDistrictDAO;
-import com.meli.tu_casita.repository.IEnvironmentDAO;
-import com.meli.tu_casita.repository.IRealStateDAO;
+import com.meli.tu_casita.repository.IDistrictRepository;
+import com.meli.tu_casita.repository.IEnvironmentRepository;
+import com.meli.tu_casita.repository.IRealStateRepository;
 import com.meli.tu_casita.util.TestUtilGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,11 +30,11 @@ import java.util.Optional;
 public class RealStateServiceTest {
 
     @Mock
-    IRealStateDAO realStateDAO;
+    IRealStateRepository realStateDAO;
     @Mock
-    IDistrictDAO districtDAO;
+    IDistrictRepository districtDAO;
     @Mock
-    IEnvironmentDAO environmentDAO;
+    IEnvironmentRepository environmentDAO;
     @Mock
     ModelMapper modelMapper;
     @InjectMocks

@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "ce658302-fdf8-46d0-b670-ca93dc951433",
+		"name": "TuCasita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DistrictList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tucasita/v1/district/districtList",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"v1",
+						"district",
+						"districtList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create District",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Suburb F\",\n    \"price\": 600\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tucasita/v1/district/newDistrict",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"v1",
+						"district",
+						"newDistrict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RealStateList",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tucasita/v1/realState/realStateList",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"v1",
+						"realState",
+						"realStateList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create RealState",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Casa 80\",\n        \"districtId\" : 5,\n        \"environments\": [\n            {\n                \"name\": \"simple kitchen\",\n                \"width\": 3.0,\n                \"length\": 5.0\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Living room\",\n                \"width\": 5.0,\n                \"length\": 5.0\n            },\n            {\n                \"name\": \"Double room\",\n                \"width\": 4.0,\n                \"length\": 4.0\n            }\n        ]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tucasita/v1/realState/newRealState",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"v1",
+						"realState",
+						"newRealState"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RealStateByName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tucasita/v1/realState/realStateByName/Casa 60",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"v1",
+						"realState",
+						"realStateByName",
+						"Casa 60"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RealStateById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tucasita/v1/realState/realStateById/6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tucasita",
+						"v1",
+						"realState",
+						"realStateById",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

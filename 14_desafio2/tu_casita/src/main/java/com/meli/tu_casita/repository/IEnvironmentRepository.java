@@ -4,7 +4,7 @@ import com.meli.tu_casita.model.Environment;
 
 import java.util.List;
 
-public interface IEnvironmentDAO {
+public interface IEnvironmentRepository {
     void save(Environment stu);
 
     boolean exists(int id);

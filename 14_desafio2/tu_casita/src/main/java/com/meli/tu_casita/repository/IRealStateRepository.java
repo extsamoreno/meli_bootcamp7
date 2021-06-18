@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface IRealStateDAO {
+public interface IRealStateRepository {
 
     void save(RealState realState);
 

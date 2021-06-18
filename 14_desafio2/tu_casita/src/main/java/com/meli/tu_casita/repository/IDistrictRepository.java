@@ -5,7 +5,7 @@ import com.meli.tu_casita.model.District;
 import java.util.List;
 import java.util.Optional;
 
-public interface IDistrictDAO {
+public interface IDistrictRepository {
     void save(District district);
 
     Optional<District> findById(int id);

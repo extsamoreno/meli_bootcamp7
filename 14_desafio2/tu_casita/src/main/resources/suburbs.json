@@ -1,1 +1,32 @@
-[{"id":1,"name":"Suburb A","price":100.0},{"id":2,"name":"Suburb B","price":200.0},{"id":3,"name":"Suburb C","price":300.0},{"id":4,"name":"Suburb D","price":400.0},{"id":5,"name":"Suburb E","price":500.0},{"id":6,"name":"Suburb F","price":600.0}]
+[
+  {
+    "id": 1,
+    "name": "Suburb A",
+    "price": 100.0
+  },
+  {
+    "id": 2,
+    "name": "Suburb B",
+    "price": 200.0
+  },
+  {
+    "id": 3,
+    "name": "Suburb C",
+    "price": 300.0
+  },
+  {
+    "id": 4,
+    "name": "Suburb D",
+    "price": 400.0
+  },
+  {
+    "id": 5,
+    "name": "Suburb E",
+    "price": 500.0
+  },
+  {
+    "id": 6,
+    "name": "Suburb F",
+    "price": 600.0
+  }
+]

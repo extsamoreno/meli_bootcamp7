@@ -25,7 +25,7 @@ public class DistrictControllerTest {
     DistrictController districtController;
 
     @Test
-    public void getDistrictListTest(){
+    public void getDistrictListTest() {
         //Arrange
         List<DistrictDTO> districtDTOList = TestUtilGenerator.getDistrictDTOListTest();
         ResponseEntity<List<DistrictDTO>> responseEntity = new ResponseEntity<>(districtDTOList, HttpStatus.OK);
@@ -39,7 +39,7 @@ public class DistrictControllerTest {
     }
 
     @Test
-    public void newDistrictTestOK(){
+    public void newDistrictTestOK() {
         //Arrange
         DistrictDTO districtDTO = TestUtilGenerator.getDistrictDTO();
         //Act
