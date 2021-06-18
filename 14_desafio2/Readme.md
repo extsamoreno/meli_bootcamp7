@@ -1,14 +1,18 @@
 # Desafío 2 - Tu Casita Tasaciones 
 
 _Repositorio de la API **Tu casita Tasaciones.** para el desafío 2 del It Bootcamp_
+
 _Software Developer: Wilson Andrade M._
 
-User Stories
+
+# User Stories
 
     US-0001: Calcular el total de metros cuadrados de una propiedad
     US-0002: Indicar el valor de una propiedad a partir de sus ambientes y medidas. Tener en cuenta que los precios por metro cuadrado están determinados según el barrio.
     US-0003: Determinar cuál es el ambiente más grande.
     US-0004: Determinar la cantidad de metros cuadrados que tiene cada ambiente de una propiedad.
+
+
 
 Se implentaron 5 end points tipo **Post** para los requerimientos.
 
