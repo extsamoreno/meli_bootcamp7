@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Data
@@ -24,5 +22,6 @@ public class PropertyReqDTO {
     @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres")
     private String neighborhood;
 
-    private List<Room> roomList;
+    @NotNull(message = "La lista de ambientes no puede estar vacía")
+    private List<@Valid Room> roomList;
 }
