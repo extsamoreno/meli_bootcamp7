@@ -2,7 +2,7 @@ package com.example.tucasita.controller;
 
 import com.example.tucasita.exception.DistrictException;
 import com.example.tucasita.exception.PropertyException;
-import com.example.tucasita.model.ErrorDTO;
+import com.example.tucasita.dto.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

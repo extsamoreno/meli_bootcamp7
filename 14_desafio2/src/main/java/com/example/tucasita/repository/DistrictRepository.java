@@ -1,6 +1,6 @@
 package com.example.tucasita.repository;
 
-import com.example.tucasita.model.DistrictDTO;
+import com.example.tucasita.dto.DistrictDTO;
 
 import java.util.Set;
 

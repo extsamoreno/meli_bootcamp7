@@ -1,8 +1,8 @@
 package com.example.tucasita.repository;
 
-import com.example.tucasita.model.PropertyDTO;
+import com.example.tucasita.model.Property;
 
 public interface PropertyDAO {
-    void create(PropertyDTO property);
-    PropertyDTO findById(int idProperty);
+    void create(Property property);
+    Property findById(int idProperty);
 }

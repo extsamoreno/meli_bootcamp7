@@ -2,7 +2,7 @@ package com.example.tucasita.repository;
 
 import com.example.tucasita.exception.DistrictNotFoundException;
 import com.example.tucasita.exception.ExistentDistrictException;
-import com.example.tucasita.model.DistrictDTO;
+import com.example.tucasita.model.District;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
@@ -19,7 +19,7 @@ import java.util.Set;
 @Repository
 public class DistrictDAOImple implements DistrictDAO{
 
-    private Set<DistrictDTO> districts;
+    private Set<District> districts;
     private String SCOPE;
 
     public DistrictDAOImple() {
@@ -35,7 +35,7 @@ public class DistrictDAOImple implements DistrictDAO{
     }
 
     @Override
-    public void create(DistrictDTO district) {
+    public void create(District district) {
         try {
             if (this.findByName(district.getDistrictName()) != null) {
                 throw new ExistentDistrictException(district.getDistrictName());
@@ -48,7 +48,7 @@ public class DistrictDAOImple implements DistrictDAO{
     }
 
     @Override
-    public DistrictDTO findByName(String districtName) {
+    public District findByName(String districtName) {
         loadData();
         return districts.stream()
                 .filter(district -> district.getDistrictName().equals(districtName))
@@ -56,13 +56,13 @@ public class DistrictDAOImple implements DistrictDAO{
     }
 
     private void loadData() {
-        Set<DistrictDTO> loadedData = new HashSet<>();
+        Set<District> loadedData = new HashSet<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<DistrictDTO>>(){});
+            loadedData = objectMapper.readValue(file, new TypeReference<Set<District>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");

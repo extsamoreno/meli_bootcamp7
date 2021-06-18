@@ -1,8 +1,8 @@
 package com.example.tucasita.unit.repository;
 
-import com.example.tucasita.model.EnvironmentDTO;
-import com.example.tucasita.model.PropertyDTO;
-import com.example.tucasita.model.ResponseDTO;
+import com.example.tucasita.dto.EnvironmentDTO;
+import com.example.tucasita.dto.PropertyDTO;
+import com.example.tucasita.dto.ResponseDTO;
 import com.example.tucasita.repository.PropertyRepository;
 import com.example.tucasita.repository.PropertyRepositoryImple;
 import org.junit.jupiter.api.Assertions;

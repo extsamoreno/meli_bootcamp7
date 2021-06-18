@@ -1,8 +1,8 @@
 package com.example.tucasita.repository;
 
-import com.example.tucasita.model.DistrictDTO;
+import com.example.tucasita.model.District;
 
 public interface DistrictDAO {
-    void create(DistrictDTO district);
-    DistrictDTO findByName(String districtName);
+    void create(District district);
+    District findByName(String districtName);
 }

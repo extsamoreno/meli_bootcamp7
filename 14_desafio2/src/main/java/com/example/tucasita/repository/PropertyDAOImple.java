@@ -2,7 +2,8 @@ package com.example.tucasita.repository;
 
 import com.example.tucasita.exception.ExistentPropertyException;
 import com.example.tucasita.exception.PropertyNotFoundException;
-import com.example.tucasita.model.PropertyDTO;
+import com.example.tucasita.dto.PropertyDTO;
+import com.example.tucasita.model.Property;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
@@ -19,7 +20,7 @@ import java.util.Set;
 @Repository
 public class PropertyDAOImple implements PropertyDAO{
 
-    private Set<PropertyDTO> properties;
+    private Set<Property> properties;
     private String SCOPE;
 
     public PropertyDAOImple() {
@@ -35,7 +36,7 @@ public class PropertyDAOImple implements PropertyDAO{
     }
 
     @Override
-    public void create(PropertyDTO property) {
+    public void create(Property property) {
         try {
             if (this.findById(property.getPropId()) != null) {
                 throw new ExistentPropertyException(property.getPropId());
@@ -48,7 +49,7 @@ public class PropertyDAOImple implements PropertyDAO{
     }
 
     @Override
-    public PropertyDTO findById(int idProperty) {
+    public Property findById(int idProperty) {
         loadData();
         return properties.stream()
                 .filter(property -> property.getPropId() == idProperty)
@@ -56,13 +57,13 @@ public class PropertyDAOImple implements PropertyDAO{
     }
 
     private void loadData() {
-        Set<PropertyDTO> loadedData = new HashSet<>();
+        Set<Property> loadedData = new HashSet<>();
 
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<PropertyDTO>>(){});
+            loadedData = objectMapper.readValue(file, new TypeReference<Set<Property>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");

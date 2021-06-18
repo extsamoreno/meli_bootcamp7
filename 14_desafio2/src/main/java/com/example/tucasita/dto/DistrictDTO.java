@@ -1,4 +1,4 @@
-package com.example.tucasita.model;
+package com.example.tucasita.dto;
 
 import lombok.*;
 

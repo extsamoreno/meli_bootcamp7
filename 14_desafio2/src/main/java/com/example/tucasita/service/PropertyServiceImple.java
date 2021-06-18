@@ -1,21 +1,28 @@
 package com.example.tucasita.service;
 
 import com.example.tucasita.exception.InvalidPropertyException;
-import com.example.tucasita.model.DistrictDTO;
-import com.example.tucasita.model.EnvironmentDTO;
-import com.example.tucasita.model.PropertyDTO;
-import com.example.tucasita.model.ResponseDTO;
+import com.example.tucasita.dto.DistrictDTO;
+import com.example.tucasita.dto.EnvironmentDTO;
+import com.example.tucasita.dto.PropertyDTO;
+import com.example.tucasita.dto.ResponseDTO;
+import com.example.tucasita.model.District;
+import com.example.tucasita.model.Environment;
+import com.example.tucasita.model.Property;
 import com.example.tucasita.repository.DistrictDAO;
 import com.example.tucasita.repository.PropertyDAO;
 import com.example.tucasita.repository.PropertyRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PropertyServiceImple implements PropertyService{
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Autowired
     PropertyDAO propertyDAO;
@@ -27,27 +34,30 @@ public class PropertyServiceImple implements PropertyService{
     DistrictDAO districtDAO;
 
     @Override
-    public ResponseDTO addOneProperty(PropertyDTO property) {
-        if (districtDAO.findByName(property.getDistrictName()) != null) {
+    public ResponseDTO addOneProperty(PropertyDTO propertyDTO) {
+        if (districtDAO.findByName(propertyDTO.getDistrictName()) != null) {
+            Property property = modelMapper.map(propertyDTO, Property.class);
             propertyDAO.create(property);
 
             ResponseDTO response = new ResponseDTO(201, "La propiedad se ha agregado con éxito al repositorio local");
 
             return response;
         } else {
-            throw new InvalidPropertyException(property.getDistrictName());
+            throw new InvalidPropertyException(propertyDTO.getDistrictName());
         }
     }
 
     @Override
     public ResponseDTO calculatePropertyTotalSquareMeters(int idProperty) {
-        PropertyDTO property = propertyDAO.findById(idProperty);
+        Property property = propertyDAO.findById(idProperty);
+        PropertyDTO propertyDTO = modelMapper.map(property, PropertyDTO.class);
         Double totalSquareMeters = 0.00;
 
-        for (int i = 0; i < property.getEnvironments().size(); i++) {
-            EnvironmentDTO environment = property.getEnvironments().get(i);
+        for (int i = 0; i < propertyDTO.getEnvironments().size(); i++) {
+            Environment environment = property.getEnvironments().get(i);
+            EnvironmentDTO environmentDTO = modelMapper.map(environment, EnvironmentDTO.class);
 
-            Double environmentSquareMeters = environment.getEnvironmentLength() * environment.getEvironmentWidth();
+            Double environmentSquareMeters = environmentDTO.getEnvironmentLength() * environmentDTO.getEvironmentWidth();
             totalSquareMeters = totalSquareMeters + environmentSquareMeters;
         }
 
@@ -58,19 +68,22 @@ public class PropertyServiceImple implements PropertyService{
 
     @Override
     public ResponseDTO calculatePropertyPrice(int idProperty){
-        PropertyDTO property = propertyDAO.findById(idProperty);
-        DistrictDTO district = districtDAO.findByName(property.getDistrictName());
+        Property property = propertyDAO.findById(idProperty);
+        PropertyDTO propertyDTO = modelMapper.map(property, PropertyDTO.class);
+        District district = districtDAO.findByName(property.getDistrictName());
+        DistrictDTO districtDTO = modelMapper.map(district, DistrictDTO.class);
         Double totalSquareMeters = 0.00;
         Double price;
 
-        for (int i = 0; i < property.getEnvironments().size(); i++) {
-            EnvironmentDTO environment = property.getEnvironments().get(i);
+        for (int i = 0; i < propertyDTO.getEnvironments().size(); i++) {
+            Environment environment = property.getEnvironments().get(i);
+            EnvironmentDTO environmentDTO = modelMapper.map(environment, EnvironmentDTO.class);
 
-            Double environmentSquareMeters = environment.getEnvironmentLength() * environment.getEvironmentWidth();
+            Double environmentSquareMeters = environmentDTO.getEnvironmentLength() * environmentDTO.getEvironmentWidth();
             totalSquareMeters = totalSquareMeters + environmentSquareMeters;
         }
 
-        price = totalSquareMeters * district.getDistrictPrize();
+        price = totalSquareMeters * districtDTO.getDistrictPrize();
 
         ResponseDTO response = new ResponseDTO(200, "La propiedad con ID " + idProperty + " tiene un valor de " + price + " U$S.");
 
@@ -79,16 +92,18 @@ public class PropertyServiceImple implements PropertyService{
 
     @Override
     public ResponseDTO getBiggestEnvironment(int idProperty){
-        PropertyDTO property = propertyDAO.findById(idProperty);
+        Property property = propertyDAO.findById(idProperty);
+        PropertyDTO propertyDTO = modelMapper.map(property, PropertyDTO.class);
         String biggestEnvironmentName = "";
         Double environmentSquareMeters = 0.00;
 
-        for (int i = 0; i < property.getEnvironments().size(); i++) {
-            EnvironmentDTO environment = property.getEnvironments().get(i);
+        for (int i = 0; i < propertyDTO.getEnvironments().size(); i++) {
+            Environment environment = property.getEnvironments().get(i);
+            EnvironmentDTO environmentDTO = modelMapper.map(environment, EnvironmentDTO.class);
 
-            if(environment.getEnvironmentLength() * environment.getEvironmentWidth() > environmentSquareMeters){
-                environmentSquareMeters = environment.getEnvironmentLength() * environment.getEvironmentWidth();
-                biggestEnvironmentName = environment.getEnvironmentName();
+            if(environmentDTO.getEnvironmentLength() * environmentDTO.getEvironmentWidth() > environmentSquareMeters){
+                environmentSquareMeters = environmentDTO.getEnvironmentLength() * environmentDTO.getEvironmentWidth();
+                biggestEnvironmentName = environmentDTO.getEnvironmentName();
             }
         }
 
@@ -99,21 +114,19 @@ public class PropertyServiceImple implements PropertyService{
 
     @Override
     public List<EnvironmentDTO> calculateEnvironmentsSquareMeters(int idProperty){
-        PropertyDTO property = propertyDAO.findById(idProperty);
-        List<EnvironmentDTO> environments = property.getEnvironments();
+        Property property = propertyDAO.findById(idProperty);
+        PropertyDTO propertyDTO = modelMapper.map(property, PropertyDTO.class);
+        List<EnvironmentDTO> environments = new ArrayList<>();
 
-        for (int i = 0; i < property.getEnvironments().size(); i++) {
-            EnvironmentDTO environment = property.getEnvironments().get(i);
+        for (int i = 0; i < propertyDTO.getEnvironments().size(); i++) {
+            Environment environment = property.getEnvironments().get(i);
+            EnvironmentDTO environmentDTO = modelMapper.map(environment, EnvironmentDTO.class);
 
-            Double environmentSquareMeters = environment.getEnvironmentLength() * environment.getEvironmentWidth();
-            environment.setSquareMeters(environmentSquareMeters);
+            Double environmentSquareMeters = environmentDTO.getEnvironmentLength() * environmentDTO.getEvironmentWidth();
+            environmentDTO.setSquareMeters(environmentSquareMeters);
+            environments.add(environmentDTO);
         }
 
         return environments;
     }
-
-    /*@Override
-    public Set<PropertyDTO> getAllProperties() {
-        return this.propertyRepository.findAll();
-    }*/
 }

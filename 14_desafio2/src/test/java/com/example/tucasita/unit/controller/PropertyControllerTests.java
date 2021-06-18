@@ -1,9 +1,8 @@
 package com.example.tucasita.unit.controller;
 
 import com.example.tucasita.controller.PropertyController;
-import com.example.tucasita.model.DistrictDTO;
-import com.example.tucasita.model.EnvironmentDTO;
-import com.example.tucasita.model.PropertyDTO;
+import com.example.tucasita.dto.EnvironmentDTO;
+import com.example.tucasita.dto.PropertyDTO;
 import com.example.tucasita.service.PropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

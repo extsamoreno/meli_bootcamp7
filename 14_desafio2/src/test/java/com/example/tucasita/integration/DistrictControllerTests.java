@@ -1,13 +1,16 @@
 package com.example.tucasita.integration;
 
-import com.example.tucasita.model.DistrictDTO;
-import com.example.tucasita.model.ResponseDTO;
+import com.example.tucasita.dto.DistrictDTO;
+import com.example.tucasita.dto.ResponseDTO;
+import com.example.tucasita.model.District;
 import com.example.tucasita.repository.DistrictDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,16 +30,22 @@ public class DistrictControllerTests {
     @Autowired
     MockMvc mockMvc;
 
+    @Mock
+    ModelMapper modelMapper;
+
     @MockBean
     DistrictDAO districtDAO;
 
     @Test
     public void testAddOneDistrict() throws Exception {
         //ARRANGE
-        DistrictDTO district = new DistrictDTO("Almagro", 300.00);
+        DistrictDTO districtDTO = new DistrictDTO("Almagro", 300.00);
+        District district = new District("Almagro", 300.00);
+
         ResponseDTO response = new ResponseDTO(201, "El barrio se ha agregado con éxito al repositorio local");
+
         ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer().withDefaultPrettyPrinter();
-        String payloadJson = writer.writeValueAsString(district);
+        String payloadJson = writer.writeValueAsString(districtDTO);
         String responseJson = writer.writeValueAsString(response);
 
         Mockito.doNothing().when(districtDAO).create(district);

@@ -2,8 +2,8 @@ package com.example.tucasita.unit.repository;
 
 import com.example.tucasita.exception.ExistentPropertyException;
 import com.example.tucasita.exception.PropertyNotFoundException;
-import com.example.tucasita.model.EnvironmentDTO;
-import com.example.tucasita.model.PropertyDTO;
+import com.example.tucasita.model.Environment;
+import com.example.tucasita.model.Property;
 import com.example.tucasita.repository.PropertyDAO;
 import com.example.tucasita.repository.PropertyDAOImple;
 import org.junit.jupiter.api.Assertions;
@@ -25,14 +25,14 @@ public class PropertyDAOTests {
     @Test
     public void testCreateNewProperty() {
         //ARRANGE
-        List<EnvironmentDTO> propertyEnvironments = new ArrayList<>();
-        propertyEnvironments.add(new EnvironmentDTO("Living", 10.00, 20.00, null));
-        propertyEnvironments.add(new EnvironmentDTO("Comedor", 15.00, 20.00, null));
-        PropertyDTO newProperty = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
+        List<Environment> propertyEnvironments = new ArrayList<>();
+        propertyEnvironments.add(new Environment("Living", 10.00, 20.00, null));
+        propertyEnvironments.add(new Environment("Comedor", 15.00, 20.00, null));
+        Property newProperty = new Property(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
 
         //ACT
         propertyDAO.create(newProperty);
-        PropertyDTO createdProperty = propertyDAO.findById(newProperty.getPropId());
+        Property createdProperty = propertyDAO.findById(newProperty.getPropId());
 
         //ASSERT
         Assertions.assertEquals(newProperty, createdProperty);
@@ -41,10 +41,10 @@ public class PropertyDAOTests {
     @Test
     public void testCreateExistentProperty() {
         //ARRANGE
-        List<EnvironmentDTO> propertyEnvironments = new ArrayList<>();
-        propertyEnvironments.add(new EnvironmentDTO("Living", 10.00, 5.00, null));
-        propertyEnvironments.add(new EnvironmentDTO("Cocina", 5.00, 5.00, null));
-        PropertyDTO existentProperty = new PropertyDTO(1, "Torre Pedro Goyena", "Caballito", propertyEnvironments);
+        List<Environment> propertyEnvironments = new ArrayList<>();
+        propertyEnvironments.add(new Environment("Living", 10.00, 5.00, null));
+        propertyEnvironments.add(new Environment("Cocina", 5.00, 5.00, null));
+        Property existentProperty = new Property(1, "Torre Pedro Goyena", "Caballito", propertyEnvironments);
 
         //ACT
 
@@ -56,13 +56,13 @@ public class PropertyDAOTests {
     public void testFindByIdExistentProperty() {
         //ARRANGE
         int propertyId = 1;
-        List<EnvironmentDTO> propertyEnvironments = new ArrayList<>();
-        propertyEnvironments.add(new EnvironmentDTO("Cocina", 5.00, 5.00, null));
-        propertyEnvironments.add(new EnvironmentDTO("Living", 10.00, 5.00, null));
-        PropertyDTO expectedProperty = new PropertyDTO(1, "Torre Pedro Goyena", "Caballito", propertyEnvironments);
+        List<Environment> propertyEnvironments = new ArrayList<>();
+        propertyEnvironments.add(new Environment("Cocina", 5.00, 5.00, null));
+        propertyEnvironments.add(new Environment("Living", 10.00, 5.00, null));
+        Property expectedProperty = new Property(1, "Torre Pedro Goyena", "Caballito", propertyEnvironments);
 
         //ACT
-        PropertyDTO receivedProperty = propertyDAO.findById(propertyId);
+        Property receivedProperty = propertyDAO.findById(propertyId);
 
         //ASSERT
         Assertions.assertEquals(expectedProperty, receivedProperty);

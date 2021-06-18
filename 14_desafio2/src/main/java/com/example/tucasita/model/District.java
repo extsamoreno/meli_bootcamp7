@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
-public class ErrorDTO {
-    private String name;
-    private String description;
+public class District {
+    private String districtName;
+    private Double districtPrize;
 }

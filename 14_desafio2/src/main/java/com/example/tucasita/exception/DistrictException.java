@@ -1,6 +1,6 @@
 package com.example.tucasita.exception;
 
-import com.example.tucasita.model.ErrorDTO;
+import com.example.tucasita.dto.ErrorDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;

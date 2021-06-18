@@ -1,7 +1,7 @@
 package com.example.tucasita.controller;
 
-import com.example.tucasita.model.DistrictDTO;
-import com.example.tucasita.model.ResponseDTO;
+import com.example.tucasita.dto.DistrictDTO;
+import com.example.tucasita.dto.ResponseDTO;
 import com.example.tucasita.service.DistrictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,25 +1,24 @@
 package com.example.tucasita.unit.service;
 
-import com.example.tucasita.exception.DistrictNotFoundException;
 import com.example.tucasita.exception.InvalidPropertyException;
-import com.example.tucasita.model.DistrictDTO;
-import com.example.tucasita.model.EnvironmentDTO;
-import com.example.tucasita.model.PropertyDTO;
-import com.example.tucasita.model.ResponseDTO;
+import com.example.tucasita.dto.DistrictDTO;
+import com.example.tucasita.dto.EnvironmentDTO;
+import com.example.tucasita.dto.PropertyDTO;
+import com.example.tucasita.dto.ResponseDTO;
+import com.example.tucasita.model.District;
+import com.example.tucasita.model.Environment;
+import com.example.tucasita.model.Property;
 import com.example.tucasita.repository.DistrictDAO;
-import com.example.tucasita.repository.DistrictDAOImple;
 import com.example.tucasita.repository.PropertyDAO;
-import com.example.tucasita.repository.PropertyDAOImple;
-import com.example.tucasita.service.DistrictServiceImple;
 import com.example.tucasita.service.PropertyServiceImple;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +31,8 @@ public class PropertyServiceTests {
     @Mock
     DistrictDAO districtDAO;
 
-    //@Mock
-    //PropertyRepository propertyRepository;
+    @Mock
+    ModelMapper modelMapper;
 
     @InjectMocks
     PropertyServiceImple propertyService;
@@ -42,17 +41,25 @@ public class PropertyServiceTests {
     public void testAddOnePropertyNewPropertyExistingDistrict() {
         //ARRANGE
         String districtName = "Caballito";
-        List<EnvironmentDTO> propertyEnvironments = new ArrayList<>();
-        propertyEnvironments.add(new EnvironmentDTO("Living", 10.00, 20.00, null));
-        propertyEnvironments.add(new EnvironmentDTO("Comedor", 15.00, 20.00, null));
-        PropertyDTO newProperty = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
+
+        List<EnvironmentDTO> propertyEnvironmentsDTO = new ArrayList<>();
+        propertyEnvironmentsDTO.add(new EnvironmentDTO("Living", 10.00, 20.00, null));
+        propertyEnvironmentsDTO.add(new EnvironmentDTO("Comedor", 15.00, 20.00, null));
+        PropertyDTO newPropertyDTO = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironmentsDTO);
+
+        List<Environment> propertyEnvironments = new ArrayList<>();
+        propertyEnvironments.add(new Environment("Living", 10.00, 20.00, null));
+        propertyEnvironments.add(new Environment("Comedor", 15.00, 20.00, null));
+        Property newProperty = new Property(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
+
         ResponseDTO responseExpected = new ResponseDTO(201, "La propiedad se ha agregado con éxito al repositorio local");
 
-        Mockito.when(districtDAO.findByName(districtName)).thenReturn(new DistrictDTO("Caballito", 100.00));
+        Mockito.when(districtDAO.findByName(districtName)).thenReturn(new District("Caballito", 100.00));
+        Mockito.when(modelMapper.map(newPropertyDTO, Property.class)).thenReturn(newProperty);
         Mockito.doNothing().when(propertyDAO).create(newProperty);
 
         //ACT
-        ResponseDTO responseReceived = propertyService.addOneProperty(newProperty);
+        ResponseDTO responseReceived = propertyService.addOneProperty(newPropertyDTO);
 
         //ASSERT
         Mockito.verify(propertyDAO, Mockito.atLeastOnce()).create(newProperty);
@@ -77,13 +84,22 @@ public class PropertyServiceTests {
     public void testCalculatePropertyTotalSquareMeters() {
         //ARRANGE
         int idProperty = 5;
-        List<EnvironmentDTO> propertyEnvironments = new ArrayList<>();
-        propertyEnvironments.add(new EnvironmentDTO("Living", 10.00, 20.00, null));
-        propertyEnvironments.add(new EnvironmentDTO("Comedor", 15.00, 20.00, null));
-        PropertyDTO newProperty = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
-        ResponseDTO responseExpected = new ResponseDTO(200, "La propiedad con ID 5 tiene un total de 500.0 metros cuadrados.");
+
+        List<EnvironmentDTO> propertyEnvironmentsDTO = new ArrayList<>();
+        EnvironmentDTO environmentDTO = new EnvironmentDTO("Living", 10.00, 20.00, null);
+        propertyEnvironmentsDTO.add(environmentDTO);
+        PropertyDTO newPropertyDTO = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironmentsDTO);
+
+        List<Environment> propertyEnvironments = new ArrayList<>();
+        Environment environment = new Environment("Living", 10.00, 20.00, null);
+        propertyEnvironments.add(environment);
+        Property newProperty = new Property(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
+
+        ResponseDTO responseExpected = new ResponseDTO(200, "La propiedad con ID 5 tiene un total de 200.0 metros cuadrados.");
 
         Mockito.when(propertyDAO.findById(idProperty)).thenReturn(newProperty);
+        Mockito.when(modelMapper.map(newProperty, PropertyDTO.class)).thenReturn(newPropertyDTO);
+        Mockito.when(modelMapper.map(environment, EnvironmentDTO.class)).thenReturn(environmentDTO);
 
         //ACT
         ResponseDTO responseReceived = propertyService.calculatePropertyTotalSquareMeters(idProperty);
@@ -98,14 +114,27 @@ public class PropertyServiceTests {
         //ARRANGE
         int idProperty = 5;
         String districtName = "Caballito";
-        List<EnvironmentDTO> propertyEnvironments = new ArrayList<>();
-        propertyEnvironments.add(new EnvironmentDTO("Living", 10.00, 20.00, null));
-        propertyEnvironments.add(new EnvironmentDTO("Comedor", 15.00, 20.00, null));
-        PropertyDTO newProperty = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
-        ResponseDTO responseExpected = new ResponseDTO(200, "La propiedad con ID 5 tiene un valor de 50000.0 U$S.");
+
+        List<EnvironmentDTO> propertyEnvironmentsDTO = new ArrayList<>();
+        EnvironmentDTO environmentDTO = new EnvironmentDTO("Living", 10.00, 20.00, null);
+        propertyEnvironmentsDTO.add(environmentDTO);
+        PropertyDTO newPropertyDTO = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironmentsDTO);
+
+        List<Environment> propertyEnvironments = new ArrayList<>();
+        Environment environment = new Environment("Living", 10.00, 20.00, null);
+        propertyEnvironments.add(environment);
+        Property newProperty = new Property(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
+
+        District district = new District("Caballito", 100.00);
+        DistrictDTO districtDTO = new DistrictDTO("Caballito", 100.0);
+
+        ResponseDTO responseExpected = new ResponseDTO(200, "La propiedad con ID 5 tiene un valor de 20000.0 U$S.");
 
         Mockito.when(propertyDAO.findById(idProperty)).thenReturn(newProperty);
-        Mockito.when(districtDAO.findByName(districtName)).thenReturn(new DistrictDTO("Caballito", 100.00));
+        Mockito.when(modelMapper.map(newProperty, PropertyDTO.class)).thenReturn(newPropertyDTO);
+        Mockito.when(districtDAO.findByName(districtName)).thenReturn(new District("Caballito", 100.00));
+        Mockito.when(modelMapper.map(district, DistrictDTO.class)).thenReturn(districtDTO);
+        Mockito.when(modelMapper.map(environment, EnvironmentDTO.class)).thenReturn(environmentDTO);
 
         //ACT
         ResponseDTO responseReceived = propertyService.calculatePropertyPrice(idProperty);
@@ -120,13 +149,22 @@ public class PropertyServiceTests {
     public void testGetBiggestEnvironment() {
         //ARRANGE
         int idProperty = 5;
-        List<EnvironmentDTO> propertyEnvironments = new ArrayList<>();
-        propertyEnvironments.add(new EnvironmentDTO("Living", 10.00, 20.00, null));
-        propertyEnvironments.add(new EnvironmentDTO("Comedor", 15.00, 20.00, null));
-        PropertyDTO newProperty = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
-        ResponseDTO responseExpected = new ResponseDTO(200, "El ambiente más grande de la propiedad con ID 5 es el ambiente Comedor con un total de 300.0 metros cuadrados.");
 
-        Mockito.when(propertyDAO.findById(idProperty)).thenReturn(newProperty);
+        List<EnvironmentDTO> propertyEnvironmentsDTO = new ArrayList<>();
+        EnvironmentDTO environmentDTO = new EnvironmentDTO("Living", 10.00, 20.00, null);
+        propertyEnvironmentsDTO.add(environmentDTO);
+        PropertyDTO propertyDTO = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironmentsDTO);
+
+        List<Environment> propertyEnvironments = new ArrayList<>();
+        Environment environment = new Environment("Living", 10.00, 20.00, null);
+        propertyEnvironments.add(environment);
+        Property property = new Property(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
+
+        ResponseDTO responseExpected = new ResponseDTO(200, "El ambiente más grande de la propiedad con ID 5 es el ambiente Living con un total de 200.0 metros cuadrados.");
+
+        Mockito.when(propertyDAO.findById(idProperty)).thenReturn(property);
+        Mockito.when(modelMapper.map(property, PropertyDTO.class)).thenReturn(propertyDTO);
+        Mockito.when(modelMapper.map(environment, EnvironmentDTO.class)).thenReturn(environmentDTO);
 
         //ACT
         ResponseDTO responseReceived = propertyService.getBiggestEnvironment(idProperty);
@@ -140,15 +178,23 @@ public class PropertyServiceTests {
     public void testCalculateEnvironmentsSquareMeters() {
         //ARRANGE
         int idProperty = 5;
-        List<EnvironmentDTO> propertyEnvironments = new ArrayList<>();
-        propertyEnvironments.add(new EnvironmentDTO("Living", 10.00, 20.00, null));
-        propertyEnvironments.add(new EnvironmentDTO("Comedor", 15.00, 20.00, null));
-        PropertyDTO newProperty = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
+
+        List<EnvironmentDTO> propertyEnvironmentsDTO = new ArrayList<>();
+        EnvironmentDTO environmentDTO = new EnvironmentDTO("Living", 10.00, 20.00, null);
+        propertyEnvironmentsDTO.add(environmentDTO);
+        PropertyDTO propertyDTO = new PropertyDTO(5, "Torre Rivadavia", "Caballito", propertyEnvironmentsDTO);
+
+        List<Environment> propertyEnvironments = new ArrayList<>();
+        Environment environment = new Environment("Living", 10.00, 20.00, null);
+        propertyEnvironments.add(environment);
+        Property property = new Property(5, "Torre Rivadavia", "Caballito", propertyEnvironments);
+
         List<EnvironmentDTO> expectedEnvironments = new ArrayList<>();
         expectedEnvironments.add(new EnvironmentDTO("Living", 10.00, 20.00, 200.0));
-        expectedEnvironments.add(new EnvironmentDTO("Comedor", 15.00, 20.00, 300.0));
 
-        Mockito.when(propertyDAO.findById(idProperty)).thenReturn(newProperty);
+        Mockito.when(propertyDAO.findById(idProperty)).thenReturn(property);
+        Mockito.when(modelMapper.map(property, PropertyDTO.class)).thenReturn(propertyDTO);
+        Mockito.when(modelMapper.map(environment, EnvironmentDTO.class)).thenReturn(environmentDTO);
 
         //ACT
         List<EnvironmentDTO> receivedEnvironments = propertyService.calculateEnvironmentsSquareMeters(idProperty);

@@ -1,7 +1,7 @@
 package com.example.tucasita.unit.controller;
 
 import com.example.tucasita.controller.DistrictController;
-import com.example.tucasita.model.DistrictDTO;
+import com.example.tucasita.dto.DistrictDTO;
 import com.example.tucasita.service.DistrictService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

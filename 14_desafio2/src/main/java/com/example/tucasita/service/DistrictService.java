@@ -1,13 +1,10 @@
 package com.example.tucasita.service;
 
-import com.example.tucasita.model.DistrictDTO;
-import com.example.tucasita.model.ResponseDTO;
+import com.example.tucasita.dto.DistrictDTO;
+import com.example.tucasita.dto.ResponseDTO;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Service
 public interface DistrictService {
-    ResponseDTO addOneDistrict(DistrictDTO district);
-    //Set<DistrictDTO> getAllDistricts();
+    ResponseDTO addOneDistrict(DistrictDTO districtDTO);
 }

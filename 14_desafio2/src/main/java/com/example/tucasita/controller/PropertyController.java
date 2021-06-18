@@ -1,8 +1,8 @@
 package com.example.tucasita.controller;
 
-import com.example.tucasita.model.EnvironmentDTO;
-import com.example.tucasita.model.PropertyDTO;
-import com.example.tucasita.model.ResponseDTO;
+import com.example.tucasita.dto.EnvironmentDTO;
+import com.example.tucasita.dto.PropertyDTO;
+import com.example.tucasita.dto.ResponseDTO;
 import com.example.tucasita.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

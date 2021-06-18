@@ -2,7 +2,7 @@ package com.example.tucasita.unit.repository;
 
 import com.example.tucasita.exception.DistrictNotFoundException;
 import com.example.tucasita.exception.ExistentDistrictException;
-import com.example.tucasita.model.DistrictDTO;
+import com.example.tucasita.model.District;
 import com.example.tucasita.repository.DistrictDAO;
 import com.example.tucasita.repository.DistrictDAOImple;
 import org.junit.jupiter.api.Assertions;
@@ -21,11 +21,11 @@ public class DistrictDAOTests {
     @Test
     public void testCreateNewDistrict() {
         //ARRANGE
-        DistrictDTO newDistrict = new DistrictDTO("Almagro", 300.00);
+        District newDistrict = new District("Almagro", 300.00);
 
         //ACT
         districtDAO.create(newDistrict);
-        DistrictDTO createdDistrict = districtDAO.findByName(newDistrict.getDistrictName());
+        District createdDistrict = districtDAO.findByName(newDistrict.getDistrictName());
 
         //ASSERT
         Assertions.assertEquals(newDistrict, createdDistrict);
@@ -34,7 +34,7 @@ public class DistrictDAOTests {
     @Test
     public void testCreateExistentDistrict() {
         //ARRANGE
-        DistrictDTO existentDistrict = new DistrictDTO("Belgrano", 250.00);
+        District existentDistrict = new District("Belgrano", 250.00);
 
         //ACT
 
@@ -46,10 +46,10 @@ public class DistrictDAOTests {
     public void testFindByNameExistentDistrict() {
         //ARRANGE
         String districtName = "Belgrano";
-        DistrictDTO expectedDistrict = new DistrictDTO("Belgrano", 250.00);
+        District expectedDistrict = new District("Belgrano", 250.00);
 
         //ACT
-        DistrictDTO receivedDistrict = districtDAO.findByName(districtName);
+        District receivedDistrict = districtDAO.findByName(districtName);
 
         //ASSERT
         Assertions.assertEquals(expectedDistrict, receivedDistrict);

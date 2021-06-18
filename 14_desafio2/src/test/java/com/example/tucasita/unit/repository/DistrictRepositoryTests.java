@@ -1,6 +1,6 @@
 package com.example.tucasita.unit.repository;
 
-import com.example.tucasita.model.DistrictDTO;
+import com.example.tucasita.dto.DistrictDTO;
 import com.example.tucasita.repository.DistrictRepository;
 import com.example.tucasita.repository.DistrictRepositoryImple;
 import org.junit.jupiter.api.Assertions;
