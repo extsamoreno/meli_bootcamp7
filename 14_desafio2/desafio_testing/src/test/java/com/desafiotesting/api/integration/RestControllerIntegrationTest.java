@@ -3,6 +3,7 @@ package com.desafiotesting.api.integration;
 import com.desafiotesting.api.dto.*;
 import com.desafiotesting.api.model.District;
 import com.desafiotesting.api.repository.DistrictsRepository;
+import com.desafiotesting.api.service.mapper.DistrictMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -30,6 +31,8 @@ public class RestControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    DistrictMapper mapper;
 
     @MockBean
     DistrictsRepository repository;
@@ -1717,7 +1720,13 @@ public class RestControllerIntegrationTest {
     @Test
     public void newDistrictHappyPath() throws Exception {
 
-        DistrictDTO payloadDTO = new DistrictDTO("Oeste",40.0);
+        DistrictDTO payloadDTO = new DistrictDTO("Cañitas",40.0);
+
+        District district = new District("Centro", 100.0);
+        Map<String, District> districts = new HashMap<>();
+        districts.put("Centro", district);
+
+        Mockito.when(repository.getDistricts()).thenReturn(districts);
 
         String responseDTO = "District Added to repository.";
 

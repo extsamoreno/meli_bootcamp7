@@ -119,12 +119,13 @@ public class TasacionesServiceTest {
     public void newDistrictHappyPath() throws Exception {
         //arrange
         DistrictDTO dto = new DistrictDTO("Oeste", 34.0);
+        Mockito.when(repository.getDistricts().put(dto.getName(), mapper.dtoToModel(dto))).thenReturn(null);
 
         //act
         String received = service.newDistrict(dto);
-        repository.getDistricts().remove(dto.getName());
 
         //assert
+        Mockito.verify(repository, Mockito.atLeast(1)).getDistricts();
         Assertions.assertEquals("District Added to repository.",received);
 
     }
