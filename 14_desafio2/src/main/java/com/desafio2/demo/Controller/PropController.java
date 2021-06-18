@@ -3,13 +3,13 @@ package com.desafio2.demo.Controller;
 import com.desafio2.demo.Model.DTO.*;
 import com.desafio2.demo.Exception.DistrictNotExist;
 import com.desafio2.demo.Service.IPropService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
 
 @RestController
 @RequestMapping("/TuCasita")
