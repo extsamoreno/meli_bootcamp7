@@ -1,5 +1,6 @@
 package com.meli.tucasita.integration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import static com.meli.tucasita.util.TestUtils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -186,19 +188,38 @@ public class PropertiesServiceControllerIntegrationTest {
     }
 
     @Test
-    public void insertNewPropertyNullRequest() throws Exception {
+    void insertNewPropertyNullRequest() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/registerNewProperty"))
                 .andDo(print()).andExpect(status().isBadRequest());
     }
 
     @Test
-    public void registerNewPropertyEmptyProperty() throws Exception {
+    void insertNewPropertyIsEmpty() throws Exception {
         String emptyDTO = createWriter().writeValueAsString(new PropertyDTO());
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/registerNewProperty")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(emptyDTO))
                 .andDo(print()).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldThrowMethodArgumentNotValidException() throws Exception {
+
+        PropertyDTO propertyDTO = createPropertyDTO();
+        propertyDTO.getRooms().get(0).setName("comedorInvalidLowerCase");
+        String jsonRequestDTO = createWriter().writeValueAsString(propertyDTO);
+
+        String errorBody = "{\"rooms[0].name\":\"El nombre del ambiente debe comenzar con mayúscula\"}";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/property/registerNewProperty")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonRequestDTO))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
+                .andExpect(result -> assertEquals(errorBody, result.getResponse().getContentAsString().replace("Ãº", "ú")))
+                .andReturn();
     }
 
 }
