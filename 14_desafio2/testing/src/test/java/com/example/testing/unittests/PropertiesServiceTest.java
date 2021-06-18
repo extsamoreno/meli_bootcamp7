@@ -135,7 +135,6 @@ public class PropertiesServiceTest {
     public void create() {
         // arrange
 
-
         // act
         propertiesService.createProperty(property);
 

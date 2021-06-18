@@ -65,11 +65,12 @@ public class PropertiesService implements IPropertiesService {
     @Override
     public void createProperty(Property p) {
 
-        if(p.getDistrict().getName() != "District1" && p.getDistrict().getName() != "District2"){
+        if(p.getDistrict().getName().equals("District1")  || p.getDistrict().getName().equals("District2")){
+            propertiesRepository.createProperty(p);
+
+        } else {
             throw new DistrictNotFoundException(p.getDistrict().getName());
         }
-
-        propertiesRepository.createProperty(p);
 
     }
 }
