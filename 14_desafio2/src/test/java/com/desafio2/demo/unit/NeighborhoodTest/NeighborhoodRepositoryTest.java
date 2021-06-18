@@ -80,6 +80,6 @@ public class NeighborhoodRepositoryTest {
         this.neighborhoodRepository = new NeighborhoodRepository();
 
         // assert
-        assertThrows(NeighborhoodNotFoundException.class,() -> neighborhoodRepository.getNeighborhoodByName(neighborhood.getName()));
+        assertThrows(NeighborhoodNotFoundException.class,() ->neighborhoodRepository.getNeighborhoodByName(neighborhood.getName()));
     }
 }
