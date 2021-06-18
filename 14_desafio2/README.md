@@ -31,9 +31,14 @@ Property requests:
             "length": 5
         },
         {
-            "name" : "Habitation1",
+            "name" : "Habitation2",
             "width": 15,
             "length": 2
+        },
+        {
+        "name" : "Habitation3",
+        "width": 5,
+        "length": 6
         }
     ]
 }
