@@ -40,7 +40,7 @@ public class PropertyServiceTest {
         String districtName = "Capital";
         PropertyDTO propertyDTO = TestUtilGenerator.getPropertyDTO(districtName);
         Property property = mapper.map(propertyDTO, Property.class);
-        Mockito.when(iPropertyRepository.findDistrictByName(districtName)).thenReturn(new District("Capital",150.0));
+        Mockito.when(iPropertyRepository.findDistrictByName(districtName)).thenReturn(new District("Capital",200.0));
         Mockito.when(modelMapper.map(propertyDTO, Property.class)).thenReturn(property);
 
         //Act
@@ -100,7 +100,7 @@ public class PropertyServiceTest {
 
         //Assert
         Mockito.verify(iPropertyRepository,Mockito.atLeastOnce()).findPropertyById(property.getId());
-        Assertions.assertEquals(10000.0,response.getPropertyValue());
+        Assertions.assertEquals(8000.0,response.getPropertyValue());
     }
 
     @Test
