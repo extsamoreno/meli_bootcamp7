@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "140c1bec-512e-463d-a6b4-f40aa36fbfed",
+		"name": "Testing Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Casa del barba\",\n    \"district\": {\n        \"id\": 1,\n        \"district_name\": \"Jardin Aeropuerto\",\n        \"district_price\": 300.5\n    },\n    \"environmentList\": [\n        {\n            \"environment_name\": \"Baño\",\n            \"environment_width\": 5,\n            \"environment_length\": 7\n        },\n        {\n            \"environment_name\": \"Habitacion 1\",\n            \"environment_width\": 5,\n            \"environment_length\": 8\n        },\n        {\n            \"environment_name\": \"Habitacion 2\",\n            \"environment_width\": 5,\n            \"environment_length\": 7\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0001 / Calculate Mts2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/calculateMts2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"calculateMts2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0002 / Calculate property price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/calculatePrice",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"calculatePrice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0003 / Obtain most greater environment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/obtainMostGreaterEnvironment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"obtainMostGreaterEnvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0004 / Calculate environment mts2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/calculateEnvironmentMts2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"calculateEnvironmentMts2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,6 +32,25 @@ class PropertyRepositoryTest {
 
         //Assert
         Assertions.assertEquals(propertyRepository.getProperty(),property);
-
     }
+
+    @Test
+    public void getProperty_Success() throws PropertyException {
+        save_success();
+        Property expected = TestUtilGenerator.getProperty();
+
+        //Act
+        Property received = propertyRepository.getProperty();
+
+        //Assert
+        Assertions.assertEquals(expected,received);
+    }
+
+    @Test
+    public void getProperty_Exception() throws PropertyException {
+        //Assert
+        Assertions.assertThrows(PropertyException.class, () -> propertyRepository.getProperty());
+    }
+
+
 }
