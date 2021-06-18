@@ -25,31 +25,40 @@ public class PropertyRepository implements IPropertyRepository{
     }
 
     @Override
-    public int create(Property property) throws PropertyAlreadyExistsException {
-        int id;
+    public int create(Property property) {
+        int id = 0;
 
-        if(checkDistrictExists(property))
-            throw new PropertyAlreadyExistsException(property.getProp_name(), property.getDistrict_id());
-        else {
-            id = houses.size() + 1;
-            property.setDistrict_id(id);
-            houses.put(id, property);
-        }
+        id = houses.size() + 1;
+        property.setProp_id(id);
+        houses.put(id, property);
 
         return id;
     }
 
     @Override
-    public Property getById(int id) throws PropertyNotFoundException {
-        Property property = houses.get(id);
+    public boolean delete(int id){
+        boolean deleted = false, before = true, after = false;
 
-        if(property != null)
-            return property;
-        else
-            throw new PropertyNotFoundException(id);
+        if(getById(id) == null)
+            before = false;
+
+        houses.remove(id);
+
+        if(getById(id) != null)
+            after = true;
+
+        if(before == true && after == false)
+            deleted = true;
+
+        return deleted;
     }
 
-    private boolean checkDistrictExists(Property prop){
+    @Override
+    public Property getById(int id){
+        return houses.get(id);
+    }
+
+    public boolean checkPropertyExists(Property prop){
         return houses.values().stream()
                 .anyMatch(x -> x.getProp_name().equals(prop.getProp_name()) &&
                                x.getDistrict_id().equals(prop.getDistrict_id()));

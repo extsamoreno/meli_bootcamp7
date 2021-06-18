@@ -1,7 +1,9 @@
 package com.TuCasitaTasacionesAPI.TuCasita.dtos;
 
 import com.TuCasitaTasacionesAPI.TuCasita.models.Environment;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +13,8 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PropertyDTO {
 
     @NotEmpty(message = "El nombre de la propiedad no puede estar vacío.")

@@ -22,11 +22,4 @@ public class DistrictController {
         return new ResponseEntity<>(iDistrictService.create(districtDTO), HttpStatus.CREATED);
     }
 
-
-    /* solo prueba
-    @GetMapping("/getbyid/{id}")
-    public ResponseEntity<District> getById(@PathVariable() int id) throws DistrictNotFoundException {
-        return new ResponseEntity(iDistrictService.getById(id), HttpStatus.OK);
-    } */
-
 }

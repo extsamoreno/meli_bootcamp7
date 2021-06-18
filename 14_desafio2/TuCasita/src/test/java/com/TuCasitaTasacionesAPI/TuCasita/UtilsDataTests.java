@@ -1,6 +1,7 @@
 package com.TuCasitaTasacionesAPI.TuCasita;
 
 import com.TuCasitaTasacionesAPI.TuCasita.dtos.*;
+import com.TuCasitaTasacionesAPI.TuCasita.models.District;
 import com.TuCasitaTasacionesAPI.TuCasita.models.Environment;
 import com.TuCasitaTasacionesAPI.TuCasita.models.Property;
 
@@ -17,6 +18,24 @@ public class UtilsDataTests {
         prop1.getEnvironments().add(e1_prop1);
         prop1.getEnvironments().add(e2_prop1);
         prop1.getEnvironments().add(e3_prop1);
+
+        return prop1;
+    }
+
+    public static Property generateProperty2(){
+        Property prop1 = new Property(0, "Prueba 123", 2, new ArrayList<>());
+        Environment e1_prop1 = new Environment("Cocina", 2.0, 2.0);
+
+        prop1.getEnvironments().add(e1_prop1);
+
+        return prop1;
+    }
+
+    public static PropertyDTO generatePropertyDTO(){
+        PropertyDTO prop1 = new PropertyDTO("Prueba 123", 2, new ArrayList<>());
+        EnvironmentDTO e1_prop1 = new EnvironmentDTO("Cocina", 2.0, 2.0);
+
+        prop1.getEnvironments().add(e1_prop1);
 
         return prop1;
     }
@@ -50,5 +69,12 @@ public class UtilsDataTests {
         return new TotalM2DTO("Av. Marquez 123", 64.0);
     }
 
+    public static District generateDistrict(){
+        return new District(9999, "Prueba District" , 200.0);
+    }
+
+    public static DistrictDTO generateDistrictDTO(){
+        return new DistrictDTO("Prueba District" , 200.0);
+    }
 
 }

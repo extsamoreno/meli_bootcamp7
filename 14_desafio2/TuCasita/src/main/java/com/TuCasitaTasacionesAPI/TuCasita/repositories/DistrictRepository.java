@@ -21,31 +21,40 @@ public class DistrictRepository implements IDistrictRepository{
     }
 
     @Override
-    public int create(District district) throws DistrictAlreadyExistsException {
-        int id;
+    public int create(District district){
+        int id = 0;
 
-        if(checkDistrictExists(district))
-            throw new DistrictAlreadyExistsException(district.getDistrict_name());
-        else {
-            id = districts.size() + 1;
-            district.setDistrict_id(id);
-            districts.put(id, district);
-        }
-
+        id = districts.size() + 1;
+        district.setDistrict_id(id);
+        districts.put(id, district);
         return id;
     }
 
     @Override
-    public District getById(int id) throws DistrictNotFoundException {
-        District district = districts.get(id);
-
-        if(district != null)
-            return district;
-        else
-            throw new DistrictNotFoundException(id);
+    public District getById(int id) {
+        return districts.get(id);
     }
 
-    private boolean checkDistrictExists(District district){
+    @Override
+    public boolean delete(int id){
+        boolean deleted = false, before = true, after = false;
+
+        if(getById(id) == null)
+            before = false;
+
+        districts.remove(id);
+
+        if(getById(id) != null)
+            after = true;
+
+        if(before == true && after == false)
+            deleted = true;
+
+        return deleted;
+    }
+
+
+    public boolean checkDistrictExists(District district){
         return districts.values().stream()
                 .anyMatch(x -> x.getDistrict_name().equals(district.getDistrict_name()));
     }

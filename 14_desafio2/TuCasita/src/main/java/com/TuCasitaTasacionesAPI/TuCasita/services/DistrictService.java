@@ -20,12 +20,21 @@ public class DistrictService implements IDistrictService{
 
     @Override
     public int create(DistrictDTO district) throws DistrictAlreadyExistsException {
+
+        if(iDistrictRepository.checkDistrictExists(mapper.map(district, District.class)))
+            throw new DistrictAlreadyExistsException(district.getDistrict_name());
+
         return iDistrictRepository.create(mapper.map(district, District.class));
     }
 
     @Override
     public DistrictDTO getById(int id) throws DistrictNotFoundException {
-        return mapper.map(iDistrictRepository.getById(id), DistrictDTO.class);
+        District district = iDistrictRepository.getById(id);
+
+       if(district == null)
+           throw new DistrictNotFoundException(id);
+
+        return mapper.map(district, DistrictDTO.class);
     }
 
 

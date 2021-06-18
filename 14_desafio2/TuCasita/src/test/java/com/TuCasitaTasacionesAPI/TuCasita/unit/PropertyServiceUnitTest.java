@@ -3,6 +3,7 @@ package com.TuCasitaTasacionesAPI.TuCasita.unit;
 import com.TuCasitaTasacionesAPI.TuCasita.UtilsDataTests;
 import com.TuCasitaTasacionesAPI.TuCasita.dtos.*;
 import com.TuCasitaTasacionesAPI.TuCasita.exceptions.district.DistrictNotFoundException;
+import com.TuCasitaTasacionesAPI.TuCasita.exceptions.property.PropertyAlreadyExistsException;
 import com.TuCasitaTasacionesAPI.TuCasita.exceptions.property.PropertyNotFoundException;
 import com.TuCasitaTasacionesAPI.TuCasita.models.Environment;
 import com.TuCasitaTasacionesAPI.TuCasita.models.Property;
@@ -21,7 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PropertyServiceUnitTest {
@@ -39,6 +41,36 @@ public class PropertyServiceUnitTest {
     PropertyService propertyService;
 
     @Test
+    public void createHappyPath() throws DistrictNotFoundException, PropertyAlreadyExistsException {
+        DistrictDTO districtDTO = UtilsDataTests.generateDistrictDTO();
+        Property prop = UtilsDataTests.generateProperty2();
+        PropertyDTO propertyDTO = UtilsDataTests.generatePropertyDTO();
+        int idExpected = prop.getProp_id();
+
+        when(iDistrictService.getById(propertyDTO.getDistrict_id())).thenReturn(districtDTO);
+        when(iPropertyRepository.checkPropertyExists(prop)).thenReturn(false);
+        when(mapper.map(propertyDTO, Property.class)).thenReturn(prop);
+        when(iPropertyRepository.create(prop)).thenReturn(idExpected);
+
+        int idReceived = propertyService.create(propertyDTO);
+
+        assertEquals(idExpected, idReceived);
+
+    }
+
+    @Test
+    public void createWithDistrcitThatNotExist() throws DistrictNotFoundException {
+        PropertyDTO propertyDTO = UtilsDataTests.generatePropertyDTO();
+
+        when(iDistrictService.getById(propertyDTO.getDistrict_id())).thenReturn(null);
+
+        assertThrows(DistrictNotFoundException.class, () -> propertyService.create(propertyDTO));
+
+    }
+
+
+
+    @Test
     public void calculateM2withIdValid() throws PropertyNotFoundException {
         int id = 1;
         TotalM2DTO expected = UtilsDataTests.generateTotalM2DTO();
@@ -48,6 +80,7 @@ public class PropertyServiceUnitTest {
 
         TotalM2DTO received = propertyService.calculateM2(id);
 
+        verify(iPropertyRepository, atLeastOnce()).getById(id);
         assertEquals(expected, received);
     }
 
@@ -64,6 +97,8 @@ public class PropertyServiceUnitTest {
 
         PricePropertyDTO received = propertyService.calculatePrice(id);
 
+        verify(iPropertyRepository, atLeastOnce()).getById(id);
+        verify(iDistrictService, atLeast(1)).getById(id);
         assertEquals(expected, received);
     }
 
@@ -81,6 +116,8 @@ public class PropertyServiceUnitTest {
 
         EnvironmentBiggestDTO received = propertyService.environmentBiggest(id);
 
+        verify(iPropertyRepository, atLeastOnce()).getById(id);
+        verify(mapper, atLeast(1)).map(envi, EnvironmentDTO.class);
         assertEquals(expected, received);
     }
 
@@ -95,6 +132,7 @@ public class PropertyServiceUnitTest {
 
         M2perEnvironmentsDTO received = propertyService.m2perEnvironments(id);
 
+        verify(iPropertyRepository, atLeastOnce()).getById(id);
         assertEquals(expected, received);
     }
 

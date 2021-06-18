@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "1d3c3a67-fe8d-4341-883f-4ced86ff4a65",
+		"name": "Desafio2Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createDistrict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"district_name\": \"Palermo\",\n    \"district_price\": 200.0\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/district/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"district",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createHouse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Sarmiento 1234\",\n    \"district_id\": 3,\n    \"environments\": [\n        {\n            \"environment_name\": \"Habitacion 1\",\n            \"environment_width\": 5.0,\n            \"environment_length\": 3.0\n        }, \n        {\n            \"environment_name\": \"Habitacion 2\",\n            \"environment_width\": 4.0,\n            \"environment_length\": 4.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/property/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US0001-calculateM2house",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/property/m2/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"m2",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US0002-calculatePriceHouse",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/property/price/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"price",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US0003-environmentBiggest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/property/environment/biggest/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"environment",
+						"biggest",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US0004-m2perEnvironments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/property/environments/m2/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"environments",
+						"m2",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

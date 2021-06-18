@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +35,11 @@ public class PropertyControllerUnitTest {
         TotalM2DTO expected = UtilsDataTests.generateTotalM2DTO();
         when(iPropertyService.calculateM2(1)).thenReturn(expected);
 
-        TotalM2DTO received = propertyController.calculateM2(id).getBody();
+        ResponseEntity<TotalM2DTO> received = propertyController.calculateM2(id);
 
         verify(iPropertyService, atLeastOnce()).calculateM2(id);
-        assertEquals(expected, received);
+        assertEquals(expected, received.getBody());
+        assertEquals(HttpStatus.OK, received.getStatusCode());
     }
 
     @Test
@@ -45,10 +48,11 @@ public class PropertyControllerUnitTest {
         PricePropertyDTO expected = UtilsDataTests.generatePricePropertyDTO();
         when(iPropertyService.calculatePrice(1)).thenReturn(expected);
 
-        PricePropertyDTO received = propertyController.calculatePrice(id).getBody();
+        ResponseEntity<PricePropertyDTO> received = propertyController.calculatePrice(id);
 
         verify(iPropertyService, atLeastOnce()).calculatePrice(id);
-        assertEquals(expected, received);
+        assertEquals(expected, received.getBody());
+        assertEquals(HttpStatus.OK, received.getStatusCode());
     }
 
     @Test
@@ -58,10 +62,11 @@ public class PropertyControllerUnitTest {
 
         when(iPropertyService.environmentBiggest(1)).thenReturn(expected);
 
-        EnvironmentBiggestDTO received = propertyController.environmentBiggest(id).getBody();
+        ResponseEntity<EnvironmentBiggestDTO> received = propertyController.environmentBiggest(id);
 
         verify(iPropertyService, atLeast(1)).environmentBiggest(id);
-        assertEquals(expected, received);
+        assertEquals(expected, received.getBody());
+        assertEquals(HttpStatus.OK, received.getStatusCode());
     }
 
     @Test
@@ -72,10 +77,11 @@ public class PropertyControllerUnitTest {
 
         when(iPropertyService.m2perEnvironments(1)).thenReturn(expected);
 
-        M2perEnvironmentsDTO received = propertyController.m2perEnvironments(id).getBody();
+        ResponseEntity<M2perEnvironmentsDTO> received = propertyController.m2perEnvironments(id);
 
         verify(iPropertyService, atLeastOnce()).m2perEnvironments(id);
-        assertEquals(expected, received);
+        assertEquals(expected, received.getBody());
+        assertEquals(HttpStatus.OK, received.getStatusCode());
     }
 
 
