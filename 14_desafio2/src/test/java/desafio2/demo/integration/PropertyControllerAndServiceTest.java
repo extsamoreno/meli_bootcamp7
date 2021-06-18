@@ -4,14 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import desafio2.demo.exception.DistrictNotFoundException;
 import desafio2.demo.model.DistrictDTO;
 import desafio2.demo.model.EnvironmentDTO;
 import desafio2.demo.model.PropertyDTO;
+import desafio2.demo.repository.IPropertyRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -29,35 +33,40 @@ public class PropertyControllerAndServiceTest {
     PropertyDTO propertyDTO;
     EnvironmentDTO smallEnvironment;
     EnvironmentDTO bigEnvironment;
+    DistrictDTO districtDTOnotFound;
     String standardPayloaod;
 
     @Autowired
     MockMvc mockMvc;
 
+    @MockBean
+    IPropertyRepository iPropertyRepository;
+
     //Arrange methods to reduce code duplication
 
-    void arrangeHappyPath() throws JsonProcessingException {
+    void arrangeHappyPath() throws JsonProcessingException, DistrictNotFoundException {
         smallEnvironment = new EnvironmentDTO("Env1",3,3);
         bigEnvironment = new EnvironmentDTO("Env2",25,3);
         propertyDTO = new PropertyDTO("Propiedad 1",new DistrictDTO("Palermo", 500),new ArrayList<>(){{
             add(smallEnvironment);
             add(bigEnvironment);
         }});
-
+        Mockito.doNothing().when(iPropertyRepository).validateDistrict(Mockito.any(DistrictDTO.class));
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer().withDefaultPrettyPrinter();
         standardPayloaod = writer.writeValueAsString(this.propertyDTO);
     }
 
-    void arrangeDistrictNotFound() throws JsonProcessingException {
+    void arrangeDistrictNotFound() throws JsonProcessingException, DistrictNotFoundException {
         smallEnvironment = new EnvironmentDTO("Env1",3,3);
         bigEnvironment = new EnvironmentDTO("Env2",25,3);
-        propertyDTO = new PropertyDTO("Propiedad 1",new DistrictDTO("Palermoww", 500),new ArrayList<>(){{
+        districtDTOnotFound = new DistrictDTO("Palermoww", 500);
+        propertyDTO = new PropertyDTO("Propiedad 1",districtDTOnotFound,new ArrayList<>(){{
             add(smallEnvironment);
             add(bigEnvironment);
         }});
-
+        Mockito.doThrow(new DistrictNotFoundException(districtDTOnotFound)).when(iPropertyRepository).validateDistrict(districtDTOnotFound);
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer().withDefaultPrettyPrinter();

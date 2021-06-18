@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
+// En mi caso decidí hacer un endpoint por user story, en donde se pasa la propiedad completa en cada caso.
+// Esto incluye también el barrio con el precio, el cual se verifica que exista de antemano en una lista que tiene el repository.
+
 @RestController
 @RequestMapping("property")
 public class PropertyController {
