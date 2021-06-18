@@ -2,9 +2,9 @@ package desafio2.testing.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class DisctictException extends HouseException {
+public class DistrictException extends HouseException {
 
-    public DisctictException(Integer id) {
+    public DistrictException(Integer id) {
         super(new ErrorDTO("District error", "District "+id+" does not exist"), HttpStatus.BAD_REQUEST);
     }
 }

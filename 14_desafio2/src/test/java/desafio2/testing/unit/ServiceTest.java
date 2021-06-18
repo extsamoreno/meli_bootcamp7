@@ -79,7 +79,7 @@ public class ServiceTest {
 
         //act
         HouseMeterPerEnvironmentDTO result = houseService.meterPerEnvironment(id);
-        double resultDouble = result.getMeterPerEnvironment().get("bath");
+        double resultDouble = result.getMeterPerEnvironment().get("Bath");
 
         //assert
         verify(iHouseRepository, Mockito.atLeastOnce()).findHouseById(id);

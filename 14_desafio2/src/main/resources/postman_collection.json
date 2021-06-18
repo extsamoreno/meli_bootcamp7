@@ -8,9 +8,28 @@
 		{
 			"name": "localhost:8080/house/newHouse",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
-				"url": null
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":8,\n    \"prop_name\": \"House8\",\n    \"district\": {\n                \"id\": 1,\n                \"name\": \"Center\",\n                \"price\": 120\n    },\n    \"environments\": [  \n        {\n            \"name\": \"Bath\",\n            \"width\": 1,\n            \"length\": 30\n        },\n        {\n            \"name\": \"Room\",\n            \"width\": 6,\n            \"length\": 6\n        },\n        {\n            \"name\": \"Yard\",\n            \"width\": 15,\n            \"length\": 30\n        }\n    ]\n      \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/house/newHouse",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"newHouse"
+					]
+				}
 			},
 			"response": []
 		},
@@ -39,7 +58,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/house/priceProperty/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"priceProperty",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -48,16 +78,50 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/house/largestEnvironment/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"largestEnvironment",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "localhost:8080/house/meterPerEnvironment/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/house/meterPerEnvironment/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"house",
+						"meterPerEnvironment",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}

@@ -7,5 +7,5 @@ import lombok.*;
 @AllArgsConstructor
 public class HousePriceDTO {
     private String prop_name;
-    private double price; //precio
+    private double price;
 }

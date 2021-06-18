@@ -1,7 +1,7 @@
 package desafio2.testing.unit;
 
 import desafio2.testing.domian.House;
-import desafio2.testing.exception.DisctictException;
+import desafio2.testing.exception.DistrictException;
 import desafio2.testing.exception.HouseExistException;
 import desafio2.testing.exception.NotFoundException;
 import desafio2.testing.repository.HouseRepository;
@@ -19,7 +19,7 @@ public class RepositoryTest {
     ModelMapper modelMapper = new ModelMapper();
 
     @Test
-    public void districtExistsByIdHappyPath() throws HouseExistException, DisctictException, NotFoundException {
+    public void districtExistsByIdHappyPath() throws HouseExistException, DistrictException, NotFoundException {
         //arrange
         HouseDTO houseDisctric = Generator.houseHappy();
 
@@ -36,7 +36,7 @@ public class RepositoryTest {
         HouseDTO houseDisctric = Generator.houseDistrictNotExist();
 
         //act and assert
-        Assertions.assertThrows(DisctictException.class, () -> houseRepository.addHouse(houseDisctric));
+        Assertions.assertThrows(DistrictException.class, () -> houseRepository.addHouse(houseDisctric));
     }
 
 }

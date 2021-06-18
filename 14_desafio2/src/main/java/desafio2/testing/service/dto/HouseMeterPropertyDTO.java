@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class HouseMeterPropertyDTO {
     private String prop_name;
-    private double squareMeter; //metros cuadrados
+    private double squareMeter;
 }

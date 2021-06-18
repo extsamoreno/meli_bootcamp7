@@ -24,8 +24,8 @@ localhost:8080/house/newHouse
 * Payload
 
         {
-        "id":3,
-        "prop_name": "House3",
+        "id":8,
+        "prop_name": "House8",
         "district": {
                 "id": 1,
                 "name": "Center",
@@ -67,7 +67,7 @@ It allows to determine the total square meters of a property
 * Response:
 
         {
-        "prop_name": "house1",
+        "prop_name": "House1",
         "squareMeter": 340.0
         }
 
@@ -84,7 +84,7 @@ Please note that prices per square meter are determined by district
 * Response:
 
         {
-        "prop_name": "house1",
+        "prop_name": "House1",
         "price": 170000.0
         }
 
@@ -95,14 +95,14 @@ It allows you to determine which is the largest environment of a property.
 
 * Postman
   
-        localhost:8080/house/largestEnvironmente/1
+        localhost:8080/house/largestEnvironment/1
 
 * Response:
 
         {
-        "prop_name": "house1",
+        "prop_name": "House1",
         "environmentHouse": {
-                    "name": "yard",
+                    "name": "Yard",
                     "width": 15.0,
                     "length": 20.0
         },
@@ -123,7 +123,7 @@ of a property has.
 * Response:
 
         {
-        "prop_name": "house1",
+        "prop_name": "House1",
         "meterPerEnvironment": {
                 "yard": 300.0,
                 "bath": 4.0,
@@ -133,7 +133,7 @@ of a property has.
 
 ##Test
 
-To test the unit tests, I ignored the following folders and classes:
+You can run the "all Test" with coverage ignoring the following classes and packages:
             
     desafio2.testing.domian.*
     desafio2.testing.exception.*
@@ -142,3 +142,4 @@ To test the unit tests, I ignored the following folders and classes:
     desafio2.testing.TestingApplication
     desafio2.testing.controller.HandlerExceptionController
 
+The answer you should give is 100% of the classes, 100% of the methods, and 97% of the lines tested.

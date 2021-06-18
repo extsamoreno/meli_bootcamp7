@@ -9,5 +9,5 @@ import lombok.*;
 public class HouseLargestEnvironmentDTO {
     private String prop_name;
     private EnvironmentHouse environmentHouse;
-    private double squareMeter; //metros cuadrados
+    private double squareMeter;
 }

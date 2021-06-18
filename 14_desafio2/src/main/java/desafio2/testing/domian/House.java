@@ -14,7 +14,4 @@ public class House {
     private District district;
     private List<EnvironmentHouse> environments = new ArrayList<>();
 
-    /*public House() {
-        this.environments = new ArrayList<>();
-    }*/
 }
