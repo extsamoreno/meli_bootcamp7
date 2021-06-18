@@ -4,6 +4,7 @@ import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.repositories.DistrictDAO;
 import com.example.challenge2.repositories.IDistrictDAO;
+import com.example.challenge2.util.TestUtilGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,8 @@ public class DistrictDAOTest {
 
     @BeforeEach
     @AfterEach
-    private void setUp() { this.districtDAO = new DistrictDAO(); }
+    private void setUp() { this.districtDAO = new DistrictDAO();
+        TestUtilGenerator.emptyFiles();}
 
     @Test
     public void saveDistrictOk() {
@@ -26,7 +28,7 @@ public class DistrictDAOTest {
         District received = districtDAO.save(district);
 
         // assert
-        Assertions.assertEquals(districtDAO.findByName(received.getName()), district);
+        Assertions.assertEquals(received, district);
     }
 
 
@@ -35,8 +37,8 @@ public class DistrictDAOTest {
         //Arrange
         District district = new District();
         district.setName("Carrasco");
-        district.setPrice(800.00);
-
+        district.setPrice(400.00);
+        TestUtilGenerator.appendNewDistrict(district);
         //Act
         District found = districtDAO.findByName(district.getName());
 
@@ -49,7 +51,8 @@ public class DistrictDAOTest {
         //Arrange
         District district = new District();
         district.setName("Carrasco");
-        district.setPrice(800.00);
+        district.setPrice(400.00);
+        TestUtilGenerator.appendNewDistrict(district);
 
         //Act
         Boolean found = districtDAO.exist(district.getName());

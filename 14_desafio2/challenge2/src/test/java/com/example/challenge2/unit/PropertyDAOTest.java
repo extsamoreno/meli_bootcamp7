@@ -1,11 +1,13 @@
 package com.example.challenge2.unit;
 
+import com.example.challenge2.exceptions.PropertyAlreadyExistException;
 import com.example.challenge2.models.Property;
 import com.example.challenge2.exceptions.PropertyNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.models.Environment;
 import com.example.challenge2.repositories.IPropertyDAO;
 import com.example.challenge2.repositories.PropertyDAO;
+import com.example.challenge2.util.TestUtilGenerator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +22,8 @@ public class PropertyDAOTest {
 
     @BeforeEach
     @AfterEach
-    private void setUp() { this.propertyDAO = new PropertyDAO(); }
+    private void setUp() { this.propertyDAO = new PropertyDAO();
+        TestUtilGenerator.emptyFiles();}
 
     @Test
     public void savePropertyOk() {
@@ -37,11 +40,12 @@ public class PropertyDAOTest {
         property.setName("Propiedad1");
         property.setDistrictName(district.getName());
         property.setEnvironmentList(environments);
+
         // act
         Property received = propertyDAO.save(property);
 
         // assert
-        Assertions.assertEquals(propertyDAO.findByName(received.getName()), property);
+        Assertions.assertEquals(received, property);
     }
 
 
