@@ -88,7 +88,7 @@ class PropControllerIntegrationTest {
         PropRequest propRequest = Util.getPropRequest();
         String payLoadJson = writer.writeValueAsString(propRequest);
 
-        EnvironmentDTO response = new EnvironmentDTO("Habitation", 30.0);
+        List<EnvironmentDTO> response = List.of(new EnvironmentDTO("Habitation", 30.0));
         String responseExpect = writer.writeValueAsString(response);
 
         //act

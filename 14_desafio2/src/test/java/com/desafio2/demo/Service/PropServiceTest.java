@@ -60,10 +60,29 @@ class PropServiceTest {
     void bigEnvironment() {
         //arrange
         PropRequest propRequests = Util.getPropRequest();
-        EnvironmentDTO expected = new EnvironmentDTO("Habitation", 30.0);
-        when(propMapper.toEnvDTO(any())).thenReturn(expected);
+        EnvironmentDTO env = new EnvironmentDTO("Habitation", 30.0);
+        List<EnvironmentDTO> expected = List.of(env);
+        when(propMapper.toEnvDTO(any())).thenReturn(env);
         //act
-        EnvironmentDTO response = propService.bigEnvironment(propRequests);
+        List<EnvironmentDTO> response = propService.bigEnvironment(propRequests);
+        //assert
+        assertEquals(expected, response);
+    }
+    /*
+    * If there are one or more with the max area
+    * */
+    @Test
+    void bigEnvironmentDuplicateDimensions() {
+        //arrange
+        PropRequest propRequests = Util.getPropRequestDuplicateDimensions();
+        //DTO response mapeo
+        EnvironmentDTO env = new EnvironmentDTO("Habitation", 30.0);
+        EnvironmentDTO env2 = new EnvironmentDTO("Habitation2", 30.0);
+        List<EnvironmentDTO> expected = List.of(env, env2);
+        when(propMapper.toEnvDTO(propRequests.getEnvironments().get(0))).thenReturn(env);
+        when(propMapper.toEnvDTO(propRequests.getEnvironments().get(1))).thenReturn(env2);
+        //act
+        List<EnvironmentDTO> response = propService.bigEnvironment(propRequests);
         //assert
         assertEquals(expected, response);
     }

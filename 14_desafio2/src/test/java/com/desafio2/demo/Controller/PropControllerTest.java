@@ -4,6 +4,7 @@ import com.desafio2.demo.Exception.DistrictNotExist;
 import com.desafio2.demo.Model.DTO.*;
 import com.desafio2.demo.Service.IPropService;
 import com.desafio2.demo.Util.Util;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +28,7 @@ class PropControllerTest {
     PropController propController;
 
     @Test
-    void totalMeters() {
+    void totalMeters()  {
         //arrange
         PropRequest propRequest = Util.getPropRequest();
         PropDTOTMeters propDTOTMeters = new PropDTOTMeters(propRequest.getName(), 30.0);
@@ -67,10 +68,10 @@ class PropControllerTest {
     void bigEnvironment() {
         //arrange
         PropRequest propRequest = Util.getPropRequest();
-        EnvironmentDTO envDTO = new EnvironmentDTO("Habitation", 30.0);
+        List<EnvironmentDTO> envDTO = List.of(new EnvironmentDTO("Habitation", 30.0));
         when(propService.bigEnvironment(any())).thenReturn(envDTO);
         //act
-        ResponseEntity<EnvironmentDTO> response = propController.bigEnvironment(propRequest);
+        ResponseEntity<List<EnvironmentDTO>> response = propController.bigEnvironment(propRequest);
         //assert
         assertEquals(envDTO, response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());

@@ -10,4 +10,9 @@ public class Util {
         return new PropRequest("House1", "Villa Prado",
                 List.of(new Environment("Kitchen", 4, 3), new Environment("Habitation", 6, 5)));
     }
+
+    public static PropRequest getPropRequestDuplicateDimensions(){
+        return new PropRequest("House1", "Villa Prado",
+                List.of(new Environment("Kitchen", 4, 3), new Environment("Habitation", 4, 3)));
+    }
 }

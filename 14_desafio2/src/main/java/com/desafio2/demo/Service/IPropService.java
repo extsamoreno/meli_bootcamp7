@@ -3,6 +3,8 @@ package com.desafio2.demo.Service;
 import com.desafio2.demo.Exception.DistrictNotExist;
 import com.desafio2.demo.Model.DTO.*;
 
+import java.util.List;
+
 public interface IPropService {
 
 
@@ -10,7 +12,7 @@ public interface IPropService {
 
     PropDTOTPrice priceProp(PropRequest prop) throws DistrictNotExist;
 
-    EnvironmentDTO bigEnvironment(PropRequest prop);
+    List<EnvironmentDTO> bigEnvironment(PropRequest prop);
 
     PropDTOTMeterByEnvironment meterByEnvironment(PropRequest prop);
 

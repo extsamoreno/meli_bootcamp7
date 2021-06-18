@@ -9,6 +9,9 @@ import com.desafio2.demo.Repository.IPropRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PropService implements IPropService {
 
@@ -30,9 +33,12 @@ public class PropService implements IPropService {
         return propMapper.toDTOPrice(prop, totalPrice);
     }
 
-    public EnvironmentDTO bigEnvironment(PropRequest prop) {
-        Environment maxEnv = prop.getEnvironments().stream().max((e1, e2)-> (int) (e1.area() - e2.area())).get();
-        return propMapper.toEnvDTO(maxEnv);
+    public List<EnvironmentDTO> bigEnvironment(PropRequest prop) {
+        double maxArea = maxArea(prop);
+        //Check if there are varius enviroment with the same area
+        List<EnvironmentDTO> listEnv = prop.getEnvironments().stream().filter(e-> e.area() == maxArea)
+                .map(env -> propMapper.toEnvDTO(env)).collect(Collectors.toList());
+        return listEnv;
     }
 
     @Override
@@ -43,5 +49,10 @@ public class PropService implements IPropService {
     private double totalArea(PropRequest prop){
         return prop.getEnvironments().stream()
                 .mapToDouble(Environment::area).sum();
+    }
+
+    private double maxArea(PropRequest prop){
+        Environment maxEnv = prop.getEnvironments().stream().max((e1, e2)-> (int) (e1.area() - e2.area())).get();
+        return maxEnv.area();
     }
 }
