@@ -1,11 +1,12 @@
 package com.meli.tuCasita.service;
 
-import com.meli.tuCasita.exception.DistrictNotFoundException;
 import com.meli.tuCasita.exception.HouseNotFoundException;
-import com.meli.tuCasita.model.AmbientDTO;
-import com.meli.tuCasita.model.HouseDTO;
+import com.meli.tuCasita.model.Ambient;
+import com.meli.tuCasita.model.House;
 import com.meli.tuCasita.repository.IHouseDAO;
 
+import com.meli.tuCasita.service.dto.ResponseGetPriceDTO;
+import com.meli.tuCasita.service.dto.ResponseMeter2DTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,47 +20,54 @@ public class HouseService implements IHouseService {
     IHouseDAO iHouseDAO;
 
     @Override
-    public Double getMeter2(Long id) throws HouseNotFoundException {
+    public ResponseMeter2DTO getMeter2(Long id) throws HouseNotFoundException {
+        ResponseMeter2DTO responseMeter2DTO = new ResponseMeter2DTO();
+
         try {
-            HouseDTO houseDTO = iHouseDAO.findById(id);
+            House house = iHouseDAO.findById(id);
             AtomicReference<Double> oldambiente = new AtomicReference<>((double) 0);
-            houseDTO.getAmbient().forEach(ambiente-> oldambiente.set(calculateSquareMeters(ambiente)+ oldambiente.get()));
-            return oldambiente.get();
+            house.getAmbient().forEach(ambiente-> oldambiente.set(calculateSquareMeters(ambiente)+ oldambiente.get()));
+            responseMeter2DTO.setHouse(house);
+            responseMeter2DTO.setMeter2(oldambiente.get());
+            return responseMeter2DTO;
         }catch (HouseNotFoundException houseNotFoundException){
             throw new HouseNotFoundException(id);
         }
 
     }
-    public HouseDTO getDistricto(HouseDTO houseDTO) throws HouseNotFoundException {
+    public House getDistricto(House house) throws HouseNotFoundException {
         try {
-            return iHouseDAO.findByDistrict(houseDTO.getDistrict());
+            return iHouseDAO.findByDistrict(house.getDistrict());
         }catch (HouseNotFoundException houseNotFoundException){
-            throw new HouseNotFoundException(houseDTO.getId());
+            throw new HouseNotFoundException(house.getId());
         }
 
     }
 
     @Override
-    public Double getPrice(Long id) throws HouseNotFoundException {
+    public ResponseGetPriceDTO getPrice(Long id) throws HouseNotFoundException {
+        ResponseGetPriceDTO responseGetPriceDTO = new ResponseGetPriceDTO();
         try {
-            HouseDTO houseDTO = iHouseDAO.findById(id);
+            House house = iHouseDAO.findById(id);
             AtomicReference<Double> oldambiente = new AtomicReference<>((double) 0);
-            houseDTO.getAmbient().forEach(ambiente-> oldambiente.set(calculateSquareMeters(ambiente) + oldambiente.get()));
-            return oldambiente.get()* houseDTO.getDistrict().getPricePerMeter2();
+            house.getAmbient().forEach(ambiente-> oldambiente.set(calculateSquareMeters(ambiente) + oldambiente.get()));
+            responseGetPriceDTO.setHouse(house);
+            responseGetPriceDTO.setPrice(oldambiente.get()* house.getDistrict().getPricePerMeter2());
+            return responseGetPriceDTO;
         }catch (HouseNotFoundException houseNotFoundException){
             throw new HouseNotFoundException(id);
         }
 
     }
-    private double calculateSquareMeters(AmbientDTO ambientDTO) throws HouseNotFoundException {
-        return ambientDTO.getLongAmbient() * ambientDTO.getWidthAmbient();
+    private double calculateSquareMeters(Ambient ambient) throws HouseNotFoundException {
+        return ambient.getLongAmbient() * ambient.getWidthAmbient();
     }
     @Override
-    public AmbientDTO getMaxAmbient(Long id) throws HouseNotFoundException  {
+    public Ambient getMaxAmbient(Long id) throws HouseNotFoundException  {
         try {
-            HouseDTO houseDTO = iHouseDAO.findById(id);
+            House house = iHouseDAO.findById(id);
             AtomicReference<Double> oldambiente = new AtomicReference<>((double) 0);
-            Optional<AmbientDTO> biggestEnv = houseDTO.getAmbient().stream().max((env1, env2) -> (int) (calculateSquareMeters(env1) - (calculateSquareMeters(env2))));
+            Optional<Ambient> biggestEnv = house.getAmbient().stream().max((env1, env2) -> (int) (calculateSquareMeters(env1) - (calculateSquareMeters(env2))));
             return biggestEnv.get();
         }catch (HouseNotFoundException houseNotFoundException){
             throw new HouseNotFoundException(id);
@@ -70,10 +78,10 @@ public class HouseService implements IHouseService {
     @Override
     public HashMap<String, Double> getmaxambientforambient(Long id, String nameAmbient) throws HouseNotFoundException {
         try {
-            HouseDTO houseDTO = iHouseDAO.findById(id);
+            House house = iHouseDAO.findById(id);
             HashMap<String, Double> oldambiente = new HashMap<>() {
             };
-            houseDTO.getAmbient().stream().filter(ambientDTO -> ambientDTO.getName().equals(nameAmbient))
+            house.getAmbient().stream().filter(ambientDTO -> ambientDTO.getName().equals(nameAmbient))
                     .forEach(ambiente-> oldambiente.put(ambiente.getName(), (calculateSquareMeters(ambiente))));
 
             return oldambiente;
@@ -86,12 +94,12 @@ public class HouseService implements IHouseService {
 
 
     @Override
-    public boolean create(HouseDTO stu) throws HouseNotFoundException  {
+    public boolean create(House stu) throws HouseNotFoundException  {
         return iHouseDAO.save(stu);
     }
 
     @Override
-    public HouseDTO read(Long id) throws HouseNotFoundException  {
+    public House read(Long id) throws HouseNotFoundException  {
         return iHouseDAO.findById(id);
     }
 

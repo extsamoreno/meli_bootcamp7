@@ -2,13 +2,11 @@ package com.meli.tuCasita.repository;
 
 import com.meli.tuCasita.exception.DistrictNotFoundException;
 import com.meli.tuCasita.exception.HouseNotFoundException;
-import com.meli.tuCasita.model.DistrictDTO;
-import com.meli.tuCasita.model.HouseDTO;
-
-import java.util.Optional;
+import com.meli.tuCasita.model.District;
+import com.meli.tuCasita.model.House;
 
 public interface IHouseDAO {
-    boolean save(HouseDTO hus) throws HouseNotFoundException;
-    HouseDTO findById(Long id) throws  HouseNotFoundException;
-    HouseDTO findByDistrict(DistrictDTO districtDTO) throws DistrictNotFoundException;
+    boolean save(House hus) throws HouseNotFoundException;
+    House findById(Long id) throws  HouseNotFoundException;
+    House findByDistrict(District district) throws DistrictNotFoundException;
 }

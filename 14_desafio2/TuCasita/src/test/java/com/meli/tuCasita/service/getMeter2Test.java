@@ -1,9 +1,10 @@
 package com.meli.tuCasita.service;
 
-import com.meli.tuCasita.model.AmbientDTO;
-import com.meli.tuCasita.model.DistrictDTO;
-import com.meli.tuCasita.model.HouseDTO;
+import com.meli.tuCasita.model.Ambient;
+import com.meli.tuCasita.model.District;
+import com.meli.tuCasita.model.House;
 import com.meli.tuCasita.repository.IHouseDAO;
+import com.meli.tuCasita.service.dto.ResponseMeter2DTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,40 +28,42 @@ public class getMeter2Test {
     public void meterExacts() {
         //Arrange
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
-
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte",200.0);
+        House house = new House(houseID,"Agustin", district, ambients);
+        ResponseMeter2DTO responseMeter2DTO = new ResponseMeter2DTO();
+        responseMeter2DTO.setMeter2(27.0D);
+        responseMeter2DTO.setHouse(house);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        Double received = houseService.getMeter2(houseID);
+        ResponseMeter2DTO received = houseService.getMeter2(houseID);
 
         //Assert
 
         Mockito.verify(houseDAO,Mockito.atLeastOnce()).findById(houseID);
-        Assertions.assertEquals(27.0D, received);
+        Assertions.assertEquals(27.0D, received.getMeter2());
     }
     @Test
     public void meterNotExact() {
         //Arrange
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte",200.0);
+        House house = new House(houseID,"Agustin", district, ambients);
 
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        Double received = houseService.getMeter2(houseID);
+        ResponseMeter2DTO received = houseService.getMeter2(houseID);
 
         //Assert
 
@@ -73,23 +76,23 @@ public class getMeter2Test {
         //Arrange
         Long houseID = 1L;
         String district = "Banda Norte";
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District districtDTO = new District("Banda Nrte",200.0);
+        House house = new House(houseID,"Agustin",districtDTO, ambients);
 
-        Mockito.when(houseDAO.findByDistrict(districtDTO)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findByDistrict(districtDTO)).thenReturn(house);
 
         //Act
-        HouseDTO received = houseService.getDistricto(houseDTO);
+        House received = houseService.getDistricto(house);
 
         //Assert
 
         Mockito.verify(houseDAO,Mockito.atLeastOnce()).findByDistrict(districtDTO);
-        Assertions.assertEquals(houseDTO, received);
+        Assertions.assertEquals(house, received);
     }
 
     @Test
@@ -97,24 +100,24 @@ public class getMeter2Test {
         //Arrange
         Long houseID = 1L;
         String district = "Banda Norte";
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        DistrictDTO districtDTO1 = new DistrictDTO("Centro",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District districtDTO = new District("Banda Nrte",200.0);
+        District district1 = new District("Centro",200.0);
+        House house = new House(houseID,"Agustin",districtDTO, ambients);
 
-        Mockito.when(houseDAO.findByDistrict(districtDTO)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findByDistrict(districtDTO)).thenReturn(house);
 
         //Act
-        HouseDTO received = houseService.getDistricto(houseDTO);
+        House received = houseService.getDistricto(house);
 
         //Assert
 
         Mockito.verify(houseDAO,Mockito.atLeastOnce()).findByDistrict(districtDTO);
-        Assertions.assertNotEquals(districtDTO1, received);
+        Assertions.assertNotEquals(district1, received);
     }
 
 
@@ -123,48 +126,48 @@ public class getMeter2Test {
         //Arrange
         Long houseID = 1L;
         String district = "Banda Norte";
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        DistrictDTO districtDTO1 = new DistrictDTO("Centro",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District districtDTO = new District("Banda Nrte",200.0);
+        District district1 = new District("Centro",200.0);
+        House house = new House(houseID,"Agustin",districtDTO, ambients);
 
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        AmbientDTO received = houseService.getMaxAmbient(houseID);
+        Ambient received = houseService.getMaxAmbient(houseID);
 
         //Assert
 
         Mockito.verify(houseDAO,Mockito.atLeastOnce()).findById(houseID);
-        Assertions.assertEquals(ambientDTO1, received);
+        Assertions.assertEquals(ambient1, received);
     }
     @Test
     public void AmbientWithMaxSizeNotEquals() {
         //Arrange
         Long houseID = 1L;
         String district = "Banda Norte";
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        DistrictDTO districtDTO1 = new DistrictDTO("Centro",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District districtDTO = new District("Banda Nrte",200.0);
+        District district1 = new District("Centro",200.0);
+        House house = new House(houseID,"Agustin",districtDTO, ambients);
 
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        AmbientDTO received = houseService.getMaxAmbient(houseID);
+        Ambient received = houseService.getMaxAmbient(houseID);
 
         //Assert
 
         Mockito.verify(houseDAO,Mockito.atLeastOnce()).findById(houseID);
-        Assertions.assertNotEquals(ambientDTO2, received);
+        Assertions.assertNotEquals(ambient2, received);
     }
 
     @Test
@@ -172,19 +175,19 @@ public class getMeter2Test {
         //Arrange
         Long houseID = 1L;
         String district = "Banda Norte";
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        DistrictDTO districtDTO1 = new DistrictDTO("Centro",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District districtDTO = new District("Banda Nrte",200.0);
+        District district1 = new District("Centro",200.0);
+        House house = new House(houseID,"Agustin",districtDTO, ambients);
 
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        HashMap<String, Double> received = houseService.getmaxambientforambient(houseID, ambientDTO1.getName());
+        HashMap<String, Double> received = houseService.getmaxambientforambient(houseID, ambient1.getName());
         HashMap<String, Double> expect = new HashMap<String, Double>();
         expect.put("Cosina",15.D);
         //Assert
@@ -198,19 +201,19 @@ public class getMeter2Test {
         //Arrange
         Long houseID = 1L;
         String district = "Banda Norte";
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        DistrictDTO districtDTO1 = new DistrictDTO("Centro",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District districtDTO = new District("Banda Nrte",200.0);
+        District district1 = new District("Centro",200.0);
+        House house = new House(houseID,"Agustin",districtDTO, ambients);
 
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        HashMap<String, Double> received = houseService.getmaxambientforambient(houseID, ambientDTO1.getName());
+        HashMap<String, Double> received = houseService.getmaxambientforambient(houseID, ambient1.getName());
         HashMap<String, Double> expect = new HashMap<String, Double>();
         expect.put("Pieza",12.D);
         //Assert
@@ -224,19 +227,19 @@ public class getMeter2Test {
         //Arrange
         Long houseID = 1L;
         String district = "Banda Norte";
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        DistrictDTO districtDTO1 = new DistrictDTO("Centro",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District districtDTO = new District("Banda Nrte",200.0);
+        District district1 = new District("Centro",200.0);
+        House house = new House(houseID,"Agustin",districtDTO, ambients);
 
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        HashMap<String, Double> received = houseService.getmaxambientforambient(houseID, ambientDTO1.getName());
+        HashMap<String, Double> received = houseService.getmaxambientforambient(houseID, ambient1.getName());
         HashMap<String, Double> expect = new HashMap<String, Double>();
         expect.put("Pieza",12.D);
         //Assert

@@ -1,10 +1,11 @@
 package com.meli.tuCasita.service;
 
 import com.meli.tuCasita.exception.HouseNotFoundException;
-import com.meli.tuCasita.model.AmbientDTO;
-import com.meli.tuCasita.model.DistrictDTO;
-import com.meli.tuCasita.model.HouseDTO;
+import com.meli.tuCasita.model.Ambient;
+import com.meli.tuCasita.model.District;
+import com.meli.tuCasita.model.House;
 import com.meli.tuCasita.repository.HouseDAO;
+import com.meli.tuCasita.service.dto.ResponseGetPriceDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,67 +29,69 @@ public class HouseServiceTest {
     public void HouseCreateOK() {
         //Arrange
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
-        AmbientDTO ambientDTO2 = new AmbientDTO("Pieza", 4.0, 3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID, "Agustin", districtDTO, ambientDTOS);
+        ArrayList<Ambient> ambients = new ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina", 5.0, 3.0);//15
+        Ambient ambient2 = new Ambient("Pieza", 4.0, 3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte", 200.0);
+        House house = new House(houseID, "Agustin", district, ambients);
 
-        Mockito.when(houseDAO.save(houseDTO)).thenReturn(true);
+        Mockito.when(houseDAO.save(house)).thenReturn(true);
 
         //Act
-        boolean received = houseService.create(houseDTO);
+        boolean received = houseService.create(house);
 
         //Assert
 
-        Mockito.verify(houseDAO, Mockito.atLeastOnce()).save(houseDTO);
+        Mockito.verify(houseDAO, Mockito.atLeastOnce()).save(house);
         Assertions.assertEquals(true, received);
     }
 
     @Test
     public void GetPriceOk() {
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
-        AmbientDTO ambientDTO2 = new AmbientDTO("Pieza", 4.0, 3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID, "Agustin", districtDTO, ambientDTOS);
-
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        ArrayList<Ambient> ambients = new ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina", 5.0, 3.0);//15
+        Ambient ambient2 = new Ambient("Pieza", 4.0, 3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte", 200.0);
+        House house = new House(houseID, "Agustin", district, ambients);
+        ResponseGetPriceDTO responseGetPriceDTO = new ResponseGetPriceDTO();
+        responseGetPriceDTO.setHouse(house);
+        responseGetPriceDTO.setPrice(5400D);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        Double received = houseService.getPrice(houseID);
+        ResponseGetPriceDTO received = houseService.getPrice(houseID);
 
         //Assert
 
         Mockito.verify(houseDAO, Mockito.atLeastOnce()).findById(houseID);
-        Assertions.assertEquals(5400D, received);
+        Assertions.assertEquals(5400D, received.getPrice());
     }
 
     @Test
     public void HouseCreatFais() {
         //Arrange
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
-        AmbientDTO ambientDTO2 = new AmbientDTO("Pieza", 4.0, 3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID, "agu", districtDTO, ambientDTOS);
+        ArrayList<Ambient> ambients = new ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina", 5.0, 3.0);//15
+        Ambient ambient2 = new Ambient("Pieza", 4.0, 3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte", 200.0);
+        House house = new House(houseID, "agu", district, ambients);
 
-        Mockito.when(houseDAO.save(houseDTO)).thenReturn(false);
+        Mockito.when(houseDAO.save(house)).thenReturn(false);
 
         //Act
-        boolean received = houseService.create(houseDTO);
+        boolean received = houseService.create(house);
 
         //Assert
 
-        Mockito.verify(houseDAO, Mockito.atLeastOnce()).save(houseDTO);
+        Mockito.verify(houseDAO, Mockito.atLeastOnce()).save(house);
         Assertions.assertEquals(false, received);
     }
 
@@ -96,36 +99,36 @@ public class HouseServiceTest {
     public void HouseReadOk() {
         //Arrange
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
-        AmbientDTO ambientDTO2 = new AmbientDTO("Pieza", 4.0, 3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID, "agu", districtDTO, ambientDTOS);
+        ArrayList<Ambient> ambients = new ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina", 5.0, 3.0);//15
+        Ambient ambient2 = new Ambient("Pieza", 4.0, 3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte", 200.0);
+        House house = new House(houseID, "agu", district, ambients);
 
-        Mockito.when(houseDAO.findById(houseID)).thenReturn(houseDTO);
+        Mockito.when(houseDAO.findById(houseID)).thenReturn(house);
 
         //Act
-        HouseDTO received = houseService.read(houseID);
+        House received = houseService.read(houseID);
 
         //Assert
 
         Mockito.verify(houseDAO, Mockito.atLeastOnce()).findById(houseID);
-        Assertions.assertEquals(houseDTO, received);
+        Assertions.assertEquals(house, received);
     }
 
     @Test
     public void HouseReadFails() {
         //Arrange
         Long houseID = 10L;
-        ArrayList<AmbientDTO> ambientDTOS = new ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new AmbientDTO("Cosina", 5.0, 3.0);//15
-        AmbientDTO ambientDTO2 = new AmbientDTO("Pieza", 4.0, 3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte", 200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID, "agu", districtDTO, ambientDTOS);
+        ArrayList<Ambient> ambients = new ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina", 5.0, 3.0);//15
+        Ambient ambient2 = new Ambient("Pieza", 4.0, 3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte", 200.0);
+        House house = new House(houseID, "agu", district, ambients);
 
         Mockito.when(houseDAO.findById(houseID)).thenThrow(new HouseNotFoundException(houseID));
 
@@ -149,20 +152,20 @@ public class HouseServiceTest {
     public void GetDistrictFailsService() {
         //Arrange
         Long houseID = 10L;
-        HouseDTO houseDTO = new HouseDTO();
+        House house = new House();
 
 
-        Mockito.when(houseDAO.findByDistrict(houseDTO.getDistrict())).thenThrow(new HouseNotFoundException(houseID));
+        Mockito.when(houseDAO.findByDistrict(house.getDistrict())).thenThrow(new HouseNotFoundException(houseID));
 
         //Assert
-        Assertions.assertThrows(HouseNotFoundException.class, () -> houseService.getDistricto(houseDTO));
+        Assertions.assertThrows(HouseNotFoundException.class, () -> houseService.getDistricto(house));
     }
 
     @Test
     public void GetPriceFailsService() {
         //Arrange
         Long houseID = 10L;
-        HouseDTO houseDTO = new HouseDTO();
+        House house = new House();
 
 
         Mockito.when(houseDAO.findById(houseID)).thenThrow(new HouseNotFoundException(houseID));
@@ -175,7 +178,7 @@ public class HouseServiceTest {
     public void GetMaxAmbientFailsService() {
         //Arrange
         Long houseID = 10L;
-        HouseDTO houseDTO = new HouseDTO();
+        House house = new House();
 
 
         Mockito.when(houseDAO.findById(houseID)).thenThrow(new HouseNotFoundException(houseID));
@@ -187,7 +190,7 @@ public class HouseServiceTest {
     public void GetmaxambientforambientFailsService() {
         //Arrange
         Long houseID = 10L;
-        HouseDTO houseDTO = new HouseDTO();
+        House house = new House();
 
 
         Mockito.when(houseDAO.findById(houseID)).thenThrow(new HouseNotFoundException(houseID));

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseDTO {
+public class House {
 
     Long id;
 
@@ -19,8 +19,8 @@ public class HouseDTO {
     String houseName;
 
     @NotNull
-    DistrictDTO district;
+    District district;
 
     @NotEmpty(message = "La lista de ambientes no puede estar vacía.")
-    List<@Valid AmbientDTO> ambient;
+    List<@Valid Ambient> ambient;
 }

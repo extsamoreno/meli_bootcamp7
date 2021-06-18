@@ -1,9 +1,9 @@
 package com.meli.tuCasita.reposioryTest;
 
 import com.meli.tuCasita.exception.HouseNotFoundException;
-import com.meli.tuCasita.model.AmbientDTO;
-import com.meli.tuCasita.model.DistrictDTO;
-import com.meli.tuCasita.model.HouseDTO;
+import com.meli.tuCasita.model.Ambient;
+import com.meli.tuCasita.model.District;
+import com.meli.tuCasita.model.House;
 import com.meli.tuCasita.repository.HouseDAO;
 import com.meli.tuCasita.repository.IHouseDAO;
 import org.junit.jupiter.api.Assertions;
@@ -20,38 +20,38 @@ public class HouseRepositoryTest {
     public void HouseFindByIdHappyPath() throws HouseNotFoundException {
         //arrange
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte",200.0);
+        House house = new House(houseID,"Agustin", district, ambients);
 
 
 
         //act
-        HouseDTO houseDTO1 = iHouseDAO.findById(houseID);
+        House house1 = iHouseDAO.findById(houseID);
 
         //assert
-        Assertions.assertEquals(houseDTO1.getHouseName(),houseDTO.getHouseName() );
+        Assertions.assertEquals(house1.getHouseName(), house.getHouseName() );
     }
     @Test
     public void HouseSaveHappyPath() throws HouseNotFoundException {
         //arrange
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte",200.0);
+        House house = new House(houseID,"Agustin", district, ambients);
 
 
 
         //act
-        boolean houseDTO1 = iHouseDAO.save(houseDTO);
+        boolean houseDTO1 = iHouseDAO.save(house);
 
         //assert
         Assertions.assertTrue(houseDTO1);
@@ -60,21 +60,21 @@ public class HouseRepositoryTest {
     public void FindByDistrictHappyPath() throws HouseNotFoundException {
         //arrange
         Long houseID = 1L;
-        ArrayList<AmbientDTO> ambientDTOS = new  ArrayList<AmbientDTO>();
-        AmbientDTO ambientDTO1 = new  AmbientDTO("Cosina",5.0,3.0);//15
-        AmbientDTO ambientDTO2 = new  AmbientDTO("Pieza",4.0,3.0);//12
-        ambientDTOS.add(ambientDTO1);
-        ambientDTOS.add(ambientDTO2);
-        DistrictDTO districtDTO = new DistrictDTO("Banda Nrte",200.0);
-        HouseDTO houseDTO = new HouseDTO(houseID,"Agustin",districtDTO,ambientDTOS);
+        ArrayList<Ambient> ambients = new  ArrayList<Ambient>();
+        Ambient ambient1 = new Ambient("Cosina",5.0,3.0);//15
+        Ambient ambient2 = new Ambient("Pieza",4.0,3.0);//12
+        ambients.add(ambient1);
+        ambients.add(ambient2);
+        District district = new District("Banda Nrte",200.0);
+        House house = new House(houseID,"Agustin", district, ambients);
 
 
 
         //act
-        HouseDTO houseDTO1 = iHouseDAO.findByDistrict(districtDTO);
+        House house1 = iHouseDAO.findByDistrict(district);
 
         //assert
-        Assertions.assertEquals(houseDTO1.getHouseName(),houseDTO.getHouseName());
+        Assertions.assertEquals(house1.getHouseName(), house.getHouseName());
     }
 
 }
