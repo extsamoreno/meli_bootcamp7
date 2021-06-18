@@ -5,6 +5,7 @@ import com.bootcamp.desafio2.controller.HouseController;
 import com.bootcamp.desafio2.dto.request.HouseDTO;
 import com.bootcamp.desafio2.dto.response.EnvironmentShortDTO;
 import com.bootcamp.desafio2.dto.response.HouseFeaturesDTO;
+import com.bootcamp.desafio2.entity.House;
 import com.bootcamp.desafio2.exception.district.DistrictNotFoundException;
 import com.bootcamp.desafio2.exception.house.HouseAlreadyExistsException;
 import com.bootcamp.desafio2.exception.house.HouseNotFoundException;
@@ -127,7 +128,7 @@ public class UTHouseController {
     }
 
     @Test
-    public void registerStudentSuccessfully() throws HouseAlreadyExistsException, DistrictNotFoundException {
+    public void registerPropertySuccessfully() throws HouseAlreadyExistsException, DistrictNotFoundException {
         // arrange
         HouseDTO newHouseDTO = UtilsGenerator.generateNewHouseDTO();
         Mockito.doNothing().when(houseService).addNewProperty(newHouseDTO);
@@ -140,7 +141,7 @@ public class UTHouseController {
     }
 
     @Test
-    public void registerStudentTrowHouseAlreadyExistsException() throws HouseAlreadyExistsException, DistrictNotFoundException {
+    public void registerPropertyTrowHouseAlreadyExistsException() throws HouseAlreadyExistsException, DistrictNotFoundException {
         // arrange
         String prop_name = "Casa101";
         HouseDTO newHouseDTO = UtilsGenerator.generateNewHouseDTO();
@@ -151,7 +152,7 @@ public class UTHouseController {
     }
 
     @Test
-    public void registerStudentTrowDistrictNotFoundException() throws HouseAlreadyExistsException, DistrictNotFoundException {
+    public void registerPropertyTrowDistrictNotFoundException() throws HouseAlreadyExistsException, DistrictNotFoundException {
         // arrange
         String prop_name = "Casa101";
         HouseDTO newHouseDTO = UtilsGenerator.generateNewHouseDTO();
@@ -162,4 +163,31 @@ public class UTHouseController {
     }
 
 
+    @Test
+    public void generateEnvironmentListSuccessfully() throws HouseNotFoundException {
+        // Arrange
+        String prop_name = "Casa101";
+        ArrayList<EnvironmentShortDTO> expected = UtilsGenerator.showEnvironmentListCasa101() ;
+
+        Mockito.when(houseService.generateEnvironmentList(prop_name)).thenReturn(expected);
+
+        // Act
+        ResponseEntity response = houseController.showEnvironmentList(prop_name);
+        //ArrayList<EnvironmentShortDTO> response = houseService.generateEnvironmentList(prop_name);
+
+        // Assert
+        Mockito.verify(houseService, atLeastOnce()).generateEnvironmentList(prop_name);
+        Assertions.assertEquals(expected, response.getBody());
+    }
+
+    @Test
+    public void generateEnvironmentListTrowHouseNotFoundException() throws HouseNotFoundException {
+        // Arrange
+        String prop_name = "Casa000";
+
+        Mockito.when(houseService.generateEnvironmentList(prop_name)).thenThrow(HouseNotFoundException.class);
+
+        // Act & Assert
+        Assertions.assertThrows(HouseNotFoundException.class,() -> houseController.showEnvironmentList(prop_name));
+    }
 }

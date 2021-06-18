@@ -234,27 +234,22 @@ public class UTHouseServiceImpl {
         Mockito.verify(districtRepository, atLeastOnce()).existsDistrictInDB(district_name);
     }
 
-    /*
+
     @Test
     public void addNewPropertyTrowHouseAlreadyExistsException() throws HouseAlreadyExistsException, DistrictNotFoundException {
         // arrange
         String prop_name = "Casa101";
-        String district_name = "Palermo";
-        double district_price = 1000.0;
         HouseDTO newHouseDTO = UtilsGenerator.generateNewHouseDTO();
-        House modelHouse = UtilsGenerator.genererateNewModelHouse();
+        newHouseDTO.setProp_name(prop_name);
 
         Mockito.when(houseRepository.existsPropertyName(prop_name)).thenReturn(true);
-        //Mockito.when(districtRepository.existsDistrictInDB(district_name)).thenReturn(true);
-        //Mockito.when(mapper.map(newHouseDTO, House.class)).thenReturn(modelHouse);
-        //Mockito.when(districtRepository.getDistrictPrice(district_name)).thenReturn(district_price);
 
         // Act & Assert
         Assertions.assertTrue(houseRepository.existsPropertyName(prop_name));
         Assertions.assertThrows(HouseAlreadyExistsException.class, () -> houseService.addNewProperty(newHouseDTO));
     }
 
-     */
+
 
     @Test
     public void addNewPropertyTrowDistrictNotFoundException() throws HouseAlreadyExistsException, DistrictNotFoundException {

@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "6683beb1-25f7-41e8-8e78-80c5e331850f",
+		"name": "Desafio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Features Property",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/features/Casa101",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"features",
+						"Casa101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of Environments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/environments/Casa101",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"environments",
+						"Casa101"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register New Property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Apto101\",\n    \"district_name\": \"Palermo\",\n    \"environments\": [\n        {\n            \"environment_name\": \"Kitchen\",\n            \"environment_width\": 2.5,\n            \"environment_length\": 2.0\n        },\n        {\n            \"environment_name\": \"Room1\",\n            \"environment_width\": 5.0,\n            \"environment_length\": 3.0\n        },\n        {\n            \"environment_name\": \"Bath Room\",\n            \"environment_width\": 2.0,\n            \"environment_length\": 2.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/properties/registerProperty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"registerProperty"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
