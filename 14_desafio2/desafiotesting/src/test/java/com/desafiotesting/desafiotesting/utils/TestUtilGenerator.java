@@ -57,9 +57,9 @@ public class TestUtilGenerator {
     }
 
     public static List<EnviromentWithSquareMetersDTO> getEnviromentsWithSquareMetersDTO(){
-        EnviromentWithSquareMetersDTO enviroment1 = new EnviromentWithSquareMetersDTO("Cocina",22.3,33,735.9);
-        EnviromentWithSquareMetersDTO enviroment2 = new EnviromentWithSquareMetersDTO("Comedor",21.5,33,709.5);
-        EnviromentWithSquareMetersDTO enviroment3 = new EnviromentWithSquareMetersDTO("Baño",12.5,34.5,431.25);
+        EnviromentWithSquareMetersDTO enviroment1 = new EnviromentWithSquareMetersDTO("Cocina",22,33,726);
+        EnviromentWithSquareMetersDTO enviroment2 = new EnviromentWithSquareMetersDTO("Comedor",21.5,32,688);
+        EnviromentWithSquareMetersDTO enviroment3 = new EnviromentWithSquareMetersDTO("Baño",12.5,33,412.5);
         return List.of(enviroment1,enviroment2,enviroment3);
     }
 }

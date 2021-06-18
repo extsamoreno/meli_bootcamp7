@@ -85,7 +85,4 @@ public class PropertyControllerTest {
         Mockito.verify(propertyService,Mockito.atLeast(1)).getEnviromentsInfo(id);
         Assertions.assertEquals(enviromentsWithSquareMetersDTO , response);
     }
-
-
-
 }
