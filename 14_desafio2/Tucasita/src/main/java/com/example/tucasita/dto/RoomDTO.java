@@ -1,6 +1,5 @@
 package com.example.tucasita.dto;
 
-import com.example.tucasita.domain.Room;
 import lombok.*;
 
 import javax.validation.constraints.*;

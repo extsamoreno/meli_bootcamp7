@@ -14,6 +14,11 @@ public class Room {
     private double width;
     private double length;
 
+    /**
+     * returns the square meters of the room
+     *
+     * @return
+     */
     public double squareMeters() {
         return width * length;
     }
