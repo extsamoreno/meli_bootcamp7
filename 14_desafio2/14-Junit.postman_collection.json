@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "fd9dc907-0d24-4aef-b330-5d6480fd979e",
+		"name": "14-Junit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Properties",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"propName\": \"Propiedad 1\",\n        \"district\": {\n            \"districtName\": \"Distrito 1\",\n            \"districtPrice\": 3500\n        },\n        \"environments\": [\n            {\n                \"environmentName\": \"Baño\",\n                \"environmentWidth\": 25,\n                \"environmentLength\": 33\n            },\n            {\n                \"environmentName\": \"Habitacion 1\",\n                \"environmentWidth\": 25.0,\n                \"environmentLength\": 33.0\n            },\n            {\n                \"environmentName\": \"Cocina\",\n                \"environmentWidth\": 25,\n                \"environmentLength\": 30\n            }\n        ]\n    },\n    {\n    \"propName\": \"Propiedad 2\",\n    \"district\": {\n        \"districtName\": \"Distrito 2\",\n        \"districtPrice\": 4000\n    },\n    \"environments\": [\n        {\n            \"environmentName\": \"Baño\",\n            \"environmentWidth\": 3,\n            \"environmentLength\": 4\n        },\n{\n            \"environmentName\": \"Habitacion 1\",\n            \"environmentWidth\": 14.0,\n            \"environmentLength\": 15.9\n        },\n        {\n            \"environmentName\": \"Cocina\",\n            \"environmentWidth\": 7,\n            \"environmentLength\": 3.541\n        }\n    ]\n}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/adds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"adds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"propName\": \"Propiedad 1\",\n    \"district\": {\n        \"districtName\": \"Distrito 1\",\n        \"districtPrice\": 3500\n    },\n    \"environments\": [\n        {\n            \"environmentName\": \"Baño\",\n            \"environmentWidth\": 25,\n            \"environmentLength\": 33\n        },\n{\n            \"environmentName\": \"Habitacion 1\",\n            \"environmentWidth\": 25.0,\n            \"environmentLength\": 33.0\n        },\n        {\n            \"environmentName\": \"Cocina\",\n            \"environmentWidth\": 25,\n            \"environmentLength\": 30\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get properties",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "totalsquaremeterproperty",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/totalsquaremeterproperty/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"totalsquaremeterproperty",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "totalvaluepropertybyenvironment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/totalvaluepropertybyenvironment/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"totalvaluepropertybyenvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "biggerenvironment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/biggerenvironment/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"biggerenvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "totalsquearemeterbyenvironment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/totalsquearemeterbyenvironment/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"totalsquearemeterbyenvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add District",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"districtName\":\"District 1\",\n    \"districtPrice\":1500\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/district/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"district",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adds District",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"districtName\": \"District 1\",\n        \"districtPrice\": 1500\n    },\n    {\n        \"districtName\": \"District 2\",\n        \"districtPrice\": 700\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/district/adds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"district",
+						"adds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get District",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/district",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"district"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
