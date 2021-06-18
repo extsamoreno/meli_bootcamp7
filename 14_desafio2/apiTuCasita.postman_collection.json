@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "01684184-b6a9-463f-88fc-3fa53d6bb686",
+		"name": "endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "newProp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"id\": 3,\n    \"name\": \"Soler 6129\",\n    \"districtId\": 3,\n    \"environments\": [\n      {\n        \"name\": \"Patio delantero\",\n        \"width\": 3.00,\n        \"length\": 10.00\n      },\n      {\n        \"name\": \"Dormitorio principal\",\n        \"width\": 4.00,\n        \"length\": 4.00\n      },\n        {\n        \"name\": \"Segundo dormitorio\",\n        \"width\": 3.00,\n        \"length\": 3.00\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/newProperty",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"newProperty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getArea",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/calculateArea/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculateArea",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPrice",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/calculatePrice/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculatePrice",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEnvironments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/biggestEnvironment/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"biggestEnvironment",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "biggestEnvironment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/biggestEnvironment/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"biggestEnvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEnvironments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/environments/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"environments",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newDistrict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"id\": 4,\n    \"name\": \"Villa Lugano\",\n    \"price\": 2500\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/newDistrict",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"newDistrict"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

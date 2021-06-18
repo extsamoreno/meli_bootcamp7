@@ -33,8 +33,8 @@ public class PropertyControllerIntegrationTest {
   private PropertyRepositoryImpl propertyRepository;
 
   @BeforeAll
-  public static void init(){
-    System.out.println("Unit tests initializing...");
+  public static void init() {
+    System.out.println("Integration tests initializing...");
   }
 
   // ------------------------------------------------------------------------
@@ -66,7 +66,7 @@ public class PropertyControllerIntegrationTest {
     int distId = testDistrict.getId(); // id = 18
 
     when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
-    when(propertyRepository.findDistrictById(id)).thenReturn(testDistrict);
+    when(propertyRepository.findDistrictById(distId)).thenReturn(testDistrict);
 
     this.mockMvc.perform(MockMvcRequestBuilders.get("/calculatePrice/{id}", id))
             .andDo(print()).andExpect(status().isOk())
@@ -76,24 +76,26 @@ public class PropertyControllerIntegrationTest {
                     .value(Utils.calculateArea(testProperty) * testDistrict.getPrice()));
   }
 
-//  @Test
-//  public void testBiggestEnvironmentHappyPath() throws Exception {
-//    this.mockMvc.perform(MockMvcRequestBuilders.get("/calculateArea/{id}", 1))
-//            .andDo(print()).andExpect(status().isOk())
-//            .andExpect(content().contentType("application/json"))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Juramento 5623"));
-//  }
-//
-//  @Test
-//  public void testEnvironmentsHappyPath() throws Exception {
-//    this.mockMvc.perform(MockMvcRequestBuilders.get("/calculateArea/{id}", 1))
-//            .andDo(print()).andExpect(status().isOk())
-//            .andExpect(content().contentType("application/json"))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Juramento 5623"));
-//  }
+  @Test
+  public void testBiggestEnvironmentHappyPath() throws Exception {
 
+    PropertyDto testProperty = Utils.getPropertyDto();
+    int id = testProperty.getId(); // id = 18
+    EnvironmentAreaDto testEnvironment = Utils.calculateBiggestEnvironment(testProperty);
+    when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
 
-
+    this.mockMvc.perform(MockMvcRequestBuilders.get("/biggestEnvironment/{id}", id))
+            .andDo(print()).andExpect(status().isOk())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").
+                    value(testEnvironment.getName()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.area")
+                    .value(testEnvironment.getArea()));
   }
 
+  @Test
+  public void testEnvironmentsHappyPath() throws Exception {
+    // Pendiente de realizar
+  }
+}
 
