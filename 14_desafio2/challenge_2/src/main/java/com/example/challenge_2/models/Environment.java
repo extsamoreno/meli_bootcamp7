@@ -9,5 +9,5 @@ import lombok.*;
 public class Environment {
     private String name;
     private double width;
-    private double height;
+    private double length;
 }

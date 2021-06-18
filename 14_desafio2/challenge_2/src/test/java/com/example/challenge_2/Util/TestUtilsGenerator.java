@@ -7,6 +7,10 @@ import com.example.challenge_2.service.dto.DistrictDTO;
 import com.example.challenge_2.service.dto.EnvironmentDTO;
 import com.example.challenge_2.service.dto.EnvironmentSquareMetersDTO;
 import com.example.challenge_2.service.dto.PropertyDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +19,11 @@ import java.util.stream.Collectors;
 public class TestUtilsGenerator {
 
     public static Property getPropertyWithFourEnvironmentTest() {
-        return new Property(1, "Genaro's House", getDistrictTest(), getEnvironmentListTest());
+        return new Property(1, "House", getDistrictTest(), getEnvironmentListTest());
     }
 
     public static PropertyDTO getPropertyDTOWithFourEnvironmentTest() {
-        return new PropertyDTO("Genaro's House", new DistrictDTO("Centro"), getEnvironmentDTOList());
+        return new PropertyDTO("House", new DistrictDTO("Centro"), getEnvironmentDTOList());
     }
 
     public static District getDistrictTest() {
@@ -27,7 +31,7 @@ public class TestUtilsGenerator {
     }
 
     public static Environment getEnvironmentTest() {
-        return new Environment("Kitchen", 30d, 5d);
+        return new Environment("Kitchen", 25d, 5d);
     }
 
     public static List<Environment> getEnvironmentListTest() {
@@ -36,7 +40,7 @@ public class TestUtilsGenerator {
 
         environmentList.add(new Environment("Room", 7d, 5d));
 
-        environmentList.add(new Environment("Kitchen", 30d, 5d));
+        environmentList.add(new Environment("Kitchen", 25d, 5d));
 
         environmentList.add(new Environment("Living", 5d, 5d));
 
@@ -51,7 +55,7 @@ public class TestUtilsGenerator {
 
         environmentList.add(new EnvironmentDTO("Room", 7d, 5d));
 
-        environmentList.add(new EnvironmentDTO("Kitchen", 30d, 5d));
+        environmentList.add(new EnvironmentDTO("Kitchen", 25d, 5d));
 
         environmentList.add(new EnvironmentDTO("Living", 5d, 5d));
 
@@ -61,6 +65,14 @@ public class TestUtilsGenerator {
     }
 
     public static List<EnvironmentSquareMetersDTO> getEnvironmentSquareMetersDTOTest() {
-        return getEnvironmentDTOList().stream().map(x -> new EnvironmentSquareMetersDTO(x.getName(), (x.getHeight() * x.getWidth()))).collect(Collectors.toList());
+        return getEnvironmentDTOList().stream().map(x -> new EnvironmentSquareMetersDTO(x.getName(), (x.getLength() * x.getWidth()))).collect(Collectors.toList());
+    }
+
+    public static String makeObjectJsonString(Object object) throws JsonProcessingException {
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer().withDefaultPrettyPrinter();
+
+        return writer.writeValueAsString(object);
     }
 }

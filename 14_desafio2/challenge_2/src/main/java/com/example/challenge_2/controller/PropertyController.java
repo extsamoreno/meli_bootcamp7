@@ -20,7 +20,7 @@ public class PropertyController {
     IPropertyService propertyService;
 
     @PostMapping("")
-    public ResponseEntity<NewIdDTO> createProperty(@Valid @RequestBody PropertyDTO property) throws DistrictException {
+    public ResponseEntity<NewIdDTO> createProperty(@RequestBody @Valid PropertyDTO property) throws DistrictException {
         return new ResponseEntity<NewIdDTO>(propertyService.createProperty(property), HttpStatus.OK);
     }
 
