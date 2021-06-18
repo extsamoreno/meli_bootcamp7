@@ -46,5 +46,4 @@ public class TasacionesRestController {
         return new ResponseEntity<>(services.newDistrict(district), HttpStatus.OK);
     }
 
-
 }
