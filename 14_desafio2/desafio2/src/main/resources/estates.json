@@ -1,0 +1,8 @@
+[
+  {
+    "id": 1,
+    "name": "asdf",
+    "district": 1,
+    "environments": [1, 2]
+  }
+]

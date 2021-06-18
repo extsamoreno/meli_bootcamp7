@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "a",
+    "width": 2,
+    "height": 3
+  },
+  {
+    "id": 2,
+    "name": "b",
+    "width": 4,
+    "height": 5
+  }
+]

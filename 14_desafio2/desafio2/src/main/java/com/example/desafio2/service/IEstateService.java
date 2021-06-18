@@ -1,16 +1,19 @@
 package com.example.desafio2.service;
 
 import com.example.desafio2.dto.*;
+import com.example.desafio2.exception.NameNotFoundException;
+
+import java.util.List;
 
 public interface IEstateService {
 
-	SquareMetersDTO getEstateSquareMeters(String name);
+	EstateSquareMetersDTO getEstateSquareMeters(String name) throws NameNotFoundException;
 
-	Double getEstateValue(String name);
+	Double getEstateValue(String name) throws NameNotFoundException;
 
-	LargestEnvironmentDTO getLargestEnvironment(String name);
+	LargestEnvironmentDTO getLargestEnvironment(String name) throws NameNotFoundException;
 
-	EnvironmentsSquareMetersDTO getEnvironmentsSquareMeters(String name);
+	List<EnvironmentSquareMetersDTO> getEnvironmentsSquareMeters(String name) throws NameNotFoundException;
 
 	void add(EstateDTO estate);
 }
