@@ -9,16 +9,18 @@ import com.tucasitatasaciones.tucasitatasaciones.services.dtos.OwnershipWithData
 import com.tucasitatasaciones.tucasitatasaciones.services.dtos.OwnershipWithPriceDTO;
 import com.tucasitatasaciones.tucasitatasaciones.services.dtos.OwnershipWithSquareMeterDTO;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class OwnershipControllerUTests {
@@ -28,75 +30,74 @@ public class OwnershipControllerUTests {
     @InjectMocks
     private OwnershipController ownershipController;
 
+    private int expectedId;
+
+    @BeforeEach
+    public void InitData() {
+        expectedId = 1;
+    }
+
     @Test
     public void addOwnershipOkTest() throws DistrictNotFoundException {
         OwnershipWithDataDTO expected = new OwnershipWithDataDTO();
-        expected.setId(1);
+        expected.setId(expectedId);
         expected.setName("Ownership Dummy");
         expected.setDistrict(new DistrictDTO(1, "District Dummy", 20D));
         expected.setRooms(new ArrayList<>());
 
-        Mockito.when(ownershipService.add(expected)).thenReturn(expected);
+        when(ownershipService.add(expected)).thenReturn(expected);
 
         var received = ownershipController.addOwnership(expected);
 
-        Mockito.verify(ownershipService, Mockito.atLeastOnce()).add(expected);
+        verify(ownershipService, atLeastOnce()).add(expected);
         Assertions.assertEquals(HttpStatus.OK, received.getStatusCode());
         Assertions.assertEquals(expected, received.getBody());
     }
 
     @Test
     public void calculateSquareMeterByOwnershipWithDataOkTest() throws OwnershipNotFoundException {
-        int expectedId = 1;
-
         OwnershipWithSquareMeterDTO expected = new OwnershipWithSquareMeterDTO(1, "Ownership Dummy", 20D);
 
-        Mockito.when(ownershipService.calculateSquareMeterByOwnership(expectedId)).thenReturn(expected);
+        when(ownershipService.calculateSquareMeterByOwnership(expectedId)).thenReturn(expected);
 
         ResponseEntity<OwnershipWithSquareMeterDTO> received = ownershipController.calculateSquareMeterByOwnership(expectedId);
 
-        Mockito.verify(ownershipService, Mockito.atLeastOnce()).calculateSquareMeterByOwnership(expectedId);
+        verify(ownershipService, atLeastOnce()).calculateSquareMeterByOwnership(expectedId);
         Assertions.assertEquals(HttpStatus.OK, received.getStatusCode());
         Assertions.assertEquals(expected, received.getBody());
     }
 
     @Test
     public void calculateSquareMeterByOwnershipWithoutDataOkTest() throws OwnershipNotFoundException {
-        int expectedId = 1;
-
-        Mockito.when(ownershipService.calculateSquareMeterByOwnership(expectedId)).thenReturn(null);
+        when(ownershipService.calculateSquareMeterByOwnership(expectedId)).thenReturn(null);
 
         ResponseEntity<OwnershipWithSquareMeterDTO> received = ownershipController.calculateSquareMeterByOwnership(expectedId);
 
-        Mockito.verify(ownershipService, Mockito.atLeastOnce()).calculateSquareMeterByOwnership(expectedId);
+        verify(ownershipService, atLeastOnce()).calculateSquareMeterByOwnership(expectedId);
         Assertions.assertEquals(HttpStatus.OK, received.getStatusCode());
         Assertions.assertNull(received.getBody());
     }
 
     @Test
     public void calculatePriceByOwnershipWithDataOkTest() throws OwnershipNotFoundException, DistrictNotFoundException {
-        int expectedId = 1;
-
         OwnershipWithPriceDTO expected = new OwnershipWithPriceDTO(1, "Ownership Dummy", 20D);
 
-        Mockito.when(ownershipService.calculatePriceByOwnership(expectedId)).thenReturn(expected);
+        when(ownershipService.calculatePriceByOwnership(expectedId)).thenReturn(expected);
 
         ResponseEntity<OwnershipWithPriceDTO> received = ownershipController.calculatePriceByOwnership(expectedId);
 
-        Mockito.verify(ownershipService, Mockito.atLeastOnce()).calculatePriceByOwnership(expectedId);
+        verify(ownershipService, atLeastOnce()).calculatePriceByOwnership(expectedId);
         Assertions.assertEquals(HttpStatus.OK, received.getStatusCode());
         Assertions.assertEquals(expected, received.getBody());
     }
 
     @Test
     public void calculatePriceByOwnershipWithoutDataOkTest() throws OwnershipNotFoundException, DistrictNotFoundException {
-        int expectedId = 1;
-
-        Mockito.when(ownershipService.calculatePriceByOwnership(expectedId)).thenReturn(null);
+        when(ownershipService.calculatePriceByOwnership(expectedId)).thenReturn(null);
 
         ResponseEntity<OwnershipWithPriceDTO> received = ownershipController.calculatePriceByOwnership(expectedId);
 
-        Mockito.verify(ownershipService, Mockito.atLeastOnce()).calculatePriceByOwnership(expectedId);
+        verify(ownershipService, atLeastOnce()).calculatePriceByOwnership(expectedId);
         Assertions.assertEquals(HttpStatus.OK, received.getStatusCode());
         Assertions.assertNull(received.getBody());
     }

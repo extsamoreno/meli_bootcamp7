@@ -10,6 +10,7 @@ import com.tucasitatasaciones.tucasitatasaciones.repositories.entities.Room;
 import com.tucasitatasaciones.tucasitatasaciones.services.OwnershipService;
 import com.tucasitatasaciones.tucasitatasaciones.services.dtos.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,6 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 public class OwnershipServiceUTests {
     @Mock
@@ -33,56 +36,63 @@ public class OwnershipServiceUTests {
     @InjectMocks
     private OwnershipService ownershipService;
 
+    private OwnershipWithDataDTO expectedOwnershipWithDataDTO;
+    private District expectedDistrict;
+    private List<Room> expectedRooms;
+    private Ownership expectedOwnership;
+
+    @BeforeEach
+    public void InitData() {
+        expectedOwnershipWithDataDTO = new OwnershipWithDataDTO();
+        expectedOwnershipWithDataDTO.setId(1);
+        expectedOwnershipWithDataDTO.setName("Add test dummy");
+        expectedOwnershipWithDataDTO.setDistrict(new DistrictDTO(1, "District dummy", 20.0));
+
+        expectedDistrict = new District(1, "District dummy", 20.0);
+
+        expectedRooms = Arrays.asList(new Room(2, "Kitchen", 5.0, 3.0),
+                new Room(3, "Linving", 15.0, 7.0),
+                new Room(1, "Bedroom", 30.0, 10.0));
+
+        expectedOwnership = new Ownership(1, "Ownership Test", expectedRooms, 1);
+    }
+
     @Test
     public void addOkTest() throws DistrictNotFoundException {
-        OwnershipWithDataDTO expected = new OwnershipWithDataDTO();
-        expected.setId(1);
-        expected.setName("Add test dummy");
-        expected.setDistrict(new DistrictDTO(1, "District dummy", 20.0));
-        expected.setRooms(Arrays.asList(new RoomDTO("Room 1", 10D, 5D),
-                new RoomDTO("Room 2", 5D, 2D)));
+        expectedOwnershipWithDataDTO.setRooms(Arrays.asList(
+                new RoomDTO("Room 1", 10D, 5D),
+                new RoomDTO("Room 2", 5D, 2D))
+        );
 
-        District district = new District(1, "District dummy", 20.0);
+        when(districtRepository.findAny(expectedOwnershipWithDataDTO.getDistrict().getId())).thenReturn(expectedDistrict);
 
-        Mockito.when(districtRepository.findAny(expected.getDistrict().getId())).thenReturn(district);
+        var received = ownershipService.add(expectedOwnershipWithDataDTO);
 
-        var received = ownershipService.add(expected);
-
-        Mockito.verify(districtRepository, Mockito.atLeastOnce()).findAny(expected.getDistrict().getId());
-        Assertions.assertEquals(expected, received);
+        verify(districtRepository, atLeastOnce()).findAny(expectedOwnershipWithDataDTO.getDistrict().getId());
+        Assertions.assertEquals(expectedOwnershipWithDataDTO, received);
     }
 
     @Test
     public void addDistrictNotFoundErrorTest() throws DistrictNotFoundException {
-        OwnershipWithDataDTO expected = new OwnershipWithDataDTO();
-        expected.setId(1);
-        expected.setName("Add test dummy");
-        expected.setDistrict(new DistrictDTO(1, "District dummy", 20.0));
-        expected.setRooms(new ArrayList<>());
+        expectedOwnershipWithDataDTO.setRooms(new ArrayList<>());
 
-        Mockito.when(districtRepository.findAny(expected.getDistrict().getId())).thenReturn(null);
+        when(districtRepository.findAny(expectedOwnershipWithDataDTO.getDistrict().getId())).thenReturn(null);
 
-        Assertions.assertThrows(DistrictNotFoundException.class, () -> ownershipService.add(expected));
-        Mockito.verify(districtRepository, Mockito.atLeastOnce()).findAny(expected.getDistrict().getId());
+        Assertions.assertThrows(DistrictNotFoundException.class, () -> ownershipService.add(expectedOwnershipWithDataDTO));
+        verify(districtRepository, atLeastOnce()).findAny(expectedOwnershipWithDataDTO.getDistrict().getId());
     }
 
     @Test
     public void calculateSquareMeterByOwnershipCorrectResultOkTest() throws OwnershipNotFoundException {
-        List<Room> rooms = Arrays.asList(new Room(2, "Kitchen", 5.0, 3.0),
-                new Room(3, "Linving", 15.0, 7.0),
-                new Room(1, "Bedroom", 30.0, 10.0));
-
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", rooms, 1);
-
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         OwnershipWithSquareMeterDTO received = ownershipService.calculateSquareMeterByOwnership(expectedOwnership.getId());
 
-        double expected = rooms.stream()
+        double expected = expectedRooms.stream()
                 .map(x -> x.getWidth() * x.getHigh())
                 .reduce(0D, Double::sum);
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
         Assertions.assertEquals(expected, received.getSquareMeter());
     }
 
@@ -93,29 +103,23 @@ public class OwnershipServiceUTests {
         expected.setName("Ownership Test");
         expected.setSquareMeter(420D);
 
-        List<Room> rooms = Arrays.asList(new Room(2, "Kitchen", 5.0, 3.0),
-                new Room(3, "Linving", 15.0, 7.0),
-                new Room(1, "Bedroom", 30.0, 10.0));
-
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", rooms, 1);
-
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         OwnershipWithSquareMeterDTO received = ownershipService.calculateSquareMeterByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
         Assertions.assertEquals(expected, received);
     }
 
     @Test
     public void calculateSquareMeterByOwnershipInitZeroRoomsOkTest() throws OwnershipNotFoundException {
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", new ArrayList<>(), 1);
+        expectedOwnership.setRooms(new ArrayList<>());
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         OwnershipWithSquareMeterDTO received = ownershipService.calculateSquareMeterByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
         Assertions.assertEquals(0D, received.getSquareMeter());
     }
 
@@ -123,11 +127,11 @@ public class OwnershipServiceUTests {
     public void calculateSquareMeterByOwnershipNotFoundOwnershipErrorTest() throws OwnershipNotFoundException {
         int expectedId = 1;
 
-        Mockito.when(ownerRepository.findFirst(expectedId)).thenReturn(null);
+        when(ownerRepository.findFirst(expectedId)).thenReturn(null);
 
         Assertions.assertThrows(OwnershipNotFoundException.class, () ->
                 ownershipService.calculateSquareMeterByOwnership(expectedId));
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedId);
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedId);
     }
 
     //@Test
@@ -135,35 +139,29 @@ public class OwnershipServiceUTests {
     public void calculateSquareMeterByOwnershipNullRoomsErrorTest() throws OwnershipNotFoundException {
         Ownership expectedOwnership = new Ownership(1, "Ownership Test", null, 1);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         OwnershipWithSquareMeterDTO received =ownershipService.calculateSquareMeterByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
         Assertions.assertEquals(0D, received.getSquareMeter());
     }
 
     @Test
     public void calculatePriceByOwnershipCorrectResultOkTest() throws DistrictNotFoundException, OwnershipNotFoundException {
-        List<Room> rooms = Arrays.asList(new Room(2, "Kitchen", 5.0, 3.0),
-                new Room(3, "Linving", 15.0, 7.0),
-                new Room(1, "Bedroom", 30.0, 10.0));
-
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", rooms, 1);
-
         District district = new District(1, "District Test 1", 20D);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
-        Mockito.when(districtRepository.findAny(district.getId())).thenReturn(district);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(districtRepository.findAny(district.getId())).thenReturn(district);
 
         var received = ownershipService.calculatePriceByOwnership(expectedOwnership.getId());
 
-        Double expected = rooms.stream()
+        Double expected = expectedRooms.stream()
                 .map(x -> x.getHigh() * x.getWidth())
                 .reduce(0D, Double::sum) * district.getPrice();
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
-        Mockito.verify(districtRepository, Mockito.atLeastOnce()).findAny(district.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(districtRepository, atLeastOnce()).findAny(district.getId());
         Assertions.assertEquals(expected, received.getPrice());
     }
 
@@ -174,21 +172,13 @@ public class OwnershipServiceUTests {
         expected.setName("Ownership Test");
         expected.setPrice(8400D);
 
-        List<Room> rooms = Arrays.asList(new Room(2, "Kitchen", 5.0, 3.0),
-                new Room(3, "Linving", 15.0, 7.0),
-                new Room(1, "Bedroom", 30.0, 10.0));
-
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", rooms, 1);
-
-        District district = new District(1, "District Test 1", 20D);
-
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
-        Mockito.when(districtRepository.findAny(district.getId())).thenReturn(district);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(districtRepository.findAny(expectedDistrict.getId())).thenReturn(expectedDistrict);
 
         var received = ownershipService.calculatePriceByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
-        Mockito.verify(districtRepository, Mockito.atLeastOnce()).findAny(district.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(districtRepository, atLeastOnce()).findAny(expectedDistrict.getId());
         Assertions.assertEquals(expected, received);
     }
 
@@ -196,40 +186,39 @@ public class OwnershipServiceUTests {
     public void calculatePriceByOwnershipNotFoundOwnershipErrorTest() throws DistrictNotFoundException, OwnershipNotFoundException {
         int expectedId = 1;
 
-        Mockito.when(ownerRepository.findFirst(expectedId)).thenReturn(null);
+        when(ownerRepository.findFirst(expectedId)).thenReturn(null);
 
         Assertions.assertThrows(OwnershipNotFoundException.class, () ->
                 ownershipService.calculatePriceByOwnership(expectedId));
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedId);
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedId);
     }
 
     @Test
     public void calculatePriceByOwnershipNotFoundDistrictErrorTest() throws DistrictNotFoundException, OwnershipNotFoundException {
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", null, 1);
+        expectedOwnership.setRooms(null);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
-        Mockito.when(districtRepository.findAny(expectedOwnership.getDistrictId())).thenReturn(null);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(districtRepository.findAny(expectedOwnership.getDistrictId())).thenReturn(null);
 
         Assertions.assertThrows(DistrictNotFoundException.class, () ->
                 ownershipService.calculatePriceByOwnership(expectedOwnership.getId()));
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
-        Mockito.verify(districtRepository, Mockito.atLeastOnce()).findAny(expectedOwnership.getDistrictId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(districtRepository, atLeastOnce()).findAny(expectedOwnership.getDistrictId());
     }
 
     @Test
     public void calculatePriceByOwnershipInitZeroRoomsOkTest() throws DistrictNotFoundException, OwnershipNotFoundException {
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", new ArrayList<>(), 1);
-        District district = new District(1, "District Test 1", 20D);
+        expectedOwnership.setRooms(new ArrayList<>());
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
-        Mockito.when(districtRepository.findAny(expectedOwnership.getDistrictId())).thenReturn(district);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(districtRepository.findAny(expectedOwnership.getDistrictId())).thenReturn(expectedDistrict);
 
         var received = ownershipService.calculatePriceByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
-        Mockito.verify(districtRepository, Mockito.atLeastOnce()).findAny(expectedOwnership.getDistrictId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(districtRepository, atLeastOnce()).findAny(expectedOwnership.getDistrictId());
         Assertions.assertEquals(0, received.getPrice());
     }
 
@@ -239,13 +228,13 @@ public class OwnershipServiceUTests {
         Ownership expectedOwnership = new Ownership(1, "Ownership Test", null, 1);
         District district = new District(1, "District Test 1", 20D);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
-        Mockito.when(districtRepository.findAny(expectedOwnership.getDistrictId())).thenReturn(district);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(districtRepository.findAny(expectedOwnership.getDistrictId())).thenReturn(district);
 
         var received = ownershipService.calculatePriceByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
-        Mockito.verify(districtRepository, Mockito.atLeastOnce()).findAny(expectedOwnership.getDistrictId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(districtRepository, atLeastOnce()).findAny(expectedOwnership.getDistrictId());
         Assertions.assertEquals(0D, received.getPrice());
     }
 }

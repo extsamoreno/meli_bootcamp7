@@ -4,10 +4,13 @@ import com.tucasitatasaciones.tucasitatasaciones.exceptions.OwnershipNotFoundExc
 import com.tucasitatasaciones.tucasitatasaciones.repositories.IOwnerRepository;
 import com.tucasitatasaciones.tucasitatasaciones.repositories.entities.Ownership;
 import com.tucasitatasaciones.tucasitatasaciones.repositories.entities.Room;
-import com.tucasitatasaciones.tucasitatasaciones.services.IRoomService;
 import com.tucasitatasaciones.tucasitatasaciones.services.RoomService;
 import com.tucasitatasaciones.tucasitatasaciones.services.dtos.RoomWithSquareMeterDTO;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +21,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 public class RoomServiceUTests {
 
@@ -27,43 +32,49 @@ public class RoomServiceUTests {
     @InjectMocks
     private RoomService roomService;
 
+    private RoomWithSquareMeterDTO expectedRoomWithSquareMeterDTO;
+    private Ownership expectedOwnership;
+    private List<Room> expectedRooms;
+    private Room biggestRoom;
+
+    @BeforeEach
+    public void InitData() {
+        expectedRoomWithSquareMeterDTO = new RoomWithSquareMeterDTO();
+
+        expectedRoomWithSquareMeterDTO.setName("Bedroom");
+        expectedRoomWithSquareMeterDTO.setWidth(30D);
+        expectedRoomWithSquareMeterDTO.setHigh(10D);
+        expectedRoomWithSquareMeterDTO.setSquareMeter(300D);
+
+        biggestRoom = new Room(1, "Bedroom", 30.0, 10.0);
+
+        expectedRooms = Arrays.asList(
+                new Room(2, "Kitchen", 5.0, 3.0),
+                new Room(3, "Linving", 15.0, 7.0),
+                biggestRoom
+        );
+
+        expectedOwnership = new Ownership(1, "Ownership Test", expectedRooms, 1);
+    }
+
     @Test
     public void getBiggestRoomByOwnershipSameObjectOkTest() throws OwnershipNotFoundException {
-        RoomWithSquareMeterDTO expectedRoom = new RoomWithSquareMeterDTO();
-        expectedRoom.setName("Bedroom");
-        expectedRoom.setWidth(30D);
-        expectedRoom.setHigh(10D);
-        expectedRoom.setSquareMeter(300D);
 
-        List<Room> rooms = Arrays.asList(new Room(2, "Kitchen", 5.0, 3.0),
-                new Room(3, "Linving", 15.0, 7.0),
-                new Room(1, "Bedroom", 30.0, 10.0));
-
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", rooms, 1);
-
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         RoomWithSquareMeterDTO received = roomService.getBiggestRoomByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
-        Assertions.assertEquals(expectedRoom, received);
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
+        Assertions.assertEquals(expectedRoomWithSquareMeterDTO, received);
     }
 
     @Test
     public void getBiggestRoomByOwnershipCorrectValueSquareMeterOkTest() throws OwnershipNotFoundException {
-        Room biggestRoom = new Room(1, "Bedroom", 30.0, 10.0);
-
-        List<Room> rooms = Arrays.asList(new Room(2, "Kitchen", 5.0, 3.0),
-                new Room(3, "Linving", 15.0, 7.0),
-                biggestRoom);
-
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", rooms, 1);
-
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         RoomWithSquareMeterDTO received = roomService.getBiggestRoomByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
         Assertions.assertEquals(biggestRoom.getWidth() * biggestRoom.getHigh(), received.getSquareMeter());
     }
 
@@ -71,41 +82,35 @@ public class RoomServiceUTests {
     public void getBiggestRoomByOwnershipNotFoundOwnershipIdErrorTest() throws OwnershipNotFoundException {
         int expectedId = 1;
 
-        Mockito.when(ownerRepository.findFirst(expectedId)).thenReturn(null);
+        when(ownerRepository.findFirst(expectedId)).thenReturn(null);
 
         Assertions.assertThrows(OwnershipNotFoundException.class, () -> roomService.getBiggestRoomByOwnership(expectedId));
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedId);
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedId);
     }
 
     //@Test
-    // TODO: 17/06/2021 No cuenta con habitaciones la propiedad
+    // TODO: 17/06/2021 Without ownership's rooms
     public void getBiggestRoomByOwnershipNotFoundRoomsErrorTest() throws OwnershipNotFoundException {
         Ownership expectedOwnershipNullRooms = new Ownership(1, "Ownership Null Test", null, 1);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnershipNullRooms.getId()))
+        when(ownerRepository.findFirst(expectedOwnershipNullRooms.getId()))
                 .thenReturn(expectedOwnershipNullRooms);
 
         Assertions.assertThrows(Exception.class, () ->
                 roomService.getBiggestRoomByOwnership(expectedOwnershipNullRooms.getId()));
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnershipNullRooms.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnershipNullRooms.getId());
     }
 
     @Test
     public void getRoomsByOwnershipContainDataOkTest() throws OwnershipNotFoundException {
-        Room biggestRoom = new Room(1, "Bedroom", 30.0, 10.0);
+        Ownership expectedOwnership = new Ownership(1, "Ownership Test", expectedRooms, 1);
 
-        List<Room> rooms = Arrays.asList(new Room(2, "Kitchen", 5.0, 3.0),
-                new Room(3, "Linving", 15.0, 7.0),
-                biggestRoom);
-
-        Ownership expectedOwnership = new Ownership(1, "Ownership Test", rooms, 1);
-
-        Mockito.when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
+        when(ownerRepository.findFirst(expectedOwnership.getId())).thenReturn(expectedOwnership);
 
         var received = roomService.getRoomsByOwnership(expectedOwnership.getId());
 
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnership.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnership.getId());
         Assertions.assertNotNull(received);
     }
 
@@ -113,23 +118,23 @@ public class RoomServiceUTests {
     public void getRoomsByOwnershipNotFoundOwnershipIdErrorTest() throws OwnershipNotFoundException {
         int expectedId = 1;
 
-        Mockito.when(ownerRepository.findFirst(expectedId)).thenReturn(null);
+        when(ownerRepository.findFirst(expectedId)).thenReturn(null);
 
         Assertions.assertThrows(OwnershipNotFoundException.class, () -> roomService.getRoomsByOwnership(expectedId));
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedId);
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedId);
     }
 
     //@Test
-    // TODO: 17/06/2021 No cuenta con habitaciones la propiedad
+    // TODO: 17/06/2021 Without ownership's rooms
     public void getRoomsByOwnershipNotFoundRoomsErrorTest() throws OwnershipNotFoundException {
         Ownership expectedOwnershipNullRooms = new Ownership(1, "Ownership Null Test", null, 1);
 
-        Mockito.when(ownerRepository.findFirst(expectedOwnershipNullRooms.getId()))
+        when(ownerRepository.findFirst(expectedOwnershipNullRooms.getId()))
                 .thenReturn(expectedOwnershipNullRooms);
 
         Assertions.assertThrows(Exception.class, () ->
                 roomService.getRoomsByOwnership(expectedOwnershipNullRooms.getId()));
-        Mockito.verify(ownerRepository, Mockito.atLeastOnce()).findFirst(expectedOwnershipNullRooms.getId());
+        verify(ownerRepository, atLeastOnce()).findFirst(expectedOwnershipNullRooms.getId());
     }
 
     // TODO: 17/06/2021 getRoomsByOwnershipSameObjectRoomsOkTest

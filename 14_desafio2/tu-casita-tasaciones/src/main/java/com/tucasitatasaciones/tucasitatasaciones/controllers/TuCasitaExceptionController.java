@@ -15,28 +15,28 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class TuCasitaExceptionController {
 
     @ExceptionHandler(Exception.class)
-    ResponseEntity<ErrorDTO> handleGlobalExceptions(TuCasitaException e) {
+    public ResponseEntity<ErrorDTO> handleGlobalExceptions(TuCasitaException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(DistrictNotFoundException.class)
-    ResponseEntity<ErrorDTO> handleDistrictNotFoundException(DistrictNotFoundException e) {
+    public ResponseEntity<ErrorDTO> handleDistrictNotFoundException(DistrictNotFoundException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(OwnershipNotFoundException.class)
-    ResponseEntity<ErrorDTO> handleOwnershipNotFoundException(OwnershipNotFoundException e) {
+    public ResponseEntity<ErrorDTO> handleOwnershipNotFoundException(OwnershipNotFoundException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ErrorDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<ErrorDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         ErrorDTO error = new ErrorDTO("MethodArgumentNotValidException", e.getBindingResult().getFieldError().getDefaultMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    protected ResponseEntity<ErrorDTO> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+    public ResponseEntity<ErrorDTO> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         ErrorDTO error = new ErrorDTO("HttpMessageNotReadableException", e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
