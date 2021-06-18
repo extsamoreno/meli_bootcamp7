@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "a0b4a176-a7ba-429d-8bdb-03dabee6cc02",
+		"name": "Challenge2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create new Property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Propiedad1\",\n    \"districtName\": \"Carrasco\",\n    \"environmentList\": [\n      {\n        \"name\": \"Cuarto1\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto2\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto3\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto4\",\n        \"width\": 4,\n        \"length\": 4\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/property/record",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"property",
+						"record"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new District",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Propiedad1\",\n    \"districtName\": \"Carrasco\",\n    \"environmentList\": [\n      {\n        \"name\": \"Cuarto1\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto2\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto3\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto4\",\n        \"width\": 4,\n        \"length\": 4\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/property/record",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"property",
+						"record"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0001",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Propiedad1\",\n    \"districtName\": \"Carrasco\",\n    \"environmentList\": [\n      {\n        \"name\": \"Cuarto1\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto2\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto3\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto4\",\n        \"width\": 4,\n        \"length\": 4\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/property/getTotalSize/Propiedad2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"property",
+						"getTotalSize",
+						"Propiedad2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0002",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Propiedad1\",\n    \"districtName\": \"Carrasco\",\n    \"environmentList\": [\n      {\n        \"name\": \"Cuarto1\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto2\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto3\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto4\",\n        \"width\": 4,\n        \"length\": 4\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/property/getTotalSize/Propiedad2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"property",
+						"getTotalSize",
+						"Propiedad2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0003",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Propiedad1\",\n    \"districtName\": \"Carrasco\",\n    \"environmentList\": [\n      {\n        \"name\": \"Cuarto1\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto2\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto3\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto4\",\n        \"width\": 4,\n        \"length\": 4\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/property/getTotalSize/Propiedad2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"property",
+						"getTotalSize",
+						"Propiedad2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "US-0004",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Propiedad1\",\n    \"districtName\": \"Carrasco\",\n    \"environmentList\": [\n      {\n        \"name\": \"Cuarto1\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto2\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto3\",\n        \"width\": 4,\n        \"length\": 4\n      },\n      {\n        \"name\": \"Cuarto4\",\n        \"width\": 4,\n        \"length\": 4\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/property/getTotalSize/Propiedad2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"property",
+						"getTotalSize",
+						"Propiedad2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
