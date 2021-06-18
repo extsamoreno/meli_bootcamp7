@@ -1,7 +1,9 @@
 package meli.bootcamp.tucasita.repository;
 
-import meli.bootcamp.tucasita.model.Distric;
+import meli.bootcamp.tucasita.model.District;
+import meli.bootcamp.tucasita.service.dto.DistrictDTO;
 
 public interface IDistrictRepository {
-    Distric findById(String name);
+
+    District save(District district);
 }

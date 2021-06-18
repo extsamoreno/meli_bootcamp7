@@ -1,44 +1,68 @@
 [
   {
-    "prop_name": "puerto alcantara",
+    "prop_name": "Puerto alcantara",
     "district": {
-        "district_name": "pitufos",
-        "district_price": 3000.32
+      "district_name": "Pitufos",
+      "district_price": 3000.32
     },
     "environments": [
       {
-        "environment_name":  "SALA",
+        "environment_name": "SALA",
         "environment_width": 18.8,
         "environment_length": 20.8
       },
       {
-        "environment_name":  "PATIO",
+        "environment_name": "PATIO",
         "environment_width": 20.8,
         "environment_length": 21.0
       }
     ]
   },
   {
-    "prop_name": "la vaca que rie",
+    "prop_name": "La vaca que rie",
     "district": {
       "district_name": "carretera",
-      "district_price": 3800
+      "district_price": 3800.0
     },
     "environments": [
       {
-        "environment_name":  "Bodega",
-        "environment_width": 25,
-        "environment_length": 33
+        "environment_name": "Bodega",
+        "environment_width": 25.0,
+        "environment_length": 33.0
       },
       {
-        "environment_name":  "Atencion al cliente",
-        "environment_width": 25,
-        "environment_length": 33
+        "environment_name": "Atencion al cliente",
+        "environment_width": 25.0,
+        "environment_length": 33.0
       },
       {
-        "environment_name":  "Zona de entrega de productos",
-        "environment_width": 25,
-        "environment_length": 33
+        "environment_name": "Zona de entrega de productos",
+        "environment_width": 25.0,
+        "environment_length": 33.0
+      }
+    ]
+  },
+  {
+    "prop_name": "La vaca que rie 2",
+    "district": {
+      "district_name": "carretera",
+      "district_price": 3800.0
+    },
+    "environments": [
+      {
+        "environment_name": "Bodega",
+        "environment_width": 25.0,
+        "environment_length": 33.0
+      },
+      {
+        "environment_name": "Atencion al cliente",
+        "environment_width": 25.0,
+        "environment_length": 33.0
+      },
+      {
+        "environment_name": "Zona de entrega de productos",
+        "environment_width": 25.0,
+        "environment_length": 33.0
       }
     ]
   }

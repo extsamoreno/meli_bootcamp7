@@ -1,5 +1,6 @@
 package meli.bootcamp.tucasita.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PropertyMetersResponseDTO {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PropertyResponseDTO {
 
-    private double meters;
+    private Double meters;
+    private Double price;
     private PropertyDTO property;
 
 }

@@ -42,9 +42,25 @@ public class PropertyRepository implements IPropertyRepository{
                 .findFirst().orElseThrow(() -> new PropertyNotFoundException(name));
     }
 
+    @Override
+    public void save(Property property) {
+        this.delete(property.getProp_name());
+        properties.add(property);
+        this.saveData();
+    }
 
+    @Override
+    public boolean delete(String name) {
+        boolean ret = false;
+        try {
+            Property found = this.findById(name);
+            properties.remove(found);
+            ret  = true;
+            this.saveData();
+        } catch (PropertyNotFoundException e) {}
 
-
+        return ret;
+    }
 
     private void loadData() {
         Set<Property> loadedData = new HashSet<>();
