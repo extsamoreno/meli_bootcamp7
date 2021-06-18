@@ -35,7 +35,7 @@ public class PropertyService implements IPropertyService{
         propertyRepository.save(PropertyDTOMapper.toProperty(property));
         double meters= property.getEnvironments().stream().mapToDouble(environment -> environment.getEnvironment_length()*environment.getEnvironment_width()
         ).sum();
-        return new PropertyResponseDTO(meters,null,property);
+        return new PropertyResponseDTO(DECIMAL_FORMAT.format(meters),null,property);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class PropertyService implements IPropertyService{
         PropertyDTO findProperty= PropertyDTOMapper.toDTO(propertyRepository.findById(propertyName));
         double meters= findProperty.getEnvironments().stream().mapToDouble(environment -> environment.getEnvironment_length()*environment.getEnvironment_width()
                 ).sum();
-        return new PropertyResponseDTO(meters,null,findProperty);
+        return new PropertyResponseDTO(DECIMAL_FORMAT.format(meters),null,findProperty);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class PropertyService implements IPropertyService{
         double price= findProperty.getEnvironments().stream().mapToDouble(environment -> environment.getEnvironment_length()*environment.getEnvironment_width()
                 *findProperty.getDistrict().getDistrict_price()
         ).sum();
-        return new PropertyResponseDTO(null,price,findProperty);
+        return new PropertyResponseDTO(null,DECIMAL_FORMAT.format(price),findProperty);
     }
 
     @Override

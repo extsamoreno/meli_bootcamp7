@@ -18,6 +18,6 @@ public class EnvironmentDTO {
 
     private double environment_length;
 
-    private Double  square_meters;
+    private String  square_meters;
 
 }

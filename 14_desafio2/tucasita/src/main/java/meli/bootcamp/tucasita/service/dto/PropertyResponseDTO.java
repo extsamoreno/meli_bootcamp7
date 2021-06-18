@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PropertyResponseDTO {
 
-    private Double meters;
-    private Double price;
+    private String meters;
+    private String price;
     private PropertyDTO property;
 
 }

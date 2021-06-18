@@ -16,12 +16,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static meli.bootcamp.tucasita.util.TestUtilsGenerator.DECIMAL_FORMAT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -39,12 +37,14 @@ public class PropertyServiceTest {
     @InjectMocks
     PropertyService propertyService;
 
+
+
     @Test
     public void getPropertyAndVerifyMetersSuccessTest() throws PropertyNotFoundException {
         // arrange
         Property property= TestUtilsGenerator.getPropertyWith3Environments("Ascienda");
         PropertyDTO propertyDTO= PropertyDTOMapper.toDTO(property);
-        PropertyResponseDTO expect= new PropertyResponseDTO(897.5D,null,propertyDTO);
+        PropertyResponseDTO expect= new PropertyResponseDTO(DECIMAL_FORMAT.format(897.5D),null,propertyDTO);
         when(iDistrictRepository.save(property.getDistrict())).thenReturn(property.getDistrict());
         doNothing().when(iPropertyRepository).save(property);
 
@@ -62,7 +62,7 @@ public class PropertyServiceTest {
         // arrange
         Property property= TestUtilsGenerator.getPropertyWith3Environments("Ascienda");
         PropertyDTO propertyDTO= PropertyDTOMapper.toDTO(property);
-        PropertyResponseDTO expect= new PropertyResponseDTO(897.5D,null,propertyDTO);
+        PropertyResponseDTO expect= new PropertyResponseDTO(DECIMAL_FORMAT.format(897.5D),null,propertyDTO);
         when(iPropertyRepository.findById(property.getProp_name())).thenReturn(property);
         // act
         PropertyResponseDTO result = propertyService.getMetersProperty(property.getProp_name());
@@ -76,7 +76,7 @@ public class PropertyServiceTest {
         // arrange
         Property property= TestUtilsGenerator.getPropertyWith3Environments("Ascienda");
         PropertyDTO propertyDTO= PropertyDTOMapper.toDTO(property);
-        PropertyResponseDTO expect= new PropertyResponseDTO(null,897.5D*500,propertyDTO);
+        PropertyResponseDTO expect= new PropertyResponseDTO(null,DECIMAL_FORMAT.format(897.5D*500),propertyDTO);
         when(iPropertyRepository.findById(property.getProp_name())).thenReturn(property);
 
         // act

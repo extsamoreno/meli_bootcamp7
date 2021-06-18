@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static meli.bootcamp.tucasita.util.TestUtilsGenerator.DECIMAL_FORMAT;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -54,7 +55,7 @@ public class PropertyControllerIntegTest {
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
 
-        PropertyResponseDTO expect= new PropertyResponseDTO(897.5D,null,propertyDTO);
+        PropertyResponseDTO expect= new PropertyResponseDTO(DECIMAL_FORMAT.format(897.5D),null,propertyDTO);
         String expectJson = writer.writeValueAsString(expect);
         Assertions.assertEquals(expectJson, register.getResponse().getContentAsString(StandardCharsets.UTF_8));
     }
@@ -136,7 +137,7 @@ public class PropertyControllerIntegTest {
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
 
-        PropertyResponseDTO expect= new PropertyResponseDTO(897.5D,null,propertyDTO);
+        PropertyResponseDTO expect= new PropertyResponseDTO(DECIMAL_FORMAT.format(897.5D),null,propertyDTO);
         String expectJson = writer.writeValueAsString(expect);
         Assertions.assertEquals(expectJson, register.getResponse().getContentAsString(StandardCharsets.UTF_8));
     }
@@ -181,7 +182,7 @@ public class PropertyControllerIntegTest {
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
 
-        PropertyResponseDTO expect= new PropertyResponseDTO(null,897.5D*1500,propertyDTO);
+        PropertyResponseDTO expect= new PropertyResponseDTO(null,DECIMAL_FORMAT.format(897.5D*1500),propertyDTO);
         String expectJson = writer.writeValueAsString(expect);
         Assertions.assertEquals(expectJson, register.getResponse().getContentAsString(StandardCharsets.UTF_8));
     }
@@ -232,8 +233,8 @@ public class PropertyControllerIntegTest {
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
         ArrayList<EnvironmentDTO> arrayExpected= new ArrayList<>();
-        arrayExpected.add(new EnvironmentDTO("Sala",15.0,13.0,15.0*13));
-        arrayExpected.add(new EnvironmentDTO("Comedor",25.0,20.3,20.3*25));
+        arrayExpected.add(new EnvironmentDTO("Sala",15.0,13.0,DECIMAL_FORMAT.format(15.0*13)));
+        arrayExpected.add(new EnvironmentDTO("Comedor",25.0,20.3,DECIMAL_FORMAT.format(20.3*25)));
         EnviromentsMetersResponseDTO expect= new EnviromentsMetersResponseDTO(propertyDTO.getProp_name(), arrayExpected);
         String expectJson = writer.writeValueAsString(expect);
         Assertions.assertEquals(expectJson, register.getResponse().getContentAsString(StandardCharsets.UTF_8));

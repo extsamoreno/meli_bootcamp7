@@ -19,12 +19,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class TestUtilsGenerator {
 
     private static String SCOPE;
     private static ObjectWriter mapper;
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.00");
 
     public static void emptyPropertyFile() {
         Properties properties = new Properties();
