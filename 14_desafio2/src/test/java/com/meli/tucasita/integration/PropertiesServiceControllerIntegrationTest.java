@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.tucasita.dto.PropertyDTO;
 import com.meli.tucasita.exception.InvalidDistrictException;
 import com.meli.tucasita.exception.PropertyAlreadyExistsException;
-import com.meli.tucasita.repository.DistrictRepositoryImpl;
-import com.meli.tucasita.repository.PropertyRepositoryImpl;
+import com.meli.tucasita.repository.IDistrictRepository;
+import com.meli.tucasita.repository.IPropertyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,10 +33,10 @@ public class PropertiesServiceControllerIntegrationTest {
     MockMvc mockMvc;
 
     @MockBean
-    PropertyRepositoryImpl propertyRepository;
+    IPropertyRepository propertyRepository;
 
     @MockBean
-    DistrictRepositoryImpl districtRepository;
+    IDistrictRepository districtRepository;
 
     private static final String PROPERTY_ALREADY_EXISTS_EXCEPTION_BODY = "{\"Message\":\"ERROR: The entered Property already exists in database\",\"Name\":\"PropertyAlreadyExistsException\"}";
     private static final String INVALID_DISTRICT_EXCEPTION_BODY = "{\"Message\":\"ERROR: The entered district name does not match with any valid District\",\"Name\":\"InvalidDistrictException\"}";

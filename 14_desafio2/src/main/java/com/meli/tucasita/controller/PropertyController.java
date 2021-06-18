@@ -6,7 +6,7 @@ import com.meli.tucasita.dto.RoomAreaDTO;
 import com.meli.tucasita.dto.RoomsDTO;
 import com.meli.tucasita.exception.InvalidDistrictException;
 import com.meli.tucasita.exception.PropertyAlreadyExistsException;
-import com.meli.tucasita.service.PropertyService;
+import com.meli.tucasita.service.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ import java.util.List;
 public class PropertyController {
 
     @Autowired
-    private PropertyService propertyService;
+    private IPropertyService propertyService;
 
     @PostMapping("/squareMeters")
     public ResponseEntity<String> calculateSquareMeters(@Valid @RequestBody RoomsDTO roomsDTO) {

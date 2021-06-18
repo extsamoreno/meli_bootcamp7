@@ -4,7 +4,7 @@ import com.meli.tucasita.controller.PropertyController;
 import com.meli.tucasita.dto.RoomAreaDTO;
 import com.meli.tucasita.exception.InvalidDistrictException;
 import com.meli.tucasita.exception.PropertyAlreadyExistsException;
-import com.meli.tucasita.service.PropertyService;
+import com.meli.tucasita.service.IPropertyService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,11 +21,11 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class PropertyControllerTest {
 
+    @Mock
+    IPropertyService propertyService;
+
     @InjectMocks
     PropertyController propertyController;
-
-    @Mock
-    PropertyService propertyService;
 
     @Test
     void calculateSquareMetersOk(){
@@ -102,10 +102,4 @@ public class PropertyControllerTest {
         verify(propertyService, atLeast(1)).insertNewProperty(createPropertyDTO());
         assertEquals(expected, actual.getBody());
     }
-
-
-
-
-
-
 }

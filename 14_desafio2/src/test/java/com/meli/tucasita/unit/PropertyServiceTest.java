@@ -6,9 +6,9 @@ import com.meli.tucasita.dto.RoomDTO;
 import com.meli.tucasita.exception.InvalidDistrictException;
 import com.meli.tucasita.exception.PropertyAlreadyExistsException;
 import com.meli.tucasita.models.Property;
-import com.meli.tucasita.repository.DistrictRepositoryImpl;
-import com.meli.tucasita.repository.PropertyRepositoryImpl;
-import com.meli.tucasita.service.PropertyService;
+import com.meli.tucasita.repository.IDistrictRepository;
+import com.meli.tucasita.repository.IPropertyRepository;
+import com.meli.tucasita.service.PropertyServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,13 +26,13 @@ import static org.mockito.Mockito.*;
 public class PropertyServiceTest {
 
     @InjectMocks
-    PropertyService propertyService;
+    PropertyServiceImpl propertyService;
 
     @Mock
-    PropertyRepositoryImpl propertyRepository;
+    IPropertyRepository propertyRepository;
 
     @Mock
-    DistrictRepositoryImpl districtRepository;
+    IDistrictRepository districtRepository;
 
     @Test
     void calculatePropertyAreaOk() {

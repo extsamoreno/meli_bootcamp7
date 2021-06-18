@@ -1,13 +1,17 @@
 package com.meli.tucasita.service;
 
-import com.meli.tucasita.dto.*;
+import com.meli.tucasita.dto.PropertyDTO;
+import com.meli.tucasita.dto.PropertyPriceRequestDTO;
+import com.meli.tucasita.dto.RoomAreaDTO;
+import com.meli.tucasita.dto.RoomDTO;
 import com.meli.tucasita.exception.InvalidDistrictException;
 import com.meli.tucasita.exception.PropertyAlreadyExistsException;
-import com.meli.tucasita.repository.DistrictRepositoryImpl;
-import com.meli.tucasita.repository.PropertyRepositoryImpl;
+import com.meli.tucasita.repository.IDistrictRepository;
+import com.meli.tucasita.repository.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -16,13 +20,13 @@ import static com.meli.tucasita.mapper.PropertyMapper.mapPropertyFromDTO;
 import static com.meli.tucasita.util.PropertyUtils.*;
 
 @Service
-public class PropertyService {
+public class PropertyServiceImpl implements IPropertyService {
 
     @Autowired
-    private PropertyRepositoryImpl propertyRepository;
+    private IPropertyRepository propertyRepository;
 
     @Autowired
-    private DistrictRepositoryImpl districtRepository;
+    private IDistrictRepository districtRepository;
 
     public String getPropertyArea(List<RoomDTO> rooms) {
 
@@ -53,7 +57,15 @@ public class PropertyService {
 
     public List<RoomAreaDTO> getRoomsAreas(List<RoomDTO> roomsDTO) {
 
-        return calculateRoomsDTOAreas(roomsDTO);
+        List<RoomAreaDTO> roomAreaDTOList = new ArrayList<>();
+
+        for (RoomDTO r : roomsDTO) {
+            RoomAreaDTO roomAreaDTO = new RoomAreaDTO();
+            roomAreaDTO.setArea(calculateRoomArea(r.getWidth(), r.getLength()));
+            roomAreaDTO.setName(r.getName());
+            roomAreaDTOList.add(roomAreaDTO);
+        }
+        return roomAreaDTOList;
     }
 
     public String insertNewProperty(PropertyDTO propertyDTO) throws PropertyAlreadyExistsException, InvalidDistrictException {

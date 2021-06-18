@@ -29,7 +29,6 @@ public class PropertyRepositoryImpl implements IPropertyRepository{
 
     public void insertNewProperty(Property property){
         properties.add(property);
-        saveDataIntoJson();
     }
 
     public void loadData() {
@@ -51,7 +50,7 @@ public class PropertyRepositoryImpl implements IPropertyRepository{
         properties = loadedDataFromJson;
     }
 
-    private void saveDataIntoJson() {
+    public void saveDataIntoJson() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = ResourceUtils.getFile("classpath:properties_database.json");

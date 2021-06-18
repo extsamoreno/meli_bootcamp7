@@ -52,7 +52,7 @@ public class DistrictRepositoryImpl implements IDistrictRepository {
         districts = loadedDataFromJson;
     }
 
-    private void saveDataIntoJson() {
+    public void saveDataIntoJson() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = ResourceUtils.getFile("classpath:districts_database.json");

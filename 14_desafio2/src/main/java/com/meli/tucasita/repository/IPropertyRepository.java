@@ -1,8 +1,15 @@
 package com.meli.tucasita.repository;
 
+import com.meli.tucasita.models.Property;
+
 public interface IPropertyRepository {
 
-    // TODO Declarar métodos de la interfaz
+    boolean propertyAlreadyExists(String name);
 
+    void insertNewProperty(Property property);
+
+    void loadData();
+
+    void saveDataIntoJson();
 
 }

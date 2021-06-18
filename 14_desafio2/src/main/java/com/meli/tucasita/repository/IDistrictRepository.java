@@ -1,9 +1,17 @@
 package com.meli.tucasita.repository;
 
+import com.meli.tucasita.models.District;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IDistrictRepository {
 
-    // TODO Declarar métodos de la interfaz
+    District getDistrictByName(String name);
+
+    boolean districtNameNotExists(String name);
+
+    void loadData();
+
+    void saveDataIntoJson();
+
 }
