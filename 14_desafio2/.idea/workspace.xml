@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a2e93dcf-f593-445d-a5ee-95814c978e1a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../12_testing2/ObtenerDiploma/src/test/java/com/meli/obtenerdiploma/unit/ObtenerDiplomaServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../12_testing2/ObtenerDiploma/src/test/java/com/meli/obtenerdiploma/unit/ObtenerDiplomaServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../13_testing3/ObtenerDiploma/src/test/java/com/meli/obtenerdiploma/integration/controller/ObtenerDiplomaControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../13_testing3/ObtenerDiploma/src/test/java/com/meli/obtenerdiploma/integration/controller/ObtenerDiplomaControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../13_testing3/ObtenerDiploma/src/test/java/com/meli/obtenerdiploma/integration/controller/StudentControllerTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../13_testing3/ObtenerDiploma/src/test/java/com/meli/obtenerdiploma/integration/controller/StudentControllerTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/controllers/CalculateExceptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/controllers/CalculateExceptionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/repositories/CalculateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/repositories/CalculateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/repositories/ICalculateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/repositories/ICalculateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/services/CalculateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/services/CalculateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/services/ICalculateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/services/ICalculateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/utils/Mappers.java" beforeDir="false" afterPath="$PROJECT_DIR$/desafio/src/main/java/com/meli/desafio/utils/Mappers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desafio/src/test/java/com/meli/desafio/unit/CalculateRepositoryTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/desafio/src/test/java/com/meli/desafio/unit/CalculateRepositoryTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../5_java4/Homework/src/Practice/Dakar/dakar.jpg" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1u7hjaJ2CyvCzSS4ymsf19cb16Q" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a2e93dcf-f593-445d-a5ee-95814c978e1a" name="Default Changelist" comment="" />
+      <created>1624022673230</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1624022673230</updated>
+    </task>
+    <servers />
+  </component>
+</project>
