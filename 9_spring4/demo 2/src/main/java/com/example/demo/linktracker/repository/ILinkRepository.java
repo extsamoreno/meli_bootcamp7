@@ -7,4 +7,5 @@ import java.util.ArrayList;
 public interface ILinkRepository {
     int getLinkId(String url);
     String getLink (int linkId);
+    int getMetric (int linkId);
 }

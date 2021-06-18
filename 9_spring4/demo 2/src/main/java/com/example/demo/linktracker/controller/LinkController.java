@@ -2,6 +2,7 @@ package com.example.demo.linktracker.controller;
 
 import com.example.demo.linktracker.service.ILinkService;
 import com.example.demo.linktracker.service.dto.LinkDTO;
+import com.example.demo.linktracker.service.dto.MetricsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,5 +22,9 @@ public class LinkController {
     public RedirectView redirectLink (@PathVariable int linkId) {
         String url = iLinkService.getUrl(linkId);
         return new RedirectView(url);
+    }
+    @GetMapping("/metric/{linkId}")
+    public ResponseEntity<MetricsDTO> createLink (@PathVariable int linkId) {
+        return new  ResponseEntity<MetricsDTO> (iLinkService.getMetric(linkId), HttpStatus.OK);
     }
 }

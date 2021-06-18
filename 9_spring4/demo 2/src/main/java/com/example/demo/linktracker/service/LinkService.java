@@ -2,6 +2,7 @@ package com.example.demo.linktracker.service;
 
 import com.example.demo.linktracker.service.dto.LinkDTO;
 import com.example.demo.linktracker.repository.ILinkRepository;
+import com.example.demo.linktracker.service.dto.MetricsDTO;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -45,5 +46,15 @@ public class LinkService implements ILinkService {
     public String getUrl(int linkId) {
         String url = iLinkRepository.getLink(linkId);
         return url;
+    }
+
+    @Override
+    public MetricsDTO getMetric(int linkId) {
+        MetricsDTO metricsDTO = new MetricsDTO();
+        int visitCount = iLinkRepository.getMetric(linkId);
+        metricsDTO.setLinkId(linkId);
+        metricsDTO.setUrl(this.getUrl(linkId));
+        metricsDTO.setVisitCount(visitCount);
+        return metricsDTO;
     }
 }
