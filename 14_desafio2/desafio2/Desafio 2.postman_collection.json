@@ -57,7 +57,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"prop_name\":\"Casa 3\",\n    \"district\": {\n        \"distric_name\":\"Compartir\"\n    },\n    \"environmentArrayList\": [\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": 3,\n            \"environment_length\": 4\n        },\n        {\n            \"environment_name\": \"Sala\",\n            \"environment_width\": 5,\n            \"environment_length\": 4\n        },\n        {\n            \"environment_name\": \"Habitacion\",\n            \"environment_width\": 4,\n            \"environment_length\": 4\n        }\n    ]    \n}",
+					"raw": "{\n    \"prop_name\": \"Casa 4\",\n    \"distric_name\": \"Cañiza\",\n    \"environmentArrayList\": [\n        {\n            \"environment_name\": \"Cocina\",\n            \"environment_width\": 3,\n            \"environment_length\": 4\n        },\n        {\n            \"environment_name\": \"Sala\",\n            \"environment_width\": 5,\n            \"environment_length\": 4\n        },\n        {\n            \"environment_name\": \"Habitacion\",\n            \"environment_width\": 4,\n            \"environment_length\": 4\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -86,7 +86,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"distric_name\":\"Compartir\",\n    \"distric_price\": \"A5000\"\n}",
+					"raw": "{\n    \"distric_name\":\"Compartir\",\n    \"distric_price\": 100\n}",
 					"options": {
 						"raw": {
 							"language": "json"

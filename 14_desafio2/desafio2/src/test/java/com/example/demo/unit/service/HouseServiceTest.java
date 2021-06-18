@@ -1,6 +1,8 @@
 package com.example.demo.unit.service;
 
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.ExistingDistrictException;
+import com.example.demo.exception.ExistingHouseException;
 import com.example.demo.exception.HouseNotFoundException;
 import com.example.demo.models.District;
 import com.example.demo.models.Environment;
@@ -16,12 +18,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class HouseServiceTest {
@@ -109,7 +107,7 @@ public class HouseServiceTest {
         Assertions.assertEquals(expect, received);
     }
     @Test
-    public void addHouseHappyPath () throws HouseNotFoundException, DistrictNotFoundException {
+    public void addHouseHappyPath () throws HouseNotFoundException, DistrictNotFoundException, ExistingHouseException {
         //arrange
         String name = "Casa 1";
         ArrayList<Environment> environments = new ArrayList<>();
@@ -128,7 +126,7 @@ public class HouseServiceTest {
         Mockito.verify(iDistrictRepository, Mockito.atLeast(1)).findDistrictByName(district.getDistric_name());
     }
     @Test
-    public void addDistrictHappyPath () throws HouseNotFoundException, DistrictNotFoundException {
+    public void addDistrictHappyPath () throws HouseNotFoundException, DistrictNotFoundException, ExistingDistrictException {
         //arrange
         String name = "Compartir";
         District district = new District(name,200);

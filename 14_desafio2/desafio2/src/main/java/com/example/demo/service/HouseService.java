@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.ExistingDistrictException;
+import com.example.demo.exception.ExistingHouseException;
 import com.example.demo.exception.HouseNotFoundException;
 import com.example.demo.models.District;
 import com.example.demo.models.Environment;
@@ -11,7 +13,6 @@ import com.example.demo.service.dto.*;
 import com.example.demo.service.mapper.IDistricMapper;
 import com.example.demo.service.mapper.IHouseMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 
 @Service
@@ -80,12 +81,13 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public void addHouse(HouseDTO houseDTO) throws DistrictNotFoundException {
+    public void addHouse(HouseDTO houseDTO) throws DistrictNotFoundException, ExistingHouseException {
         House house = iHouseMapper.houseDTOToHouse(houseDTO);
         String houseName = house.getProp_name();
         iDistrictRepository.findDistrictByName(house.getDistric_name());
         try {
             House house1 = iHouseRepository.findHouseByName(houseName);
+            throw new ExistingHouseException(houseName);
         } catch (HouseNotFoundException e) {
             iHouseRepository.addHouse(house);
         }
@@ -93,11 +95,12 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public void addDistrict(DistrictDTO districtDTO) {
+    public void addDistrict(DistrictDTO districtDTO) throws ExistingDistrictException  {
         District district = iDistricMapper.districtDTOToDistrict(districtDTO);
         String districtName = district.getDistric_name();
         try {
             District district1 = iDistrictRepository.findDistrictByName(districtName);
+            throw new ExistingDistrictException(districtName);
         } catch (DistrictNotFoundException e) {
             iDistrictRepository.addDistrict(district);
         }

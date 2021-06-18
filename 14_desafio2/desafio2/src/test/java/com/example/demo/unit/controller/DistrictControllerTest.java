@@ -2,6 +2,7 @@ package com.example.demo.unit.controller;
 
 import com.example.demo.controller.DistrictController;
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.ExistingDistrictException;
 import com.example.demo.models.District;
 import com.example.demo.service.IHouseService;
 import com.example.demo.service.dto.DistrictDTO;
@@ -23,7 +24,7 @@ public class DistrictControllerTest {
     @InjectMocks
     DistrictController districtController;
     @Test
-    public void addNewDistrictHappyPath () throws DistrictNotFoundException {
+    public void addNewDistrictHappyPath () throws DistrictNotFoundException, ExistingDistrictException {
         //arrange
         DistrictDTO expected = new DistrictDTO("Compartir",300);
 

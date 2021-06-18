@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.ExistingHouseException;
 import com.example.demo.models.House;
 import com.example.demo.service.IHouseService;
 import com.example.demo.service.dto.HouseDTO;
@@ -17,7 +18,7 @@ public class HouseController {
     @Autowired
     IHouseService iHouseService;
     @PostMapping("/new")
-    public ResponseEntity<Void> addNewHouse (@Valid @RequestBody HouseDTO houseDTO) throws DistrictNotFoundException {
+    public ResponseEntity<Void> addNewHouse (@Valid @RequestBody HouseDTO houseDTO) throws DistrictNotFoundException, ExistingHouseException {
         iHouseService.addHouse(houseDTO);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

@@ -2,6 +2,7 @@ package com.example.demo.unit.controller;
 
 import com.example.demo.controller.HouseController;
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.ExistingHouseException;
 import com.example.demo.models.Environment;
 import com.example.demo.models.House;
 import com.example.demo.service.IHouseService;
@@ -24,7 +25,7 @@ public class HouseControllerTest {
     @InjectMocks
     HouseController houseController;
     @Test
-    public void addNewHouseHappyPath() throws DistrictNotFoundException {
+    public void addNewHouseHappyPath() throws DistrictNotFoundException, ExistingHouseException {
         //arrange
         HouseDTO expect = new HouseDTO();
         expect.setProp_name("Casa 1");

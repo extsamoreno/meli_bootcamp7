@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.ExistingDistrictException;
 import com.example.demo.models.District;
 import com.example.demo.models.House;
 import com.example.demo.service.IHouseService;
@@ -22,7 +23,7 @@ public class DistrictController {
     IHouseService iHouseService;
 
     @PostMapping("/new")
-    public ResponseEntity<Void> addNewDistrict(@Valid @RequestBody DistrictDTO districtDTO) throws DistrictNotFoundException {
+    public ResponseEntity<Void> addNewDistrict(@Valid @RequestBody DistrictDTO districtDTO) throws DistrictNotFoundException, ExistingDistrictException {
         iHouseService.addDistrict(districtDTO);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

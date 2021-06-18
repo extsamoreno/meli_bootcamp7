@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.ExistingDistrictException;
+import com.example.demo.exception.ExistingHouseException;
 import com.example.demo.exception.HouseNotFoundException;
 import com.example.demo.service.dto.ErrorDTO;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,14 @@ public class ExceptionController {
     }
     @ExceptionHandler(HouseNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleGlobalException(HouseNotFoundException e) {
+        return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
+    }
+    @ExceptionHandler(ExistingHouseException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ExistingHouseException e) {
+        return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
+    }
+    @ExceptionHandler(ExistingDistrictException.class)
+    public ResponseEntity<ErrorDTO> handleGlobalException(ExistingDistrictException e) {
         return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
