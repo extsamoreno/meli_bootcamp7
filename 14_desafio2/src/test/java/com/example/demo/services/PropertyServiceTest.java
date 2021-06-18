@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.DTO.*;
+import com.example.demo.Exceptions.NotFoundException;
 import com.example.demo.Mapper;
 import com.example.demo.Utils.UtilTest;
 import com.example.demo.controllers.PropertyController;
@@ -8,6 +9,7 @@ import com.example.demo.entities.Property;
 import com.example.demo.repositories.IDistrictRepository;
 import com.example.demo.repositories.IPropertyRepository;
 import com.example.demo.repositories.PropertyRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,7 +33,7 @@ public class PropertyServiceTest {
     PropertyService propertyService;
 
     @Test
-    public void getResponseCalculateTotalMetersDTOTest() throws Exception {
+    public void calculateTotalMetersOkTest() throws Exception {
         Property property = UtilTest.getPropertyWithEnvironments();
         ResponseCalculateTotalMetersDTO aux = new ResponseCalculateTotalMetersDTO();
         aux.setName(property.getName());
@@ -40,9 +42,14 @@ public class PropertyServiceTest {
         when(iPropertyRepository.getPropertyById(1)).thenReturn(property);
         assertEquals(aux, propertyService.getResponseCalculateTotalMetersDTO(1));
     }
+    @Test
+    public void calculateTotalMetersErrorNotFoundTest() throws Exception {
+        when(iPropertyRepository.getPropertyById(1)).thenReturn(null);
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getResponseCalculateTotalMetersDTO(1));
+    }
 
     @Test
-    public void getBiggerEnvironmentTest() throws Exception {
+    public void biggerEnvironmentOkTest() throws Exception {
         Property property = UtilTest.getPropertyWithEnvironments();
         ResponseBiggerEnvironmentDTO aux = new ResponseBiggerEnvironmentDTO();
         aux.setName(property.getName());
@@ -54,7 +61,21 @@ public class PropertyServiceTest {
     }
 
     @Test
-    public void getTotalMetersByEnvironmentTest() throws Exception {
+    public void biggerEnvironmentErrorNotFoundPropertyTest() throws Exception {
+        when(iPropertyRepository.getPropertyById(1)).thenReturn(null);
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getBiggerEnvironment(1));
+    }
+    @Test
+    public void biggerEnvironmentErrorNotFoundEnvironmentsTest() throws Exception {
+        Property property = UtilTest.getPropertyWithoutEnvironments();
+
+        when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getBiggerEnvironment(property.getId()));
+    }
+
+
+    @Test
+    public void totalMetersByEnvironmentOkTest() throws Exception {
         Property property = UtilTest.getPropertyWithEnvironments();
 
         ResponseTotalMetersByEnvironmentDTO aux = new ResponseTotalMetersByEnvironmentDTO();
@@ -66,7 +87,20 @@ public class PropertyServiceTest {
     }
 
     @Test
-    public void getPriceTest() throws Exception {
+    public void totalMetersByEnvironmentErrorNotFoundPropertyTest() throws Exception {
+        when(iPropertyRepository.getPropertyById(1)).thenReturn(null);
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getTotalMetersByEnvironment(1));
+    }
+    @Test
+    public void totalMetersByEnvironmentErrorNotFoundEnvironmentsTest() throws Exception {
+        Property property = UtilTest.getPropertyWithoutEnvironments();
+
+        when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getTotalMetersByEnvironment(property.getId()));
+    }
+
+    @Test
+    public void PriceOkTest() throws Exception {
         Property property = UtilTest.getPropertyWithEnvironments();
         ResponsePriceDTO aux = new ResponsePriceDTO();
 
@@ -77,9 +111,21 @@ public class PropertyServiceTest {
         when(iPropertyRepository.getPropertyById(1)).thenReturn(property);
         assertEquals(aux, propertyService.getPrice(1));
     }
+    @Test
+    public void priceErrorNotFoundPropertyTest() throws Exception {
+        when(iPropertyRepository.getPropertyById(1)).thenReturn(null);
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getPrice(1));
+    }
+    @Test
+    public void priceErrorNotFoundEnvironmentsTest() throws Exception {
+        Property property = UtilTest.getPropertyWithoutEnvironments();
+
+        when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.getPrice(property.getId()));
+    }
 
     @Test
-    public void addPropertyTest() throws Exception {
+    public void addPropertyOkTest() throws Exception {
         PropertyDTO propertyDTO = UtilTest.getPropertyDTOWithEnvironments();
         Property property = UtilTest.toProperty(propertyDTO);
 
@@ -87,4 +133,12 @@ public class PropertyServiceTest {
         propertyService.addProperty(propertyDTO);
         verify(iPropertyRepository, times(1)).addProperty(property);
     }
+
+   /* @Test
+    public void addPropertyNotFoundDistrictTest() throws Exception {
+        PropertyDTO propertyDTO = UtilTest.getPropertyDTOWithEnvironments();
+
+        when(iDistrictRepository.findDistrictByName("test")).thenReturn(null);
+        Assertions.assertThrows(NotFoundException.class, () -> propertyService.addProperty(propertyDTO));
+    }*/
 }

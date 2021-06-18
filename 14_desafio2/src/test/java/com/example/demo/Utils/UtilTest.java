@@ -28,7 +28,7 @@ public class UtilTest {
         environmentDTOS.add(room1);
         environmentDTOS.add(room2);
 
-        PropertyDTO property = new PropertyDTO(1, "home", "Barrio 1", environmentDTOS);
+        PropertyDTO property = new PropertyDTO(1, "Home", "Barrio 1", environmentDTOS);
         return property;
     }
 
@@ -41,6 +41,12 @@ public class UtilTest {
         return property;
     }
 
+
+    public static Property getPropertyWithoutEnvironments() {
+        District district = new District("Barrio 1", 7.0);
+        Property property = new Property(1, "home", district, null);
+        return property;
+    }
     public static Property getPropertyWithEnvironments() {
 
         Environment room1 = new Environment("Bathroom", 3.0, 3.0);

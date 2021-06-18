@@ -12,7 +12,7 @@ public interface IPropertyRepository {
 
     public List<Property> loadProperties();
 
-    public void saveDistrict();
+    public void saveProperty();
 
     public Property getPropertyById(int id) throws FileNotFoundException;
 

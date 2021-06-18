@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 public interface IPropertyService {
     public ResponseCalculateTotalMetersDTO getResponseCalculateTotalMetersDTO(int propertyId) throws Exception;
     public ResponseBiggerEnvironmentDTO getBiggerEnvironment(int propertyId) throws Exception;
-    public ResponseTotalMetersByEnvironmentDTO getTotalMetersByEnvironment(int propertyId) throws FileNotFoundException;
+    public ResponseTotalMetersByEnvironmentDTO getTotalMetersByEnvironment(int propertyId) throws FileNotFoundException, Exception;
     public ResponsePriceDTO getPrice(int propertyId) throws Exception;
     public void addProperty(PropertyDTO propertyDTO) throws Exception;
 }

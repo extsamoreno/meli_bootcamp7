@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.DTO.*;
+import com.example.demo.Exceptions.NotFoundException;
 import com.example.demo.Mapper;
 import com.example.demo.entities.District;
 import com.example.demo.entities.Environment;
@@ -31,7 +32,7 @@ public class PropertyService implements IPropertyService {
         Property property = iPropertyRepository.getPropertyById(propertyId);
 
         if (property == null) {
-            throw new FileNotFoundException("Property not exists");
+            throw new NotFoundException("Property does not exists");
         }
         response.setName(property.getName());
         response.setTotalMeters(getTotalMeters(property.getEnvironments()));
@@ -52,10 +53,10 @@ public class PropertyService implements IPropertyService {
         Property property = iPropertyRepository.getPropertyById(propertyId);
 
         if (property == null) {
-            throw new FileNotFoundException("Property not exists");
+            throw new NotFoundException("Property does not exists");
         }
         if (property.getEnvironments() == null) {
-            throw new FileNotFoundException("Property has not environment");
+            throw new NotFoundException("Property has not environment");
         }
 
         double total = 0;
@@ -76,14 +77,14 @@ public class PropertyService implements IPropertyService {
     }
 
     @Override
-    public ResponseTotalMetersByEnvironmentDTO getTotalMetersByEnvironment(int propertyId) throws FileNotFoundException {
+    public ResponseTotalMetersByEnvironmentDTO getTotalMetersByEnvironment(int propertyId) throws Exception {
         Property property = iPropertyRepository.getPropertyById(propertyId);
 
         if (property == null) {
-            throw new FileNotFoundException("Property not exists");
+            throw new NotFoundException("Property does not exists");
         }
         if (property.getEnvironments() == null) {
-            throw new FileNotFoundException("Property has not environment");
+            throw new NotFoundException("Property has not environment");
         }
 
         List<EnvironmentDTO> list = new ArrayList<>();
@@ -108,10 +109,10 @@ public class PropertyService implements IPropertyService {
         Property property = iPropertyRepository.getPropertyById(propertyId);
 
         if (property == null) {
-            throw new FileNotFoundException("Property not exists");
+            throw new NotFoundException("Property does not exists");
         }
         if (property.getEnvironments() == null) {
-            throw new FileNotFoundException("Property has not environment");
+            throw new NotFoundException("Property has not environment");
         }
 
         double priceByMeter = property.getDistrict().getPrice();
@@ -130,7 +131,7 @@ public class PropertyService implements IPropertyService {
         District district = iDistrictRepository.findDistrictByName(propertyDTO.getDistrictName());
 
         if (district == null) {
-            throw new FileNotFoundException("District not exists");
+            throw new NotFoundException("District does not exists");
         }
         Property property = new Property();
         property.setId(propertyDTO.getId());

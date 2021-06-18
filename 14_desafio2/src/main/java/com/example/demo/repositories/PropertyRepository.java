@@ -41,7 +41,7 @@ public class PropertyRepository implements IPropertyRepository {
     }
 
     @Override
-    public void saveDistrict() {
+    public void saveProperty() {
         File file = null;
         try {
             file = ResourceUtils.getFile(propertyPathFile);
@@ -69,6 +69,6 @@ public class PropertyRepository implements IPropertyRepository {
 
     public void addProperty(Property property){
         properties.add(property);
-        saveDistrict();
+        saveProperty();
     }
 }

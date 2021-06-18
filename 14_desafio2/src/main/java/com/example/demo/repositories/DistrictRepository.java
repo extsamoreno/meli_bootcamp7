@@ -67,4 +67,9 @@ public class DistrictRepository implements IDistrictRepository {
         }
         return result;
     }
+
+    public void addDistrict(District district){
+        districts.add(district);
+        saveDistrict();
+    }
 }
