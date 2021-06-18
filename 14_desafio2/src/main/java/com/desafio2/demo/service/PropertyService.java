@@ -22,16 +22,26 @@ public class PropertyService implements IPropertyService{
     IPropertyRepository iPropertyRepository;
 
     @Override
+
+    /**
+     * add property to db
+     */
     public Property createProperty(Property propertyDTO) throws PropertyAlreadyExistException {
         return iPropertyRepository.saveProperty(propertyDTO);
     }
 
+    /**
+     * add neighborhood to db
+     */
     @Override
     public Neighborhood createNeighborhood(Neighborhood neighborhood)
             throws NeighborhoodAlreadyExistException {
         return iPropertyRepository.saveNeighborhood(neighborhood);
     }
 
+    /**
+     * calculate square meters - property
+     */
     @Override
     public ResponsePropertySquareDTO getSquareMeters(int propertyId) throws PropertyNotFoundException {
         ResponsePropertySquareDTO responseProperty = new ResponsePropertySquareDTO();
@@ -43,6 +53,9 @@ public class PropertyService implements IPropertyService{
         return responseProperty;
     }
 
+    /**
+     * calculate value property
+     */
     @Override
     public ResponsePropertyValueDTO getPropertyValue(int propertyId) throws PropertyException {
         ResponsePropertyValueDTO responsePropertyValue = new ResponsePropertyValueDTO();
@@ -55,6 +68,9 @@ public class PropertyService implements IPropertyService{
         return responsePropertyValue;
     }
 
+    /**
+     * return the biggest of property
+     */
     @Override
     public ResponseBiggestEnvironmentDTO getBiggestEnvironment(int propertyId) throws PropertyNotFoundException {
         ResponseBiggestEnvironmentDTO responseBiggestEnvironment = new ResponseBiggestEnvironmentDTO();
@@ -68,6 +84,9 @@ public class PropertyService implements IPropertyService{
         return responseBiggestEnvironment;
     }
 
+    /**
+     * calculate the square meters of the property
+     */
     @Override
     public ResponseSquareMetersEnvironmentDTO getSquareMetersOfEnvironments(int propertyId)
             throws PropertyNotFoundException {

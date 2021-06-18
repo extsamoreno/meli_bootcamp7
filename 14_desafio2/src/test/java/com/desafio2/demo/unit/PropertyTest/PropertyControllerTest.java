@@ -1,4 +1,4 @@
-package com.desafio2.demo.unit;
+package com.desafio2.demo.unit.PropertyTest;
 
 import com.desafio2.demo.controller.PropertyController;
 import com.desafio2.demo.dtos.*;

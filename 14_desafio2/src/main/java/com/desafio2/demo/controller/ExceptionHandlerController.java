@@ -19,26 +19,41 @@ import java.util.Map;
 @ControllerAdvice
 public class ExceptionHandlerController {
 
+    /**
+     * property not found
+     */
     @ExceptionHandler(PropertyNotFoundException.class)
     public ResponseEntity<ErrorDTO> handlerPropertyNotFoundException(PropertyNotFoundException  e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
+    /**
+     * neighborhood not found
+     */
     @ExceptionHandler(NeighborhoodNotFoundException.class)
     public ResponseEntity<ErrorDTO> handlerNeighborhoodNotFoundException(NeighborhoodNotFoundException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
+    /**
+     * property already exist
+     */
     @ExceptionHandler(PropertyAlreadyExistException.class)
     public ResponseEntity<ErrorDTO> handlerPropertyAlreadyExistException(PropertyAlreadyExistException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
+    /**
+     * neighborhood already exist
+     */
     @ExceptionHandler(NeighborhoodAlreadyExistException.class)
     public ResponseEntity<ErrorDTO> handlerNeighborhoodAlreadyExistException(NeighborhoodAlreadyExistException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 
+    /**
+     * not valid
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();

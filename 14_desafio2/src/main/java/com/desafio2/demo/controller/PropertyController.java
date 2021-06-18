@@ -25,36 +25,54 @@ public class PropertyController {
     @Autowired
     IPropertyService iPropertyService;
 
+    /**
+    * calculate the square of the property
+    */
     @GetMapping("/{propertyId}/squareMeters")
     public ResponseEntity<ResponsePropertySquareDTO> getSquareMeters(@PathVariable int propertyId)
             throws PropertyNotFoundException {
         return new ResponseEntity<>(iPropertyService.getSquareMeters(propertyId), HttpStatus.OK);
     }
 
+    /**
+     * calculate the value of the property
+     */
     @GetMapping("/{propertyId}/value")
     public ResponseEntity<ResponsePropertyValueDTO> getPropertyValue(@PathVariable int propertyId)
             throws PropertyException {
         return new ResponseEntity<>(iPropertyService.getPropertyValue(propertyId), HttpStatus.OK);
     }
 
+    /**
+     * return the biggest environment of the property
+     */
     @GetMapping("/{propertyId}/biggestEnvironment")
     public ResponseEntity<ResponseBiggestEnvironmentDTO> getBiggestEnvironment(@PathVariable int propertyId)
             throws PropertyNotFoundException {
         return new ResponseEntity<>(iPropertyService.getBiggestEnvironment(propertyId), HttpStatus.OK);
     }
 
+    /**
+     * calculate value of the property
+     */
     @GetMapping("/{propertyId}/environments/squareMeters")
     public ResponseEntity<ResponseSquareMetersEnvironmentDTO> getSquareMetersOfEnvironments(
             @PathVariable int propertyId)
             throws PropertyNotFoundException {
         return new ResponseEntity<>(iPropertyService.getSquareMetersOfEnvironments(propertyId), HttpStatus.OK);
     }
+
+    /**
+     * add property to DB
+     */
     @PostMapping("/create")
     public ResponseEntity<Property> createProperty(@Validated @RequestBody Property property)
             throws PropertyAlreadyExistException {
         return new ResponseEntity<>(iPropertyService.createProperty(property), HttpStatus.CREATED);
     }
-
+    /**
+     * add neighborhood to DB
+     */
     @PostMapping("/neighborhood/create")
     public ResponseEntity<Neighborhood> createNeighborhood(@Validated @RequestBody Neighborhood neighborhood)
             throws NeighborhoodAlreadyExistException {

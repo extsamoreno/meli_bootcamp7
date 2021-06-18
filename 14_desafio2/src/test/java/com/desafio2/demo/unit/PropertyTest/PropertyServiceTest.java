@@ -1,4 +1,4 @@
-package com.desafio2.demo.unit;
+package com.desafio2.demo.unit.PropertyTest;
 
 import com.desafio2.demo.dtos.*;
 import com.desafio2.demo.exception.NeighborhoodAlreadyExistException;
@@ -8,6 +8,7 @@ import com.desafio2.demo.exception.PropertyNotFoundException;
 import com.desafio2.demo.model.Environment;
 import com.desafio2.demo.model.Neighborhood;
 import com.desafio2.demo.model.Property;
+import com.desafio2.demo.repository.INeighborhoodRepository;
 import com.desafio2.demo.repository.IPropertyRepository;
 import com.desafio2.demo.service.PropertyService;
 import com.desafio2.demo.util.TestUtilGenerator;
@@ -31,6 +32,9 @@ public class PropertyServiceTest {
 
     @Mock
     IPropertyRepository iPropertyRepository;
+
+    @Mock
+    INeighborhoodRepository iNeighborhoodRepository;
 
     @InjectMocks
     PropertyService propertyService;
@@ -57,24 +61,9 @@ public class PropertyServiceTest {
     }
 
     @Test
-    public void createNeighborhoodOk() throws NeighborhoodAlreadyExistException {
-        // arrange
-        Neighborhood neighborhood = TestUtilGenerator.getNeighborhoodPriceTen("Lanus");
-        Neighborhood expected = TestUtilGenerator.getNeighborhoodPriceTen("Lanus");
-        when(iPropertyRepository.saveNeighborhood(neighborhood)).thenReturn(neighborhood);
-
-        // act
-        Neighborhood received = propertyService.createNeighborhood(neighborhood);
-
-        // assert
-        verify(iPropertyRepository, atLeastOnce()).saveNeighborhood(neighborhood);
-        assertEquals(expected, received);
-    }
-
-    @Test
     public void getSquareMetersOk() throws PropertyNotFoundException {
         // arrange
-        Property property = TestUtilGenerator.getPropertyWith305SquareMeters("Casa1");
+        Property property = TestUtilGenerator.getPropertyWith305SquareMeters("Casa de Madera");
         double squareMeters = 305.00;
         ResponsePropertySquareDTO expected = new ResponsePropertySquareDTO(property.getName(), squareMeters);
         when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
@@ -96,14 +85,14 @@ public class PropertyServiceTest {
         ResponsePropertyValueDTO expected = new ResponsePropertyValueDTO(property.getName(), value);
 
         when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
-        when(iPropertyRepository.getNeighborhoodById(property.getNeighborhood())).thenReturn(neighborhood);
+        when(iNeighborhoodRepository.getNeighborhoodByName(property.getNeighborhood())).thenReturn(neighborhood);
 
         // act
         ResponsePropertyValueDTO received = propertyService.getPropertyValue(property.getId());
 
         // assert
         verify(iPropertyRepository, atLeastOnce()).getPropertyById(property.getId());
-        verify(iPropertyRepository, atLeastOnce()).getNeighborhoodById(property.getNeighborhood());
+        verify(iNeighborhoodRepository, atLeastOnce()).getNeighborhoodByName(property.getNeighborhood());
         assertEquals(expected, received);
     }
 

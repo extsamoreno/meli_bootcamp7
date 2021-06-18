@@ -54,9 +54,9 @@ public class TestUtilGenerator {
     }
 
     public static Property getPropertyWith305SquareMeters(String name) {
-        Environment environment1 = new Environment("Habitación 1", 45.0, 35.0);
-        Environment environment2 = new Environment("Habitación 2", 45.0, 35.0);
-        Environment environment3 = new Environment("Habitación 3", 45.0, 35.0);
+        Environment environment1 = new Environment("Room1", 45.0, 35.0);
+        Environment environment2 = new Environment("Room2", 45.0, 35.0);
+        Environment environment3 = new Environment("Room3", 45.0, 35.0);
 
         List<Environment> environments = new ArrayList<>();
         environments.add(environment1);
@@ -140,5 +140,8 @@ public class TestUtilGenerator {
 
         assert writer != null;
         writer.close();
+    }
+
+    public static void appendNewNeighborhood(Neighborhood neighborhood) {
     }
 }
