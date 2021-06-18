@@ -1,6 +1,7 @@
 [
 
   {
+    "name": "Casa1",
     "id": 0,
     "rooms": [
       {
@@ -28,6 +29,7 @@
 
   },
   {
+    "name": "Casa2",
     "id": 1,
     "rooms": [
       {
@@ -56,6 +58,7 @@
   },
 
   {
+    "name": "Depto1",
     "id": 2,
     "rooms": [
       {
@@ -84,6 +87,7 @@
   },
 
   {
+    "name": "Depto2",
     "id": 3,
     "rooms": [
       {
