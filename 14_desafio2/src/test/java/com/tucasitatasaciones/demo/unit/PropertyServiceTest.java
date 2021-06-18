@@ -218,8 +218,7 @@ public class PropertyServiceTest {
         });
 
         //Assert
-        assertEquals(exceptionExpected.getMessage(), exceptionReceived.getMessage());
-        assertEquals(exceptionExpected.getStatus(), exceptionReceived.getStatus());
+        assertEquals(exceptionExpected, exceptionReceived);
     }
 
     @Test
@@ -236,8 +235,7 @@ public class PropertyServiceTest {
 
         //Assert
         verify(propertyRepository, atLeastOnce()).findPropertyById(1);
-        assertEquals(exceptionExpected.getMessage(), exceptionReceived.getMessage());
-        assertEquals(exceptionExpected.getStatus(), exceptionReceived.getStatus());
+        assertEquals(exceptionExpected, exceptionReceived);
     }
 
 }

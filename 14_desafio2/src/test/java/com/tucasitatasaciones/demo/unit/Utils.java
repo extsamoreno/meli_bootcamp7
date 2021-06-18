@@ -31,7 +31,7 @@ public class Utils {
     }
 
     public static PropertyPriceDTO getPropertyPrice(){
-        return new PropertyPriceDTO(1, "Las fincas", 113850.00000000001);
+        return new PropertyPriceDTO(1, "Las fincas", 82500.0);
     }
 
     public static PropertyBiggestEnvironmentDTO getPropertyBiggestEnvironment(){

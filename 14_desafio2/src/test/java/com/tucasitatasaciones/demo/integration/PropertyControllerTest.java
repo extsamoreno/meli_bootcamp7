@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.tucasitatasaciones.demo.dto.*;
+import com.tucasitatasaciones.demo.exception.BadRequestException;
+import com.tucasitatasaciones.demo.models.District;
 import com.tucasitatasaciones.demo.models.Property;
+import com.tucasitatasaciones.demo.repository.IDistrictRepository;
 import com.tucasitatasaciones.demo.repository.IPropertyRepository;
 import com.tucasitatasaciones.demo.service.IPropertyService;
 import com.tucasitatasaciones.demo.unit.Utils;
@@ -20,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -37,12 +41,16 @@ public class PropertyControllerTest {
     @MockBean
     IPropertyRepository propertyRepository;
 
+    @MockBean
+    IDistrictRepository districtRepository;
+
     private PropertyDTO propertyDTO;
     private Property property;
     private PropertySquareMettersDTO propertySquareMetters;
     private PropertyPriceDTO propertyPrice;
     private PropertyBiggestEnvironmentDTO propertyBiggestEnvironment;
     private PropertyEnvironmentSquareMetterDTO propertyEnvironmentMetters;
+    private District district;
 
     @BeforeEach @AfterEach
     public void setUp(){
@@ -52,6 +60,7 @@ public class PropertyControllerTest {
         propertyPrice = Utils.getPropertyPrice();
         propertyBiggestEnvironment = Utils.getPropertyBiggestEnvironment();
         propertyEnvironmentMetters = Utils.getPropertyEnviromentsSquareMetters();
+        district = Utils.getDistrict();
     }
 
     @Test
@@ -63,6 +72,7 @@ public class PropertyControllerTest {
 
         String payloadJson = writer.writeValueAsString(propertyDTO);
 
+        when(districtRepository.findDistrictById(propertyDTO.getDistrictId())).thenReturn(district);
         when(propertyRepository.addProperty(property)).thenReturn(property);
         when(propertyRepository.findPropertyByName(property.getName())).thenReturn(null);
 
@@ -104,6 +114,7 @@ public class PropertyControllerTest {
 
         String responseExpected = writer.writeValueAsString(propertyPrice);
 
+        when(districtRepository.findDistrictById(propertyDTO.getDistrictId())).thenReturn(district);
         when(propertyRepository.findPropertyById(1)).thenReturn(property);
 
         MvcResult responseReceived =
@@ -158,4 +169,51 @@ public class PropertyControllerTest {
         assertEquals(responseExpected, responseReceived.getResponse().getContentAsString());
     }
 
+    @Test
+    public void addPropertyWithInvalidDistrictId() throws Exception {
+
+        ObjectWriter writer =
+                new ObjectMapper()
+                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                        .writer();
+
+        PropertyDTO payload = propertyDTO;
+        String payloadJson = writer.writeValueAsString(payload);
+
+        String expectedException = BadRequestException.class.getSimpleName();
+
+        when(districtRepository.findDistrictById(payload.getDistrictId())).thenReturn(null);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/api/properties/new")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedException));
+
+    }
+
+    @Test
+    public void addPropertyWithExistProperty() throws Exception {
+
+        ObjectWriter writer =
+                new ObjectMapper()
+                        .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                        .writer();
+
+        PropertyDTO payload = propertyDTO;
+        String payloadJson = writer.writeValueAsString(payload);
+
+        String expectedException = BadRequestException.class.getSimpleName();
+
+        when(propertyRepository.findPropertyById(1)).thenReturn(property);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/api/properties/new")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(expectedException));
+
+    }
 }
