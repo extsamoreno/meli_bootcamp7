@@ -9,4 +9,7 @@ Determine which is the largest room.
 ###US-0004: 
 Determine the amount of square meters that each room of a property has.
 
-### [POSTMAN COLLECTION](src/main/resources/postmanCollection.json)
+## TO TEST THE API
+#### [POSTMAN COLLECTION](src/main/resources/postmanCollection.json)
+
+#### [SWAGGER](http://localhost:8080/swagger-ui/index.html#/tu-casita-controller)
