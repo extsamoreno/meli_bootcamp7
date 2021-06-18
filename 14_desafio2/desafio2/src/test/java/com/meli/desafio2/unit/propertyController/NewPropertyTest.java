@@ -1,6 +1,6 @@
 package com.meli.desafio2.unit.propertyController;
 
-import com.meli.desafio2.Util;
+import com.meli.desafio2.UtilGenerator;
 import com.meli.desafio2.controller.PropertyController;
 import com.meli.desafio2.dto.PropertyInputDTO;
 import com.meli.desafio2.service.IPropertyService;
@@ -12,6 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class NewPropertyTest {
@@ -25,7 +28,7 @@ public class NewPropertyTest {
     @Test
     public void happyPath(){
         //Arr
-        PropertyInputDTO property = Util.propertyInputHappy("Departamento1");
+        PropertyInputDTO property = UtilGenerator.propertyInputHappy("Departamento1");
         Mockito.when(propertyService.newProperty(property)).thenReturn("La propiedad ha sido registrada existosamente con el ID: 1");
         String expected = "La propiedad ha sido registrada existosamente con el ID: 1";
 
@@ -33,6 +36,7 @@ public class NewPropertyTest {
         ResponseEntity<?> received = propertyController.newProperty(property);
 
         //Assert
+        verify(propertyService,atLeastOnce()).newProperty(property);
         Assertions.assertEquals(expected,received.getBody());
     }
 

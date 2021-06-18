@@ -1,6 +1,6 @@
 package com.meli.desafio2.unit.propertyService;
 
-import com.meli.desafio2.Util;
+import com.meli.desafio2.UtilGenerator;
 import com.meli.desafio2.dto.PropertySquareDTO;
 import com.meli.desafio2.exception.PropertyNotFoundException;
 import com.meli.desafio2.repository.IPropertyRepository;
@@ -13,6 +13,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+
 @ExtendWith(MockitoExtension.class)
 public class GetSquareMetersTest {
     @Mock
@@ -24,12 +27,13 @@ public class GetSquareMetersTest {
     @Test
     public void returnsCorrectSquareMeters(){
         //Arr
-        PropertySquareDTO expected = Util.propertySquareHappy("Departamento1");
-        Mockito.when(propertyRepository.getFullById(1)).thenReturn(Util.propertyFullHappy("Departamento1"));
+        PropertySquareDTO expected = UtilGenerator.propertySquareHappy("Departamento1");
+        Mockito.when(propertyRepository.getFullById(1)).thenReturn(UtilGenerator.propertyFullHappy("Departamento1"));
 
         //Act
         PropertySquareDTO actual = propertyService.getSquareMeters(1);
         //Assert
+        verify(propertyRepository,atLeastOnce()).getFullById(1);
         Assertions.assertEquals(expected,actual);
     }
 

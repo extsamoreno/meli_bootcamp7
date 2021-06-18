@@ -5,8 +5,8 @@ import com.meli.desafio2.dto.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Util {
-    public static PropertyDTO PropertyHappy(String name){
+public class UtilGenerator {
+    public static PropertyDTO propertyHappy(String name){
         PropertyDTO property = new PropertyDTO(
                 1,
                 name,

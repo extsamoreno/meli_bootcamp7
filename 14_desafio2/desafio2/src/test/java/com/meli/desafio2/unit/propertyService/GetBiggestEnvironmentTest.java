@@ -1,6 +1,6 @@
 package com.meli.desafio2.unit.propertyService;
 
-import com.meli.desafio2.Util;
+import com.meli.desafio2.UtilGenerator;
 import com.meli.desafio2.dto.PropertyBiggestEnvironmentDTO;
 import com.meli.desafio2.exception.PropertyNotFoundException;
 import com.meli.desafio2.repository.IPropertyRepository;
@@ -13,6 +13,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+
 @ExtendWith(MockitoExtension.class)
 public class GetBiggestEnvironmentTest {
     @Mock
@@ -24,12 +27,13 @@ public class GetBiggestEnvironmentTest {
     @Test
     public void returnsCorrectEnvironmentAsBiggest(){
         //Arr
-        PropertyBiggestEnvironmentDTO expected = Util.propertyBiggestEnvironmentHappy("Departamento1");
-        Mockito.when(propertyRepository.getById(1)).thenReturn(Util.PropertyHappy("Departamento1"));
+        PropertyBiggestEnvironmentDTO expected = UtilGenerator.propertyBiggestEnvironmentHappy("Departamento1");
+        Mockito.when(propertyRepository.getById(1)).thenReturn(UtilGenerator.propertyHappy("Departamento1"));
 
         //Act
         PropertyBiggestEnvironmentDTO actual = propertyService.getBiggestEnvironment(1);
         //Assert
+        verify(propertyRepository,atLeastOnce()).getById(1);
         Assertions.assertEquals(expected,actual);
     }
 

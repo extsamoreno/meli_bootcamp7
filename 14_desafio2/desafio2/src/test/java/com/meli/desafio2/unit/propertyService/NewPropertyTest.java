@@ -1,6 +1,6 @@
 package com.meli.desafio2.unit.propertyService;
 
-import com.meli.desafio2.Util;
+import com.meli.desafio2.UtilGenerator;
 import com.meli.desafio2.dto.DistrictDTO;
 import com.meli.desafio2.dto.PropertyDTO;
 import com.meli.desafio2.dto.PropertyInputDTO;
@@ -15,6 +15,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+
 @ExtendWith(MockitoExtension.class)
 public class NewPropertyTest {
     @Mock
@@ -27,16 +30,18 @@ public class NewPropertyTest {
     public void registeredSuccesfullyWithDistrictAlreadyInDB(){
         //Arr
         String expected = "La propiedad Departamento1 ha sido registrada correctamente con el ID: 1.";
-        PropertyInputDTO input = Util.propertyInputHappy("Departamento1");
-        DistrictDTO district = Util.districtHappy("Amber");
+        PropertyInputDTO input = UtilGenerator.propertyInputHappy("Departamento1");
+        DistrictDTO district = UtilGenerator.districtHappy("Amber");
         Mockito.when(propertyRepository.getDistrictByName("Amber")).thenReturn(district);
-        PropertyDTO propertyDTO = Util.PropertyHappy("Departamento1");
+        PropertyDTO propertyDTO = UtilGenerator.propertyHappy("Departamento1");
         propertyDTO.setProp_id(-1);
         Mockito.when(propertyRepository.newProperty(propertyDTO)).thenReturn(1);
 
         //Act
         String actual = propertyService.newProperty(input);
         //Assert
+        verify(propertyRepository,atLeastOnce()).getDistrictByName("Amber");
+        verify(propertyRepository,atLeastOnce()).newProperty(propertyDTO);
         Assertions.assertEquals(expected,actual);
     }
 
@@ -44,7 +49,7 @@ public class NewPropertyTest {
     public void throwsDistrictNotFoundException(){
         //Arr
         String expected = "La propiedad Departamento1 ha sido registrada correctamente con el ID: 1. Y el barrio Amber ha sido registrado con el ID: 1";
-        PropertyInputDTO input = Util.propertyInputHappy("Departamento1");
+        PropertyInputDTO input = UtilGenerator.propertyInputHappy("Departamento1");
         Mockito.when(propertyRepository.getDistrictByName("Amber")).thenReturn(null);
         //Act
         //Assert

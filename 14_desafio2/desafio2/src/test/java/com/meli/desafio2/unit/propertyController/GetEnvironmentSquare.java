@@ -1,6 +1,6 @@
 package com.meli.desafio2.unit.propertyController;
 
-import com.meli.desafio2.Util;
+import com.meli.desafio2.UtilGenerator;
 import com.meli.desafio2.controller.PropertyController;
 import com.meli.desafio2.dto.PropertyAllSquareDTO;
 import com.meli.desafio2.service.IPropertyService;
@@ -12,6 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class GetEnvironmentSquare {
@@ -25,13 +28,14 @@ public class GetEnvironmentSquare {
     @Test
     public void happyPath(){
         //Arr
-        PropertyAllSquareDTO expected = Util.propertyAllSquareHappy("Amber");
+        PropertyAllSquareDTO expected = UtilGenerator.propertyAllSquareHappy("Amber");
         Mockito.when(propertyService.getEnvironmentsSquare(1)).thenReturn(expected);
 
         //Act
         ResponseEntity<?> received = propertyController.getEnvironmentsSquare(1);
         PropertyAllSquareDTO actual = (PropertyAllSquareDTO) received.getBody();
         //Assert
+        verify(propertyService,atLeastOnce()).getEnvironmentsSquare(1);
         Assertions.assertEquals(expected,actual);
     }
 

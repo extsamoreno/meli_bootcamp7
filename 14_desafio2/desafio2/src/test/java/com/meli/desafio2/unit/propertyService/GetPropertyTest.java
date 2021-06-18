@@ -1,8 +1,7 @@
 package com.meli.desafio2.unit.propertyService;
 
-import com.meli.desafio2.Util;
+import com.meli.desafio2.UtilGenerator;
 import com.meli.desafio2.dto.PropertyFullDTO;
-import com.meli.desafio2.dto.PropertySquareDTO;
 import com.meli.desafio2.exception.PropertyNotFoundException;
 import com.meli.desafio2.repository.IPropertyRepository;
 import com.meli.desafio2.service.PropertyService;
@@ -13,6 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class GetPropertyTest {
@@ -25,12 +27,13 @@ public class GetPropertyTest {
     @Test
     public void returnsCorrectFullProperty(){
         //Arr
-        PropertyFullDTO expected = Util.propertyFullHappy("Departamento1");
+        PropertyFullDTO expected = UtilGenerator.propertyFullHappy("Departamento1");
         Mockito.when(propertyRepository.getFullById(1)).thenReturn(expected);
 
         //Act
         PropertyFullDTO actual = propertyService.getProperty(1);
         //Assert
+        verify(propertyRepository,atLeastOnce()).getFullById(1);
         Assertions.assertEquals(expected,actual);
     }
 
