@@ -1,0 +1,7 @@
+DESAFIO 2 - MELI_BOOTCAMP7 - TuCasita Tasaciones
+
+1) File "desafio2_PERTICARINI.postman_collection.json" which contains Postman Tests is attached to be used.
+
+2) The project loads automatically "property.json" and "districts.json" (ubicated in resources folder) from Database class for test purposes.
+
+3) In addition to the 4 Get endpoints, a Post endpoint was added to test the validations.

@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "6a4a8d2c-e380-41c5-85dd-111ea3ee3e9b",
+		"name": "desafio2_PERTICARINI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HappyPath",
+			"item": [
+				{
+					"name": "GetTotalSquareMeters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/Casa3/meters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"Casa3",
+								"meters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPropertyValue",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/Casa3/value",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"Casa3",
+								"value"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBiggestEnvironment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/Casa3/environment/biggest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"Casa3",
+								"environment",
+								"biggest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetEnvironmentSizesList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/Casa3/environment/sizelist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"Casa3",
+								"environment",
+								"sizelist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddNewProperty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/properties/newproperty",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"newproperty"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exceptions & validations",
+			"item": [
+				{
+					"name": "Exceptions",
+					"item": [
+						{
+							"name": "PropertyNameNotFoundException",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/properties/Casa900/meters",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"Casa900",
+										"meters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PropertyAlreadyExistsException",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa3\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PropertyDistrictNameNotFoundException",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"test\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Validations",
+					"item": [
+						{
+							"name": "PropertyNameWithoutCapitalLetter",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"casa4\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PropertyNameEmpty",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PropertyNameMaxLenght30",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4Casa4\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DistrictNameEmpty",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DistrictNameMaxLength45",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"Villa HerreroVilla HerreroVilla HerreroVilla HerreroVilla HerreroVilla Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EnvironmentNameEmpty",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EnvironmentNameWithoutCapitalLetter",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"banio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EnvironmentNameMaxLength30",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"BanioBanioBanioBanioBanioBanioBanioBanioBanioBanio\",\n        \"environment_width\": 15.0,\n        \"environment_length\": 20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EnvironmentWidthAndLenghtNegative",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": -15.0,\n        \"environment_length\": -20.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EnvironmentWidthAndLenghtMaxLenght",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\n    \"prop_name\": \"Casa4\",\n    \"prop_district_name\":  \"Villa Herrero\",\n    \"prop_environment\": [\n      {\n        \"environment_name\": \"Banio\",\n        \"environment_width\": 99999.0,\n        \"environment_length\": 99999.0\n      },\n      {\n        \"environment_name\": \"Cocina\",\n        \"environment_width\": 10.0,\n        \"environment_length\": 25.0\n      },\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 10.0\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/properties/newproperty",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"properties",
+										"newproperty"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
