@@ -30,8 +30,9 @@ public class DistrictRepository implements IDistrictRepository {
         return dist;
     }
 
+    @Override
     // Load default districts
-    private List<District> loadDistricts() {
+    public List<District> loadDistricts() {
 
         List<District> defaultDistricts = new ArrayList<>();
         defaultDistricts.add(new District(0, "District 1", 150.0));

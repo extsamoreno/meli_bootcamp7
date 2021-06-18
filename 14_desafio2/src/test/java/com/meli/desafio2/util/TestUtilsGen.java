@@ -47,7 +47,7 @@ public class TestUtilsGen {
 
     // Returns a district
     public static District getDistWithId(Integer distId) {
-        return new District(distId, "District", 150.0);
+        return new District(distId, "District 1", 150.0);
     }
 
     // Returns a ResponsePropTotalAreaDTO

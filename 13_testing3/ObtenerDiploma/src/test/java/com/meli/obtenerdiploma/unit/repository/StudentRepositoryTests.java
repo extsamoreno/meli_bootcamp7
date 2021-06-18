@@ -32,5 +32,4 @@ public class StudentRepositoryTests {
         // assert
         Assertions.assertTrue(CollectionUtils.isEqualCollection(students, foundSet));
     }
-
 }
