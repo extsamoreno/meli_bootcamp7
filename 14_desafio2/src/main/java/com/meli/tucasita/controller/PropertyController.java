@@ -4,6 +4,7 @@ import com.meli.tucasita.dto.PropertyDTO;
 import com.meli.tucasita.dto.PropertyPriceRequestDTO;
 import com.meli.tucasita.dto.RoomAreaDTO;
 import com.meli.tucasita.dto.RoomsDTO;
+import com.meli.tucasita.exception.InvalidDistrictException;
 import com.meli.tucasita.exception.PropertyAlreadyExistsException;
 import com.meli.tucasita.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,65 +28,35 @@ public class PropertyController {
     @PostMapping("/squareMeters")
     public ResponseEntity<String> calculateSquareMeters(@Valid @RequestBody RoomsDTO roomsDTO) {
 
-        String response = propertyService.calculateUnknownPropertyArea(roomsDTO.getRooms());
+        String response = propertyService.getPropertyArea(roomsDTO.getRooms());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/price")
-    public ResponseEntity<String> calculatePropertyPrice(@Valid @RequestBody PropertyPriceRequestDTO propertyPriceRequestDTO) {
+    public ResponseEntity<String> calculatePropertyPrice(@Valid @RequestBody PropertyPriceRequestDTO propertyPriceRequestDTO) throws InvalidDistrictException {
 
-        String response = propertyService.getUnknownPropertyPrice(propertyPriceRequestDTO);
+        String response = propertyService.getPropertyPrice(propertyPriceRequestDTO);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/biggestRoom")
     public ResponseEntity<String> getBiggestRoom(@Valid @RequestBody RoomsDTO roomsDTO) {
 
-        String response = propertyService.getUnknownPropertyBiggestRoom(roomsDTO.getRooms());
+        String response = propertyService.getPropertyBiggestRoom(roomsDTO.getRooms());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/roomsAreas")
     public ResponseEntity<List<RoomAreaDTO>> getRoomsAreas(@Valid @RequestBody RoomsDTO roomsDTO) {
 
-        List<RoomAreaDTO> response = propertyService.getUnknownPropertyRoomsAreas(roomsDTO.getRooms());
+        List<RoomAreaDTO> response = propertyService.getRoomsAreas(roomsDTO.getRooms());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/registerNewProperty")
-    public ResponseEntity<String> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) throws PropertyAlreadyExistsException {
+    public ResponseEntity<String> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) throws PropertyAlreadyExistsException, InvalidDistrictException {
 
         String response = propertyService.insertNewProperty(propertyDTO);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-    // --------------------------------------------------
-    // Todo Estos son los METODOS QUE BUSCAN PROPIEDADES REGISTRADAS EN LA BD - Ver si los dejo o los saco
-
-    /*
-    @GetMapping("/squareMeters/{name}")
-    public SquareMetersDTO calculateSquareMeters(@PathVariable String name) throws InvalidPropertyNameException {
-
-        return propertyService.calculatePropertySquareMeters(name);
-    }
-
-    @GetMapping("/price/{name}")
-    public PropertyPriceDTO calculatePropertyPrice(@PathVariable String name) throws InvalidPropertyNameException {
-
-        return propertyService.getPropertyPrice(name);
-    }
-
-    @GetMapping("/biggestRoom/{name}")
-    public BiggestRoomDTO getBiggestRoom(@PathVariable String name) throws InvalidPropertyNameException {
-
-        return propertyService.getBiggestRoom(name);
-    }
-
-    @GetMapping("/roomsAreas/{name}")
-    public RoomsAreasDTO getRoomsAreas(@PathVariable String name) throws InvalidPropertyNameException {
-
-        return propertyService.getRoomsAreas(name);
-    }
-    */
-
 }

@@ -23,12 +23,8 @@ public class PropertyRepositoryImpl implements IPropertyRepository{
         loadData();
     }
 
-    public Property getPropertyByName(String name){
-        return properties.stream().filter(prop -> name.equals(prop.getName())).findAny().orElse(null);
-    }
-
-    public boolean propertyNotExists(String name){
-       return properties.stream().noneMatch(prop -> name.equals(prop.getName()));
+    public boolean propertyAlreadyExists(String name){
+       return properties.stream().anyMatch(prop -> name.equals(prop.getName()));
     }
 
     public void insertNewProperty(Property property){

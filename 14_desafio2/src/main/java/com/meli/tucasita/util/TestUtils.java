@@ -1,4 +1,4 @@
-package com.meli.tucasita;
+package com.meli.tucasita.util;
 
 import com.meli.tucasita.dto.*;
 import com.meli.tucasita.models.District;
@@ -50,6 +50,10 @@ public class TestUtils {
         propertyPriceRequestDTO.setRooms(createRoomDTOList());
 
         return propertyPriceRequestDTO;
+    }
+
+    public static RoomsDTO createRoomsDTO(){
+        return new RoomsDTO(createRoomDTOList());
     }
 
     public static List<RoomDTO> createRoomDTOList() {

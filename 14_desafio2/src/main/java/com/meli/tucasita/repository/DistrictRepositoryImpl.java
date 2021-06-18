@@ -15,11 +15,11 @@ import java.util.Set;
 
 @Repository
 @Data
-public class DistrictRepository {
+public class DistrictRepositoryImpl implements IDistrictRepository {
 
     public static Set<District> districts = new HashSet<>();
 
-    public DistrictRepository() {
+    public DistrictRepositoryImpl() {
         loadData();
     }
 

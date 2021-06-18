@@ -1,6 +1,5 @@
 package com.meli.tucasita.dto;
 
-import com.meli.tucasita.models.Room;
 import lombok.Data;
 
 import javax.validation.Valid;

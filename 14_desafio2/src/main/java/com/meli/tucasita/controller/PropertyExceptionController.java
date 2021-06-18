@@ -1,7 +1,7 @@
 package com.meli.tucasita.controller;
 
 import com.meli.tucasita.dto.ErrorDTO;
-import com.meli.tucasita.exception.InvalidPropertyNameException;
+import com.meli.tucasita.exception.InvalidDistrictException;
 import com.meli.tucasita.exception.PropertyAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +16,13 @@ import java.util.Map;
 @ControllerAdvice
 public class PropertyExceptionController {
 
-    @ExceptionHandler(InvalidPropertyNameException.class)
-    public ResponseEntity<ErrorDTO> handleInvalidPropertyNameException(InvalidPropertyNameException e) {
+    @ExceptionHandler(PropertyAlreadyExistsException.class)
+    public ResponseEntity<ErrorDTO> handlePropertyAlreadyExistsException(PropertyAlreadyExistsException e) {
         return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
     }
 
-    @ExceptionHandler(PropertyAlreadyExistsException.class)
-    public ResponseEntity<ErrorDTO> handlePropertyAlreadyExistsException(PropertyAlreadyExistsException e) {
+    @ExceptionHandler(InvalidDistrictException.class)
+    public ResponseEntity<ErrorDTO> handleInvalidDistrictException(InvalidDistrictException e) {
         return new ResponseEntity<>(e.getErrorDTO(), e.getHttpStatus());
     }
 

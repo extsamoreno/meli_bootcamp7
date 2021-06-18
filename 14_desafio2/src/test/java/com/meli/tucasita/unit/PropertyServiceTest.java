@@ -3,12 +3,12 @@ package com.meli.tucasita.unit;
 import com.meli.tucasita.dto.PropertyPriceRequestDTO;
 import com.meli.tucasita.dto.RoomAreaDTO;
 import com.meli.tucasita.dto.RoomDTO;
+import com.meli.tucasita.exception.InvalidDistrictException;
 import com.meli.tucasita.exception.PropertyAlreadyExistsException;
 import com.meli.tucasita.models.Property;
-import com.meli.tucasita.repository.DistrictRepository;
+import com.meli.tucasita.repository.DistrictRepositoryImpl;
 import com.meli.tucasita.repository.PropertyRepositoryImpl;
 import com.meli.tucasita.service.PropertyService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static com.meli.tucasita.TestUtils.*;
+import static com.meli.tucasita.util.TestUtils.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,79 +32,112 @@ public class PropertyServiceTest {
     PropertyRepositoryImpl propertyRepository;
 
     @Mock
-    DistrictRepository districtRepository;
+    DistrictRepositoryImpl districtRepository;
 
     @Test
-    public void calculateUnknownPropertyAreaOk() {
+    void calculatePropertyAreaOk() {
 
-        // arrange
+        // Arrange
         List<RoomDTO> rooms = createRoomDTOList();
         String expected = "El total de metros cuadrados de la propiedad es de 41.5 m2";
 
-        // act
-        String actual = propertyService.calculateUnknownPropertyArea(rooms);
+        // Act
+        String actual = propertyService.getPropertyArea(rooms);
 
-        // assert
-        Assertions.assertEquals(expected, actual);
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void getUnknownPropertyPriceOk() {
+    void getPropertyPriceOk() throws InvalidDistrictException {
 
-        // arrange
+        // Arrange
         PropertyPriceRequestDTO propertyPriceRequestDTO = createPropertyPriceRequestDTO();
         when(districtRepository.getDistrictByName(propertyPriceRequestDTO.getDistrict())).thenReturn(createDistrict());
         String expected = "El valor total de la propiedad es de USD$ 70550.0";
 
+        // Act
+        String actual = propertyService.getPropertyPrice(propertyPriceRequestDTO);
 
-        // act
-        String actual = propertyService.getUnknownPropertyPrice(propertyPriceRequestDTO);
-
-        // assert
+        // Assert
         verify(districtRepository, atLeastOnce()).getDistrictByName(propertyPriceRequestDTO.getDistrict());
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void getUnknownPropertyBiggestRoomOk() {
+    void getPropertyPriceThrowsInvalidDistrictException() {
 
-        // arrange
+        // Arrange
+        PropertyPriceRequestDTO propertyPriceRequestDTO = createPropertyPriceRequestDTO();
+        when(districtRepository.districtNameNotExists(propertyPriceRequestDTO.getDistrict())).thenReturn(true);
+
+        // Act & Assert
+        assertThrows(InvalidDistrictException.class, () -> propertyService.getPropertyPrice(createPropertyPriceRequestDTO()));
+    }
+
+    @Test
+    void getPropertyBiggestRoomOk() {
+
+        // Arrange
         List<RoomDTO> rooms = createRoomDTOList();
         String expected = "El ambiente más grande de la propiedad es Comedor, que tiene un área de 16.0 m2";
 
-        // act
-        String actual = propertyService.getUnknownPropertyBiggestRoom(rooms);
+        // Act
+        String actual = propertyService.getPropertyBiggestRoom(rooms);
 
-        // assert
-        Assertions.assertEquals(expected, actual);
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void getUnknownPropertyRoomsAreasOk() {
+    void getropertyRoomsAreasOk() {
 
-        // arrange
+        // Arrange
         List<RoomDTO> rooms = createRoomDTOList();
         List<RoomAreaDTO> expected = createRoomAreaDTOList();
 
-        // act
-        List<RoomAreaDTO> actual = propertyService.getUnknownPropertyRoomsAreas(rooms);
+        // Act
+        List<RoomAreaDTO> actual = propertyService.getRoomsAreas(rooms);
 
-        // assert
-        Assertions.assertEquals(expected, actual);
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void insertNewPropertyOk() throws PropertyAlreadyExistsException {
+    void insertNewPropertyOk() throws PropertyAlreadyExistsException, InvalidDistrictException {
 
-        // arrange
+        // Arrange
         Property property = createProperty();
         String expected = "La propiedad se ha registrado correctamente";
 
-        // act
+        // Act
         String actual = propertyService.insertNewProperty(createPropertyDTO());
 
-        // assert
+        // Assert
         verify(propertyRepository, atLeastOnce()).insertNewProperty(property);
-        Assertions.assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
+
+    @Test
+    void insertNewPropertyThrowsPropertyAlreadyExistsException() {
+
+        // Arrange
+        Property property = createProperty();
+        when(propertyRepository.propertyAlreadyExists(property.getName())).thenReturn(true);
+
+        // Act & Assert
+        assertThrows(PropertyAlreadyExistsException.class, () -> propertyService.insertNewProperty(createPropertyDTO()));
+    }
+
+    @Test
+    void insertNewPropertyThrowsInvalidDistrictException() {
+
+        // Arrange
+        Property property = createProperty();
+        when(districtRepository.districtNameNotExists(property.getDistrict())).thenReturn(true);
+
+        // Act & Assert
+        assertThrows(InvalidDistrictException.class, () -> propertyService.insertNewProperty(createPropertyDTO()));
+    }
+
 }
