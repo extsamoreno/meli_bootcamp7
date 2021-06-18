@@ -1,0 +1,172 @@
+{
+	"info": {
+		"_postman_id": "deae85c9-08b2-423d-a261-923367a47461",
+		"name": "Desafio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DistrictRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/district/getdistrict/Salvaje",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"district",
+						"getdistrict",
+						"Salvaje"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BiggestRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/biggest/Gatherons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"biggest",
+						"Gatherons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValueRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/value/Gatherons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"value",
+						"Gatherons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SquareMetersRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/squaremeters/Gatherons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"squaremeters",
+						"Gatherons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SquareMetersEnvironmentRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/metersenvironment/Gatherons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"metersenvironment",
+						"Gatherons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePropertyRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"prop_name\": \"AGcmbsscd\",\n    \"district\": \"Salvaje\",\n    \"environments\":\n    [\n      {\n        \"environment_name\": \"Living\",\n        \"environment_width\": 2,\n        \"environment_length\": 3 \n      },\n      {\n        \"environment_name\": \"Bedroom\",\n        \"environment_width\": 1,\n        \"environment_length\": 4\n      },\n      {\n        \"environment_name\": \"Bathroom1\",\n        \"environment_width\": 4,\n        \"environment_length\": 1\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateDistrictRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"district_name\": \"District99\",\n    \"district_price\": 214\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/district/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"district",
+						"save"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

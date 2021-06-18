@@ -12,19 +12,19 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EnvironmentDTO {
-    @Valid
-    @NotEmpty(message = "El nombre del ambiente no puede estar vacío." )
-    @NotNull(message = "El nombre del ambiente no puede ser nulo")
+
+    @NotNull(message = "El nombre del ambiente no puede estar vacío.")
     @Pattern(regexp = "^[A-Z].*$", message ="El nombre del ambiente debe comenzar con mayúscula.")
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String environment_name;
-    @Valid
-    @NotNull(message = "El ancho del ambiente no puede ser nulo")
-    @Max(value = 25, message = "El máximo ancho permitido por propiedad es de 25 mts")
 
+    @NotNull(message = "El ancho del ambiente no puede estar vacío.")
+    @Positive(message = "El ancho debe ser mayor a 0.")
+    @Max(value = 25, message = "El máximo ancho permitido por propiedad es de 25 mts.")
     private double environment_width;
-    @Valid
-    @NotNull(message = "El largo del ambiente no puede ser nulo")
-    @Max(value = 33, message = "El máximo largo permitido por propiedad es de 33 mts")
+
+    @NotNull(message = "El largo del ambiente no puede estar vacío.")
+    @Positive(message = "El largo debe ser mayor a 0.")
+    @Max(value = 33, message = "El máximo largo permitido por propiedad es de 33 mts.")
     private double environment_length;
 }
