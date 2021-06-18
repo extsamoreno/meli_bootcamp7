@@ -1,6 +1,7 @@
 package com.meli.desafio2.unit;
 
 import com.meli.desafio2.model.Property;
+import com.meli.desafio2.repository.PropertyRepository;
 import com.meli.desafio2.repository.PropertyRepositoryImpl;
 import com.meli.desafio2.util.TestUtilGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class PropertyRepositoryTest {
-    PropertyRepositoryImpl propertyRepository;
+    PropertyRepository propertyRepository;
 
     @BeforeEach
     public void setUp(){ this.propertyRepository = new PropertyRepositoryImpl(); }
