@@ -41,8 +41,7 @@ public class HouseDAO implements IHouseDAO {
     public boolean save(HouseDTO hus) throws HouseNotFoundException{
 
         houses.add(hus);
-
-        return this.saveData();
+        return true;
     }
 
     @Override
@@ -78,20 +77,5 @@ public class HouseDAO implements IHouseDAO {
         this.houses = loadedData;
     }
 
-    private boolean saveData() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/houses.json");
-            objectMapper.writeValue(file, this.houses);
-            return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your resources files");
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your JSON formatting.");
-            return false;
-        }
-    }
+
 }
