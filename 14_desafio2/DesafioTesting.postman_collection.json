@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "caa3c4ca-8c57-49be-9dc7-192b62b927af",
+		"name": "DesafioTesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET MetrosCuadrados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/squaremetersProp/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"squaremetersProp",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET PropertyPrice",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/propPrice/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"propPrice",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET BiggestEnv",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/biggestEnv/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"biggestEnv",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET M2EnvProp",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/squaremetersEnvs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"squaremetersEnvs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST addProperty",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"Prop\",\n    \"district\": {\n        \"district_id\": 1,\n        \"district_name\": \"District1\",\n        \"district_price\": 500\n    },\n    \"environment\": [\n        {\n            \"environment_name\": \"Living\",\n            \"environment_width\": 1,\n            \"environment_length\": 1\n        },\n        {\n            \"environment_name\": \"Comedor\",\n            \"environment_width\": 3,\n            \"environment_length\": 4\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/properties/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST addDistrict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"district_name\": \"Distric2\",\n    \"district_price\": 800\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/districts/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"districts",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Property",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/properties/property/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"property",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET District",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/districts/district/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"districts",
+						"district",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
