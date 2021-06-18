@@ -31,28 +31,28 @@ public class TestUtilGenerator {
     }
 
     public static District getDistrict(String option){
-        return option.equals("district1") ?
+        return option.equals("District1") ?
                 new District("District1",225.5) :
                 new District("District2",235.5);
     }
 
     public static EnviromentDTO getEnviromentDTO(){
         return new EnviromentDTO(
-                "Cocina",32.5,34.5
+                "Cocina",22.5,31.5
         );
     }
 
     public static List<Enviroment> getEnviroments(){
-        Enviroment enviroment1 = new Enviroment("Cocina",32.5,34.5);
-        Enviroment enviroment2 = new Enviroment("Comedor",21.5,34.5);
-        Enviroment enviroment3 = new Enviroment("Baño",12.5,34.5);
+        Enviroment enviroment1 = new Enviroment("Cocina",22,33);
+        Enviroment enviroment2 = new Enviroment("Comedor",21.5,32);
+        Enviroment enviroment3 = new Enviroment("Baño",12.5,33);
         return List.of(enviroment1,enviroment2,enviroment3);
     }
 
     public static List<EnviromentDTO> getEnviromentsDTO(){
-        EnviromentDTO enviroment1 = new EnviromentDTO("Cocina",32.5,34.5);
-        EnviromentDTO enviroment2 = new EnviromentDTO("Comedor",21.5,34.5);
-        EnviromentDTO enviroment3 = new EnviromentDTO("Baño",12.5,34.5);
+        EnviromentDTO enviroment1 = new EnviromentDTO("Cocina",20.1,33.0);
+        EnviromentDTO enviroment2 = new EnviromentDTO("Comedor",21.5,32.5);
+        EnviromentDTO enviroment3 = new EnviromentDTO("Baño",12.5,24.5);
         return List.of(enviroment1,enviroment2,enviroment3);
     }
 

@@ -54,7 +54,7 @@ public class PropertyServiceTest {
         double totalResponse = propertyService.totalSquareMeters(property.getId());
 
         Mockito.verify(propertyRepository,Mockito.atLeast(1)).findById(property.getId());
-        Assertions.assertEquals(2294.25,totalResponse);
+        Assertions.assertEquals(1826.5,totalResponse);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class PropertyServiceTest {
         double totalResponse = propertyService.getPriceProperty(property.getId());
 
         Mockito.verify(propertyRepository,Mockito.atLeast(1)).findById(property.getId());
-        Assertions.assertEquals(517353.375,totalResponse);
+        Assertions.assertEquals(411875.75,totalResponse);
     }
 
 
@@ -92,9 +92,9 @@ public class PropertyServiceTest {
         List<EnviromentWithSquareMetersDTO> responseList = propertyService.getEnviromentsInfo(property.getId());
 
         Mockito.verify(propertyRepository,Mockito.atLeast(1)).findById(property.getId());
-        Assertions.assertEquals(1121.25,responseList.get(0).getSquareMeters());
-        Assertions.assertEquals(741.75,responseList.get(1).getSquareMeters());
-        Assertions.assertEquals(431.25,responseList.get(2).getSquareMeters());
+        Assertions.assertEquals(726,responseList.get(0).getSquareMeters());
+        Assertions.assertEquals(688,responseList.get(1).getSquareMeters());
+        Assertions.assertEquals(412.5,responseList.get(2).getSquareMeters());
     }
 
 }
