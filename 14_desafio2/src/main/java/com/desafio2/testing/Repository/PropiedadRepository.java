@@ -17,12 +17,15 @@ public class PropiedadRepository implements IPropiedadRepository{
 
 
     public boolean agregarPropiedad(String name, BarrioModel barrioModel, ArrayList<AmbienteModel> ambienteModels, int cant){
-
         PropiedadModel propiedadModel =new PropiedadModel(name, barrioModel, ambienteModels, cant);
-        propiedadesDataBase.add(propiedadModel);
-
-        return true;
+        return   propiedadesDataBase.add(propiedadModel);
     }
+
+    public boolean agregarPropiedad(PropiedadModel propiedad){
+        return propiedadesDataBase.add(propiedad);
+    }
+
+
 
 
     @Override

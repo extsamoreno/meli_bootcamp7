@@ -3,10 +3,16 @@ package com.desafio2.testing.Unit;
 import com.desafio2.testing.Dto.AmbienteDTO;
 import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
 import com.desafio2.testing.Dto.PropiedadM2DTO;
+import com.desafio2.testing.Dto.PropiedadRequestDTO;
+import com.desafio2.testing.Exception.BarrioNoExistException;
 import com.desafio2.testing.Exception.PropiedadInexistenteException;
+import com.desafio2.testing.Exception.PropiedadYaRegistradaException;
+import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
+import com.desafio2.testing.Repository.IBarrioRepository;
 import com.desafio2.testing.Repository.IPropiedadRepository;
 import com.desafio2.testing.Service.Mapper.IPropiedadMapper;
+import com.desafio2.testing.Service.Mapper.PropiedadMapper;
 import com.desafio2.testing.Service.PropiedadService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 
 
@@ -29,7 +36,9 @@ public class ServiceTests {
     IPropiedadRepository iPropiedadRepository;
 
     @Mock
-    IPropiedadMapper iPropiedadMapper;
+    IBarrioRepository iBarrioRepository;
+
+
 
     @InjectMocks
     PropiedadService propiedadService;
@@ -113,6 +122,25 @@ public class ServiceTests {
     }
 
 
+        @Test
+        public void crearPropiedadOk() throws BarrioNoExistException, PropiedadYaRegistradaException {
+            // Arrange
+            PropiedadRequestDTO propiedadRequestDTO = UtilTest.crearPropiedadRequestDTO();
+            BarrioModel barrio = new BarrioModel("Almagro", 1200.3);
+            PropiedadModel propiedadM= PropiedadMapper.toPropiedadModel(propiedadRequestDTO,barrio);
+
+            Mockito.when(iPropiedadRepository.getPropiedadByName(propiedadRequestDTO.getProp_name())).thenReturn(null); //Que no exista la propiedad
+            Mockito.when(iBarrioRepository.getBarrioByName(propiedadRequestDTO.getDistrict_name())).thenReturn(barrio);
+            Mockito.when(iPropiedadRepository.agregarPropiedad(propiedadM)).thenReturn(true);
+
+            // Act
+            boolean bool= propiedadService.crearPropiedad(propiedadRequestDTO);
+
+            // Assert
+            verify(iPropiedadRepository,atLeastOnce()).agregarPropiedad(propiedadM);  //Verifica que se agregue la propiedad correcta
+
+
+        }
 
 
 
@@ -120,21 +148,6 @@ public class ServiceTests {
 
 
 
-   /* @Test
-    public void createNewDistrictCorrectly() throws RepeatedDistrictException, DistrictNotCreatedException {
-        // Arrange
-        District district = new District("Barrio Nuevo", 1000);
-
-        Mockito.doNothing().when(serviceCalculatorHouse).createNewDistrict(district);
-
-        // Act
-        ResponseEntity<?> received = calculatorHouseController.createNewDistrict(district);
-
-        // Assert
-        Mockito.verify(serviceCalculatorHouse, Mockito.atLeastOnce()).createNewDistrict(district);
-        assertThat(received.getStatusCode().is2xxSuccessful());
-
-    }*/
 
 
 

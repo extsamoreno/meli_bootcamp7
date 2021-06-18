@@ -1,12 +1,9 @@
 package com.desafio2.testing.Service.Mapper;
 
-import com.desafio2.testing.Dto.AmbienteDTO;
-import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
-import com.desafio2.testing.Dto.PropiedadM2DTO;
-import com.desafio2.testing.Dto.PropiedadValorDTO;
+import com.desafio2.testing.Dto.*;
 import com.desafio2.testing.Model.AmbienteModel;
+import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
-import com.desafio2.testing.Repository.AmbienteRepository;
 
 import java.util.ArrayList;
 
@@ -29,5 +26,25 @@ public class PropiedadMapper {
     public static PropiedadListaAmbientesM2DTO toPropiedadListaAmbientesM2DTO(PropiedadModel propiedad, ArrayList<AmbienteDTO> ambientes){
         return new PropiedadListaAmbientesM2DTO(propiedad.getProp_name(),ambientes);
     }
+
+    public static AmbienteModel toAmbienteModel (AmbienteRequestDTO ambiente){
+      return new AmbienteModel(ambiente.getEnviroment_name(),ambiente.getEnviroment_width(), ambiente.getEnviroment_length());
+    }
+
+    public static PropiedadModel toPropiedadModel (PropiedadRequestDTO propiedad, BarrioModel barrio){
+       ArrayList<AmbienteModel> ambientesM= new ArrayList<>();
+       PropiedadModel propiedadModel= new PropiedadModel();
+
+        for (AmbienteRequestDTO a: propiedad.getAmbientes()) {
+            ambientesM.add(toAmbienteModel(a));
+        }
+        propiedadModel.setProp_name(propiedad.getProp_name());
+        propiedadModel.setDistrict(barrio);
+        propiedadModel.setAmbientes(ambientesM);
+        propiedadModel.setCantAmbientes(ambientesM.size());
+
+        return propiedadModel;
+    }
+
 
 }

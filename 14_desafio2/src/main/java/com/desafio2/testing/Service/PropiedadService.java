@@ -1,10 +1,10 @@
 package com.desafio2.testing.Service;
 
-import com.desafio2.testing.Dto.AmbienteDTO;
-import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
-import com.desafio2.testing.Dto.PropiedadM2DTO;
-import com.desafio2.testing.Dto.PropiedadValorDTO;
+import com.desafio2.testing.Dto.*;
+import com.desafio2.testing.Exception.BarrioNoExistException;
+import com.desafio2.testing.Exception.BarrioYaExistente;
 import com.desafio2.testing.Exception.PropiedadInexistenteException;
+import com.desafio2.testing.Exception.PropiedadYaRegistradaException;
 import com.desafio2.testing.Model.AmbienteModel;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
@@ -62,7 +62,7 @@ public class PropiedadService implements IPropiedadService {
 
         PropiedadModel propiedad = iPropiedadRepository.getPropiedadByName(nombre);
         m2= calcularM2Propiedad(propiedad);
-        BarrioModel barrio= iBarrioRepository.getBarrioByName(propiedad.getDistrict().getDistrict_name());
+        BarrioModel barrio= propiedad.getDistrict();
         valor= barrio.getDistrict_price()*m2;
 
         return PropiedadMapper.toPropiedadValorDTO(propiedad,valor);
@@ -98,6 +98,39 @@ public class PropiedadService implements IPropiedadService {
         }
        return PropiedadMapper.toPropiedadListaAmbientesM2DTO(propiedad,ambientesDTOS);
     }
+
+
+    public boolean crearPropiedad (PropiedadRequestDTO propiedadRequestDTO) throws BarrioNoExistException, PropiedadYaRegistradaException {
+       String nombreBarrio= propiedadRequestDTO.getDistrict_name();
+       String nombrePropiedad= propiedadRequestDTO.getProp_name();
+
+        if (iPropiedadRepository.getPropiedadByName(nombrePropiedad) != null) {
+            throw new PropiedadYaRegistradaException(nombrePropiedad);
+        }
+
+       BarrioModel barrioM= iBarrioRepository.getBarrioByName(nombreBarrio);
+        if (barrioM == null) {
+            throw new BarrioNoExistException(nombreBarrio);
+        }
+
+        PropiedadModel propModel=PropiedadMapper.toPropiedadModel(propiedadRequestDTO,barrioM);
+        return iPropiedadRepository.agregarPropiedad(propModel);
+    }
+
+    public BarrioModel crearBarrio(String nombreBarrio, double precio) throws BarrioYaExistente {
+
+        BarrioModel barrioM= iBarrioRepository.getBarrioByName(nombreBarrio);
+        if (barrioM != null) {
+            throw new BarrioYaExistente(nombreBarrio);
+        }
+        BarrioModel barrioModel =new BarrioModel(nombreBarrio,precio);
+        iBarrioRepository.agregarBarrio(barrioModel);
+        return barrioModel;
+
+    }
+
+
+
 
 
 

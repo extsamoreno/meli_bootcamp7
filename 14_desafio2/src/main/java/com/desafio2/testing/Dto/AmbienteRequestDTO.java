@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 
@@ -19,7 +20,7 @@ public class AmbienteRequestDTO {
 
     @NotNull(message = "El ancho del ambiente no puede estar vacio")
     @Max(value = 25, message = "El máximo ancho permitido por propiedad es de 25 mts")
-    private double enviroment_width;
+   private double enviroment_width;
 
 
     @NotNull(message = "El largo del ambiente no puede estar vacio")

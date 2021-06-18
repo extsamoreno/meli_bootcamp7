@@ -1,6 +1,7 @@
 package com.desafio2.testing.Service;
 
 
+import com.desafio2.testing.Exception.BarrioYaExistente;
 import com.desafio2.testing.Model.AmbienteModel;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Repository.*;
@@ -22,16 +23,18 @@ public class UtilDB implements IUtilDB {
     @Autowired
     IPropiedadRepository iPropiedadRepository;
 
+    @Autowired
+    IPropiedadService iPropiedadService;
 
     private  ArrayList<PropiedadRepository> propiedades;
     private  ArrayList<BarrioRepository> barrio;
 
 
-     public void crearDataBase(){
-         BarrioModel b1= iBarrioRepository.altaBarrio("Saavedra",3100.0);
-         BarrioModel b2= iBarrioRepository.altaBarrio("Belgrano",3000.0);
-         BarrioModel b3= iBarrioRepository.altaBarrio("Florida",2500.0);
-         BarrioModel b4= iBarrioRepository.altaBarrio("Nuñez",3200.0);
+     public void crearDataBase() throws BarrioYaExistente {
+         BarrioModel b1= iPropiedadService.crearBarrio("Saavedra",3100.0);
+         BarrioModel b2= iPropiedadService.crearBarrio("Belgrano",3000.0);
+         BarrioModel b3= iPropiedadService.crearBarrio("Florida",2500.0);
+         BarrioModel b4= iPropiedadService.crearBarrio("Nuñez",3200.0);
          System.out.println("Se crearon los barrios");
 
 

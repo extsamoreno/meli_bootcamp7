@@ -22,20 +22,23 @@ public class BarrioRepository implements IBarrioRepository {
             }
         }
         return null;
-        // TODO Exception de null
-
-
     }
 
+   /* public boolean agregarPropiedad(PropiedadModel propiedad){
+        return propiedadesDataBase.add(propiedad);
+    }*/
 
 
 
-    public BarrioModel altaBarrio(String name, double precio){
 
-        BarrioModel barrioModel =new BarrioModel(name,precio);
 
-        barriosDataBase.add(barrioModel);
-        return barrioModel;
+
+    public boolean agregarBarrio(BarrioModel barrioModel){
+
+        //BarrioModel barrioModel =new BarrioModel(name,precio);
+
+        return barriosDataBase.add(barrioModel);
+
     }
 
 

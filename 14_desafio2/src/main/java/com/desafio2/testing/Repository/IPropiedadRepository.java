@@ -8,10 +8,10 @@ import com.desafio2.testing.Model.PropiedadModel;
 import java.util.ArrayList;
 
 public interface IPropiedadRepository {
-  PropiedadModel getPropiedadByName(String name) throws PropiedadInexistenteException;
+  PropiedadModel getPropiedadByName(String name);
 
 
   boolean agregarPropiedad(String name, BarrioModel barrioModel, ArrayList<AmbienteModel> ambienteModels, int cant);
-
+  boolean agregarPropiedad(PropiedadModel propiedad);
 
 }

@@ -2,7 +2,10 @@ package com.desafio2.testing.Controller;
 
 
 import com.desafio2.testing.Dto.*;
+import com.desafio2.testing.Exception.BarrioNoExistException;
+import com.desafio2.testing.Exception.BarrioYaExistente;
 import com.desafio2.testing.Exception.PropiedadInexistenteException;
+import com.desafio2.testing.Exception.PropiedadYaRegistradaException;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
 import com.desafio2.testing.Service.IUtilDB;
@@ -27,9 +30,22 @@ public class MiCasitaController {
 
     @GetMapping("/crearDB")
     @Valid
-    public void crearDB(){
+    public void crearDB() throws BarrioYaExistente {
     IUtilDB.crearDataBase();
     }
+
+    @PostMapping("/verificarValidaciones")
+    public ResponseEntity<?> verificarValidaciones (@Valid @RequestBody PropiedadRequestDTO propiedad){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/crearPropiedad")
+    public ResponseEntity<?> crearPropiedad (@Valid @RequestBody PropiedadRequestDTO propiedad) throws BarrioNoExistException, PropiedadYaRegistradaException {
+        return new ResponseEntity<>(iPropiedadService.crearPropiedad(propiedad),HttpStatus.OK);
+    }
+
+
+
 
 
     @PostMapping("/prueba")
@@ -44,9 +60,8 @@ public class MiCasitaController {
 
     }
 
-    @GetMapping("/prueba3/{nombre}")
+    @GetMapping("/CU2/{nombre}")
     public ResponseEntity<PropiedadValorDTO> prueba3(@PathVariable String nombre) throws PropiedadInexistenteException {
-
         return new ResponseEntity<>(iPropiedadService.calcularValorPropiedadDTO(nombre), HttpStatus.OK);
 
     }
@@ -60,12 +75,8 @@ public class MiCasitaController {
     @GetMapping("/prueba5/{nombre}")
     public ResponseEntity<PropiedadListaAmbientesM2DTO> prueba5(@PathVariable String nombre) throws PropiedadInexistenteException {
         return new ResponseEntity<>(iPropiedadService.calcularListaAmbientesM2(nombre), HttpStatus.OK);
-
     }
 
-    @PostMapping("/verificarValidaciones")
-    public ResponseEntity<?> verificarValidaciones (@Valid @RequestBody PropiedadRequestDTO propiedad){
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+
 
 }

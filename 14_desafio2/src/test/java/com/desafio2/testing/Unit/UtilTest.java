@@ -1,8 +1,6 @@
 package com.desafio2.testing.Unit;
 
-import com.desafio2.testing.Dto.AmbienteDTO;
-import com.desafio2.testing.Dto.PropiedadListaAmbientesM2DTO;
-import com.desafio2.testing.Dto.PropiedadM2DTO;
+import com.desafio2.testing.Dto.*;
 import com.desafio2.testing.Model.AmbienteModel;
 import com.desafio2.testing.Model.BarrioModel;
 import com.desafio2.testing.Model.PropiedadModel;
@@ -53,6 +51,24 @@ public class UtilTest {
 
        return new PropiedadListaAmbientesM2DTO("Libertador 5",ambienteDTOS);
 
+    }
+
+   public static PropiedadRequestDTO crearPropiedadRequestDTO() {
+       PropiedadRequestDTO propiedadRequestDTO = new PropiedadRequestDTO();
+
+       AmbienteRequestDTO ba1= new AmbienteRequestDTO("Baño",2.3,3.4);
+       AmbienteRequestDTO d1= new AmbienteRequestDTO("Dormitorio1",5.92,2.4);
+       AmbienteRequestDTO d2= new AmbienteRequestDTO("Dormitorio2",3.0,4.5);
+       AmbienteRequestDTO cocina1= new AmbienteRequestDTO("Cocina",8.3,5.6);
+       ArrayList<AmbienteRequestDTO> ambienteReqDTOS= new ArrayList<AmbienteRequestDTO>(){{add(cocina1); add(ba1); add(d1);add(d2);}};
+
+       propiedadRequestDTO.setProp_name("Alvarez");
+        propiedadRequestDTO.setDistrict_name("Almagro");
+        propiedadRequestDTO.setDistrict_price(1200.3);
+        propiedadRequestDTO.setAmbientes(ambienteReqDTOS);
+
+
+       return propiedadRequestDTO;
     }
 
 
