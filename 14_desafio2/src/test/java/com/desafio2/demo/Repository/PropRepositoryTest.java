@@ -7,6 +7,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,6 +27,12 @@ class PropRepositoryTest {
         District response = propRepository.getDistrictByName("Villa Prado");
         //assert
         assertEquals(district, response);
+    }
+
+    @Test()
+    void loadDataFileNotFound() {
+        //assert
+        assertThrows(FileNotFoundException.class, ()->  propRepository.loadData("badPath.json"));
     }
 
     @Test

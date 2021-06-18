@@ -104,11 +104,14 @@ class PropControllerIntegrationTest {
         PropRequest propRequest = Util.getPropRequest();
         String payLoadJson = writer.writeValueAsString(propRequest);
 
-        PropDTOTMeterByEnvironment response = new PropDTOTMeterByEnvironment("House1", List.of(new EnvironmentDTOResponse("Kitchen", 12.0), new EnvironmentDTOResponse("Habitation", 30.0)));
+        PropDTOTMeterByEnvironment response = new PropDTOTMeterByEnvironment("House1",
+                List.of(new EnvironmentDTOResponse("Kitchen", 12.0),
+                        new EnvironmentDTOResponse("Habitation", 30.0)));
+
         String responseExpect = writer.writeValueAsString(response);
 
         //act
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/TuCasita/totalMetersByMeters")
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/TuCasita/totalMetersByEnvironments")
                 .contentType(MediaType.APPLICATION_JSON).content(payLoadJson))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().json(responseExpect))

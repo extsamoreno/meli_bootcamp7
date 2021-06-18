@@ -42,15 +42,16 @@ public class PropService implements IPropService {
 
     @Override
     public PropDTOTMeterByEnvironment meterByEnvironment(PropRequest prop) {
-        return propMapper.toPropByMeter(prop);
-    }
+        return propMapper.toPropByMeter(prop); }
 
     private double totalArea(PropRequest prop){
+        //sum area by each Environments
         return prop.getEnvironments().stream()
                 .mapToDouble(EnvironmentDTO::area).sum();
     }
 
     private double maxArea(PropRequest prop){
+        //Check what is the Environment that have the max area and return max area
         EnvironmentDTO maxEnv = prop.getEnvironments().stream().max((e1, e2)-> (int) (e1.area() - e2.area())).get();
         return maxEnv.area();
     }

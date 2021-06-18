@@ -14,6 +14,7 @@ TuCasita Tasaciones is a software that help resolve total square meter, the bigg
 
 ### Observations:
 
+**By the coverage test, exclude packages Exception and Model**
 **You need pass in body request:**
 
 Property requests:
