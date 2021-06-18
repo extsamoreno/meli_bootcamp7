@@ -1,6 +1,7 @@
 package com.example.challenge_2.repository;
 
 import com.example.challenge_2.exception.PropertyNotFoundException;
+import com.example.challenge_2.models.District;
 import com.example.challenge_2.models.Environment;
 import com.example.challenge_2.models.Property;
 import org.springframework.stereotype.Repository;
@@ -17,49 +18,42 @@ public class PropertyRepository implements IPropertyRepository {
     public PropertyRepository() {
         this.propertys = new HashMap<>();
 
-        try {
 
-            IDistrictRepository districtRepository = new DistrictRepository();
+        List<Environment> environmentList = new ArrayList<>();
 
-            List<Environment> environmentList = new ArrayList<>();
+        environmentList.add(new Environment("Room", 10d, 3d));
+        environmentList.add(new Environment("Kitchen", 20d, 3d));
+        environmentList.add(new Environment("Living", 10d, 3d));
+        environmentList.add(new Environment("Bathroom", 10d, 3d));
 
-            environmentList.add(new Environment("Room", 10d, 3d));
-            environmentList.add(new Environment("Kitchen", 20d, 3d));
-            environmentList.add(new Environment("Living", 10d, 3d));
-            environmentList.add(new Environment("Bathroom", 10d, 3d));
+        this.propertys.put(1, new Property(1, "Genaro's House", new District("Centro", 10d), environmentList));
 
-            this.propertys.put(1, new Property(1, "Genaro's House", districtRepository.getByName("Centro"), environmentList));
+        environmentList = new ArrayList<>();
 
-            environmentList = new ArrayList<>();
+        environmentList.add(new Environment("Room", 10d, 3d));
+        environmentList.add(new Environment("Kitchen", 20d, 3d));
+        environmentList.add(new Environment("Living", 10d, 3d));
+        environmentList.add(new Environment("Bathroom", 10d, 3d));
+        environmentList.add(new Environment("Yard", 20d, 3d));
 
-            environmentList.add(new Environment("Room", 10d, 3d));
-            environmentList.add(new Environment("Kitchen", 20d, 3d));
-            environmentList.add(new Environment("Living", 10d, 3d));
-            environmentList.add(new Environment("Bathroom", 10d, 3d));
-            environmentList.add(new Environment("Yard", 20d, 3d));
-
-            this.propertys.put(2, new Property(2, "Ajani's House", districtRepository.getByName("Pocitos"), environmentList));
+        this.propertys.put(2, new Property(2, "Ajani's House", new District("Pocitos", 20d), environmentList));
 
 
-            environmentList = new ArrayList<>();
+        environmentList = new ArrayList<>();
 
-            environmentList.add(new Environment("Kitchen", 20d, 3d));
-            environmentList.add(new Environment("Living", 10d, 3d));
-            environmentList.add(new Environment("Bathroom", 10d, 3d));
+        environmentList.add(new Environment("Kitchen", 20d, 3d));
+        environmentList.add(new Environment("Living", 10d, 3d));
+        environmentList.add(new Environment("Bathroom", 10d, 3d));
 
-            this.propertys.put(3, new Property(3, "Nissa's House", districtRepository.getByName("Aguada"), environmentList));
+        this.propertys.put(3, new Property(3, "Nissa's House", new District("Aguada", 15d), environmentList));
 
-            environmentList = new ArrayList<>();
+        environmentList = new ArrayList<>();
 
-            environmentList.add(new Environment("Kitchen", 20d, 3d));
-            environmentList.add(new Environment("Living", 10d, 3d));
-            environmentList.add(new Environment("Bathroom", 10d, 3d));
+        environmentList.add(new Environment("Kitchen", 20d, 3d));
+        environmentList.add(new Environment("Living", 10d, 3d));
+        environmentList.add(new Environment("Bathroom", 10d, 3d));
 
-            this.propertys.put(4, new Property(4, "Kevin's House", districtRepository.getByName("Carrasco"), environmentList));
-
-        } catch (Exception e) { //weird
-            e.printStackTrace();
-        }
+        this.propertys.put(4, new Property(4, "Kevin's House", new District("Carrasco", 30d), environmentList));
 
     }
 
