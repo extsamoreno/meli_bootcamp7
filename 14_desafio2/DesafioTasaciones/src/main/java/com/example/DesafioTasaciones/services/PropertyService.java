@@ -1,41 +1,35 @@
 package com.example.DesafioTasaciones.services;
 
-import com.example.DesafioTasaciones.dtos.HouseDTO;
+import com.example.DesafioTasaciones.dtos.PropertyDTO;
 import com.example.DesafioTasaciones.dtos.ResponseDTO;
 import com.example.DesafioTasaciones.dtos.RoomDTO;
 import com.example.DesafioTasaciones.exceptions.DistrictNotFound;
 import com.example.DesafioTasaciones.models.District;
-import com.example.DesafioTasaciones.models.House;
+import com.example.DesafioTasaciones.models.Property;
 import com.example.DesafioTasaciones.models.Room;
-import com.example.DesafioTasaciones.repository.IHouseRepository;
+import com.example.DesafioTasaciones.repository.IPropertyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import org.modelmapper.ModelMapper;
-import org.modelmapper.ModelMapper.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
-public class HouseService implements IHouseService {
+public class PropertyService implements IPropertyService {
 
 
     ModelMapper mapper;
 
     @Autowired
-    IHouseRepository iHouseRepository;
+    IPropertyRepository iPropertyRepository;
 
     @Override
     public ResponseDTO totalSquareMeters(Integer propertyId) {
-        House house = iHouseRepository.findPropertyById(propertyId);
+        Property property = iPropertyRepository.findPropertyById(propertyId);
 
         ResponseDTO response = new ResponseDTO();
-        response.setTotalSquareMeters(this.calculateTotalSquareMeters(house.getRooms()));
+        response.setTotalSquareMeters(this.calculateTotalSquareMeters(property.getRooms()));
         return response;
     }
 
@@ -49,8 +43,8 @@ public class HouseService implements IHouseService {
 
     @Override
     public ResponseDTO propertyValue(Integer propertyId) {
-        House house = iHouseRepository.findPropertyById(propertyId);
-        Double propertyValue = calculateTotalSquareMeters(house.getRooms()) * house.getDistrict().getPrice();
+        Property property = iPropertyRepository.findPropertyById(propertyId);
+        Double propertyValue = calculateTotalSquareMeters(property.getRooms()) * property.getDistrict().getPrice();
 
         ResponseDTO response = new ResponseDTO();
         response.setPropertyValue(propertyValue);
@@ -59,8 +53,8 @@ public class HouseService implements IHouseService {
 
     @Override
     public ResponseDTO largestEnvironment(Integer propertyId) {
-        House house = iHouseRepository.findPropertyById(propertyId);
-        RoomDTO roomDTO = findBiggestEnvironment(house.getRooms());
+        Property property = iPropertyRepository.findPropertyById(propertyId);
+        RoomDTO roomDTO = findBiggestEnvironment(property.getRooms());
 
         ResponseDTO response = new ResponseDTO();
         response.setLargestEnvironment(roomDTO);
@@ -93,10 +87,10 @@ public class HouseService implements IHouseService {
 
     @Override
     public ResponseDTO roomsSquareMeters(Integer propertyId) {
-        House house = iHouseRepository.findPropertyById(propertyId);
+        Property property = iPropertyRepository.findPropertyById(propertyId);
 
         ResponseDTO response = new ResponseDTO();
-        response.setRoomsSquareMeters(getEnvironmentsDTO(house.getRooms()));
+        response.setRoomsSquareMeters(getEnvironmentsDTO(property.getRooms()));
         return response;
     }
 
@@ -116,26 +110,26 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public void createProperty(HouseDTO house) {
-        District district = iHouseRepository.findDistrictByName(house.getDistrictName());
+    public void createProperty(PropertyDTO house) {
+        District district = iPropertyRepository.findDistrictByName(house.getDistrictName());
 
         if (district == null) {
             throw new DistrictNotFound(house.getDistrictName());
         }
 
         mapper = new ModelMapper();
-        House newHouse = mapper.map(house, House.class);
-        newHouse.setDistrict(district);
-        iHouseRepository.saveProperty(newHouse);
+        Property newProperty = mapper.map(house, Property.class);
+        newProperty.setDistrict(district);
+        iPropertyRepository.saveProperty(newProperty);
     }
 
     @Override
-    public List<HouseDTO> getAllProperties() {
-        List<House> house = iHouseRepository.getAllProperties();
-        List<HouseDTO> propertyDTOS = new ArrayList<>();
+    public List<PropertyDTO> getAllProperties() {
+        List<Property> property = iPropertyRepository.getAllProperties();
+        List<PropertyDTO> propertyDTOS = new ArrayList<>();
 
-        for (House h : house) {
-            propertyDTOS.add(mapper.map(h, HouseDTO.class));
+        for (Property h : property) {
+            propertyDTOS.add(mapper.map(h, PropertyDTO.class));
         }
         return propertyDTOS;
     }

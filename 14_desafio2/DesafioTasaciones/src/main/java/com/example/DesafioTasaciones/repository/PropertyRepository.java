@@ -1,12 +1,10 @@
 package com.example.DesafioTasaciones.repository;
 
-import com.example.DesafioTasaciones.exceptions.DistrictNotFound;
-import com.example.DesafioTasaciones.exceptions.HouseNotFoundException;
+import com.example.DesafioTasaciones.exceptions.PropertyNotFoundException;
 import com.example.DesafioTasaciones.models.District;
-import com.example.DesafioTasaciones.models.House;
+import com.example.DesafioTasaciones.models.Property;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.convert.Property;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -18,11 +16,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class HouseRepository implements IHouseRepository {
+public class PropertyRepository implements IPropertyRepository {
     private final List<District> districts;
-    private final List<House> properties;
+    private final List<Property> properties;
 
-    public HouseRepository() {
+    public PropertyRepository() {
         this.districts = loadDatabase();
         this.properties = new ArrayList<>();
     }
@@ -66,18 +64,18 @@ public class HouseRepository implements IHouseRepository {
 
 
     @Override
-    public void saveProperty(House house) {
-        house.setId(this.properties.size() + 1);
-        this.properties.add(house);
+    public void saveProperty(Property property) {
+        property.setId(this.properties.size() + 1);
+        this.properties.add(property);
     }
 
     @Override
-    public House findPropertyById(Integer id) {
-        return this.properties.stream().filter(prop -> prop.getId().equals(id)).findFirst().orElseThrow(() -> new HouseNotFoundException(id));
+    public Property findPropertyById(Integer id) {
+        return this.properties.stream().filter(prop -> prop.getId().equals(id)).findFirst().orElseThrow(() -> new PropertyNotFoundException(id));
     }
 
     @Override
-    public List<House> getAllProperties() {
+    public List<Property> getAllProperties() {
         return this.properties;
     }
 

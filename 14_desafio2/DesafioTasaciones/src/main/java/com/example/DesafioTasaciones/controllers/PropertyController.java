@@ -1,30 +1,41 @@
 package com.example.DesafioTasaciones.controllers;
 
-import com.example.DesafioTasaciones.dtos.HouseDTO;
-import com.example.DesafioTasaciones.services.IHouseService;
+import com.example.DesafioTasaciones.dtos.ResponseDTO;
+import com.example.DesafioTasaciones.services.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.List;
-
 @RestController
-@RequestMapping("/properties")
+@RequestMapping("/{house}")
 public class PropertyController {
-
     @Autowired
-    IHouseService iHouseService;
+    IPropertyService iPropertyService;
 
-    @PostMapping("/newProperty")
-    public ResponseEntity<?> registerNewProperty(@RequestBody @Valid HouseDTO houseDTO) {
-        iHouseService.createProperty(houseDTO);
-        return ResponseEntity.ok("House Added correctly");
+    //Requirement US-0001
+    @GetMapping("/totalSquareMeters/{propertyId}")
+    public ResponseEntity<ResponseDTO> totalSquareMeters(@PathVariable Integer propertyId) {
+        return new ResponseEntity<>(iPropertyService.totalSquareMeters(propertyId), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllProperties")
-    public ResponseEntity<List<HouseDTO>> getAllProperties() {
-        return new ResponseEntity<>(iHouseService.getAllProperties(), HttpStatus.OK);
+    //Requirement US-0002
+    @GetMapping("/propertyValue/{propertyId}")
+    public ResponseEntity<ResponseDTO> propertyValue(@PathVariable Integer propertyId) {
+        return new ResponseEntity<>(iPropertyService.propertyValue(propertyId),HttpStatus.OK);
     }
+
+    //Requirement US-0003
+    @GetMapping("/largestEnvironment/{propertyId}")
+    public ResponseEntity<ResponseDTO> largestEnvironment(@PathVariable Integer propertyId) {
+        return new ResponseEntity<>(iPropertyService.largestEnvironment(propertyId),HttpStatus.OK);
+    }
+
+    //Requirement US-0004
+    @GetMapping("/roomsSquareMeters/{propertyId}")
+    public ResponseEntity<ResponseDTO> roomsSquareMeters(@PathVariable Integer propertyId) {
+        return new ResponseEntity<>(iPropertyService.roomsSquareMeters(propertyId),HttpStatus.OK);
+    }
+
+
 }

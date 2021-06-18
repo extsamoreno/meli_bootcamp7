@@ -1,20 +1,20 @@
 package com.example.DesafioTasaciones.unit.repository;
 
 import com.example.DesafioTasaciones.models.District;
-import com.example.DesafioTasaciones.repository.HouseRepository;
-import com.example.DesafioTasaciones.repository.IHouseRepository;
+import com.example.DesafioTasaciones.repository.PropertyRepository;
+import com.example.DesafioTasaciones.repository.IPropertyRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DistrictRepositoryTest {
-    IHouseRepository iHouseRepository;
+    IPropertyRepository iPropertyRepository;
 
     @BeforeEach
     @AfterEach
     private void setUp() {
-        this.iHouseRepository = new HouseRepository();
+        this.iPropertyRepository = new PropertyRepository();
     }
 
     @Test
@@ -23,7 +23,7 @@ public class DistrictRepositoryTest {
         String districtName = "Capital";
 
         //Act
-        District found = iHouseRepository.findDistrictByName(districtName);
+        District found = iPropertyRepository.findDistrictByName(districtName);
 
         //Assert
         Assertions.assertEquals(found.getName(),districtName);
@@ -35,7 +35,7 @@ public class DistrictRepositoryTest {
         String districtName = "Jardin";
 
         //Act
-        District found = iHouseRepository.findDistrictByName(districtName);
+        District found = iPropertyRepository.findDistrictByName(districtName);
 
         //Assert
         Assertions.assertNull(found);

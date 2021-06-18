@@ -1,12 +1,9 @@
 package com.example.DesafioTasaciones.dtos;
 
-import com.example.DesafioTasaciones.models.District;
-import com.example.DesafioTasaciones.models.Room;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.validation.constraints.*;
-import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor

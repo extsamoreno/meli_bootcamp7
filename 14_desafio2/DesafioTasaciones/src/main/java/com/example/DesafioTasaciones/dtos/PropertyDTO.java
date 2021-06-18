@@ -1,7 +1,5 @@
 package com.example.DesafioTasaciones.dtos;
 
-import com.example.DesafioTasaciones.models.District;
-import com.example.DesafioTasaciones.models.Room;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +7,6 @@ import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -18,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HouseDTO {
+public class PropertyDTO {
 
     private Integer id;
 
@@ -29,7 +26,7 @@ public class HouseDTO {
     private String districtName;
     private List<@Valid RoomDTO> rooms;
 
-    public HouseDTO(int id, String name, String districtName){
+    public PropertyDTO(int id, String name, String districtName){
         this.id= id;
         this.name = name;
         this.districtName= districtName;

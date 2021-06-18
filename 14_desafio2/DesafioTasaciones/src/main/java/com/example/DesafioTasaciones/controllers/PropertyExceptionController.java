@@ -2,7 +2,6 @@ package com.example.DesafioTasaciones.controllers;
 
 import com.example.DesafioTasaciones.exceptions.Error;
 import com.example.DesafioTasaciones.exceptions.ErrorException;
-import com.example.DesafioTasaciones.exceptions.ErrorException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class HouseExceptionController {
+public class PropertyExceptionController {
 
     @ExceptionHandler(ErrorException.class)
     ResponseEntity<Error> handleGlobalExceptions(ErrorException e) {

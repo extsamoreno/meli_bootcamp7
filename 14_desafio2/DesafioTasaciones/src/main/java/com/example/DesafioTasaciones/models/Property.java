@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter@Setter@AllArgsConstructor@NoArgsConstructor
-public class House {
+public class Property {
     private Integer id;
     private String name;
     private District district;
