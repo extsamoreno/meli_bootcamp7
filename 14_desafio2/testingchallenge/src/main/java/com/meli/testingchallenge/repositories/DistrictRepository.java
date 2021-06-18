@@ -51,8 +51,8 @@ public class DistrictRepository implements IDistrictRepository{
     private List<District> loadDistrictsDB() {
         File file = null;
         try{
-//            file = ResourceUtils.getFile("classpath:districts.json");
-            file = ResourceUtils.getFile("/Users/mstefanutti/workplace/meli_bootcamp7/14_desafio2/testingchallenge/src/main/resources/districts.json");
+            file = ResourceUtils.getFile("classpath:districts.json");
+//            file = ResourceUtils.getFile("/Users/mstefanutti/workplace/meli_bootcamp7/14_desafio2/testingchallenge/src/main/resources/districts.json");
         } catch (FileNotFoundException e){
             e.printStackTrace();
         }
