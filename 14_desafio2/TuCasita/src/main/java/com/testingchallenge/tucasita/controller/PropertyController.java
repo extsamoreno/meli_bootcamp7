@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController()
 @RequestMapping("property")
 public class PropertyController {
@@ -41,7 +43,7 @@ public class PropertyController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<HttpStatus> addProperty (@RequestBody PropertyReqDTO propertyReqDTO) throws NeighborhoodNotFoundException {
+    public ResponseEntity<HttpStatus> addProperty (@Valid @RequestBody PropertyReqDTO propertyReqDTO) throws NeighborhoodNotFoundException {
         HttpStatus status = iPropertyService.addProperty(propertyReqDTO);
         return new ResponseEntity<>(status, status);
     }
