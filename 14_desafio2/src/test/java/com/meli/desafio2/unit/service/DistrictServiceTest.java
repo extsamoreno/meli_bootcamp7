@@ -1,5 +1,6 @@
-package com.meli.desafio2.unit;
+package com.meli.desafio2.unit.service;
 
+import com.meli.desafio2.unit.Utils;
 import com.meli.desafio2.web.dto.request.DistrictDTO;
 import com.meli.desafio2.web.exception.DistrictAlreadyExistException;
 import com.meli.desafio2.web.model.District;
@@ -21,12 +22,13 @@ public class DistrictServiceTest {
 
     @InjectMocks
     DistrictService districtService;
+
+    DistrictDTO districtDTO = Utils.initValidDistrictDTO();
+    District district = DistrictMapper.toModel(districtDTO);
+    String name = districtDTO.getDistrict_name();
     @Test
     public void saveTest() throws DistrictAlreadyExistException {
         //arrange
-        DistrictDTO districtDTO = Utils.initValidDistrictDTO();
-        District district = DistrictMapper.toModel(districtDTO);
-        String name = districtDTO.getDistrict_name();
         Mockito.when(iDistrictRepository.getDistrictByName(name)).thenReturn(null);
         Mockito.doNothing().when(iDistrictRepository).saveDistrict(district);
         //act
@@ -38,9 +40,6 @@ public class DistrictServiceTest {
     @Test
     public void ExceptionInSaveTest() throws DistrictAlreadyExistException {
         //arrange
-        DistrictDTO districtDTO = Utils.initValidDistrictDTO();
-        District district = DistrictMapper.toModel(districtDTO);
-        String name = districtDTO.getDistrict_name();
         Mockito.when(iDistrictRepository.getDistrictByName(name)).thenReturn(district);
         //act
 
@@ -49,6 +48,20 @@ public class DistrictServiceTest {
         Assertions.assertThrows(DistrictAlreadyExistException.class, () -> districtService.save(districtDTO));
         Mockito.verify(iDistrictRepository,Mockito.atLeastOnce()).getDistrictByName(name);
     }
+
+    @Test
+    public void getDistrictByNameTest(){
+        //arrange
+        Mockito.when(iDistrictRepository.getDistrictByName(name)).thenReturn(district);
+        //act
+        DistrictDTO response = districtService.getDistrictByName(name);
+        //assert
+        Mockito.verify(iDistrictRepository,Mockito.atLeastOnce()).getDistrictByName(name);
+        Assertions.assertEquals(districtDTO,response);
+
+    }
+
+
 
 
 }

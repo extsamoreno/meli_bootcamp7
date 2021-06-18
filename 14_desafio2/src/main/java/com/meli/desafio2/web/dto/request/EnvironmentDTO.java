@@ -3,6 +3,7 @@ package com.meli.desafio2.web.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -20,7 +21,9 @@ public class EnvironmentDTO {
     @Valid
     @NotNull(message = "El ancho del ambiente no puede ser nulo")
     @Max(value = 25, message = "El máximo ancho permitido por propiedad es de 25 mts")
+
     private double environment_width;
+    @Valid
     @NotNull(message = "El largo del ambiente no puede ser nulo")
     @Max(value = 33, message = "El máximo largo permitido por propiedad es de 33 mts")
     private double environment_length;

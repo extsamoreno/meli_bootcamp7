@@ -1,5 +1,6 @@
-package com.meli.desafio2.unit;
+package com.meli.desafio2.unit.service;
 
+import com.meli.desafio2.unit.Utils;
 import com.meli.desafio2.web.exception.DistrictNotFoundException;
 import com.meli.desafio2.web.exception.PropertyAlreadyExistException;
 import com.meli.desafio2.web.exception.PropertyException;

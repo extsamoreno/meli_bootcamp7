@@ -52,12 +52,6 @@ public class PropertyRepository implements IPropertyRepository {
         }
         return null;
     }
-    @Override
-    public List<Environment> getEnvironmentsByPropertyByName(String name){
-        Property property = getPropertyByName(name);
-        System.out.println(properties);
-        return property.getEnvironments();
-    }
 
     @Override
     public void saveProperty(Property property) {
