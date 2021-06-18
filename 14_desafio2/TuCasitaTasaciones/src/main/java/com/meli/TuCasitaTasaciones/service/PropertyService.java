@@ -21,8 +21,8 @@ public class PropertyService implements IPropertyService {
     IPropertyDAO iPropertyDAO;
 
     @Override
-    public double calculateArea(List<EnvironmentDTO> environmentDTOS) {
-        return environmentDTOS.stream()
+    public double calculateArea(EnvironmentListDTO environmentDTOS) {
+        return environmentDTOS.getEnvironments().stream()
                 .mapToDouble(environment -> environment.getLength() * environment.getWidth()).sum();
     }
 
@@ -33,36 +33,35 @@ public class PropertyService implements IPropertyService {
         HashMap<String, Double> districtsList = iPropertyDAO.getDistrictList();
 
         double price = districtsList.get(district);
-
-        return calculateArea(houseDTO.getEnvironments()) * price;
+        EnvironmentListDTO e = (new EnvironmentListDTO());
+        e.setEnvironments(houseDTO.getEnvironments());
+        return calculateArea(e) * price;
     }
 
     @Override
-    public EnvironmentAreaResponseDTO environmentsBiggest(List<EnvironmentDTO> environmentDTOS) {
-        Optional<EnvironmentDTO> bigger = environmentDTOS.stream()
+    public EnvironmentAreaResponseDTO environmentsBiggest(EnvironmentListDTO environmentDTOS) {
+        Optional<EnvironmentDTO> bigger = environmentDTOS.getEnvironments().stream()
                 .max(Comparator.comparing(o -> o.getWidth() * o.getLength()));
 
         return EnvironmentMapper.ToEnvironmentAreaResponseDTO(bigger.get());
     }
 
     @Override
-    public List<EnvironmentAreaResponseDTO> environmentArea(List<EnvironmentDTO> environmentDTOS) {
+    public List<EnvironmentAreaResponseDTO> environmentArea(EnvironmentListDTO environmentDTOS) {
 
-        return environmentDTOS.stream().map(EnvironmentMapper::ToEnvironmentAreaResponseDTO)
+        return environmentDTOS.getEnvironments().stream().map(EnvironmentMapper::ToEnvironmentAreaResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public void addProperty(PropertyDTO propertyDTO) throws DistrictRepeatedException {
-        String districtName = propertyDTO.getDistrictDTO().getDistrictName();
+        String districtName = propertyDTO.getDistrict().getDistrictName();
         HashMap<String, Double> hm = iPropertyDAO.getDistrictList();
         if (hm.containsKey(districtName)) {
-            System.out.println("Está mal");
             throw new DistrictRepeatedException(districtName);
         } else {
             iPropertyDAO.addProperty(propertyDTO);
             hm = iPropertyDAO.getDistrictList();
-            System.out.println("hm = " + hm);
         }
     }
 

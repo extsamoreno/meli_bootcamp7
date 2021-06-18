@@ -1,9 +1,6 @@
 package com.meli.TuCasitaTasaciones.serviceTest;
 
-import com.meli.TuCasitaTasaciones.model.EnvironmentAreaResponseDTO;
-import com.meli.TuCasitaTasaciones.model.EnvironmentDTO;
-import com.meli.TuCasitaTasaciones.model.HouseDTO;
-import com.meli.TuCasitaTasaciones.model.PropertyDTO;
+import com.meli.TuCasitaTasaciones.model.*;
 import com.meli.TuCasitaTasaciones.repository.IPropertyDAO;
 import com.meli.TuCasitaTasaciones.service.PropertyService;
 import com.meli.TuCasitaTasaciones.util.TestUtilsGenerator;
@@ -33,7 +30,7 @@ public class PropertyServiceTests {
     @Test
     public void calculateAreaWellCalculated() {
         // arrange
-        List<EnvironmentDTO> env = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO env = TestUtilsGenerator.getEnvironments();
 
         // act
         double received = service.calculateArea(env);
@@ -60,7 +57,7 @@ public class PropertyServiceTests {
     @Test
     public void environmentsBiggestHappyPath() {
         // arrange
-        List<EnvironmentDTO> env = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO env = TestUtilsGenerator.getEnvironments();
         EnvironmentAreaResponseDTO expected = TestUtilsGenerator.getEnvironmentAreaResponseDTO();
 
         // act
@@ -75,7 +72,7 @@ public class PropertyServiceTests {
     @Test
     public void environmentAreaHappyPath() {
         // arrange
-        List<EnvironmentDTO> env = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO env = TestUtilsGenerator.getEnvironments();
 
         List<EnvironmentAreaResponseDTO> expected = TestUtilsGenerator.getListEnvironmentAreaResponseDTO();
 

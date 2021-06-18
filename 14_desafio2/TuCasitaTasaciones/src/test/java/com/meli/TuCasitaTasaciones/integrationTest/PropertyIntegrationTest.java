@@ -3,10 +3,7 @@ package com.meli.TuCasitaTasaciones.integrationTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.meli.TuCasitaTasaciones.model.EnvironmentAreaResponseDTO;
-import com.meli.TuCasitaTasaciones.model.EnvironmentDTO;
-import com.meli.TuCasitaTasaciones.model.HouseDTO;
-import com.meli.TuCasitaTasaciones.model.PropertyDTO;
+import com.meli.TuCasitaTasaciones.model.*;
 import com.meli.TuCasitaTasaciones.repository.IPropertyDAO;
 import com.meli.TuCasitaTasaciones.util.TestUtilsGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -43,7 +40,7 @@ public class PropertyIntegrationTest {
     @Test
     public void calculateAreaTest() throws Exception {
 
-        List<EnvironmentDTO> payloadDTO = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO payloadDTO = TestUtilsGenerator.getEnvironments();
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer();
@@ -93,7 +90,7 @@ public class PropertyIntegrationTest {
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer();
 
-        List<EnvironmentDTO> payloadDTO = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO payloadDTO = TestUtilsGenerator.getEnvironments();
 
         EnvironmentAreaResponseDTO responseDTO = TestUtilsGenerator.getEnvironmentAreaResponseDTO();
 
@@ -117,7 +114,7 @@ public class PropertyIntegrationTest {
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer();
 
-        List<EnvironmentDTO> payloadDTO = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO payloadDTO = TestUtilsGenerator.getEnvironments();
         List<EnvironmentAreaResponseDTO> responseDTO = TestUtilsGenerator.getListEnvironmentAreaResponseDTO();
 
         String payloadJson = writer.writeValueAsString(payloadDTO);

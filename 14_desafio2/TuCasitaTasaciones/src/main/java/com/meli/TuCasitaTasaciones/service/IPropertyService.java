@@ -1,18 +1,15 @@
 package com.meli.TuCasitaTasaciones.service;
 
-import com.meli.TuCasitaTasaciones.model.EnvironmentDTO;
-import com.meli.TuCasitaTasaciones.model.EnvironmentAreaResponseDTO;
-import com.meli.TuCasitaTasaciones.model.HouseDTO;
-import com.meli.TuCasitaTasaciones.model.PropertyDTO;
+import com.meli.TuCasitaTasaciones.model.*;
 
 import java.util.List;
 
 public interface IPropertyService {
 
-    double calculateArea(List<EnvironmentDTO> environmentDTOS);
+    double calculateArea(EnvironmentListDTO environmentDTOS);
     double calculatePrice(HouseDTO houseDTO);
-    EnvironmentAreaResponseDTO environmentsBiggest(List<EnvironmentDTO> environmentDTOS);
-    List<EnvironmentAreaResponseDTO> environmentArea(List<EnvironmentDTO> environmentDTOS);
+    EnvironmentAreaResponseDTO environmentsBiggest(EnvironmentListDTO environmentDTOS);
+    List<EnvironmentAreaResponseDTO> environmentArea(EnvironmentListDTO environmentDTOS);
 
      void addProperty(PropertyDTO propertyDTO);
 

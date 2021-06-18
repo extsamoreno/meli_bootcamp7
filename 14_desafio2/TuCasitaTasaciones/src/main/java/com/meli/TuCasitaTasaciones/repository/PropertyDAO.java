@@ -68,8 +68,8 @@ public class PropertyDAO implements IPropertyDAO {
 
     @Override
     public void addProperty(PropertyDTO propertyDTO) {
-        this.districts.put(propertyDTO.getDistrictDTO().getDistrictName(),
-                propertyDTO.getDistrictDTO().getPrice());
+        this.districts.put(propertyDTO.getDistrict().getDistrictName(),
+                propertyDTO.getDistrict().getPrice());
         this.properties.add(propertyDTO);
     }
 }

@@ -67,10 +67,10 @@ public class TestUtilsGenerator {
 
         return pro1;
     }
-    public static List<EnvironmentDTO> getEnvironments() {
+    public static EnvironmentListDTO getEnvironments() {
         EnvironmentDTO environmentDTO1 = new EnvironmentDTO("Room1", 18, 18);
         EnvironmentDTO environmentDTO2 = new EnvironmentDTO("Room2", 10, 12);
-        EnvironmentDTO environmentDTO3 = new EnvironmentDTO("kitchen", 15, 20);
+        EnvironmentDTO environmentDTO3 = new EnvironmentDTO("Kitchen", 15, 20);
         EnvironmentDTO environmentDTO4 = new EnvironmentDTO("Toilet", 11, 5);
         EnvironmentDTO environmentDTO5 = new EnvironmentDTO("Hall", 20, 21);
 
@@ -81,7 +81,7 @@ public class TestUtilsGenerator {
         environments1.add(environmentDTO4);
         environments1.add(environmentDTO5);
 
-        return environments1;
+        return new EnvironmentListDTO(environments1);
     }
 
     public static HouseDTO getHouseDTO() {
@@ -119,7 +119,7 @@ public class TestUtilsGenerator {
         List<EnvironmentAreaResponseDTO> l = new ArrayList<>();
         EnvironmentAreaResponseDTO environmentDTO1 = new EnvironmentAreaResponseDTO("Room1", 18, 18, 324 );
         EnvironmentAreaResponseDTO environmentDTO2 = new EnvironmentAreaResponseDTO("Room2", 10, 12, 120);
-        EnvironmentAreaResponseDTO environmentDTO3 = new EnvironmentAreaResponseDTO("kitchen", 15, 20, 300);
+        EnvironmentAreaResponseDTO environmentDTO3 = new EnvironmentAreaResponseDTO("Kitchen", 15, 20, 300);
         EnvironmentAreaResponseDTO environmentDTO4 = new EnvironmentAreaResponseDTO("Toilet", 11, 5, 55);
         EnvironmentAreaResponseDTO environmentDTO5 = new EnvironmentAreaResponseDTO("Hall", 20, 21, 420);
 

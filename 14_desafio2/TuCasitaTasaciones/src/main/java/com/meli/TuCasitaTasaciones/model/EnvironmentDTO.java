@@ -10,8 +10,8 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnvironmentDTO {
-    @NotNull(message = "El nombre de la propiedad no puede estar vacío.")
-    @Pattern(regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$", message = "El nombre de la propiedad debe comenzar con mayúscula.")
+    @NotNull(message = "El nombre del ambiente no puede estar vacío.")
+    @Pattern(regexp="([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$", message = "El nombre del ambiente debe comenzar con mayúscula.")
     @Size(max = 30, message = "La longitud del nombre del ambiente no puede superar los 30 caracteres.")
     private String EnvironmentName;
 

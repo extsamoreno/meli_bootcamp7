@@ -1,10 +1,7 @@
 package com.meli.TuCasitaTasaciones.controllerTest;
 
 import com.meli.TuCasitaTasaciones.controller.PropertyController;
-import com.meli.TuCasitaTasaciones.model.EnvironmentAreaResponseDTO;
-import com.meli.TuCasitaTasaciones.model.EnvironmentDTO;
-import com.meli.TuCasitaTasaciones.model.HouseDTO;
-import com.meli.TuCasitaTasaciones.model.PropertyDTO;
+import com.meli.TuCasitaTasaciones.model.*;
 import com.meli.TuCasitaTasaciones.service.IPropertyService;
 import com.meli.TuCasitaTasaciones.util.TestUtilsGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -43,7 +40,7 @@ public class PropertyControllerTests {
     @Test
     public void calculateAreaHappyPath() {
         // arrange
-        List<EnvironmentDTO> env = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO env = TestUtilsGenerator.getEnvironments();
         when(service.calculateArea(env)).thenReturn(44.0);
 
         // act
@@ -75,7 +72,7 @@ public class PropertyControllerTests {
     @Test
     public void environmentsBiggestHappyPath() {
         // arrange
-        List<EnvironmentDTO> env = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO env = TestUtilsGenerator.getEnvironments();
 
         EnvironmentAreaResponseDTO e = TestUtilsGenerator.getEnvironmentAreaResponseDTO();
         when(service.environmentsBiggest(env)).thenReturn(e);
@@ -93,7 +90,7 @@ public class PropertyControllerTests {
     @Test
     public void environmentAreaHappyPath() {
         // arrange
-        List<EnvironmentDTO> env = TestUtilsGenerator.getEnvironments();
+        EnvironmentListDTO env = TestUtilsGenerator.getEnvironments();
 
         List<EnvironmentAreaResponseDTO> e = TestUtilsGenerator.getListEnvironmentAreaResponseDTO();
         when(service.environmentArea(env)).thenReturn(e);
