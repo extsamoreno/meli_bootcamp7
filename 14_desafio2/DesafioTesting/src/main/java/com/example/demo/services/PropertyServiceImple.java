@@ -2,11 +2,10 @@ package com.example.demo.services;
 
 import com.example.demo.exceptions.DistrictDontFoundException;
 import com.example.demo.exceptions.PropertyDontFoundException;
-import com.example.demo.model.District;
 import com.example.demo.model.Property;
 import com.example.demo.repositories.DistrictRepository;
 import com.example.demo.repositories.PropertyRepository;
-import com.example.demo.services.dtos.*;
+import com.example.demo.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +16,6 @@ public class PropertyServiceImple implements PropertyService{
     PropertyRepository propertyRepository;
     @Autowired
     DistrictRepository districtRepository;
-
-    @Override
-    public void load() {
-        propertyRepository.loadData();
-        districtRepository.loadData();
-    }
 
     @Override
     public PropertyM2ResponseDTO getMeterSquare(int propId) throws PropertyDontFoundException {

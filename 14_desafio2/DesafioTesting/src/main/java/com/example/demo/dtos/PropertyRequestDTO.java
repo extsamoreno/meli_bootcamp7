@@ -1,4 +1,4 @@
-package com.example.demo.services.dtos;
+package com.example.demo.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PropertyRequestDTO {
     @NotEmpty(message = "El nombre de la propiedad no puede estar vacio.")
-    @Pattern(regexp = "[A-Z\\u00d1][a-zà-ÿ\\u00f1]*", message = "El nombre de la propiedad debe empezar con una mayuscula.")
+    @Pattern(regexp = "([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$", message = "El nombre de la propiedad debe empezar con una mayuscula.")
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")
     private String prop_name;
 

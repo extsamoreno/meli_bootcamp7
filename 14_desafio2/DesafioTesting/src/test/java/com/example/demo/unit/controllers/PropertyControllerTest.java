@@ -2,9 +2,11 @@ package com.example.demo.unit.controllers;
 
 import com.example.demo.Utils;
 import com.example.demo.controllers.PropertyController;
+import com.example.demo.exceptions.DistrictDontFoundException;
 import com.example.demo.exceptions.PropertyDontFoundException;
+import com.example.demo.model.Property;
 import com.example.demo.services.PropertyService;
-import com.example.demo.services.dtos.*;
+import com.example.demo.dtos.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -104,4 +106,37 @@ public class PropertyControllerTest {
         Assertions.assertEquals(expected,receivedBody);
         Assertions.assertEquals(statusExpected, statusReceived);
     }
+
+    @Test
+    public void findPropertyByIdHappyPath() throws PropertyDontFoundException {
+        //arrange
+        Property expected = Utils.getProperty();
+        int id = 1;
+        Mockito.when(propertyService.findPropertyById(id)).thenReturn(expected);
+
+        //act
+        ResponseEntity receivedR = propertyController.findPropertyById(id);
+        Property received = (Property) receivedR.getBody();
+
+
+        //assert
+        Mockito.verify(propertyService, Mockito.atLeastOnce()).findPropertyById(id);
+        Assertions.assertEquals(expected,received);
+
+    }
+
+    @Test
+    public void addPropertyHappyPath() throws DistrictDontFoundException {
+        //arrange
+        PropertyRequestDTO expected = Utils.getPropertyRequestDTO();
+        Mockito.when(propertyService.addProperty(expected)).thenReturn(expected);
+
+        //act
+        ResponseEntity receivedR = propertyController.addProperty(expected);
+        PropertyRequestDTO received = (PropertyRequestDTO) receivedR.getBody();
+        //assert
+        Mockito.verify(propertyService, Mockito.atLeastOnce()).addProperty(expected);
+        Assertions.assertEquals(expected,received);
+    }
+
 }

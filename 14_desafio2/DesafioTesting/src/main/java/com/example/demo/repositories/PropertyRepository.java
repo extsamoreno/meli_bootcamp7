@@ -2,7 +2,7 @@ package com.example.demo.repositories;
 
 import com.example.demo.exceptions.PropertyDontFoundException;
 import com.example.demo.model.Property;
-import com.example.demo.services.dtos.*;
+import com.example.demo.dtos.*;
 
 public interface PropertyRepository {
     void loadData();

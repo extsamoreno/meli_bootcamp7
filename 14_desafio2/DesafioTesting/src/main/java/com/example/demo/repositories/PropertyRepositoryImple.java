@@ -4,7 +4,7 @@ import com.example.demo.exceptions.PropertyDontFoundException;
 import com.example.demo.model.District;
 import com.example.demo.model.Environment;
 import com.example.demo.model.Property;
-import com.example.demo.services.dtos.*;
+import com.example.demo.dtos.*;
 import com.example.demo.services.mappers.MapperProperty;
 import org.springframework.stereotype.Repository;
 
@@ -20,11 +20,10 @@ public class PropertyRepositoryImple implements PropertyRepository {
     Environment env2 = new Environment("Enviroment2",6d,7d);
     Environment env3 = new Environment("Enviroment3",7d,8d);
     District district = new District(1,"District1",500d);
-    Property prop1 = new Property(0,"Prop1",district,null);
+    Property prop1 = new Property(1,"Prop1",district,null);
 
     @Override
     public void loadData(){
-        prop1.setProp_id(id++);
         environments.add(env1);
         environments.add(env2);
         environments.add(env3);
@@ -36,7 +35,7 @@ public class PropertyRepositoryImple implements PropertyRepository {
     @Override
     public PropertyM2ResponseDTO getSquareMeter(int propId) throws PropertyDontFoundException {
 
-        PropertyM2ResponseDTO propertyM2ResponseDTO = null;
+        PropertyM2ResponseDTO propertyM2ResponseDTO;
         Property property = findPropertyById(propId);
 
         propertyM2ResponseDTO = MapperProperty.toPropertyM2ResponseDTO(property);
@@ -46,12 +45,8 @@ public class PropertyRepositoryImple implements PropertyRepository {
 
     @Override
     public PropertyPriceResponseDTO getPrice(int propId) throws PropertyDontFoundException {
-        PropertyPriceResponseDTO propertyPriceResponseDTO = null;
+        PropertyPriceResponseDTO propertyPriceResponseDTO;
         Property property = findPropertyById(propId);
-
-        if(property == null){
-
-        }
 
         propertyPriceResponseDTO = MapperProperty.toPropertyPriceResponseDTO(property);
 
@@ -60,12 +55,8 @@ public class PropertyRepositoryImple implements PropertyRepository {
 
     @Override
     public BiggestPropResponseDTO getBiggestEnvProp(int propId) throws PropertyDontFoundException {
-        BiggestPropResponseDTO biggestPropResponseDTO = null;
+        BiggestPropResponseDTO biggestPropResponseDTO;
         Property property = findPropertyById(propId);
-
-        if(property == null){
-
-        }
 
         biggestPropResponseDTO = MapperProperty.toBiggestPropResponseDTO(property);
 
@@ -74,12 +65,8 @@ public class PropertyRepositoryImple implements PropertyRepository {
 
     @Override
     public PropertyM2EnvsResponseDTO getMeterSquareEnvs(int propId) throws PropertyDontFoundException {
-        PropertyM2EnvsResponseDTO propertyM2EnvsResponseDTO = null;
+        PropertyM2EnvsResponseDTO propertyM2EnvsResponseDTO;
         Property property = findPropertyById(propId);
-
-        if(property == null){
-
-        }
 
         propertyM2EnvsResponseDTO = MapperProperty.toPropertyM2EnvsDTO(property);
 

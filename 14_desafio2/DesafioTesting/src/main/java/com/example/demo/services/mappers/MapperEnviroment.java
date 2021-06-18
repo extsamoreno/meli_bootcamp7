@@ -2,10 +2,10 @@ package com.example.demo.services.mappers;
 
 import com.example.demo.model.Environment;
 import com.example.demo.model.Property;
-import com.example.demo.services.dtos.BiggestEnvironmentDTO;
-import com.example.demo.services.dtos.EnvironmentDTO;
-import com.example.demo.services.dtos.EnvironmentM2DTO;
-import com.example.demo.services.dtos.EnvironmentRequestDTO;
+import com.example.demo.dtos.BiggestEnvironmentDTO;
+import com.example.demo.dtos.EnvironmentDTO;
+import com.example.demo.dtos.EnvironmentM2DTO;
+import com.example.demo.dtos.EnvironmentRequestDTO;
 
 
 import java.util.ArrayList;

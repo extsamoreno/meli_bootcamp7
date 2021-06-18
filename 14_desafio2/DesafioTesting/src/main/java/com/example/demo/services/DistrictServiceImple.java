@@ -2,8 +2,8 @@ package com.example.demo.services;
 
 import com.example.demo.exceptions.DistrictDontFoundException;
 import com.example.demo.repositories.DistrictRepository;
-import com.example.demo.services.dtos.DistrictDTO;
-import com.example.demo.services.dtos.DistrictRequestDTO;
+import com.example.demo.dtos.DistrictDTO;
+import com.example.demo.dtos.DistrictRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

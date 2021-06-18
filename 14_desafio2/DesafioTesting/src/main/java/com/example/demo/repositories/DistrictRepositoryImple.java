@@ -2,8 +2,8 @@ package com.example.demo.repositories;
 
 import com.example.demo.exceptions.DistrictDontFoundException;
 import com.example.demo.model.District;
-import com.example.demo.services.dtos.DistrictDTO;
-import com.example.demo.services.dtos.DistrictRequestDTO;
+import com.example.demo.dtos.DistrictDTO;
+import com.example.demo.dtos.DistrictRequestDTO;
 import com.example.demo.services.mappers.MapperDistrict;
 import org.springframework.stereotype.Repository;
 

@@ -3,8 +3,7 @@ package com.example.demo.services.mappers;
 import com.example.demo.Utils;
 import com.example.demo.model.Environment;
 import com.example.demo.model.Property;
-import com.example.demo.services.dtos.*;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.example.demo.dtos.*;
 
 public class MapperProperty {
 
