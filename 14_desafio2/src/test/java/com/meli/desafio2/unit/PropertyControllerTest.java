@@ -2,6 +2,8 @@ package com.meli.desafio2.unit;
 
 import com.meli.desafio2.controller.PropertyController;
 import com.meli.desafio2.exception.DistrictNotFoundException;
+import com.meli.desafio2.exception.PropertyException;
+import com.meli.desafio2.model.District;
 import com.meli.desafio2.model.Property;
 import com.meli.desafio2.model.dto.EnvironmentDTO;
 import com.meli.desafio2.model.dto.PropertyDTO;
@@ -10,6 +12,7 @@ import com.meli.desafio2.util.TestUtilGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -41,7 +44,7 @@ class PropertyControllerTest {
     }
 
     @Test
-    void calculateMts2() {
+    void calculateMts2() throws PropertyException {
         //Arrange
         PropertyDTO expected = new PropertyDTO("Casa del Barba",131,0,null,null);
         Mockito.when(propertyService.calculateMts2()).thenReturn(expected);
@@ -56,7 +59,7 @@ class PropertyControllerTest {
     }
 
     @Test
-    void calculatePrice() {
+    void calculatePrice() throws PropertyException {
         //Arrange
         PropertyDTO expected = new PropertyDTO("Casa del Barba", 131, 39365.5, null ,null);
         Mockito.when(propertyService.calculatePrice()).thenReturn(expected);
@@ -71,7 +74,7 @@ class PropertyControllerTest {
     }
 
     @Test
-    void obtainMostGreaterEnvironment() {
+    void obtainMostGreaterEnvironment() throws PropertyException {
         //Arrange
         EnvironmentDTO environment = new EnvironmentDTO("Cocina",56);
         PropertyDTO expected = new PropertyDTO("Casa del Barba", 131, 0, environment, null);
@@ -87,7 +90,7 @@ class PropertyControllerTest {
     }
 
     @Test
-    void calculateEnvironmentMts2() {
+    void calculateEnvironmentMts2() throws PropertyException {
         //Arrange
         PropertyDTO expected = new PropertyDTO("Casa del Barba", 131, 0, null, TestUtilGenerator.environmentDTOList());
         Mockito.when(propertyService.calculateEnvironmentMts2()).thenReturn(expected);

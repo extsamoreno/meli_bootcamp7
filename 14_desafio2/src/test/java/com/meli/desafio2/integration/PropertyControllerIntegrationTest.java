@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -61,7 +62,9 @@ public class PropertyControllerIntegrationTest {
 
     @Test
     public void registerPropertyEmptyDistrict() throws Exception{
-        String payLoad = TestUtilGenerator.toJson(new District());
+        Property prop = TestUtilGenerator.getProperty();
+        prop.setDistrict(null);
+        String payLoad = TestUtilGenerator.toJson(prop);
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/property/save")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -84,20 +87,17 @@ public class PropertyControllerIntegrationTest {
 
     }
 
-    /*
     @Test
     public void calculateMts2WithoutProperty() throws Exception{
-        Mockito.when(propertyRepository.getProperty()).thenThrow();
+        Mockito.when(propertyRepository.getProperty()).thenThrow(new PropertyException("", HttpStatus.NOT_FOUND));
+        String expectedDescription = "Property not found";
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/property/calculateMts2"))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_name").value("Casa del Barba"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value("131.0"));
-
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(expectedDescription));
     }
-     */
 
     @Test
     public void calculatePriceHappyPath() throws Exception{
@@ -112,6 +112,18 @@ public class PropertyControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value(131.0))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.prop_price").value(39365.5));
 
+    }
+
+    @Test
+    public void calculatePriceWithoutProperty() throws Exception{
+        Mockito.when(propertyRepository.getProperty()).thenThrow(new PropertyException("", HttpStatus.NOT_FOUND));
+        String expectedDescription = "Property not found";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/property/calculatePrice"))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(expectedDescription));
     }
 
     @Test
@@ -131,6 +143,18 @@ public class PropertyControllerIntegrationTest {
     }
 
     @Test
+    public void obtainMostGreaterEnvironmentWithoutProperty() throws Exception{
+        Mockito.when(propertyRepository.getProperty()).thenThrow(new PropertyException("", HttpStatus.NOT_FOUND));
+        String expectedDescription = "Property not found";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/property/obtainMostGreaterEnvironment"))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(expectedDescription));
+    }
+
+    @Test
     public void calculateEnvironmentMts2() throws Exception{
         Property prop = TestUtilGenerator.getProperty();
         Mockito.when(propertyRepository.getProperty()).thenReturn(prop);
@@ -143,7 +167,18 @@ public class PropertyControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value(131.0))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.environmentList[0].environment_name").value(TestUtilGenerator.environmentDTOList().get(0).getEnvironment_name()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.environmentList[0].environment_mts2").value(TestUtilGenerator.environmentDTOList().get(0).getEnvironment_mts2()));
+    }
 
+    @Test
+    public void calculateEnvironmentMts2WithoutProperty() throws Exception{
+        Mockito.when(propertyRepository.getProperty()).thenThrow(new PropertyException("", HttpStatus.NOT_FOUND));
+        String expectedDescription = "Property not found";
+
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/property/calculateEnvironmentMts2"))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value(expectedDescription));
     }
 
 

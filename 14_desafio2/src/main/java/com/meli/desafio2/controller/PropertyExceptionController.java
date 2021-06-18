@@ -45,7 +45,7 @@ public class PropertyExceptionController {
 
     @ExceptionHandler(PropertyException.class)
     public ResponseEntity<ErrorDTO> handleValidationExceptions(PropertyException ex) {
-        return new ResponseEntity<>(ex.getError(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ex.getError(), HttpStatus.NOT_FOUND);
     }
 
 

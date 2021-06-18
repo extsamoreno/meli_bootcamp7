@@ -1,6 +1,7 @@
 package com.meli.desafio2.controller;
 
 import com.meli.desafio2.exception.DistrictNotFoundException;
+import com.meli.desafio2.exception.PropertyException;
 import com.meli.desafio2.model.Property;
 import com.meli.desafio2.model.dto.PropertyDTO;
 import com.meli.desafio2.service.PropertyService;
@@ -27,31 +28,32 @@ public class PropertyController {
 
     //US-0001 - Method to calculate mts2 of a Property
     @GetMapping("/calculateMts2")
-    public ResponseEntity<PropertyDTO> calculateMts2(){
+    public ResponseEntity<PropertyDTO> calculateMts2() throws PropertyException {
         PropertyDTO result = propertyService.calculateMts2();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     //US-0002 - Method to calculate price of a Property
     @GetMapping("/calculatePrice")
-    public ResponseEntity<PropertyDTO> calculatePrice(){
+    public ResponseEntity<PropertyDTO> calculatePrice() throws PropertyException {
         PropertyDTO result = propertyService.calculatePrice();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     //US-0003 - Method to calculate most greater environment of a Property
     @GetMapping("/obtainMostGreaterEnvironment")
-    public ResponseEntity<PropertyDTO> obtainMostGreaterEnvironment(){
+    public ResponseEntity<PropertyDTO> obtainMostGreaterEnvironment() throws PropertyException {
         PropertyDTO result = propertyService.obtainMostGreaterEnvironment();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     //US-0004 - Method to calculate environment mts2 of a Property
     @GetMapping("/calculateEnvironmentMts2")
-    public ResponseEntity<PropertyDTO> calculateEnvironmentMts2(){
+    public ResponseEntity<PropertyDTO> calculateEnvironmentMts2() throws PropertyException {
         PropertyDTO result = propertyService.calculateEnvironmentMts2();
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
 
 
 

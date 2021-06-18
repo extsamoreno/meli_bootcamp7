@@ -1,5 +1,6 @@
 package com.meli.desafio2.unit;
 
+import com.meli.desafio2.exception.PropertyException;
 import com.meli.desafio2.model.Property;
 import com.meli.desafio2.repository.PropertyRepository;
 import com.meli.desafio2.repository.PropertyRepositoryImpl;
@@ -20,7 +21,7 @@ class PropertyRepositoryTest {
     public void setUp(){ this.propertyRepository = new PropertyRepositoryImpl(); }
 
     @Test
-    public void save_success(){
+    public void save_success() throws PropertyException {
         //Arrange
         Property property = TestUtilGenerator.getProperty();
 

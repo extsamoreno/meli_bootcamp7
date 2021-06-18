@@ -1,9 +1,12 @@
 package com.meli.desafio2.unit;
 
 import com.meli.desafio2.exception.DistrictNotFoundException;
+import com.meli.desafio2.exception.PropertyException;
+import com.meli.desafio2.model.District;
 import com.meli.desafio2.model.Property;
 import com.meli.desafio2.model.dto.EnvironmentDTO;
 import com.meli.desafio2.model.dto.PropertyDTO;
+import com.meli.desafio2.repository.DistrictRepository;
 import com.meli.desafio2.repository.PropertyRepository;
 import com.meli.desafio2.service.PropertyServiceImpl;
 import com.meli.desafio2.util.TestUtilGenerator;
@@ -15,31 +18,43 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
 @ExtendWith(MockitoExtension.class)
 class PropertyServiceTest {
 
     @Mock
     PropertyRepository propertyRepository;
 
+    @Mock
+    DistrictRepository districtRepository;
+
     @InjectMocks
     PropertyServiceImpl propertyService;
 
     @Test
-    void saveProperty_Success() throws DistrictNotFoundException {
+    void saveProperty_Success() throws PropertyException {
         //Arrange
         Property prop = TestUtilGenerator.getProperty();
+        Mockito.when(districtRepository.findDistrictByID(1)).thenReturn(new District(1, "Jardin Aeropuerto", 300.5));
 
         //Act
         propertyService.saveProperty(prop);
 
         //Assert
         Mockito.verify(propertyRepository, Mockito.atLeastOnce()).save(prop);
-        Assertions.assertEquals(propertyRepository.getProperty(),prop);
     }
 
+    @Test
+    void saveProperty_WithoutDistrict(){
+        //Arrange
+        Property prop = TestUtilGenerator.getProperty();
+        prop.setDistrict(new District());
+
+        Assertions.assertThrows(DistrictNotFoundException.class, () -> propertyService.saveProperty(prop));
+    }
 
     @Test
-    void calculateMts2_Success() {
+    void calculateMts2_Success() throws PropertyException {
         //Arrange
         Property prop = TestUtilGenerator.getProperty();
         PropertyDTO expected = new PropertyDTO("Casa del Barba",131,0,null,null);
@@ -54,7 +69,7 @@ class PropertyServiceTest {
     }
 
     @Test
-    void calculatePrice_Success() {
+    void calculatePrice_Success() throws PropertyException {
         //Arrange
         Property prop = TestUtilGenerator.getProperty();
         PropertyDTO expected = new PropertyDTO("Casa del Barba", 131, 39365.5, null ,null);
@@ -69,7 +84,7 @@ class PropertyServiceTest {
     }
 
     @Test
-    void obtainMostGreaterEnvironment_Sucesss(){
+    void obtainMostGreaterEnvironment_Sucesss() throws PropertyException {
         //Arrange
         Property prop = TestUtilGenerator.getProperty();
         EnvironmentDTO environment = new EnvironmentDTO("Cocina",56);
@@ -85,7 +100,7 @@ class PropertyServiceTest {
     }
 
     @Test
-    void calculateEnvironmentMts2_Success(){
+    void calculateEnvironmentMts2_Success() throws PropertyException {
         //Arrange
         Property prop = TestUtilGenerator.getProperty();
         PropertyDTO expected = new PropertyDTO("Casa del Barba", 131, 0, null, TestUtilGenerator.environmentDTOList());

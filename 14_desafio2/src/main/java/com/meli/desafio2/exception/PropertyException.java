@@ -9,8 +9,8 @@ public class PropertyException extends Exception{
     private final ErrorDTO error;
     private final HttpStatus status;
 
-    public PropertyException(String message, HttpStatus status){
-        this.error = new ErrorDTO(this.getClass().getSimpleName(), message);
-        this.status = status;
+    public PropertyException(String s, HttpStatus notFound){
+        this.error = new ErrorDTO(this.getClass().getSimpleName(), "Property not found");
+        this.status = HttpStatus.NOT_FOUND;
     }
 }

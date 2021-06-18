@@ -1,6 +1,7 @@
 package com.meli.desafio2.service;
 
 import com.meli.desafio2.exception.DistrictNotFoundException;
+import com.meli.desafio2.exception.PropertyException;
 import com.meli.desafio2.model.Environment;
 import com.meli.desafio2.model.Property;
 import com.meli.desafio2.model.dto.EnvironmentDTO;
@@ -25,6 +26,7 @@ public class PropertyServiceImpl implements PropertyService{
     @Override
     public void saveProperty(Property prop) throws DistrictNotFoundException {
         int id = prop.getDistrict().getId();
+
         if(districtRepository.findDistrictByID(id) == null)
             throw new DistrictNotFoundException(prop.getDistrict());
 
@@ -32,7 +34,7 @@ public class PropertyServiceImpl implements PropertyService{
     }
 
     @Override
-    public PropertyDTO calculateMts2(){
+    public PropertyDTO calculateMts2() throws PropertyException {
         PropertyDTO result = new PropertyDTO();
         Property prop = propertyRepository.getProperty();
 
@@ -47,7 +49,7 @@ public class PropertyServiceImpl implements PropertyService{
     }
 
     @Override
-    public PropertyDTO calculatePrice() {
+    public PropertyDTO calculatePrice() throws PropertyException {
         PropertyDTO result = calculateMts2();
         Property prop = propertyRepository.getProperty();
 
@@ -57,7 +59,7 @@ public class PropertyServiceImpl implements PropertyService{
     }
 
     @Override
-    public PropertyDTO obtainMostGreaterEnvironment() {
+    public PropertyDTO obtainMostGreaterEnvironment() throws PropertyException {
         PropertyDTO result = calculateMts2();
         Property prop = propertyRepository.getProperty();
         EnvironmentDTO environmentDTO = null;
@@ -76,7 +78,7 @@ public class PropertyServiceImpl implements PropertyService{
     }
 
     @Override
-    public PropertyDTO calculateEnvironmentMts2() {
+    public PropertyDTO calculateEnvironmentMts2() throws PropertyException {
         PropertyDTO result = calculateMts2();
         Property prop = propertyRepository.getProperty();
         EnvironmentDTO environment;
