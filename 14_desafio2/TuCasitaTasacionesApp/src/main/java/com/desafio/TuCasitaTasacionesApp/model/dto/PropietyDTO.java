@@ -33,6 +33,7 @@ public class PropietyDTO {
         this.roomList = new ArrayList<>();
     }
 
+
     public List<RoomDTO> getRoomList() {
         return roomList;
     }

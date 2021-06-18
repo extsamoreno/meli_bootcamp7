@@ -25,7 +25,7 @@ public class CalculateRestController {
 
     @GetMapping("/calculate/squearemeter")
     public ResponseEntity<PropietyDTOResponseTotalMeters> getSquareMeterForPropiety(@RequestParam(name = "name")String name) throws PropietyNotFoundException {
-        return new ResponseEntity<PropietyDTOResponseTotalMeters>(iCalculateService.getSquareMeterForPropiety(name), HttpStatus.OK);
+        return new ResponseEntity<>(iCalculateService.getSquareMeterForPropiety(name), HttpStatus.OK);
     }
 
     @GetMapping("calculate/value")

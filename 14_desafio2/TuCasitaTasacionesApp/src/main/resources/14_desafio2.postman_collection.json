@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "159349bc-7c83-4eee-92b3-dd9cc9a31bab",
+		"name": "14_desafio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New_Propiety",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n {  \"name\": \"PropUno\",\n    \"neighborhood\" : \"Adrogue\",\n    \"roomList\":   \n    [\n      {\n           \"name\": \"Banio\",\n           \"width\": 10,\n           \"lenght\" : 10\n      },\n      {\n           \"name\": \"Living\",\n            \"width\": 7,\n            \"lenght\" : 10\n      },\n      {\n            \"name\": \"Cocina\",\n            \"width\": 6,\n            \"lenght\" : 10\n      }\n    ]\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/propieties/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"propieties",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Total  meters for propiety",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"name\": \"Hola\",\n      \"subjects\":\n      [\n      {\n           \"name\": \"Matemática\",\n           \"note\": 10\n      },\n      {\n           \"name\": \"Física\",\n            \"note\": 7 },\n      {\n           \"name\": \"Química\",\n            \"note\": 6 \n    }\n ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/propiety/calculate/squearemeter?name=PropUno",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"propiety",
+						"calculate",
+						"squearemeter"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "PropUno"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "value  for propiety",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"name\": \"Hola\",\n      \"subjects\":\n      [\n      {\n           \"name\": \"Matemática\",\n           \"note\": 10\n      },\n      {\n           \"name\": \"Física\",\n            \"note\": 7 },\n      {\n           \"name\": \"Química\",\n            \"note\": 6 \n    }\n ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/propiety/calculate/value?name=PropUno",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"propiety",
+						"calculate",
+						"value"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "PropUno"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "the biggest room",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"name\": \"Hola\",\n      \"subjects\":\n      [\n      {\n           \"name\": \"Matemática\",\n           \"note\": 10\n      },\n      {\n           \"name\": \"Física\",\n            \"note\": 7 },\n      {\n           \"name\": \"Química\",\n            \"note\": 6 \n    }\n ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/propiety/room/obtainbiggest/?name=PropUno",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"propiety",
+						"room",
+						"obtainbiggest",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "PropUno"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "square meters for room",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n      \"name\": \"Hola\",\n      \"subjects\":\n      [\n      {\n           \"name\": \"Matemática\",\n           \"note\": 10\n      },\n      {\n           \"name\": \"Física\",\n            \"note\": 7 },\n      {\n           \"name\": \"Química\",\n            \"note\": 6 \n    }\n ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/propiety/room/calculate/squearemeter?name=PropUno",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"propiety",
+						"room",
+						"calculate",
+						"squearemeter"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "PropUno"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

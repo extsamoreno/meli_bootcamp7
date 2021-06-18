@@ -17,27 +17,25 @@ public class CalculateService implements ICalculateService {
     @Autowired
     IPropietyRepository iPropietyRepository;
 
-    @Autowired
-    ICalculateService iCalculateService;
-
-    private ModelMapper mapper;
-    public CalculateService(ModelMapper mapper) {
-        this.mapper = mapper;
-    }
+    private ModelMapper mapper = new ModelMapper();
+    //public CalculateService(ModelMapper mapper) {
+    //    this.mapper = mapper;
+    //}
 
     @Override
     public PropietyDTOResponseTotalMeters getSquareMeterForPropiety(String name) throws PropietyNotFoundException{
         //Auxiiliares
         double m = 0;
         //Agarro la propiedad
+
         Propiety propiety = iPropietyRepository.get(name);
+
         if(propiety == null) throw new PropietyNotFoundException(name);
         //convierto a DTO
         PropietyDTO propietyDTO = mapToDTO(propiety);
 
         //logica
         for(RoomDTO hab : propietyDTO.getRoomList()){
-            //System.out.println("Ancho "+hab.getAncho() + "Largo" +hab.getLargo());
             m += getSquareMetersForRoom(hab);
         }
         return new PropietyDTOResponseTotalMeters(m);

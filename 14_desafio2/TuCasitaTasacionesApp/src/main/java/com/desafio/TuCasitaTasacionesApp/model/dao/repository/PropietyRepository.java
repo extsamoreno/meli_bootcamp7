@@ -42,6 +42,7 @@ public class PropietyRepository implements IPropietyRepository {
 
     @Override
     public Propiety get(String name){
+        System.out.println("Estoy en repository");
         Propiety propiety = null;
         for (Propiety propietyAux : propietyList) {
             if (propietyAux.getName().equals(name)) propiety = propietyAux;
