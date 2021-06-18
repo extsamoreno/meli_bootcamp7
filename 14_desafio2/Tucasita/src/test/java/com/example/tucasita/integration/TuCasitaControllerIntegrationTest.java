@@ -69,7 +69,7 @@ public class TuCasitaControllerIntegrationTest {
     public void calculateTotalMetersHappyPath() throws Exception {
 
         String payloadJson = toJson(houseDTO);
-        HouseWithTotalMeters expected = new HouseWithTotalMeters("Casa", 80);
+        HouseWithTotalMetersDTO expected = new HouseWithTotalMetersDTO("Casa", 80);
 
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/house/total-square-meters")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -77,7 +77,7 @@ public class TuCasitaControllerIntegrationTest {
                 .andDo(print()).andExpect(status().isOk()).andReturn();
 
         String expectedJson = response.getResponse().getContentAsString();
-        HouseWithTotalMeters received = fromJson(expectedJson, HouseWithTotalMeters.class);
+        HouseWithTotalMetersDTO received = fromJson(expectedJson, HouseWithTotalMetersDTO.class);
 
         assertEquals(expected, received);
     }
@@ -85,7 +85,7 @@ public class TuCasitaControllerIntegrationTest {
     @Test
     public void calculateTotalValueHappyPath() throws Exception {
         String payloadJson = toJson(houseDTO);
-        HouseWithTotalValue expected = new HouseWithTotalValue("Casa", 8000);
+        HouseWithTotalValueDTO expected = new HouseWithTotalValueDTO("Casa", 8000);
 
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/house/total-value")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -93,7 +93,7 @@ public class TuCasitaControllerIntegrationTest {
                 .andDo(print()).andExpect(status().isOk()).andReturn();
 
         String expectedJson = response.getResponse().getContentAsString();
-        HouseWithTotalValue received = fromJson(expectedJson, HouseWithTotalValue.class);
+        HouseWithTotalValueDTO received = fromJson(expectedJson, HouseWithTotalValueDTO.class);
 
         assertEquals(expected, received);
     }
@@ -102,7 +102,7 @@ public class TuCasitaControllerIntegrationTest {
     public void calculateLargestRoomHappyPath() throws Exception {
         String payloadJson = toJson(houseDTO);
         RoomWithMetersDTO largest = new RoomWithMetersDTO("Room2", 60);
-        HouseWithLargestRoom expected = new HouseWithLargestRoom("Casa", largest);
+        HouseWithLargestRoomDTO expected = new HouseWithLargestRoomDTO("Casa", largest);
 
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.post("/house/largest-room")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -110,7 +110,7 @@ public class TuCasitaControllerIntegrationTest {
                 .andDo(print()).andExpect(status().isOk()).andReturn();
 
         String expectedJson = response.getResponse().getContentAsString();
-        HouseWithLargestRoom received = fromJson(expectedJson, HouseWithLargestRoom.class);
+        HouseWithLargestRoomDTO received = fromJson(expectedJson, HouseWithLargestRoomDTO.class);
 
         assertEquals(expected, received);
     }

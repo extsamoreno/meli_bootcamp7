@@ -1,10 +1,10 @@
 package com.example.tucasita.controller;
 
 import com.example.tucasita.dto.HouseDTO;
-import com.example.tucasita.dto.response.HouseWithLargestRoom;
+import com.example.tucasita.dto.response.HouseWithLargestRoomDTO;
 import com.example.tucasita.dto.response.HouseWithRoomsMetersDTO;
-import com.example.tucasita.dto.response.HouseWithTotalMeters;
-import com.example.tucasita.dto.response.HouseWithTotalValue;
+import com.example.tucasita.dto.response.HouseWithTotalMetersDTO;
+import com.example.tucasita.dto.response.HouseWithTotalValueDTO;
 import com.example.tucasita.service.IHouseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +26,19 @@ public class TuCasitaController {
 
     @PostMapping("/total-square-meters")
     @ApiOperation("Return the total square meters of a given house")
-    public ResponseEntity<HouseWithTotalMeters> calculateTotalMeters(@Valid @RequestBody HouseDTO houseDto) {
+    public ResponseEntity<HouseWithTotalMetersDTO> calculateTotalMeters(@Valid @RequestBody HouseDTO houseDto) {
         return new ResponseEntity(houseService.calculateTotalMeters(houseDto), HttpStatus.OK);
     }
 
     @PostMapping("/total-value")
     @ApiOperation("Return the total value in U$S of a given house")
-    public ResponseEntity<HouseWithTotalValue> calculateTotalValue(@Valid @RequestBody HouseDTO houseDto) {
+    public ResponseEntity<HouseWithTotalValueDTO> calculateTotalValue(@Valid @RequestBody HouseDTO houseDto) {
         return new ResponseEntity(houseService.calculateTotalValue(houseDto), HttpStatus.OK);
     }
 
     @PostMapping("/largest-room")
     @ApiOperation("Return the largest room of a given house")
-    public ResponseEntity<HouseWithLargestRoom> calculateLargestRoom(@Valid @RequestBody HouseDTO houseDto) {
+    public ResponseEntity<HouseWithLargestRoomDTO> calculateLargestRoom(@Valid @RequestBody HouseDTO houseDto) {
         return new ResponseEntity(houseService.calculateLargestRoom(houseDto), HttpStatus.OK);
     }
 

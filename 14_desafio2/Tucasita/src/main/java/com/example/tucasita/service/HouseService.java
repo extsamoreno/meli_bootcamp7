@@ -29,7 +29,7 @@ public class HouseService implements IHouseService {
      * @return
      */
     @Override
-    public HouseWithTotalMeters calculateTotalMeters(HouseDTO houseDTO) {
+    public HouseWithTotalMetersDTO calculateTotalMeters(HouseDTO houseDTO) {
         House house = this.getHouseFromDTO(houseDTO);
         return this.toHouseWithMeters(house);
     }
@@ -41,7 +41,7 @@ public class HouseService implements IHouseService {
      * @return
      */
     @Override
-    public HouseWithTotalValue calculateTotalValue(HouseDTO houseDTO) {
+    public HouseWithTotalValueDTO calculateTotalValue(HouseDTO houseDTO) {
         House house = this.getHouseFromDTO(houseDTO);
         return this.toHouseWithTotalValue(house);
     }
@@ -53,7 +53,7 @@ public class HouseService implements IHouseService {
      * @return
      */
     @Override
-    public HouseWithLargestRoom calculateLargestRoom(HouseDTO houseDTO) {
+    public HouseWithLargestRoomDTO calculateLargestRoom(HouseDTO houseDTO) {
         House house = this.getHouseFromDTO(houseDTO);
         return this.toHouseWithLargestRoom(house);
     }
@@ -126,8 +126,8 @@ public class HouseService implements IHouseService {
      * @param house
      * @return
      */
-    private HouseWithTotalMeters toHouseWithMeters(House house) {
-        return new HouseWithTotalMeters(house.getName(), house.getTotalMeters());
+    private HouseWithTotalMetersDTO toHouseWithMeters(House house) {
+        return new HouseWithTotalMetersDTO(house.getName(), house.getTotalMeters());
     }
 
     /**
@@ -136,8 +136,8 @@ public class HouseService implements IHouseService {
      * @param house
      * @return
      */
-    private HouseWithTotalValue toHouseWithTotalValue(House house) {
-        return new HouseWithTotalValue(house.getName(), house.getTotalValue());
+    private HouseWithTotalValueDTO toHouseWithTotalValue(House house) {
+        return new HouseWithTotalValueDTO(house.getName(), house.getTotalValue());
     }
 
     /**
@@ -146,9 +146,9 @@ public class HouseService implements IHouseService {
      * @param house
      * @return
      */
-    private HouseWithLargestRoom toHouseWithLargestRoom(House house) {
+    private HouseWithLargestRoomDTO toHouseWithLargestRoom(House house) {
         RoomWithMetersDTO roomDTO = getRoomWithMeterDTO(house.getLargestRoom());
-        return new HouseWithLargestRoom(house.getName(), roomDTO);
+        return new HouseWithLargestRoomDTO(house.getName(), roomDTO);
     }
 
     /**

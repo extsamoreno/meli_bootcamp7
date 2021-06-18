@@ -60,23 +60,23 @@ public class HouseServiceUnitTest {
 
     @Test
     public void calculateTotalMetersHappyPath() {
-        HouseWithTotalMeters expected = new HouseWithTotalMeters("Casa", 80);
-        HouseWithTotalMeters received = houseService.calculateTotalMeters(houseDTO);
+        HouseWithTotalMetersDTO expected = new HouseWithTotalMetersDTO("Casa", 80);
+        HouseWithTotalMetersDTO received = houseService.calculateTotalMeters(houseDTO);
         assertEquals(expected, received);
     }
 
     @Test
     public void calculateTotalValueHappyPath() {
-        HouseWithTotalValue expected = new HouseWithTotalValue("Casa", 8000);
-        HouseWithTotalValue received = houseService.calculateTotalValue(houseDTO);
+        HouseWithTotalValueDTO expected = new HouseWithTotalValueDTO("Casa", 8000);
+        HouseWithTotalValueDTO received = houseService.calculateTotalValue(houseDTO);
         assertEquals(expected, received);
     }
 
     @Test
     public void calculateLargestRoomHappyPath() {
         RoomWithMetersDTO largest=new RoomWithMetersDTO("Room2",60);
-        HouseWithLargestRoom expected = new HouseWithLargestRoom("Casa", largest);
-        HouseWithLargestRoom received = houseService.calculateLargestRoom(houseDTO);
+        HouseWithLargestRoomDTO expected = new HouseWithLargestRoomDTO("Casa", largest);
+        HouseWithLargestRoomDTO received = houseService.calculateLargestRoom(houseDTO);
         assertEquals(expected, received);
     }
 

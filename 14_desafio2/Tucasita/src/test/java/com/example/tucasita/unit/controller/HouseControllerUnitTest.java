@@ -40,10 +40,10 @@ public class HouseControllerUnitTest {
 
     @Test
     public void calculateTotalMetersHappyPath() {
-        HouseWithTotalMeters expected = new HouseWithTotalMeters("Casa", 80);
+        HouseWithTotalMetersDTO expected = new HouseWithTotalMetersDTO("Casa", 80);
         Mockito.when(houseService.calculateTotalMeters(houseDTO)).thenReturn(expected);
 
-        ResponseEntity<HouseWithTotalMeters> received = controller.calculateTotalMeters(houseDTO);
+        ResponseEntity<HouseWithTotalMetersDTO> received = controller.calculateTotalMeters(houseDTO);
 
         assertEquals(expected, received.getBody());
         assertEquals(200, received.getStatusCodeValue());
@@ -51,10 +51,10 @@ public class HouseControllerUnitTest {
 
     @Test
     public void calculateTotalValueHappyPath() {
-        HouseWithTotalValue expected = new HouseWithTotalValue("Casa", 8000);
+        HouseWithTotalValueDTO expected = new HouseWithTotalValueDTO("Casa", 8000);
         Mockito.when(houseService.calculateTotalValue(houseDTO)).thenReturn(expected);
 
-        ResponseEntity<HouseWithTotalValue> received = controller.calculateTotalValue(houseDTO);
+        ResponseEntity<HouseWithTotalValueDTO> received = controller.calculateTotalValue(houseDTO);
 
         assertEquals(expected, received.getBody());
         assertEquals(200, received.getStatusCodeValue());
@@ -63,10 +63,10 @@ public class HouseControllerUnitTest {
     @Test
     public void calculateLargestRoomHappyPath() {
         RoomWithMetersDTO largest = new RoomWithMetersDTO("Room2", 60);
-        HouseWithLargestRoom expected = new HouseWithLargestRoom("Casa", largest);
+        HouseWithLargestRoomDTO expected = new HouseWithLargestRoomDTO("Casa", largest);
         Mockito.when(houseService.calculateLargestRoom(houseDTO)).thenReturn(expected);
 
-        ResponseEntity<HouseWithLargestRoom> received = controller.calculateLargestRoom(houseDTO);
+        ResponseEntity<HouseWithLargestRoomDTO> received = controller.calculateLargestRoom(houseDTO);
 
         assertEquals(expected, received.getBody());
         assertEquals(200, received.getStatusCodeValue());

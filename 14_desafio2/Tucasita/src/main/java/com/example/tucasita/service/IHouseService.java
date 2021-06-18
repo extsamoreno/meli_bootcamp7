@@ -1,18 +1,18 @@
 package com.example.tucasita.service;
 
 import com.example.tucasita.dto.HouseDTO;
-import com.example.tucasita.dto.response.HouseWithLargestRoom;
+import com.example.tucasita.dto.response.HouseWithLargestRoomDTO;
 import com.example.tucasita.dto.response.HouseWithRoomsMetersDTO;
-import com.example.tucasita.dto.response.HouseWithTotalMeters;
-import com.example.tucasita.dto.response.HouseWithTotalValue;
+import com.example.tucasita.dto.response.HouseWithTotalMetersDTO;
+import com.example.tucasita.dto.response.HouseWithTotalValueDTO;
 
 public interface IHouseService {
 
-    HouseWithTotalMeters calculateTotalMeters(HouseDTO houseDto);
+    HouseWithTotalMetersDTO calculateTotalMeters(HouseDTO houseDto);
 
-    HouseWithTotalValue calculateTotalValue(HouseDTO houseDto);
+    HouseWithTotalValueDTO calculateTotalValue(HouseDTO houseDto);
 
-    HouseWithLargestRoom calculateLargestRoom(HouseDTO houseDto);
+    HouseWithLargestRoomDTO calculateLargestRoom(HouseDTO houseDto);
 
     HouseWithRoomsMetersDTO calculateRoomsSquareMeters(HouseDTO houseDto);
 }

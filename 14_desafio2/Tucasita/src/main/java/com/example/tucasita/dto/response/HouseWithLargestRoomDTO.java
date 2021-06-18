@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Data
-public class HouseWithLargestRoom {
+public class HouseWithLargestRoomDTO {
     private String name;
     private RoomWithMetersDTO largestRoom;
 }

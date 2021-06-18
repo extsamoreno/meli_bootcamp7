@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Data
-public class HouseWithTotalMeters {
+public class HouseWithTotalMetersDTO {
     private String name;
     private double totalMeters;
 }
