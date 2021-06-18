@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "57f18ad1-d2a8-46ad-9012-1009e2c4951a",
+		"name": "RetoTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getMeters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/meters/Puerto alcantara",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"meters",
+						"Puerto alcantara"
+					]
+				},
+				"description": "metodo utilizado para obtener la cantidad de metros de una propiedad, dado el nombre de la propiedad"
+			},
+			"response": []
+		},
+		{
+			"name": "save and get meters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\": \"La vaca que rie 2\",\n    \"district\": {\n      \"district_name\": \"carretera\",\n      \"district_price\": 3800.0\n    },\n    \"environments\": [\n      {\n        \"environment_name\": \"Bodega\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 33.0\n      },\n      {\n        \"environment_name\": \"Atencion al cliente\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 33.0\n      },\n      {\n        \"environment_name\": \"Zona de entrega de productos\",\n        \"environment_width\": 25.0,\n        \"environment_length\": 33.0\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/meters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"meters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/price/Puerto alcantara",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"price",
+						"Puerto alcantara"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Larger enviroment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/larger/La vaca que rie",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"larger",
+						"La vaca que rie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Enviroments with meters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/square-meters/Puerto alcantara",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"square-meters",
+						"Puerto alcantara"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
