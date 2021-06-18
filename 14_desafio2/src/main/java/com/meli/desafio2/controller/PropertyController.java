@@ -50,7 +50,7 @@ public class PropertyController {
 
     // Create a new property
     @PostMapping("/newProp")
-    public ResponseEntity<String> createPost(@Valid @RequestBody PropertyDTO propDTO) throws PropertyIdAlreadyExistException, DistrictIdNotFoundException {
+    public ResponseEntity<String> createNewProp(@Valid @RequestBody PropertyDTO propDTO) throws PropertyIdAlreadyExistException, DistrictIdNotFoundException {
         return new ResponseEntity<>(propertyService.createNewProperty(propDTO), HttpStatus.OK);
     }
 }

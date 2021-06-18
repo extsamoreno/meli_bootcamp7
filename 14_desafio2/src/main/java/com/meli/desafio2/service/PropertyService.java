@@ -34,7 +34,7 @@ public class PropertyService implements IPropertyService {
     @Autowired
     ModelMapper mapper;
 
-    // Calculate property Area (M2)
+    // Calculate property total area (M2)
     @Override
     public ResponsePropTotalAreaDTO calcTotalArea(Integer propId) throws PropertyIdNotFoundException {
 

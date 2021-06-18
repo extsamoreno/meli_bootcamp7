@@ -36,7 +36,7 @@ public class PropertyControllerTest {
 
     // EndPoint 1
     @Test
-    public void calcTotalM2HappyPath() throws PropertyIdNotFoundException {
+    public void calcTotalAreaHappyPath() throws PropertyIdNotFoundException {
 
         // Arrange
         int propId = 0;
@@ -89,7 +89,7 @@ public class PropertyControllerTest {
 
     // EndPoint 4
     @Test
-    public void listEnvInM2HappyPath() throws PropertyIdNotFoundException {
+    public void listEnvAreaHappyPath() throws PropertyIdNotFoundException {
 
         // Arrange
         int propId = 0;
@@ -107,7 +107,7 @@ public class PropertyControllerTest {
 
     // EndPoint 5
     @Test
-    public void newPropHappyPath() throws PropertyIdAlreadyExistException, DistrictIdNotFoundException {
+    public void createNewPropHappyPath() throws PropertyIdAlreadyExistException, DistrictIdNotFoundException {
 
         // Arrange
         int propId = 5;
@@ -116,7 +116,7 @@ public class PropertyControllerTest {
         when(propertyService.createNewProperty(prop)).thenReturn(message);
 
         // Act
-        ResponseEntity<String> response = propertyController.createPost(prop);
+        ResponseEntity<String> response = propertyController.createNewProp(prop);
 
         // Assert
         verify(propertyService, atLeastOnce()).createNewProperty(prop);

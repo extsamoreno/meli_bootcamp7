@@ -22,6 +22,7 @@ public class DistrictRepositoryTest {
         this.districtRepository = new DistrictRepository();
     }
 
+    // District exists
     @Test
     public void getDistrictByIdExists() throws DistrictIdNotFoundException {
 
@@ -36,11 +37,12 @@ public class DistrictRepositoryTest {
         Assertions.assertEquals(dist, responseDist);
     }
 
+    // District not exists
     @Test
     public void getDistrictByIdNonExists() {
 
         // Arrange
-        int distId = 10;
+        int distId = 100;
         District dist = TestUtilsGen.getDistWithId(distId);
 
         // Act & Assert
