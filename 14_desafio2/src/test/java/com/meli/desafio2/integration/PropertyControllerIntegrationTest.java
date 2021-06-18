@@ -143,7 +143,8 @@ public class PropertyControllerIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.prop_name").value("Casa del Barba"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.prop_mts2").value(131.0))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.environmentList").value(TestUtilGenerator.environmentDTOList()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.environmentList[0].environment_name").value(TestUtilGenerator.environmentDTOList().get(0).getEnvironment_name()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.environmentList[0].environment_mts2").value(TestUtilGenerator.environmentDTOList().get(0).getEnvironment_mts2()));
 
     }
 
