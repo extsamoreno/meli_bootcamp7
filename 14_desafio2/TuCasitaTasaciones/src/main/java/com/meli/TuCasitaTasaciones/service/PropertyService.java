@@ -19,11 +19,6 @@ public class PropertyService implements IPropertyService {
     @Autowired
     IPropertyDAO iPropertyDAO;
 
-//    @Override
-//    public Property getPropertyById(int idProperty) {
-//        return iPropertyDAO.getPropertyById(idProperty);
-//    }
-
     @Override
     public double calculateArea(List<EnvironmentDTO> environmentDTOS) {
         return environmentDTOS.stream()
@@ -58,40 +53,12 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public void addProperty(PropertyDTO propertyDTO) {
-        iPropertyDAO.addProperty(propertyDTO);
+        String districtName = propertyDTO.getDistrict().getDistrictName();
+//        if (iPropertyDAO.getDistrictList().get(districtName) != 0.0) {
+//            System.out.println("Está mal");
+//        } else {
+            iPropertyDAO.addProperty(propertyDTO);
+   //     }
     }
 
-//
-//    @Override
-//    public double getAreaProperty(int idProperty) {
-//        Property p = getPropertyById(idProperty);
-//        return calculateAreaCambiar(p);
-//    }
-//
-//    @Override
-//    public double getPriceProperty(int idProperty) {
-//        Property p = getPropertyById(idProperty);
-//        return calculateTotalPrice(p);
-//    }
-//
-//    @Override
-//    public double getAreaBigger() {
-////        iPropertyDAO.getPropertyList().stream()
-////                .max(Comparator.comparing(this::calculateArea)).get();
-//
-//        return 00;
-//    }
-//
-//    private double obtainPrice(Property p) {
-//        return p.getDistrict().getPrice();
-//    }
-//
-//    private double calculateAreaCambiar(Property p) {
-//        return p.getEnvironments().stream()
-//                .mapToDouble(value -> value.getLength() * value.getWidth()).sum();
-//    }
-//
-//    private double calculateTotalPrice(Property p) {
-//        return calculateAreaCambiar(p) * obtainPrice(p);
-//    }
 }

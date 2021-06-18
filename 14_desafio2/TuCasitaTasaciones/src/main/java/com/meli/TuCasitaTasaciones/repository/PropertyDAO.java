@@ -55,15 +55,6 @@ public class PropertyDAO implements IPropertyDAO {
 
     }
 
-//    @Override
-//    public Property getPropertyById(int idProperty) {
-//
-//        loadData();
-//        return properties.stream()
-//                .filter(stu -> stu.getPropertyName() == (idProperty))
-//                .findFirst().orElse(new Property("Casa Nueva", null, null));
-//    }
-
     @Override
     public PropertyDTO getPropertyById(int idProperty) {
         return null;

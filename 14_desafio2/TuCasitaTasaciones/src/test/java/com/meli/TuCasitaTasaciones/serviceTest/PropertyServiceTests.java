@@ -3,6 +3,7 @@ package com.meli.TuCasitaTasaciones.serviceTest;
 import com.meli.TuCasitaTasaciones.model.EnvironmentAreaResponseDTO;
 import com.meli.TuCasitaTasaciones.model.EnvironmentDTO;
 import com.meli.TuCasitaTasaciones.model.HouseDTO;
+import com.meli.TuCasitaTasaciones.model.PropertyDTO;
 import com.meli.TuCasitaTasaciones.repository.IPropertyDAO;
 import com.meli.TuCasitaTasaciones.service.PropertyService;
 import com.meli.TuCasitaTasaciones.util.TestUtilsGenerator;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
@@ -39,7 +41,6 @@ public class PropertyServiceTests {
         // assert
         Assertions.assertEquals(received, 1219.0);
     }
-//
 
     @Test
     public void calculatePriceHappyPath() {
@@ -84,5 +85,18 @@ public class PropertyServiceTests {
         // assert
 
         Assertions.assertEquals(received, expected);
+    }
+
+    @Test
+    public void addPropertyHappyPath() {
+        // arrange
+        PropertyDTO pro = TestUtilsGenerator.getPropertyDTO();
+        Mockito.doNothing().when(propertyDAO).addProperty(pro);
+
+        // act
+        service.addProperty(pro);
+
+        // assert
+        verify(propertyDAO, atLeastOnce()).addProperty(pro);
     }
 }

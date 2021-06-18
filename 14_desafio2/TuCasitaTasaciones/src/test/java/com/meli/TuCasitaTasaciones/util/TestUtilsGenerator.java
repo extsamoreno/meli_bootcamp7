@@ -9,10 +9,10 @@ public class TestUtilsGenerator {
     private HashMap<String, Double> districts = new HashMap<>();
 
     public static PropertyDTO getPropertyDTO() {
-        District district1 = new District("Palermo", 5000);
+        District district1 = new District("Palermo", 300);
         EnvironmentDTO environmentDTO1 = new EnvironmentDTO("Room1", 18, 18);
         EnvironmentDTO environmentDTO2 = new EnvironmentDTO("Room2", 10, 12);
-        EnvironmentDTO environmentDTO3 = new EnvironmentDTO("kitchen", 15, 20);
+        EnvironmentDTO environmentDTO3 = new EnvironmentDTO("Kitchen", 15, 20);
         EnvironmentDTO environmentDTO4 = new EnvironmentDTO("Toilet", 11, 5);
         EnvironmentDTO environmentDTO5 = new EnvironmentDTO("Hall", 20, 20);
 
@@ -28,6 +28,25 @@ public class TestUtilsGenerator {
         return pro1;
     }
 
+    public static PropertyDTO getPropertyDTOWithErrors() {
+        District district1 = new District("palermo", 500000);
+        EnvironmentDTO environmentDTO1 = new EnvironmentDTO("room1", 18, 18);
+        EnvironmentDTO environmentDTO2 = new EnvironmentDTO("room2", 10, 1200);
+        EnvironmentDTO environmentDTO3 = new EnvironmentDTO("kitchen", -15, 20);
+        EnvironmentDTO environmentDTO4 = new EnvironmentDTO("toilet", 11, 5);
+        EnvironmentDTO environmentDTO5 = new EnvironmentDTO("hall", 2000, 20);
+
+        List<EnvironmentDTO> environments1 = new ArrayList<>();
+        environments1.add(environmentDTO1);
+        environments1.add(environmentDTO2);
+        environments1.add(environmentDTO3);
+        environments1.add(environmentDTO4);
+        environments1.add(environmentDTO5);
+
+        PropertyDTO pro1 = new PropertyDTO("casa 1", district1, environments1);
+
+        return pro1;
+    }
     public static List<EnvironmentDTO> getEnvironments() {
         EnvironmentDTO environmentDTO1 = new EnvironmentDTO("Room1", 18, 18);
         EnvironmentDTO environmentDTO2 = new EnvironmentDTO("Room2", 10, 12);

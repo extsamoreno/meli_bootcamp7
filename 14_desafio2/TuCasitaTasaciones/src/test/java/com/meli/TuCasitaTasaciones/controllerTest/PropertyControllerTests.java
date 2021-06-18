@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -33,10 +34,11 @@ public class PropertyControllerTests {
          PropertyDTO pro = TestUtilsGenerator.getPropertyDTO();
 
         // act
-        controller.addProperty(pro);
+        int httpStatusReceived = controller.addProperty(pro).getStatusCodeValue();
 
         // assert
         verify(service, atLeastOnce()).addProperty(pro);
+        Assertions.assertEquals(201, httpStatusReceived);
     }
 
     @Test
@@ -88,7 +90,7 @@ public class PropertyControllerTests {
         Assertions.assertEquals(received, e);
         Assertions.assertEquals(httpStatusReceived, 200);
     }
-    
+
     @Test
     public void environmentAreaHappyPath() {
         // arrange
@@ -106,6 +108,24 @@ public class PropertyControllerTests {
         Assertions.assertEquals(received, e);
         Assertions.assertEquals(httpStatusReceived, 200);
     }
+
+//    @Test
+//    public void addPropertyWithErrors() {
+//        // arrange
+//        PropertyDTO pro = TestUtilsGenerator.getPropertyDTOWithErrors();
+//
+//        //when(service.environmentArea(env)).thenReturn(e);
+//
+//        // act
+//         //received = controller.addProperty(pro).getBody();
+//        int httpStatusReceived = controller.addProperty(pro).getStatusCodeValue();
+//
+//        // assert
+//        //verify(service, atLeastOnce()).environmentArea(env);
+//        //Assertions.assertEquals(received, e);
+//        Assertions.assertEquals(201, httpStatusReceived);
+//    }
+
 
 }
 

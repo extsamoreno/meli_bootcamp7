@@ -40,27 +40,27 @@ public class PropertyController {
 //    }
 
     @PostMapping("Property/calculateArea")
-    public ResponseEntity<Double> calculateArea( @Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
+    public ResponseEntity<Double> calculateArea(@Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
         return new ResponseEntity<>(service.calculateArea(environmentDTOS), HttpStatus.OK);
     }
 
     @PostMapping("Property/calculatePrice")
-    public ResponseEntity<Double> calculatePrice( @Valid @RequestBody HouseDTO houseDTO) {
+    public ResponseEntity<Double> calculatePrice(@Valid @RequestBody HouseDTO houseDTO) {
         return new ResponseEntity<>(service.calculatePrice(houseDTO), HttpStatus.OK);
     }
 
     @PostMapping("Property/environmentsBiggest")
-    public ResponseEntity<EnvironmentAreaResponseDTO> environmentsBiggest( @Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
+    public ResponseEntity<EnvironmentAreaResponseDTO> environmentsBiggest(@Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
         return new ResponseEntity<>(service.environmentsBiggest(environmentDTOS), HttpStatus.OK);
     }
 
     @PostMapping("Property/environmentArea")
-    public ResponseEntity<List<EnvironmentAreaResponseDTO>> environmentArea( @Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
+    public ResponseEntity<List<EnvironmentAreaResponseDTO>> environmentArea(@Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
         return new ResponseEntity<>(service.environmentArea(environmentDTOS), HttpStatus.OK);
     }
 
     @PostMapping("Property/addProperty")
-    public ResponseEntity<?> addProperty( @Valid @RequestBody PropertyDTO propertyDTO) {
+    public ResponseEntity<?> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) {
         this.service.addProperty(propertyDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
