@@ -7,5 +7,5 @@ import org.springframework.http.HttpStatus;
 @Getter @Setter
 public class ErrorDTO {
     private String nombre;
-    private HttpStatus mensaje;
+    private String  mensaje;
 }

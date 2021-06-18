@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CertificateServiceImpl implements CertificateService {
+  @Override
   public CertificateDTO analyzeNotes(StudentDTO notes) {
     CertificateDTO response = new CertificateDTO(notes);
     response.setName(notes.getName());

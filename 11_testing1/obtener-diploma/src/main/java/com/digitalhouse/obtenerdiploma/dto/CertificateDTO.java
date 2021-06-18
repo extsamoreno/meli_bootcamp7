@@ -10,8 +10,7 @@ public class CertificateDTO extends StudentDTO {
   public CertificateDTO() {
   }
 
-  public CertificateDTO(String name, List<SubjectDTO> subjects, String message, Double average, StudentDTO student) {
-    super(name, subjects);
+  public CertificateDTO(String message, Double average, StudentDTO student) {
     this.message = message;
     this.average = average;
     this.student = student;

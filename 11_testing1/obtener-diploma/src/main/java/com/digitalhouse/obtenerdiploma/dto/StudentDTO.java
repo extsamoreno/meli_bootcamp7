@@ -1,23 +1,27 @@
 package com.digitalhouse.obtenerdiploma.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.NonNullFields;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+@Getter @Setter
 public class StudentDTO {
-    @Valid
+
     @NotNull( message="Name cannot be null")
-    @Size(min = 5, max = 50, message = "Max size 50 character ^[A-Z].*")
+    @Size(min = 5, max = 50, message = "Max size 50 character ")
+    @Pattern(regexp = "^[A-Z][a-zA-ZÀ-ÿ\\u00f1\\u00d1]+(\\s*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*)*[a-zA-ZÀ-ÿ\\u00f1\\u00d1]*$", message = "El nombre del alumno comenzar con mayúscula.")
     private String name;
 
-    @Valid
     @NotEmpty(message = "List subjects not empty")
-    private List<SubjectDTO> subjects;
+    private List<@Valid  SubjectDTO> subjects;
 
     public StudentDTO() {
     }
@@ -29,20 +33,6 @@ public class StudentDTO {
         this.subjects = subjects;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<SubjectDTO> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<SubjectDTO> subjects) {
-        this.subjects = subjects;
-    }
 
 }

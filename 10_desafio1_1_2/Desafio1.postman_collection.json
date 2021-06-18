@@ -41,14 +41,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/user/1/followers/count/",
+					"raw": "localhost:8080/user/10/followers/count/",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"user",
-						"1",
+						"10",
 						"followers",
 						"count",
 						""
@@ -62,7 +62,20 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/user/2/followers/list/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"2",
+						"followers",
+						"list",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -71,16 +84,68 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/user/1/follow/list/?order=name_asc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"1",
+						"follow",
+						"list",
+						""
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "name_asc"
+						}
+					]
+				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "UserFollowers List",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
 		},
 		{
 			"name": "newProduct",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
-				"url": null
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":2,\n    \"user\":2,\n    \"date\":\"2021-06-05\",\n    \"products\":{\n        \"id\":1,\n        \"name\":\"mouse\",\n        \"type\":\" \",\n        \"brand\":\" \",\n        \"color\":\"red\",\n        \"notes\":\" \"\n    },\n    \"category\":{\n        \"name\":\"informatica\"\n    },\n    \"price\": 2000,\n    \"hasPromo\": false,\n    \"discount\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/product/newpost/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"newpost",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -89,7 +154,20 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/product/followed/1/list/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"followed",
+						"1",
+						"list",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -98,7 +176,20 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/user/1/unfollow/2/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"1",
+						"unfollow",
+						"2",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -107,7 +198,19 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/product/2/countPromo/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"product",
+						"2",
+						"countPromo",
+						""
+					]
+				}
 			},
 			"response": []
 		}
