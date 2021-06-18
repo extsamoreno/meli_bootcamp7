@@ -1,16 +1,18 @@
 package com.desafio.TuCasitaTasacionesApp.model.service;
 
 
-import com.desafio.TuCasitaTasacionesApp.model.dto.RoomDTO;
+import com.desafio.TuCasitaTasacionesApp.model.dto.*;
+import com.desafio.TuCasitaTasacionesApp.model.exceptions.NeighborhoodNotFoundException;
+import com.desafio.TuCasitaTasacionesApp.model.exceptions.PropietyNotFoundException;
 
 public interface ICalculateService {
 
-    String getSquareMeterForPropiety(String name);
+    PropietyDTOResponseTotalMeters getSquareMeterForPropiety(String name) throws PropietyNotFoundException;
 
-    String getValueForPropiety(String name);
+    PropietyDTOResponseCost getValueForPropiety(String name) throws PropietyNotFoundException, NeighborhoodNotFoundException;
 
-    RoomDTO getBiggestRoom(String name);
+    RoomDTO getBiggestRoom(String name) throws PropietyNotFoundException;
 
-    String getSquareMeterForRoom(String name);
+    RoomMetersListResponseDTO getSquareMeterForRoom(String name) throws PropietyNotFoundException;
 }
 

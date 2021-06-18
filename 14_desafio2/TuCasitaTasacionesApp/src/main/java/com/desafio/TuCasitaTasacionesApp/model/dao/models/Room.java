@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter @Getter
 public class Room {
     private String name;
-    private String width;
-    private String lenght;
+    private Double width;
+    private Double lenght;
 }

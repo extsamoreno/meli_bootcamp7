@@ -27,4 +27,36 @@ public class RoomDTO {
     @Max(value = 10, message = "El largo maximo es 33m")
     @Min(value = 0, message = "El largo minimo es 0m")
     private Double lenght;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getWidth() {
+        return width;
+    }
+
+    public void setWidth(Double width) {
+        this.width = width;
+    }
+
+    public Double getLength() {
+        return lenght;
+    }
+
+    public void setLength(Integer length) {
+        this.lenght = lenght;
+    }
+
+    public Double getSquareFeet() {
+        Double result = 0D;
+        if(this.width != null && this.lenght != null)
+            result = this.width * this.lenght;
+        return result;
+    }
 }
