@@ -1,7 +1,7 @@
 package com.meli.desafio2.unit.propertyService;
 
 import com.meli.desafio2.Util;
-import com.meli.desafio2.dto.PropertyBiggestEnvironmentDTO;
+import com.meli.desafio2.dto.PropertyValueDTO;
 import com.meli.desafio2.exception.PropertyNotFoundException;
 import com.meli.desafio2.repository.IPropertyRepository;
 import com.meli.desafio2.service.PropertyService;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class GetBiggestEnvironmentTest {
+public class GetValueTest {
     @Mock
     IPropertyRepository propertyRepository;
 
@@ -22,13 +22,13 @@ public class GetBiggestEnvironmentTest {
     PropertyService propertyService;
 
     @Test
-    public void returnsCorrectEnvironmentAsBiggest(){
+    public void returnsCorrectSquareMeters(){
         //Arr
-        PropertyBiggestEnvironmentDTO expected = Util.propertyBiggestEnvironmentHappy("Departamento1");
-        Mockito.when(propertyRepository.getById(1)).thenReturn(Util.PropertyHappy("Departamento1"));
+        PropertyValueDTO expected = Util.propertyValueHappy("Departamento1");
+        Mockito.when(propertyRepository.getFullById(1)).thenReturn(Util.propertyFullHappy("Departamento1"));
 
         //Act
-        PropertyBiggestEnvironmentDTO actual = propertyService.getBiggestEnvironment(1);
+        PropertyValueDTO actual = propertyService.getValue(1);
         //Assert
         Assertions.assertEquals(expected,actual);
     }
@@ -36,10 +36,10 @@ public class GetBiggestEnvironmentTest {
     @Test
     public void throwsPRopertyNotFoundException(){
         //Arr
-        Mockito.when(propertyRepository.getById(1)).thenReturn(null);
+        Mockito.when(propertyRepository.getFullById(1)).thenReturn(null);
         //Act
         //Assert
-        Assertions.assertThrows(PropertyNotFoundException.class, ()-> propertyService.getBiggestEnvironment(1));
+        Assertions.assertThrows(PropertyNotFoundException.class, ()-> propertyService.getValue(1));
     }
 
     //Arr

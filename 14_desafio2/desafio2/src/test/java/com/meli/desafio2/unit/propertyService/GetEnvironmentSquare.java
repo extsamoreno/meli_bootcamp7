@@ -3,6 +3,7 @@ package com.meli.desafio2.unit.propertyService;
 import com.meli.desafio2.Util;
 import com.meli.desafio2.dto.PropertyAllSquareDTO;
 import com.meli.desafio2.dto.PropertyBiggestEnvironmentDTO;
+import com.meli.desafio2.exception.PropertyNotFoundException;
 import com.meli.desafio2.repository.IPropertyRepository;
 import com.meli.desafio2.service.PropertyService;
 import org.junit.jupiter.api.Assertions;
@@ -31,6 +32,15 @@ public class GetEnvironmentSquare {
         PropertyAllSquareDTO actual = propertyService.getEnvironmentsSquare(1);
         //Assert
         Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void throwsPRopertyNotFoundException(){
+        //Arr
+        Mockito.when(propertyRepository.getById(1)).thenReturn(null);
+        //Act
+        //Assert
+        Assertions.assertThrows(PropertyNotFoundException.class, ()-> propertyService.getEnvironmentsSquare(1));
     }
 
     //Arr

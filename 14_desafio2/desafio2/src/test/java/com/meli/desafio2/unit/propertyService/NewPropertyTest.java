@@ -27,7 +27,7 @@ public class NewPropertyTest {
     public void registeredSuccesfullyWithDistrictAlreadyInDB(){
         //Arr
         String expected = "La propiedad Departamento1 ha sido registrada correctamente con el ID: 1.";
-        PropertyInputDTO input = Util.PropertyInputHappy("Departamento1");
+        PropertyInputDTO input = Util.propertyInputHappy("Departamento1");
         DistrictDTO district = Util.districtHappy("Amber");
         Mockito.when(propertyRepository.getDistrictByName("Amber")).thenReturn(district);
         PropertyDTO propertyDTO = Util.PropertyHappy("Departamento1");
@@ -41,10 +41,10 @@ public class NewPropertyTest {
     }
 
     @Test
-    public void registeredSuccesfullyWithDistrictNotInDB(){
+    public void throwsDistrictNotFoundException(){
         //Arr
         String expected = "La propiedad Departamento1 ha sido registrada correctamente con el ID: 1. Y el barrio Amber ha sido registrado con el ID: 1";
-        PropertyInputDTO input = Util.PropertyInputHappy("Departamento1");
+        PropertyInputDTO input = Util.propertyInputHappy("Departamento1");
         Mockito.when(propertyRepository.getDistrictByName("Amber")).thenReturn(null);
         //Act
         //Assert

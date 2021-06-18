@@ -16,7 +16,7 @@ public class Util {
         return property;
     }
 
-    public static PropertyInputDTO PropertyInputHappy(String name){
+    public static PropertyInputDTO propertyInputHappy(String name){
         PropertyInputDTO property = new PropertyInputDTO(
                 name,
                 districtInputHappy("Amber"),
@@ -25,7 +25,7 @@ public class Util {
         return property;
     }
 
-    public static PropertyFullDTO PropertyFullHappy(String name){
+    public static PropertyFullDTO propertyFullHappy(String name){
         PropertyFullDTO property = new PropertyFullDTO(
                 1,
                 name,

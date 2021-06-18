@@ -25,7 +25,7 @@ public class GetPropertyTest {
     @Test
     public void happyPath(){
         //Arr
-        PropertyFullDTO expected = Util.PropertyFullHappy("Departamento1");
+        PropertyFullDTO expected = Util.propertyFullHappy("Departamento1");
         Mockito.when(propertyService.getProperty(1)).thenReturn(expected);
 
         //Act

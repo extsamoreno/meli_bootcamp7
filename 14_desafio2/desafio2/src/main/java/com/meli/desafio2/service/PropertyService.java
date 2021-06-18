@@ -3,7 +3,6 @@ package com.meli.desafio2.service;
 import com.meli.desafio2.dto.*;
 import com.meli.desafio2.exception.DistrictNotFoundException;
 import com.meli.desafio2.exception.PropertyNotFoundException;
-import com.meli.desafio2.mapper.DistrictMapper;
 import com.meli.desafio2.mapper.EnvironmentMapper;
 import com.meli.desafio2.mapper.PropertyMapper;
 import com.meli.desafio2.repository.IPropertyRepository;
