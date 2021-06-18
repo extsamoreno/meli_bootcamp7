@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "7df5eb4a-776b-4d7e-80dd-75bb2f0ba1f4",
+		"name": "Meli Challenge 2 - TuCasita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "squareMeters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rooms\": [\n        {\n            \"name\": \"Comedor\",\n            \"width\": 5,\n            \"length\": 5\n        },\n        {\n            \"name\": \"Dormitorio 1\",\n            \"width\": 3,\n            \"length\": 3.5\n        },\n        {\n            \"name\": \"Dormitorio 2\",\n            \"width\": 3.5,\n            \"length\": 3.5\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 2,\n            \"length\": 4.5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/squareMeters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"squareMeters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "biggestRoom",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rooms\": [\n               {\n            \"name\": \"Comedor\",\n            \"width\": 4,\n            \"length\": 4\n        },\n        {\n            \"name\": \"Dormitorio 1\",\n            \"width\": 3,\n            \"length\": 3\n        },\n        {\n            \"name\": \"Dormitorio 2\",\n            \"width\": 3.5,\n            \"length\": 3\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 2,\n            \"length\": 3\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/biggestRoom",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"biggestRoom"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "price",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"district\": \"Palermo\",\n    \"rooms\": [\n        {\n            \"name\": \"Comedor\",\n            \"width\": 4,\n            \"length\": 4\n        },\n        {\n            \"name\": \"Dormitorio 1\",\n            \"width\": 3,\n            \"length\": 3\n        },\n        {\n            \"name\": \"Dormitorio 2\",\n            \"width\": 3.5,\n            \"length\": 3\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 2,\n            \"length\": 3\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/price",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"price"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "roomsAreas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"rooms\": [\n        {\n            \"name\": \"Comedor\",\n            \"width\": 5,\n            \"length\": 5\n        },\n        {\n            \"name\": \"Dormitorio 1\",\n            \"width\": 3,\n            \"length\": 3.5\n        },\n        {\n            \"name\": \"Dormitorio 2\",\n            \"width\": 3.5,\n            \"length\": 3.5\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 2,\n            \"length\": 4.5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/roomsAreas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"roomsAreas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerNewProperty",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Mendoza 5544\",\n    \"district\": \"Caballito\",\n    \"rooms\": [\n        {\n            \"name\": \"Comedor\",\n            \"width\": 6,\n            \"length\": 6\n        },\n        {\n            \"name\": \"Dormitorio 1\",\n            \"width\": 4,\n            \"length\": 4\n        },\n        {\n            \"name\": \"Dormitorio 2\",\n            \"width\": 3.5,\n            \"length\": 3\n        },\n        {\n            \"name\": \"Cocina\",\n            \"width\": 3,\n            \"length\": 4.5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/registerNewProperty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"registerNewProperty"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
