@@ -5,5 +5,4 @@ import com.example.challenge2.models.District;
 
 public interface IDistrictService {
     District create( District district);
-    District find(String districtName) throws DistrictNotFoundException;
 }

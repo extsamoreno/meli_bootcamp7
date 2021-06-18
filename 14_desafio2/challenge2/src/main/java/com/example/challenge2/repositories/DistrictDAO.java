@@ -2,7 +2,6 @@ package com.example.challenge2.repositories;
 
 import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
-import com.example.challenge2.models.Property;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
@@ -18,12 +17,12 @@ import java.util.Properties;
 import java.util.Set;
 
 @Repository
-public class DistrictDAO implements IDistrictDAO{
+public class DistrictDAO implements IDistrictDAO {
     private String SCOPE;
     Set<District> districts;
 
     public DistrictDAO() {
-        Properties properties =  new Properties();
+        Properties properties = new Properties();
 
         try {
             properties.load(new ClassPathResource("application.properties").getInputStream());
@@ -35,9 +34,8 @@ public class DistrictDAO implements IDistrictDAO{
     }
 
 
-
     @Override
-    public District save(District district) throws DistrictNotFoundException{
+    public District save(District district) throws DistrictNotFoundException {
 
         this.delete(district.getName());
         districts.add(district);
@@ -45,6 +43,7 @@ public class DistrictDAO implements IDistrictDAO{
         return district;
 
     }
+
     public boolean delete(String districtName) {
         boolean ret = false;
 
@@ -52,10 +51,11 @@ public class DistrictDAO implements IDistrictDAO{
             District found = this.findByName(districtName);
 
             districts.remove(found);
-            ret  = true;
+            ret = true;
             this.saveData();
 
-        } catch (DistrictNotFoundException e) {}
+        } catch (DistrictNotFoundException e) {
+        }
 
         return ret;
     }
@@ -63,16 +63,22 @@ public class DistrictDAO implements IDistrictDAO{
     @Override
     public District findByName(String districtName) throws DistrictNotFoundException {
         loadData();
-        Optional<District> res =  districts.stream().filter(district -> district.getName().equals(districtName)).findFirst();
-        if (res.isPresent()){
-            System.out.println("Entro1");
+        Optional<District> res = districts.stream().filter(district -> district.getName().equals(districtName)).findFirst();
+        if (res.isPresent())
             return res.get();
-        }
-
-        else {
-            System.out.println("Entro");
+        else
             throw new DistrictNotFoundException(districtName);
-        }
+    }
+
+    @Override
+    public Boolean exist(String districtName) {
+        loadData();
+        Optional<District> res = districts.stream().filter(district -> district.getName().equals(districtName)).findFirst();
+        if (res.isPresent())
+            return true;
+        else
+            throw new DistrictNotFoundException(districtName);
+
     }
 
     private void saveData() {
@@ -97,7 +103,8 @@ public class DistrictDAO implements IDistrictDAO{
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/district.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<District>>(){});
+            loadedData = objectMapper.readValue(file, new TypeReference<Set<District>>() {
+            });
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");

@@ -4,11 +4,10 @@ import com.example.challenge2.dtos.*;
 import com.example.challenge2.exceptions.DistrictNotFoundException;
 import com.example.challenge2.models.District;
 import com.example.challenge2.models.Environment;
-import com.example.challenge2.models.Property;
+import com.example.challenge2.repositories.IDistrictDAO;
 import com.example.challenge2.repositories.IPropertyDAO;
 import com.example.challenge2.serivces.DistrictService;
 import com.example.challenge2.serivces.PropertyService;
-import com.example.challenge2.serivces.mappers.PropertyMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,11 +27,11 @@ public class PropertyServiceTest {
     @Mock
     IPropertyDAO propertyDAO;
 
-    @Mock
-    PropertyMapper propertyMapper;
-
     @InjectMocks
     PropertyService propertyService;
+
+    @Mock
+    IDistrictDAO districtDAO;
 
     @InjectMocks
     DistrictService districtService;
@@ -66,11 +65,13 @@ public class PropertyServiceTest {
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
         List<Environment> environments = new ArrayList<>();
+        District district = new District("Carrasco", 800.00);
         environments.add(cuarto1);
         environments.add(cuarto2);
         property.setName("Propiedad1");
         property.setDistrictName("Carrasco");
         property.setEnvironmentList(environments);
+        Mockito.when(districtDAO.findByName(property.getDistrictName())).thenReturn(district);
         Mockito.when(propertyDAO.findByName(property.getName())).thenReturn(property);
 
         //Act
@@ -110,7 +111,6 @@ public class PropertyServiceTest {
         PropertyDTO property = new PropertyDTO();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
-        District district = new District("Carrasco", 800.00);
         List<Environment> environments = new ArrayList<>();
         environments.add(cuarto1);
         environments.add(cuarto2);
@@ -132,28 +132,30 @@ public class PropertyServiceTest {
     }
 
     @Test
-    public void createPropertyCorrectly() {
+    public void createPropertyCorrectly(){
         //Arrange
         PropertyDTO propertyDTO = new PropertyDTO();
         Environment cuarto1 = new Environment("Cuarto1",6.0,9.0);
         Environment cuarto2 = new Environment("Cuarto2",7.0,2.0);
         List<Environment> environments = new ArrayList<>();
+        District district = new District();
+        district.setName("Carrasco");
+        district.setPrice(800.00);
         environments.add(cuarto1);
         environments.add(cuarto2);
         propertyDTO.setName("Propiedad1");
-        propertyDTO.setDistrictName("Carrasco");
+        propertyDTO.setDistrictName(district.getName());
         propertyDTO.setEnvironmentList(environments);
-
-
-        Mockito.when(districtService.find("Carrasco")).thenReturn(new District("Carrasco", 800.00));
+        Mockito.when(districtDAO.exist(district.getName())).thenReturn(true);
+        Mockito.when(propertyService.create(propertyDTO)).thenReturn(propertyDTO);
 
         //Act
-        propertyService.create(propertyDTO);
+        PropertyDTO res = propertyService.create(propertyDTO);
 
         //Assert
+        Mockito.verify(districtDAO, Mockito.atLeastOnce()).exist(district.getName());
         Mockito.verify(propertyDAO, Mockito.atLeastOnce()).save(propertyDTO);
-        Mockito.verify(districtService, Mockito.atLeastOnce()).find("Carrasco");
-        Assertions.assertEquals(propertyDTO.getDistrictName(),"Carrasco");
+        Assertions.assertEquals(propertyDTO,res);
     }
 
     @Test
@@ -168,7 +170,6 @@ public class PropertyServiceTest {
         propertyDTO.setName("Propiedad1");
         propertyDTO.setDistrictName("Districto1");
         propertyDTO.setEnvironmentList(environments);
-
 
         //Act & Assert
         Assertions.assertThrows(DistrictNotFoundException.class, () -> propertyService.create(propertyDTO));

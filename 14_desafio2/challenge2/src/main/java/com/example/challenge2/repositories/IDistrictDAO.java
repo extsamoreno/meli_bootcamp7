@@ -7,4 +7,5 @@ public interface IDistrictDAO {
 
     District save(District district);
     District findByName(String districtName) throws DistrictNotFoundException;
+    Boolean exist(String districtName);
 }

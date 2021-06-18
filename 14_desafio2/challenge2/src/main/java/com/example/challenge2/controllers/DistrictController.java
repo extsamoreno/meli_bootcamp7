@@ -23,7 +23,7 @@ public class DistrictController {
 
 
     @PostMapping("/record")
-    public ResponseEntity<District> registerStudent(@RequestBody @Valid District district) {
+    public ResponseEntity<District> registerDistrict(@RequestBody @Valid District district) {
 
         return new ResponseEntity<>(this.districtService.create(district), HttpStatus.CREATED);
     }

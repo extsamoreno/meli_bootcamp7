@@ -2,8 +2,6 @@ package com.example.challenge2.repositories;
 
 import com.example.challenge2.dtos.PropertyDTO;
 import com.example.challenge2.exceptions.PropertyNotFoundException;
-import com.example.challenge2.models.Property;
-import com.example.challenge2.serivces.DistrictService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
@@ -98,7 +96,6 @@ public class PropertyDAO implements IPropertyDAO {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
-        Set<Property> date = new HashSet<>();
         this.properties = loadedData;
     }
 
