@@ -23,6 +23,7 @@ public class PropertyService implements IPropertyService{
     @Autowired
     IPropertyRepository iPropertyRepository;
 
+    //Get total square meters
     @Override
     public PropertyTotalSquareMetersDto getTotalSquareMeters(String propertyName) throws PropertyNameNotFoundException {
         Property property = iPropertyRepository.findPropertyByName(propertyName);
@@ -39,6 +40,7 @@ public class PropertyService implements IPropertyService{
         return totalSquareMeters;
     }
 
+    //Get property value
     @Override
     public PropertyValueDto getPropertyValue(String propertyName) throws PropertyNameNotFoundException, PropertyDistrictNameNotFoundException {
         Property property = iPropertyRepository.findPropertyByName(propertyName);
@@ -48,6 +50,7 @@ public class PropertyService implements IPropertyService{
         return new PropertyValueDto(value);
     }
 
+    //Get biggest environment
     @Override
     public PropertyEnvironmentDto getBiggestEnvironment(String propertyName) throws PropertyNameNotFoundException {
         ArrayList<Environment> environmentArrayList = iPropertyRepository.findPropertyByName(propertyName).getProp_environment();
@@ -63,6 +66,7 @@ public class PropertyService implements IPropertyService{
         return responseDto;
     }
 
+    //Get environment sizes list
     @Override
     public ArrayList<PropertyEnvironmentDto> getEnvironmentSizesList(String propertyName) throws PropertyNameNotFoundException {
         ArrayList<Environment> environmentArrayList = iPropertyRepository.findPropertyByName(propertyName).getProp_environment();
@@ -76,6 +80,7 @@ public class PropertyService implements IPropertyService{
         return environmentSizesList;
     }
 
+    //Add a new property
     @Override
     public void addNewProperty(PropertyDto propertyDto) throws PropertyAlreadyExistsException, PropertyDistrictNameNotFoundException {
         Property property = mapper.propertyDtoToProperty(propertyDto);

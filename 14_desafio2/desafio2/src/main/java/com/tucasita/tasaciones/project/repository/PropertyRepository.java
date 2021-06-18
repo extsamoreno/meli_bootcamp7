@@ -20,6 +20,7 @@ public class PropertyRepository implements IPropertyRepository{
     private static List<Property> listProperties = Database.listProperties; //List of properties
     private static List<District> listDistricts = Database.listDistricts; //List of districts
 
+    //Find a property by his name
     @Override
     public Property findPropertyByName(String propertyName) throws PropertyNameNotFoundException {
         try{
@@ -30,6 +31,7 @@ public class PropertyRepository implements IPropertyRepository{
         }
     }
 
+    //Find a district by his name
     @Override
     public District findDistrictByName(String districtName) throws PropertyDistrictNameNotFoundException {
         try{
@@ -40,6 +42,7 @@ public class PropertyRepository implements IPropertyRepository{
         }
     }
 
+    //Save a property
     @Override
     public void saveProperty(Property property) throws PropertyAlreadyExistsException, PropertyDistrictNameNotFoundException {
         if(listProperties.stream().anyMatch(x -> x.getProp_name().equals(property.getProp_name())))
