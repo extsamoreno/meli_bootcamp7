@@ -18,7 +18,6 @@ import java.util.List;
 public class PropertyRepository implements IPropertyRepository {
 
     String propertyPathFile = System.getProperty("user.dir") + "/src/main/resources/data/Property.json";
-
     List<Property> properties = loadProperties();
 
     @Override
@@ -58,7 +57,7 @@ public class PropertyRepository implements IPropertyRepository {
         }
     }
     @Override
-    public Property getPropertyById(int id) {
+    public Property getPropertyById(int id){
         Property result = null;
         if (properties != null) {
             result = properties.stream()

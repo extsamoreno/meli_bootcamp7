@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.DTO.*;
 import com.example.demo.entities.Property;
+import com.example.demo.repositories.IDistrictRepository;
 import com.example.demo.repositories.IPropertyRepository;
 import com.example.demo.services.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ public class PropertyController {
 
     @Autowired
     IPropertyService propertyService;
-
 
     @GetMapping("/calculateTotalMeters/{propertyId}")
     public ResponseEntity<ResponseCalculateTotalMetersDTO> calculateTotalMeters(@PathVariable int propertyId) throws Exception {

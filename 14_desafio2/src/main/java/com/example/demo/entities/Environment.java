@@ -10,10 +10,8 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class Environment {
 
-    private int id;
     private String name;
     private Double width;
     private Double length;
-
 
 }

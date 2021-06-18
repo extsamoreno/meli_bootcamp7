@@ -8,18 +8,15 @@
     },
     "environments": [
       {
-        "id": 1,
         "name": "room1",
         "width": 3.0,
-        "length": 4.0
+        "length": 3.0
       },
       {
-        "id": 2,
         "name": "room2",
-        "width": 3.0,
-        "length": 3.0
+        "width": 4.0,
+        "length": 4.0
       }
     ]
   }
-
 ]

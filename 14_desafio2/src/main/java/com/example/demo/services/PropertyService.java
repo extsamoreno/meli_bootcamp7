@@ -5,6 +5,7 @@ import com.example.demo.Mapper;
 import com.example.demo.entities.District;
 import com.example.demo.entities.Environment;
 import com.example.demo.entities.Property;
+import com.example.demo.repositories.DistrictRepository;
 import com.example.demo.repositories.IDistrictRepository;
 import com.example.demo.repositories.IPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class PropertyService implements IPropertyService {
         for (Environment environmentEntry : property.getEnvironments()) {
 
             if (environmentEntry.getLength() * environmentEntry.getWidth() > total) {
-                total += environmentEntry.getLength() * environmentEntry.getWidth();
+                total = environmentEntry.getLength() * environmentEntry.getWidth();
                 environment = environmentEntry;
             }
         }
@@ -89,6 +90,8 @@ public class PropertyService implements IPropertyService {
         for (Environment environmentEntry : property.getEnvironments()) {
             EnvironmentDTO environment = new EnvironmentDTO();
             environment.setName(environmentEntry.getName());
+            environment.setLength(environmentEntry.getLength());
+            environment.setWidth(environmentEntry.getWidth());
             environment.setTotalMeters(environmentEntry.getLength() * environmentEntry.getWidth());
             list.add(environment);
         }

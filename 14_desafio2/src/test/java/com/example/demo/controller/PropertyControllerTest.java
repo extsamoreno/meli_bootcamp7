@@ -4,6 +4,7 @@ package com.example.demo.controller;
 import com.example.demo.DTO.*;
 import com.example.demo.Utils.UtilTest;
 import com.example.demo.controllers.PropertyController;
+import com.example.demo.services.IPropertyService;
 import com.example.demo.services.PropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.*;
 public class PropertyControllerTest {
 
     @Mock
-    PropertyService propertyService;
+    IPropertyService iPropertyService;
 
     @InjectMocks
     PropertyController propertyController;
@@ -32,7 +33,7 @@ public class PropertyControllerTest {
     public void getSquareMetersTest() throws Exception {
 
         ResponseCalculateTotalMetersDTO aux = new ResponseCalculateTotalMetersDTO("House",40);
-        when(propertyService.getResponseCalculateTotalMetersDTO(1)).thenReturn(aux);
+        when(iPropertyService.getResponseCalculateTotalMetersDTO(1)).thenReturn(aux);
         Assertions.assertEquals(new ResponseEntity<>(aux, HttpStatus.OK), propertyController.calculateTotalMeters(1));
 
     }
@@ -40,7 +41,7 @@ public class PropertyControllerTest {
     @Test
     public void getPriceTest() throws Exception {
         ResponsePriceDTO aux = UtilTest.getResponsePriceDTO(1);
-        when(propertyService.getPrice(1)).thenReturn(aux);
+        when(iPropertyService.getPrice(1)).thenReturn(aux);
         Assertions.assertEquals(new ResponseEntity<>(aux, HttpStatus.OK), propertyController.price(1));
     }
 
@@ -53,7 +54,7 @@ public class PropertyControllerTest {
         aux.setEnvironmentName(property.getEnvironments().get(1).getName());
         aux.setBiggerEnvironmentMeters(property.getEnvironments().get(1).getTotalMeters());
 
-        when(propertyService.getBiggerEnvironment(1)).thenReturn(aux);
+        when(iPropertyService.getBiggerEnvironment(1)).thenReturn(aux);
 
         Assertions.assertEquals(new ResponseEntity<>(aux, HttpStatus.OK), propertyController.biggerEnvironment(1));
     }
@@ -66,7 +67,7 @@ public class PropertyControllerTest {
         aux.setNameProperty(property.getName());
         aux.setEnvironments(property.getEnvironments());
 
-        when(propertyService.getTotalMetersByEnvironment(1)).thenReturn(aux);
+        when(iPropertyService.getTotalMetersByEnvironment(1)).thenReturn(aux);
         Assertions.assertEquals(new ResponseEntity<>(aux, HttpStatus.OK), propertyController.totalMetersByEnvironment(1));
 
     }

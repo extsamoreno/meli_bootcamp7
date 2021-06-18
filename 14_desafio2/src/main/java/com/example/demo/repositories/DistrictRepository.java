@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Repository
-public class DistrictRepository  implements IDistrictRepository {
+public class DistrictRepository implements IDistrictRepository {
 
     String districtPathFile = System.getProperty("user.dir") + "/src/main/resources/data/District.json";
 
@@ -57,7 +57,8 @@ public class DistrictRepository  implements IDistrictRepository {
         }
     }
 
-    public District findDistrictByName(String districtName){
+    @Override
+    public District findDistrictByName(String districtName) {
         District result = null;
         if (this.districts != null) {
             result = this.districts.stream()
