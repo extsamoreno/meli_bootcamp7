@@ -1,6 +1,8 @@
 package com.example.DesafioTasaciones.unit.service;
 
 import com.example.DesafioTasaciones.dtos.HouseDTO;
+import com.example.DesafioTasaciones.dtos.ResponseDTO;
+import com.example.DesafioTasaciones.dtos.RoomDTO;
 import com.example.DesafioTasaciones.exceptions.DistrictNotFound;
 import com.example.DesafioTasaciones.models.District;
 import com.example.DesafioTasaciones.models.House;
@@ -16,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.math.RoundingMode;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,6 +33,7 @@ public class HouseServiceTest {
 
     @InjectMocks
     HouseService houseService;
+
 
     @Test
     public void createPropertyWithExistingDistrict() {
@@ -62,9 +66,7 @@ public class HouseServiceTest {
     public void getAllProperties() {
         //Arrange
         List<House> houses = TestUtilGenerator.getProperties();
-//        Property property = TestUtilGenerator.getNewProperty();
-//        PropertyDTO propertyDTO = TestUtilGenerator.getPropertyDTO("Capital");
-////        List<PropertyDTO> propertiesDTO = TestUtilGenerator.getPropertiesDTO();
+
         Mockito.when(iHouseRepository.getAllProperties()).thenReturn(houses);
 
         //Act
@@ -72,5 +74,63 @@ public class HouseServiceTest {
 
         //Assert
         Mockito.verify(iHouseRepository,Mockito.atLeastOnce()).getAllProperties();
+    }
+
+    @Test
+    public void propertyTotalSquareMeters() {
+        //Arrange
+        House house = TestUtilGenerator.getProperty();
+        Mockito.when(iHouseRepository.findPropertyById(house.getId())).thenReturn(house);
+
+        //Act
+        ResponseDTO response = houseService.totalSquareMeters(house.getId());
+
+        //Assert
+        Mockito.verify(iHouseRepository,Mockito.atLeastOnce()).findPropertyById(house.getId());
+        Assertions.assertEquals(40.0,response.getTotalSquareMeters());
+    }
+
+    @Test
+    public void propertyValue() {
+        //Arrange
+        House house = TestUtilGenerator.getProperty();
+        Mockito.when(iHouseRepository.findPropertyById(house.getId())).thenReturn(house);
+
+        //Act
+        ResponseDTO response = houseService.propertyValue(house.getId());
+
+        //Assert
+        Mockito.verify(iHouseRepository,Mockito.atLeastOnce()).findPropertyById(house.getId());
+        Assertions.assertEquals(10000.0,response.getPropertyValue());
+    }
+
+    @Test
+    public void getBiggestEnvironment() {
+        //Arrange
+        House house = TestUtilGenerator.getProperty();
+        RoomDTO room = mapper.map(house.getRooms().get(0), RoomDTO.class);
+        Mockito.when(iHouseRepository.findPropertyById(house.getId())).thenReturn(house);
+        Mockito.when(modelMapper.map(house.getRooms().get(0),RoomDTO.class)).thenReturn(room);
+
+        //Act
+        ResponseDTO response = houseService.largestEnvironment(house.getId());
+
+        //Assert
+        Mockito.verify(iHouseRepository,Mockito.atLeastOnce()).findPropertyById(house.getId());
+        Assertions.assertEquals(room,response.getLargestEnvironment());
+    }
+
+    @Test
+    public void roomsSquareMeters() {
+        //Arrange
+        House house = TestUtilGenerator.getProperty();
+        Mockito.when(iHouseRepository.findPropertyById(house.getId())).thenReturn(house);
+
+        //Act
+        ResponseDTO response = houseService.roomsSquareMeters(house.getId());
+
+        //Assert
+        Mockito.verify(iHouseRepository,Mockito.atLeastOnce()).findPropertyById(house.getId());
+        Assertions.assertEquals(30.0,response.getRoomsSquareMeters().get(0).getSquareMeters());
     }
 }
