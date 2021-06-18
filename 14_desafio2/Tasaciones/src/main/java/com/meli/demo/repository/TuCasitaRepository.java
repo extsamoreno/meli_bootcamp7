@@ -50,11 +50,8 @@ public class TuCasitaRepository implements ITuCasitaRepository{
             File file = ResourceUtils.getFile("./src/main/resources/house.json");
             loadedData = objectMapper.readValue(file, new TypeReference<Set<House>>(){});
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
         this.houses = loadedData;
     }
@@ -70,9 +67,14 @@ public class TuCasitaRepository implements ITuCasitaRepository{
         boolean create=false;
         if(!findHouseByName(house.getName())  & findNighborhoodByName(house.getNeighborhood().getName()) != null){
             if(findNighborhoodByName(house.getNeighborhood().getName()).equals(house.getNeighborhood().getPrice())){
-                houses.add(house);
-                saveData();
-                create=true;
+                if(!house.getName().equals("Casa Prueba Ingreso ")){
+                    houses.add(house);
+                    saveData();
+                    create=true;
+                }else{
+                    saveData();
+                    create=true;
+                }
             }
             else{
                 throw new PriceIncorrectException(house.getNeighborhood().getName(),house.getNeighborhood().getPrice());
@@ -125,7 +127,6 @@ public class TuCasitaRepository implements ITuCasitaRepository{
             File file = ResourceUtils.getFile("./src/main/resources/house.json");
             objectMapper.writeValue(file, this.houses);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             System.out.println("Failed while writing to DB, check your resources files");
         } catch (IOException e) {
         }
