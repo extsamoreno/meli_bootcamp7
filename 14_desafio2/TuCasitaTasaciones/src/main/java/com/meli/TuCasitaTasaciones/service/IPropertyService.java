@@ -8,13 +8,6 @@ import com.meli.TuCasitaTasaciones.model.PropertyDTO;
 import java.util.List;
 
 public interface IPropertyService {
-//    Property getPropertyById(int idProperty);
-//     double getAreaProperty(int idProperty);
-//
-//       double getPriceProperty(int idProperty);
-
-//    double getAreaBigger();
-
 
     double calculateArea(List<EnvironmentDTO> environmentDTOS);
     double calculatePrice(HouseDTO houseDTO);

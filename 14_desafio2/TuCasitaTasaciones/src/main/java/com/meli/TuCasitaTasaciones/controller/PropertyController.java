@@ -40,7 +40,7 @@ public class PropertyController {
 //    }
 
     @PostMapping("Property/calculateArea")
-    public ResponseEntity<Double> calculateArea(@Valid @RequestBody List<EnvironmentDTO> environmentDTOS) {
+    public ResponseEntity<Double> calculateArea(@Valid @RequestBody  List<EnvironmentDTO> environmentDTOS) {
         return new ResponseEntity<>(service.calculateArea(environmentDTOS), HttpStatus.OK);
     }
 
@@ -61,7 +61,14 @@ public class PropertyController {
 
     @PostMapping("Property/addProperty")
     public ResponseEntity<?> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) {
-        this.service.addProperty(propertyDTO);
+        service.addProperty(propertyDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
+
+//        Agregar una excepción al crear una propiedad (si ya existe).
+//        Borrar código comentado.
+//        Se podría agregar un DistrictDTO y no utilizar el DistrictDTO para validar datos y recibir un nuevo district.
+//        Se podría dividir el repo de district y property.
+//        Validar que el district existe.
+//        No todos los endpoints validan los datos (length width, etc)

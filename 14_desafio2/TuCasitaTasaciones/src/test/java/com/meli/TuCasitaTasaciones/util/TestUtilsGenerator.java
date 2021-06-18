@@ -9,7 +9,7 @@ public class TestUtilsGenerator {
     private HashMap<String, Double> districts = new HashMap<>();
 
     public static PropertyDTO getPropertyDTO() {
-        District district1 = new District("Palermo", 300);
+        DistrictDTO districtDTO1 = new DistrictDTO("Caucacia", 300);
         EnvironmentDTO environmentDTO1 = new EnvironmentDTO("Room1", 18, 18);
         EnvironmentDTO environmentDTO2 = new EnvironmentDTO("Room2", 10, 12);
         EnvironmentDTO environmentDTO3 = new EnvironmentDTO("Kitchen", 15, 20);
@@ -23,13 +23,33 @@ public class TestUtilsGenerator {
         environments1.add(environmentDTO4);
         environments1.add(environmentDTO5);
 
-        PropertyDTO pro1 = new PropertyDTO("Casa 1", district1, environments1);
+        PropertyDTO pro1 = new PropertyDTO("Casa 1", districtDTO1, environments1);
+
+        return pro1;
+    }
+
+    public static PropertyDTO getPropertyRepeatedDTO() {
+        DistrictDTO districtDTO1 = new DistrictDTO("Palermo", 300);
+        EnvironmentDTO environmentDTO1 = new EnvironmentDTO("Room1", 18, 18);
+        EnvironmentDTO environmentDTO2 = new EnvironmentDTO("Room2", 10, 12);
+        EnvironmentDTO environmentDTO3 = new EnvironmentDTO("Kitchen", 15, 20);
+        EnvironmentDTO environmentDTO4 = new EnvironmentDTO("Toilet", 11, 5);
+        EnvironmentDTO environmentDTO5 = new EnvironmentDTO("Hall", 20, 20);
+
+        List<EnvironmentDTO> environments1 = new ArrayList<>();
+        environments1.add(environmentDTO1);
+        environments1.add(environmentDTO2);
+        environments1.add(environmentDTO3);
+        environments1.add(environmentDTO4);
+        environments1.add(environmentDTO5);
+
+        PropertyDTO pro1 = new PropertyDTO("Casa 1", districtDTO1, environments1);
 
         return pro1;
     }
 
     public static PropertyDTO getPropertyDTOWithErrors() {
-        District district1 = new District("palermo", 500000);
+        DistrictDTO districtDTO1 = new DistrictDTO("palermo", 500000);
         EnvironmentDTO environmentDTO1 = new EnvironmentDTO("room1", 18, 18);
         EnvironmentDTO environmentDTO2 = new EnvironmentDTO("room2", 10, 1200);
         EnvironmentDTO environmentDTO3 = new EnvironmentDTO("kitchen", -15, 20);
@@ -43,7 +63,7 @@ public class TestUtilsGenerator {
         environments1.add(environmentDTO4);
         environments1.add(environmentDTO5);
 
-        PropertyDTO pro1 = new PropertyDTO("casa 1", district1, environments1);
+        PropertyDTO pro1 = new PropertyDTO("casa 1", districtDTO1, environments1);
 
         return pro1;
     }
@@ -68,7 +88,7 @@ public class TestUtilsGenerator {
 
         EnvironmentDTO environmentDTO1 = new EnvironmentDTO("Room1", 18, 18);
         EnvironmentDTO environmentDTO2 = new EnvironmentDTO("Room2", 10, 12);
-        EnvironmentDTO environmentDTO3 = new EnvironmentDTO("kitchen", 15, 20);
+        EnvironmentDTO environmentDTO3 = new EnvironmentDTO("Kitchen", 15, 20);
         EnvironmentDTO environmentDTO4 = new EnvironmentDTO("Toilet", 11, 5);
         EnvironmentDTO environmentDTO5 = new EnvironmentDTO("Hall", 20, 20);
 
@@ -114,22 +134,22 @@ public class TestUtilsGenerator {
 
     public static HashMap<String, Double> getDistrictsList() {
 
-        District district1 = new District("Palermo", 5000);
-        District district2 = new District("Centro", 2000);
-        District district3 = new District("Martires", 1000);
+        DistrictDTO districtDTO1 = new DistrictDTO("Palermo", 5000);
+        DistrictDTO districtDTO2 = new DistrictDTO("Centro", 2000);
+        DistrictDTO districtDTO3 = new DistrictDTO("Martires", 1000);
 
         HashMap<String, Double> districts = new HashMap<>();
 
-        districts.put(district1.getDistrictName(), district1.getPrice());
-        districts.put(district2.getDistrictName(), district2.getPrice());
-        districts.put(district3.getDistrictName(), district3.getPrice());
+        districts.put(districtDTO1.getDistrictName(), districtDTO1.getPrice());
+        districts.put(districtDTO2.getDistrictName(), districtDTO2.getPrice());
+        districts.put(districtDTO3.getDistrictName(), districtDTO3.getPrice());
         return districts;
     }
 
     public static Set<PropertyDTO> getPropertyDTerwerwO() {
-        District district1 = new District("Palermo", 5000);
-        District district2 = new District("Centro", 2000);
-        District district3 = new District("Martires", 1000);
+        DistrictDTO districtDTO1 = new DistrictDTO("Palermo", 5000);
+        DistrictDTO districtDTO2 = new DistrictDTO("Centro", 2000);
+        DistrictDTO districtDTO3 = new DistrictDTO("Martires", 1000);
 
         EnvironmentDTO environmentDTO1 = new EnvironmentDTO("Room1", 18, 18);
         EnvironmentDTO environmentDTO2 = new EnvironmentDTO("Room2", 10, 12);
@@ -153,10 +173,10 @@ public class TestUtilsGenerator {
         environments3.add(environmentDTO2);
         environments3.add(environmentDTO4);
 
-        PropertyDTO pro1 = new PropertyDTO("Casa 1", district1, environments1);
+        PropertyDTO pro1 = new PropertyDTO("Casa 1", districtDTO1, environments1);
 
-        PropertyDTO pro2 = new PropertyDTO("Casa 2", district2, environments2);
-        PropertyDTO pro3 = new PropertyDTO("Casa 3", district3, environments3);
+        PropertyDTO pro2 = new PropertyDTO("Casa 2", districtDTO2, environments2);
+        PropertyDTO pro3 = new PropertyDTO("Casa 3", districtDTO3, environments3);
 
 
         Set<PropertyDTO> properties = new HashSet<>();
@@ -166,9 +186,9 @@ public class TestUtilsGenerator {
 
         HashMap<String, Double> districts = new HashMap<>();
 
-        districts.put(district1.getDistrictName(), district1.getPrice());
-        districts.put(district2.getDistrictName(), district2.getPrice());
-        districts.put(district3.getDistrictName(), district3.getPrice());
+        districts.put(districtDTO1.getDistrictName(), districtDTO1.getPrice());
+        districts.put(districtDTO2.getDistrictName(), districtDTO2.getPrice());
+        districts.put(districtDTO3.getDistrictName(), districtDTO3.getPrice());
         return null;
     }
 

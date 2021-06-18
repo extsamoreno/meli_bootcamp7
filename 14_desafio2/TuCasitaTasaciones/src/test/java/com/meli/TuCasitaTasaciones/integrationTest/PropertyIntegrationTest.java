@@ -1,6 +1,5 @@
 package com.meli.TuCasitaTasaciones.integrationTest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -51,8 +50,6 @@ public class PropertyIntegrationTest {
 
         String payloadJson = writer.writeValueAsString(payloadDTO);
         String responseJson = writer.writeValueAsString(1219.0);
-
-        //Mockito.when(iStudentDAO.findById(responseDTO.getId())).thenReturn(responseDTO);
 
         MvcResult response = this.mockMvc.perform((MockMvcRequestBuilders.post("/Property/calculateArea"))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -139,7 +136,6 @@ public class PropertyIntegrationTest {
     @Test
     public void addPropertyTest() throws Exception {
 
-
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer();
@@ -148,23 +144,16 @@ public class PropertyIntegrationTest {
         Mockito.doNothing().when(iPropertyDAO).addProperty(payloadDTO);
 
         String payloadJson = writer.writeValueAsString(payloadDTO);
-        //String responseJson = writer.writeValueAsString(1219.0);
-
-        //Mockito.when(iStudentDAO.findById(responseDTO.getId())).thenReturn(responseDTO);
 
         MvcResult response = this.mockMvc.perform((MockMvcRequestBuilders.post("/Property/addProperty"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
                 .andDo(print()).andExpect(status().isCreated())
-                //.andExpect(content().contentType("application/json"))
                 .andReturn();
-
-        ///Assertions.assertEquals(responseJson, response.getResponse().getContentAsString(StandardCharsets.UTF_8));
     }
 
     @Test
     public void addPropertyWithErrorsTest() throws Exception {
-
 
         ObjectWriter writer = new ObjectMapper()
                 .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
@@ -174,7 +163,6 @@ public class PropertyIntegrationTest {
         Mockito.doNothing().when(iPropertyDAO).addProperty(payloadDTO);
 
         String payloadJson = writer.writeValueAsString(payloadDTO);
-        //String responseJson = writer.writeValueAsString(1219.0);
 
         MvcResult response = this.mockMvc.perform((MockMvcRequestBuilders.post("/Property/addProperty"))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -182,7 +170,29 @@ public class PropertyIntegrationTest {
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
+    }
 
-        ///Assertions.assertEquals(responseJson, response.getResponse().getContentAsString(StandardCharsets.UTF_8));
+    @Test
+    public void addPropertyRepeatedTest() throws Exception {
+
+        ObjectWriter writer = new ObjectMapper()
+                .configure(SerializationFeature.WRAP_ROOT_VALUE, false)
+                .writer();
+
+        PropertyDTO payloadDTO = TestUtilsGenerator.getPropertyRepeatedDTO();
+        HashMap<String, Double> hm = TestUtilsGenerator.getDistrictsList();
+
+        Mockito.doNothing().when(iPropertyDAO).addProperty(payloadDTO);
+        Mockito.when(iPropertyDAO.getDistrictList()).thenReturn(hm);
+
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+
+        MvcResult response = this.mockMvc.perform((MockMvcRequestBuilders.post("/Property/addProperty"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+        Assertions.assertEquals("{\"name\":\"DistrictRepeatedException\",\"description\":\"El barrio Palermo ya se encuentra registrado.\"}", response.getResponse().getContentAsString(StandardCharsets.UTF_8));
     }
 }

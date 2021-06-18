@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class District {
+public class DistrictDTO {
     @NotNull(message = "El barrio no puede estar vacío.")
     @Pattern(regexp = "([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$", message = "El nombre del barrio debe comenzar con mayúscula.")
     @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")

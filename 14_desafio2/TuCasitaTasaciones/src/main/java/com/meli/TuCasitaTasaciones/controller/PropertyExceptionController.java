@@ -1,5 +1,7 @@
 package com.meli.TuCasitaTasaciones.controller;
 
+import com.meli.TuCasitaTasaciones.exception.DistrictRepeatedException;
+import com.meli.TuCasitaTasaciones.model.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -22,15 +24,14 @@ public class PropertyExceptionController {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(PropertyException.class)
-//    ResponseEntity<ErrorDTO> handleGlobalExceptions(PropertyException e) {
-//        return new ResponseEntity<>(e.getError(), e.getStatus());
-//    }
-//
+    @ExceptionHandler(DistrictRepeatedException.class)
+    ResponseEntity<ErrorDTO> responseEntityExceptions(DistrictRepeatedException e) {
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
 //    @ExceptionHandler(HttpMessageNotReadableException.class)
 //    protected ResponseEntity<ErrorDTO> handleValidationExceptions(HttpMessageNotReadableException e) {
 //        ErrorDTO error = new ErrorDTO("HttpMessageNotReadableException", e.getMessage());

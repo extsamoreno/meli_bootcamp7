@@ -17,7 +17,7 @@ public class PropertyDTO {
     @Size(max = 30, message = "La longitud del nombre de la propiedad no puede superar los 30 caracteres.")
     private String propertyName;
     @Valid
-    private District district;
+    private DistrictDTO districtDTO;
 
     private List< @Valid EnvironmentDTO> environments;
 }

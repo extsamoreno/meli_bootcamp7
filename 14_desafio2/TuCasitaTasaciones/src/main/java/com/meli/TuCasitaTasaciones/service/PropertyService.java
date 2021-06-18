@@ -1,5 +1,6 @@
 package com.meli.TuCasitaTasaciones.service;
 
+import com.meli.TuCasitaTasaciones.exception.DistrictRepeatedException;
 import com.meli.TuCasitaTasaciones.mapper.EnvironmentMapper;
 import com.meli.TuCasitaTasaciones.model.*;
 import com.meli.TuCasitaTasaciones.repository.IPropertyDAO;
@@ -52,13 +53,17 @@ public class PropertyService implements IPropertyService {
     }
 
     @Override
-    public void addProperty(PropertyDTO propertyDTO) {
-        String districtName = propertyDTO.getDistrict().getDistrictName();
-//        if (iPropertyDAO.getDistrictList().get(districtName) != 0.0) {
-//            System.out.println("Está mal");
-//        } else {
+    public void addProperty(PropertyDTO propertyDTO) throws DistrictRepeatedException {
+        String districtName = propertyDTO.getDistrictDTO().getDistrictName();
+        HashMap<String, Double> hm = iPropertyDAO.getDistrictList();
+        if (hm.containsKey(districtName)) {
+            System.out.println("Está mal");
+            throw new DistrictRepeatedException(districtName);
+        } else {
             iPropertyDAO.addProperty(propertyDTO);
-   //     }
+            hm = iPropertyDAO.getDistrictList();
+            System.out.println("hm = " + hm);
+        }
     }
 
 }
