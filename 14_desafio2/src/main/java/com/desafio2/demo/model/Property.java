@@ -32,4 +32,9 @@ public class Property {
 
     @NotEmpty(message = "The list of environments cannot be empty.")
     private List<@Valid Environment> environments;
+
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

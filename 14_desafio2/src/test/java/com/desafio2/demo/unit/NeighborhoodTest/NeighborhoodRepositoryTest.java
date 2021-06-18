@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,7 +31,7 @@ public class NeighborhoodRepositoryTest {
         // arrange
         Neighborhood neighborhood = TestUtilGenerator.getNeighborhoodPriceTen("Lanus");
         Neighborhood expected = TestUtilGenerator.getNeighborhoodPriceTen("Lanus");
-        int id = 1;
+        int id = 1; // because test database is empty and the util method set id in 9999
         expected.setId(id);
 
         // act
@@ -37,9 +39,6 @@ public class NeighborhoodRepositoryTest {
 
         // assert
         assertEquals(expected, received);
-    }
-
-    private void assertEquals(Neighborhood expected, Neighborhood received) {
     }
 
     @Test
@@ -51,7 +50,7 @@ public class NeighborhoodRepositoryTest {
         this.neighborhoodRepository = new NeighborhoodRepository();
 
         // assert
-        assertEquals(expected, received);
+        assertThrows(NeighborhoodAlreadyExistException.class,() -> neighborhoodRepository.saveNeighborhood(neighborhood));
     }
 
     @Test
@@ -59,17 +58,13 @@ public class NeighborhoodRepositoryTest {
         // arrange
         Neighborhood neighborhood = TestUtilGenerator.getNeighborhoodPriceTen("Lanus");
         Neighborhood expected = TestUtilGenerator.getNeighborhoodPriceTen("Lanus");
-        TestUtilGenerator.appendNewNeighborhood(neighborhood);
-        this.neighborhoodRepository = new NeighborhoodRepository();
+        TestUtilGenerator.this.neighborhoodRepository = new NeighborhoodRepository();
 
         // act
         Neighborhood received = neighborhoodRepository.getNeighborhoodByName(neighborhood.getName());
 
         // assert
-        assertThrows(expected, received);
-    }
-
-    private void assertThrows(Neighborhood expected, Neighborhood received) {
+        assertEquals(expected, received);
     }
 
     @Test
@@ -79,6 +74,7 @@ public class NeighborhoodRepositoryTest {
         this.neighborhoodRepository = new NeighborhoodRepository();
 
         // assert
-        assertThrows(NeighborhoodNotFoundException.class,() ->neighborhoodRepository.getNeighborhoodByName(neighborhood.getName()));
+        assertThrows(NeighborhoodNotFoundException.class,() ->
+                neighborhoodRepository.getNeighborhoodByName(neighborhood.getName()));
     }
 }

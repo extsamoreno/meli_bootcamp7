@@ -25,4 +25,7 @@ public class Neighborhood {
     @DecimalMax(value = "4000.0",
             message = "The maximum price allowed per square meter cannot exceed 4000 U$S.")
     private Double price;
+
+    public void setId(int id) {
+    }
 }
