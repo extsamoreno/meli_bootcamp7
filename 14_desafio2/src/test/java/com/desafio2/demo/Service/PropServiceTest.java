@@ -60,11 +60,11 @@ class PropServiceTest {
     void bigEnvironment() {
         //arrange
         PropRequest propRequests = Util.getPropRequest();
-        EnvironmentDTO env = new EnvironmentDTO("Habitation", 30.0);
-        List<EnvironmentDTO> expected = List.of(env);
-        when(propMapper.toEnvDTO(any())).thenReturn(env);
+        EnvironmentDTOResponse env = new EnvironmentDTOResponse("Habitation", 30.0);
+        List<EnvironmentDTOResponse> expected = List.of(env);
+        when(propMapper.toEnvDTOResponse(any())).thenReturn(env);
         //act
-        List<EnvironmentDTO> response = propService.bigEnvironment(propRequests);
+        List<EnvironmentDTOResponse> response = propService.bigEnvironment(propRequests);
         //assert
         assertEquals(expected, response);
     }
@@ -76,13 +76,13 @@ class PropServiceTest {
         //arrange
         PropRequest propRequests = Util.getPropRequestDuplicateDimensions();
         //DTO response mapeo
-        EnvironmentDTO env = new EnvironmentDTO("Habitation", 30.0);
-        EnvironmentDTO env2 = new EnvironmentDTO("Habitation2", 30.0);
-        List<EnvironmentDTO> expected = List.of(env, env2);
-        when(propMapper.toEnvDTO(propRequests.getEnvironments().get(0))).thenReturn(env);
-        when(propMapper.toEnvDTO(propRequests.getEnvironments().get(1))).thenReturn(env2);
+        EnvironmentDTOResponse env = new EnvironmentDTOResponse("Habitation", 30.0);
+        EnvironmentDTOResponse env2 = new EnvironmentDTOResponse("Habitation2", 30.0);
+        List<EnvironmentDTOResponse> expected = List.of(env, env2);
+        when(propMapper.toEnvDTOResponse(propRequests.getEnvironments().get(0))).thenReturn(env);
+        when(propMapper.toEnvDTOResponse(propRequests.getEnvironments().get(1))).thenReturn(env2);
         //act
-        List<EnvironmentDTO> response = propService.bigEnvironment(propRequests);
+        List<EnvironmentDTOResponse> response = propService.bigEnvironment(propRequests);
         //assert
         assertEquals(expected, response);
     }
@@ -92,7 +92,7 @@ class PropServiceTest {
         //arrange
         PropRequest propRequests = Util.getPropRequest();
         PropDTOTMeterByEnvironment expected = new PropDTOTMeterByEnvironment(propRequests.getName(),
-                List.of(new EnvironmentDTO("Kitchen", 12.0), new EnvironmentDTO("Habitation", 30.0)));
+                List.of(new EnvironmentDTOResponse("Kitchen", 12.0), new EnvironmentDTOResponse("Habitation", 30.0)));
         when(propMapper.toPropByMeter(any())).thenReturn(expected);
         //act
         PropDTOTMeterByEnvironment prop = propService.meterByEnvironment(propRequests);

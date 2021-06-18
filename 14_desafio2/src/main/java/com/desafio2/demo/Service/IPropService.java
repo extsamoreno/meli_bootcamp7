@@ -12,7 +12,7 @@ public interface IPropService {
 
     PropDTOTPrice priceProp(PropRequest prop) throws DistrictNotExist;
 
-    List<EnvironmentDTO> bigEnvironment(PropRequest prop);
+    List<EnvironmentDTOResponse> bigEnvironment(PropRequest prop);
 
     PropDTOTMeterByEnvironment meterByEnvironment(PropRequest prop);
 

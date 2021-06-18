@@ -43,7 +43,7 @@ public class PropController {
 
     @ApiOperation("One or more bigger environment of property")
     @PostMapping("/bigEnvironment")
-    public ResponseEntity<List<EnvironmentDTO>> bigEnvironment(
+    public ResponseEntity<List<EnvironmentDTOResponse>> bigEnvironment(
             @ApiParam(value = "Property with district and environments. The name must start with upperCase and cant be empty.")
             @Valid @RequestBody PropRequest propRequest){
         return new ResponseEntity<>(propService.bigEnvironment(propRequest), HttpStatus.OK);

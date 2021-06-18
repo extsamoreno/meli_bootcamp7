@@ -18,19 +18,19 @@ public interface IPropMapper {
     PropDTOTPrice toDTOPrice(PropRequest prop, double totalPrice);
 
     @Mapping(source = "env", target = "totalMeter", qualifiedByName = "area")
-    EnvironmentDTO toEnvDTO(Environment env);
+    EnvironmentDTOResponse toEnvDTOResponse(EnvironmentDTO env);
 
     @Mapping(source = "prop", target = "environments", qualifiedByName = "listEnvDTO")
     PropDTOTMeterByEnvironment toPropByMeter(PropRequest prop);
 
     @Named("area")
-    default double area(Environment env){
+    default double area(EnvironmentDTO env){
         return env.getWidth() * env.getLength();
     }
 
     @Named("listEnvDTO")
-    default List<EnvironmentDTO> listEnvDTO(PropRequest prop){
-        return prop.getEnvironments().stream().map(env -> toEnvDTO(env)).collect(Collectors.toList());
+    default List<EnvironmentDTOResponse> listEnvDTO(PropRequest prop){
+        return prop.getEnvironments().stream().map(env -> toEnvDTOResponse(env)).collect(Collectors.toList());
     }
 
 }

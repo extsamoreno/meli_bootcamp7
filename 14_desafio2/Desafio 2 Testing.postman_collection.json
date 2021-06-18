@@ -68,7 +68,35 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\" : \"Casita1\",\n    \"district\" : \"Villa Prado\",\n    \"environments\":\n    [\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 3,\n            \"length\": 4\n        },\n        {\n            \"name\" : \"Habitation2\",\n            \"width\": 5,\n            \"length\": 6\n        }\n    ]\n}",
+					"raw": "{\n    \"name\" : \"Casita1\",\n    \"district\" : \"Villa Prado\",\n    \"environments\":\n    [\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 3,\n            \"length\": 4\n        },\n        {\n            \"name\" : \"Habitation2\",\n            \"width\": 15,\n            \"length\": 4\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/TuCasita/bigEnvironment",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"TuCasita",
+						"bigEnvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DuplicateEnviroment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"Casita1\",\n    \"district\" : \"Villa Prado\",\n    \"environments\":\n    [\n        {\n            \"name\" : \"Habitation1\",\n            \"width\": 3,\n            \"length\": 4\n        },\n        {\n            \"name\" : \"Habitation2\",\n            \"width\": 4,\n            \"length\": 3\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"

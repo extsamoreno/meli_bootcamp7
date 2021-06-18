@@ -27,5 +27,5 @@ public class PropRequest {
     @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")
     private String districtName;
 
-    private List<@Valid Environment> environments;
+    private List<@Valid EnvironmentDTO> environments;
 }

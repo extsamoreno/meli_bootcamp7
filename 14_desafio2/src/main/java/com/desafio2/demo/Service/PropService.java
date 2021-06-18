@@ -33,11 +33,11 @@ public class PropService implements IPropService {
         return propMapper.toDTOPrice(prop, totalPrice);
     }
 
-    public List<EnvironmentDTO> bigEnvironment(PropRequest prop) {
+    public List<EnvironmentDTOResponse> bigEnvironment(PropRequest prop) {
         double maxArea = maxArea(prop);
         //Check if there are varius enviroment with the same area
-        List<EnvironmentDTO> listEnv = prop.getEnvironments().stream().filter(e-> e.area() == maxArea)
-                .map(env -> propMapper.toEnvDTO(env)).collect(Collectors.toList());
+        List<EnvironmentDTOResponse> listEnv = prop.getEnvironments().stream().filter(e-> e.area() == maxArea)
+                .map(env -> propMapper.toEnvDTOResponse(env)).collect(Collectors.toList());
         return listEnv;
     }
 
@@ -48,11 +48,11 @@ public class PropService implements IPropService {
 
     private double totalArea(PropRequest prop){
         return prop.getEnvironments().stream()
-                .mapToDouble(Environment::area).sum();
+                .mapToDouble(EnvironmentDTO::area).sum();
     }
 
     private double maxArea(PropRequest prop){
-        Environment maxEnv = prop.getEnvironments().stream().max((e1, e2)-> (int) (e1.area() - e2.area())).get();
+        EnvironmentDTO maxEnv = prop.getEnvironments().stream().max((e1, e2)-> (int) (e1.area() - e2.area())).get();
         return maxEnv.area();
     }
 }
