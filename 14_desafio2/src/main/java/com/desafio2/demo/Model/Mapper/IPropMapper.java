@@ -1,7 +1,6 @@
 package com.desafio2.demo.Model.Mapper;
 
 import com.desafio2.demo.Model.DTO.*;
-import com.desafio2.demo.Model.Environment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -17,20 +16,16 @@ public interface IPropMapper {
     @Mapping(source = "totalPrice", target = "totalPrice")
     PropDTOTPrice toDTOPrice(PropRequest prop, double totalPrice);
 
-    @Mapping(source = "env", target = "totalMeter", qualifiedByName = "area")
-    EnvironmentDTOResponse toEnvDTOResponse(EnvironmentDTO env);
+    @Mapping(source = "area", target = "totalMeter")
+    EnvironmentDTOResponse toEnvDTOResponse(EnvironmentDTO env, double area);
 
     @Mapping(source = "prop", target = "environments", qualifiedByName = "listEnvDTO")
     PropDTOTMeterByEnvironment toPropByMeter(PropRequest prop);
 
-    @Named("area")
-    default double area(EnvironmentDTO env){
-        return env.getWidth() * env.getLength();
-    }
-
     @Named("listEnvDTO")
     default List<EnvironmentDTOResponse> listEnvDTO(PropRequest prop){
-        return prop.getEnvironments().stream().map(env -> toEnvDTOResponse(env)).collect(Collectors.toList());
+        //Mappea una list EnvDTO to list EnvDTORespons
+        return prop.getEnvironments().stream().map(env -> toEnvDTOResponse(env, env.area())).collect(Collectors.toList());
     }
 
 }

@@ -28,6 +28,7 @@ public class PropService implements IPropService {
     @Override
     public PropDTOTPrice priceProp(PropRequest prop) throws DistrictNotExistException {
         District district = iPropRequestRepository.getDistrictByName(prop.getDistrictName());
+        //Get totalPrice multiply  price by district and totalArea
         double totalPrice = district.getPricePorMeter2() * totalArea(prop);
         return propMapper.toDTOPrice(prop, totalPrice);
     }
@@ -36,7 +37,7 @@ public class PropService implements IPropService {
         double maxArea = maxArea(prop);
         //Check if there are varius enviroment with the same area
         List<EnvironmentDTOResponse> listEnv = prop.getEnvironments().stream().filter(e-> e.area() == maxArea)
-                .map(env -> propMapper.toEnvDTOResponse(env)).collect(Collectors.toList());
+                .map(env -> propMapper.toEnvDTOResponse(env, env.area())).collect(Collectors.toList());
         return listEnv;
     }
 

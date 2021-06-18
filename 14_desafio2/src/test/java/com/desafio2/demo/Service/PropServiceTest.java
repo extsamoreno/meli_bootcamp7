@@ -62,7 +62,7 @@ class PropServiceTest {
         PropRequest propRequests = Util.getPropRequest();
         EnvironmentDTOResponse env = new EnvironmentDTOResponse("Habitation", 30.0);
         List<EnvironmentDTOResponse> expected = List.of(env);
-        when(propMapper.toEnvDTOResponse(any())).thenReturn(env);
+        when(propMapper.toEnvDTOResponse(any(), anyDouble())).thenReturn(env);
         //act
         List<EnvironmentDTOResponse> response = propService.bigEnvironment(propRequests);
         //assert
@@ -75,12 +75,16 @@ class PropServiceTest {
     void bigEnvironmentDuplicateDimensions() {
         //arrange
         PropRequest propRequests = Util.getPropRequestDuplicateDimensions();
+        EnvironmentDTO envDTO1 = propRequests.getEnvironments().get(0);
+        EnvironmentDTO envDTO2 = propRequests.getEnvironments().get(1);
+
         //DTO response mapeo
         EnvironmentDTOResponse env = new EnvironmentDTOResponse("Habitation", 30.0);
         EnvironmentDTOResponse env2 = new EnvironmentDTOResponse("Habitation2", 30.0);
         List<EnvironmentDTOResponse> expected = List.of(env, env2);
-        when(propMapper.toEnvDTOResponse(propRequests.getEnvironments().get(0))).thenReturn(env);
-        when(propMapper.toEnvDTOResponse(propRequests.getEnvironments().get(1))).thenReturn(env2);
+
+        when(propMapper.toEnvDTOResponse(envDTO1, envDTO1.area())).thenReturn(env);
+        when(propMapper.toEnvDTOResponse(envDTO2, envDTO1.area())).thenReturn(env2);
         //act
         List<EnvironmentDTOResponse> response = propService.bigEnvironment(propRequests);
         //assert

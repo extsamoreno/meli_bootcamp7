@@ -3,13 +3,10 @@ import com.desafio2.demo.Exception.DistrictNotExistException;
 import com.desafio2.demo.Model.DTO.PropDTOTPrice;
 import com.desafio2.demo.Model.DTO.PropRequest;
 import com.desafio2.demo.Util.Util;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -22,7 +19,7 @@ class PropServiceIntegrationTest {
     void priceProp() throws DistrictNotExistException {
         //arrange
         PropRequest request = Util.getPropRequest();
-        PropDTOTPrice expected = new PropDTOTPrice("House1", 16000.0);
+        PropDTOTPrice expected = new PropDTOTPrice("House1", 16800.0);
         //act
         PropDTOTPrice prop = propService.priceProp(request);
         //assert
