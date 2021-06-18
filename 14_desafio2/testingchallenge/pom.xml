@@ -81,6 +81,13 @@
 			<version>2.3.5</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+		<dependency>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.6</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -97,26 +104,35 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
-			<!--
+			<!-- JaCoCo -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.mapstruct</groupId>
-							<artifactId>mapstruct-processor</artifactId>
-							<version>1.4.1.Final</version>
-						</path>
-
-					</annotationProcessorPaths>
+					<excludes>
+						<exclude>**/com/meli/testingchallenge/exceptions/*</exclude>
+						<exclude>**/com/meli/testingchallenge/dtos/*</exclude>
+						<exclude>**/com/meli/testingchallenge/models/*</exclude>
+						<exclude>**/com/meli/testingchallenge/controllers/EstateExceptionController.java</exclude>
+					</excludes>
 				</configuration>
+				<executions>
+					<execution>
+						<id>jacoco-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-site</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-	-->
 		</plugins>
 	</build>
 

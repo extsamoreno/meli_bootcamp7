@@ -21,7 +21,7 @@ public class EstateDTO {
     @Size(min = 1, message = "El nombre del barrio no puede estar vacío.")
     @Size(max = 45, message = "La longitud del barrio no puede superar los 45 caracteres.")
     private String district_name;
-    @NotEmpty(message = "Cada propiedad debe tener al menos un ambiente")
+    @NotEmpty(message = "Cada propiedad debe tener al menos un ambiente.")
     private List<@Valid EnvironmentDTO> environments;
 
 }
