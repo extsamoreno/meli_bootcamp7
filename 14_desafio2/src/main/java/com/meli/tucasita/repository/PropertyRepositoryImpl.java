@@ -50,13 +50,6 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     return mapper.map(districts.get(id), DistrictDto.class) ;
   }
 
-  // --- SAVE IN MEMORY ---- //
-//  @Override
-//  public Property findPropertyById(int id) {return properties.get(id);}
-//
-//  @Override
-//  public District findDistrictById(int id) {return districts.get(id);}
-
   // ---------------------------- CARGA DE DE JSON ----------------------------
 
   private HashMap<Integer, District> loadDistrictDataBase() {

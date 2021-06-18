@@ -18,6 +18,7 @@ public class PropertyServiceImpl implements PropertyService {
 
   @Override
   public Map<Integer, PropertyDto> addNewProperty(PropertyDto propertyDto) throws PropertyDistrictIdNotFoundException {
+    Map<Integer, PropertyDto> propertiesDto = propertyRepository.findAllProperties();
     Map<Integer, DistrictDto> districtsDto = propertyRepository.findAllDistricts();
     boolean flag = false;
     for (Integer key: districtsDto.keySet()) {
@@ -27,7 +28,7 @@ public class PropertyServiceImpl implements PropertyService {
       }
     }
     if (!flag) throw new PropertyDistrictIdNotFoundException(propertyDto.getDistrictId());
-    Map<Integer, PropertyDto> propertiesDto = propertyRepository.findAllProperties();
+
     propertiesDto.put(propertyDto.getId(), propertyDto);
     return propertiesDto;
   }

@@ -1,18 +1,19 @@
 package com.meli.tucasita.unit;
 
+import com.meli.tucasita.utils.Utils;
 import com.meli.tucasita.dto.*;
 import com.meli.tucasita.exception.PropertyDistrictIdNotFoundException;
 import com.meli.tucasita.repository.PropertyRepository;
 import com.meli.tucasita.service.PropertyServiceImpl;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 
@@ -25,15 +26,18 @@ public class PropertyServiceTest {
   @InjectMocks
   private PropertyServiceImpl propertyService;
 
+  @BeforeAll
+    public static void init(){
+      System.out.println("Unit tests initializing...");
+  }
+
   @Test
   void testGetPropertyArea () {
     // Arrange
     PropertyDto testProperty = Utils.getPropertyDto();
     int id = testProperty.getId(); // id = 18
-    double area = 0.00;
-    for (EnvironmentDto e: testProperty.getEnvironments()) {
-      area += e.getLength() * e.getWidth();
-    }
+    double area = calculateArea(testProperty);
+
     PropertyAreaDto expectedPropertyAreaDto = new PropertyAreaDto(testProperty.getName(), area);
     when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
 
@@ -46,10 +50,34 @@ public class PropertyServiceTest {
   };
 
   @Test
+  void testGetPropertyPrice() {
+    // Arrange
+    PropertyDto testProperty = Utils.getPropertyDto();
+    int id = testProperty.getId();
+    double area = calculateArea(testProperty);
+
+    DistrictDto testDistrict = Utils.getDistrictDto();
+    int distId = testDistrict.getId();
+    double price = testDistrict.getPrice();
+
+    PropertyPriceDto expectedPropertyPriceDto = new PropertyPriceDto(testProperty.getName(), area * price);
+    when(propertyRepository.findPropertyById(id)).thenReturn(testProperty);
+    when(propertyRepository.findDistrictById(id)).thenReturn(testDistrict);
+
+    // Act
+    PropertyPriceDto currentPropertyPriceDto = propertyService.getPropertyPrice(id);
+
+    // Assert
+    verify(propertyRepository, times(1)).findPropertyById(id);
+    verify(propertyRepository, times(1)).findDistrictById(id);
+    Assertions.assertThat(expectedPropertyPriceDto).isEqualTo(currentPropertyPriceDto);
+  }
+
+  @Test
   void testAddNewPropertyDistrictNotFound() {
     // Arrange
     PropertyDto testProperty = Utils.getPropertyDto();
-    testProperty.setDistrictId(18);
+    testProperty.setDistrictId(21353523);
 
     // Act
     assertThrows(PropertyDistrictIdNotFoundException.class, ()->propertyService.addNewProperty(testProperty));
@@ -98,5 +126,13 @@ public class PropertyServiceTest {
     // Arrange
     verify(propertyRepository, times(1)).findPropertyById(id);
     Assertions.assertThat(expectedEnvironments).isEqualTo(currentEnvironments);
+  }
+
+  private double calculateArea(PropertyDto propertyDto) {
+    double area = 0.00;
+    for (EnvironmentDto e: propertyDto.getEnvironments()) {
+      area += e.getLength() * e.getWidth();
+    }
+    return area;
   }
 }
