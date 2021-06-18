@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ErrorDTO {
 
-    private String name;
+    private  String name;
     private String message;
 }

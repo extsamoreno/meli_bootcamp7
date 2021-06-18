@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "c8ac1ac2-ab69-4d82-851f-3c73edad63f2",
+		"name": "MiCasita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CrearDB",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/crearDB",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crearDB"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CU0001",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "CU0002",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "CU0003",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/prueba4/Gonzalez",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prueba4",
+						"Gonzalez"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CU0004",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/prueba5/Gonzalez",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"prueba5",
+						"Gonzalez"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ValidarPropiedad DTOS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\":\"Gnzalez\",\n    \"district_name\": \"ssddfaadfgdfgsdfgsdfgdfgdsfgsdfgvedra\",\n    \"district_price\": 1000.0,\n    \n    \"ambientes\":[\n        {\n            \"enviroment_name\": \"Cocina\",\n            \"enviroment_width\":10.5,\n            \"enviroment_length\":3.6\n        },\n        {\n            \"enviroment_name\": \"Living\",\n            \"enviroment_width\":2.8,\n            \"enviroment_length\":4.6\n        },\n        {\n            \"enviroment_name\": \"Dormitorio\",\n            \"enviroment_width\":2.9,\n            \"enviroment_length\":2.6\n        }\n\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/verificarValidaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"verificarValidaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crearPropiedad",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prop_name\":\"Anzalez\",\n    \"district_name\":\"Saavedra\",\n    \"district_price\": 1000.0,\n    \"ambientes\":[\n        {\n            \"enviroment_name\": \"Cocina\",\n            \"enviroment_width\":10.5,\n            \"enviroment_length\":3.6\n        },\n        {\n            \"enviroment_name\": \"Living\",\n            \"enviroment_width\":2.8,\n            \"enviroment_length\":4.6\n        },\n        {\n            \"enviroment_name\": \"Dormitorio\",\n            \"enviroment_width\":2.9,\n            \"enviroment_length\":2.6\n        }\n\n    ]\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/crearPropiedad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"crearPropiedad"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

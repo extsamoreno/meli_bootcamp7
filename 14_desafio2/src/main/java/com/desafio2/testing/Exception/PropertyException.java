@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public class PropertyException extends Exception{
-    private ErrorDTO error;
-    private HttpStatus status;
+    private final ErrorDTO error;
+    private final HttpStatus status;
 
     public PropertyException(String message, HttpStatus status){
         this.error = new ErrorDTO();

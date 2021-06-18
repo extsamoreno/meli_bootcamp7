@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Repository
 public class PropertyRepository implements IPropertyRepository {
 
-    private static ArrayList<PropertyModel> propertyDataBase = new ArrayList<>();
+    private final static ArrayList<PropertyModel> propertyDataBase = new ArrayList<>();
 
 
 

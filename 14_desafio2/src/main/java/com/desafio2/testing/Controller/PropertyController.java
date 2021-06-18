@@ -23,32 +23,32 @@ public class PropertyController {
 
 
     @PostMapping("/crearPropiedad")
-    public ResponseEntity<?> crearPropiedad (@Valid @RequestBody PropiedadRequestDTO propiedad) throws DistrictNonExistentException, ExistenPropertyException {
-        return new ResponseEntity<>(iPropertyService.createNewProperty(propiedad),HttpStatus.OK);
+    public ResponseEntity<?> createProperty(@Valid @RequestBody PropiedadRequestDTO property) throws DistrictNonExistentException, ExistenPropertyException {
+        return new ResponseEntity<>(iPropertyService.createNewProperty(property),HttpStatus.OK);
     }
 
 
-    @GetMapping("/m2Propiedad/{nombre}")  //CU0001
-    public ResponseEntity<PropertyM2DTO> m2Propiedad(@PathVariable String nombre) throws PropertyNonExistentException {
-        return new ResponseEntity<>(iPropertyService.calcM2PropDTO(nombre), HttpStatus.OK);
+    @GetMapping("/m2Propiedad/{name}")  //CU0001
+    public ResponseEntity<PropertyM2DTO> m2Property(@PathVariable String name) throws PropertyNonExistentException {
+        return new ResponseEntity<>(iPropertyService.calcM2PropDTO(name), HttpStatus.OK);
     }
 
 
-    @GetMapping("/valorProp/{nombre}") //CU0002
-    public ResponseEntity<PropertyValueDTO> valorProp(@PathVariable String nombre) throws PropertyNonExistentException {
-        return new ResponseEntity<>(iPropertyService.calcPropValueDTO(nombre), HttpStatus.OK);
+    @GetMapping("/valorProp/{name}") //CU0002
+    public ResponseEntity<PropertyValueDTO> valueProp(@PathVariable String name) throws PropertyNonExistentException {
+        return new ResponseEntity<>(iPropertyService.calcPropValueDTO(name), HttpStatus.OK);
     }
 
 
-    @GetMapping("/ambienteMasGrande/{nombre}")  //CU0003
-    public ResponseEntity<RoomDTO> ambienteMasGrande(@PathVariable String nombre) throws PropertyNonExistentException {
-        return new ResponseEntity<>(iPropertyService.calcBiggestRoom(nombre), HttpStatus.OK);
+    @GetMapping("/ambienteMasGrande/{name}")  //CU0003
+    public ResponseEntity<RoomDTO> biggestRoom(@PathVariable String name) throws PropertyNonExistentException {
+        return new ResponseEntity<>(iPropertyService.calcBiggestRoom(name), HttpStatus.OK);
     }
 
 
-    @GetMapping("/listaM2/{nombre}") //CU0004
-    public ResponseEntity<PropertyRoomListM2DTO> calcularListaAmbientesM2(@PathVariable String nombre) throws PropertyNonExistentException {
-        return new ResponseEntity<>(iPropertyService.calcRoomListM2(nombre), HttpStatus.OK);
+    @GetMapping("/listaM2/{name}") //CU0004
+    public ResponseEntity<PropertyRoomListM2DTO> calcRoomListM2(@PathVariable String name) throws PropertyNonExistentException {
+        return new ResponseEntity<>(iPropertyService.calcRoomListM2(name), HttpStatus.OK);
     }
 
 

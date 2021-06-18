@@ -9,12 +9,6 @@ import java.util.ArrayList;
 @Repository
 public class RoomRepository implements IRoomRepository {
 
-    private static ArrayList<RoomModel> ambientesDataBase = new ArrayList<>();
-
-
-
-
-
-
+    private final static ArrayList<RoomModel> ambientesDataBase = new ArrayList<>();
 
 }

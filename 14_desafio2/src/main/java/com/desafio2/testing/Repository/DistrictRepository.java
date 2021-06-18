@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Repository
 public class DistrictRepository implements IDistrictRepository {
 
-    private static ArrayList<DistrictModel> districtDataBase = new ArrayList<>();
+    private final static ArrayList<DistrictModel> districtDataBase = new ArrayList<>();
 
 
     @Override

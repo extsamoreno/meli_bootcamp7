@@ -36,7 +36,7 @@ public class ControllerTest {
         Mockito.when((iPropertyService.createNewProperty(propiedadDto))).thenReturn(true);
 
         //act
-        ResponseEntity<?> received = propertyController.crearPropiedad(propiedadDto);
+        ResponseEntity<?> received = propertyController.createProperty(propiedadDto);
 
         //assert
         Mockito.verify(iPropertyService,Mockito.atLeastOnce()).createNewProperty(propiedadDto);
@@ -51,7 +51,7 @@ public class ControllerTest {
         PropertyM2DTO propiedadDto= UtilTest.createPropiedadM2DTO();
         Mockito.when(iPropertyService.calcM2PropDTO(nombre)).thenReturn(propiedadDto);
         //act
-        ResponseEntity<PropertyM2DTO> received = propertyController.m2Propiedad(nombre);
+        ResponseEntity<PropertyM2DTO> received = propertyController.m2Property(nombre);
 
         //assert
         Mockito.verify(iPropertyService,Mockito.atLeastOnce()).calcM2PropDTO(nombre);
@@ -68,7 +68,7 @@ public class ControllerTest {
         PropertyValueDTO propiedadDto= UtilTest.crearPropiedadValorDto();
         Mockito.when(iPropertyService.calcPropValueDTO(nombre)).thenReturn(propiedadDto);
         //act
-        ResponseEntity<PropertyValueDTO> received = propertyController.valorProp(nombre);
+        ResponseEntity<PropertyValueDTO> received = propertyController.valueProp(nombre);
 
         //assert
         Mockito.verify(iPropertyService,Mockito.atLeastOnce()).calcPropValueDTO(nombre);
@@ -84,7 +84,7 @@ public class ControllerTest {
          RoomDTO ambiente= UtilTest.createAmbienteMayorDTO();
         Mockito.when(iPropertyService.calcBiggestRoom(nombre)).thenReturn(ambiente);
         //act
-        ResponseEntity<RoomDTO> received = propertyController.ambienteMasGrande(nombre);
+        ResponseEntity<RoomDTO> received = propertyController.biggestRoom(nombre);
 
         //assert
         Mockito.verify(iPropertyService,Mockito.atLeastOnce()).calcBiggestRoom(nombre);
@@ -103,7 +103,7 @@ public class ControllerTest {
         Mockito.when(iPropertyService.calcRoomListM2(nombre)).thenReturn(propLista);
 
         //act
-        ResponseEntity<PropertyRoomListM2DTO> received = propertyController.calcularListaAmbientesM2(nombre);
+        ResponseEntity<PropertyRoomListM2DTO> received = propertyController.calcRoomListM2(nombre);
 
         //assert
         Mockito.verify(iPropertyService,Mockito.atLeastOnce()).calcRoomListM2(nombre);

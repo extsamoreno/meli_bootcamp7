@@ -17,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
@@ -151,7 +150,7 @@ public class ServiceTests {
             DistrictModel barrio = new DistrictModel("Almagro", 1200.3);
             PropertyModel propiedadM= PropertyMapper.toPropiedadModel(propiedadRequestDTO,barrio);
 
-            Mockito.when(iPropertyRepository.getPropertyByName(propiedadRequestDTO.getProp_name())).thenReturn(null); //Que no exista la propiedad
+            Mockito.when(iPropertyRepository.getPropertyByName(propiedadRequestDTO.getProp_name())).thenReturn(null);
             Mockito.when(propiedadService.getDistrictByName(propiedadRequestDTO.getDistrict_name())).thenReturn(barrio);
             Mockito.when(iPropertyRepository.addProperty(propiedadM)).thenReturn(true);
 

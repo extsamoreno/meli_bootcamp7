@@ -95,13 +95,13 @@ public class PropertyService implements IPropertyService {
     }
 
     //CU0004
-    public PropertyRoomListM2DTO calcRoomListM2(String nombre) throws PropertyNonExistentException {
+    public PropertyRoomListM2DTO calcRoomListM2(String name) throws PropertyNonExistentException {
         ArrayList<RoomDTO> RoomsDTOS= new ArrayList<>();
         double m2=0;
 
-        PropertyModel property = iPropertyRepository.getPropertyByName(nombre);
+        PropertyModel property = iPropertyRepository.getPropertyByName(name);
         if (property == null) {
-            throw new PropertyNonExistentException(nombre);
+            throw new PropertyNonExistentException(name);
         }
 
         for (RoomModel a: property.getRooms()) {
