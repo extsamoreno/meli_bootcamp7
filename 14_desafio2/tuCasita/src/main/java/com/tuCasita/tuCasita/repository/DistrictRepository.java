@@ -8,6 +8,7 @@ import com.tuCasita.tuCasita.exceptions.FileOpenException;
 import com.tuCasita.tuCasita.models.District;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Repository
 public class DistrictRepository implements iDistrictRepository{
 
     HashMap<String, Double> districts;
