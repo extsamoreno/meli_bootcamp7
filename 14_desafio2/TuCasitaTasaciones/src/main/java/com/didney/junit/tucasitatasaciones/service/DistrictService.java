@@ -3,6 +3,7 @@ package com.didney.junit.tucasitatasaciones.service;
 import com.didney.junit.tucasitatasaciones.dto.DistrictDTO;
 import com.didney.junit.tucasitatasaciones.mapper.DistrictMapper;
 import com.didney.junit.tucasitatasaciones.repository.DistrictRepository;
+import com.didney.junit.tucasitatasaciones.repository.IDistrictRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,18 +11,18 @@ import java.util.List;
 
 @Service
 public class DistrictService implements IDistrictService {
-    DistrictRepository districtRepository;
+    IDistrictRepository iDistrictRepository;
     DistrictMapper districtMapper;
 
-    public DistrictService(DistrictRepository districtRepository,
+    public DistrictService(IDistrictRepository iDistrictRepository,
                            DistrictMapper districtMapper) {
-        this.districtRepository = districtRepository;
+        this.iDistrictRepository = iDistrictRepository;
         this.districtMapper = districtMapper;
     }
 
     @Override
     public DistrictDTO addDistrict(DistrictDTO districtDTO) {
-        return districtMapper.districtToDistrictDTO(districtRepository.addDistrict(districtMapper.districtDTOToDistrict(districtDTO)));
+        return districtMapper.districtToDistrictDTO(iDistrictRepository.addDistrict(districtMapper.districtDTOToDistrict(districtDTO)));
     }
 
     @Override
@@ -31,5 +32,10 @@ public class DistrictService implements IDistrictService {
             response.add(addDistrict(obj));
         }
         return response;
+    }
+
+    @Override
+    public List<DistrictDTO> getDistricts() {
+        return districtMapper.listDistrictToDistrictDTO(iDistrictRepository.getDistricts());
     }
 }

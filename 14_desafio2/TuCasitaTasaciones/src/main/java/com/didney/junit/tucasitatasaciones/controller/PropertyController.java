@@ -2,7 +2,7 @@ package com.didney.junit.tucasitatasaciones.controller;
 
 import com.didney.junit.tucasitatasaciones.dto.PropertyDTO;
 import com.didney.junit.tucasitatasaciones.dto.response.EnvironmentDTOResponse;
-import com.didney.junit.tucasitatasaciones.dto.response.TotalSquareMeterByEnvironmentResponse;
+import com.didney.junit.tucasitatasaciones.dto.response.TotalSquareMeterByEnvironmentDTOResponse;
 import com.didney.junit.tucasitatasaciones.dto.response.TotalSquareMeterPropertyDTOResponse;
 import com.didney.junit.tucasitatasaciones.dto.response.TotalValuePropertyByEnvironmentDTOResponse;
 import com.didney.junit.tucasitatasaciones.service.IPropertyService;
@@ -16,44 +16,44 @@ import java.util.List;
 @RestController
 @RequestMapping("/property")
 public class PropertyController {
-    IPropertyService propertyService;
+    IPropertyService ipropertyService;
 
-    public PropertyController(IPropertyService propertyService) {
-        this.propertyService = propertyService;
+    public PropertyController(IPropertyService ipropertyService) {
+        this.ipropertyService = ipropertyService;
     }
 
     @GetMapping("/totalsquaremeterproperty/{id}")
-    TotalSquareMeterPropertyDTOResponse getTotalSquareMeterProperty(@PathVariable int id) {
-        return propertyService.getTotalSquareMeterProperty(id);
+    ResponseEntity<TotalSquareMeterPropertyDTOResponse> getTotalSquareMeterProperty(@PathVariable int id) {
+        return new ResponseEntity<>(ipropertyService.getTotalSquareMeterProperty(id), HttpStatus.OK);
     }
 
     @GetMapping("/totalvaluepropertybyenvironment/{id}")
-    TotalValuePropertyByEnvironmentDTOResponse getTotalValuePropertyByEnvironment(@PathVariable int id) {
-        return propertyService.getTotalValuePropertyByEnvironment(id);
+    ResponseEntity<TotalValuePropertyByEnvironmentDTOResponse> getTotalValuePropertyByEnvironment(@PathVariable int id) {
+        return new ResponseEntity<>(ipropertyService.getTotalValuePropertyByEnvironment(id), HttpStatus.OK);
     }
 
     @GetMapping("/biggerenvironment/{id}")
-    EnvironmentDTOResponse getBiggerEnvironment(@PathVariable int id) {
-        return propertyService.getBiggerEnvironment(id);
+    ResponseEntity<EnvironmentDTOResponse> getBiggerEnvironment(@PathVariable int id) {
+        return new ResponseEntity<>(ipropertyService.getBiggerEnvironment(id), HttpStatus.OK);
     }
 
     @GetMapping("/totalsquearemeterbyenvironment/{id}")
-    TotalSquareMeterByEnvironmentResponse getTotalSquareMeterByEnvironment(@PathVariable int id) {
-        return propertyService.getTotalSquareMeterByEnvironment(id);
+    ResponseEntity<TotalSquareMeterByEnvironmentDTOResponse> getTotalSquareMeterByEnvironment(@PathVariable int id) {
+        return new ResponseEntity<>(ipropertyService.getTotalSquareMeterByEnvironment(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    ResponseEntity<?> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) {
-        return new ResponseEntity<>(propertyService.addProperty(propertyDTO), HttpStatus.OK);
+    ResponseEntity<PropertyDTO> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) {
+        return new ResponseEntity<>(ipropertyService.addProperty(propertyDTO), HttpStatus.OK);
     }
 
     @PostMapping("/adds")
-    ResponseEntity<?> addProperties(@Valid @RequestBody List<PropertyDTO> propertyDTOList) {
-        return new ResponseEntity<>(propertyService.addProperties(propertyDTOList), HttpStatus.OK);
+    ResponseEntity<List<PropertyDTO>> addProperties(@Valid @RequestBody List<PropertyDTO> propertyDTOList) {
+        return new ResponseEntity<>(ipropertyService.addProperties(propertyDTOList), HttpStatus.OK);
     }
 
     @GetMapping("")
-    ResponseEntity<List<PropertyDTO> > getProperties() {
-        return new ResponseEntity<>(propertyService.getPropertiesList(), HttpStatus.OK);
+    ResponseEntity<List<PropertyDTO>> getProperties() {
+        return new ResponseEntity<>(ipropertyService.getPropertiesList(), HttpStatus.OK);
     }
 }

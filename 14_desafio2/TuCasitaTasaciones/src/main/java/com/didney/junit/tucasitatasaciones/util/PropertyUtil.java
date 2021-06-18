@@ -1,6 +1,7 @@
 package com.didney.junit.tucasitatasaciones.util;
 
-import com.didney.junit.tucasitatasaciones.dto.response.EnvironmentSquareMeterResponse;
+import com.didney.junit.tucasitatasaciones.dto.response.*;
+import com.didney.junit.tucasitatasaciones.mapper.EnvironmentMapper;
 import com.didney.junit.tucasitatasaciones.model.Environment;
 import com.didney.junit.tucasitatasaciones.model.Property;
 import org.springframework.stereotype.Component;
@@ -10,23 +11,24 @@ import java.util.List;
 
 @Component
 public class PropertyUtil {
-    public double getTotalMeterSquare(Property property) {
+
+    public TotalSquareMeterPropertyDTOResponse getTotalMeterSquare(Property property) {
         double totalSquareMeter = 0.0;
         for (Environment obj : property.getEnvironments()) {
             totalSquareMeter += obj.getEnvironmentWidth() * obj.getEnvironmentLength();
         }
-        return totalSquareMeter;
+        return new TotalSquareMeterPropertyDTOResponse(property.getPropName(), totalSquareMeter);
     }
 
-    public double getTotalValueProperty(Property property) {
-        return getTotalMeterSquare(property) * property.getDistrict().getDistrictPrice();
+    public TotalValuePropertyByEnvironmentDTOResponse getTotalValueProperty(Property property) {
+        var t = getTotalMeterSquare(property);
+        return new TotalValuePropertyByEnvironmentDTOResponse(t.getPropertyName(), (t.getTotalMeterSquare() * property.getDistrict().getDistrictPrice()));
     }
 
-    public List<Environment> getBiggerEnvironment(Property property) {
+    public EnvironmentDTOResponse getBiggerEnvironment(Property property) {
         double bigger = 0;
         List<Environment> environments = new ArrayList<>();
         for (Environment obj : property.getEnvironments()) {
-
             double value = (obj.getEnvironmentWidth() * obj.getEnvironmentLength());
             if (bigger < value) {
                 environments.clear();
@@ -35,13 +37,14 @@ public class PropertyUtil {
             } else if (bigger == value)
                 environments.add(obj);
         }
-        return environments;
+        return new EnvironmentDTOResponse(property.getPropName(), new EnvironmentMapper().environmentToListEnvironmentDTO(environments));
     }
-    public List<EnvironmentSquareMeterResponse> getEnvironmentSquareMeter(Property property) {
-        List<EnvironmentSquareMeterResponse> environments = new ArrayList<>();
+
+    public TotalSquareMeterByEnvironmentDTOResponse getEnvironmentSquareMeter(Property property) {
+        List<EnvironmentSquareMeterDTOResponse> environments = new ArrayList<>();
         for (Environment obj : property.getEnvironments()) {
-            environments.add( new EnvironmentSquareMeterResponse(obj.getEnvironmentName(),obj.getEnvironmentLength()*obj.getEnvironmentWidth()));
+            environments.add(new EnvironmentSquareMeterDTOResponse(obj.getEnvironmentName(), obj.getEnvironmentLength() * obj.getEnvironmentWidth()));
         }
-        return environments;
+        return new TotalSquareMeterByEnvironmentDTOResponse(property.getPropName(), environments);
     }
 }

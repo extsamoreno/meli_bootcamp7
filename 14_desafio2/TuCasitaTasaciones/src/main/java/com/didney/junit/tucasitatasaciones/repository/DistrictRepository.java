@@ -17,4 +17,9 @@ public class DistrictRepository implements IDistrictRepository {
         districts.add(district);
         return district;
     }
+
+    @Override
+    public List<District> getDistricts() {
+        return districts;
+    }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TotalSquareMeterByEnvironmentResponse {
-    HttpStatus status;
-    List<EnvironmentSquareMeterResponse> environments;
+public class TotalSquareMeterByEnvironmentDTOResponse {
+    private String propertyName;
+    private List<EnvironmentSquareMeterDTOResponse> environments;
 }

@@ -30,10 +30,11 @@ class PropertyControllerTest {
     @Test
     void getTotalSquareMeterProperty() {
         //arrange
-        TotalSquareMeterPropertyDTOResponse expected = new TotalSquareMeterPropertyDTOResponse(HttpStatus.OK, 566);
-        Mockito.when(iPropertyService.getTotalSquareMeterProperty(0)).thenReturn(expected);
+        ResponseEntity<TotalSquareMeterPropertyDTOResponse> expected =
+                new ResponseEntity<>(new TotalSquareMeterPropertyDTOResponse("Property 1", 556), HttpStatus.OK);
+        Mockito.when(iPropertyService.getTotalSquareMeterProperty(0)).thenReturn(expected.getBody());
         //act
-        TotalSquareMeterPropertyDTOResponse received = propertyController.getTotalSquareMeterProperty(0);
+        ResponseEntity<TotalSquareMeterPropertyDTOResponse> received = propertyController.getTotalSquareMeterProperty(0);
         //assert
         Mockito.verify(iPropertyService, Mockito.atLeastOnce()).getTotalSquareMeterProperty(0);
         Assertions.assertEquals(expected, received);
@@ -42,10 +43,11 @@ class PropertyControllerTest {
     @Test
     void getTotalValuePropertyByEnvironment() {
         //arrange
-        TotalValuePropertyByEnvironmentDTOResponse expected = new TotalValuePropertyByEnvironmentDTOResponse(HttpStatus.OK, 15);
-        Mockito.when(iPropertyService.getTotalValuePropertyByEnvironment(0)).thenReturn(expected);
+        ResponseEntity<TotalValuePropertyByEnvironmentDTOResponse> expected =
+                new ResponseEntity<>(new TotalValuePropertyByEnvironmentDTOResponse("Property 1", 5000), HttpStatus.OK);
+        Mockito.when(iPropertyService.getTotalValuePropertyByEnvironment(0)).thenReturn(expected.getBody());
         //act
-        TotalValuePropertyByEnvironmentDTOResponse received = propertyController.getTotalValuePropertyByEnvironment(0);
+        ResponseEntity<TotalValuePropertyByEnvironmentDTOResponse> received = propertyController.getTotalValuePropertyByEnvironment(0);
         //assert
         Mockito.verify(iPropertyService, Mockito.atLeastOnce()).getTotalValuePropertyByEnvironment(0);
         Assertions.assertEquals(expected, received);
@@ -54,11 +56,10 @@ class PropertyControllerTest {
     @Test
     void getBiggerEnvironment() {
         //arrange
-        List<EnvironmentDTO> environmentDTOList = getListEnvironmentDTO();
-        EnvironmentDTOResponse expected = new EnvironmentDTOResponse(HttpStatus.OK, environmentDTOList);
-        Mockito.when(iPropertyService.getBiggerEnvironment(0)).thenReturn(expected);
+        ResponseEntity<EnvironmentDTOResponse> expected = new ResponseEntity<>(new EnvironmentDTOResponse("Property 1", getListEnvironmentDTO()), HttpStatus.OK);
+        Mockito.when(iPropertyService.getBiggerEnvironment(0)).thenReturn(expected.getBody());
         //act
-        EnvironmentDTOResponse received = propertyController.getBiggerEnvironment(0);
+        ResponseEntity<EnvironmentDTOResponse> received = propertyController.getBiggerEnvironment(0);
         //assert
         Mockito.verify(iPropertyService, Mockito.atLeastOnce()).getBiggerEnvironment(0);
         Assertions.assertEquals(expected, received);
@@ -67,11 +68,10 @@ class PropertyControllerTest {
     @Test
     void getTotalSquareMeterByEnvironment() {
         //arrange
-        List<EnvironmentSquareMeterResponse> environmentDTOList = getListEnvironmentSquareMeterResponse();
-        TotalSquareMeterByEnvironmentResponse expected = new TotalSquareMeterByEnvironmentResponse(HttpStatus.OK, environmentDTOList);
-        Mockito.when(iPropertyService.getTotalSquareMeterByEnvironment(0)).thenReturn(expected);
+        ResponseEntity<TotalSquareMeterByEnvironmentDTOResponse> expected = new ResponseEntity<>(new TotalSquareMeterByEnvironmentDTOResponse("Property 1", getListEnvironmentSquareMeterResponse()), HttpStatus.OK);
+        Mockito.when(iPropertyService.getTotalSquareMeterByEnvironment(0)).thenReturn(expected.getBody());
         //act
-        TotalSquareMeterByEnvironmentResponse received = propertyController.getTotalSquareMeterByEnvironment(0);
+        ResponseEntity<TotalSquareMeterByEnvironmentDTOResponse> received = propertyController.getTotalSquareMeterByEnvironment(0);
         //assert
         Mockito.verify(iPropertyService, Mockito.atLeastOnce()).getTotalSquareMeterByEnvironment(0);
         Assertions.assertEquals(expected, received);
@@ -82,10 +82,10 @@ class PropertyControllerTest {
         //arrange
         PropertyDTO propertyDTO = getPropertyDTO();
         PropertyDTO expected = getPropertyDTO();
-        ResponseEntity<?> objExpected = new ResponseEntity<>(expected, HttpStatus.OK);
+        ResponseEntity<PropertyDTO> objExpected = new ResponseEntity<>(expected, HttpStatus.OK);
         Mockito.when(iPropertyService.addProperty(propertyDTO)).thenReturn(expected);
         //act
-        ResponseEntity<?> received = propertyController.addProperty(propertyDTO);
+        ResponseEntity<PropertyDTO> received = propertyController.addProperty(propertyDTO);
         //assert
         Mockito.verify(iPropertyService, Mockito.atLeastOnce()).addProperty(propertyDTO);
         Assertions.assertEquals(objExpected, received);
@@ -100,10 +100,10 @@ class PropertyControllerTest {
         List<PropertyDTO> expected = new ArrayList<>();
         expected.add(getPropertyDTO());
         expected.add(getPropertyDTO2());
-        ResponseEntity<?> objExpected = new ResponseEntity<>(expected, HttpStatus.OK);
+        ResponseEntity<List<PropertyDTO>> objExpected = new ResponseEntity<>(expected, HttpStatus.OK);
         Mockito.when(iPropertyService.addProperties(propertyDTOList)).thenReturn(expected);
         //act
-        ResponseEntity<?> received = propertyController.addProperties(propertyDTOList);
+        ResponseEntity<List<PropertyDTO>> received = propertyController.addProperties(propertyDTOList);
         //assert
         Mockito.verify(iPropertyService, Mockito.atLeastOnce()).addProperties(propertyDTOList);
         assertEquals(objExpected, received);
@@ -112,17 +112,15 @@ class PropertyControllerTest {
     @Test
     void getProperties() {
         //arrange
-        List<PropertyDTO> expected = new ArrayList<>();
-        List<PropertyDTO> propertyDTOS = new ArrayList<>();
-        propertyDTOS.add(getPropertyDTO());
-        expected.add(getPropertyDTO());
-        ResponseEntity<?> objExpected = new ResponseEntity<>(expected, HttpStatus.OK);
-        Mockito.when(iPropertyService.getPropertiesList()).thenReturn(propertyDTOS);
+        List<PropertyDTO> list = new ArrayList<>();
+        list.add(getPropertyDTO());
+        ResponseEntity<List<PropertyDTO>> expected = new ResponseEntity<>(list, HttpStatus.OK);
+        Mockito.when(iPropertyService.getPropertiesList()).thenReturn(expected.getBody());
         //act
         ResponseEntity<List<PropertyDTO>> received = propertyController.getProperties();
         //assert
         Mockito.verify(iPropertyService, Mockito.atLeastOnce()).getPropertiesList();
-        assertEquals(objExpected, received);
+        assertEquals(expected, received);
     }
 
     private PropertyDTO getPropertyDTO() {
@@ -173,9 +171,9 @@ class PropertyControllerTest {
         return environmentDTOList;
     }
 
-    private List<EnvironmentSquareMeterResponse> getListEnvironmentSquareMeterResponse() {
-        List<EnvironmentSquareMeterResponse> environmentDTOList = new ArrayList<>();
-        EnvironmentSquareMeterResponse environmentDTO = new EnvironmentSquareMeterResponse();
+    private List<EnvironmentSquareMeterDTOResponse> getListEnvironmentSquareMeterResponse() {
+        List<EnvironmentSquareMeterDTOResponse> environmentDTOList = new ArrayList<>();
+        EnvironmentSquareMeterDTOResponse environmentDTO = new EnvironmentSquareMeterDTOResponse();
         environmentDTO.setEnvironmentName("Habitación 1");
         environmentDTO.setTotalSquareMeter(12);
         environmentDTOList.add(environmentDTO);

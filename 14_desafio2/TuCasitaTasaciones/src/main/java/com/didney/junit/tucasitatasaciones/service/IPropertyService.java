@@ -2,7 +2,7 @@ package com.didney.junit.tucasitatasaciones.service;
 
 import com.didney.junit.tucasitatasaciones.dto.PropertyDTO;
 import com.didney.junit.tucasitatasaciones.dto.response.EnvironmentDTOResponse;
-import com.didney.junit.tucasitatasaciones.dto.response.TotalSquareMeterByEnvironmentResponse;
+import com.didney.junit.tucasitatasaciones.dto.response.TotalSquareMeterByEnvironmentDTOResponse;
 import com.didney.junit.tucasitatasaciones.dto.response.TotalSquareMeterPropertyDTOResponse;
 import com.didney.junit.tucasitatasaciones.dto.response.TotalValuePropertyByEnvironmentDTOResponse;
 
@@ -19,11 +19,11 @@ public interface IPropertyService {
     EnvironmentDTOResponse getBiggerEnvironment(int id);
 
     //US-0004 Determinar la cantidad de metros cuadrados de cada ambiente en una propiedad.
-    TotalSquareMeterByEnvironmentResponse getTotalSquareMeterByEnvironment(int id);
-
+    TotalSquareMeterByEnvironmentDTOResponse getTotalSquareMeterByEnvironment(int id);
 
     PropertyDTO addProperty(PropertyDTO propertyDTO);
 
     List<PropertyDTO> addProperties(List<PropertyDTO> propertyDTOList);
+
     List<PropertyDTO> getPropertiesList();
 }

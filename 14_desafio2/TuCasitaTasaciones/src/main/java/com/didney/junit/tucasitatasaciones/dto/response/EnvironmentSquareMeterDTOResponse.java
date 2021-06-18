@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EnvironmentSquareMeterResponse {
+public class EnvironmentSquareMeterDTOResponse {
     private String environmentName;
     private double totalSquareMeter;
 }

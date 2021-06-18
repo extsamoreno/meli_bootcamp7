@@ -12,6 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EnvironmentDTOResponse {
-    private HttpStatus status;
+    private String propertyName;
     private List<EnvironmentDTO> environmentDTOS;
 }
