@@ -2,11 +2,14 @@ package com.example.demo.unit.controller;
 
 import com.example.demo.controller.HouseController;
 import com.example.demo.exception.DistrictNotFoundException;
+import com.example.demo.exception.ExistingDistrictException;
 import com.example.demo.exception.ExistingHouseException;
 import com.example.demo.models.Environment;
 import com.example.demo.models.House;
 import com.example.demo.service.IHouseService;
+import com.example.demo.service.dto.DistrictDTO;
 import com.example.demo.service.dto.HouseDTO;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,6 +43,19 @@ public class HouseControllerTest {
         //assert
         Mockito.verify(iHouseService,Mockito.atLeast(1)).addHouse(expect);
         assert (response.getStatusCode()== HttpStatus.OK);
+    }@Test
+    public void addNewHouseExistingHouseException () throws DistrictNotFoundException, ExistingHouseException {
+        //arrange
+        String name = "Casa 1";
+        ArrayList<Environment> environments = new ArrayList<>();
+        environments.add(new Environment("Cocina",3,4));
+        environments.add(new Environment("Sala",5,4));
+        environments.add(new Environment("Habitacion",4,4));
+        HouseDTO houseDTO = new HouseDTO(name,"Cañiza",environments);
+        Mockito.doThrow(new ExistingHouseException(name)).when(iHouseService).addHouse(houseDTO);
+        //act
+        //assert
+        Assertions.assertThrows(ExistingHouseException.class, ()-> houseController.addNewHouse(houseDTO));
     }
 
 }

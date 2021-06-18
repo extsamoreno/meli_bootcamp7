@@ -7,14 +7,21 @@ import com.example.demo.models.Environment;
 import com.example.demo.models.House;
 import com.example.demo.repository.DistrictRepository;
 import com.example.demo.repository.HouseRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class HouseRepositoryTest {
@@ -51,6 +58,30 @@ public class HouseRepositoryTest {
     public void findDistrictByNameNullHappyPath() throws DistrictNotFoundException {
         //asser
         Assertions.assertThrows(HouseNotFoundException.class, ()-> houseRepository.findHouseByName("xx"));
+    }
+    @Test
+    public void  getAllHouseHappyPath(){
+        //arrange
+        List<House> expected = null;
+        File file = null;
+        try {
+            file = ResourceUtils.getFile("src/main/resources/static/house.json");
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ObjectMapper objectMapper = new ObjectMapper();
+        TypeReference<List<House>> typeReference = new TypeReference<>() {};
+        try {
+            expected =  objectMapper.readValue(file,typeReference);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        //act
+        List<House> received = houseRepository.getAllHouses();
+        // assert
+        Assertions.assertEquals(expected,received);
     }
 
 }

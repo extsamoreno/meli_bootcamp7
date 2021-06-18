@@ -11,6 +11,8 @@ import com.example.demo.repository.IDistrictRepository;
 import com.example.demo.repository.IHouseRepository;
 import com.example.demo.service.HouseService;
 import com.example.demo.service.dto.*;
+import com.example.demo.service.mapper.IDistricMapper;
+import com.example.demo.service.mapper.IHouseMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +29,10 @@ public class HouseServiceTest {
     IHouseRepository iHouseRepository;
     @Mock
     IDistrictRepository iDistrictRepository;
+    @Mock
+    IDistricMapper iDistricMapper;
+    @Mock
+    IHouseMapper iHouseMapper;
     @InjectMocks
     HouseService houseService;
     @Test
@@ -117,8 +123,9 @@ public class HouseServiceTest {
         HouseDTO houseDTO = new HouseDTO(name,"Compartir",environments);
         House house = new House(name,"Compartir",environments);
         District district = new District(house.getDistric_name(),200);
-        Mockito.when(iHouseRepository.findHouseByName(name)).thenReturn(house);
+        Mockito.when(iHouseRepository.findHouseByName(name)).thenThrow(new HouseNotFoundException(name));
         Mockito.when(iDistrictRepository.findDistrictByName(district.getDistric_name())).thenReturn(district);
+        Mockito.when(iHouseMapper.houseDTOToHouse(houseDTO)).thenReturn(house);
         //act
         houseService.addHouse(houseDTO);
         //assert
@@ -131,7 +138,8 @@ public class HouseServiceTest {
         String name = "Compartir";
         District district = new District(name,200);
         DistrictDTO districtDTO = new DistrictDTO(name,200);
-        Mockito.when(iDistrictRepository.findDistrictByName(name)).thenReturn(district);
+        Mockito.when(iDistrictRepository.findDistrictByName(name)).thenThrow(new DistrictNotFoundException(name));
+        Mockito.when(iDistricMapper.districtDTOToDistrict(districtDTO)).thenReturn(district);
         //act
         houseService.addDistrict(districtDTO);
         //assert
@@ -233,6 +241,20 @@ public class HouseServiceTest {
         // assert
         Assertions.assertEquals(expected,response);
     }
+    @Test
+    public void calculateM2ThrowHouseNotFoundException () throws HouseNotFoundException, DistrictNotFoundException {
+        //arrange
+        String name = "Casa 1";
+        ArrayList<Environment> environments = new ArrayList<>();
+        environments.add(new Environment("Cocina",3,4));
+        environments.add(new Environment("Sala",5,4));
+        environments.add(new Environment("Habitacion",4,4));
+        House house = new House(name,"Compartir",environments);
+        Mockito.when(iHouseRepository.findHouseByName(name)).thenThrow(new HouseNotFoundException(name));
+        //act
 
+        //assert
+        Assertions.assertThrows(HouseNotFoundException.class, ()-> houseService.calculateM2(name));
+    }
 
 }

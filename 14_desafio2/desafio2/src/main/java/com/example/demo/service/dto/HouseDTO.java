@@ -22,5 +22,6 @@ public class HouseDTO {
     private String prop_name;
     private String distric_name;
     @Valid
+    @NotEmpty(message = "La lista de ambientes no puede estar vacía")
     private ArrayList<Environment> environmentArrayList;
 }

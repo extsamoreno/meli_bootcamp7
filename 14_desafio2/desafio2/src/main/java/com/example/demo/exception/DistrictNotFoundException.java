@@ -1,9 +1,9 @@
 package com.example.demo.exception;
 
 import com.example.demo.service.dto.ErrorDTO;
-import lombok.Data;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
-@Data
+@Getter
 public class DistrictNotFoundException extends Exception{
     private ErrorDTO errorDTO;
     private HttpStatus httpStatus;
