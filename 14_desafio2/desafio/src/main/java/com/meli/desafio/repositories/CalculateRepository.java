@@ -1,10 +1,12 @@
 package com.meli.desafio.repositories;
 
+import com.meli.desafio.exceptions.models.DistrictAlreadyExists;
 import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.District;
 import com.meli.desafio.models.House;
+import com.meli.desafio.models.dto.DistrictRequestDTO;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.utils.DataBase;
 import com.meli.desafio.utils.Mappers;
@@ -47,6 +49,20 @@ public class CalculateRepository implements ICalculateRepository{
         District district = listDistrict.get(districtId);
         if(district == null) throw new DistrictNotFoundException(districtId);
         return district;
+    }
+
+    @Override
+    public Integer saveDistrict(DistrictRequestDTO districtDTO) throws DistrictAlreadyExists {
+        for(District d: listDistrict.values()){
+            if(d.getName().equalsIgnoreCase(districtDTO.getName()))
+                throw new DistrictAlreadyExists(d.getName());
+        }
+
+        Integer id = listHouses.size() + 1;
+        District district = Mappers.districtRequestToDistrict(districtDTO, id);
+
+        listDistrict.put(id, district);
+        return id;
     }
 
     public Integer getSizeHouses(){

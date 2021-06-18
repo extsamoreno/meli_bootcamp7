@@ -4,6 +4,7 @@ import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.Room;
+import com.meli.desafio.models.dto.DistrictRequestDTO;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.models.dto.RoomResponseDTO;
 

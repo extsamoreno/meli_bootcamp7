@@ -6,6 +6,7 @@ import com.meli.desafio.exceptions.models.HouseNotFoundException;
 import com.meli.desafio.models.District;
 import com.meli.desafio.models.House;
 import com.meli.desafio.models.Room;
+import com.meli.desafio.models.dto.DistrictRequestDTO;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.models.dto.RoomResponseDTO;
 import com.meli.desafio.repositories.ICalculateRepository;

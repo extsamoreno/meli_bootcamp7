@@ -12,7 +12,6 @@ import com.meli.desafio.utils.DataBase;
 import com.meli.desafio.utils.Mappers;
 import com.meli.desafio.utils.TestUtils;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class CalculateRepositoryTests {
 

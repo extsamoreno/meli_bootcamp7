@@ -2,6 +2,7 @@ package com.meli.desafio.controllers;
 
 import com.meli.desafio.exceptions.ExceptionModel;
 import com.meli.desafio.exceptions.dto.ErrorDTO;
+import com.meli.desafio.exceptions.models.DistrictAlreadyExists;
 import com.meli.desafio.exceptions.models.DistrictNotFoundException;
 import com.meli.desafio.exceptions.models.HouseAlreadyExistsException;
 import com.meli.desafio.exceptions.models.HouseNotFoundException;
@@ -36,6 +37,11 @@ public class CalculateExceptionController {
 
     @ExceptionHandler(DistrictNotFoundException.class)
     public ResponseEntity<ErrorDTO> handleDistrictNotFoundException(DistrictNotFoundException e){
+        return new ResponseEntity<>(e.getError(), e.getStatus());
+    }
+
+    @ExceptionHandler(DistrictAlreadyExists.class)
+    public ResponseEntity<ErrorDTO> handleDistrictAlreadyExists(DistrictAlreadyExists e){
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
 }

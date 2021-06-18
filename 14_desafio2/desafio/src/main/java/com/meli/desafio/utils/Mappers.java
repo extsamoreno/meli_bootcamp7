@@ -4,6 +4,7 @@ import com.meli.desafio.models.District;
 import com.meli.desafio.models.House;
 import com.meli.desafio.models.Room;
 import com.meli.desafio.models.dto.DistrictDTO;
+import com.meli.desafio.models.dto.DistrictRequestDTO;
 import com.meli.desafio.models.dto.HouseDTO;
 import com.meli.desafio.models.dto.RoomResponseDTO;
 
@@ -35,6 +36,14 @@ public class Mappers {
         return RoomResponseDTO.builder()
                 .name(r.getName())
                 .totalMeters(metters)
+                .build();
+    }
+
+    public static District districtRequestToDistrict(DistrictRequestDTO d, Integer id) {
+        return District.builder()
+                .id(id)
+                .name(d.getName())
+                .price(d.getPrice())
                 .build();
     }
 }
