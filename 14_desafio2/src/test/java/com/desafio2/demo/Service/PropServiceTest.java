@@ -96,7 +96,8 @@ class PropServiceTest {
         //arrange
         PropRequest propRequests = Util.getPropRequest();
         PropDTOTMeterByEnvironment expected = new PropDTOTMeterByEnvironment(propRequests.getName(),
-                List.of(new EnvironmentDTOResponse("Kitchen", 12.0), new EnvironmentDTOResponse("Habitation", 30.0)));
+                List.of(new EnvironmentDTOResponse("Kitchen", 12.0),
+                        new EnvironmentDTOResponse("Habitation", 30.0)));
         when(propMapper.toPropByMeter(any())).thenReturn(expected);
         //act
         PropDTOTMeterByEnvironment prop = propService.meterByEnvironment(propRequests);

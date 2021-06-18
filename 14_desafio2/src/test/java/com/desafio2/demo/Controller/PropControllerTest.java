@@ -82,7 +82,8 @@ class PropControllerTest {
         //arrange
         PropRequest propRequest = Util.getPropRequest();
         PropDTOTMeterByEnvironment propDTO = new PropDTOTMeterByEnvironment("Casa1",
-                List.of(new EnvironmentDTOResponse("Kitchen", 12.0), new EnvironmentDTOResponse("Habitation", 30.0)));
+                List.of(new EnvironmentDTOResponse("Kitchen", 12.0),
+                        new EnvironmentDTOResponse("Habitation", 30.0)));
         when(propService.meterByEnvironment(any())).thenReturn(propDTO);
         //act
         ResponseEntity<PropDTOTMeterByEnvironment> response = propController.totalMetersByEnvironments(propRequest);
