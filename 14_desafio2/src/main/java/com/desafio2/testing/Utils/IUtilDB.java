@@ -1,9 +1,9 @@
 package com.desafio2.testing.Utils;
 
-import com.desafio2.testing.Exception.BarrioYaExistente;
+import com.desafio2.testing.Exception.ExistentDistrictException;
 
 public interface IUtilDB {
-       void crearDataBase() throws BarrioYaExistente;
+       void crearDataBase() throws ExistentDistrictException;
 
 
 }

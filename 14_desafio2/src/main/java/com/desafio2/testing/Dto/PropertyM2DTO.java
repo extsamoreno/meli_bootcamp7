@@ -1,16 +1,13 @@
 package com.desafio2.testing.Dto;
 
-
 import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AmbienteDTO {
+public class PropertyM2DTO {
 
-
-    String nombre;
+    String propertyName;
     double M2;
-
 
 }

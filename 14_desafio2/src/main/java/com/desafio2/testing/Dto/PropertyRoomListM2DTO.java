@@ -8,10 +8,10 @@ import java.util.ArrayList;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PropiedadListaAmbientesM2DTO {
+public class PropertyRoomListM2DTO {
 
-    String nombre;
-    ArrayList<AmbienteDTO> listaAmbientes;
+    String name;
+    ArrayList<RoomDTO> roomList;
 
 
 }

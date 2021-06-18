@@ -1,15 +1,15 @@
 package com.desafio2.testing.Unit;
 
 import com.desafio2.testing.Dto.*;
-import com.desafio2.testing.Exception.BarrioNoExistException;
-import com.desafio2.testing.Exception.PropiedadInexistenteException;
-import com.desafio2.testing.Exception.PropiedadYaRegistradaException;
-import com.desafio2.testing.Model.BarrioModel;
-import com.desafio2.testing.Model.PropiedadModel;
-import com.desafio2.testing.Repository.IBarrioRepository;
-import com.desafio2.testing.Repository.IPropiedadRepository;
-import com.desafio2.testing.Service.Mapper.PropiedadMapper;
-import com.desafio2.testing.Service.PropiedadService;
+import com.desafio2.testing.Exception.DistrictNonExistentException;
+import com.desafio2.testing.Exception.PropertyNonExistentException;
+import com.desafio2.testing.Exception.ExistenPropertyException;
+import com.desafio2.testing.Model.DistrictModel;
+import com.desafio2.testing.Model.PropertyModel;
+import com.desafio2.testing.Repository.IDistrictRepository;
+import com.desafio2.testing.Repository.IPropertyRepository;
+import com.desafio2.testing.Service.Mapper.PropertyMapper;
+import com.desafio2.testing.Service.PropertyService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,163 +27,173 @@ import static org.mockito.Mockito.verify;
 public class ServiceTests {
 
     @Mock
-    IPropiedadRepository iPropiedadRepository;
+    IPropertyRepository iPropertyRepository;
 
     @Mock
-    IBarrioRepository iBarrioRepository;
+    IDistrictRepository iDistrictRepository;
 
     @InjectMocks
-    PropiedadService propiedadService;
+    PropertyService propiedadService;
 
 
     @Test  //Test CU0001
-    public void calcularM2PropiedadDTOok() throws PropiedadInexistenteException {
+    public void calcularM2PropiedadDTOok() throws PropertyNonExistentException {
         // arrange
-        PropiedadModel propiedad = UtilTest.createPropiedadModel();// Se llama a Util que crea la propiedad
-        PropiedadM2DTO expected = UtilTest.createPropiedadM2DTO(); //trae el dto de la propiedad "propiedad"
-        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(propiedad);
+        PropertyModel propiedad = UtilTest.createPropiedadModel();// Se llama a Util que crea la propiedad
+        PropertyM2DTO expected = UtilTest.createPropiedadM2DTO(); //trae el dto de la propiedad "propiedad"
+        Mockito.when(iPropertyRepository.getPropertyByName(propiedad.getProp_name())).thenReturn(propiedad);
 
         // act
-        PropiedadM2DTO received= propiedadService.calcularM2PropiedadDTO("Libertador 5");
+        PropertyM2DTO received= propiedadService.calcM2PropDTO("Libertador 5");
 
         // assert
-        verify(iPropiedadRepository,Mockito.atLeastOnce()).getPropiedadByName(propiedad.getProp_name());
+        verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyByName(propiedad.getProp_name());
         assertEquals(expected, received);
     }
 
     @Test  //Test CU0001
-    public void noExistePropiedadEnCalcularM2Propiedad() throws PropiedadInexistenteException {
+    public void noExistePropiedadEnCalcularM2Propiedad() throws PropertyNonExistentException {
         // arrange
         String nombre= "NoExiste";
-        Mockito.when(iPropiedadRepository.getPropiedadByName(nombre)).thenReturn(null);
+        Mockito.when(iPropertyRepository.getPropertyByName(nombre)).thenReturn(null);
 
         // assert
-        assertThrows(PropiedadInexistenteException.class, () -> propiedadService.calcularM2PropiedadDTO(nombre));
+        assertThrows(PropertyNonExistentException.class, () -> propiedadService.calcM2PropDTO(nombre));
     }
 
     @Test  //Test CU0002
-    public void calcularValorPropiedadOk() throws PropiedadInexistenteException {
+    public void calcularValorPropiedadOk() throws PropertyNonExistentException {
         // arrange
-        PropiedadModel propiedad = UtilTest.createPropiedadModel();
-        PropiedadValorDTO expected = UtilTest.crearPropiedadValorDto();
-        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(propiedad);
+        PropertyModel propiedad = UtilTest.createPropiedadModel();
+        PropertyValueDTO expected = UtilTest.crearPropiedadValorDto();
+        Mockito.when(iPropertyRepository.getPropertyByName(propiedad.getProp_name())).thenReturn(propiedad);
 
         // act
-        PropiedadValorDTO received= propiedadService.calcularValorPropiedadDTO(propiedad.getProp_name());
+        PropertyValueDTO received= propiedadService.calcPropValueDTO(propiedad.getProp_name());
 
         // assert
-        verify(iPropiedadRepository,Mockito.atLeastOnce()).getPropiedadByName(propiedad.getProp_name());
+        verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyByName(propiedad.getProp_name());
         assertEquals(expected, received);
     }
 
+
+    @Test  //Test CU0002
+    public void calcularValorPropiedadNotFound() throws PropertyNonExistentException {
+        // arrange
+        String nombre="No exist";
+        Mockito.when(iPropertyRepository.getPropertyByName(nombre)).thenReturn(null);
+
+        // assert
+        assertThrows(PropertyNonExistentException.class, () -> propiedadService.calcPropValueDTO(nombre));
+    }
 
 
 
     @Test//Test CU0003
-    public void calcularAmbienteMasGrandeOk() throws PropiedadInexistenteException {
+    public void calcularAmbienteMasGrandeOk() throws PropertyNonExistentException {
         // arrange
         String nombre= "Libertador 5";
-        PropiedadModel propiedad = UtilTest.createPropiedadModel();// Se llama a Util que crea la propiedad
-        AmbienteDTO expected= UtilTest.createAmbienteMayorDTO();
-        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(propiedad);
+        PropertyModel propiedad = UtilTest.createPropiedadModel();// Se llama a Util que crea la propiedad
+        RoomDTO expected= UtilTest.createAmbienteMayorDTO();
+        Mockito.when(iPropertyRepository.getPropertyByName(propiedad.getProp_name())).thenReturn(propiedad);
 
         // act
-        AmbienteDTO received= propiedadService.calcularAmbienteMasGrande(nombre);
+        RoomDTO received= propiedadService.calcBiggestRoom(nombre);
 
         // assert
-        verify(iPropiedadRepository,Mockito.atLeastOnce()).getPropiedadByName(propiedad.getProp_name());
+        verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyByName(propiedad.getProp_name());
         assertEquals(expected, received);
     }
 
     @Test//Test CU0003
-    public void calcularAmbienteMasGrandeNotFound() throws PropiedadInexistenteException {
+    public void calcularAmbienteMasGrandeNotFound() throws PropertyNonExistentException {
         // arrange
         String nombre= "Libertador 5";
-        PropiedadModel propiedad = UtilTest.createPropiedadModel();
-        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(null);
+        PropertyModel propiedad = UtilTest.createPropiedadModel();
+        Mockito.when(iPropertyRepository.getPropertyByName(propiedad.getProp_name())).thenReturn(null);
 
         // assert
-        assertThrows(PropiedadInexistenteException.class, () -> propiedadService.calcularAmbienteMasGrande(nombre));
+        assertThrows(PropertyNonExistentException.class, () -> propiedadService.calcBiggestRoom(nombre));
     }
 
     @Test //Test CU0004
-    public void calcularListaAmbientesM2ok() throws PropiedadInexistenteException {
+    public void calcularListaAmbientesM2ok() throws PropertyNonExistentException {
         // arrange
         String nombre= "Libertador 5";
-        PropiedadModel propiedad = UtilTest.createPropiedadModel();// Se llama a Util que crea la propiedad
-        PropiedadListaAmbientesM2DTO expected= UtilTest.createPropiedadListaAmbientesM2DTO();
-        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(propiedad);
+        PropertyModel propiedad = UtilTest.createPropiedadModel();// Se llama a Util que crea la propiedad
+        PropertyRoomListM2DTO expected= UtilTest.createPropiedadListaAmbientesM2DTO();
+        Mockito.when(iPropertyRepository.getPropertyByName(propiedad.getProp_name())).thenReturn(propiedad);
 
         // act
-        PropiedadListaAmbientesM2DTO received= propiedadService.calcularListaAmbientesM2(nombre);
+        PropertyRoomListM2DTO received= propiedadService.calcRoomListM2(nombre);
 
         // assert
-        verify(iPropiedadRepository,Mockito.atLeastOnce()).getPropiedadByName(propiedad.getProp_name());
+        verify(iPropertyRepository,Mockito.atLeastOnce()).getPropertyByName(propiedad.getProp_name());
         assertEquals(expected, received);
     }
 
     @Test //Test CU0004
-    public void calcularListaAmbientesM2NotFound() throws PropiedadInexistenteException {
+    public void calcularListaAmbientesM2NotFound() throws PropertyNonExistentException {
         // arrange
         String nombre= "Libertador 5";
-        PropiedadModel propiedad = UtilTest.createPropiedadModel();
-        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedad.getProp_name())).thenReturn(null);
+        PropertyModel propiedad = UtilTest.createPropiedadModel();
+        Mockito.when(iPropertyRepository.getPropertyByName(propiedad.getProp_name())).thenReturn(null);
 
         // assert
-        assertThrows(PropiedadInexistenteException.class, () -> propiedadService.calcularListaAmbientesM2(nombre));
+        assertThrows(PropertyNonExistentException.class, () -> propiedadService.calcRoomListM2(nombre));
 
     }
 
     @Test
-    public void crearPropiedadOk() throws BarrioNoExistException, PropiedadYaRegistradaException {
+    public void crearPropiedadOk() throws DistrictNonExistentException, ExistenPropertyException {
             // Arrange
             PropiedadRequestDTO propiedadRequestDTO = UtilTest.crearPropiedadRequestDTO();
-            BarrioModel barrio = new BarrioModel("Almagro", 1200.3);
-            PropiedadModel propiedadM= PropiedadMapper.toPropiedadModel(propiedadRequestDTO,barrio);
+            DistrictModel barrio = new DistrictModel("Almagro", 1200.3);
+            PropertyModel propiedadM= PropertyMapper.toPropiedadModel(propiedadRequestDTO,barrio);
 
-            Mockito.when(iPropiedadRepository.getPropiedadByName(propiedadRequestDTO.getProp_name())).thenReturn(null); //Que no exista la propiedad
-            Mockito.when(propiedadService.obtenerBarrioPorNombre(propiedadRequestDTO.getDistrict_name())).thenReturn(barrio);
-            Mockito.when(iPropiedadRepository.agregarPropiedad(propiedadM)).thenReturn(true);
+            Mockito.when(iPropertyRepository.getPropertyByName(propiedadRequestDTO.getProp_name())).thenReturn(null); //Que no exista la propiedad
+            Mockito.when(propiedadService.getDistrictByName(propiedadRequestDTO.getDistrict_name())).thenReturn(barrio);
+            Mockito.when(iPropertyRepository.addProperty(propiedadM)).thenReturn(true);
 
             // Act
-            boolean bool= propiedadService.crearPropiedad(propiedadRequestDTO);
+            boolean bool= propiedadService.createNewProperty(propiedadRequestDTO);
 
             // Assert
-            verify(iPropiedadRepository,atLeastOnce()).agregarPropiedad(propiedadM);  //Verifica que se agregue la propiedad correcta
+            verify(iPropertyRepository,atLeastOnce()).addProperty(propiedadM);  //Verifica que se agregue la propiedad correcta
         }
 
     @Test
-    public void crearPropiedadBarrioNoExist() throws BarrioNoExistException, PropiedadYaRegistradaException {
+    public void crearPropiedadBarrioNoExist() throws DistrictNonExistentException, ExistenPropertyException {
         // Arrange
         PropiedadRequestDTO propiedadRequestDTO = UtilTest.crearPropiedadRequestDTO();
-        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedadRequestDTO.getProp_name())).thenReturn(null);
-        Mockito.when(propiedadService.obtenerBarrioPorNombre(propiedadRequestDTO.getDistrict_name())).thenReturn(null);
+        Mockito.when(iPropertyRepository.getPropertyByName(propiedadRequestDTO.getProp_name())).thenReturn(null);
+        Mockito.when(propiedadService.getDistrictByName(propiedadRequestDTO.getDistrict_name())).thenReturn(null);
 
         // Assert
-        assertThrows(BarrioNoExistException.class, () -> propiedadService.crearPropiedad(propiedadRequestDTO));
+        assertThrows(DistrictNonExistentException.class, () -> propiedadService.createNewProperty(propiedadRequestDTO));
     }
 
     @Test
-    public void crearPropiedadPropiedadYaRegistrada() throws BarrioNoExistException, PropiedadYaRegistradaException {
+    public void crearPropiedadPropiedadYaRegistrada() throws DistrictNonExistentException, ExistenPropertyException {
         // Arrange
         PropiedadRequestDTO propiedadRequestDTO = UtilTest.crearPropiedadRequestDTO();
-        BarrioModel barrio = new BarrioModel("Almagro", 1200.3);
-        PropiedadModel propiedadM= PropiedadMapper.toPropiedadModel(propiedadRequestDTO,barrio);
-        Mockito.when(iPropiedadRepository.getPropiedadByName(propiedadRequestDTO.getProp_name())).thenReturn(propiedadM);
+        DistrictModel barrio = new DistrictModel("Almagro", 1200.3);
+        PropertyModel propiedadM= PropertyMapper.toPropiedadModel(propiedadRequestDTO,barrio);
+        Mockito.when(iPropertyRepository.getPropertyByName(propiedadRequestDTO.getProp_name())).thenReturn(propiedadM);
 
         // Assert
-        assertThrows(PropiedadYaRegistradaException.class, () -> propiedadService.crearPropiedad(propiedadRequestDTO));
+        assertThrows(ExistenPropertyException.class, () -> propiedadService.createNewProperty(propiedadRequestDTO));
     }
 
     @Test
     public void  obtenerBarrioPorNombreOk(){
         // Arrange
-            BarrioModel expected = new BarrioModel("Lugano", 1200.3);
+            DistrictModel expected = new DistrictModel("Lugano", 1200.3);
             String name= "Lugano";
-            Mockito.when(iBarrioRepository.getBarrioByName("Lugano")).thenReturn(expected);
+            Mockito.when(iDistrictRepository.getDistrictByName("Lugano")).thenReturn(expected);
 
         // Act
-            BarrioModel received= propiedadService.obtenerBarrioPorNombre(name);
+            DistrictModel received= propiedadService.getDistrictByName(name);
 
         // Assert
             assertEquals(expected, received);
@@ -193,10 +203,10 @@ public class ServiceTests {
     public void  obtenerBarrioPorNombreNoExist(){
         // Arrange
         String name= "Lugano";
-        Mockito.when(iBarrioRepository.getBarrioByName("Lugano")).thenReturn(null);
+        Mockito.when(iDistrictRepository.getDistrictByName("Lugano")).thenReturn(null);
 
         // Assert
-        assertNull(propiedadService.obtenerBarrioPorNombre(name));
+        assertNull(propiedadService.getDistrictByName(name));
     }
 
 

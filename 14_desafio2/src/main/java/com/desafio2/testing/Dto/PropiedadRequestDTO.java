@@ -1,7 +1,5 @@
 package com.desafio2.testing.Dto;
 
-import com.desafio2.testing.Model.AmbienteModel;
-import com.desafio2.testing.Model.BarrioModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +27,7 @@ public class PropiedadRequestDTO {
     @Max(value = 4000, message = "El precio máximo permitido por metro cuadrado no puede superar los 4000 U$S")
     private double district_price;
 
-    @Valid private ArrayList<AmbienteRequestDTO> ambientes;
+    @Valid private ArrayList<RoomRequestDTO> rooms;
 
 
 }

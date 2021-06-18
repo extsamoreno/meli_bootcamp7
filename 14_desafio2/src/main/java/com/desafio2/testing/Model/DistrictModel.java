@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BarrioModel {
+public class DistrictModel {
 
 
     private String district_name;

@@ -2,9 +2,7 @@ package com.desafio2.testing.Controller;
 
 
 import com.desafio2.testing.Dto.PropiedadRequestDTO;
-import com.desafio2.testing.Exception.BarrioYaExistente;
-import com.desafio2.testing.Service.IPropiedadService;
-import com.desafio2.testing.Utils.IUtilDB;
+import com.desafio2.testing.Exception.ExistentDistrictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +27,7 @@ public class UtilController {
 
     @GetMapping("/crearDB")
     @Valid
-    public void crearDB() throws BarrioYaExistente {
+    public void crearDB() throws ExistentDistrictException {
         IUtilDB.crearDataBase();
     }
 

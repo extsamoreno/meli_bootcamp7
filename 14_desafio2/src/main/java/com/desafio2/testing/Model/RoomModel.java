@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AmbienteModel {
+public class RoomModel {
 
 
     private String enviroment_name;

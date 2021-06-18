@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AmbienteRequestDTO {
+public class RoomRequestDTO {
 
     @NotBlank(message = "El nombre del ambiente no puede estar vacío.")
     @Size(max = 30, message = "La longitud del nombre no puede superar los 30 caracteres.")

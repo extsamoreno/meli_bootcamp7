@@ -1,9 +1,9 @@
 package com.desafio2.testing.Unit;
 
 import com.desafio2.testing.Dto.*;
-import com.desafio2.testing.Model.AmbienteModel;
-import com.desafio2.testing.Model.BarrioModel;
-import com.desafio2.testing.Model.PropiedadModel;
+import com.desafio2.testing.Model.RoomModel;
+import com.desafio2.testing.Model.DistrictModel;
+import com.desafio2.testing.Model.PropertyModel;
 import com.desafio2.testing.Utils.IUtilDB;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,65 +14,65 @@ public class UtilTest {
     @Autowired
     IUtilDB IUtilDB;
 
-    public static PropiedadModel createPropiedadModel(){
+    public static PropertyModel createPropiedadModel(){
 
         //Propiedad Caballito, 4 ambientes, habitacion mas grande Cocina 17 m2, total: 51,44 m2
-        AmbienteModel ba1= new AmbienteModel("Baño",4.8, 2.4);
-        AmbienteModel d1= new AmbienteModel("Dormitorio1",3.9, 2.8);
-        AmbienteModel d2= new AmbienteModel("Dormitorio2",5.0, 2.4);
-        AmbienteModel cocina1= new AmbienteModel("Cocina",5.0, 3.4);
+        RoomModel ba1= new RoomModel("Baño",4.8, 2.4);
+        RoomModel d1= new RoomModel("Dormitorio1",3.9, 2.8);
+        RoomModel d2= new RoomModel("Dormitorio2",5.0, 2.4);
+        RoomModel cocina1= new RoomModel("Cocina",5.0, 3.4);
 
-        PropiedadModel propiedad = new PropiedadModel(
+        PropertyModel propiedad = new PropertyModel(
                 "Libertador 5",
-                new BarrioModel("Caballito",3200.0),
-                new ArrayList<AmbienteModel>(){{add(cocina1); add(ba1); add(d1);add(d2);}},
+                new DistrictModel("Caballito",3200.0),
+                new ArrayList<RoomModel>(){{add(cocina1); add(ba1); add(d1);add(d2);}},
                 4
         );
         return propiedad;
     }
 
     //Devuelve DTO con los m2 de la propiedad "Libertador 5"
-    public static PropiedadM2DTO createPropiedadM2DTO(){ return new PropiedadM2DTO("Libertador 5",51.44); }
+    public static PropertyM2DTO createPropiedadM2DTO(){ return new PropertyM2DTO("Libertador 5",51.44); }
 
     //Devuelve DTO del ambiente mas grande de "Libertador 5"
-    public static AmbienteDTO createAmbienteMayorDTO(){ return new AmbienteDTO("Cocina",17); }
+    public static RoomDTO createAmbienteMayorDTO(){ return new RoomDTO("Cocina",17); }
 
 
     //Devuelve DTO lista de ambientes con sus m2 de "Libertador 5"
-    public static PropiedadListaAmbientesM2DTO createPropiedadListaAmbientesM2DTO(){
+    public static PropertyRoomListM2DTO createPropiedadListaAmbientesM2DTO(){
 
 
-        AmbienteDTO ba1= new AmbienteDTO("Baño",11.52);
-        AmbienteDTO d1= new AmbienteDTO("Dormitorio1",10.92);
-        AmbienteDTO d2= new AmbienteDTO("Dormitorio2",12.0);
-        AmbienteDTO cocina1= new AmbienteDTO("Cocina",17.0);
+        RoomDTO ba1= new RoomDTO("Baño",11.52);
+        RoomDTO d1= new RoomDTO("Dormitorio1",10.92);
+        RoomDTO d2= new RoomDTO("Dormitorio2",12.0);
+        RoomDTO cocina1= new RoomDTO("Cocina",17.0);
 
-       ArrayList<AmbienteDTO> ambienteDTOS= new ArrayList<AmbienteDTO>(){{add(cocina1); add(ba1); add(d1);add(d2);}};
+       ArrayList<RoomDTO> roomDTOS = new ArrayList<RoomDTO>(){{add(cocina1); add(ba1); add(d1);add(d2);}};
 
-       return new PropiedadListaAmbientesM2DTO("Libertador 5",ambienteDTOS);
+       return new PropertyRoomListM2DTO("Libertador 5", roomDTOS);
 
     }
 
    public static PropiedadRequestDTO crearPropiedadRequestDTO() {
        PropiedadRequestDTO propiedadRequestDTO = new PropiedadRequestDTO();
 
-       AmbienteRequestDTO ba1= new AmbienteRequestDTO("Baño",2.3,3.4);
-       AmbienteRequestDTO d1= new AmbienteRequestDTO("Dormitorio1",5.92,2.4);
-       AmbienteRequestDTO d2= new AmbienteRequestDTO("Dormitorio2",3.0,4.5);
-       AmbienteRequestDTO cocina1= new AmbienteRequestDTO("Cocina",8.3,5.6);
-       ArrayList<AmbienteRequestDTO> ambienteReqDTOS= new ArrayList<AmbienteRequestDTO>(){{add(cocina1); add(ba1); add(d1);add(d2);}};
+       RoomRequestDTO ba1= new RoomRequestDTO("Baño",2.3,3.4);
+       RoomRequestDTO d1= new RoomRequestDTO("Dormitorio1",5.92,2.4);
+       RoomRequestDTO d2= new RoomRequestDTO("Dormitorio2",3.0,4.5);
+       RoomRequestDTO cocina1= new RoomRequestDTO("Cocina",8.3,5.6);
+       ArrayList<RoomRequestDTO> ambienteReqDTOS= new ArrayList<RoomRequestDTO>(){{add(cocina1); add(ba1); add(d1);add(d2);}};
 
        propiedadRequestDTO.setProp_name("Alvarez");
         propiedadRequestDTO.setDistrict_name("Almagro");
         propiedadRequestDTO.setDistrict_price(1200.3);
-        propiedadRequestDTO.setAmbientes(ambienteReqDTOS);
+        propiedadRequestDTO.setRooms(ambienteReqDTOS);
 
 
        return propiedadRequestDTO;
     }
 
-    public static PropiedadValorDTO crearPropiedadValorDto(){
-        return new PropiedadValorDTO("Libertador 5",164608.00);
+    public static PropertyValueDTO crearPropiedadValorDto(){
+        return new PropertyValueDTO("Libertador 5",164608.00);
     }
 
 

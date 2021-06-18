@@ -2,9 +2,9 @@ package com.desafio2.testing.Exception;
 
 import org.springframework.http.HttpStatus;
 
-public class PropiedadYaRegistradaException extends PropiedadesException{
+public class ExistenPropertyException extends PropertyException {
 
-    public PropiedadYaRegistradaException(String name) {
+    public ExistenPropertyException(String name) {
         super("La propiedad: "+name+" ya se encuentra registrada", HttpStatus.BAD_REQUEST);
     }
 }

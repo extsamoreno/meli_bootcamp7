@@ -6,8 +6,11 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PropiedadValorDTO {
+public class RoomDTO {
 
-    String nombrePropiedad;
-    double valor;
+
+    String name;
+    double M2;
+
+
 }

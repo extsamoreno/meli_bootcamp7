@@ -1,11 +1,11 @@
 package com.desafio2.testing.Unit;
 
-import com.desafio2.testing.Controller.MiCasitaController;
+import com.desafio2.testing.Controller.PropertyController;
 import com.desafio2.testing.Dto.*;
-import com.desafio2.testing.Exception.BarrioNoExistException;
-import com.desafio2.testing.Exception.PropiedadInexistenteException;
-import com.desafio2.testing.Exception.PropiedadYaRegistradaException;
-import com.desafio2.testing.Service.IPropiedadService;
+import com.desafio2.testing.Exception.DistrictNonExistentException;
+import com.desafio2.testing.Exception.PropertyNonExistentException;
+import com.desafio2.testing.Exception.ExistenPropertyException;
+import com.desafio2.testing.Service.IPropertyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,39 +22,39 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ControllerTest {
 
     @Mock
-    IPropiedadService iPropiedadService;
+    IPropertyService iPropertyService;
 
     @InjectMocks
-    MiCasitaController miCasitaController;
+    PropertyController propertyController;
 
 
 
     @Test  //CrearCasa
-    public void createHouseHappyPath() throws BarrioNoExistException, PropiedadYaRegistradaException {
+    public void createHouseHappyPath() throws DistrictNonExistentException, ExistenPropertyException {
         //arrange
         PropiedadRequestDTO propiedadDto= UtilTest.crearPropiedadRequestDTO();
-        Mockito.when((iPropiedadService.crearPropiedad(propiedadDto))).thenReturn(true);
+        Mockito.when((iPropertyService.createNewProperty(propiedadDto))).thenReturn(true);
 
         //act
-        ResponseEntity<?> received = miCasitaController.crearPropiedad(propiedadDto);
+        ResponseEntity<?> received = propertyController.crearPropiedad(propiedadDto);
 
         //assert
-        Mockito.verify(iPropiedadService,Mockito.atLeastOnce()).crearPropiedad(propiedadDto);
+        Mockito.verify(iPropertyService,Mockito.atLeastOnce()).createNewProperty(propiedadDto);
         assertThat(received.getStatusCode().is2xxSuccessful());
 
     }
 
     @Test  //CU0001
-    public void calcularM2HappyPath() throws PropiedadInexistenteException {
+    public void calcularM2HappyPath() throws PropertyNonExistentException {
         //arrange
         String nombre= "Moldes 100";
-        PropiedadM2DTO propiedadDto= UtilTest.createPropiedadM2DTO();
-        Mockito.when(iPropiedadService.calcularM2PropiedadDTO(nombre)).thenReturn(propiedadDto);
+        PropertyM2DTO propiedadDto= UtilTest.createPropiedadM2DTO();
+        Mockito.when(iPropertyService.calcM2PropDTO(nombre)).thenReturn(propiedadDto);
         //act
-        ResponseEntity<PropiedadM2DTO> received = miCasitaController.m2Propiedad(nombre);
+        ResponseEntity<PropertyM2DTO> received = propertyController.m2Propiedad(nombre);
 
         //assert
-        Mockito.verify(iPropiedadService,Mockito.atLeastOnce()).calcularM2PropiedadDTO(nombre);
+        Mockito.verify(iPropertyService,Mockito.atLeastOnce()).calcM2PropDTO(nombre);
         assertThat(received.getStatusCode().is2xxSuccessful());
         Assertions.assertEquals(propiedadDto.getM2(),received.getBody().getM2());
 
@@ -62,51 +62,51 @@ public class ControllerTest {
 
 
     @Test //CU0002
-    public void PropiedadValorDTOHappyPath() throws PropiedadInexistenteException {
+    public void PropiedadValorDTOHappyPath() throws PropertyNonExistentException {
         //arrange
         String nombre= "Moldes 100";
-        PropiedadValorDTO propiedadDto= UtilTest.crearPropiedadValorDto();
-        Mockito.when(iPropiedadService.calcularValorPropiedadDTO(nombre)).thenReturn(propiedadDto);
+        PropertyValueDTO propiedadDto= UtilTest.crearPropiedadValorDto();
+        Mockito.when(iPropertyService.calcPropValueDTO(nombre)).thenReturn(propiedadDto);
         //act
-        ResponseEntity<PropiedadValorDTO> received = miCasitaController.valorProp(nombre);
+        ResponseEntity<PropertyValueDTO> received = propertyController.valorProp(nombre);
 
         //assert
-        Mockito.verify(iPropiedadService,Mockito.atLeastOnce()).calcularValorPropiedadDTO(nombre);
+        Mockito.verify(iPropertyService,Mockito.atLeastOnce()).calcPropValueDTO(nombre);
         assertThat(received.getStatusCode().is2xxSuccessful());
-        Assertions.assertEquals(propiedadDto.getNombrePropiedad(),received.getBody().getNombrePropiedad());
-        Assertions.assertEquals(propiedadDto.getValor(),received.getBody().getValor());
+        Assertions.assertEquals(propiedadDto.getPropertyName(),received.getBody().getPropertyName());
+        Assertions.assertEquals(propiedadDto.getValue(),received.getBody().getValue());
     }
 
     @Test //CU0003
-    public void ambienteMasGrandeHappyPath() throws PropiedadInexistenteException {
+    public void ambienteMasGrandeHappyPath() throws PropertyNonExistentException {
         //arrange
         String nombre= "Moldes 100";
-         AmbienteDTO ambiente= UtilTest.createAmbienteMayorDTO();
-        Mockito.when(iPropiedadService.calcularAmbienteMasGrande(nombre)).thenReturn(ambiente);
+         RoomDTO ambiente= UtilTest.createAmbienteMayorDTO();
+        Mockito.when(iPropertyService.calcBiggestRoom(nombre)).thenReturn(ambiente);
         //act
-        ResponseEntity<AmbienteDTO> received = miCasitaController.ambienteMasGrande(nombre);
+        ResponseEntity<RoomDTO> received = propertyController.ambienteMasGrande(nombre);
 
         //assert
-        Mockito.verify(iPropiedadService,Mockito.atLeastOnce()).calcularAmbienteMasGrande(nombre);
+        Mockito.verify(iPropertyService,Mockito.atLeastOnce()).calcBiggestRoom(nombre);
         assertThat(received.getStatusCode().is2xxSuccessful());
-        Assertions.assertEquals(ambiente.getNombre(),received.getBody().getNombre());
+        Assertions.assertEquals(ambiente.getName(),received.getBody().getName());
         Assertions.assertEquals(ambiente.getM2(),received.getBody().getM2());
 
     }
 
 
     @Test //CU0004
-    public void PropiedadListaAmbientesM2DTOhappyPath() throws PropiedadInexistenteException {
+    public void PropiedadListaAmbientesM2DTOhappyPath() throws PropertyNonExistentException {
         //arrange
         String nombre= "Moldes 100";
-        PropiedadListaAmbientesM2DTO propLista= UtilTest.createPropiedadListaAmbientesM2DTO();
-        Mockito.when(iPropiedadService.calcularListaAmbientesM2(nombre)).thenReturn(propLista);
+        PropertyRoomListM2DTO propLista= UtilTest.createPropiedadListaAmbientesM2DTO();
+        Mockito.when(iPropertyService.calcRoomListM2(nombre)).thenReturn(propLista);
 
         //act
-        ResponseEntity<PropiedadListaAmbientesM2DTO> received = miCasitaController.calcularListaAmbientesM2(nombre);
+        ResponseEntity<PropertyRoomListM2DTO> received = propertyController.calcularListaAmbientesM2(nombre);
 
         //assert
-        Mockito.verify(iPropiedadService,Mockito.atLeastOnce()).calcularListaAmbientesM2(nombre);
+        Mockito.verify(iPropertyService,Mockito.atLeastOnce()).calcRoomListM2(nombre);
         assertThat(received.getStatusCode().is2xxSuccessful());
         assertThat(propLista.equals(received.getBody()));
     }

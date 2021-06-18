@@ -4,9 +4,9 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class PropiedadInexistenteException extends PropiedadesException{
+public class PropertyNonExistentException extends PropertyException {
 
-    public PropiedadInexistenteException(String name) {
+    public PropertyNonExistentException(String name) {
         super("La propiedad: "+name+" no existe", HttpStatus.BAD_REQUEST);
     }
 }
