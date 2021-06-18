@@ -2,16 +2,11 @@ package com.meli.tucasita.dto;
 
 import lombok.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
-@Getter @Setter
+@Data
 @AllArgsConstructor
-public class ErrorDto {
-  private String name;
-  private Map<String, String> errors;
+@NoArgsConstructor
 
-  public ErrorDto() {
-    this.errors = new HashMap<>();
-  }
+public class ErrorDto {
+  private String message;
+  private String name;
 }

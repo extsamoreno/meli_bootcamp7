@@ -1,6 +1,7 @@
 package com.meli.tucasita.service;
 
 import com.meli.tucasita.dto.*;
+import com.meli.tucasita.exception.PropertyDistrictIdNotFoundException;
 import com.meli.tucasita.model.*;
 import com.meli.tucasita.repository.PropertyRepository;
 import org.modelmapper.ModelMapper;
@@ -16,8 +17,16 @@ public class PropertyServiceImpl implements PropertyService {
   private PropertyRepository propertyRepository;
 
   @Override
-  public Map<Integer, PropertyDto> addNewProperty(PropertyDto propertyDto) {
-
+  public Map<Integer, PropertyDto> addNewProperty(PropertyDto propertyDto) throws PropertyDistrictIdNotFoundException {
+    Map<Integer, DistrictDto> districtsDto = propertyRepository.findAllDistricts();
+    boolean flag = false;
+    for (Integer key: districtsDto.keySet()) {
+      if (propertyDto.getDistrictId() == key) {
+        flag = true;
+        break;
+      }
+    }
+    if (!flag) throw new PropertyDistrictIdNotFoundException(propertyDto.getDistrictId());
     Map<Integer, PropertyDto> propertiesDto = propertyRepository.findAllProperties();
     propertiesDto.put(propertyDto.getId(), propertyDto);
     return propertiesDto;

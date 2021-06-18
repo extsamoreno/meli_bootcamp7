@@ -1,6 +1,7 @@
 package com.meli.tucasita.service;
 
 import com.meli.tucasita.dto.*;
+import com.meli.tucasita.exception.PropertyDistrictIdNotFoundException;
 
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Map;
 
 
 public interface PropertyService {
-  Map<Integer, PropertyDto> addNewProperty (PropertyDto propertyDto);
+  Map<Integer, PropertyDto> addNewProperty (PropertyDto propertyDto) throws PropertyDistrictIdNotFoundException;
   Map<Integer, DistrictDto> addNewDistrict (DistrictDto districtDto);
   PropertyAreaDto getPropertyArea(int id);
   PropertyPriceDto getPropertyPrice(int id);

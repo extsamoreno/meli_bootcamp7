@@ -1,6 +1,7 @@
 package com.meli.tucasita.controller;
 
 import com.meli.tucasita.dto.*;
+import com.meli.tucasita.exception.PropertyDistrictIdNotFoundException;
 import com.meli.tucasita.service.PropertyService;
 import com.meli.tucasita.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class PropertyController {
 
   // US-0000: Testear validaciones de input
   @PostMapping("/newProperty")
-  public ResponseEntity<Map<Integer, PropertyDto>> addNewProperty (@Valid @RequestBody PropertyDto propertyDto) {
+  public ResponseEntity<Map<Integer, PropertyDto>> addNewProperty (@Valid @RequestBody PropertyDto propertyDto) throws PropertyDistrictIdNotFoundException {
     return new ResponseEntity<>(propertyService.addNewProperty(propertyDto), HttpStatus.OK);
   }
 

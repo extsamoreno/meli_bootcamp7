@@ -1,6 +1,7 @@
 package com.meli.tucasita.unit;
 
 import com.meli.tucasita.dto.*;
+import com.meli.tucasita.exception.PropertyDistrictIdNotFoundException;
 import com.meli.tucasita.repository.PropertyRepository;
 import com.meli.tucasita.service.PropertyServiceImpl;
 import org.assertj.core.api.Assertions;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,16 @@ public class PropertyServiceTest {
     verify(propertyRepository, times(1)).findPropertyById(id);
     Assertions.assertThat(expectedPropertyAreaDto).isEqualTo(currentPropertyAreaDto);
   };
+
+  @Test
+  void testAddNewPropertyDistrictNotFound() {
+    // Arrange
+    PropertyDto testProperty = Utils.getPropertyDto();
+    testProperty.setDistrictId(18);
+
+    // Act
+    assertThrows(PropertyDistrictIdNotFoundException.class, ()->propertyService.addNewProperty(testProperty));
+  }
 
   @Test
   void testGetBiggestEnvironment () {
