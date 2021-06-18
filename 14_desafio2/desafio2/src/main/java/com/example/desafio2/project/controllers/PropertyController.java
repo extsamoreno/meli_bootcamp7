@@ -42,7 +42,7 @@ public class PropertyController {
     }
 
     //Get list of environment sizes
-    @GetMapping("/{propertyName}/environment/list")
+    @GetMapping("/{propertyName}/environment/sizelist")
     public ResponseEntity<ArrayList<PropertyEnvironmentDto>> getEnvironmentSizesList (@PathVariable String propertyName) throws PropertyNameNotFoundException {
         return new ResponseEntity<>(iPropertyService.getEnvironmentSizesList(propertyName),HttpStatus.OK);
     }

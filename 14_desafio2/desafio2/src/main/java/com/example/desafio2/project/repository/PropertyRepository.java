@@ -24,7 +24,6 @@ public class PropertyRepository implements IPropertyRepository{
     public Property findPropertyByName(String propertyName) throws PropertyNameNotFoundException {
         try{
             return listProperties.stream().filter(x -> x.getProp_name().equals(propertyName)).findFirst().get();
-
         }
         catch (NoSuchElementException e){
             throw new PropertyNameNotFoundException(propertyName);
@@ -46,10 +45,8 @@ public class PropertyRepository implements IPropertyRepository{
         if(listProperties.stream().anyMatch(x -> x.getProp_name().equals(property.getProp_name())))
             throw new PropertyAlreadyExistsException(property.getProp_name());
 
-
         if(!listDistricts.stream().anyMatch(x -> x.getDistrict_name().equals(property.getProp_district_name())))
             throw new PropertyDistrictNameNotFoundException(property.getProp_district_name());
-
 
         listProperties.add(property);
     }
