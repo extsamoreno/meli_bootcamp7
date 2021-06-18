@@ -26,7 +26,7 @@ public class PropertyDTO {
     @NotNull(message = "District name cannot be empty")
     @Size(min = 4, message = "The length of the name cannot exceed 45 characters.")
     @Size(max = 45, message = "The length of the name cannot exceed 45 characters.")
-    private String districtName;
+    private String district_name;
     private List<EnvironmentDTO> environmentList;
 
 

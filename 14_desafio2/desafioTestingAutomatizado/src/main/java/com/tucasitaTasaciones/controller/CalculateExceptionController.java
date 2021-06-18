@@ -15,12 +15,10 @@ import java.util.Map;
 @ControllerAdvice
 public class CalculateExceptionController {
 
-
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<ErrorDTO> handleException(ApplicationException e) {
         return new ResponseEntity<>(e.getError(), e.getStatus());
     }
-
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -32,6 +30,5 @@ public class CalculateExceptionController {
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
 
 }

@@ -70,11 +70,11 @@ public class CalculateService implements ICalculateService {
     public CalculateResponseDTO calculateEnvironments(Integer id) {
         Property property = propertyRepository.findProperty(id);
         CalculateResponseDTO response = new CalculateResponseDTO();
-        response.setEnvironmentsSquareFeet(getRoomsAreas(property.getEnvironmentList()));
+        response.setEnvironmentsSquareFeet(getEnvironmentsSquareMeters(property.getEnvironmentList()));
         return response;
     }
 
-    private Map<String, Integer> getRoomsAreas(List<Environment> environmentList) {
+    private Map<String, Integer> getEnvironmentsSquareMeters(List<Environment> environmentList) {
         Map<String, Integer> environmentArea = new HashMap<>();
 
         for (Environment r : environmentList) {

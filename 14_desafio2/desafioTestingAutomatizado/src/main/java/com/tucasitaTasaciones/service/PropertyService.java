@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,7 +29,7 @@ public class PropertyService implements IPropertyService {
     @Override
     public void addNewProperty(PropertyDTO property) {
 
-        District district= districtRepository.findDistrictByName(property.getDistrictName());
+        District district= districtRepository.findDistrictByName(property.getDistrict_name());
 
         Property newProperty = mapper.map(property,Property.class);
         newProperty.setDistrict(district);
@@ -37,7 +38,14 @@ public class PropertyService implements IPropertyService {
     }
 
     @Override
-    public List<Property> getProperties() {
-        return propertyRepository.getProperties();
+    public List<PropertyDTO> getProperties() {
+        List<PropertyDTO> propertyDTOList = new ArrayList<>();
+
+        for (Property p: propertyRepository.getProperties()) {
+            PropertyDTO newProperty = mapper.map(p,PropertyDTO.class);
+            propertyDTOList.add(newProperty);
+        }
+
+        return propertyDTOList;
     }
 }

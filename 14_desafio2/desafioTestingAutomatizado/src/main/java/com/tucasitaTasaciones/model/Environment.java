@@ -14,6 +14,11 @@ public class Environment {
     private Integer environment_length;
     private Integer squareFeet;
 
+    public Environment(String environment_name, Integer environment_width, Integer environment_length) {
+        this.environment_name = environment_name;
+        this.environment_width = environment_width;
+        this.environment_length = environment_length;
+    }
 
     public Integer getSquareFeet() {
         Integer result = 0;
