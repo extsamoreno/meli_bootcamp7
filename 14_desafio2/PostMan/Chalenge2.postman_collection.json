@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "fc14cf35-6654-43ee-8819-866b71e3f80a",
+		"name": "Chalenge2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Square Meters (ej1)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/getSquare/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getSquare",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Home Price (ej2)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/getPrice/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getPrice",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Biggest Enviroment (ej3)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/getBiggest/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getBiggest",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Enviroment Areas (ej4)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/getMeter/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getMeter",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert New Home",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 5,\n    \"name\": \"Casa Pocho\",\n    \"districtId\":1,\n    \"enviromentList\":[\n        {\n            \"id\":6,\n            \"name\": \"Main Bedroom\",\n            \"width\": 20.00,\n            \"length\": 20.00\n        },\n        {\n            \"id\":7,\n            \"name\": \"Bedroom 2\",\n            \"width\": 10.00,\n            \"length\": 10.00\n        },\n        {\n            \"id\":8,\n            \"name\": \"Bedroom 3\",\n            \"width\": 15.00,\n            \"length\": 10.00\n        }\n        ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/insertHome",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"insertHome"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"District Pocho\",\n    \"price\": 900.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/insertDistrict",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"insertDistrict"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

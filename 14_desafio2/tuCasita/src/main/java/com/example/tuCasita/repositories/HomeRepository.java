@@ -108,76 +108,11 @@ public class HomeRepository implements IHomeRepository{
     }
 
     @Override
-    public Double getSquareMeterByHome(Integer homeId) throws HomeIdNotFoundException {
-        Home home = homeMap.get(homeId);
-
-        if (homeIdNotExist(homeId))
-            throw new HomeIdNotFoundException(homeId);
-
-        Double meters = getSquareMeters(home);
-
-        return meters;
-    }
-
-    @Override
-    public Double getPrice(Integer homeId) throws HomeIdNotFoundException {
-        Home home = homeMap.get(homeId);
-
-        if (homeIdNotExist(homeId))
-            throw new HomeIdNotFoundException(homeId);
-
-        Double districtPrice = home.getDistrict().getPrice();
-        Double result = districtPrice * getSquareMeterByHome(homeId);
-
-        return result;
-    }
-
-    @Override
-    public Enviroment getBiggest(Integer homeId) throws HomeIdNotFoundException, HomeWithNoEnviromentsException {
-        Home home = homeMap.get(homeId);
-
-        if (homeIdNotExist(homeId))
-            throw new HomeIdNotFoundException(homeId);
-
-        List<Enviroment> enviromentList = home.getEnviromentList();
-
-        if (enviromentList == null || enviromentList.isEmpty()){
-            throw new HomeWithNoEnviromentsException(homeId);
-        }
-
-        Optional<Enviroment> biggestEnv = enviromentList.stream().max(Comparator.comparing(e -> e.getLength() * e.getWidth()));
-
-        return biggestEnv.get();
-    }
-
-    @Override
     public List<Enviroment> findEnviromentsById(Integer homeId) {
         return homeMap.get(homeId).getEnviromentList();
     }
 
     //region private methods
-    private double getSquareMeters(Home home){
-        List<Enviroment> enviromentList = homeMap.get(home.getId()).getEnviromentList();
-        Double meters = 0.0;
-
-        for (int i = 0; i < enviromentList.size(); i++) {
-            meters += (enviromentList.get(i).getLength() * enviromentList.get(i).getWidth());
-        }
-
-        return meters;
-    }
-
-    private boolean homeIdNotExist(Integer homeId){
-        boolean valid = false;
-
-        Home home = homeMap.get(homeId);
-
-        if (home == null)
-            valid = true;
-
-        return valid;
-    }
-
     private boolean existEnviromentId(Integer envId){
         boolean exist = homeMap.entrySet().stream()
                 .map(e -> e.getValue().getEnviromentList())

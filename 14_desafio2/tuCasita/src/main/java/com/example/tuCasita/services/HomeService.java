@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HomeService implements IHomeService{
@@ -21,7 +23,19 @@ public class HomeService implements IHomeService{
 
     @Override
     public Double getSquareMeterByHome(Integer homeId) throws HomeIdNotFoundException {
-        return homeRepository.getSquareMeterByHome(homeId);
+        Home home = homeRepository.getHomeById(homeId);
+        Double meters = 0.0;
+
+        if (home == null)
+            throw new HomeIdNotFoundException(homeId);
+
+        List<Enviroment> enviromentList = home.getEnviromentList();
+
+        for (int i = 0; i < enviromentList.size(); i++) {
+            meters += enviromentList.get(i).getLength() * enviromentList.get(i).getWidth();
+        }
+
+        return meters;
     }
 
     @Override
@@ -43,22 +57,39 @@ public class HomeService implements IHomeService{
 
     @Override
     public Double getPrice(Integer homeId) throws HomeIdNotFoundException {
-        return homeRepository.getPrice(homeId);
+        Home home = homeRepository.getHomeById(homeId);
+
+        if (home == null)
+            throw new HomeIdNotFoundException(homeId);
+
+        Double price = home.getDistrict().getPrice();
+
+        Double result = price * getSquareMeterByHome(homeId);
+
+        return result;
     }
 
     @Override
     public EnviromentDTO getBiggest(Integer homeId) throws HomeIdNotFoundException, HomeWithNoEnviromentsException {
-        Enviroment enviroment = homeRepository.getBiggest(homeId);
+        Home home = homeRepository.getHomeById(homeId);
 
-        if (enviroment == null){
+        if (home == null)
             throw new HomeIdNotFoundException(homeId);
-        }
 
-        return new EnviromentDTO(enviroment.getId(), enviroment.getName(), enviroment.getWidth(), enviroment.getLength());
+        List<Enviroment> enviromentList = home.getEnviromentList();
+
+        Optional<Enviroment> biggestEnv = enviromentList.stream().max(Comparator.comparing(e -> e.getLength() * e.getWidth()));
+
+        return new EnviromentDTO(biggestEnv.get().getId(), biggestEnv.get().getName(), biggestEnv.get().getWidth(), biggestEnv.get().getLength());
     }
 
     @Override
     public List<EnviromentAreasDTO> getMeterCount(Integer homeId) throws HomeIdNotFoundException {
+        Home home = homeRepository.getHomeById(homeId);
+
+        if (home == null)
+            throw new HomeIdNotFoundException(homeId);
+
         List<Enviroment> enviromentDTOList = homeRepository.findEnviromentsById(homeId);
         List<EnviromentAreasDTO> result = new ArrayList<>();
 

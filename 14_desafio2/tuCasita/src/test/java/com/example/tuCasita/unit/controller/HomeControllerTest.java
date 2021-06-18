@@ -72,7 +72,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void getMeterCountHappyPath() throws HomeIdNotFoundException, HomeWithNoEnviromentsException {
+    public void getMeterCountHappyPath() throws HomeIdNotFoundException {
         //arrange
         Integer id = 1;
         List<EnviromentAreasDTO> expected = new ArrayList<>();
