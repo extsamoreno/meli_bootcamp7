@@ -1,6 +1,5 @@
-package com.meli.desafio2.web.dto;
+package com.meli.desafio2.web.dto.request;
 
-import com.meli.desafio2.web.model.Environment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

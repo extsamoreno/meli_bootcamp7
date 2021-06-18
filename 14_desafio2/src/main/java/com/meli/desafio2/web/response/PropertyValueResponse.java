@@ -1,4 +1,4 @@
-package com.meli.desafio2.web.responses;
+package com.meli.desafio2.web.response;
 
 import com.meli.desafio2.web.model.Property;
 import lombok.AllArgsConstructor;

@@ -1,13 +1,10 @@
 package com.meli.desafio2.web.controller;
 
-import com.meli.desafio2.web.dto.PropertyDTO;
+import com.meli.desafio2.web.dto.request.PropertyDTO;
 import com.meli.desafio2.web.exception.DistrictNotFoundException;
-import com.meli.desafio2.web.exception.PropertyException;
+import com.meli.desafio2.web.exception.PropertyAlreadyExistException;
 import com.meli.desafio2.web.exception.PropertyNameNotFoundException;
-import com.meli.desafio2.web.responses.BiggestEnvironmentResponse;
-import com.meli.desafio2.web.responses.PropertyValueResponse;
-import com.meli.desafio2.web.responses.SquareMetersEnvironmentResponse;
-import com.meli.desafio2.web.responses.SquareMetersResponse;
+import com.meli.desafio2.web.response.*;
 import com.meli.desafio2.web.service.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +37,7 @@ public class PropertyController {
         return new ResponseEntity<>(iPropertyService.getEnvironmentSquareMeters(name),HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<?> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) throws PropertyException, DistrictNotFoundException {
+    public ResponseEntity<?> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) throws PropertyAlreadyExistException, DistrictNotFoundException {
         iPropertyService.addProperty(propertyDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }

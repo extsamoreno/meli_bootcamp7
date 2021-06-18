@@ -1,6 +1,6 @@
 package com.meli.desafio2.web.controller;
 
-import com.meli.desafio2.web.dto.DistrictDTO;
+import com.meli.desafio2.web.dto.request.DistrictDTO;
 import com.meli.desafio2.web.exception.DistrictAlreadyExistException;
 import com.meli.desafio2.web.service.IDistrictService;
 import org.springframework.beans.factory.annotation.Autowired;

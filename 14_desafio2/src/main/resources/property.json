@@ -1,21 +1,21 @@
 [
   {
     "prop_name": "Los arboles",
-    "district": "99",
+    "district": "Rosales",
     "environments":
             [
               {
-                "environment_name": "living",
+                "environment_name": "Living",
                 "environment_width": 4,
                 "environment_length": 3
               },
               {
-                "environment_name": "bathroom",
+                "environment_name": "Bathroom",
                 "environment_width": 2,
                 "environment_length": 2
               },
               {
-                "environment_name": "bathroom2",
+                "environment_name": "Bathroom2",
                 "environment_width": 2,
                 "environment_length": 3
               }
@@ -23,21 +23,21 @@
   },
   {
     "prop_name": "Gatherons",
-    "district": "salvaje",
+    "district": "Salvaje",
     "environments":
     [
       {
-        "environment_name": "livingroom",
+        "environment_name": "Livingroom",
         "environment_width": 3,
         "environment_length": 2
       },
       {
-        "environment_name": "bedroom",
+        "environment_name": "Bedroom",
         "environment_width": 2,
         "environment_length": 2
       },
       {
-        "environment_name": "bathroom2",
+        "environment_name": "Bathroom2",
         "environment_width": 2,
         "environment_length": 1
       }

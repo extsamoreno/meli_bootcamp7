@@ -1,6 +1,6 @@
 package com.meli.desafio2.web.service;
 
-import com.meli.desafio2.web.dto.DistrictDTO;
+import com.meli.desafio2.web.dto.request.DistrictDTO;
 import com.meli.desafio2.web.model.District;
 
 public class DistrictMapper {

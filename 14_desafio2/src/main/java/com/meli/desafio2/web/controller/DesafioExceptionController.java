@@ -1,6 +1,6 @@
 package com.meli.desafio2.web.controller;
 
-import com.meli.desafio2.web.dto.ErrorDTO;
+import com.meli.desafio2.web.dto.request.ErrorDTO;
 import com.meli.desafio2.web.exception.DistrictAlreadyExistException;
 import com.meli.desafio2.web.exception.DistrictNotFoundException;
 import com.meli.desafio2.web.exception.PropertyAlreadyExistException;
@@ -11,11 +11,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @ControllerAdvice

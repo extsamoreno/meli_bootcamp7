@@ -1,10 +1,9 @@
 package com.meli.desafio2.web.exception;
 
-import com.meli.desafio2.web.dto.ErrorDTO;
+import com.meli.desafio2.web.dto.request.ErrorDTO;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-import java.util.List;
 import java.util.Map;
 @Getter
 public class PropertyException extends Exception{

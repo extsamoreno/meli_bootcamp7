@@ -1,25 +1,19 @@
 package com.meli.desafio2.web.service;
 
-import com.meli.desafio2.web.dto.PropertyDTO;
+import com.meli.desafio2.web.dto.request.PropertyDTO;
 import com.meli.desafio2.web.exception.DistrictNotFoundException;
 import com.meli.desafio2.web.exception.PropertyAlreadyExistException;
-import com.meli.desafio2.web.exception.PropertyException;
 import com.meli.desafio2.web.exception.PropertyNameNotFoundException;
 import com.meli.desafio2.web.model.District;
 import com.meli.desafio2.web.model.Environment;
 import com.meli.desafio2.web.model.Property;
 import com.meli.desafio2.web.repository.IDistrictRepository;
 import com.meli.desafio2.web.repository.IPropertyRepository;
-import com.meli.desafio2.web.responses.BiggestEnvironmentResponse;
-import com.meli.desafio2.web.responses.PropertyValueResponse;
-import com.meli.desafio2.web.responses.SquareMetersEnvironmentResponse;
-import com.meli.desafio2.web.responses.SquareMetersResponse;
+import com.meli.desafio2.web.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.el.PropertyNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -87,7 +81,7 @@ public class PropertyService implements IPropertyService{
     }
 
     @Override
-    public void addProperty(PropertyDTO propertyDTO) throws PropertyException,DistrictNotFoundException {
+    public void addProperty(PropertyDTO propertyDTO) throws PropertyAlreadyExistException,DistrictNotFoundException {
         if(iPropertyRepository.getPropertyByName(propertyDTO.getProp_name())!=null){
             throw new PropertyAlreadyExistException(propertyDTO.getProp_name(), HttpStatus.BAD_REQUEST);
         }

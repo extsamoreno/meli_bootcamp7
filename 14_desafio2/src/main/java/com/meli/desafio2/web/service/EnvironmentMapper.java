@@ -1,6 +1,6 @@
 package com.meli.desafio2.web.service;
 
-import com.meli.desafio2.web.dto.EnvironmentDTO;
+import com.meli.desafio2.web.dto.request.EnvironmentDTO;
 import com.meli.desafio2.web.model.Environment;
 
 public class EnvironmentMapper {
