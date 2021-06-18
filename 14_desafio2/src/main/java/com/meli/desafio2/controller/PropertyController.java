@@ -1,5 +1,6 @@
 package com.meli.desafio2.controller;
 
+import com.meli.desafio2.exception.DistrictNotFoundException;
 import com.meli.desafio2.model.Property;
 import com.meli.desafio2.model.dto.PropertyDTO;
 import com.meli.desafio2.service.PropertyService;
@@ -19,7 +20,7 @@ public class PropertyController {
 
     //Method to save property
     @PostMapping("/save")
-    public ResponseEntity saveProperty(@Valid @RequestBody Property prop){
+    public ResponseEntity saveProperty(@Valid @RequestBody Property prop) throws DistrictNotFoundException {
         propertyService.saveProperty(prop);
         return new ResponseEntity<>(HttpStatus.OK);
     }

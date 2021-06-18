@@ -1,5 +1,8 @@
 package com.meli.desafio2.controller;
 
+import com.meli.desafio2.exception.DistrictNotFoundException;
+import com.meli.desafio2.exception.PropertyException;
+import com.meli.desafio2.model.dto.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -25,4 +28,16 @@ public class PropertyExceptionController {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(DistrictNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handleValidationExceptions(DistrictNotFoundException ex) {
+        return new ResponseEntity<>(ex.getError(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PropertyException.class)
+    public ResponseEntity<ErrorDTO> handleValidationExceptions(PropertyException ex) {
+        return new ResponseEntity<>(ex.getError(), HttpStatus.BAD_REQUEST);
+    }
+
+
 }

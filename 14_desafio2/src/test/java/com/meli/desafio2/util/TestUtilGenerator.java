@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.desafio2.model.District;
 import com.meli.desafio2.model.Environment;
 import com.meli.desafio2.model.Property;
+import com.meli.desafio2.model.dto.EnvironmentDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +30,14 @@ public class TestUtilGenerator {
         property.setEnvironmentList(environments);
 
         return property;
+    }
+
+    public static List<EnvironmentDTO> environmentDTOList(){
+        EnvironmentDTO env1 = new EnvironmentDTO("Baño", 35);
+        EnvironmentDTO env2 = new EnvironmentDTO("Habitacion 1", 40);
+        EnvironmentDTO env3 = new EnvironmentDTO("Cocina", 56);
+
+        return Arrays.asList(env1, env2, env3);
     }
 
     public static <T> String toJson(T object) throws JsonProcessingException {

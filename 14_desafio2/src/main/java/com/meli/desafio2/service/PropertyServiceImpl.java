@@ -1,9 +1,11 @@
 package com.meli.desafio2.service;
 
+import com.meli.desafio2.exception.DistrictNotFoundException;
 import com.meli.desafio2.model.Environment;
 import com.meli.desafio2.model.Property;
 import com.meli.desafio2.model.dto.EnvironmentDTO;
 import com.meli.desafio2.model.dto.PropertyDTO;
+import com.meli.desafio2.repository.DistrictRepository;
 import com.meli.desafio2.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,15 @@ public class PropertyServiceImpl implements PropertyService{
     @Autowired
     PropertyRepository propertyRepository;
 
+    @Autowired
+    DistrictRepository districtRepository;
+
     @Override
-    public void saveProperty(Property prop) {
+    public void saveProperty(Property prop) throws DistrictNotFoundException {
+        int id = prop.getDistrict().getId();
+        if(districtRepository.findDistrictByID(id) == null)
+            throw new DistrictNotFoundException(prop.getDistrict());
+
         propertyRepository.save(prop);
     }
 
