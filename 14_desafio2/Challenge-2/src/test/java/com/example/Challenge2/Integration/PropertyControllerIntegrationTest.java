@@ -58,7 +58,7 @@ public class PropertyControllerIntegrationTest {
                 writer();
         String responseJson = writer.writeValueAsString(expectedRoom);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/biggestRoom", id))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/biggestRoom", id))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -79,7 +79,7 @@ public class PropertyControllerIntegrationTest {
                 writer();
         String responseJson = writer.writeValueAsString(error);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/biggestRoom", propertyId))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/biggestRoom", propertyId))
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -107,7 +107,7 @@ public class PropertyControllerIntegrationTest {
                 writer();
         String responseJson = writer.writeValueAsString(expectedValue);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/value", propertyId))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/value", propertyId))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -128,7 +128,7 @@ public class PropertyControllerIntegrationTest {
                 writer();
         String responseJson = writer.writeValueAsString(error);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/value", propertyId))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/value", propertyId))
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -149,7 +149,7 @@ public class PropertyControllerIntegrationTest {
                 writer();
         String responseJson = writer.writeValueAsString(expectedStructure);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/dimensions", propertyId))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/dimensions", propertyId))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -170,7 +170,7 @@ public class PropertyControllerIntegrationTest {
                 writer();
         String responseJson = writer.writeValueAsString(error);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/dimensions", propertyId))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/dimensions", propertyId))
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -195,7 +195,7 @@ public class PropertyControllerIntegrationTest {
                 writer();
         String responseJson = writer.writeValueAsString(expectedStructures);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/rooms", propertyId))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/rooms", propertyId))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -217,7 +217,7 @@ public class PropertyControllerIntegrationTest {
                 writer();
         String responseJson = writer.writeValueAsString(error);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/rooms", propertyId))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/{propertyId}/rooms", propertyId))
                 .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
@@ -245,7 +245,7 @@ public class PropertyControllerIntegrationTest {
         String payLoadJson = writer.writeValueAsString(property);
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
-                .post("/property")
+                .post("/properties")
                 .contentType("application/json")
                 .content(payLoadJson))
                 .andDo(print()).andExpect(status().isOk())
@@ -273,7 +273,7 @@ public class PropertyControllerIntegrationTest {
         String payLoadJson = writer.writeValueAsString(property);
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
-                .post("/property")
+                .post("/properties")
                 .contentType("application/json")
                 .content(payLoadJson))
                 .andDo(print()).andExpect(status().isBadRequest())
