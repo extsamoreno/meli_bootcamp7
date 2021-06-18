@@ -9,8 +9,6 @@ import com.example.Challenge2.Services.DTOs.*;
 import java.util.List;
 
 public interface IDistrictService {
-
-
     public Boolean storeDistrict(DistrictDTO district);
 
 }

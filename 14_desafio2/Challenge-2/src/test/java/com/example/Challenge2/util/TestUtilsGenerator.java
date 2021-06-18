@@ -19,32 +19,6 @@ import java.util.*;
 
 public class TestUtilsGenerator {
 
-    private static String SCOPE;
-    private static ObjectWriter mapper;
-
-    public static void emptyUsersFile() {
-        Properties properties = new Properties();
-
-        try {
-            properties.load(new ClassPathResource("application.properties").getInputStream());
-            SCOPE = properties.getProperty("api.scope");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        PrintWriter writer = null;
-
-        try {
-            writer = new PrintWriter(ResourceUtils.getFile("./src/" + SCOPE + "/resources/users.json"));
-        } catch (
-                IOException e) {
-            e.printStackTrace();
-        }
-
-        writer.print("[]");
-        writer.close();
-    }
-
     public static Property getPropertyWith3Rooms(Long id) {
         Room room1 = new Room("Cocina", 8.0, 3.0);
         Room room2 = new Room("Living",3.0, 6.0);
@@ -65,6 +39,25 @@ public class TestUtilsGenerator {
     public static District get100USDollarsDistrict(Long id) {
 
         District district = new District(id,"District",100.0);
+
+        return district;
+    }
+
+    Map<String, ErrorDTO> errors = new HashMap<>();
+    public static Map<String, ErrorDTO> getDistrictPriceValidationError(){
+
+        Map<String, ErrorDTO> errors = new HashMap<>();
+        errors.put("pricePerM2", TestUtilsGenerator.getDistrictPriceError());
+
+        return errors;
+    }
+    public static ErrorDTO getDistrictPriceError(){
+        return new ErrorDTO("El precio maximo permitido por metro cuadrado no puede superar los 4000 U$S.","MethodArgumentNotValidException");
+    }
+
+    public static District get10000USDollarsDistrict(Long id) {
+
+        District district = new District(id,"District",10000.0);
 
         return district;
     }

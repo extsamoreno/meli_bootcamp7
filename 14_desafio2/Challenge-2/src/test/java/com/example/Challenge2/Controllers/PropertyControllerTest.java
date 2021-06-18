@@ -71,7 +71,16 @@ public class PropertyControllerTest {
     }
 
 
+    @Test
+    public void getBiggestRoomThrowsPropertyNotFoundExceptionTest() throws PropertyNotFoundException {
 
+        // arrange,
+        Long id = 1L;
+        when(iPropertyService.getBiggestRoom(id)).thenThrow(new PropertyNotFoundException(id));
+
+        // assert
+        assertThrows(PropertyNotFoundException.class, () -> propertyController.getBiggestRoom(id));
+    }
 
     @Test
     public void getValueTest() throws PropertyNotFoundException, DistrictNotFoundException {
@@ -107,6 +116,17 @@ public class PropertyControllerTest {
     }
 
     @Test
+    public void getValueThrowsPropertyNotFoundExceptionTest() throws PropertyNotFoundException, DistrictNotFoundException {
+
+        // arrange,
+        Long id = 1L;
+        when(iPropertyService.getPropertyValue(id)).thenThrow(new PropertyNotFoundException(id));
+
+        // assert
+        assertThrows(PropertyNotFoundException.class, () -> propertyController.getValue(id));
+    }
+
+    @Test
     public void getDimensionsTest() throws PropertyNotFoundException {
 
         // arrange,
@@ -136,6 +156,17 @@ public class PropertyControllerTest {
         // assert
         verify(iPropertyService, atLeastOnce()).getPropertyDimensions(id);
         assertNotEquals(structureResponse.getBody(), notExpectedStructures);
+    }
+
+    @Test
+    public void getDimensionsThrowsPropertyNotFoundExceptionTest() throws PropertyNotFoundException, DistrictNotFoundException {
+
+        // arrange,
+        Long id = 1L;
+        when(iPropertyService.getPropertyDimensions(id)).thenThrow(new PropertyNotFoundException(id));
+
+        // assert
+        assertThrows(PropertyNotFoundException.class, () -> propertyController.getDimensions(id));
     }
 
     @Test
@@ -170,13 +201,23 @@ public class PropertyControllerTest {
         verify(iPropertyService, atLeastOnce()).getDimensionedRooms(id);
         assertNotEquals(structureResponse.getBody(), notExpectedStructures);
     }
+    @Test
+    public void getRoomsThrowsPropertyNotFoundExceptionTest() throws PropertyNotFoundException {
+
+        // arrange,
+        Long id = 1L;
+        when(iPropertyService.getDimensionedRooms(id)).thenThrow(new PropertyNotFoundException(id));
+
+        // assert
+        assertThrows(PropertyNotFoundException.class, () -> propertyController.getRooms(id));
+    }
 
     @Test
     public void storeTest() throws DistrictNotFoundException {
 
         // arrange,
         Long id = 1L;
-        PropertyDTO propertyDTO = PropertyMapper.toDTO(TestUtilsGenerator.get50MtProperty(null));
+        PropertyDTO propertyDTO = PropertyMapper.toDTO(TestUtilsGenerator.get50MtProperty(id));
         when(iPropertyService.storeProperty(propertyDTO)).thenReturn(true);
 
         // act
@@ -186,4 +227,18 @@ public class PropertyControllerTest {
         verify(iPropertyService, atLeastOnce()).storeProperty(propertyDTO);
         assertTrue(structureResponse.getBody());
     }
+
+    @Test
+    public void storeThrowsDistrictNotFoundExceptionTest() throws  DistrictNotFoundException {
+
+        // arrange,
+        Long id = 1L;
+        PropertyDTO propertyDTO = PropertyMapper.toDTO(TestUtilsGenerator.get50MtProperty(id));
+
+        when(iPropertyService.storeProperty(propertyDTO)).thenThrow(new DistrictNotFoundException(id));
+
+        // assert
+        assertThrows(DistrictNotFoundException.class, () -> propertyController.store(propertyDTO));
+    }
+
 }

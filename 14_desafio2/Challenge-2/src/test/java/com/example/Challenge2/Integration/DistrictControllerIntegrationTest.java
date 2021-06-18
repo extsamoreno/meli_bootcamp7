@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -60,6 +61,32 @@ public class DistrictControllerIntegrationTest {
                 .contentType("application/json")
                 .content(payLoadJson))
                 .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+
+        Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void storeThrowsMethodArgumentNotValidException() throws Exception{
+
+        DistrictDTO district = DistrictMapper.toDTO(TestUtilsGenerator.get10000USDollarsDistrict(1L));
+
+        Mockito.when(iDataRepository.getAllDistricts()).thenReturn(new ArrayList<>());
+
+        Map<String, ErrorDTO> priceError = TestUtilsGenerator.getDistrictPriceValidationError();
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer();
+        String responseJson = writer.writeValueAsString(priceError);
+
+        String payLoadJson = writer.writeValueAsString(district);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/districts")
+                .contentType("application/json")
+                .content(payLoadJson))
+                .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
 

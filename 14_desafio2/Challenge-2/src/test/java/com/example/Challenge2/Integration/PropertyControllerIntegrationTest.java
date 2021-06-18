@@ -2,16 +2,15 @@ package com.example.Challenge2.Integration;
 
 import com.example.Challenge2.Controllers.PropertyController;
 import com.example.Challenge2.Exceptions.DistrictNotFoundException;
+import com.example.Challenge2.Exceptions.PropertyNotFoundException;
 import com.example.Challenge2.Models.District;
 import com.example.Challenge2.Models.Property;
 import com.example.Challenge2.Repositories.IDataRepository;
-import com.example.Challenge2.Services.DTOs.PropertyDTO;
-import com.example.Challenge2.Services.DTOs.RoomDTO;
-import com.example.Challenge2.Services.DTOs.StructureDTO;
-import com.example.Challenge2.Services.DTOs.ValueDTO;
+import com.example.Challenge2.Services.DTOs.*;
 import com.example.Challenge2.Services.Mapper.PropertyMapper;
 import com.example.Challenge2.Services.Mapper.RoomMapper;
 import com.example.Challenge2.util.TestUtilsGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -68,6 +67,27 @@ public class PropertyControllerIntegrationTest {
     }
 
     @Test
+    public void getBiggestThrowsPropertyNotFoundExceptionTest() throws Exception {
+        Long propertyId = 1L;
+
+        ErrorDTO error = TestUtilsGenerator.getPropertyNotFoundError(propertyId);
+
+        Mockito.when(iDataRepository.getPropertyById(propertyId)).thenReturn(null);
+
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer();
+        String responseJson = writer.writeValueAsString(error);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/biggestRoom", propertyId))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+
+        Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
     public void getValueHappyPath() throws Exception{
         Long propertyId = 1L;
         Long districtId = 1L;
@@ -96,6 +116,27 @@ public class PropertyControllerIntegrationTest {
     }
 
     @Test
+    public void getValueThrowsPropertyNotFoundExceptionTest() throws Exception {
+        Long propertyId = 1L;
+
+        ErrorDTO error = TestUtilsGenerator.getPropertyNotFoundError(propertyId);
+
+        Mockito.when(iDataRepository.getPropertyById(propertyId)).thenReturn(null);
+
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer();
+        String responseJson = writer.writeValueAsString(error);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/value", propertyId))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+
+        Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
     public void getDimensionsHappyPath() throws Exception{
         Long propertyId = 1L;
         Property property = TestUtilsGenerator.get50MtProperty(propertyId);
@@ -110,6 +151,27 @@ public class PropertyControllerIntegrationTest {
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/dimensions", propertyId))
                 .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+
+        Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void getDimensionsThrowsPropertyNotFoundExceptionTest() throws Exception {
+        Long propertyId = 1L;
+
+        ErrorDTO error = TestUtilsGenerator.getPropertyNotFoundError(propertyId);
+
+        Mockito.when(iDataRepository.getPropertyById(propertyId)).thenReturn(null);
+
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer();
+        String responseJson = writer.writeValueAsString(error);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/dimensions", propertyId))
+                .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
 
@@ -135,6 +197,28 @@ public class PropertyControllerIntegrationTest {
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/rooms", propertyId))
                 .andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andReturn();
+
+        Assertions.assertEquals(responseJson, mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void getRoomsThrowsPropertyNotFoundExceptionTest() throws Exception {
+        Long propertyId = 1L;
+
+        PropertyNotFoundException e = new PropertyNotFoundException(propertyId);
+        ErrorDTO error = TestUtilsGenerator.getPropertyNotFoundError(propertyId);
+
+        Mockito.when(iDataRepository.getPropertyById(propertyId)).thenReturn(null);
+
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer();
+        String responseJson = writer.writeValueAsString(error);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/property/{propertyId}/rooms", propertyId))
+                .andDo(print()).andExpect(status().isBadRequest())
                 .andExpect(content().contentType("application/json"))
                 .andReturn();
 
@@ -172,19 +256,19 @@ public class PropertyControllerIntegrationTest {
     }
 
     @Test
-    public void storeThrowsDistrictNotFoundException() throws Exception{
+    public void storeThrowsDistrictNotFoundExceptionTest() throws Exception{
         Long propertyId = 1L;
         PropertyDTO property = PropertyMapper.toDTO(TestUtilsGenerator.getPropertyWithTwo25MTsRooms(propertyId));
 
         Mockito.when(iDataRepository.getAllProperties()).thenReturn(new ArrayList<>());
         Mockito.when(iDataRepository.getDistrictById(property.getDistrictId())).thenReturn(null);
 
-        DistrictNotFoundException e = new DistrictNotFoundException(property.getDistrictId());
+        ErrorDTO error = TestUtilsGenerator.getDistrictNotFoundError(property.getDistrictId());
 
         ObjectWriter writer = new ObjectMapper().
                 configure(SerializationFeature.WRAP_ROOT_VALUE, false).
                 writer();
-        String responseJson = writer.writeValueAsString(e.getError());
+        String responseJson = writer.writeValueAsString(error);
 
         String payLoadJson = writer.writeValueAsString(property);
 

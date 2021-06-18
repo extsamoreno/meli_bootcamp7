@@ -20,27 +20,27 @@ public class PropertyController {
     @Autowired
     IPropertyService iPropertyService;
 
-    @GetMapping("/property/{propertyId}/biggestRoom")
+    @GetMapping("/properties/{propertyId}/biggestRoom")
     public ResponseEntity<RoomDTO>getBiggestRoom(@PathVariable Long propertyId) throws  PropertyNotFoundException {
         return new ResponseEntity<>(iPropertyService.getBiggestRoom(propertyId),HttpStatus.OK);
     }
 
-    @GetMapping("/property/{propertyId}/value")
+    @GetMapping("/properties/{propertyId}/value")
     public ResponseEntity<ValueDTO>getValue(@PathVariable Long propertyId) throws PropertyNotFoundException, DistrictNotFoundException {
         return new ResponseEntity<>(iPropertyService.getPropertyValue(propertyId),HttpStatus.OK);
     }
 
-    @GetMapping("/property/{propertyId}/dimensions")
+    @GetMapping("/properties/{propertyId}/dimensions")
     public ResponseEntity<StructureDTO>getDimensions(@PathVariable Long propertyId) throws PropertyNotFoundException {
         return new ResponseEntity<>(iPropertyService.getPropertyDimensions(propertyId),HttpStatus.OK);
     }
 
-    @GetMapping("/property/{propertyId}/rooms")
+    @GetMapping("/properties/{propertyId}/rooms")
     public ResponseEntity<List<StructureDTO>>getRooms(@PathVariable Long propertyId) throws PropertyNotFoundException {
         return new ResponseEntity<>(iPropertyService.getDimensionedRooms(propertyId),HttpStatus.OK);
     }
 
-    @PostMapping("/property")
+    @PostMapping("/properties")
     public ResponseEntity<Boolean>store(@Valid @RequestBody PropertyDTO property) throws DistrictNotFoundException {
         return new ResponseEntity<>(iPropertyService.storeProperty(property),HttpStatus.OK);
     }

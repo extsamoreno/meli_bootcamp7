@@ -70,6 +70,7 @@ public class PropertyService implements IPropertyService{
     }
 
 
+
     private Long genPropertyID(){
         Long id = new Long(iDataRepository.getAllProperties().size());
         Boolean validId = false;
