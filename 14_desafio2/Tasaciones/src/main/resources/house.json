@@ -1,1 +1,56 @@
-[{"name":"Casa Prueba Ingreso ","neighborhood":{"name":"Madrid","price":2340.0},"environments":[{"environmentId":1,"name":"Alcoba","width":12.7,"leng":19.2},{"environmentId":2,"name":"Dormitorio","width":11.1,"leng":22.2},{"environmentId":3,"name":"Sala","width":2.1,"leng":1.2}]},{"name":"Casa Fea","neighborhood":{"name":"Munich","price":1900.0},"environments":[{"environmentId":1,"name":"Estudio","width":10.4,"leng":2.7},{"environmentId":2,"name":"Baño","width":3.4,"leng":3.7},{"environmentId":3,"name":"Cocina","width":9.4,"leng":5.7}]},{"name":"Casa Linda","neighborhood":{"name":"Paraiso","price":2000.0},"environments":[{"environmentId":1,"name":"Dormitorio1","width":10.4,"leng":5.7},{"environmentId":2,"name":"Baño","width":5.4,"leng":3.7},{"environmentId":3,"name":"Cocina","width":11.4,"leng":3.7}]}]
+[
+  {
+    "name": "Casa Fea",
+    "neighborhood": {
+      "name": "Munich",
+      "price": 1900.0
+    },
+    "environments": [
+      {
+        "environmentId": 1,
+        "name": "Estudio",
+        "width": 10.4,
+        "leng": 2.7
+      },
+      {
+        "environmentId": 2,
+        "name": "Baño",
+        "width": 3.4,
+        "leng": 3.7
+      },
+      {
+        "environmentId": 3,
+        "name": "Cocina",
+        "width": 9.4,
+        "leng": 5.7
+      }
+    ]
+  },
+  {
+    "name": "Casa Linda",
+    "neighborhood": {
+      "name": "Paraiso",
+      "price": 2000.0
+    },
+    "environments": [
+      {
+        "environmentId": 1,
+        "name": "Dormitorio1",
+        "width": 10.4,
+        "leng": 5.7
+      },
+      {
+        "environmentId": 2,
+        "name": "Baño",
+        "width": 5.4,
+        "leng": 3.7
+      },
+      {
+        "environmentId": 3,
+        "name": "Cocina",
+        "width": 11.4,
+        "leng": 3.7
+      }
+    ]
+  }
+]
