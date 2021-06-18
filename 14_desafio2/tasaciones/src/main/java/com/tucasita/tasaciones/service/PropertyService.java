@@ -1,5 +1,6 @@
 package com.tucasita.tasaciones.service;
 
+import com.tucasita.tasaciones.dto.PropertyAllDTO;
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
 import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
@@ -15,5 +16,6 @@ public interface PropertyService {
     Double calculateSquareMeters(int id) throws PropertyNotFoundException;
     Double getPropertyPrice(int id) throws PropertyNotFoundException;
     RoomDTO getBiggestRoom(int id) throws PropertyNotFoundException;
+    List<PropertyAllDTO> getAllProperties();
     List<RoomSquareMetersDTO> getRoomsSquareMeters(int id) throws PropertyNotFoundException;
 }

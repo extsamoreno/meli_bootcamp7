@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,5 +31,14 @@ public class PropertyRepositoryTest {
 
         Property found = propertyRepository.getPropertyById(prop.getId());
         assertEquals(found, prop);
+    }
+
+    @Test
+    public void findAll() throws IOException {
+        List<Property> props = TestUtilGenerator.getListOfProperties();
+        propertyRepository.saveProperty(props.get(0));
+        propertyRepository.saveProperty(props.get(1));
+
+        assertEquals(props, propertyRepository.getAllProperties());
     }
 }

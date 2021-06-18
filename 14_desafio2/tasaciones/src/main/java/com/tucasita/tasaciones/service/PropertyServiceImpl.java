@@ -1,5 +1,6 @@
 package com.tucasita.tasaciones.service;
 
+import com.tucasita.tasaciones.dto.PropertyAllDTO;
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
 import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
@@ -33,6 +34,11 @@ public class PropertyServiceImpl implements PropertyService {
         Neighborhood neighborhood = neighborhoodRepository.getByName(property.getNeighborhood());
         if (neighborhood == null) throw new NeighborhoodNotFoundException(property.getNeighborhood());
         propertyRepository.saveProperty(PropertyMapper.toEntity(property, neighborhood));
+    }
+
+    @Override
+    public List<PropertyAllDTO> getAllProperties() {
+        return PropertyMapper.toAllPropertiesList(propertyRepository.getAllProperties());
     }
 
     @Override

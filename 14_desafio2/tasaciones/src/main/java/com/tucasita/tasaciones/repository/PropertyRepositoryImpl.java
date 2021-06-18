@@ -31,6 +31,11 @@ public class PropertyRepositoryImpl implements PropertyRepository {
     }
 
     @Override
+    public List<Property> getAllProperties() {
+        return this.properties;
+    }
+
+    @Override
     public Property getPropertyById(int id) {
         Optional<Property> prop = this.properties.stream().filter(p -> p.getId() == id).findFirst();
         return prop.orElse(null);

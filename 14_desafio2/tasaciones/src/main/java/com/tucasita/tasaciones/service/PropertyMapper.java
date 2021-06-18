@@ -1,9 +1,6 @@
 package com.tucasita.tasaciones.service;
 
-import com.tucasita.tasaciones.dto.NeighborhoodDTO;
-import com.tucasita.tasaciones.dto.PropertyDTO;
-import com.tucasita.tasaciones.dto.RoomDTO;
-import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
+import com.tucasita.tasaciones.dto.*;
 import com.tucasita.tasaciones.model.Neighborhood;
 import com.tucasita.tasaciones.model.Property;
 import com.tucasita.tasaciones.model.Room;
@@ -20,6 +17,26 @@ public class PropertyMapper {
            rooms.add(r);
         }
         return new Property(0, dto.getName(), neighborhood, rooms);
+    }
+
+    public static List<PropertyAllDTO> toAllPropertiesList(List<Property> entities) {
+        List<PropertyAllDTO> properties = new ArrayList<>();
+        entities.forEach(e -> {
+            properties.add(toPropertyAllDTO(e));
+        });
+        return properties;
+    }
+
+    public static PropertyAllDTO toPropertyAllDTO(Property property) {
+        List<RoomDTO> rooms = new ArrayList<>();
+        property.getRooms().forEach(r -> {
+            rooms.add(new RoomDTO(r.getName(), r.getWidth(), r.getLength()));
+        });
+        return new PropertyAllDTO(property.getName(), toNeighborhoodDTO(property.getNeighborhood()), rooms);
+    }
+
+    public static NeighborhoodDTO toNeighborhoodDTO(Neighborhood n) {
+        return new NeighborhoodDTO(n.getName(), n.getPrice());
     }
 
     public static RoomDTO toRoomDTO(Room room) {

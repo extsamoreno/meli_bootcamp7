@@ -3,6 +3,7 @@ package com.tucasita.tasaciones.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tucasita.tasaciones.model.Room;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -24,6 +25,7 @@ public class PropertyDTO {
 
     @JsonProperty("environments")
     @NotNull
+    @Valid
     private List<RoomDTO> rooms;
 
     public PropertyDTO(String name, String neighborhood, List<RoomDTO> rooms) {

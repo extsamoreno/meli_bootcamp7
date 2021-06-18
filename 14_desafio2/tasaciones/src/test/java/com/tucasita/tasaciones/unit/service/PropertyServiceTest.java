@@ -1,5 +1,6 @@
 package com.tucasita.tasaciones.unit.service;
 
+import com.tucasita.tasaciones.dto.PropertyAllDTO;
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomDTO;
 import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
@@ -20,6 +21,8 @@ import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -54,6 +57,17 @@ public class PropertyServiceTest {
         PropertyDTO property = TestUtilGenerator.getPropertyDTOWithFourRooms();
         when(neighborhoodRepository.getByName(property.getNeighborhood())).thenReturn(null);
         assertThrows(NeighborhoodNotFoundException.class, () -> propertyService.saveProperty(property));
+    }
+
+    @Test
+    public void getAllPropertiesTest() {
+        List<Property> properties = TestUtilGenerator.getListOfProperties();
+        List<PropertyAllDTO> dtos = PropertyMapper.toAllPropertiesList(properties);
+        MockedStatic<PropertyMapper> mock = mockStatic(PropertyMapper.class);
+        mock.when(() -> PropertyMapper.toAllPropertiesList(properties)).thenReturn(dtos);
+        when(propertyRepository.getAllProperties()).thenReturn(properties);
+        assertEquals(propertyService.getAllProperties(), dtos);
+        mock.close();
     }
 
     @Test

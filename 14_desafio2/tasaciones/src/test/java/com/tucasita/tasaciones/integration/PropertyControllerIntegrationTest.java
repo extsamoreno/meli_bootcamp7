@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -64,6 +65,17 @@ public class PropertyControllerIntegrationTest {
                 .content(request))
                 .andDo(print())
                 .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    public void getAllPropertiesTest() throws Exception {
+        List<Property> properties = TestUtilGenerator.getListOfProperties();
+        when(repository.getAllProperties()).thenReturn(properties);
+        mockMvc.perform(get("/properties"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.[?(@.prop_name == \"Home\")]").exists())
+                .andExpect(jsonPath("$.[?(@.prop_name == \"Office\")]").exists());
     }
 
     @Test

@@ -1,9 +1,12 @@
 package com.tucasita.tasaciones.unit.controller;
 
+import com.tucasita.tasaciones.dto.PropertyAllDTO;
 import com.tucasita.tasaciones.dto.PropertyDTO;
 import com.tucasita.tasaciones.dto.RoomSquareMetersDTO;
 import com.tucasita.tasaciones.exception.NeighborhoodNotFoundException;
 import com.tucasita.tasaciones.exception.PropertyNotFoundException;
+import com.tucasita.tasaciones.model.Property;
+import com.tucasita.tasaciones.service.PropertyMapper;
 import com.tucasita.tasaciones.service.PropertyService;
 import com.tucasita.tasaciones.util.TestUtilGenerator;
 import org.junit.jupiter.api.Assertions;
@@ -35,7 +38,14 @@ public class PropertyControllerTest {
     public void savePropertyTest() throws IOException, NeighborhoodNotFoundException {
         PropertyDTO property = TestUtilGenerator.getPropertyDTOWithFourRooms();
         Assertions.assertEquals(ResponseEntity.ok().build(), propertyController.saveProperty(property));
+    }
 
+    @Test
+    public void getAllProperties() {
+        List<Property> properties = TestUtilGenerator.getListOfProperties();
+        List<PropertyAllDTO> dtos = PropertyMapper.toAllPropertiesList(properties);
+        when(propertyService.getAllProperties()).thenReturn(dtos);
+        assertEquals(ResponseEntity.ok(dtos), propertyController.getAllProperties());
     }
 
     @Test

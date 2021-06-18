@@ -92,4 +92,28 @@ public class TestUtilGenerator {
         Property property = new Property(1, "Home", neigh, rooms);
         return property;
     }
+
+    public static List<Property> getListOfProperties() {
+        List<Property> properties = new ArrayList<>();
+
+        Neighborhood neigh = new Neighborhood("La Plata", 400.0);
+        Room room1 = new Room("Living room", 5, 4);
+        Room room2 = new Room("Bedroom", 5, 5);
+        List<Room> rooms = new ArrayList<>();
+        rooms.add(room1);
+        rooms.add(room2);
+        Property property = new Property(1, "Office", neigh, rooms);
+        properties.add(property);
+
+        Neighborhood neigh2 = new Neighborhood("La Plata", 400.0);
+        Room room3 = new Room("Living room", 5, 4);
+        Room room4 = new Room("Bedroom", 5, 5);
+        List<Room> rooms2 = new ArrayList<>();
+        rooms.add(room1);
+        rooms.add(room2);
+        Property property2 = new Property(1, "Home", neigh, rooms);
+        properties.add(property2);
+
+        return properties;
+    }
 }
