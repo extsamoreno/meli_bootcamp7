@@ -1,17 +1,16 @@
 package com.example.tuCasita.integration;
 
 import com.example.tuCasita.dtos.DistrictDTO;
-import com.example.tuCasita.dtos.EnviromentAreasDTO;
 import com.example.tuCasita.dtos.EnviromentDTO;
 import com.example.tuCasita.dtos.HomeDTO;
 import com.example.tuCasita.models.District;
 import com.example.tuCasita.models.Enviroment;
 import com.example.tuCasita.models.Home;
 import com.example.tuCasita.repositories.IHomeRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,16 +107,20 @@ public class HomeControllerIntegTest {
 
         Home home = new Home(1,"Home test",district,enviromentList);
 
-        Enviroment expected = env1;
+        String expected = "{\"id\":1,\"name\":\"Enviroment 1\",\"width\":10.0,\"length\":10.0}";
 
         Mockito.when(repository.getHomeById(1)).thenReturn(home);
 
-        this .mockMvc.perform(MockMvcRequestBuilders
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders
                 .get("/getBiggest/{homeId}",1 ))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                //.andExpect(content().string(expected))
                 .andReturn();
+
+        String recived = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        Assertions.assertEquals(expected, recived);
+
     }
 
     @Test
@@ -135,18 +140,16 @@ public class HomeControllerIntegTest {
         Mockito.when(repository.getHomeById(1)).thenReturn(home);
         Mockito.when(repository.findEnviromentsById(1)).thenReturn(enviromentList);
 
-        List<EnviromentAreasDTO> expected = new ArrayList<>();
-        EnviromentAreasDTO envArea1 = new EnviromentAreasDTO("Enviroment 1",100.00);
-        EnviromentAreasDTO envArea2 = new EnviromentAreasDTO("Enviroment 2",25.00);
-        expected.add(envArea1);
-        expected.add(envArea2);
+        String expected = "[{\"name\":\"Enviroment 1\",\"area\":100.0},{\"name\":\"Enviroment 2\",\"area\":25.0}]";
 
-        this .mockMvc.perform(MockMvcRequestBuilders
+        MvcResult mvcResult =  this.mockMvc.perform(MockMvcRequestBuilders
                 .get("/getMeter/{homeId}",1 ))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                //.andExpect(content().string(expected))
                 .andReturn();
+
+        String recived = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
+        Assertions.assertEquals(expected, recived);
     }
 
     @Test

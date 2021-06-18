@@ -176,7 +176,33 @@ public class HomeServiceTest {
         HomeResponseDTO recived = service.insertHome(homeDTO);
 
         //assert
-        //Mockito.verify()
+        Assertions.assertEquals(expected,recived);
+    }
+
+    @Test
+    public void getPriceOk() throws HomeIdNotFoundException {
+        //arrange
+        Integer id = 1;
+        District district = new District(1,"District Test",500.00);
+        List<Enviroment> enviromentList = new ArrayList<>();
+        Enviroment envi1 = new Enviroment(1,"Enviroment 1 test",10.00,10.00);
+        Enviroment envi2 = new Enviroment(2,"Enviroment 2 test",5.00,5.00);
+
+        enviromentList.add(envi1);
+        enviromentList.add(envi2);
+
+        Home home = new Home(1,"Home Test",district,enviromentList);
+
+        Mockito.when(repository.getHomeById(id)).thenReturn(home);
+
+        //price 500.00 * squaremeters 125
+        Double expected = 62500.00;
+
+        //act
+        Double recived = service.getPrice(id);
+
+        //assert
+        Mockito.verify(repository,Mockito.atLeastOnce()).getHomeById(id);
         Assertions.assertEquals(expected,recived);
     }
 }
