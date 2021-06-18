@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "67940ef1-34e9-48f6-9272-06f0bbd38b41",
+		"name": "Desafio2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "property/calculateTotalMeters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/calculateTotalMeters/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"calculateTotalMeters",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "property/biggerEnvironment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/biggerEnvironment/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"biggerEnvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "property/metersByEnvironment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/metersByEnvironment/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"metersByEnvironment",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "property/price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/property/price/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"price",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "property/addProperty",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"name\": \"House1\",\n    \"districtName\":\"Barrio 1\",\n    \"environments\": [\n      {\n        \"id\": 1,\n        \"name\": \"Room1\",\n        \"width\": 1,\n        \"length\": 2\n      },\n      {\n        \"id\": 2,\n        \"name\": \"Room2\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/property/addProperty",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"property",
+						"addProperty"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

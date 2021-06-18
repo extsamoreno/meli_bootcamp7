@@ -1,21 +1,21 @@
 [
   {
     "id": 1,
-    "name": "House1",
+    "name": "home",
     "district": {
       "name": "Barrio 1",
       "price": 7.0
     },
     "environments": [
       {
-        "name": "Room1",
-        "width": 1.0,
-        "length": 2.0
+        "name": "Bathroom",
+        "width": 3.0,
+        "length": 3.0
       },
       {
-        "name": "Room2",
-        "width": 2.0,
-        "length": 2.0
+        "name": "Room",
+        "width": 4.0,
+        "length": 4.0
       }
     ]
   }

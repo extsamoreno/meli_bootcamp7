@@ -26,16 +26,12 @@ public class PropertyService implements IPropertyService {
 
     @Override
     public ResponseCalculateTotalMetersDTO getResponseCalculateTotalMetersDTO(int propertyId) throws Exception {
-        ResponseCalculateTotalMetersDTO response = new ResponseCalculateTotalMetersDTO();
         Property property = iPropertyRepository.getPropertyById(propertyId);
-
         if (property == null) {
             throw new NotFoundException("Property does not exists");
         }
-        response.setName(property.getName());
-        response.setTotalMeters(getTotalMeters(property.getEnvironments()));
 
-        return response;
+        return Mapper.getResponseCalculateTotalMetersDTO(property, getTotalMeters(property.getEnvironments()));
     }
 
     private double getTotalMeters(List<Environment> environments) {
@@ -66,12 +62,7 @@ public class PropertyService implements IPropertyService {
                 environment = environmentEntry;
             }
         }
-        ResponseBiggerEnvironmentDTO response = new ResponseBiggerEnvironmentDTO();
-        response.setName(property.getName());
-        response.setEnvironmentName(environment.getName());
-        response.setBiggerEnvironmentMeters(total);
-
-        return response;
+        return Mapper.getResponseBiggerEnvironmentDTO(property.getName(), environment.getName(), total);
     }
 
     @Override
@@ -84,22 +75,9 @@ public class PropertyService implements IPropertyService {
         if (property.getEnvironments() == null) {
             throw new NotFoundException("Property has not environment");
         }
+        List<EnvironmentDTO> list = Mapper.toEnvironmentDTO(property.getEnvironments());
 
-        List<EnvironmentDTO> list = new ArrayList<>();
-        for (Environment environmentEntry : property.getEnvironments()) {
-            EnvironmentDTO environment = new EnvironmentDTO();
-            environment.setName(environmentEntry.getName());
-            environment.setLength(environmentEntry.getLength());
-            environment.setWidth(environmentEntry.getWidth());
-            environment.setTotalMeters(environmentEntry.getLength() * environmentEntry.getWidth());
-            list.add(environment);
-        }
-
-        ResponseTotalMetersByEnvironmentDTO response = new ResponseTotalMetersByEnvironmentDTO();
-        response.setNameProperty(property.getName());
-        response.setEnvironments(list);
-
-        return response;
+        return Mapper.getResponseTotalMetersByEnvironmentDTO(property,list);
     }
 
     @Override
@@ -112,36 +90,22 @@ public class PropertyService implements IPropertyService {
         if (property.getEnvironments() == null) {
             throw new NotFoundException("Property has not environment");
         }
-
         double priceByMeter = property.getDistrict().getPrice();
         double totalPrice = getTotalMeters(property.getEnvironments()) * priceByMeter;
 
-        ResponsePriceDTO response = new ResponsePriceDTO();
-        response.setPropertyId(propertyId);
-        response.setPropertyName(property.getName());
-        response.setPrice(totalPrice);
-
-        return response;
+        return Mapper.getResponsePriceDTO(property,totalPrice);
     }
 
     @Override
     public void addProperty(PropertyDTO propertyDTO) throws Exception {
         Property aux = iPropertyRepository.getPropertyById(propertyDTO.getId());
-
-        if(aux != null){
+        if (aux != null) {
             throw new BadRequestException("Property already exist");
         }
-
         District district = iDistrictRepository.findDistrictByName(propertyDTO.getDistrictName());
-
         if (district == null) {
             throw new NotFoundException("District does not exists");
         }
-        Property property = new Property();
-        property.setId(propertyDTO.getId());
-        property.setName(propertyDTO.getName());
-        property.setDistrict(district);
-        property.setEnvironments(Mapper.toEnvironment(propertyDTO.getEnvironments()));
-        iPropertyRepository.addProperty(property);
+        iPropertyRepository.addProperty(Mapper.toProperty(propertyDTO, district));
     }
 }

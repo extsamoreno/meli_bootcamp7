@@ -143,6 +143,7 @@ public class PropertyServiceTest {
     public void addPropertyBadRequestPropertyAlreadyExistsTest() throws Exception {
 
         Property property = UtilTest.getPropertyWithEnvironments();
+        iPropertyRepository.addProperty(property);
 
         when(iPropertyRepository.getPropertyById(property.getId())).thenReturn(property);
 

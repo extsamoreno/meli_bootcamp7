@@ -1,10 +1,1 @@
-[
-  {
-    "name": "Barrio 1",
-    "price": 7.0
-  },
-  {
-    "name": "Barrio 4",
-    "price": 5.0
-  }
-]
+[{"name":"Barrio 1","price":2.0},{"name":"Barrio 4","price":3.0},{"name":null,"price":null}]
