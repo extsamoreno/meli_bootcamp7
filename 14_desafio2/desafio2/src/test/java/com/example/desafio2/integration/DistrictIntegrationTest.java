@@ -41,7 +41,7 @@ public class DistrictIntegrationTest {
     public void addDistrictHappyPath() throws Exception {
         //arrange
         int generatedId = 1;
-        DistrictDTO dist = new DistrictDTO("district", 500);
+        DistrictDTO dist = new DistrictDTO("district", 500D);
         Mockito.when(iDistrictRepository.add(DistrictMapper.toModel(dist))).thenReturn(generatedId);
 
         ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();

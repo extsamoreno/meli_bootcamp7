@@ -17,7 +17,7 @@ public class DistrictMapperTest {
     @Test
     public void toModelHappyPath() {
         District district = new District("district", 500);
-        DistrictDTO districtDTO = new DistrictDTO("district", 500);
+        DistrictDTO districtDTO = new DistrictDTO("district", 500D);
 
         Assertions.assertEquals(district, DistrictMapper.toModel(districtDTO));
     }

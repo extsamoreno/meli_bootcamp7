@@ -18,10 +18,10 @@ public class RoomDTO {
     @NotNull(message = "El ancho del ambiente no puede estar vacio.")
     @PositiveOrZero
     @DecimalMax(value = "25.0", message = "El maximo ancho permitido por propiedad es de 25 mts.")
-    private double width;
+    private Double width;
 
     @NotNull(message = "El largo del ambiente no puede estar vacio.")
     @PositiveOrZero
     @DecimalMax(value = "33.0", message = "El maximo largo permitido por propiedad es de 33 mts.")
-    private double length;
+    private Double length;
 }

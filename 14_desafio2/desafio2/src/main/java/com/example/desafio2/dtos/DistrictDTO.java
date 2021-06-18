@@ -17,5 +17,5 @@ public class DistrictDTO {
     @NotNull
     @PositiveOrZero
     @DecimalMax(value = "4000.0", message = "El precio maximo permitido por metro cuadrado no puede superar los 4000U$S.")
-    private double price;
+    private Double price;
 }

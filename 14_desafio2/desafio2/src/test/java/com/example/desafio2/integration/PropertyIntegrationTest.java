@@ -45,7 +45,6 @@ public class PropertyIntegrationTest {
 
     @Test
     public void addPropertyHappyPath() throws Exception {
-        //arrange
         int expected = 1;
         PropertyDTO prop = TestUtilsGenerator.getPropertyDTOWith3Rooms("AddIntegrationTestHouse");
         Mockito.when(iPropertyRepository.add(PropertyMapper.toModel(prop))).thenReturn(expected);
@@ -54,7 +53,6 @@ public class PropertyIntegrationTest {
         ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
 
         String propJson = writer.writeValueAsString(prop);
-        //act
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/properties/add")
                     .contentType("application/json")
@@ -75,7 +73,6 @@ public class PropertyIntegrationTest {
 
         ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
         String propJson = writer.writeValueAsString(prop);
-        //act
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/properties/add")
                 .contentType("application/json")

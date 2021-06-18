@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "ad6dbf0b-3256-4664-b0a1-2f60e92c1808",
+		"name": "Desafio 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add house",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"casa inicial\",\n    \"district\": {\n        \"name\": \"Saavedra\",\n        \"price\": 10\n    },\n    \"roomList\": [\n        {\n            \"name\": \"Living\",\n            \"width\": 5,\n            \"length\": 6\n        },\n        {\n            \"name\": \"Bedroom\",\n            \"width\": 3,\n            \"length\": 4\n        },\n        {\n            \"name\": \"Kitchen\",\n            \"width\": 3,\n            \"length\": 6\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "Http://localhost:8080/properties/add",
+					"protocol": "Http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get total square meters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Http://localhost:8080/properties/1/area",
+					"protocol": "Http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"1",
+						"area"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get biggest room",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Http://localhost:8080/properties/1/rooms/biggest",
+					"protocol": "Http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"1",
+						"rooms",
+						"biggest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get square meters per room",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Http://localhost:8080/properties/1/rooms/area",
+					"protocol": "Http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"1",
+						"rooms",
+						"area"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get price",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "Http://localhost:8080/properties/2/price",
+					"protocol": "Http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"2",
+						"price"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add district",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Distrito 12\",\n    \"price\": 500\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "Http://localhost:8080/districts/add",
+					"protocol": "Http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"districts",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
