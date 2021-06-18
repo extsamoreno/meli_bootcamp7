@@ -41,7 +41,7 @@ public class PropertyController {
         return new ResponseEntity<>(this.propertyService.getBiggerEnvironment(propertyName), HttpStatus.OK);
     }
 
-    @GetMapping("/getEnviromentsSizes/{propertyName}")
+    @GetMapping("/getEnvironmentsSizes/{propertyName}")
     public ResponseEntity<EnvironmentSizesDTO> getEnvironments(@PathVariable String propertyName) {
         return new ResponseEntity<>(this.propertyService.getEnvironments(propertyName), HttpStatus.OK);
     }
