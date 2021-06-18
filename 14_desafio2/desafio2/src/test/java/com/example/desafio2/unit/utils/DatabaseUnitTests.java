@@ -35,13 +35,6 @@ public class DatabaseUnitTests {
         Assertions.assertTrue(Database.listDistricts.size() > 0);
     }
 
-    @Test
-    public void Desafio2ApplicationMainHappyPath() throws Exception{
-        //Arrange
-        String[] strings = new String[]{"test"};
 
-        //Act
-        Desafio2Application.main(strings);
-    }
 
 }

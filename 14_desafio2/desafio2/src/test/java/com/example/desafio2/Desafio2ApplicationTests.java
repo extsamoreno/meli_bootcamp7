@@ -10,4 +10,12 @@ class Desafio2ApplicationTests {
     void contextLoads() {
     }
 
+    @Test
+    public void Desafio2ApplicationMainHappyPath(){
+        //Arrange
+        String[] strings = new String[]{"test"};
+
+        //Act
+        Desafio2Application.main(strings);
+    }
 }
