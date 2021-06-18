@@ -77,6 +77,11 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.4.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -92,6 +97,39 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <!--(mvn test) desde la terminal -> buscar en carpeta target , site y ir al html-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/com/meli/demo/dto/*</exclude>
+                        <exclude>**/com/meli/demo/dto/response/*</exclude>
+                        <exclude>**/com/meli/demo/exepciones/*</exclude>
+                        <exclude>**/com/meli/demo/model/*</exclude>
+                        <exclude>**/com/meli/demo/*</exclude>
+                        <exclude>**/com/meli/demo/service/mapper/*</exclude>
+                        <exclude>**/com/meli/demo/controller/TuCasitaExceptionController.class</exclude>
+                    </excludes>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
