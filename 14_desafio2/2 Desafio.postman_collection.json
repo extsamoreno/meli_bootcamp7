@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "78267460-c49e-43e5-8344-d2ba6c66633c",
+		"name": "2 Desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/properties/addOne",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"propId\": 2,\n    \"propName\": \"Torre Libertador\",\n    \"districtName\": \"Belgrano\",\n    \"environments\": [\n        {\n            \"environmentName\": \"Living\",\n            \"evironmentWidth\": 5.0,\n            \"environmentLength\": 10.0\n        },\n        {\n            \"environmentName\": \"Cocina\",\n            \"evironmentWidth\": 5.0,\n            \"environmentLength\": 7.0\n        },\n        {\n            \"environmentName\": \"Dormitorio\",\n            \"evironmentWidth\": 5.0,\n            \"environmentLength\": 5.0\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/properties/addOne",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"addOne"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/districts/addOne",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"districtName\": \"Villa Devoto\",\n    \"districtPrize\": 250.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/districts/addOne",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"districts",
+						"addOne"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/properties/calculateTotalSquareMeters?idProperty=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/calculateTotalSquareMeters?idProperty=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"calculateTotalSquareMeters"
+					],
+					"query": [
+						{
+							"key": "idProperty",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/properties/calculatePrice?idProperty=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/calculatePrice?idProperty=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"calculatePrice"
+					],
+					"query": [
+						{
+							"key": "idProperty",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/properties/biggestEnvironment?idProperty=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/biggestEnvironment?idProperty=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"biggestEnvironment"
+					],
+					"query": [
+						{
+							"key": "idProperty",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/properties/calculateEnvironmentsSquareMeters?idProperty=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/properties/calculateEnvironmentsSquareMeters?idProperty=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"properties",
+						"calculateEnvironmentsSquareMeters"
+					],
+					"query": [
+						{
+							"key": "idProperty",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
