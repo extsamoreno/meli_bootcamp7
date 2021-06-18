@@ -2,6 +2,7 @@ package com.desafio2.Repository;
 
 import com.desafio2.Exception.DistrctNotFoundException;
 import com.desafio2.Model.District;
+import com.desafio2.Utils.FileUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
@@ -77,12 +78,11 @@ public class DistrictRepository implements IDistrctRepository {
 
     private void loadData() {
         Set<District> loadedData = new HashSet<>();
-
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<District>>(){});
+            loadedData = objectMapper.readValue(file, new TypeReference<>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");
@@ -90,22 +90,11 @@ public class DistrictRepository implements IDistrctRepository {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
-
         this.districts = loadedData;
     }
 
     private void saveData() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/districts.json");
-            objectMapper.writeValue(file, this.districts);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your resources files");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your JSON formatting.");
-        }
+        FileUtils.saveData(this.districts, "./src/" + SCOPE + "/resources/districts.json");
     }
 
 }

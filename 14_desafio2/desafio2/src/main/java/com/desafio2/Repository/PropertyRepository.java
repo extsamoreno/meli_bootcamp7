@@ -1,6 +1,7 @@
 package com.desafio2.Repository;
 
 import com.desafio2.Exception.PropertyNotFoundException;
+import com.desafio2.Utils.FileUtils;
 import com.desafio2.Model.Property;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -76,13 +77,13 @@ public class PropertyRepository implements IPropertyRepository{
     }
 
     private void loadData() {
+        //properties = FileUtils.loadData(properties, "./src/" + SCOPE + "/resources/properties.json");
         Set<Property> loadedData = new HashSet<>();
-
         ObjectMapper objectMapper = new ObjectMapper();
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<Property>>(){});
+            loadedData = objectMapper.readValue(file, new TypeReference<>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");
@@ -90,21 +91,10 @@ public class PropertyRepository implements IPropertyRepository{
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your JSON formatting.");
         }
-
         this.properties = loadedData;
     }
 
     private void saveData() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/properties.json");
-            objectMapper.writeValue(file, this.properties);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your resources files");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your JSON formatting.");
-        }
+        FileUtils.saveData(this.properties, "./src/" + SCOPE + "/resources/properties.json");
     }
 }

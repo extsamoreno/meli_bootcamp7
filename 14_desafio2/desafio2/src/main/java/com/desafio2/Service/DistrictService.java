@@ -11,6 +11,10 @@ public class DistrictService implements IDistrictService{
     @Autowired
     IDistrctRepository iDistrctRepository;
 
+    /**
+     * Creates a district
+     * @param district district
+     */
     @Override
     public void create(District district) {
         iDistrctRepository.save(district);

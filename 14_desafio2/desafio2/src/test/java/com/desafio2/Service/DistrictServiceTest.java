@@ -1,7 +1,6 @@
 package com.desafio2.Service;
 
 import com.desafio2.Model.District;
-import com.desafio2.Model.Property;
 import com.desafio2.Repository.IDistrctRepository;
 import com.desafio2.Utils.TestUtils;
 import org.junit.jupiter.api.Test;

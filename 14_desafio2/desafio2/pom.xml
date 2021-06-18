@@ -69,6 +69,36 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/com/desafio2/Exception/*</exclude>
+                        <exclude>**/com/desafio2/DTO/*</exclude>
+                        <exclude>**/com/desafio2/Model/*</exclude>
+                        <exclude>**/com/desafio2/Utils/*</exclude>
+                        <exclude>**/com/desafio2/Desafio2Application*</exclude>
+                        <exclude>**/com/desafio2/Controller/PropertyExceptionController*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>

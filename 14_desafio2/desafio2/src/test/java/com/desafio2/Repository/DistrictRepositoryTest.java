@@ -2,15 +2,21 @@ package com.desafio2.Repository;
 
 import com.desafio2.Exception.DistrctNotFoundException;
 import com.desafio2.Model.District;
-import com.desafio2.Repository.DistrictRepository;
-import com.desafio2.Repository.IDistrctRepository;
 import com.desafio2.Utils.TestUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.util.ResourceUtils;
 
+@ExtendWith(MockitoExtension.class)
 public class DistrictRepositoryTest {
+
+    @Mock
+    ResourceUtils resourceUtils;
 
     IDistrctRepository iDistrctRepository;
 
@@ -99,4 +105,5 @@ public class DistrictRepositoryTest {
         Assertions.assertFalse(iDistrctRepository.exists(district));
         Assertions.assertThrows(DistrctNotFoundException.class,() -> iDistrctRepository.findByName(district.getDistrict_name()));
     }
+
 }

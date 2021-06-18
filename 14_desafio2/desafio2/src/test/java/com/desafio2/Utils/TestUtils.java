@@ -52,7 +52,7 @@ public class TestUtils {
         environmentList.add(environment2);
         environmentList.add(environment3);
 
-        return new Property(name,"Center", environmentList);
+        return new Property(name,"West", environmentList);
     }
 
 
@@ -60,6 +60,10 @@ public class TestUtils {
         Random r = new Random();
         int randomInt = r.nextInt(100) + 1;
         return new Environment("Room" + randomInt, 6.7, 10.5);
+    }
+
+    public static Environment getBiggestEnvironment() {
+        return new Environment("Room2", 8.0, 11.0);
     }
 
 
@@ -78,5 +82,19 @@ public class TestUtils {
         environmentList.add(environment3);
 
         return environmentList;
+    }
+
+
+    public static Property createNotValidProperty() {
+        Environment environment1 = new Environment("Room1", 6.0, 10.0);
+        Environment environment2 = new Environment("Room2", 8.0, 11.0);
+        Environment environment3 = new Environment("Room3", 5.0, 8.0);
+
+        List<Environment> environmentList = new ArrayList<>();
+        environmentList.add(environment1);
+        environmentList.add(environment2);
+        environmentList.add(environment3);
+
+        return new Property("notValidName","West", environmentList);
     }
 }

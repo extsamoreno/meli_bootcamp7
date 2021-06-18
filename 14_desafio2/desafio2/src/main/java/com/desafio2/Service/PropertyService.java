@@ -20,14 +20,23 @@ public class PropertyService implements IPropertyService{
     @Autowired
     IDistrctRepository iDistrctRepository;
 
+    /**
+     * Creates a property
+     * @param property property
+     */
     @Override
     public void create(Property property) {
         iPropertyRepository.save(property);
     }
 
+    /**
+     * Calculates total square meters of a property
+     * @param property_name property name
+     * @return square meters of a property
+     */
     @Override
-    public double getTotalSquareMeters(String name) {
-        Property property = iPropertyRepository.findByName(name);
+    public double getTotalSquareMeters(String property_name) {
+        Property property = iPropertyRepository.findByName(property_name);
 
         double squareMeters = 0;
         for(Environment e : property.getEnvironments()) {
@@ -36,18 +45,33 @@ public class PropertyService implements IPropertyService{
         return squareMeters;
     }
 
+    /**
+     * Calculates square meters of an environment
+     * @param environment environment
+     * @return square meters of environment
+     */
     @Override
     public double getRoomSquareMeters(Environment environment) {
         return environment.getEnvironment_width() * environment.getEnvironment_length();
     }
 
+    /**
+     * Calculates property price
+     * @param property_name property name
+     * @return property price
+     */
     @Override
-    public double getPropertyPrice(String name) {
-        Property property = iPropertyRepository.findByName(name);
+    public double getPropertyPrice(String property_name) {
+        Property property = iPropertyRepository.findByName(property_name);
         double districtPrice = iDistrctRepository.findByName(property.getDistrict_name()).getDistrict_price();
-        return getTotalSquareMeters(name) * districtPrice;
+        return getTotalSquareMeters(property_name) * districtPrice;
     }
 
+    /**
+     * Calculates the biggest environment of a property
+     * @param property_name name of the property
+     * @return biggest environment of a property
+     */
     @Override
     public Environment getBiggestEnvironment(String property_name) {
         Property property = iPropertyRepository.findByName(property_name);
@@ -62,9 +86,14 @@ public class PropertyService implements IPropertyService{
         return maxEnvironment;
     }
 
+    /**
+     * Calculates the environments square meters of a property
+     * @param property_name name of property
+     * @return list of environment, with name and total square meters of each
+     */
     @Override
-    public List<EnvironmentDTO> getEnvironmentListWithSquareMeters(String name) {
-        Property property = iPropertyRepository.findByName(name);
+    public List<EnvironmentDTO> getEnvironmentListWithSquareMeters(String property_name) {
+        Property property = iPropertyRepository.findByName(property_name);
         List<EnvironmentDTO> environmentDTOS = new ArrayList<>();
         for (Environment e : property.getEnvironments()) {
             EnvironmentDTO environmentDTO = new EnvironmentDTO(e.getEnvironment_name(), getRoomSquareMeters(e));
@@ -72,6 +101,4 @@ public class PropertyService implements IPropertyService{
         }
         return environmentDTOS;
     }
-
-
 }

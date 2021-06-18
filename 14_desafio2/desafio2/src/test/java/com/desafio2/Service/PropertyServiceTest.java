@@ -6,7 +6,6 @@ import com.desafio2.Model.Environment;
 import com.desafio2.Model.Property;
 import com.desafio2.Repository.IDistrctRepository;
 import com.desafio2.Repository.IPropertyRepository;
-import com.desafio2.Service.PropertyService;
 import com.desafio2.Utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

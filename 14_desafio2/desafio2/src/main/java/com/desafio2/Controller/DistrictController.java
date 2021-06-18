@@ -18,6 +18,11 @@ public class DistrictController {
     @Autowired
     IDistrictService iDistrictService;
 
+    /**
+     * Creates a district
+     * @param district a district
+     * @return status OK (200) if ok, 400 if not
+     */
     @PostMapping("/create")
     public ResponseEntity<?> createDistrict(@RequestBody @Valid District district) {
         this.iDistrictService.create(district);
