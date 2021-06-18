@@ -65,7 +65,7 @@ public class PropertyRepository implements IPropertyRepository {
 
     @Override
     public boolean add(Property property) {
-        int newId = getNextAvailableId(this.propertys.size());
+        int newId = this.propertys.size() + 1;
         property.setId(newId);
         propertys.put(newId, property);
         return true;
@@ -80,14 +80,5 @@ public class PropertyRepository implements IPropertyRepository {
         }
 
         return property;
-    }
-
-    //Get the next available integer
-    private int getNextAvailableId(int size) {
-        int newId = size + 1;
-        if (propertys.get(newId) != null) {
-            return getNextAvailableId(size + 1);
-        }
-        return newId;
     }
 }

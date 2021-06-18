@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class PropertyControllerExcpetion {
+public class PropertyControllerException {
     @ExceptionHandler(PropertyException.class)
     public ResponseEntity<ErrorDTO> handlePostException(PropertyException exception) {
         return new ResponseEntity<>(exception.getError(), exception.getStatus());
