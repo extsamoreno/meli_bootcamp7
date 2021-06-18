@@ -10,7 +10,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/houses/getmeter2/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"houses",
+						"getmeter2",
+						"2"
+					]
+				}
 			},
 			"response": []
 		},
@@ -19,16 +30,40 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/houses/getmaxambient/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"houses",
+						"getmaxambient",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "GetMaxAmbient",
+			"name": "GetSizeforAmbient",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/houses/1/ambient/Cosina/getmaxambient",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"houses",
+						"1",
+						"ambient",
+						"Cosina",
+						"getmaxambient"
+					]
+				}
 			},
 			"response": []
 		},
@@ -37,7 +72,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "localhost:8080/houses/getprice/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"houses",
+						"getprice",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}
