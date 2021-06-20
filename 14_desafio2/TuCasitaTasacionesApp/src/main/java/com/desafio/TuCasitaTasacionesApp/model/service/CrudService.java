@@ -14,11 +14,7 @@ public class CrudService implements ICrudService{
     @Autowired
     IPropietyRepository iPropietyRepository;
 
-    private ModelMapper mapper;
-
-    public CrudService(ModelMapper mapper) {
-        this.mapper = mapper;
-    }
+    private ModelMapper mapper = new ModelMapper();
 
     @Override
     public String createPropiety(PropietyDTO propietyDTO) throws PropietyAlreadyExistException{

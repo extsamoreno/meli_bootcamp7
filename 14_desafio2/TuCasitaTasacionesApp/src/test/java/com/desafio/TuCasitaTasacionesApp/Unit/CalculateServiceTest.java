@@ -1,13 +1,12 @@
 package com.desafio.TuCasitaTasacionesApp.Unit;
 
 import com.desafio.TuCasitaTasacionesApp.model.dao.models.Propiety;
-import com.desafio.TuCasitaTasacionesApp.model.dao.models.Room;
 import com.desafio.TuCasitaTasacionesApp.model.dao.repository.IPropietyRepository;
-import com.desafio.TuCasitaTasacionesApp.model.dto.PropietyDTOResponseCost;
-import com.desafio.TuCasitaTasacionesApp.model.dto.PropietyDTOResponseTotalMeters;
+import com.desafio.TuCasitaTasacionesApp.model.dto.*;
 import com.desafio.TuCasitaTasacionesApp.model.exceptions.NeighborhoodNotFoundException;
 import com.desafio.TuCasitaTasacionesApp.model.exceptions.PropietyNotFoundException;
 import com.desafio.TuCasitaTasacionesApp.model.service.CalculateService;
+import com.desafio.TuCasitaTasacionesApp.model.service.helpers.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +15,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,33 +24,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class CalculateServiceTest {
 
-    //@Mock Mapper
-    /*
-    Tuve un problema que me hizo atrasar muchisimo, el mock en el service no lo habia inyectado y eso generaba que no
-    pudiera mockear el repositorio. Lo que termine haciendo fue inyectando el moc
-     */
     @Mock
     IPropietyRepository iPropietyRepository;
 
     @InjectMocks
     CalculateService calculateService;
-
-    public Propiety createRepoWith1House(String name, String neighborhood){
-
-        Room roomDTO1 = new Room("hab1", 1D, 1D);
-        Room roomDTO2 = new Room("hab1", 1D, 1D);
-        List<Room> roomList = new ArrayList<>();
-        roomList.add(roomDTO1);
-        roomList.add(roomDTO2);
-
-        Propiety propietyAux = new Propiety();
-        propietyAux.setName(name);
-        propietyAux.setNeighborhood(neighborhood);
-        propietyAux.setRoomList(roomList);
-
-        return propietyAux;
-    }
-
 
     @Test
     void getSquareMeterForPropiety_propietyNotFound_propietyNotFoundException(){
@@ -65,7 +41,7 @@ public class CalculateServiceTest {
     void getSquareMeterForPropiety_propietyFound_true() throws PropietyNotFoundException {
 
         String value = "Dummy";
-        Propiety propiety = createRepoWith1House(value, "Adrogue");
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(value, "Adrogue");
 
         when(iPropietyRepository.get(value)).thenReturn(propiety);
 
@@ -81,7 +57,7 @@ public class CalculateServiceTest {
 
         String neighborhood = "Constitucion";
         String name = "Dummy";
-        Propiety propiety = createRepoWith1House("Dummy", neighborhood);
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1("Dummy", neighborhood);
 
         when(iPropietyRepository.get(name)).thenReturn(propiety);
 
@@ -91,5 +67,50 @@ public class CalculateServiceTest {
         assertEquals(1000, receive.getCost());
     }
 
+    @Test
+    void getValueForPropiety_neighborhoodNotFound_NeighborhoodNotFoundException(){
+        String neighborhood = "Adrogue";
+        String name = "Dummy";
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1("Dummy", neighborhood);
+
+        when(iPropietyRepository.get(name)).thenReturn(propiety);
+
+        assertThrows(NeighborhoodNotFoundException.class,() ->calculateService.getValueForPropiety(name));
+        verify(iPropietyRepository, Mockito.atLeast(1)).get(name);
+    }
+
+    @Test
+    void getBiggestRoom_nameOfPropietyFound_bigRoomDTO() throws PropietyNotFoundException {
+        String neighborhood = "Adrogue";
+        String name = "Dummy";
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1_1x2("Dummy", neighborhood);
+        RoomDTO expected = new RoomDTO("room2", 1D, 2D);
+
+        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        RoomDTO receive = calculateService.getBiggestRoom(name);
+
+        verify(iPropietyRepository, Mockito.atLeast(1)).get(name);
+        assertEquals(expected, receive);
+    }
+
+    @Test
+    void getSquareMeterForRoom_nameOfPropietyFound_RoomMetersListResponseDTO() throws PropietyNotFoundException {
+        String neighborhood = "Adrogue";
+        String name = "Dummy";
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1_1x2("Dummy", neighborhood);
+
+        ArrayList<RoomMetersResponseDTO> roomList = new ArrayList<>();
+        roomList.add(new RoomMetersResponseDTO("room1", 1D));
+        roomList.add(new RoomMetersResponseDTO("room2", 2D));
+
+        RoomMetersListResponseDTO expected = new RoomMetersListResponseDTO();
+        expected.setRoomMetersResponseDTOList(roomList);
+
+        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        RoomMetersListResponseDTO receive = calculateService.getSquareMeterForRoom(name);
+
+        verify(iPropietyRepository, Mockito.atLeast(1)).get(name);
+        assertEquals(expected.getList(), receive.getList());
+    }
 
 }

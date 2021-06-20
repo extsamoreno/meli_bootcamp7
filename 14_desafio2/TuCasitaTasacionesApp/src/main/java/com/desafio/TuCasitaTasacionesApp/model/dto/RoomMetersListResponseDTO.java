@@ -14,6 +14,10 @@ public class RoomMetersListResponseDTO {
         roomMetersResponseDTOList.add(roomMetersResponseDTO);
     }
 
+    public void setRoomMetersResponseDTOList(ArrayList<RoomMetersResponseDTO> roomMetersResponseDTOList) {
+        this.roomMetersResponseDTOList = roomMetersResponseDTOList;
+    }
+
     public ArrayList<RoomMetersResponseDTO> getList() {
         return this.roomMetersResponseDTOList;
     }

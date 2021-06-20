@@ -25,6 +25,7 @@ public class PropietyRepository implements IPropietyRepository {
 
     @Override
     public boolean create(Propiety propiety){
+        System.out.println("Estoy en repository");
         boolean res = true;
         if(!exist(propiety)) propietyList.add(propiety);
         else res = false;

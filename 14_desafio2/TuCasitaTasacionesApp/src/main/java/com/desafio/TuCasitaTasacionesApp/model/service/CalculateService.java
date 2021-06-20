@@ -18,57 +18,35 @@ public class CalculateService implements ICalculateService {
     IPropietyRepository iPropietyRepository;
 
     private ModelMapper mapper = new ModelMapper();
-    //public CalculateService(ModelMapper mapper) {
-    //    this.mapper = mapper;
-    //}
+
+    private PropietyDTO getPropiety(String name) throws PropietyNotFoundException {
+        Propiety propiety = iPropietyRepository.get(name);
+        if(propiety == null) throw new PropietyNotFoundException(name);
+        PropietyDTO propietyDTO = mapToDTO(propiety);
+        return propietyDTO;
+    }
 
     @Override
     public PropietyDTOResponseTotalMeters getSquareMeterForPropiety(String name) throws PropietyNotFoundException{
-        //Auxiiliares
         double m = 0;
-        //Agarro la propiedad
-
-        Propiety propiety = iPropietyRepository.get(name);
-
-        if(propiety == null) throw new PropietyNotFoundException(name);
-        //convierto a DTO
-        PropietyDTO propietyDTO = mapToDTO(propiety);
-
-        //logica
-        for(RoomDTO hab : propietyDTO.getRoomList()){
-            m += getSquareMetersForRoom(hab);
-        }
+        PropietyDTO propietyDTO = getPropiety(name);
+        for(RoomDTO hab : propietyDTO.getRoomList()) m += getSquareMetersForRoom(hab);
         return new PropietyDTOResponseTotalMeters(m);
     }
 
     @Override
     public PropietyDTOResponseCost getValueForPropiety(String name) throws PropietyNotFoundException, NeighborhoodNotFoundException {
-        //Auxiliares
         double price = 0;
-
-        //agarro la propiedad
-        Propiety propiety = iPropietyRepository.get(name);
-        if(propiety == null) throw new PropietyNotFoundException(name);
-
-        //convierto a DTO
-        PropietyDTO propietyDTO = mapToDTO(propiety);
-
+        PropietyDTO propietyDTO = getPropiety(name);
         String neighborhood = propietyDTO.getNeighborhood();
         if(!m2PriceForNeighborhood.containsKey(neighborhood)) throw new NeighborhoodNotFoundException(neighborhood);
         price = m2PriceForNeighborhood.get(neighborhood);
-
-        return  new PropietyDTOResponseCost(price*getSquareMeterForPropiety(name).getTotalMeters());
+        return new PropietyDTOResponseCost(price*getSquareMeterForPropiety(name).getTotalMeters());
     }
 
     @Override
     public RoomDTO getBiggestRoom(String name) throws PropietyNotFoundException {
-        //agarro la propiedad
-        Propiety propiety = iPropietyRepository.get(name);
-        if(propiety == null) throw new PropietyNotFoundException(name);
-
-        //convierto a DTO
-        PropietyDTO propietyDTO = mapToDTO(propiety);
-
+        PropietyDTO propietyDTO = getPropiety(name);
         RoomDTO bigRoomDTO = new RoomDTO();
         double max = 0;
         for (RoomDTO hab : propietyDTO.getRoomList()) {
@@ -83,17 +61,8 @@ public class CalculateService implements ICalculateService {
 
     @Override
     public RoomMetersListResponseDTO getSquareMeterForRoom(String name) throws PropietyNotFoundException {
-        //Auxiliares
         double m = 0;
-
-        //agarro la propiedad
-        Propiety propiety = iPropietyRepository.get(name);
-        if(propiety == null) throw new PropietyNotFoundException(name);
-
-        //convierto a DTO
-        PropietyDTO propietyDTO = mapToDTO(propiety);
-
-        //logica
+        PropietyDTO propietyDTO = getPropiety(name);
         RoomMetersListResponseDTO roomMetersListResponseDTO = new RoomMetersListResponseDTO();
         for(RoomDTO roomDTO : propietyDTO.getRoomList()){
             m = getSquareMetersForRoom(roomDTO);
