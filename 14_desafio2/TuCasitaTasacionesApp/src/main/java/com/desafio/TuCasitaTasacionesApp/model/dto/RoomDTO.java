@@ -41,22 +41,4 @@ public class RoomDTO {
         return width;
     }
 
-    public void setWidth(Double width) {
-        this.width = width;
-    }
-
-    public Double getLength() {
-        return lenght;
-    }
-
-    public void setLength(Integer length) {
-        this.lenght = lenght;
-    }
-
-    public Double getSquareFeet() {
-        Double result = 0D;
-        if(this.width != null && this.lenght != null)
-            result = this.width * this.lenght;
-        return result;
-    }
 }

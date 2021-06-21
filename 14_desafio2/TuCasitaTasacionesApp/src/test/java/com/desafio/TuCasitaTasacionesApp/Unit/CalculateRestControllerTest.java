@@ -1,70 +1,117 @@
 package com.desafio.TuCasitaTasacionesApp.Unit;
 
-import com.desafio.TuCasitaTasacionesApp.RequestTestCase;
+import com.desafio.TuCasitaTasacionesApp.controllers.CalculateRestController;
+import com.desafio.TuCasitaTasacionesApp.model.dto.PropietyDTOResponseCost;
 import com.desafio.TuCasitaTasacionesApp.model.dto.PropietyDTOResponseTotalMeters;
+import com.desafio.TuCasitaTasacionesApp.model.dto.RoomDTO;
+import com.desafio.TuCasitaTasacionesApp.model.dto.RoomMetersListResponseDTO;
+import com.desafio.TuCasitaTasacionesApp.model.exceptions.NeighborhoodNotFoundException;
+import com.desafio.TuCasitaTasacionesApp.model.exceptions.PropietyNotFoundException;
 import com.desafio.TuCasitaTasacionesApp.model.service.ICalculateService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
-public class CalculateRestControllerTest extends RequestTestCase {
+public class CalculateRestControllerTest{
 
-    @MockBean
+    @Mock
     ICalculateService iCalculateService;
 
-    //@InjectMocks
-    //CalculateRestController calculateRestController;
+    @InjectMocks
+    CalculateRestController calculateRestController;
 
     @Test
     void getSquareMeterForPropietyHappyPath() throws Exception {
-/*
-        Double expected = 2D;
-        RoomDTO roomDTO1 = new RoomDTO("hab1", 1D, 1D);
-        RoomDTO roomDTO2 = new RoomDTO("hab1", 1D, 1D);
-        List<RoomDTO> roomDTOList = new ArrayList<>();
-        roomDTOList.add(roomDTO1);
-        roomDTOList.add(roomDTO2);
+        //arrange
+        HttpStatus expected = HttpStatus.OK;
 
-        PropietyDTO propietyDTOAux = new PropietyDTO();
-        propietyDTOAux.setName("Ownership Dummy");
-        propietyDTOAux.setNeighborhood("Adrogue");
-        propietyDTOAux.setRoomList(roomDTOList);
+        //act
+        when(iCalculateService.getSquareMeterForPropiety("name")).thenReturn(new PropietyDTOResponseTotalMeters());
+        ResponseEntity<PropietyDTOResponseTotalMeters> propiety = calculateRestController.getSquareMeterForPropiety("name");
 
-        PropietyDTOResponseTotalMeters propietyDTOResponseTotalMeters = new PropietyDTOResponseTotalMeters(2);
-        when(iCalculateService.getSquareMeterForPropiety(propietyDTOAux.getName())).thenReturn(propietyDTOResponseTotalMeters);
-
-        PropietyDTOResponseTotalMeters receive;
-        receive = iCalculateService.getSquareMeterForPropiety(propietyDTOAux.getName());
-
-        verify(iCalculateService, Mockito.atLeast(1)).getSquareMeterForPropiety(propietyDTOAux.getName());
-        assertEquals(expected, receive.getTotalMeters());
-    */
-
-        when(iCalculateService.getSquareMeterForPropiety(any(String.class))).thenReturn(new PropietyDTOResponseTotalMeters(2));
-
-        assertRequest("GET", "/propiety/calculate/squearemeter?name=PropUno", 200);
-    }
-
-/*
-    @Test
-    void getValueForPropietyHappyPath(){
-
-    }
-/*
-    @Test
-    void getBiggestRoomHappyPath{
-
+        //assert
+        verify(iCalculateService, Mockito.atLeast(1)).getSquareMeterForPropiety("name");
+        assertEquals(expected ,propiety.getStatusCode());
     }
 
     @Test
-    void getSquareMeterForRoomHappyPath{
+    void getSquareMeterForPropiety_nameNotFound_PropietyNotFoundException() throws PropietyNotFoundException {
+        //arrange
+        String name = "name";
+        HttpStatus expected = HttpStatus.BAD_REQUEST;
+        when(iCalculateService.getSquareMeterForPropiety(name)).thenThrow(new PropietyNotFoundException(name));
+        assertThrows(PropietyNotFoundException.class,() ->calculateRestController.getSquareMeterForPropiety(name));
+        verify(iCalculateService, Mockito.atLeast(1)).getSquareMeterForPropiety(name);
 
-    }*/
+    }
+
+
+    //-----------------------------//
+
+
+    @Test
+    void getValueForPropietyHappyPath() throws PropietyNotFoundException, NeighborhoodNotFoundException {
+        //arrange
+        HttpStatus expected = HttpStatus.OK;
+
+        //act
+        when(iCalculateService.getValueForPropiety("name")).thenReturn(new PropietyDTOResponseCost());
+        ResponseEntity<PropietyDTOResponseCost> propiety = calculateRestController.getValueForPropiety("name");
+
+        //assert
+        verify(iCalculateService, Mockito.atLeast(1)).getValueForPropiety("name");
+        assertEquals(expected ,propiety.getStatusCode());
+    }
+
+    @Test
+    void getValueForPropiety_nameNotFound_PropietyNotFoundException() throws PropietyNotFoundException, NeighborhoodNotFoundException {
+        //arrange
+        String name = "name";
+        HttpStatus expected = HttpStatus.BAD_REQUEST;
+        when(iCalculateService.getValueForPropiety(name)).thenThrow(new PropietyNotFoundException(name));
+        assertThrows(PropietyNotFoundException.class,() ->calculateRestController.getValueForPropiety(name));
+        verify(iCalculateService, Mockito.atLeast(1)).getValueForPropiety(name);
+    }
+
+
+    //-----------------------------//
+
+    @Test
+    void getBiggestRoomHappyPath() throws PropietyNotFoundException {
+        //arrange
+        HttpStatus expected = HttpStatus.OK;
+
+        //act
+        when(iCalculateService.getBiggestRoom("name")).thenReturn(new RoomDTO());
+        ResponseEntity<RoomDTO> propiety = calculateRestController.getBiggestRoom("name");
+
+        //assert
+        verify(iCalculateService, Mockito.atLeast(1)).getBiggestRoom("name");
+        assertEquals(expected ,propiety.getStatusCode());
+    }
+
+    @Test
+    void getSquareMeterForRoomHappyPath() throws PropietyNotFoundException {
+        //arrange
+        HttpStatus expected = HttpStatus.OK;
+
+        //act
+        when(iCalculateService.getSquareMeterForRoom("name")).thenReturn(new RoomMetersListResponseDTO());
+        ResponseEntity<RoomMetersListResponseDTO> propiety = calculateRestController.getSquareMeterForRoom("name");
+
+        //assert
+        verify(iCalculateService, Mockito.atLeast(1)).getSquareMeterForRoom("name");
+        assertEquals(expected ,propiety.getStatusCode());
+    }
 }

@@ -25,7 +25,6 @@ public class PropietyRepository implements IPropietyRepository {
 
     @Override
     public boolean create(Propiety propiety){
-        System.out.println("Estoy en repository");
         boolean res = true;
         if(!exist(propiety)) propietyList.add(propiety);
         else res = false;
@@ -43,7 +42,6 @@ public class PropietyRepository implements IPropietyRepository {
 
     @Override
     public Propiety get(String name){
-        System.out.println("Estoy en repository");
         Propiety propiety = null;
         for (Propiety propietyAux : propietyList) {
             if (propietyAux.getName().equals(name)) propiety = propietyAux;
