@@ -27,6 +27,17 @@ public class UserService implements IUserServices{
     public boolean followUser(int userId, int userIdToFollow) {
         User followedUser = userRepository.getUserById(userIdToFollow);
         User followingUser = userRepository.getUserById(userId);
+
+        if(userId == userIdToFollow){
+            return false;
+        }
+
+        for (UserDTO user: followedUser.getFollowers()) {
+            if(user.getId() == userId){
+                return false;
+            }
+        }
+
         followingUser.addFollowed(mapper.toDTO(followedUser));
         followedUser.addFollower(mapper.toDTO(followingUser));
         System.out.println(userRepository.getUserById(userId).getUserName() + " is now following " + userRepository.getUserById(userIdToFollow).getUserName());
@@ -61,16 +72,18 @@ public class UserService implements IUserServices{
                 user2.removeFollower(user2.getFollowers().get(i));
                 break;
             }
+
         }
 
         for (int i = 0; i < user1.getFollowed().size(); i++) {
             if(user1.getFollowed().get(i).getId() == userIdToUnfollow){
                 user1.removeFollowed(user1.getFollowed().get(i));
+                System.out.println(user1.getUserName() + " is no longer following " + user2.getUserName());
                 break;
             }
         }
 
-        System.out.println(user1.getUserName() + " is no longer following " + user2.getUserName());
+
         return true;
     }
 

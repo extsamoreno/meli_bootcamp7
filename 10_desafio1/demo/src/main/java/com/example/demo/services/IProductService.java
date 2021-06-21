@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.model.DTO.CountPromoDTO;
 import com.example.demo.model.DTO.UserPostsDTO;
 import com.example.demo.model.Post;
 

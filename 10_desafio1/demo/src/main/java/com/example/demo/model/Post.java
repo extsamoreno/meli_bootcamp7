@@ -13,9 +13,12 @@ public class Post {
 
     private int userId;
     private int postId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy")
     Date date;
     private Product detail;
     private int category;
     private double price;
+
+
+
 }
