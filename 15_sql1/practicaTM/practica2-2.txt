@@ -1,0 +1,12 @@
+Una vez modelada y planteada la base de datos, responder a las siguientes preguntas:
+
+a.¿Cuál es la primary key para la tabla empleados? Justificar respuesta
+  El legajo de empleado, porque es lo que identifica a cada empleado, no se puede repetir.
+
+b. ¿Cuál es la primary key para la tabla departamentos? Justificar respuesta
+  El id de departamento, porque es lo que identifica a cada empleado, no se puede repetir.	
+
+c. ¿Qué relación/es existiría/n entre las tablas? ¿En qué tabla debería haber foreign key? ¿A qué campo de qué tabla hace referencia dicha foreign key? Justificar respuesta
+  Un empleado pertenece a un departamento	y un departamento tiene muchos empleados. 
+  En empleado se debe tener la FK del departamento, porque el empleado apunta un solo departamento.
+  La FK hace referencia al campo departamento_id, que es la PK del departamento.	 
