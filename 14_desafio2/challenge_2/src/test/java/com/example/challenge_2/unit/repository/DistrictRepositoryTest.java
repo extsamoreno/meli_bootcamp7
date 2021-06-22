@@ -1,8 +1,9 @@
-package com.example.challenge_2.repository;
+package com.example.challenge_2.unit.repository;
 
 import com.example.challenge_2.Util.TestUtilsGenerator;
 import com.example.challenge_2.exception.DistrictNotFoundException;
 import com.example.challenge_2.models.District;
+import com.example.challenge_2.repository.DistrictRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

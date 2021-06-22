@@ -1,4 +1,4 @@
-package com.example.challenge_2.controllers;
+package com.example.challenge_2.unit.controllers;
 
 import com.example.challenge_2.Util.TestUtilsGenerator;
 import com.example.challenge_2.controller.PropertyController;

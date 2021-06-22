@@ -1,6 +1,7 @@
 package com.example.challenge_2.controller;
 
 import com.example.challenge_2.exception.DistrictException;
+import com.example.challenge_2.exception.DistrictNotFoundException;
 import com.example.challenge_2.exception.PropertyException;
 import com.example.challenge_2.service.IPropertyService;
 import com.example.challenge_2.service.dto.*;
@@ -20,7 +21,7 @@ public class PropertyController {
     IPropertyService propertyService;
 
     @PostMapping("")
-    public ResponseEntity<NewIdDTO> createProperty(@RequestBody @Valid PropertyDTO property) throws DistrictException {
+    public ResponseEntity<NewIdDTO> createProperty(@RequestBody @Valid PropertyDTO property) throws DistrictNotFoundException {
         return new ResponseEntity<NewIdDTO>(propertyService.createProperty(property), HttpStatus.OK);
     }
 

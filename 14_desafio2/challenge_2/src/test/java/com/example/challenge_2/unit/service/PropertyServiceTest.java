@@ -1,4 +1,4 @@
-package com.example.challenge_2.service;
+package com.example.challenge_2.unit.service;
 
 import com.example.challenge_2.Util.TestUtilsGenerator;
 import com.example.challenge_2.exception.DistrictNotFoundException;
@@ -6,6 +6,7 @@ import com.example.challenge_2.exception.PropertyNotFoundException;
 import com.example.challenge_2.models.Property;
 import com.example.challenge_2.repository.IDistrictRepository;
 import com.example.challenge_2.repository.IPropertyRepository;
+import com.example.challenge_2.service.PropertyService;
 import com.example.challenge_2.service.dto.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.jupiter.api.Test;
