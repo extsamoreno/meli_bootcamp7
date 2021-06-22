@@ -1,0 +1,12 @@
+a. ¿Cuál es la primary key para la tabla empleados? Justificar respuesta?
+
+La primary key de la tabla employees seria el nro de legajo porque es el atributo unívoco que lo identifica.
+
+b. ¿Cuál es la primary key para la tabla departamentos? Justificar respuesta?
+
+La primary key de la tabla departaments seria el departament_id, que es un id unívoco y autoincremental que lo identifica.
+
+c. ¿Qué relación/es existiría/n entre las tablas? ¿En qué tabla debería haber foreign key? ¿A
+qué campo de qué tabla hace referencia dicha foreign key? Justificar respuesta
+
+La relación que podría existir, seria que hubiera una tabla pivot, llamada departament_employees donde existiera un id, y 2 FK, una Fk de employee_id y otra de departament_id, donde la relación es de 1 a N desde employees a departament_employees y una relación de 1 a N desde departaments a departament_employees.
