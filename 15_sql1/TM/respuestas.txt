@@ -1,0 +1,9 @@
+Ejercicio 2
+Una vez modelada y planteada la base de datos, responder a las siguientes preguntas:
+
+a. ¿Cuál es la primary key para la tabla empleados? Justificar respuesta
+    La primary key para la tabla empleados es el nro de legajo porque es un atributo único por cada empleado que representa al mismo.
+b. ¿Cuál es la primary key para la tabla departamentos? Justificar respuesta
+    La primary key para la tabla departamentos es el id de departamento porque es un atributo único por departamento.
+c. ¿Qué relación/es existiría/n entre las tablas? ¿En qué tabla debería haber foreign key? ¿A qué campo de qué tabla hace referencia dicha foreign key? Justificar respuesta
+    La relación sería de uno a muchos ya que un departamento puede tener muchos empleados. La foreign key debería ir en la tabla empleados y hacer referencia a la primary key de departamentos: departmentID.
