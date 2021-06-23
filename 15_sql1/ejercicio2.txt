@@ -1,0 +1,3 @@
+a.Es num_legajo , porque es un numero que va a representar unívocamente a un empleado.
+b.Es id_departamento ya que es un numero único que puede identificar a un solo departamento.
+c.de Muchos empleados a un departamento , en la tabla empleado debería haber un foreign key de departamento , del campo id_departamento. Ya que así poder tener acceso al departamento.
