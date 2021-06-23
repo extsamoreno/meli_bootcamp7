@@ -1,0 +1,28 @@
+1. A qué se denomina JOIN en una base datos?
+
+Se denomina JOIN en una BD a combinar varias tablas que manejan atributos en comun esto con el fin de unirlas y poder obtener campos de otras tablas en una misma query.
+
+2. Nombre y explique 2 tipos de JOIN.
+    a. FULL JOIN esta saentencia nos permite obtener la informaciòn de ambas tablas y la interseccion.
+    b. INNER JOIN esta funcion nos permite ibtener la insterseccion de dos tablas o lo que comparten
+
+3. Para qué se utiliza el GROUP BY
+
+    Este comando nos sirve para agrupar registros apartir de una consulta.
+
+4. Para qué se utiliza el HAVING?
+
+    Nos permite realizar filtro parecidos al where pero cuando se agrupan filas, por lo tanto para utilizar el el having se debe utilizar el group by
+
+5. Dado lo siguientes diagramas indique a qué tipo de JOIN corresponde cada uno:
+
+    a. El primer grafico corresponde a un INNER JOIN ya que obtenemos la intesecciòn entre los dos conjuntos
+    b. El segundo grafico corresponde a unh LEFT JOIN debido a que obtenemos los datos de la tabla A y la interseccion.
+
+
+6. Escriba una consulta genérica por cada uno de los diagramas a continuación
+
+   GRAFICO 1: SELECT * FROM TablaA AS A INNER JOIN TABLAB AS B on A.id=B.id
+   
+   GRAFICO 2: SELECT * FROM TablaA AS A LEFT JOIN TABLAB AS B on A.id=B.id
+
