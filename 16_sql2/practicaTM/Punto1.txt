@@ -1,0 +1,31 @@
+1) A qué se denomina JOIN en una base datos?
+	* Un join es devolver los datos de 2 tablas distintas unidas por un criterio
+
+2) Nombre y explique 2 tipos de JOIN.
+	* LEFT JOIN: devuelve toda la tabla de la izquierda, mas los que cumplen el criterio de la tabla de la derecha
+	* INNER JOIN: devuleve los valores que cumplen el criterio en am
+	bas tablas
+	* Izquierda y derecha corresponde al orden en que se declaran (izquerda es la primera)
+
+3) Para qué se utiliza el GROUP BY?
+	* El GROUP BY "campo" se usa para agrupar los registros que tengan el mismo valor en "campo"
+
+4) Para qué se utiliza el HAVING?
+	* Se utiliza para filtrar sobre un grupo de registros, como puede ser el resultado de un GROUP BY
+
+5) Dado lo siguientes diagramas indique a qué tipo de JOIN corresponde cada uno:
+	* Izquierda = INNER JOIN
+	* Derecha = LEFT JOIN
+
+6)Escriba una consulta genérica por cada uno de los diagramas a continuación:
+	* Izquierda
+		SELECT * FROM tablaA as a
+		RIGHT JOIN tablaB as b ON (a.campoX=b.campoY)
+	* Derecha
+		SELECT * FROM tablaA AS a
+		FULL OUTER JOIN tablaB AS b ON (a.campoX=b.campoY)
+
+
+
+
+
