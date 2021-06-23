@@ -1,6 +1,7 @@
 -- 1. Mostrar el título y el nombre del género de todas las series.
 SELECT title, g.name
-FROM series JOIN genres AS g ON genre_id = g.id;
+FROM series 
+JOIN genres AS g ON genre_id = g.id;
 
 -- 2. Mostrar el título de los episodios, el nombre y apellido de los actores 
 -- que trabajan en cada uno de ellos.
@@ -21,10 +22,11 @@ GROUP BY series.title;
 
 -- 4. Mostrar el nombre de todos los géneros y la cantidad total de películas 
 -- por cada uno,  siempre que sea mayor o igual a 3.
-SELECT gs.name, COUNT(*) AS "Cantidad de películas"
+SELECT gs.name, COUNT(m.id) AS "Cantidad de películas"
 FROM genres AS gs 
 JOIN movies AS m ON m.genre_id = gs.id
-GROUP BY gs.name;
+GROUP BY gs.name
+HAVING COUNT(m.id) >= 3;
 
 
 -- 5. Mostrar sólo el nombre y apellido de los actores que trabajan en todas 
