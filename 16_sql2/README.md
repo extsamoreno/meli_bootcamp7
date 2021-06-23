@@ -3,22 +3,30 @@
 
 - A qué se denomina JOIN en una base datos?
   
-
+ A la sentencia que tiene como funcion unir la informacion de dos tablas
 
 - Nombre y explique 2 tipos de JOIN.
 
+LEFT JOIN : trae toda la informacion de la tabla que antecede la sentecia LEFT JOIN y la informaciòn que tenga coincidencias con el atributo en el ON de la tabla que esta despues de la sentencia LEFT JOIN
+
+RIGHT JOIN : trae toda la informacion de la tabla que esta desdpues de la sentecia LEFT JOIN y la informaciòn que tenga coincidencias con el atributo en el ON de la tabla que antecede de la sentencia LEFT JOIN
 
 - Para qué se utiliza el GROUP BY?
 
+para hacer consultas agrupada por atributos
 
 - Para qué se utiliza el HAVING?
 
+para hacer filtros sobre la informacion agrupada
 
 - Dado lo siguientes diagramas indique a qué tipo de JOIN corresponde cada uno:
 
+INNER JOIN, LEFT JOIN
+
 - Escriba una consulta genérica por cada uno de los diagramas a continuación:
 
-
+ SELECT * FROM table1 RIGHT JOIN tabla2 ON (table1.pk=table2.fk);
+ SELECT * FROM table , tabla2;
 
 
 
@@ -53,5 +61,5 @@ HAVING cantidad>=3;
 SELECT a.first_name, a.last_name FROM movies m INNER JOIN actor_movie a_m ON (m.id=a_m.movie_id)
 INNER JOIN actors a ON (a.id=actor_id)
 WHERE title like "La Guerra de las galaxias%"
-GROUP BY actor_id
-HAVING count(*)>=2;
+GROUP BY a.id
+HAVING count(*)>= (SELECT count(*) FROM movies WHERE title like "La Guerra de las galaxias%");
