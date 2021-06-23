@@ -1,0 +1,2 @@
+SELECT * FROM actors
+LIMIT 10;

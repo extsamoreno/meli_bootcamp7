@@ -1,0 +1,8 @@
+com.meli.testingchallenge
+com.meli.testingchallenge.controllers
+com.meli.testingchallenge.dtos
+com.meli.testingchallenge.exceptions
+com.meli.testingchallenge.models
+com.meli.testingchallenge.repositories
+com.meli.testingchallenge.services
+com.meli.testingchallenge.unit
