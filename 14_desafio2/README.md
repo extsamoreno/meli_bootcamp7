@@ -1,3 +1,6 @@
+The app load some Json files as a database.
+It lets save districts and real states.
+It lets call diferent services who show all information required in one object
 
 
 ENDPOINTS
