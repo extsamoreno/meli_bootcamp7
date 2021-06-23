@@ -1,0 +1,1 @@
+SELECT * FROM movies_db.movies ORDER BY rating DESC LIMIT 5;
