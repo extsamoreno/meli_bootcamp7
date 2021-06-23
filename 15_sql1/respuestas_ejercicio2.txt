@@ -1,0 +1,7 @@
+a). La primary key para la tabla empleados es "emp_id" ya que permite identificar univocamente a un empleado.
+    Podría utilizarse también como primary key el número de documento o el número de legajo.
+b). Para la tabla departamentos, la primary key será el "dep_id", ya que nuevamente permite identificar
+    de manera unívoca a un departamento.
+c). Entre las tablas empleados y la tabla departamentos existirá una relación 1:n, que indica que un empleado 
+    pertenecerá a un departamento, y un departamento puede tener 1 o varios empleados. Por lo tanto, en la tabla empleados 
+    se incluirá una foreign key indicando el id del departamento al que pertenece un empleado.
