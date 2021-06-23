@@ -1,0 +1,31 @@
+PRIMERA PARTE
+
+1. A qué se denomina JOIN en una base datos?
+
+ Se denomina JOIN a la interseccíon de conjuntos de datos (tablas).
+
+2. Nombre y explique 2 tipos de JOIN.
+
+    INNER JOIN es la intersección propiamente dicha y 
+    LEFT JOIN toma los registros de la primer tabla dada
+    se encuentren o no, es la intersección mas la diferencia de las tablas.
+
+3. Para qué se utiliza el GROUP BY?
+
+    Se utiliza para agrupar registros por los valores de un campo determinado.
+
+4. Para qué se utiliza el HAVING?
+
+    Se usa para filtrar los registros considerados en el GROUP BY 
+    según un criterio determinado.
+
+5. Los diagramas corresponden a INNER JOIN y LEFT JOIN respectivamente.
+
+6.
+    a) SELECT * FROM Docentes
+    RIGHT JOIN AlumnosWave7
+    ON Docentes.waveAsignada = AlumnosWave7.waveId
+
+    b) SELECT * FROM Empleados
+    FULL JOIN Departamentos
+    ON Empleados.departamentoId = Departamentos.Id 
