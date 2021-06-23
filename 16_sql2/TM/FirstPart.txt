@@ -1,0 +1,38 @@
+#Question 1 - A que se denomina JOIN en una base de datos?
+
+La sentencia JOIN en la base de datos se encarga de combinar registros de una o más tablas. JOIN es una composición relaciónal como también una función de composición
+
+#Question 2 - Nombre y explique 2 tipos de JOIN
+
+Existen varios tipos de JOIN como lo son INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN
+
+INNER JOIN - Se encarga de combinar registros que esten en la tabla1 como en la tabla2.
+
+LEFT JOIN - Se encarga de combinar todos los registros de la tabla 1 y los registros coincidentes en la tabla 2.
+
+RIGHT JOIN - Se encarga de combinar todos los registros de la table 2 y los registros coincidentes en la tabla 1.
+
+FULL JOIN - Se encarga de combinar todos los registros de las tabla 1 y tabla 2.
+
+#Question 3 - Para que se utiliza el GROUP BY?
+
+La cláusula GROUP BY se utiliza para agrupar filas que tienen mismos valores.
+
+#Question 4 - Para que sirve el HAVING?
+
+La función HAVING sirve para incluir o excluir registros después de utilizar la sentencia GROUP BY.
+
+#Question 5 - Dado los siguientes diagramas indique a que tipo de JOIN corresponde cada uno:
+
+FOTO DEL LADO IZQUIERDO -> INNER JOIN
+
+FOTO DEL LADO DERECHO -> LEFT JOIN
+
+#Question 6 - Escriba una consulta genérica por cada uno de los diagramas a continuación
+
+SELECT * FROM table1 RIGHT JOIN table2 ON table1.column_name = table2.column_name; 
+
+SELECT * FROM table1 FULL OUTER JOIN table2 ON table1.column_name = table2.column_name;
+
+
+
