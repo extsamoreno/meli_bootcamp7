@@ -31,6 +31,33 @@ The project has three json that emulates the information from database:
 <br>
 <br>
 
+---
+## Challenge #2
+
+It has the following services:
+
+Service                 | Method.   |EndPoint
+------------------------|-----------|-----------
+Create District         |Post       |/district/save
+Create Property         |Post       |/property/save
+Square Metters By Environment          |Get        |/property/metersenvironment/{property_name}
+Square Metters By Property   |Get        |/property/squaremeters/{property_name}
+Value of the property                |Get       |/property/value/{property_name}
+Biggest Environment By Property |Get      |/property/biggest/{property_name}
+District Information         |Get       |/district/getdistrict/{district_name}
+
+
+<br>
+<br>
+The project has two json that emulates the information from database:
+
+* district.json: Has the information from the users.
+* property.json: Has the information from posts made by sellers.
+
+
+<br>
+<br>
+
 __There's a Postman collection to make the tests of each service.__
 
 
