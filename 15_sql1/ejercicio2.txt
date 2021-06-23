@@ -1,4 +1,4 @@
 a. La primary key de la tabla empleados es el num_legajo, dado a que es este es un numero unico que identifica a un empleado de la empresa.
 b. La primary key de la tabla departamentos es el id id_departamento, el cual se utiliza para tener un numero de indentificacion unico para cada departamento.
-c. Relacion de la tabla de empleados con la de departamentos de muchos a uno respectivamente. La foreing key hace referencia al id_departamento dado que relaciona un
-empleado con la clave primaria del departamento al que pertenece.
+c. Relacion de la tabla de empleados con la de departamentos de muchos a uno respectivamente. Dicho esto la foreing key debe estar en la tabla de empleados y
+hace referencia al id_departamento que relaciona un empleado con la clave primaria del departamento al que pertenece.
