@@ -29,10 +29,9 @@ DELETE FROM movies_temp
 WHERE awards < 5;
 
 #8) 
-SELECT gen.name, COUNT(*) as total_movies
+SELECT DISTINCT gen.*
 FROM genres gen 
-JOIN movies mov ON mov.genre_id = gen.id
-GROUP BY gen.id HAVING total_movies >= 1;
+JOIN movies mov ON mov.genre_id = gen.id;
 
 #9) 
 SELECT act.*
