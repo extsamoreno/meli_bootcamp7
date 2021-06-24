@@ -1,0 +1,29 @@
+PRIMERA PARTE
+
+1. JOIN en una base de datos es la setencia INNER JOIN (por defecto) la cual combina datos de una tabla con datos a partir de la otra tabla con una o varias condicione en comun
+
+2. Dos tipos de JOIN:
+	FULL JOIN: se utiliza para obtener la informacion de ambas tablas.
+
+	LEFT JOIN: es la diferencia de una tabla pasada como parametro a la izquierda menos la tabla pasada como parametro a la derecha.
+
+
+3. GROUP BY se utiliza para agrupar resultados, generando un solo registro por cada grupo de filas que compartan las columnas indicadas, esto permite reducir la cantidad de filas de la consulta. 
+
+4. HAVING se utiliza como filtro en los grupos obtenidos en GROUP BY similar a como se utiliza WHERE.
+
+5. El diagrama de la izquierda es un INNER JOIN, mientras que el de la derecha es un LEFT JOIN.
+
+6. Consultas Genericas:
+
+	  SELECT * FROM database
+	  INNER JOIN tablaA
+	  ON database.id = tablaA.id;
+
+	  SELECT * FROM database
+	  LEFT JOIN tablaA
+	  ON database.id = tablaA.id;
+
+
+
+
