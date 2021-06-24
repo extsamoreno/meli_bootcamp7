@@ -1,0 +1,17 @@
+//Usando Mongo Shell. Colección restaurants:
+
+1. Devolver restaurant_id, name, borough y cuisine pero excluyendo _id para un documento (el primero).
+
+db.restaurants.find({}, {restaurant_id:1,name:1,borough:1,cuisine:1,_id:0}).pretty()
+
+2. Devolver restaurant_id, name, borough y cuisine para los primeros 3 restaurantes que contengan 'Bake'
+en alguna parte de su nombre.
+
+  db.restaurants.find({name:/^Bake/}, {restaurant_id:1,name:1,borough:1,cuisine:1,_id:0}).limit(3).pretty()
+
+
+3. Contar los restaurantes de comida (cuisine) china (Chinese) o tailandesa (Thai) del barrio (borough)
+Bronx. Consultar or versus in.
+
+db.restaurants.find({$or: [{cuisine:"Chinese"}, {cuisine:"Thai"} ]}).count()
+
