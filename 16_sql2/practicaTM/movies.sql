@@ -16,7 +16,7 @@ SELECT g.name, count(*) as cantidad
 FROM genres as g
 INNER JOIN movies as m ON (g.id=m.genre_id)
 GROUP BY g.name
-HAVING cantidad>3;
+HAVING cantidad>=3;
 -- 5 
 SELECT DISTINCT a.first_name, a.last_name 
 FROM actors as a 
