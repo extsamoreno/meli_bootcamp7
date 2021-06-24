@@ -1,0 +1,44 @@
+CALENTAMIENTO
+
+1. 	La base de datos tiene dos colecciones (restaurants y neighborhoods)
+
+2. 	En restaurants hay 25359 registros, en neighborhoods hay 195.
+	restaurants pesa 248 KB y neighborhoods 20 KB
+
+3. 	restaurants = 1 índice con peso de 254 KB
+	neighborhoods = 1 índice con peso de 20.5 KB
+
+4.	db.restaurants.find(ObjectId("5eb3d668b31de5d588f4293d")).pretty()
+	db.neighborhoods.find(ObjectId("55cb9c666c522cafdb053a45")).pretty()
+
+5.	db.restaurants.find({},{_id:0,name:1, cuisine:1, borough:1}).pretty()
+	db.neighborhoods.find({},{_id:0,name:1}).pretty()
+
+
+PARTE SQL
+
+1.	db.restaurants.find({},{_id:0,restaurant_id:1, name:1, cuisine:1, borough:1}).pretty().limit(1)
+
+2.	db.restaurants.find({name: /Bake/ },{_id:0,name:1, cuisine:1, borough:1}).pretty().limit(3)
+
+3. 	db.restaurants.count({borough : "Bronx", cuisine : {$in : ["Chinese", "Thai"] }})
+
+
+PARTE NOSQL
+
+1.	db.restaurants.find({grades: {$elemMatch: {grade: "A", score: {$gt: 50 }}}}).limit(3)
+
+2.	db.restaurants.count({"address.coord": {$size: 0}})
+
+3.	db.restaurants.find({},{_id:0,name:1, borough:1, cuisine:1, grades:{ $slice: -1 }}).limit(3)
+
+
+DESAFIANTES
+
+1.	db.restaurants.aggregate([{$group: {_id: "$cuisine", countA: { $sum: 1}}}, { $sort:{'countA':-1}}, {$limit:3}])
+
+
+2.	db.restaurants.aggregate([{$match: {$expr:{$gt:[{$size:"$grades"}, 3]}}}, {$unwind: {path: "$grades"}}, {$group: {_id:"$borough", avg: {$avg: "$grades.score"}}}, { $sort:{'avg':-1}}])
+
+
+3.	db.restaurants.find({ "address.coord":{ $geoWithin:{ $centerSphere: [ [ -73.93414657, 40.82302903 ], 500 ] } } }, {_id:0,name:1, cuisine:1, borough:1})
