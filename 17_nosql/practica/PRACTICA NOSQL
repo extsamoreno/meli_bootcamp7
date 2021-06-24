@@ -1,0 +1,107 @@
+PRACTICA NOSQL
+
+1. La base de datos tiene dos colecciones restaurants y vecindarios
+2. Restaurants tiene 25359 documentos
+3. El vecindario tiene 195 documentos
+4. El restaurant tiene 1 indices "id", el vecindario tiene 1 indice "id"
+
+5. <Para cada colección, listar los campos a nivel raíz (ignorar campos dentro de documentos anidados) y sus tipos de datos.>
+	Para "restaurants":
+	- id,address,borough,cuisine,grades,name, restaurant_id
+	Para "vecindarios":
+	- id, geometry, name
+
+--------------------------------------------------------------------------
+1. <Devolver restaurant_id, name, borough y cuisine pero excluyendo _id para un documento (el primero).>
+
+- use 
+-
+db.restaurants.findOne(
+{},
+{
+_id: 0,
+restaurant_id: 1,
+name: 1,
+borough:1,
+cuisine:1,
+}
+)
+
+
+
+2. <Devolver restaurant_id, name, borough y cuisine para los primeros 3 restaurantes que contengan 'Bake' en alguna parte de su nombre.>
+-
+db.restaurants.find(
+{name: /Bake/},
+{
+_id: 0,
+restaurant_id: 1,
+name: 1,
+borough:1,
+cuisine:1,
+}
+).limit(3)
+
+
+
+3. <Contar los restaurantes de comida (cuisine) china (Chinese) o tailandesa (Thai) del barrio (borough) Bronx. Consultar or versus in.>
+-
+db.restaurants.count(
+{cuisine: {$in: ["Chinese", "Thai"]}, borough: "Bronx"}
+)
+
+
+4. <Traer 3 restaurantes que hayan recibido al menos una calificación de grade 'A' con score mayor a 5. Una misma calificación debe cumplir con ambas condiciones simultáneamente; investigar el operador elemMatch.>
+-
+db.restaurants.find(
+{ grades: { $elemMatch: { grade: "A", score: {$gt:1}} } }
+).limit(3)
+
+
+
+5. <¿A cuántos documentos les faltan las coordenadas geográficas? En otras palabras, revisar si el tamaño de address.coord es 0 y contar.>
+-
+db.restaurants.count(
+	{"address.coord":{$size:0}}
+)
+
+
+6. <Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la última calificación. Ver el operador slice #Numero de items en el array que se retornan.>
+- 
+db.restaurantes.find( 
+{},
+{
+name: 1,
+borough:1,
+cuisine:1,
+grades: {$slice: -1} } 
+).limit(3)
+
+
+7. ¿Cuál es top 3 de tipos de cocina (cuisine) que podemos encontrar entre los datos? Googlear "mongodb group by field, count it and sort it". Ver etapa limit del pipeline de agregación.
+
+
+
+
+
+8. 
+db.simple_restaurants.aggregate([
+  {$match: {$expr:{$gt:[{$size:"$grades"}, 3]}}}, 
+  {$unwind: {path: "$grades"}}, 
+  {$group: {_id:"$borough", avg: {$avg: "$grades.score"}}},
+  {$sort:{'avg':-1}}
+  ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
