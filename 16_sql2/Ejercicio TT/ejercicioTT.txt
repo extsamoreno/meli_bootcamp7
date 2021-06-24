@@ -1,0 +1,3 @@
+1. La normalización es un proceso de estandarización y validación de datos que consiste en eliminar las redundancias o inconsistencias, completando datos mediante una serie de reglas que actualizan la información, protegiendo su integridad y favoreciendo la interpretación, para que así sea más simple de consultar y más eficiente para quien la gestiona.
+
+11. Los Indices son un mecanismo para optimizar consultas en SQL que mejoran el acceso a los datos al proporcionar una ruta más directa a los registros. 
