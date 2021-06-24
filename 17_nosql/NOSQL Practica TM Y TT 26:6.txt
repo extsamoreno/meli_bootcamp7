@@ -1,0 +1,15 @@
+NOSQL Practica TM 24/6
+
+Calentamiento.
+Tiene dos colecciones neighborhoods y restaurants
+db.neighborhoods.count() y db.restaurants.count(). La coleccion neighborhoods contiene 195 documentos y pesa 3.2 mb (17kb c/ doc aprox) y la coleccion restaurants contiene 25359 documentos y pesa 10.1mb (419.0 B c/ doc aprox)
+La coleccion neighborhoods contiene 1 Indice y ocupa 20kb y la coleccion restaurants contiene un indice de 436kb.
+
+NOSQL
+1. db.restaurants.find({},{name:1, borough: 1, cuisine: 1, _id:0}).limit(1)
+2. db.restaurants.find({name:/Bake/},{name:1, borough: 1, cuisine: 1}).limit(3)
+3. db.restaurants.find({$or:[{cuisine:'Chinese'},{cuisine:'Thai'}],borough:'Bronx'},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0}).count()
+4. db.restaurants.find({grades: {$elemMatch: {grade : "A", score: {$gte : 5} }}}).limit(3)
+5. db.restaurants.count({"adress.cord":{$size:0}})
+6. db.restaurants.find( { }, { name: 1, borough: 1, cuisine: 1, grades: { $slice: -1 } } ).limit(3)
+
