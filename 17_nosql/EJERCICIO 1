@@ -1,0 +1,272 @@
+EJERCICIO 1
+
+¿Cuántas colecciones tiene la base de datos?
+
+Tenemos dos colecciones 
+    restaurants
+    neighborhoods
+
+use sample_restaurants
+'switched to db sample_restaurants'
+show collections
+restaurants
+neighborhoods
+
+
+EJERCICIO 2
+
+¿Cuántos documentos en cada colección? ¿Cuánto pesa cada colección?
+
+db.restaurants.find(
+ { _id: { $ne: null } }
+).count()
+25359
+
+db.neighborhoods.find(
+ { _id: { $ne: null } }
+).count()
+195
+
+
+EJERCICIO 3
+
+¿Cuántos índices en cada colección? ¿Cuánto espacio ocupan los índices de cada
+colección?
+
+Hay solo un indice en cada coleccion, que es el id
+
+db.restaurants.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+db.neighborhoods.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+
+db.restaurants.totalIndexSize()
+241664
+db.neighborhoods.totalIndexSize()
+20480
+
+EJERCICIO 4
+
+Traer un documento de ejemplo de cada colección. db.collection.find(...).pretty() nos da
+un formato más legible.
+
+
+db.restaurants.find().limit(1)
+{ _id: ObjectId("5eb3d668b31de5d588f4292a"),
+  address: 
+   { building: '2780',
+     coord: [ -73.98241999999999, 40.579505 ],
+     street: 'Stillwell Avenue',
+     zipcode: '11224' },
+  borough: 'Brooklyn',
+  cuisine: 'American',
+  grades: 
+   [ { date: 2014-06-10T00:00:00.000Z, grade: 'A', score: 5 },
+     { date: 2013-06-05T00:00:00.000Z, grade: 'A', score: 7 },
+     { date: 2012-04-13T00:00:00.000Z, grade: 'A', score: 12 },
+     { date: 2011-10-12T00:00:00.000Z, grade: 'A', score: 12 } ],
+  name: 'Riviera Caterer',
+  restaurant_id: '40356018' }
+
+
+db.restaurants.find(
+ { },
+ { user_id: 1,address: 1 }
+).pretty() 
+{ _id: ObjectId("5eb3d668b31de5d588f4292a"),
+  address: 
+   { building: '2780',
+     coord: [ -73.98241999999999, 40.579505 ],
+     street: 'Stillwell Avenue',
+     zipcode: '11224' } }
+
+
+db.neighborhoods.find(
+ { },
+ { _id: 1,geometry: 1 }
+).pretty() 
+{ _id: ObjectId("55cb9c666c522cafdb053a1a"),
+  geometry: 
+   { coordinates: 
+      [ [ [ -73.94193078816193, 40.70072523469547 ],
+          [ -73.9443878859649, 40.70042452378256 ],
+          [ -73.94424286147482, 40.69969927964773 ],
+        ] ],
+     type: 'Polygon' } }
+
+EJERCICIO 5
+
+Para cada colección, listar los campos a nivel raíz (ignorar campos dentro de
+documentos anidados) y sus tipos de datos.
+
+db.restaurants.find(
+ { },
+ { _id: 1, borough:1,cuisine: 1, name: 1,
+  restaurant_id: 1 }
+).pretty().limit(1)
+
+{ _id: ObjectId("5eb3d668b31de5d588f4292a"),
+  borough: 'Brooklyn',
+  cuisine: 'American',
+  name: 'Riviera Caterer',
+  restaurant_id: '40356018' }
+
+db.neighborhoods.find(
+ { },
+ { _id: 0, name: 1}
+).pretty().limit(1)
+{ name: 'Bedford' }
+
+{ _id: ObjectId("5eb3d668b31de5d588f4292a"),
+  borough: 'Brooklyn',
+  cuisine: 'American',
+  name: 'Riviera Caterer',
+  restaurant_id: '40356018' }
+
+typeof db.restaurants.findOne().borough;
+'string'
+
+typeof.js
+[db.restaurants.findOne()].forEach( function(my_doc) { for (var key in my_doc) { print(key + ': ' + typeof my_doc[key]) } } )
+
+
+load('/Users/lurrea/Documents/Bootcamp/meli_bootcamp7/17_nosql/typeof.js')
+
+
+SQL EJERCICIOS
+
+Usando Mongo Shell. Colección restaurants:
+1. Devolver restaurant_id, name, borough y cuisine pero excluyendo _id para un documento (el primero).
+
+db.restaurants.findOne(
+ { },
+ { restaurant_id: 1, name: 1, borough: 1, cuisine: 1, _id: 0 }
+)
+{ borough: 'Brooklyn',
+  cuisine: 'American',
+  name: 'Riviera Caterer',
+  restaurant_id: '40356018' }
+
+
+2. Devolver restaurant_id, name, borough y cuisine para los primeros 3 restaurantes que contengan 'Bake'
+
+
+db.restaurants.find(
+ { name: /Bake/ },
+ { restaurant_id: 1, name: 1, borough: 1, cuisine: 1 }
+).limit(3)
+{ _id: ObjectId("5eb3d668b31de5d588f4292e"),
+  borough: 'Bronx',
+  cuisine: 'Bakery',
+  name: 'Morris Park Bake Shop',
+  restaurant_id: '30075445' }
+{ _id: ObjectId("5eb3d668b31de5d588f42a67"),
+  borough: 'Staten Island',
+  cuisine: 'American',
+  name: 'Perkins Family Restaurant & Bakery',
+  restaurant_id: '40370910' }
+{ _id: ObjectId("5eb3d668b31de5d588f42aea"),
+  borough: 'Queens',
+  cuisine: 'Caribbean',
+  name: 'Western Bakery',
+  restaurant_id: '40377560' }
+
+
+
+
+3. Contar los restaurantes de comida (cuisine) china (Chinese) o tailandesa (Thai) del barrio (borough)
+Bronx. Consultar or versus in.
+
+db.restaurants.count(
+ { cuisine: { $in: [ "Chinese", "Thai" ] }, borough: "Bronx" }
+)
+325
+
+NO SQL EJERCICIOS
+
+1. Traer 3 restaurantes que hayan recibido al menos una calificación de grade 'A' con score mayor a 50. Una
+misma calificación debe cumplir con ambas condiciones simultáneamente; investigar el operador
+elemMatch.
+
+db.restaurants.find(
+ { grades: { $elemMatch: { grade: "A", score: { $gt: 5 } } } }
+).limit(3)
+{ _id: ObjectId("5eb3d668b31de5d588f4292a"),
+  address: 
+   { building: '2780',
+     coord: [ -73.98241999999999, 40.579505 ],
+     street: 'Stillwell Avenue',
+     zipcode: '11224' },
+  borough: 'Brooklyn',
+  cuisine: 'American',
+  grades: 
+   [ { date: 2014-06-10T00:00:00.000Z, grade: 'A', score: 5 },
+     { date: 2013-06-05T00:00:00.000Z, grade: 'A', score: 7 },
+     { date: 2012-04-13T00:00:00.000Z, grade: 'A', score: 12 },
+     { date: 2011-10-12T00:00:00.000Z, grade: 'A', score: 12 } ],
+  name: 'Riviera Caterer',
+  restaurant_id: '40356018' }
+{ _id: ObjectId("5eb3d668b31de5d588f4292b"),
+  address: 
+   { building: '7114',
+     coord: [ -73.9068506, 40.6199034 ],
+     street: 'Avenue U',
+     zipcode: '11234' },
+  borough: 'Brooklyn',
+  cuisine: 'Delicatessen',
+  grades: 
+   [ { date: 2014-05-29T00:00:00.000Z, grade: 'A', score: 10 },
+     { date: 2014-01-14T00:00:00.000Z, grade: 'A', score: 10 },
+     { date: 2013-08-03T00:00:00.000Z, grade: 'A', score: 8 },
+     { date: 2012-07-18T00:00:00.000Z, grade: 'A', score: 10 },
+     { date: 2012-03-09T00:00:00.000Z, grade: 'A', score: 13 },
+     { date: 2011-10-14T00:00:00.000Z, grade: 'A', score: 9 } ],
+  name: 'Wilken\'S Fine Food',
+  restaurant_id: '40356483' }
+{ _id: ObjectId("5eb3d668b31de5d588f4292c"),
+  address: 
+   { building: '2206',
+     coord: [ -74.1377286, 40.6119572 ],
+     street: 'Victory Boulevard',
+     zipcode: '10314' },
+  borough: 'Staten Island',
+  cuisine: 'Jewish/Kosher',
+  grades: 
+   [ { date: 2014-10-06T00:00:00.000Z, grade: 'A', score: 9 },
+     { date: 2014-05-20T00:00:00.000Z, grade: 'A', score: 12 },
+     { date: 2013-04-04T00:00:00.000Z, grade: 'A', score: 12 },
+     { date: 2012-01-24T00:00:00.000Z, grade: 'A', score: 9 } ],
+  name: 'Kosher Island',
+  restaurant_id: '40356442' }
+
+
+2. ¿A cuántos documentos les faltan las coordenadas geográficas? En otras palabras, revisar si el tamaño de
+address.coord es 0 y contar.
+
+db.restaurants.count(
+ { "address.coord": { $size: 0 } }
+)
+2
+
+3. Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la
+última calificación. Ver el operador slice.
+
+db.restaurants.find(
+ { },
+ { name: 1, borough: 1, cuisine: 1, grades: { $slice: -1 } }
+).limit(3)
+{ _id: ObjectId("5eb3d668b31de5d588f4292a"),
+  borough: 'Brooklyn',
+  cuisine: 'American',
+  grades: [ { date: 2011-10-12T00:00:00.000Z, grade: 'A', score: 12 } ],
+  name: 'Riviera Caterer' }
+{ _id: ObjectId("5eb3d668b31de5d588f4292b"),
+  borough: 'Brooklyn',
+  cuisine: 'Delicatessen',
+  grades: [ { date: 2011-10-14T00:00:00.000Z, grade: 'A', score: 9 } ],
+  name: 'Wilken\'S Fine Food' }
+{ _id: ObjectId("5eb3d668b31de5d588f4292c"),
+  borough: 'Staten Island',
+  cuisine: 'Jewish/Kosher',
+  grades: [ { date: 2012-01-24T00:00:00.000Z, grade: 'A', score: 9 } ],
+  name: 'Kosher Island' }
