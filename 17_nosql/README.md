@@ -65,3 +65,16 @@ COUNT
   
  -> db.restaurants.find({$or:[{cuisine:'Chinese'},{cuisine:'Thai'}],borough:'Bronx'}).count()
 ```
+
+## NO SQL
+
+1. Traer 3 restaurantes que hayan recibido al menos una calificación de grade 'A' con score mayor a 50. Una misma calificación debe cumplir con ambas condiciones simultáneamente; investigar el operador elemMatch.
+
+```
+db.restaurants.find({ "grades": { $elemMatch: {grade: 'A',score: { $gte:50 } } } })
+```
+
+2. ¿A cuántos documentos les faltan las coordenadas geográficas? En otras palabras, revisar si el tamaño de address.coord es 0 y contar.
+
+3. Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la última calificación. Ver el operador slice.
+
