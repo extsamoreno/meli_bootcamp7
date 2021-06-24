@@ -1,0 +1,20 @@
+1- Una collection para restaurants y otra para neihborhoods.
+
+2- restaurants:25,4K documentos, 10mb total
+   neihborhoods: 195 documentos, 3.2mb total	
+
+3- restaurants: indice _id de 241kb
+   neihborhoods: _id de 20kb
+
+4-  > db.restaurants.findOne()
+    > db.neighborhoods.findOne()
+
+5-  db.restaurants.aggregate([{$project: {   address: {$type: "$address"},   borough: {$type: "$borough"},   cuisine: {$type: "$cuisine"},   grades: {$type: "$grades"},   name: {$type: "$name"},   restaurant_id: {$type: "$restaurant_id"}    }}])db.restaurants.aggregate([{$project: {   address: {$type: "$address"},   borough: {$type: "$borough"},   cuisine: {$type: "$cuisine"},   grades: {$type: "$grades"},   name: {$type: "$name"},   restaurant_id: {$type: "$restaurant_id"}    }}])
+
+SQL
+
+1- > db.restaurants.findOne({},{_id: 0, restaurant_id: 1, name:1, borough:1, cuisine:1})
+
+2- > db.restaurants.find({name: /bake/},{_id: 0, restaurant_id: 1, name:1, borough:1, cuisine:1}).limit(3).pretty()
+
+3- 
