@@ -25,9 +25,13 @@ GROUP BY temp.serie_id;
 SELECT ge.name, count(*) as totMovies  FROM genres ge
 JOIN  movies mo
 ON ge.id = mo.genre_id
-GROUP BY ge.id HAVING totMovies >=3
+GROUP BY ge.id HAVING totMovies >=3;
 
-
-
-
+#5
+SELECT DISTINCT ac.first_name, ac.last_name FROM actor_movie ac_mo
+JOIN actors ac
+ON ac.id=ac_mo.actor_id
+JOIN movies mo
+ON ac_mo.movie_id = mo.id
+WHERE mo.title LIKE 'La Guerra de las galaxias%';
 
