@@ -1,0 +1,13 @@
+1. Traer 3 restaurantes que hayan recibido al menos una calificación de grade 'A' con score mayor a 5. Una misma calificación debe cumplir con ambas condiciones simultáneamente; investigar el operador
+elemMatch.
+
+db.restaurants.find({ grades: {$elemMatch :{ grade:"A", score:{ $gt: 5 }}}}).limit(3)
+
+2. ¿A cuántos documentos les faltan las coordenadas geográficas? En otras palabras, revisar si el tamaño de address.coord es 0 y contar.
+
+ db.restaurants.find({"address.coord":{$size:0}}).count()
+
+3. Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la última calificación. Ver el operador slice.
+
+db.restaurants.find({},{name:1, borough:1, cuisine:1 ,grades:{$slice:-1}}).limit(3).pretty()
+
