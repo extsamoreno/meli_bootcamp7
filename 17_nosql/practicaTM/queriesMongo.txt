@@ -1,0 +1,143 @@
+1. ¿Cuántas colecciones tiene la base de datos?
+    Tiene 2 collecciones neighborhoods y restorants.
+2. ¿Cuántos documentos en cada colección? ¿Cuánto pesa cada colección?
+    neighborhoods   195
+    restaurants     25359
+3. ¿Cuántos índices en cada colección? ¿Cuánto espacio ocupan los índices de cada colección?
+    db.restaurants.getIndexes()
+    [ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+    db.neighborhoods.getIndexes()
+    [ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+    db.restaurants.totalIndexSize()
+    241664
+    db.neighborhoods.totalIndexSize()
+    20480
+4. Traer un documento de ejemplo de cada colección. db.collection.find(...).pretty() nos da un formato más legible.
+    db.restaurants.find().limit(1).pretty()
+{ _id: ObjectId("5eb3d668b31de5d588f4292a"),
+  address: 
+   { building: '2780',
+     coord: [ -73.98241999999999, 40.579505 ],
+     street: 'Stillwell Avenue',
+     zipcode: '11224' },
+  borough: 'Brooklyn',
+  cuisine: 'American',
+  grades: 
+   [ { date: 2014-06-10T00:00:00.000Z, grade: 'A', score: 5 },
+     { date: 2013-06-05T00:00:00.000Z, grade: 'A', score: 7 },
+     { date: 2012-04-13T00:00:00.000Z, grade: 'A', score: 12 },
+     { date: 2011-10-12T00:00:00.000Z, grade: 'A', score: 12 } ],
+  name: 'Riviera Caterer',
+  restaurant_id: '40356018' }
+  
+5. Para cada colección, listar los campos a nivel raíz (ignorar campos dentro de documentos anidados) y sus tipos de datos.
+
+    load("typeOf.js")
+    _id: object
+    address: object
+    borough: string
+    cuisine: string
+    grades: object
+    name: string
+    restaurant_id: string
+    true
+
+
+contenido de typeOf.js
+    [db.restaurants.findOne()].forEach( function(my_doc) { for (var key in my_doc) { print(key + ': ' + typeof my_doc[key]) } } )
+    
+------------------------------------------------------------
+
+SQL
+
+1.Devolver restaurant_id, name, borough y cuisine pero excluyendo _id para un documento (el primero).
+    
+    db.restaurants.find({},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0 }).limit(1)
+    { borough: 'Brooklyn',
+    cuisine: 'American',
+    name: 'Riviera Caterer',
+    restaurant_id: '40356018' }
+
+2. Devolver restaurant_id, name, borough y cuisine para los primeros 3 restaurantes que contengan 'Bake' en alguna parte de su nombre.
+
+db.restaurants.find({"name":{$regex:/^Bake/}},
+restaurant_id:1,name:1,borough:1,cuisine:1,_id:0 }).limit(3)
+{ borough: 'Queens',
+  cuisine: 'Bagels/Pretzels',
+  name: 'Baker\'S Dozen Bagel',
+  restaurant_id: '40425131' }
+{ borough: 'Brooklyn',
+  cuisine: 'Caribbean',
+  name: 'Bake And Things Restaurant',
+  restaurant_id: '40539661' }
+{ borough: 'Manhattan',
+  cuisine: 'American',
+  name: 'Baker Street Pub',
+  restaurant_id: '40803550' }
+    
+3. Contar los restaurantes de comida (cuisine) china (Chinese) o tailandesa (Thai) del barrio (borough) Bronx. Consultar or versus in.
+
+db.restaurants.find({$and:[ {$or: [ {"cuisine":{$eq:"Chinese"}},{"cuisine":{$eq:"Thai"}} ]}, {"borough":{$eq:"Bronx"}}  ]}).count()
+325
+
+db.restaurants.count({ cuisine: { $in: [ "Chinese", "Thai" ] }, borough: "Bronx" })
+
+------------------------------------------------------------
+
+SQL
+
+1. Traer 3 restaurantes que hayan recibido al menos una calificación de grade 'A' con score mayor a 50. Una misma calificación debe cumplir con ambas condiciones simultáneamente; investigar el operador elemMatch.
+
+db.restaurants.find({ grades:{$elemMatch:{ score:{$gt:5}, grade:{$eq:'A'} } }   }).limit(3)
+
+2. ¿A cuántos documentos les faltan las coordenadas geográficas? En otras palabras, revisar si el tamaño de address.coord es 0 y contar.
+
+
+db.restaurants.count({ "address.coord":{$size:0}})
+2
+
+3. Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la última calificación. Ver el operador slice.
+
+
+db.restaurants.find( { },
+{ name: 1, borough: 1, cuisine: 1, grades: { $slice: -1 } } ).limit(3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
