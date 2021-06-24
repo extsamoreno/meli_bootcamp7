@@ -1,0 +1,70 @@
+
+1) Calentamiento:
+Punto 1:
+show collections
+neighborhoods
+restaurants
+
+La base de datos tiene 2 colecciones.
+
+Punto 2:
+db.neighborhoods.find().count()
+195
+
+db.restaurants.count()
+25359
+
+db.neighborhoods.dataSize()
+3389859
+
+db.restaurants.dataSize()
+10624215
+
+Punto 3:
+db.neighborhoods.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+
+db.restaurants.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+
+Punto 4:
+db.neighborhoods.find().pretty().limit(1)
+
+db.restaurants.find().pretty().limit(1)
+
+Punto 5:
+db.neighborhoods.find({}, {geometry:0})
+
+db.restaurants.find({}, {address:0, grades:0})
+
+
+2) SQL:
+Punto 1:
+db.restaurants.find({}, {restaurant_id:1, name:1, borough:1, cuisine:1, _id:0}).limit(1)
+
+Punto 2:
+db.restaurants.find({name:/Bake/}, {restaurant_id:1, name:1, borough:1, cuisine:1, _id:0}).limit(3)
+
+Punto 3:
+db.restaurants.find({cuisine: {$in: ['Chinese', 'Thai']}, borough:'Bronx'}).count()
+
+
+3) NoSQL:
+Punto 1:
+db.restaurants.find({grades:{$elemMatch:{grade:'a', score:{$gt: 5}}}}).limit(3)
+
+Punto 2: 
+db.restaurants.find({"address.coord":{$size:0}}).count()
+
+Punto 3:
+db.restaurants.find({},{name:1, borough:1, cuisine:1, grades:{$slice:-1}, _id:0}).limit(3)
+
+4) Desafiantes:
+Punto 1:
+db.restaurants.aggregate({ $sortByCount:  "$cuisine" }, {$limit: 3})
+
+Punto 2:
+db.restaurant.aggregate([{$match: {$expr:{$gt:[{$size:"$grades"}, 3]}}}, {$unwind: {path: "$grades"}}, {$group: {_id:"$borough", avg: {$avg: "$grades.score"}}}, { $sort:{'avg':-1}}])
+
+Punto 3:
+db.restaurant.find({ "address.coord":{ $geoWithin:{ $centerSphere: [ [ -73.93414657, 40.82302903 ], 500 ] } } }, {_id:0,name:1, cuisine:1, borough:1})

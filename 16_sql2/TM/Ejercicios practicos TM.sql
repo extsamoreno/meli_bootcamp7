@@ -21,7 +21,7 @@ SELECT gen.name AS "Nombre de genero", COUNT(*)  AS total_peliculas
 FROM genres gen 
 JOIN movies mov on gen.id = mov.genre_id
 GROUP BY gen.name
-HAVING total_peliculas > 3;
+HAVING total_peliculas >= 3;
 
 #5.Mostrar sólo el nombre y apellido de los actores que trabajan en todas las películas de la guerra de las galaxias y que estos no se repitan.
 SELECT act.first_name AS "Nombre actor", act.last_name AS "Apellido actor"
