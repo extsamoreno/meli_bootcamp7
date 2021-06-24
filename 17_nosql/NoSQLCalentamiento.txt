@@ -1,0 +1,34 @@
+//Calentamiento:
+
+1. ¿Cuántas colecciones tiene la base de datos?
+
+show collections: 
+	neighborhoods
+	restaurants
+
+2. ¿Cuántos documentos en cada colección? ¿Cuánto pesa cada colección?
+
+	db.restaurants.find().count()
+	25359
+	db.neighborhoods.find().count()
+	195
+
+3. ¿Cuántos índices en cada colección? ¿Cuánto espacio ocupan los índices de cada
+colección?
+
+Restaurants: Indexes 1: Total Size 548.0 KB
+Neigthborhoods: Indexes 1: Total Size 20.0 KB
+
+4. Traer un documento de ejemplo de cada colección. db.collection.find(...).pretty() nos da
+un formato más legible.
+
+
+db.restaurants.find({borough:"Brooklyn"}).pretty()
+db.neighborhoods.find({name:"Parkchester"}).pretty()
+
+5. Para cada colección, listar los campos a nivel raíz (ignorar campos dentro de
+documentos anidados) y sus tipos de datos.
+
+db.neighborhoods.find({}, {name:1, _id:0}).pretty()
+db.restaurants.find({}, {borough:1,cuisine:1,name:1,restaurant_id:1,_id:0}).pretty()
+
