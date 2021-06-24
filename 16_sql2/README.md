@@ -63,3 +63,71 @@ INNER JOIN actors a ON (a.id=actor_id)
 WHERE title like "La Guerra de las galaxias%"
 GROUP BY a.id
 HAVING count(*)>= (SELECT count(*) FROM movies WHERE title like "La Guerra de las galaxias%");
+
+
+#SEGUNDA PARTE
+
+1. Explique el concepto de normalización y para que se utiliza.
+
+Es un proceso de eliminacion de redundacia e inconsistencias, es usado para mejorar el diseño en cuanto a la facilitacion de consultas dentro del modelo
+
+2. Agregue una película a la tabla movies.
+
+INSERT INTO `movies_db`.`movies` (`title`, `rating`, `awards`, `release_date`, `length`) VALUES ('New Movie', '8.0', '2', '2012-05-04 00:00:00', '80');
+
+3. Agregué un géneró a la tabla genres.
+
+INSERT INTO `movies_db`.`genres` (`created_at`, `name`, `ranking`) VALUES ('2013-07-03 22:00:00', 'new genre', '13');
+
+4. Asocie a la película del Ej 2. con el género creado en el Ej. 3.
+
+UPDATE `movies_db`.`movies` SET `genre_id` = '13' WHERE (`id` = '22');
+
+5. Modifique la tabla actors para que al menos un actor tenga como favorita la película agregada en el Ej.2.
+
+UPDATE `movies_db`.`actors` SET `favorite_movie_id` = '22' WHERE (`id` = '3');
+
+6. Cree una tabla temporal copia de la tabla movies.
+
+CREATE TEMPORARY TABLE movies_temporary (SELECT * FROM MOVIES);
+
+7. Elimine de esa tabla temporal todas las películas que hayan ganado menos de 5 awards.
+
+SET SQL_SAFE_UPDATES = 0;
+
+DELETE FROM movies_temporary
+WHERE awards<5;
+
+8. Obtenga la lista de todas los géneros que tengan al menos una película.
+
+SELECT DISTINCT(g.name) FROM movies m INNER JOIN genres  g ON m.genre_id=g.id;
+
+9. Obtenga la lista de actores cuya película favorita haya ganado más de 3 awards.
+
+SELECT a.* FROM actors a INNER JOIN movies m ON a.favorite_movie_id=m.id
+where m.awards>3;
+
+10. Utilice el explain plan para analizar las consultas del Ej.6 y 7.
+
+ERROR --> EXPLAIN CREATE TEMPORARY TABLE movies_temporary (SELECT * FROM MOVIES);
+
+EXPLAIN DELETE FROM movies_temporary
+WHERE awards<5;
+
+![image](https://user-images.githubusercontent.com/84474950/123194169-a8972900-d46b-11eb-834b-c3e3ddfd187a.png)
+
+11. Qué son los índices? Para qué sirven?
+
+Son un mecanismo para crear una ruta directa hacia los datos evitando barridos y mejorando los tiempos de consulta
+
+12. Cree un índice sobre el nombre en la tabla movies.
+
+CREATE INDEX movies_name
+ON MOVIES(title);
+
+13. Chequee que el indice fue creado correctamente.
+
+SHOW INDEX FROM MOVIES;
+
+![image](https://user-images.githubusercontent.com/84474950/123194917-e052a080-d46c-11eb-9d21-be7a2a9431aa.png)
+
