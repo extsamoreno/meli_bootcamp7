@@ -1,0 +1,68 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema emple_dep
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `emple_dep` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `emple_dep` ;
+
+-- -----------------------------------------------------
+-- Table `emple_dep`.`Departments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `emple_dep`.`Departments` (
+  `departmentID` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`departmentID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `emple_dep`.`Employees`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `emple_dep`.`Employees` (
+  `fileNumber` INT NOT NULL,
+  `DNI` INT NOT NULL,
+  `lastName` VARCHAR(45) NOT NULL,
+  `firstName` VARCHAR(45) NOT NULL,
+  `birthDate` DATETIME NOT NULL,
+  `admissionDate` DATETIME NOT NULL,
+  `position` VARCHAR(45) NOT NULL,
+  `income` DECIMAL(10,2) NOT NULL,
+  `Departments_departmentID` INT NOT NULL,
+  PRIMARY KEY (`DNI`),
+  INDEX `fk_Employees_Departments_idx` (`Departments_departmentID` ASC) VISIBLE,
+  CONSTRAINT `fk_Employees_Departments`
+    FOREIGN KEY (`Departments_departmentID`)
+    REFERENCES `emple_dep`.`Departments` (`departmentID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+INSERT INTO emple_dep.Departments (name,address)
+VALUES  ("Department 1", "Address 1"),
+        ("Department 2", "Address 2"),
+        ("Department 3", "Address 3"),
+        ("Department 4", "Address 4"),
+        ("Department 5", "Address 5");
+
+INSERT INTO emple_dep.Employees (fileNumber,DNI,lastName,firstName,birthDate,admissionDate,position,income,Departments_departmentID) 
+VALUES (1,3333,"asdf","asdf","1984-07-20 19:59:18","2000-03-19 09:51:11","asdf","333.33",4);
+
+/*
+Ejercicio 2
+Una vez modelada y planteada la base de datos, responder a las siguientes preguntas:
+
+a. ¿Cuál es la primary key para la tabla empleados? Justificar respuesta
+    La primary key para la tabla empleados es el dni.
+b. ¿Cuál es la primary key para la tabla departamentos? Justificar respuesta
+    La primary key para la tabla departamentos es el id de departamento.
+c. ¿Qué relación/es existiría/n entre las tablas? ¿En qué tabla debería haber foreign key? ¿A qué campo de qué tabla hace referencia dicha foreign key? Justificar respuesta
+    La relación sería de uno a muchos ya que un departamento puede tener muchos empleados. La foreign key debería ir en la tabla empleados y hacer referencia a la primary key de departamentos: departmentID.
+*/
