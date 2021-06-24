@@ -1,0 +1,20 @@
+1. ¿Cuántas colecciones tiene la base de datos? 
+Tiene dos Collections: restaurants y neighborhoods.
+
+2. ¿Cuántos documentos en cada colección? ¿Cuánto pesa cada colección?
+Neighborhoods: 195
+Restaurants: 25400
+
+3. ¿Cuántos índices en cada colección? ¿Cuánto espacio ocupan los índices de cada colección?
+Un índice cada uno en _id.
+Neighborhoods: 20.5kb
+Restaurants: 348.2kb
+
+4. Traer un documento de ejemplo de cada colección. 
+db.neighborhoods.find({}, {name:"Murray Hill"}).pretty()
+db.restaurants.find({}, {cuisine:"Delicatessen"}).pretty()
+
+
+5. Para cada colección, listar los campos a nivel raíz (ignorar campos dentro de documentos anidados) y sus tipos de datos.
+db.neighborhoods.find()
+db.restaurants.find()
