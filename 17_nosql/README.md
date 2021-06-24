@@ -85,3 +85,18 @@ db.restaurants.find({ "address.coord": {$size:0}}).count()
 ```
 db.restaurants.find({},{name:1,borough:1,cuisine:1,grades: { $slice: -1 },_id:0}).limit(3)
 ```
+
+
+## DESAFIANTES
+
+1. ¿Cuál es top 3 de tipos de cocina (cuisine) que podemos encontrar entre los datos? Googlear "mongodb group by field, count it and sort it". Ver etapa limit del pipeline de agregación.
+
+db.restaurants.aggregate([{ $group: { _id: "$cuisine", count: {$sum: 1} }},{$sort:{'count':-1}},{$limit: 3}])
+
+2. ¿Cuáles son los barrios más desarrollados gastronómicamente? Calcular el promedio ($avg) de puntaje (grades.score) por barrio; considerando restaurantes que tengan más de tres reseñas; ordenar barrios con mejor puntaje arriba. Ayuda:
+
+  a. match es una etapa que filtra documentos según una condición, similar a db.orders.find(<condición>).
+  b. Parece necesario deconstruir las listas grades para producir un documento por cada puntaje utilizando la etapa unwind.
+
+
+3. Una persona con ganas de comer está en longitud -73.93414657 y latitud 40.82302903, ¿qué opciones tiene en 500 metros a la redonda? Consultar geospatial tutorial.
