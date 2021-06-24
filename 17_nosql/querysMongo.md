@@ -159,14 +159,35 @@ db.restaurant.aggregate({$group : {_id : "$cuisine", count:{$sum:1}}}, {$sort: {
 puntaje arriba.
 
 ```JSON
+db.restaurant.aggregate(
+   [ 
+      { $match : 
+         {"$expr":{$gte:[{$size:"$grades"},3]}}},
+   { $unwind: "$grades" },
+   {$group : 
+   {
+      _id : "$cuisine",
+      
+      avg :{$avg:"$grades.score"}}
+   }])
 ```
+
+```JSON
+{ _id: 'Ice Cream, Gelato, Yogurt, Ices',
+  avg: 8.422382671480145 }
+{ _id: 'Polynesian', avg: 14.6 }
+{ _id: 'Hotdogs/Pretzels', avg: 5.0212765957446805 }
+{ _id: 'Indian', avg: 12.956223175965665 }
+{ _id: 'Tapas', avg: 11.38961038961039 }
+{ _id: 'Caribbean', avg: 12.194630872483222 }
+{ _id: 'Japanese', avg: 12.871336124857251 }
+```
+
+3. Una persona con ganas de comer está en longitud -73.93414657 y latitud 40.82302903, ¿qué opciones tiene en
+500 metros a la redonda?
+
 ```JSON
 ```
 ```JSON
 ```
-```JSON
-```
-```JSON
-```
-```JSON
-```
+
