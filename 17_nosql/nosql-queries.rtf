@@ -1,0 +1,61 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 1. La base de datos tiene dos colecciones\
+2. Restaurants -> 25359 documentos\
+    Neighborhoods -> 195\
+3. Restaurants ->  1 \'edndice = 626.7 KB\
+    Neighborhoods -> 1 \'edndice = 20.5 KB\
+4. db.restaurants.find(\{\'93name\'94:\'94Riviera Caterer\'94\}).pretty()\
+    db.neighborhoods.find(\{\'93name\'94:\'94Midwood\'94\}).pretty()\
+5. db.restaurants.findOne(\
+     \{name:/Bake/\},\
+     \{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0\}\
+    ).limit(3)\
+\
+ \
+1. db.restarants.findOne(\
+		\{\},\
+		\{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0\}\
+	).limit(3)\
+\
+2. db.restaurants.find(\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0      \{name:/Bake/\},\
+     \{restaurant_id:1, name:1, borough:1, cuisine:1, _id:0\}\
+    ).limit(3)\
+\
+3. db.restaurants.count( \
+		\{ cuisine: \{ $in:["Chinese", "Thai"]\}, borough:"Bronx"\}\
+)\
+\
+\
+\
+1. db.restaurants.find(\
+ 	\{ grades: \{ $elemMatch: \{ grade: "A", score: \{ $gt: 50 \} \} \}\}\
+    ).limit(3)\
+\
+\
+2. db.restaurants.count( \{ "address.coord": \{ $size: 0 \} \})\
+\
+3. db.restaurants.find( \{ \}, \{ name: 1, borough: 1, cuisine: 1, grades: \{ $slice: -1 \} \}).limit(3)\
+\
+\
+\
+Desafiantes\
+\
+1.  db.restaurants.aggregate([\
+    \{"$group" : \{_id:"$cuisine", count:\{$sum:1\}\}\}, \{ $sort:\{'count':-1\}\}, \{$limit:3\}\
+  ])\
+\
+2. db.restaurants.aggregate(\{$unwind: \{path: "$grades"\}\},\{$group:\{ _id: "$borough",prom:\{$avg: "$grades.score"\}\}\},\{ $sort: \{ score: \{ $meta: "textScore" \}, prom: -1 \} \})\
+\
+3. db.restaurants.find(\{ location: \{ $nearSphere: \{ $geometry: \{ type: "Point", coordinates: [ -73.93414657, 40.82302903 ] \}, $maxDistance: 500 \} \} \})\
+\
+\
+\
+}
