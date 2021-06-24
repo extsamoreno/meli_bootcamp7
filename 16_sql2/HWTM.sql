@@ -1,4 +1,4 @@
-#USE movies_db;
+USE movies_db;
 SELECT se.title,
 	ge.name
 FROM series se
