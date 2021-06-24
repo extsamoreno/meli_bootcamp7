@@ -76,5 +76,9 @@ db.restaurants.find({ "grades": { $elemMatch: {grade: 'A',score: { $gte:50 } } }
 
 2. ¿A cuántos documentos les faltan las coordenadas geográficas? En otras palabras, revisar si el tamaño de address.coord es 0 y contar.
 
+```
+db.restaurants.find({ "address.coord": {$size:0}}).count()
+```
+
 3. Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la última calificación. Ver el operador slice.
 
