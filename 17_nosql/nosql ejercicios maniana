@@ -1,0 +1,57 @@
+------------------------------------------------------------------------------------------------------------------------------
+Parte 1
+------------------------------------------------------------------------------------------------------------------------------
+1 - Tiene 2 colecciones neighborhoods y restaurants.
+
+2 - 
+			neighborhoods	restaurants
+documentos		195				25359
+tamaño			3.2MB			10.1MB
+
+3 -
+			neighborhoods	restaurants
+indices			1				1
+tamaño			32KB			552KB
+
+
+4 -
+db.neighborhoods.find({name:"Ocean Parkway South"}).pretty()
+db.restaurant.find({restaurant_id:"40363298"}).pretty()
+
+5 -
+db.neighborhoods.find({}, {_id:0, name:1}).pretty()
+db.restaurant.find({}, {_id:0, borough:1, cuisine:1, name:1, restaurant_id:1}).pretty()
+
+typeof 
+
+------------------------------------------------------------------------------------------------------------------------------
+Parte 2.
+------------------------------------------------------------------------------------------------------------------------------
+
+db.restaurant.find({}, {_id:0, borough:1, cuisine:1, name:1, restaurant_id:1}).limit(1)
+
+db.restaurants.find({name: /Bake/},{_id:0,name:1, cuisine:1, borough:1}).limit(3)
+
+db.restaurant.find({$or: [{cuisine: "Chinese"},{cuisine: "Thai"}], borough: "Bronx"},{_id:0,name:1, cuisine:1, borough:1})
+
+------------------------------------------------------------------------------------------------------------------------------
+Parte 3
+------------------------------------------------------------------------------------------------------------------------------
+
+db.restaurant.find({ grades: { $elemMatch: { grade: 'A', score: { $gt: 50 } } } })
+
+db.restaurant.find({ "address.coord": { $size: 0 } }).count()
+
+db.restaurant.find({},{_id:0,name:1, cuisine:1, borough:1, grades:{ $slice: -1 }}).limit(3)
+
+------------------------------------------------------------------------------------------------------------------------------
+Parte 4
+------------------------------------------------------------------------------------------------------------------------------
+
+db.restaurant.aggregate([{$group: {_id: "$cuisine", countA: { $sum: 1}}}, { $sort:{'countA':-1}}, {$limit:3}])
+
+
+db.restaurant.aggregate([{$match: {$expr:{$gt:[{$size:"$grades"}, 3]}}}, {$unwind: {path: "$grades"}}, {$group: {_id:"$borough", avg: {$avg: "$grades.score"}}}, { $sort:{'avg':-1}}])
+
+
+db.restaurant.find({ "address.coord":{ $geoWithin:{ $centerSphere: [ [ -73.93414657, 40.82302903 ], 500 ] } } }, {_id:0,name:1, cuisine:1, borough:1})
