@@ -6,7 +6,7 @@ R/ Tiene dos colecciones
 
 2. ¿Cuántos documentos en cada colección? ¿Cuánto pesa cada colección?
 
-```JSON
+```
 -db.restaurant.count()
 25359
 -db.neighboorhood.count()
@@ -20,7 +20,7 @@ R/ Tiene dos colecciones
 3. ¿Cuántos índices en cada colección? ¿Cuánto espacio ocupan los índices de cada
 colección?
 
-```JSON
+```
 db.restaurant.getIndexes()
 [ { v: 2, key: { _id: 1 }, name: '_id_' } ]
 ```
@@ -29,7 +29,7 @@ db.restaurant.getIndexes()
 4. Traer un documento de ejemplo de cada colección. db.collection.find(...).pretty() nos da
 un formato más legible
 
-```JSON
+```
 db.restaurant.find().limit(1)
 { _id: ObjectId("5eb3d668b31de5d588f4292a"),
   address: 
@@ -64,11 +64,11 @@ db.neighboorhood.find().limit(1)
 5. Para cada colección, listar los campos a nivel raíz (ignorar campos dentro de
 documentos anidados) y sus tipos de datos
 
-```JSON
+```
 db.restaurant.find({}, {_id:0, borought:1, cuisine:1, name:1, restuarant_id:1}).limit(2)
 ```
 
-```JSON
+```
 { cuisine: 'American', name: 'Riviera Caterer' }
 { cuisine: 'Delicatessen', name: 'Wilken\'S Fine Food' }
 ```
@@ -79,11 +79,11 @@ db.restaurant.find({}, {_id:0, borought:1, cuisine:1, name:1, restuarant_id:1}).
 en alguna parte de su nombre.
 
 
-```JSON
+```
 db.restaurant.find({}, {name: /Bake/}).limit(3)
 ```
 
-```JSON
+```
 {_id: ObjectId("5eb3d668b31de5d588f4292a"),
   name: { pattern: 'Bake', options: '' } }
 { _id: ObjectId("5eb3d668b31de5d588f4292b"),
@@ -95,7 +95,7 @@ db.restaurant.find({}, {name: /Bake/}).limit(3)
 3. Contar los restaurantes de comida (cuisine) china (Chinese) o tailandesa (Thai) del barrio (borough)
 Bronx. Consultar or versus in
 
-```JSON
+```
 db.restaurant.count({borough : "Bronx", cuisine : {$in : ["Chinese", "Thai"] }})
 325
 ```
@@ -105,25 +105,25 @@ db.restaurant.count({borough : "Bronx", cuisine : {$in : ["Chinese", "Thai"] }})
 misma calificación debe cumplir con ambas condiciones simultáneamente; investigar el operador
 elemMatch.
 
-```JSON
+```
 db.restaurant.find( {grades: {$elemMatch :  { grade : "A", score: { $gte: 5 }}}})
 ```
 
 2. ¿A cuántos documentos les faltan las coordenadas geográficas? En otras palabras, revisar si el tamaño de
 address.coord es 0 y contar.
 
-```JSON
+```
 db.restaurant.find({"address.coord" : {$size : 0}}).count()
 ```
 
 3. Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la
 última calificación. Ver el operador slice.
 
-```JSON
+```
 db.restaurant.find({},{name : 1, cuisine: 1, borough: 1 , grades:{$slice : -1}}).limit(3)
 ```
 
-```JSON
+```
 { _id: ObjectId("5eb3d668b31de5d588f4292a"),
   borough: 'Brooklyn',
   cuisine: 'American',
@@ -145,11 +145,11 @@ db.restaurant.find({},{name : 1, cuisine: 1, borough: 1 , grades:{$slice : -1}})
 1. ¿Cuál es top 3 de tipos de cocina (cuisine) que podemos encontrar entre los datos? Googlear "mongodb group by
 field, count it and sort it". Ver etapa limit del pipeline de agregación.
 
-```JSON
+```
 db.restaurant.aggregate({$group : {_id : "$cuisine", count:{$sum:1}}}, {$sort: {count:-1}}, { $limit: 3 })
 ```
 
-```JSON
+```
 { _id: 'American', count: 6183 }
 { _id: 'Chinese', count: 2418 }
 { _id: 'Café/Coffee/Tea', count: 1214}
@@ -158,7 +158,7 @@ db.restaurant.aggregate({$group : {_id : "$cuisine", count:{$sum:1}}}, {$sort: {
 (grades.score) por barrio; considerando restaurantes que tengan más de tres reseñas; ordenar barrios con mejor
 puntaje arriba.
 
-```JSON
+```
 db.restaurant.aggregate(
    [ 
       { $match : 
@@ -172,7 +172,7 @@ db.restaurant.aggregate(
    }])
 ```
 
-```JSON
+```
 { _id: 'Ice Cream, Gelato, Yogurt, Ices',
   avg: 8.422382671480145 }
 { _id: 'Polynesian', avg: 14.6 }
@@ -187,14 +187,14 @@ db.restaurant.aggregate(
 500 metros a la redonda?
 
 
-```JSON
+```
 db.restaurant.find(
    { "address.coord":
    { $geoWithin:
       { $centerSphere: [ [ -73.93414657, 40.82302903 ], 0.310686 / 3963.2 ] } } })
 ```
 
-```JSON
+```
 { _id: ObjectId("5eb3d668b31de5d588f435b5"),
   address: 
    { building: '703',
