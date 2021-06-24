@@ -1,0 +1,28 @@
+#SQL
+
+#1.
+db.restaurants.find({restaurant_id: 1, name: 1, borough: 1, cuisine:1 })
+
+#2.
+db.restaurants.find({name: /Bake/},{restaurant_id : 1, name: 1, borough:1, cuisine:1}).limit(3)
+
+#3.
+db.restaurants.find({borough: 'Brooklyn', cuisine : {$in: ['Chinese', 'Thai']} },{restaurant_id : 1, name: 1, borough:1, cuisine:1})
+
+#NOSQL
+
+#1.
+db.restaurants.find({},{grades: {$elemMatch:{grade:'A',score:{$gt:5}}}}).limit(1).pretty()
+
+#2.
+db.restaurants.count({"address.coord":{$size:0}})
+
+#3.
+db.restaurants.find({},{name:1,borough:1,grades:{$slice: -1 }}).limit(3)
+
+
+#DESAFIANTES
+
+#1.
+db.restaurants.aggregate({ $sortByCount:  "$cuisine" }, {$limit: 3})
+
