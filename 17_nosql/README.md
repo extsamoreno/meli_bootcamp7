@@ -82,3 +82,6 @@ db.restaurants.find({ "address.coord": {$size:0}}).count()
 
 3. Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la última calificación. Ver el operador slice.
 
+```
+db.restaurants.find({},{name:1,borough:1,cuisine:1,grades: { $slice: -1 },_id:0}).limit(3)
+```
