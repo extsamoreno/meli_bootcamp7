@@ -32,7 +32,9 @@ db.restaurant.find({}, {_id:0, borough:1, cuisine:1, name:1, restaurant_id:1}).l
 
 db.restaurants.find({name: /Bake/},{_id:0,name:1, cuisine:1, borough:1}).limit(3)
 
-db.restaurant.find({$or: [{cuisine: "Chinese"},{cuisine: "Thai"}], borough: "Bronx"},{_id:0,name:1, cuisine:1, borough:1})
+db.restaurant.find({$or: [{cuisine: "Chinese"},{cuisine: "Thai"}], borough: "Bronx"},{_id:0,name:1, cuisine:1, borough:1}).count()
+o
+db.restaurant.count({borough : "Bronx", cuisine : {$in : ["Chinese", "Thai"] }})
 
 ------------------------------------------------------------------------------------------------------------------------------
 Parte 3
