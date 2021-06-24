@@ -1,0 +1,17 @@
+# ¿Cuál es top 3 de tipos de cocina (cuisine) que podemos encontrar entre los datos? Googlear "mongodb group by field, count it and sort it". Ver etapa limit del pipeline de agregación.
+
+1.db.restaurants.aggregate({$group:{_id:"cuisine",countA:{$sum:1}}},{$limit:3},{$sort:{"countA":1}})
+
+
+# ¿Cuáles son los barrios más desarrollados gastronómicamente? Calcular el promedio ($avg) de puntaje (grades.score) por barrio; considerando restaurantes que tengan más de tres reseñas; ordenar barrios con mejor puntaje arriba. Ayuda:
+
+
+match es una etapa que filtra documentos según una condición, similar a db.orders.find(<condición>).
+
+Parece necesario deconstruir las listas grades para producir un documento por cada puntaje utilizando la etapa unwind.
+
+2. db.neighborhoods.aggregate([ {$match: { $expr: { $gt: [ {$size:"$grades"}, 3] }}} , {$unwind: {path: "$grades"}} , {$group: {_id:"$grades.grade",avg:{$avg:"$grades.score"}}} , {$sort: {'avg':-1}} ])
+
+# Una persona con ganas de comer está en longitud -73.93414657 y latitud 40.82302903, ¿qué opciones tiene en 500 metros a la redonda? Consultar geospatial tutorial.
+
+3. db.restaurant.find({ "address.coord":{$geoWithin:{ $centerSphere: [[ -73.93414657, 40.82302903 ], 500 / 3963.2 ]}}})
