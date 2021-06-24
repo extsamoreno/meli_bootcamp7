@@ -17,4 +17,15 @@ SQL
 
 2- > db.restaurants.find({name: /bake/},{_id: 0, restaurant_id: 1, name:1, borough:1, cuisine:1}).limit(3).pretty()
 
-3- 
+3- > db.restaurants.aggregate([{$match: {borough: "Bronx", cuisine: {$in:["Chinese","Thai"]}}},{$group:{_id:0,cantidad:{$sum:1}}}]).pretty()
+{ "_id" : 0, "cantidad" : 325 }
+
+NoSQL
+
+1-- {grades: {$elemMatch:{grade:"A",score:{$gte: 5}}}}
+
+2-- [{$match: {
+  'grades.0': {$exists: true}
+}}, {$count: 'cantidad'}]
+
+3-- 
