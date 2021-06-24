@@ -1,0 +1,22 @@
+1.1_
+1.2_
+1.3_
+2.1_ db.restaurants.find({name: /^Baker/ },{_id:0,name:1, cuisine:1, borough:1}).pretty()
+2.2_ db.restaurants.find({"address.coord": {$size:2} }).count()
+3.2_ db.restaurants.find({},{_id:0,name:1, cuisine:1, borough:1,grades: {$slice:1}}).limit(3).pretty()
+3.1_db.restaurants.aggregate([
+    {$project: {name:1, cuisine:1}}, 
+    {$group: {_id: "$cuisine", count: {"$sum":(1)}}}, 
+    {$sort: { count: -1}}, 
+    { $limit:3 }
+    ])
+3.2_db.restaurants.aggregate([
+    {$project: {borough:1, grades:1}}, 
+    {$match: {$expr:{$gt:[{$size:"$grades"}, 3]}}},
+    {$unwind: {path: "$grades"}},
+    {$group: {_id:"$borough", avg: {$avg: "$grades.score"}}},
+    { $sort:{'avg':-1}},
+    { $limit:3 }
+    ])
+3.3_db.restaurants.find({ "address.coord":{ $geoWithin:{ $centerSphere: [ [ -73.93414657, 40.82302903 ], 500 ] } } }, 
+    {_id:0,name:1, cuisine:1, borough:1})
