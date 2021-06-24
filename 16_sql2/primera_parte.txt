@@ -1,0 +1,11 @@
+1.Se denomina join a la intersection entre dos tablas
+2.Left join : con left join damos prioridad a la tabla izquierda y buscamos en la derecha
+  Full join : se encarga de mostrar todas las filas de ambas tablas.
+3.Agrupa los resultados según las columnas indicadas 
+  Genera un solo registro por cada grupo de filas que compartan las columnas indicadas
+ 
+4.Es similar a la clausal WHERE , pero afecta a los grupos obtenidos por el group by.
+5. a.Inner b.Left Join
+6. Select * from movies mo RIGHT JOIN actors ac ON mo.id = ac.favorite_movie_id;
+   Select * from movies mo FULL JOIN actors ac ON mo.id = ac.favorite_movie_id;
+
