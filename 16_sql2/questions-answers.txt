@@ -1,0 +1,33 @@
+TM - Parte 1
+
+1. A qué se denomina JOIN en una base datos?
+Join es el proceso de tomar datos de varias tablas y colocarlos en una vista generada. 
+
+2. Nombre y explique 2 tipos de JOIN.
+FULL JOIN: Es la unión entre dos tablas dada una o más condiciones.
+INNER JOIN: Combinación de una fila de una tabla con otra fila de otra tabla.
+
+
+3. Para qué se utiliza el GROUP BY?
+Se utiliza para agrupar los resultados según las columnas indicadas.
+
+4. Para qué se utiliza el HAVING?
+Se usa en el GROUP BY para afectar a los grupos seleccionados. 
+
+5. Dado lo siguientes diagramas indique a qué tipo de JOIN corresponde cada uno:
+1- INNER JOIN
+2- LEFT JOIN
+
+6. Escriba una consulta genérica por cada uno de los diagramas a continuación:
+SELECT * FROM TABLE T
+RIGHT JOIN TABLE_2 T1
+FULL JOIN TABLE_2 T1
+ON T.id = T1.id;
+____________________________
+
+TT - Preguntas
+1. Explique el concepto de normalización y para que se utiliza.
+Proceso de estandarizar y validar datos eliminando redundancias o inconsistencias.
+
+11. Qué son los índices? Para qué sirven?
+Los índices son para optimizar consultas en SQL y sirven para mejorar los tiempos de respuesta y el acceso a los datos.
