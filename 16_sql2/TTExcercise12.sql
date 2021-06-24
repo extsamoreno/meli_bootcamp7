@@ -1,0 +1,1 @@
+CREATE INDEX moviesTitleIndex ON movies(title)

@@ -1,0 +1,1 @@
+INSERT INTO movies (title, rating, awards, release_date, length, genre_id) VALUES ("El secreto de sus ojos", 8.1, 12, '2009-08-13', 129, 3)

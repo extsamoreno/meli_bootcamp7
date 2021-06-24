@@ -1,0 +1,1 @@
+INSERT INTO genres (name, ranking, active) VALUES ("Romance", 13, 1)

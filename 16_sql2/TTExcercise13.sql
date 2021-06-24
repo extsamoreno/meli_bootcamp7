@@ -1,0 +1,1 @@
+SHOW INDEX FROM movies FROM movies_db;
