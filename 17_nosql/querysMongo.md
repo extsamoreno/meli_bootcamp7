@@ -186,8 +186,45 @@ db.restaurant.aggregate(
 3. Una persona con ganas de comer está en longitud -73.93414657 y latitud 40.82302903, ¿qué opciones tiene en
 500 metros a la redonda?
 
+
 ```JSON
+db.restaurant.find(
+   { "address.coord":
+   { $geoWithin:
+      { $centerSphere: [ [ -73.93414657, 40.82302903 ], 0.310686 / 3963.2 ] } } })
 ```
+
 ```JSON
+{ _id: ObjectId("5eb3d668b31de5d588f435b5"),
+  address: 
+   { building: '703',
+     coord: [ -73.9365637, 40.8201488 ],
+     street: 'Lenox Avenue',
+     zipcode: '10039' },
+  borough: 'Manhattan',
+  cuisine: 'Pizza',
+  grades: 
+   [ { date: 2013-12-05T00:00:00.000Z, grade: 'A', score: 13 },
+     { date: 2013-05-07T00:00:00.000Z, grade: 'A', score: 6 },
+     { date: 2012-04-11T00:00:00.000Z, grade: 'A', score: 7 } ],
+  name: 'Papa John\'S',
+  restaurant_id: '40803754' }
+{ _id: ObjectId("5eb3d668b31de5d588f4372a"),
+  address: 
+   { building: '2525',
+     coord: [ -73.9381738, 40.8224212 ],
+     street: 'Adam Clayton Powell Jr Boulevard',
+     zipcode: '10039' },
+  borough: 'Manhattan',
+  cuisine: 'Chinese',
+  grades: 
+   [ { date: 2014-08-07T00:00:00.000Z, grade: 'Z', score: 13 },
+     { date: 2014-02-18T00:00:00.000Z, grade: 'A', score: 13 },
+     { date: 2013-05-07T00:00:00.000Z, grade: 'B', score: 22 },
+     { date: 2012-12-20T00:00:00.000Z, grade: 'C', score: 52 },
+     { date: 2012-06-11T00:00:00.000Z, grade: 'A', score: 11 },
+     { date: 2012-01-18T00:00:00.000Z, grade: 'A', score: 13 } ],
+  name: 'Red Star Chinese Restaurant',
+  restaurant_id: '40870509' }
 ```
 
