@@ -1,0 +1,28 @@
+A qué se denomina JOIN en una base datos?
+
+- Permite unir dos tablas
+
+Nombre y explique 2 tipos de JOIN.
+
+- Inner Join: Permite unir dos tablas por la información que comparten
+- left join: permite unir dos tablas por la información que comparten y con la infromación de la primera tablas.
+
+Para qué se utiliza el GROUP BY?
+
+- Para agrupar diferentes busquedas, por ejemplo si quisiera usamar los id que se repeten una tabla.
+
+Para qué se utiliza el HAVING?
+
+- Se usa par auna condición despues de usar el group by 
+
+Dado lo siguientes diagramas indique a qué tipo de JOIN corresponde cada uno
+
+- InnerJOIN
+
+- Left JOIN
+
+
+Escriba una consulta genérica por cada uno de los diagramas a continuación
+
+- SELECT * FROM A RIGHT JOIN B ON A.KEY = B.KEY;
+- SELECT * FROM A FULL OUTER JOIN B ON A.KEY = B.KEY; 
