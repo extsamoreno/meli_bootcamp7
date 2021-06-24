@@ -105,7 +105,7 @@ db.restaurants.aggregate([{ $unwind : "$grades" },{$project: {borough:1,score:"$
 
 
 3. Una persona con ganas de comer está en longitud -73.93414657 y latitud 40.82302903, ¿qué opciones tiene en 500 metros a la redonda? Consultar geospatial tutorial.
-4. 
+
 ```
 db.neighborhoods.createIndex({ geometry: "2dsphere" })
 db.neighborhoods.find({ geometry : { $nearSphere: { $geometry: { type: "Point", coordinates: [ -73.93414657, 40.82302903 ] }, $maxDistance: 500 } } })
