@@ -1,0 +1,20 @@
+Calentamiento
+1- La base de datos tiene 2 colecciones
+2- En la collecion "neighborhoods" 195 y la collection "restaurants" tiene 25359 documentos.
+3- La coleccion "neighborhoods" tiene 1 indice que pesa 20.5kb y la coleccion "restaurants" tiene 1 indice que pesa 241.7kb
+4- db.restaurants.find({restaurant_id : "40356483"}).pretty()
+db.neighborhoods.find({name : "Midwood"}).pretty()
+5- 
+
+SQL
+1- db.restaurants.findOne({},{restaurant_id : 1, name : 1, borough : 1, cuisine : 1, _id:0})
+2- db.restaurants.find({name:/.*Bake.*/},{restaurant_id : 1, name : 1, borough : 1, cuisine : 1, _id:0}).limit(3)
+3- Hat 325 restaurantes de comida china o tailandesa en el barrio "Bronx"
+
+NoSQL
+1- db.restaurants.find({grades:{$elemMatch:{grade:"A",score:{$gt:5}}}}).limit(3)
+2- Hay 2 Restaurantes sin coordenadas
+3- db.restaurants.find({},{name : 1, borough : 1, cuisine : 1, grades:{$slice:-1}, _id:0}).limit(3)
+
+Desafiantes
+1-
