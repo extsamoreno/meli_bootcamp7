@@ -575,3 +575,22 @@ db.vecinos.findOne()
         "name" : "Bedford"
 }
 
+5.
+    No encontré la forma de listar los campos de un documento. Tomé los datos desde MongoDB Compass en la sección Schema.
+
+    Restaurants:
+
+    _id -> objectid,
+    address -> document,
+    borough -> string,
+    cuisine -> string,
+    grades -> array of documents,
+    name -> string,
+    restaurant_id -> string.
+
+    Vecinos:
+
+    _id -> objectid,
+    geometry -> document,
+    name -> string.
+
