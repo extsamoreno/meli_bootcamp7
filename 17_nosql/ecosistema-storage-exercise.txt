@@ -1,0 +1,18 @@
+
+========================Ejercicio 1==========================
+Siguiendo el diagrama de decisiones, eligiriamos el camino que llega a KVS DB ya que los datos almacenados no serian del tipo binario.
+Ademas seria una API frecuentemente consultada, porque la cantidad de trafico de Mercado Pago es muy grande.
+Necesitaríamos expanción horizontal, ya que el tráfico de peticiones crecería en gran medida.
+Generalemente la busqueda de los usuarios se realizaria por id.
+El tamaño de las consultas soponemos que no superaria los 50KB.
+Finalmente necesitamos consistencia de los datos al tratarse de dinero.
+
+Como otra implementación a tomar en cuenta se podria utilizar una base de dato relacional, ya que estas son robustas
+y aseguran la consistencia de los datos tanto para lectura como para escritura.
+
+
+=======================Ejercicio 2===========================
+Por una lado utilizariamos Object Storage para almacenar la foto de la orden de envio.
+Los datos de shipping los alamacenaríamos en una KVS porque usualmente serán solicitados por el shippingID.
+Los datos de persistencia los duplicariamos en una db relacinoal para poder resolver consultas complejas, como lo es la de
+obtener información sobre los envíos para un comprador o vendedor en particular y agrupar por ellos el costo total generado.
