@@ -1,0 +1,11 @@
+-- Tengo que crear una aplicación que se encarga de manejar la gestión de dinero en cuenta de los usuarios de Mercado Pago. Cuando un usuario paga, luego de validar que tiene saldo, tengo que registrar el pago y decrementar su saldo. Cuando un usuario deposita dinero, tengo que incrementar su saldo. Asimismo, con cada pago aprobado, y usando los valores del pago y el usuario varias aplicaciones de Fraude calculan modelos de riesgo de los usuarios. Desde una perspectiva de base de datos, ¿qué utilizarías? ¿Porque? ¿Se te ocurre más de una forma de hacerlo?
+
+La base que elegimos fue la relación (RDBMS) ya que no necesitamos escalamiento horizontal, el acceso a datos debe estar bien definido y con queries complejas. Así mismo se necesita consistencia por qué valores como el precio deben estar actualizados y mantenerse. Para elaborar modelos contra fraude es ideal alimentarse de base de datos relacionales que que permitan tener una mayor predicción
+
+
+-- Tengo que crear una aplicación que se encarga de manejar la gestión de dinero en cuenta de los usuarios de Mercado Pago. Cuando un usuario paga, luego de validar que tiene saldo, tengo que registrar el pago y decrementar su saldo. Cuando un usuario deposita dinero, tengo que incrementar su saldo. Asimismo, con cada pago aprobado, y usando los valores del pago y el usuario varias aplicaciones de Fraude calculan modelos de riesgo de los usuarios. Desde una perspectiva de base de datos, ¿qué utilizarías? ¿Porque? ¿Se te ocurre más de una forma de hacerlo?
+
+Para esta propuesta creemos que la mejor solución seria una mezcla de distintas bases:
+* Object Storage: ya que necesitamos trabajar datos binarios como fotos
+* Auditoria: ya que los datos a los que queremos acceder no son frecuentemente concurridos
+* KVS voltage: ya que manejamos datos sensibles como por ejemplo la dirección del comprador y que necesitan consistencia
