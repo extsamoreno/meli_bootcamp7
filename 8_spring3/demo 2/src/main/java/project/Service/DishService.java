@@ -1,5 +1,8 @@
 package project.Service;
 
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import project.Repository.IIngredientsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +13,15 @@ import project.Service.mapper.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 @Service
 public class DishService implements IDishService {
 
     @Autowired
     IIngredientsRepository ingridientsRepository;
+
+
 
     @Override
     public float calculateCalories(DishRequestDTO dishDTO) {

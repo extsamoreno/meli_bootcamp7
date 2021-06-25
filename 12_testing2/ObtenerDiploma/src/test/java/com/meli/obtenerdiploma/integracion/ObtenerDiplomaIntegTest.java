@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ObtenerDiplomaIntTest {
+public class ObtenerDiplomaIntegTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -29,40 +29,37 @@ public class ObtenerDiplomaIntTest {
     @Test
     public void testAnalyzeScoresCongratulationsMessageOutput() throws Exception {
 
-        ObjectWriter writer= new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE,false).writer();
-        StudentDTO studentDTO=Utils.getExcelentStudentDTO();
+        ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
+        StudentDTO studentDTO = Utils.getExcelentStudentDTO();
         studentDTO.setAverageScore(10.0D);
         studentDTO.setId(3L);
         studentDTO.setMessage("El alumno Test ha obtenido un promedio de 10. Felicitaciones!");
-        String responseJson= writer.writeValueAsString(studentDTO);
-
-        MvcResult result= this.mockMvc.perform(MockMvcRequestBuilders.get("/analyzeScores/{studentId}","3"))
+        String responseJson = writer.writeValueAsString(studentDTO);
+        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/analyzeScores/{studentId}", "3"))
                 .andDo(print()).andExpect(status().isOk()).andExpect(content().contentType("application/json"))
                 //.andExpect(MockMvcResultMatchers.jsonPath("$.averageScore").value("10"))
                 .andReturn();
-
-        Assertions.assertEquals(responseJson,result.getResponse().getContentAsString());
-
-        }
+        Assertions.assertEquals(responseJson, result.getResponse().getContentAsString());
+    }
 
 
     @Test
     public void testAnalyzeScoresOutput() throws Exception {
 
-        ObjectWriter writer= new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE,false).writer();
-        StudentDTO studentDTO=Utils.getStudentDTO();
+        ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
+        StudentDTO studentDTO = Utils.getStudentDTO();
         studentDTO.setAverageScore(6.5D);
         studentDTO.setId(4L);
         studentDTO.setMessage("El alumno Test2 ha obtenido un promedio de 6.5. Puedes mejorar.");
 
-        String responseJson= writer.writeValueAsString(studentDTO);
+        String responseJson = writer.writeValueAsString(studentDTO);
 
-        MvcResult result= this.mockMvc.perform(MockMvcRequestBuilders.get("/analyzeScores/{studentId}","4"))
+        MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.get("/analyzeScores/{studentId}", "4"))
                 .andDo(print()).andExpect(status().isOk()).andExpect(content().contentType("application/json"))
                 //.andExpect(MockMvcResultMatchers.jsonPath("$.averageScore").value("6.5"))
                 .andReturn();
 
-        Assertions.assertEquals(responseJson,result.getResponse().getContentAsString());
+        Assertions.assertEquals(responseJson, result.getResponse().getContentAsString());
 
     }
 }

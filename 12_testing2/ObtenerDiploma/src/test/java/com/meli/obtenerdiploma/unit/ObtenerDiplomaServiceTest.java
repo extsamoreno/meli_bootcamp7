@@ -1,12 +1,8 @@
 package com.meli.obtenerdiploma.unit;
 
-import com.meli.obtenerdiploma.controller.ObtenerDiplomaController;
-import com.meli.obtenerdiploma.controller.StudentController;
+import com.meli.obtenerdiploma.Utils.Utils;
 import com.meli.obtenerdiploma.model.StudentDTO;
-import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
-import com.meli.obtenerdiploma.service.IObtenerDiplomaService;
-import com.meli.obtenerdiploma.service.IStudentService;
 import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,9 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -40,7 +33,7 @@ public class ObtenerDiplomaServiceTest {
         //arrange
         Double averageExpected= 6.0;
         Long id= 3L;
-        StudentDTO mock= new StudentDTO(id,"Italo",null,null,Utils.getArraySubjects());
+        StudentDTO mock= new StudentDTO(id,"Italo",null,null, Utils.getArraySubjects());
 
         when(studentDAO.findById(id)).thenReturn(mock);
 

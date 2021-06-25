@@ -1,5 +1,6 @@
 package com.meli.obtenerdiploma.unit;
 
+import com.meli.obtenerdiploma.Utils.Utils;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.StudentDAO;
 import org.junit.jupiter.api.Assertions;

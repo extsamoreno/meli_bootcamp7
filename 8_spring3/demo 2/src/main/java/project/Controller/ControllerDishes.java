@@ -34,4 +34,7 @@ public class ControllerDishes {
         return new ResponseEntity<IngredientsRequestDTO>(dishService.ingredientsMostCalories(dishDTO), HttpStatus.OK);
     }
 
+    public ControllerDishes() {
+        this.dishService = dishService;
+    }
 }
