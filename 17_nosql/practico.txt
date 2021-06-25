@@ -1,0 +1,27 @@
+*********************************SQL*********************************
+
+db.restaurants.findOne({}, {_id:0, borough:1, cuisine:1, name:1})
+
+db.restaurants.find({name: /^Baker/}, {_id:0, borough:1, cuisine:1, name:1, restaurant_id:1}).limit(3)
+
+db.restaurants.countDocuments({$or: [{cuisine: "Chinese"}, {borough: "Thai"}] })
+
+*********************************NO SQL*********************************
+
+db.restaurants.find({grades: {$elemMatch: {grade: "A", score: {$gt: 5} } }}).limit(3)
+
+db.restaurants.countDocuments({"address.coord": {$size:0}})
+
+db.restaurants.find({},{_id:0, name:1, borough:1, cuisine:1, grades: {$slice: -1}}).limit(3)
+
+******************************DESAFIANTES*******************************
+
+db.restaurants.aggregate([{
+  "$group": {
+    _id: "$cuisine",
+    count: {$sum:1}
+  }
+},
+{$sort:{"count":-1}},
+{$limit:3}
+])
