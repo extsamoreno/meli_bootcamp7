@@ -1,0 +1,26 @@
+1. Tengo que crear una aplicación que se encarga de manejar la gestión de dinero en cuenta de los
+usuarios de Mercado Pago. Cuando un usuario paga, luego de validar que tiene saldo, tengo que
+registrar el pago y decrementar su saldo. Cuando un usuario deposita dinero, tengo que incrementar su
+saldo. Asimismo, con cada pago aprobado, y usando los valores del pago y el usuario varias
+aplicaciones de Fraude calculan modelos de riesgo de los usuarios. Desde una perspectiva de base de
+datos, ¿que utilizarías? ¿Porque? ¿Se te ocurre más de una forma de hacerlo?
+
+-Utilizaria una base de datos relacional, ya que tenemos definida la estructura de informaciòn que tenemos que modificar
+y de igual manera segun la charla para temas de transacciones y dinero lo ideal es una bd relacional con una de auditorias 
+donde se lleve el historial de todas las transacciones reaqlizadas por el usuario.
+
+
+
+
+
+2. Tengo que crear una aplicación que guarda datos de envíos. Para cada envío tengo que guardar algunos
+datos clave como shippingId, comprador, vendedor, producto, costo total, transportista y ruta. Asimismo,
+asociado con eso, se debe guardar una foto de la orden de envío. Usualmente el equipo accede a esta
+data por el shippingId. Además de esto, necesitan obtener en ocasiones, informaciones sobre los envíos
+para un comprador o vendedor en particular y agrupar por ellos el costo total generado. Finalmente, por
+cuestiones regulatorias, deben saber hasta por 10 años por que ruta se envió un producto. Desde una
+perspectiva de base de datos, ¿que utilizarías? ¿Porque? ¿Se te ocurre más de una forma de hacerlo?
+
+
+-Utilizaria un KVS para acceder por medio de la key indicada, tambien incluir una base de datos no relacional
+que se conecte con un object storage para el tema de las imagenes que hay que guardar y con estos componentes estariamos solucionando lo que se nos solicita en el requerimiento.
