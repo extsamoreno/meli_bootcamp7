@@ -1,0 +1,63 @@
+1- 2 colecciones, neighboorhoods y restaurants
+2- neighborhoods 195
+db.neighborhoods.find(
+ { _id: { $ne: null } }
+).count()
+,
+ restaurants 25359, con el command 
+db.restaurants.find(
+ { _id: { $ne: null } }
+).count()
+
+3- restaurants tiene 1 indice
+neighborhoods tiene 1 indice
+db.restaurants.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+db.neighborhoods.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+ 
+neighborhoods 20480
+restaurants 241664
+db.neighborhoods.totalIndexSize()
+20480
+db.restaurants.totalIndexSize()
+241664
+
+4- 
+{ _id: ObjectId("5eb3d668b31de5d588f4292a"),
+  address: 
+   { building: '2780',
+     coord: [ -73.98241999999999, 40.579505 ],
+     street: 'Stillwell Avenue',
+     zipcode: '11224' },
+  borough: 'Brooklyn',
+  cuisine: 'American',  grades: 
+   [ { date: 2014-06-10T00:00:00.000Z, grade: 'A', score: 5 },
+     { date: 2013-06-05T00:00:00.000Z, grade: 'A', score: 7 },
+     { date: 2012-04-13T00:00:00.000Z, grade: 'A', score: 12 },
+     { date: 2011-10-12T00:00:00.000Z, grade: 'A', score: 12 } ],
+  name: 'Riviera Caterer',
+  restaurant_id: '40356018' }
+
+5- 
+[db.restaurants.findOne()].forEach( function(my_doc) { for (var key in my_doc) { print(key + ': ' + typeof my_doc[key]) } } )
+
+SQL
+
+1-
+db.restaurants.find({}, {restaurant_id:1, name:1, borough:1, cuisine:1, _id:0}).limit(1)
+
+2- 
+db.restaurants.find({name: {$regex:/Bake/}}, {restaurant_id : 1, name : 1, cuisine: 1, _id : 0}).limit(3)
+
+3-
+db.restaurants.find({ cuisine : { $in : ['Chinese', 'Thai'] }, borough : { $eq : 'Bronx' } }).count()
+
+NOSQL
+1- db.restaurants.find({ grades : { $elemMatch : { grade : "A", score : { $gt : 5  }   }  } }).limit(3)
+2- db.restaurants.find({ "address.cord" : { $size : 0  } }).count()
+3- db.restaurants.find({}, { name:1, borough:1, grades: { $slice:-1  }})
+
+Avanzados
+todo
+
