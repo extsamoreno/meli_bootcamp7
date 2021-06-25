@@ -1,0 +1,5 @@
+Ejercicios TM:
+
+1.Para el caso de gestión de dinero utilizaría un sistema de base de datos KVS + DS asíncrono, debido a que para el procesamiento de pagos necesitaríamos BD que permita escalabilidad horizontal y ademas que tenga capacidad para ser accedido frecuentemente, al mismo tiempo debe tener consistencia ya que se esta trabajando con el saldo de los usuarios (Todas estas características las provee una BD KVS). Por otra parte las aplicaciones de fraude podrían emplear DS para búsquedas mas especificas que requieren queries mas complejas.
+
+2. Para guardar datos de envíos dado a qué se deben almacenar imágenes emplearía Object Storage los datos clave (comprador, vendedor, ruta, costo, etc.) se almacenarían en un DS que permitirá poder realizar búsqueda de documentos por distintas claves. Ademas agregaría Audit para las informaciones adicionales del comprador o vendedor, este tipo de información no va a ser frecuentemente consultada, pero si se debe tener datos históricos por lo cual el tipo de base de datos ajusta muy bien a esta implementación. 
