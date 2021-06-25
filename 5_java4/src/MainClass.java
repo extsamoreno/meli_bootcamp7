@@ -6,6 +6,21 @@ public class MainClass {
     public static void main(String[] args) {
         //ejercicio1();
         //ejercicio2();
+        List<FuegosArtificiales> list= new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            list.add(new FuegosArtificialesIndiv());
+        }
+        for (int i = 0; i < 20; i++) {
+            FuegosArtificialesPack x = new FuegosArtificialesPack();
+            for (int j = 0; j < 5; j++) {
+                x.agregarFuegoArtificial(new FuegosArtificialesIndiv());
+            }
+            list.add(x);
+        }
+        System.out.println("Numero total de fuegos artificiales: "+Evento.contarFuegosArtificiales(list));
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).explotar();
+        }
 
     }
 
