@@ -1,0 +1,22 @@
+Tengo que  crear una aplicación que se encarga de manejar la gestión de dinero en cuenta de los usuarios de Mercado Pago. Cuando un usuario paga, luego de validar que tiene saldo, tengo que registrar el pago y decrementar su saldo. Cuando un usuario deposita dinero, tengo que incrementar su saldo. Asimismo, con cada pago aprobado, y usando los valores del pago y el usuario varias aplicaciones de Fraude calculan modelos de riesgo de los usuarios. Desde una perspectiva de base de datos, ¿que utilizarías? ¿Porque? ¿Se te ocurre más de una forma de hacerlo?
+
+    ->  Siguiendo el diagrama de decisiones, eligiríamos el camino que llega a KVS DB ya que no los datos almacenados no
+        serian del tipo binario.
+        Además creemos que sería una api frecuentemente consultada, porque la cantidad de tráfico de Mercado Pago
+        suponemos que es alto.
+        La expansión horizontal consistiría en el aumento de usuario utilizando el servicio de Mercado Pago.
+        Generalemente la busqueda de los usuarios se realizaria por id.
+        El tamaño de las consultas soponemos que no superaria los 50KB.
+        Finalmente necesitamos consistencia de los datos al tratarse de operaciones con dinero.
+
+    ->  Se podría utilizar una base de dato relacional, ya que permite o garantiza mediante triggers el correcto impacto
+        de los datos.
+        Por ejemplo al realizar un pago, con relacinoal se garantiza el descuento de dinero en la cuenta.
+
+Tengo que crear una aplicación que guarda datos de envíos. Para cada envío tengo que guardar algunos datos clave como shippingId, comprador, vendedor, producto, costo total, transportista y ruta. Asimismo, asociado con eso, se debe guardar una foto de la orden de envío.  Usualmente el equipo accede a esta data por el shippingId. Además de esto, necesitan obtener en ocasiones, informaciones sobre los envíos para un comprador o vendedor en particular y agrupar por ellos el costo total generado. Finalmente, por cuestiones regulatorias, deben saber hasta por 10 años por que ruta se envió un producto. Desde una perspectiva de base de datos, ¿que utilizarías? ¿Po	rque? ¿Se te ocurre más de una forma de hacerlo?
+
+    ->  Por una lado utilizaríamos Object Storage para almacenar la foto de la orden de envío.
+        Los datos de shipping los alamacenaríamos en una KVS porque usualmente serían solicitados por el shippingID.
+        Utilizariamos el tipo cache ya que los datos no deben ser necesariamente consistentes.
+        Los datos de persistencia los duplicaríamos en una db relacinoal para poder resolver consultas complejas como
+        calcular el costo total de los envios.
