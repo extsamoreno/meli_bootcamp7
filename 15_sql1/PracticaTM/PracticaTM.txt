@@ -1,0 +1,49 @@
+Cuestionario
+
+1. ¿Qué es la Redundancia de datos?
+La renuncia de datos se produce cuando hay información repetida en varias tablas.
+
+2. ¿Qué es la inconsistencia de datos?
+Es cuando los datos de las tablas no coinciden con el valor verdadero que deberían tener.
+
+3. Nombre al menos 2 bases de datos entre Consistencia y Tolerancia al particionamiento
+mongodB REDIS.
+
+4. ¿Qué significa SQL?
+Lenguaje de Consulta Estructurada (Structured Query Language).
+
+5. En una tabla de datos que es la Primary Key o Llave primaria
+Primary Key, es una columna o conjunto de columnas de una tabla que indentifican de manera univoca una fila de la tabla.
+
+6. En una tabla de datos que es la Foreign Key o Llave foránea
+Foreing Key columna, conjunto de columnas que que hacen referencia a la clave primaria de otra tabla.
+
+7. ¿Qué significa que una relación entre dos entidades es UNO a UNO?
+Una instancia de una entidad A se relaciona con una y solo una entidad B .
+
+8. ¿Qué significa que una relación entre dos entidades es UNO a MUCHOS?
+Una instancia de una entidad A se relaciona con varias instancias de la entidad B.
+
+9. ¿Qué significa que una relación entre dos entidades es MUCHOS a MUCHOS?
+Cualquier instancia de una entidad A se relaciona con cualquier instancia de la entidad B.
+
+10. Defina que es una base de datos
+Las bases de datos son un conjunto de datos que se encuentran almacenados en un determinado lugar y de forma organizada para que luego poder ser consultados y utilizados de manera eficiente.
+
+11. Defina el concepto atributo
+Son las propiedades que describen a cada entidad en un conjunto de entidades.
+
+Verdadero o Falso 
+1. Las tablas de una bases de datos relacional tienen un campo que permita identificar unívocamente
+cada registro VERDADERO.
+2. Una Base de datos es el conjunto de valores que puede tomar un atributo FALSO.
+3. La disponibilidad nos indica que el sistema debe seguir funcionando aunque algunos nodos no se
+encuentren disponibles ya que la información es consistente en todos los nodos FALSO.
+
+Selecciona la respuesta correcta
+1. De los siguientes campos de la tabla de una base de datos, indica cuál podría ser una clave (o llave)
+primaria (o principal):
+a. Nombre y apellidos de un usuario
+b. Profesión
+c. DNI 					ESTA
+d. Cualquiera de los anteriores
