@@ -594,3 +594,44 @@ db.vecinos.findOne()
     geometry -> document,
     name -> string.
 
+
+SQL
+
+1.
+
+db.restaurants.find( {}, {restaurant_id:1, name:1, borough:1, cuisine:1, _id:0}).pretty() 
+
+2.
+
+db.restaurants.find( {name: /Bake/}, {restaurant_id:1, name:1, borough:1, cuisine:1, _id:0}).limit(3).pretty()
+{
+            "borough" : "Bronx",
+            "cuisine" : "Bakery",
+            "name" : "Morris Park Bake Shop",
+            "restaurant_id" : "30075445"
+}
+{
+            "borough" : "Staten Island",
+            "cuisine" : "American",
+            "name" : "Perkins Family Restaurant & Bakery",
+            "restaurant_id" : "40370910"
+}
+{
+            "borough" : "Queens",
+            "cuisine" : "Caribbean",
+            "name" : "Western Bakery",
+            "restaurant_id" : "40377560"
+}
+
+
+3.
+
+db.restaurants.count(
+... {cuisine: {$in: ["Chinese", "Thai"]}, borough: {$eq: "Bronx"}})
+325
+
+    NoSql
+
+1.
+
+

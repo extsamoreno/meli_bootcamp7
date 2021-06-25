@@ -1,0 +1,25 @@
+1.
+    En este caso tengo:
+        + Información sensible como números de cuentas, saldos, números de transacciones involucradas.
+        + Necesidad de documentar las operaciones.
+        + Los documentos se acceden por usuario o pago.
+        + El orden en estos documentos es importante ya que se consultarán para detectar patrones de
+          fraude.
+        + Otras aplicaciones estarán requiriendo esa documentación cuando sea generada.
+
+    Por lo anterior, eligiría una base de datos no relacional KVS DB (KVS volt) integrada con Stream
+para "publicar" los registros de las transacciones en orden a los consumidores. 
+
+2.
+    En este caso considero lo siguiente:
+        + Los datos no van a ser binarios, si van a tener referencia a binarios (foto orden envío).
+        + Los datos van a ser consultados con poca frecuencia.
+        + Los datos se acceden generalmente por key pero para auditar se busca por vendedor o comprador.
+        + Se puede permitir que los datos sean eventualmente consistentes.
+
+    Por lo anterior y siguiendo el árbol de decisiones de la presentación, elegiría una base de datos no 
+relacional integrado con Audits. Ahora bien, un dato como la ruta puede representar información 
+sensible, por ejemplo si involucra direcciones de compradores, por lo que usaría el
+mencionado KVS volt.
+
+
