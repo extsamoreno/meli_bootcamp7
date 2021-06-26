@@ -1,9 +1,9 @@
 package com.meli.SocialMeli.service;
 
-import com.meli.SocialMeli.dto.CountUserFollowerDto;
-import com.meli.SocialMeli.dto.CreateUserDto;
-import com.meli.SocialMeli.dto.ListFollowersUserDto;
-import com.meli.SocialMeli.dto.UserDto;
+import com.meli.SocialMeli.dto.CountUserFollowerDTO;
+import com.meli.SocialMeli.dto.CreateUserDTO;
+import com.meli.SocialMeli.dto.ListFollowersUserDTO;
+import com.meli.SocialMeli.dto.UserDTO;
 import com.meli.SocialMeli.exceptions.UserIsNotSeller;
 import com.meli.SocialMeli.exceptions.UserNotFoundException;
 import com.meli.SocialMeli.models.User;
@@ -33,27 +33,27 @@ public class UserService implements IUserService{
             throw new UserIsNotSeller("El usuario no es vendedor");
         }
 
-        UserDto userDto1 = new UserDto();
-        userDto1.setIdUserDto(user1.getIdUser());
-        userDto1.setUserNameDto(user1.getUserName());
+        UserDTO userDTO1 = new UserDTO();
+        userDTO1.setIdUserDto(user1.getIdUser());
+        userDTO1.setUserNameDto(user1.getUserName());
 
-        UserDto userDto2 = new UserDto();
-        userDto2.setIdUserDto(user2.getIdUser());
-        userDto2.setUserNameDto(user2.getUserName());
+        UserDTO userDTO2 = new UserDTO();
+        userDTO2.setIdUserDto(user2.getIdUser());
+        userDTO2.setUserNameDto(user2.getUserName());
 
-        List<UserDto> follow = user1.getFollowed();
-        follow.add(userDto2);
+        List<UserDTO> follow = user1.getFollowed();
+        follow.add(userDTO2);
         user1.setFollowed(follow);
         iUserRepository.UpdateUserList(user1);
-        List<UserDto> followed = user2.getFollower();
-        followed.add(userDto1);
+        List<UserDTO> followed = user2.getFollower();
+        followed.add(userDTO1);
         user2.setFollower(followed);
         iUserRepository.UpdateUserList(user2);
 
     }
 
     @Override
-    public List<User> CreateUser(CreateUserDto createUserDto) {
+    public List<User> CreateUser(CreateUserDTO createUserDto) {
         return iUserRepository.CreateUser(createUserDto);
     }
 
@@ -63,15 +63,15 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public CountUserFollowerDto getFollowersCount(int userId) {
+    public CountUserFollowerDTO getFollowersCount(int userId) {
         User userCount = iUserRepository.SearchIdUser(userId);
-        return new CountUserFollowerDto(userCount.getIdUser(), userCount.getUserName(), userCount.getFollower().size());
+        return new CountUserFollowerDTO(userCount.getIdUser(), userCount.getUserName(), userCount.getFollower().size());
     }
 
     @Override
-    public ListFollowersUserDto getListFollowers(int userId) {
+    public ListFollowersUserDTO getListFollowers(int userId) {
         User userListFollowers = iUserRepository.SearchIdUser(userId);
-        return new ListFollowersUserDto(userListFollowers.getIdUser(), userListFollowers.getUserName(), userListFollowers.getFollower().stream().map(x->new UserDto(x.getIdUserDto(), x.getUserNameDto())).collect(Collectors.toList()));
+        return new ListFollowersUserDTO(userListFollowers.getIdUser(), userListFollowers.getUserName(), userListFollowers.getFollower().stream().map(x->new UserDTO(x.getIdUserDto(), x.getUserNameDto())).collect(Collectors.toList()));
     }
 
 }

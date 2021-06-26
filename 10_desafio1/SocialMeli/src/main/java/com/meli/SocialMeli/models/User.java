@@ -1,10 +1,9 @@
 package com.meli.SocialMeli.models;
 
-import com.meli.SocialMeli.dto.UserDto;
+import com.meli.SocialMeli.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,6 @@ public class User {
     private int idUser;
     private String userName;
     private boolean esVendedor = false;
-    private List<UserDto> follower = new ArrayList<>();
-    private List<UserDto> followed = new ArrayList<>();
+    private List<UserDTO> follower = new ArrayList<>();
+    private List<UserDTO> followed = new ArrayList<>();
 }

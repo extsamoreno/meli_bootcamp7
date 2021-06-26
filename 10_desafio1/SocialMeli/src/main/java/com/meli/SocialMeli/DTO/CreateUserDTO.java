@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserDto {
+public class CreateUserDTO {
     private List<User> createDto;
 
 }

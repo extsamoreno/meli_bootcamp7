@@ -1,8 +1,8 @@
 package com.meli.SocialMeli.controller;
 
-import com.meli.SocialMeli.dto.CountUserFollowerDto;
-import com.meli.SocialMeli.dto.CreateUserDto;
-import com.meli.SocialMeli.dto.ListFollowersUserDto;
+import com.meli.SocialMeli.dto.CountUserFollowerDTO;
+import com.meli.SocialMeli.dto.CreateUserDTO;
+import com.meli.SocialMeli.dto.ListFollowersUserDTO;
 import com.meli.SocialMeli.exceptions.UserIsNotSeller;
 import com.meli.SocialMeli.exceptions.UserNotFoundException;
 import com.meli.SocialMeli.models.User;
@@ -23,7 +23,7 @@ public class UserController {
 
 
     @PostMapping("/users/create")
-    public List<User> createUser (@RequestBody CreateUserDto createDto){
+    public List<User> createUser (@RequestBody CreateUserDTO createDto){
         return iUserService.CreateUser(createDto);
     }
 
@@ -35,12 +35,12 @@ public class UserController {
     }
 
     @GetMapping("/{userIdCount}/followers/count")
-    public ResponseEntity<CountUserFollowerDto> getFollowersCount(@PathVariable int userIdCount)throws UserNotFoundException, UserIsNotSeller {
+    public ResponseEntity<CountUserFollowerDTO> getFollowersCount(@PathVariable int userIdCount)throws UserNotFoundException, UserIsNotSeller {
         return new ResponseEntity<>(iUserService.getFollowersCount(userIdCount), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userIdListFollower}/followers/list")
-    public ResponseEntity<ListFollowersUserDto> getListFollowers(@PathVariable int userIdListFollower){
+    public ResponseEntity<ListFollowersUserDTO> getListFollowers(@PathVariable int userIdListFollower){
         return new ResponseEntity<>(iUserService.getListFollowers(userIdListFollower), HttpStatus.OK);
     }
 

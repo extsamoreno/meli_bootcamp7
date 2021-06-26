@@ -1,6 +1,6 @@
 package com.meli.SocialMeli.repository;
 
-import com.meli.SocialMeli.dto.CreateUserDto;
+import com.meli.SocialMeli.dto.CreateUserDTO;
 import com.meli.SocialMeli.models.User;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public List<User> CreateUser(CreateUserDto createUserDto) {
+    public List<User> CreateUser(CreateUserDTO createUserDto) {
         this.userList = createUserDto.getCreateDto();
         return userList;
     }
