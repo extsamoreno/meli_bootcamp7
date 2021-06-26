@@ -1,0 +1,16 @@
+ Ejercicio 2 
+
+
+a.	¿Cuál es la primary key para la tabla empleados? Justificar respuesta
+El numero de legajo, ya que nunca deberia existir dos empleados con el mismo número de legajo y su valor nunca será nulo
+
+b. ¿Cuál es la primary key para la tabla departamentos? Justificar respuesta
+departamento_id, el id sera un identificador único y su valor nunca será nulo
+
+c. ¿Qué relación/es existiría/n entre las tablas? ¿En qué tabla debería haber foreign key? ¿A qué campo de qué tabla hace referencia dicha foreign key? Justificar respuesta
+La relacion es:  Un empleado tiene asignado un departamento, y en un departamento puede haber de 0 a N empleados.
+Relación de 1 a muchos
+La FK deberá estar en la tabla de empleados y hace referencia al departamento_id que es la PK de departamento
+
+
+
