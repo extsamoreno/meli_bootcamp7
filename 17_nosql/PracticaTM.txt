@@ -8,7 +8,7 @@ db.restaurants.find({}, {restaurant_id:1, name:1, borough:1, cuisine: 1, _id:0})
 db.restaurants.find({name: /Bake/}, {restaurant_id:1, name:1, borough:1, cuisine: 1, _id:0}).limit(3)
 
 /*3*/
-db.restaurants.find({borough: 'Bronx', cuisine: {$in:['Chinese', 'Thai']}}, {restaurant_id:1, name:1, borough:1, cuisine: 1, _id:0})
+db.restaurants.find({borough: 'Bronx', cuisine: {$in:['Chinese', 'Thai']}}, {restaurant_id:1, name:1, borough:1, cuisine: 1, _id:0}).count()	
 
 
 /*--------- NO SQL ---------*/
@@ -26,3 +26,28 @@ db.restaurants.find({}, {restaurant_id:1, name:1, borough:1, cuisine: 1, grades:
 
 /*1*/
 db.restaurants.aggregate({ $sortByCount:  "$cuisine" }, {$limit: 3})
+
+/*2*/
+db.restaurants.aggregate(
+    [
+      {
+        $match: {
+          grades: {$size: 3}
+        }
+      },
+      {
+        $unwind:"$grades"
+      },
+      {
+        $group:{
+          _id:"$borough",
+          avg:{$avg:"$grades.score"}
+        }
+      },
+      {
+        $sort:{avg:-1}
+      }
+    ]
+  )
+
+/*3*/
