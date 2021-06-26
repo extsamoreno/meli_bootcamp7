@@ -5,24 +5,28 @@ import com.desafio.TuCasitaTasacionesApp.model.dao.repository.IPropietyRepositor
 import com.desafio.TuCasitaTasacionesApp.model.dto.*;
 import com.desafio.TuCasitaTasacionesApp.model.exceptions.NeighborhoodNotFoundException;
 import com.desafio.TuCasitaTasacionesApp.model.exceptions.PropietyNotFoundException;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.desafio.TuCasitaTasacionesApp.model.mapper.PropertyMapper;
 import org.springframework.stereotype.Service;
 
 import static com.desafio.TuCasitaTasacionesApp.model.dao.repository.PropietyRepository.m2PriceForNeighborhood;
 
+
 @Service
 public class CalculateService implements ICalculateService {
 
-    @Autowired
+    private PropertyMapper mapper;
+
     IPropietyRepository iPropietyRepository;
 
-    private ModelMapper mapper = new ModelMapper();
+    public CalculateService(IPropietyRepository iPropietyRepository, PropertyMapper modelMapper){
+        this.iPropietyRepository = iPropietyRepository;
+        this.mapper = modelMapper;
+    }
 
     private PropietyDTO getPropiety(String name) throws PropietyNotFoundException {
         Propiety propiety = iPropietyRepository.get(name);
         if(propiety == null) throw new PropietyNotFoundException(name);
-        PropietyDTO propietyDTO = mapToDTO(propiety);
+        PropietyDTO propietyDTO = mapper.mapToDTO(propiety);
         return propietyDTO;
     }
 
@@ -77,7 +81,7 @@ public class CalculateService implements ICalculateService {
         return hab.getWidth() * hab.getLenght();
     }
 
-    /***************************************************************************/
+    /***************************************************************************
       private PropietyDTO mapToDTO(Propiety propiety){
           PropietyDTO propietyDTO = mapper.map(propiety, PropietyDTO.class);
           return propietyDTO;

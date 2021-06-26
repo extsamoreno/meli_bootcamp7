@@ -35,14 +35,15 @@ public class CalculateRestControllerTest{
     void getSquareMeterForPropietyHappyPath() throws Exception {
         //arrange
         HttpStatus expected = HttpStatus.OK;
-
+        PropietyDTOResponseTotalMeters propietyDTO = new PropietyDTOResponseTotalMeters();
         //act
-        when(iCalculateService.getSquareMeterForPropiety("name")).thenReturn(new PropietyDTOResponseTotalMeters());
+        when(iCalculateService.getSquareMeterForPropiety("name")).thenReturn(propietyDTO);
         ResponseEntity<PropietyDTOResponseTotalMeters> propiety = calculateRestController.getSquareMeterForPropiety("name");
 
         //assert
         verify(iCalculateService, Mockito.atLeast(1)).getSquareMeterForPropiety("name");
         assertEquals(expected ,propiety.getStatusCode());
+        assertEquals(propietyDTO, propiety.getBody());
     }
 
     @Test

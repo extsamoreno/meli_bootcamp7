@@ -5,6 +5,7 @@ import com.desafio.TuCasitaTasacionesApp.model.dao.repository.IPropietyRepositor
 import com.desafio.TuCasitaTasacionesApp.model.dto.*;
 import com.desafio.TuCasitaTasacionesApp.model.exceptions.NeighborhoodNotFoundException;
 import com.desafio.TuCasitaTasacionesApp.model.exceptions.PropietyNotFoundException;
+import com.desafio.TuCasitaTasacionesApp.model.mapper.PropertyMapper;
 import com.desafio.TuCasitaTasacionesApp.model.service.CalculateService;
 import com.desafio.TuCasitaTasacionesApp.model.service.helpers.*;
 import org.junit.jupiter.api.Test;
@@ -27,8 +28,13 @@ public class CalculateServiceTest {
     @Mock
     IPropietyRepository iPropietyRepository;
 
+    @Mock
+    PropertyMapper propertyMapper;
+
     @InjectMocks
     CalculateService calculateService;
+
+    //hacer el tet para getPropiety
 
     @Test
     void getSquareMeterForPropiety_propietyNotFound_propietyNotFoundException(){
@@ -42,8 +48,10 @@ public class CalculateServiceTest {
 
         String value = "Dummy";
         Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(value, "Adrogue");
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(value, "Constitucion");
 
         when(iPropietyRepository.get(value)).thenReturn(propiety);
+        when(propertyMapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
         PropietyDTOResponseTotalMeters receive = calculateService.getSquareMeterForPropiety(value);
 
@@ -57,9 +65,11 @@ public class CalculateServiceTest {
 
         String neighborhood = "Constitucion";
         String name = "Dummy";
-        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1("Dummy", neighborhood);
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
 
         when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(propertyMapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
         PropietyDTOResponseCost receive = calculateService.getValueForPropiety(name);
 
@@ -71,9 +81,11 @@ public class CalculateServiceTest {
     void getValueForPropiety_neighborhoodNotFound_NeighborhoodNotFoundException(){
         String neighborhood = "Adrogue";
         String name = "Dummy";
-        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1("Dummy", neighborhood);
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
 
         when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(propertyMapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
         assertThrows(NeighborhoodNotFoundException.class,() ->calculateService.getValueForPropiety(name));
         verify(iPropietyRepository, Mockito.atLeast(1)).get(name);
@@ -83,10 +95,13 @@ public class CalculateServiceTest {
     void getBiggestRoom_nameOfPropietyFound_bigRoomDTO() throws PropietyNotFoundException {
         String neighborhood = "Adrogue";
         String name = "Dummy";
-        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1_1x2("Dummy", neighborhood);
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1_1x2(name, neighborhood);
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1_1x2(name, neighborhood);
+
         RoomDTO expected = new RoomDTO("room2", 1D, 2D);
 
         when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(propertyMapper.mapToDTO(propiety)).thenReturn(propietyDTO);
         RoomDTO receive = calculateService.getBiggestRoom(name);
 
         verify(iPropietyRepository, Mockito.atLeast(1)).get(name);
@@ -97,7 +112,8 @@ public class CalculateServiceTest {
     void getSquareMeterForRoom_nameOfPropietyFound_RoomMetersListResponseDTO() throws PropietyNotFoundException {
         String neighborhood = "Adrogue";
         String name = "Dummy";
-        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1_1x2("Dummy", neighborhood);
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1_1x2(name, neighborhood);
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1_1x2(name, neighborhood);
 
         ArrayList<RoomMetersResponseDTO> roomList = new ArrayList<>();
         roomList.add(new RoomMetersResponseDTO("room1", 1D));
@@ -107,6 +123,7 @@ public class CalculateServiceTest {
         expected.setRoomMetersResponseDTOList(roomList);
 
         when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(propertyMapper.mapToDTO(propiety)).thenReturn(propietyDTO);
         RoomMetersListResponseDTO receive = calculateService.getSquareMeterForRoom(name);
 
         verify(iPropietyRepository, Mockito.atLeast(1)).get(name);

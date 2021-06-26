@@ -31,6 +31,14 @@ public class PropietyRepository implements IPropietyRepository {
         return res;
     }
 
+    /****
+    @Override
+    public Optional<Propiety> create(Propiety propiety) {
+        propietyList.add(propiety);
+        return Optional.of(propiety);
+    }
+    *****/
+
     @Override
     public boolean exist(Propiety propiety){
         boolean res = false;
