@@ -1,0 +1,16 @@
+archivos binarios -> servicio meli "object storage" que usa s3 amazon
+
+key value store cache vs no cache
+normal: escribo algo lo voy a buscar y es lo ultimo que escribi
+cache: escribo algo y lo voy a leer puedo tolerar cierto tiempo para la obtencion de datos, la lectura puede caer en los secundarios(nodos) y todavia no esta replicado el dato
+
+pool hacia nodos de lectura en relacional
+todos entran por el nodo principal que es de escritura y los pools van a los de escritura
+
+kvs volt para almacenar datos sensibles
+Se inserta por kvs y luego se replica en ...
+update de un pago es en bd relacional y luego se replica a kvs
+
+Comunicacion asincronica (big queue(desordenado)/stream(ordenado))
+publisher -> suscriber 
+Se puede integrar en BD relacionales o no relacionales 
