@@ -27,8 +27,8 @@ public class CreateProperties {
     }
 
     public static PropietyDTO create1HouseDTOWith2Rooms1x1(String name, String neighborhood){
-        RoomDTO roomDTO1 = new RoomDTO("room1", 1D, 1D);
-        RoomDTO roomDTO2 = new RoomDTO("room2", 1D, 1D);
+        RoomDTO roomDTO1 = new RoomDTO("RoomUno", 1D, 1D);
+        RoomDTO roomDTO2 = new RoomDTO("RoomDos", 1D, 1D);
         List<RoomDTO> roomList = new ArrayList<>();
         roomList.add(roomDTO1);
         roomList.add(roomDTO2);
@@ -43,8 +43,8 @@ public class CreateProperties {
 
 
     public static Propiety create1HouseWith2Rooms1x1(String name, String neighborhood){
-        Room roomDTO1 = new Room("room1", 1D, 1D);
-        Room roomDTO2 = new Room("room2", 1D, 1D);
+        Room roomDTO1 = new Room("RoomUno", 1D, 1D);
+        Room roomDTO2 = new Room("RoomDos", 1D, 1D);
         List<Room> roomList = new ArrayList<>();
         roomList.add(roomDTO1);
         roomList.add(roomDTO2);
@@ -58,8 +58,8 @@ public class CreateProperties {
     }
 
     public static Propiety create1HouseWith2Rooms1x1_1x2(String name, String neighborhood){
-        Room roomDTO1 = new Room("room1", 1D, 1D);
-        Room roomDTO2 = new Room("room2", 1D, 2D);
+        Room roomDTO1 = new Room("RoomUno", 1D, 1D);
+        Room roomDTO2 = new Room("RoomDos", 1D, 2D);
         List<Room> roomList = new ArrayList<>();
         roomList.add(roomDTO1);
         roomList.add(roomDTO2);
@@ -73,8 +73,8 @@ public class CreateProperties {
     }
 
     public static PropietyDTO create1HouseDTOWith2Rooms1x1_1x2(String name, String neighborhood){
-        RoomDTO roomDTO1 = new RoomDTO("room1", 1D, 1D);
-        RoomDTO roomDTO2 = new RoomDTO("room2", 1D, 2D);
+        RoomDTO roomDTO1 = new RoomDTO("RoomUno", 1D, 1D);
+        RoomDTO roomDTO2 = new RoomDTO("RoomDos", 1D, 2D);
         List<RoomDTO> roomDTOList = new ArrayList<>();
         roomDTOList.add(roomDTO1);
         roomDTOList.add(roomDTO2);

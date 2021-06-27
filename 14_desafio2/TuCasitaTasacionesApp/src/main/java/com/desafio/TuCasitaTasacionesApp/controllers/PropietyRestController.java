@@ -3,7 +3,6 @@ package com.desafio.TuCasitaTasacionesApp.controllers;
 import com.desafio.TuCasitaTasacionesApp.model.dto.PropietyDTO;
 import com.desafio.TuCasitaTasacionesApp.model.exceptions.PropietyAlreadyExistException;
 import com.desafio.TuCasitaTasacionesApp.model.service.ICrudService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,11 @@ import javax.validation.Valid;
 @RequestMapping("/propieties")
 public class PropietyRestController {
 
-    @Autowired
     ICrudService iCrudService;
+
+    public PropietyRestController(ICrudService iCrudService) {
+        this.iCrudService = iCrudService;
+    }
 
     @PostMapping("/new")
     public ResponseEntity<String> addNewPropiety(@Valid @RequestBody PropietyDTO propietyDTO) throws PropietyAlreadyExistException {

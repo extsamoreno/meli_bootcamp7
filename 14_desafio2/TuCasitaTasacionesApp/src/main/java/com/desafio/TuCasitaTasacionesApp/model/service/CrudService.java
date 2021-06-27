@@ -24,7 +24,7 @@ public class CrudService implements ICrudService{
 
     @Override
     public String createPropiety(PropietyDTO propietyDTO) throws PropietyAlreadyExistException{
-        propiety = mapper.mapToModel(propietyDTO);
+        this.propiety = mapper.mapToModel(propietyDTO);
 
         boolean propiety1= iPropietyRepository.create(propiety);
         if(!propiety1) throw new PropietyAlreadyExistException(propiety.getName());

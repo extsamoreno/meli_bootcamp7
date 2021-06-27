@@ -98,7 +98,7 @@ public class CalculateServiceTest {
         Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1_1x2(name, neighborhood);
         PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1_1x2(name, neighborhood);
 
-        RoomDTO expected = new RoomDTO("room2", 1D, 2D);
+        RoomDTO expected = new RoomDTO("RoomDos", 1D, 2D);
 
         when(iPropietyRepository.get(name)).thenReturn(propiety);
         when(propertyMapper.mapToDTO(propiety)).thenReturn(propietyDTO);
@@ -116,8 +116,8 @@ public class CalculateServiceTest {
         PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1_1x2(name, neighborhood);
 
         ArrayList<RoomMetersResponseDTO> roomList = new ArrayList<>();
-        roomList.add(new RoomMetersResponseDTO("room1", 1D));
-        roomList.add(new RoomMetersResponseDTO("room2", 2D));
+        roomList.add(new RoomMetersResponseDTO("RoomUno", 1D));
+        roomList.add(new RoomMetersResponseDTO("RoomDos", 2D));
 
         RoomMetersListResponseDTO expected = new RoomMetersListResponseDTO();
         expected.setRoomMetersResponseDTOList(roomList);

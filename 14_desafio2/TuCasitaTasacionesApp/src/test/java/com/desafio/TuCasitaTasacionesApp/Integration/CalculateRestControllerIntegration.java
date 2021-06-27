@@ -1,74 +1,112 @@
 package com.desafio.TuCasitaTasacionesApp.Integration;
 
+import com.desafio.TuCasitaTasacionesApp.model.dao.models.Propiety;
 import com.desafio.TuCasitaTasacionesApp.model.dao.repository.IPropietyRepository;
+import com.desafio.TuCasitaTasacionesApp.model.dto.PropietyDTO;
+import com.desafio.TuCasitaTasacionesApp.model.mapper.PropertyMapper;
+import com.desafio.TuCasitaTasacionesApp.model.service.helpers.CreateProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CalculateRestControllerIntegration {
+
+    @Autowired
+    MockMvc mockMvc;
+
+    @MockBean
+    PropertyMapper mapper;
+
     @MockBean
     IPropietyRepository iPropietyRepository;
 
-    @Autowired
-    private MockMvc mockMvc;
+    @Test
+    public void getSquareMeterForPropietyHappyPath() throws Exception {
+        String name = "Dummy";
+        String neighborhood = "Constitucion";
+
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
+
+        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(mapper.mapToDTO(propiety)).thenReturn(propietyDTO);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/propiety/calculate/squearemeter?name=Dummy", 1))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(content().string(containsString("{\"totalMeters\":2.0}")))
+                .andReturn();
+    }
 
     @Test
-    public void getSquareMeterForPropietyHappyPath() throws Exception {/*
-        Long id = 1L;
-        //==============
-        SubjectDTO subject = new SubjectDTO("Matematica", 9.0);
-        SubjectDTO subject2 = new SubjectDTO("Matematica", 7.0);
-        SubjectDTO subject3 = new SubjectDTO("Quimica", 6.0);
+    public void getValueForPropietyHappyPath() throws Exception {
+        String name = "Dummy";
+        String neighborhood = "Constitucion";
 
-        List<SubjectDTO> subjects = new ArrayList<SubjectDTO>();
-        subjects.add(subject);
-        subjects.add(subject2);
-        subjects.add(subject3);
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
 
-        StudentDTO student = new StudentDTO
-                (id, "Juan", "El alumno Juan ha obtenido un promedio de 7.33. Puedes mejorar.", 7.333333333333333, subjects);
+        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(mapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
-        when(iStudentDAO.findById(id)).thenReturn(student);
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/propiety/calculate/value?name=Dummy", 1))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(content().string(containsString("{\"cost\":1000.0}")))
+                .andReturn();
+    }
 
-        //===============
+    @Test
+    public void getBiggestRoomHappyPath() throws Exception {
+        String name = "Dummy";
+        String neighborhood = "Constitucion";
 
-        ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
 
-        String responseJson = writer.writeValueAsString(student);
+        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(mapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/analyzeScores/{studentId}", 1L))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content().string(responseJson))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/propiety/room/obtainbiggest?name=Dummy", 1))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(content().string(containsString("{\"name\":\"RoomUno\",\"width\":1.0,\"lenght\":1.0}")))
+                .andReturn();
+    }
+
+    @Test
+    public void getSquareMeterForRoomHappyPath() throws Exception {
+        String name = "Dummy";
+        String neighborhood = "Constitucion";
+
+        Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
+        PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
+
+        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(mapper.mapToDTO(propiety)).thenReturn(propietyDTO);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/propiety/room/calculate/squearemeter?name=Dummy", 1))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(content().string(containsString("{\"list\":[{\"name\":\"RoomUno\",\"meter\":1.0},{\"name\":\"RoomDos\",\"meter\":1.0}]}")))
                 .andReturn();
     }
 
 
-
-    @Test
-    public void analyzeScoresException() throws Exception {
-        Long id = 1L;
-
-        when(iStudentDAO.findById(7000L)).thenThrow(new StudentNotFoundException(7000L));
-        //===============
-
-        ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false).writer();
-
-        String responseError = writer.writeValueAsString(new ErrorDTO("StudentNotFoundException", "El alumno con Id 7000 no se encuetra registrado."));
-
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/analyzeScores/{studentId}", 7000L))
-                .andDo(print())
-                .andExpect(status().isNotFound())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(content().string(responseError))
-                .andReturn();*/
-    }
 }
 
 
