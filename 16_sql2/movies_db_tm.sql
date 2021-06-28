@@ -20,6 +20,7 @@ RIGHT JOIN genres
 ON movies.genre_id = genres.id;
 
 -- Segunda Parte
+
 -- 1
 SELECT series.title, genres.name FROM series
 INNER JOIN genres ON series.genre_id = genres.id;
