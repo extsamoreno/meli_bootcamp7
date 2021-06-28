@@ -1,9 +1,9 @@
 
 1. Tiene 2 colecciones (neighborhoods y restaurants)
 
-2. neighborhoods : 195 , restaurants: 25359
+2. neighborhoods : 195 tamaño : 13.4 MB , restaurants: 25359 tamaño : 10.1 MB
 
-3. neighborhoods : name: '_id_' ocupa 13.4 MB , restaurants: name: '_id_' ocupa 10.1 MB
+3. neighborhoods : name: '_id_' ocupa 389.1KB , restaurants: name: '_id_' ocupa 262.1KB
 
 4. db.restaurants.find({name:"Wilken'S Fine Food"}).pretty()
 
