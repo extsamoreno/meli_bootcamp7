@@ -3,7 +3,7 @@
 
 2. neighborhoods : 195 , restaurants: 25359
 
-3. neighborhoods : name: '_id_' ocupa 2 , restaurants: name: '_id_' ocupa 2
+3. neighborhoods : name: '_id_' ocupa 13.4 MB , restaurants: name: '_id_' ocupa 10.1 MB
 
 4. db.restaurants.find({name:"Wilken'S Fine Food"}).pretty()
 
