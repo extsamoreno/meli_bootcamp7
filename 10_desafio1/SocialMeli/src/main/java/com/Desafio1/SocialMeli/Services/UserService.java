@@ -1,12 +1,10 @@
 package com.Desafio1.SocialMeli.Services;
 
-import com.Desafio1.SocialMeli.DTOS.CreateUserDTO;
-import com.Desafio1.SocialMeli.DTOS.FollowedListDTO;
-import com.Desafio1.SocialMeli.DTOS.FollowerCountDTO;
-import com.Desafio1.SocialMeli.DTOS.FollowerListDTO;
+import com.Desafio1.SocialMeli.DTOS.*;
 import com.Desafio1.SocialMeli.Exceptions.DuplicateIdException;
 import com.Desafio1.SocialMeli.Exceptions.NotSellerException;
 import com.Desafio1.SocialMeli.Exceptions.UserNotFoundException;
+import com.Desafio1.SocialMeli.Models.Post;
 import com.Desafio1.SocialMeli.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,6 +102,32 @@ public class UserService implements IUserService {
     @Override
     public User searchUserById(int userId) throws UserNotFoundException {
         return this.iUserRepository.searchUserById(userId);
+    }
+
+    @Override
+    public List<Post> getFollowedPostList(List<UserDTO> followed) throws UserNotFoundException {
+        return this.iUserRepository.getFollowedPostList(followed);
+    }
+
+    @Override
+    public void unFollowSeller(int userId, int userIdToUnFollow) throws UserNotFoundException {
+        try {
+            // Recupero los datos del seller
+            User seller = iUserRepository.searchUserById(userIdToUnFollow);
+
+            // Recupero los datos del buyer
+            User buyer = iUserRepository.searchUserById(userId);
+
+            // Si el comprador sigue al vendedor, lo deja de seguir, sino tira excepcion
+            if(buyer.getFollowed().stream().anyMatch(followed -> followed.getUserId() == userIdToUnFollow)){
+                iUserRepository.unFollowSeller(buyer, seller);
+            }else {
+                throw new UserNotFoundException("Usted no sigue a '" + seller.getUserName() + "'.");
+            }
+        }
+        catch (Exception ex){
+            throw ex;
+        }
     }
 
 

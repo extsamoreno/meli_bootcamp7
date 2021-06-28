@@ -64,4 +64,12 @@ public class UserController {
     public ResponseEntity<FollowedListDTO> getFollowedByUserId(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order) throws UserNotFoundException {
         return new ResponseEntity<>(iUserService.getFollowedByUserId(userId, order), HttpStatus.OK);
     }
+
+    //US 0007: Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado
+    //vendedor.
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> unfollowSeller(@PathVariable int userId, @PathVariable int userIdToUnfollow) throws UserNotFoundException, DuplicateIdException, NotSellerException {
+        iUserService.unFollowSeller(userId, userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -4,9 +4,12 @@ import com.Desafio1.SocialMeli.DTOS.CreateUserDTO;
 import com.Desafio1.SocialMeli.DTOS.UserDTO;
 import com.Desafio1.SocialMeli.Exceptions.DuplicateIdException;
 import com.Desafio1.SocialMeli.Exceptions.UserNotFoundException;
+import com.Desafio1.SocialMeli.Models.Post;
 import com.Desafio1.SocialMeli.Models.User;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,6 +99,41 @@ public class UserRepository implements IUserRepository {
         List<UserDTO> followers = seller.getFollowers();
         followers.add(sellerDTO);
         seller.setFollowers(followers);
+        this.userList.set(this.userList.indexOf(seller), seller);
+    }
+
+    @Override
+    public List<Post> getFollowedPostList(List<UserDTO> followed) throws UserNotFoundException{
+        List<Post> postList = new ArrayList<>(); //Creo la lista de post a retornar
+        //Itero sobre cada seller de la lista followed
+        for (UserDTO sell:followed) {
+            User seller = this.searchUserById(sell.getUserId()); //Recupero los datos de cada seller
+            //Si el seller tiene post itero sobre ellos
+            if (!seller.getPosts().isEmpty()){
+                for (Post post:seller.getPosts()) {
+                    if(post.getDate().after(Date.valueOf(LocalDate.now().minusWeeks(2)))){
+                        postList.add(post); //Agrego los post de un seller cuya fecha sea de hace 2 semanas
+                    }
+                }
+            }
+        }
+        return postList;
+    }
+
+    @Override
+    public void unFollowSeller(User buyer, User seller) {
+
+        // Verifico que el usuario no se este dejando de seguir a si mismo
+        if(buyer.getUserId() == seller.getUserId()){
+            throw new IllegalArgumentException("Un usuario no se puede dejar de seguir a si mismo.");
+        }
+
+        // Elimino el seller de los seguidos del buyer
+        buyer.getFollowed().removeIf(user -> user.getUserId() == seller.getUserId());
+        this.userList.set(this.userList.indexOf(buyer), buyer);
+
+        // Elimino el buyer de los seguidores del seller
+        seller.getFollowers().removeIf(user -> user.getUserId() == buyer.getUserId());
         this.userList.set(this.userList.indexOf(seller), seller);
     }
 }
