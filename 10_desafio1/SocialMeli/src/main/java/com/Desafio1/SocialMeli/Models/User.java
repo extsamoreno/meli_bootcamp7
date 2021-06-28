@@ -1,6 +1,6 @@
-package com.meli.SocialMeli.models;
+package com.Desafio1.SocialMeli.Models;
 
-import com.meli.SocialMeli.dto.UserDTO;
+import com.Desafio1.SocialMeli.DTOS.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private int idUser;
+    private int userId;
     private String userName;
-    private boolean esVendedor = false;
-    private List<UserDTO> follower = new ArrayList<>();
+    private boolean isSeller;
+    private List<UserDTO> followers = new ArrayList<>();
     private List<UserDTO> followed = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 }
