@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="61ac5bdd-332b-400a-affd-f382baafa1eb" name="Default Changelist" comment="" />
+    <list default="true" id="61ac5bdd-332b-400a-affd-f382baafa1eb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3_java2/out/production/3_java2/com/company/Fraccion.class" beforeDir="false" afterPath="$PROJECT_DIR$/../3_java2/out/production/3_java2/com/company/Fraccion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3_java2/out/production/3_java2/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../3_java2/out/production/3_java2/com/company/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3_java2/src/com/company/Fraccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../3_java2/src/com/company/Fraccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3_java2/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../3_java2/src/com/company/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../3_java2/src/com/company/Password.java" beforeDir="false" afterPath="$PROJECT_DIR$/../3_java2/src/com/company/Password.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../5_java4/vacio.txt" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,6 +80,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
@@ -87,13 +97,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -113,6 +125,7 @@
       <option name="presentableId" value="Default" />
       <updated>1622043545207</updated>
       <workItem from="1622043547920" duration="90000" />
+      <workItem from="1622584621915" duration="42000" />
     </task>
     <servers />
   </component>
@@ -129,5 +142,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

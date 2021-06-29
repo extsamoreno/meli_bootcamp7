@@ -1,20 +1,51 @@
--- 1 Explique el concpeto de normalizaación y para que se utiliza 
--- Es un proceso que se utiliza para evitar la redundancia de datos e inconsistencia de datos.
+-- 1 Explique el cONcpeto de normalizaación y para que se utiliza 
+-- Es un proceso que se utiliza para evitar la redundancia de datos e incONsistencia de datos.
 
 -- 2
-insert into movies(created_at, updated_at, title, rating, awards, release_date, length, genre_id)
-values(CURDATE(), CURDATE(), 'Spiderman into the spiderverse', 10, 10, CURDATE(), 160, 7);
+INSERT INTO movies(CREATEd_at, UPDATEd_at, title, rating, awards, release_date, length, genre_id)
+VALUES(CURDATE(), CURDATE(), 'Spiderman into the spiderverse', 10, 10, CURDATE(), 160, 7);
 
 -- 3 
-insert into genres(created_at, updated_at, name, ranking, active)
-values(CURDATE(), CURDATE(), 'genero', 20, 1 );
+INSERT INTO genres(CREATEd_at, UPDATEd_at, name, ranking, active)
+VALUES(CURDATE(), CURDATE(), 'genero', 20, 1 );
 
 -- 4
-update movies set genre_id = 14 where id = 22;
+UPDATE movies SET genre_id = 14 WHERE id = 22;
 
 -- 5
-update actor_movie set movie_id = 14 where id = 43;
+UPDATE actor_movie SET movie_id = 14 WHERE id = 43;
 
 -- 6 
-create temporary table movies_copy
-select * from movies;
+CREATE TEMPORARY TABLE movies_copy
+SELECT * FROM movies;
+
+-- 7
+DELETE FROM movies_copy WHERE awards < 5;
+
+-- 8
+SELECT G.* 
+FROM genres G 
+JOIN movies M ON G.id = M.genre_id
+GROUP BY G.id, G.CREATEd_at, G.UPDATEd_at, G.name, G.ranking, G.active
+HAVING COUNT(*) >= 1;
+
+-- 9
+SELECT A.*
+FROM actors A 
+JOIN actor_movie AM ON A.id = AM.actor_id
+JOIN movies M ON M.id = AM.movie_id
+WHERE M.awards > 3;
+
+-- 10
+EXPLAIN 
+SELECT * FROM movies;
+
+EXPLAIN DELETE FROM movies_copy WHERE awards < 5;
+
+-- 11 es una estructura que hace que sea mas agil la obtención de los datos, nos hace que las querys sean mas eficientes 
+
+-- 12 
+CREATE INDEX title_index ON movies (title);
+
+-- 13
+SHOW INDEX FROM movies;
