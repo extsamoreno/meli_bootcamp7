@@ -1,4 +1,4 @@
-package com.meli.AppConsultorioMySQL.repositories.entities;
+package com.meli.AppConsultorioMySQL.models;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,9 +17,15 @@ public class DentistEntity {
     private String name;
     private String lastname;
 
-    public DentistEntity(String dni, String name, String lastname) {
+    @ManyToOne()
+    @JoinColumn(name="schedule_id", referencedColumnName = "id")
+    private ScheduleEntity scheduleEntity;
+
+    public DentistEntity(Long id, String dni, String name, String lastname, ScheduleEntity scheduleEntity) {
+        this.id = id;
         this.dni = dni;
         this.name = name;
         this.lastname = lastname;
+        this.scheduleEntity = scheduleEntity;
     }
 }
