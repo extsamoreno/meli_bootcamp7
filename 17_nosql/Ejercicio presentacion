@@ -1,0 +1,22 @@
+PUNTO 1. 
+
+
+-> Siguiendo el diagrama de decisiones, eligiriamos el camino que llega a KVS DB ya que no los datos almacenados no serian del tipo binario.
+        Ademas seria una api frecuentemente consultada, porque la cantidad de trafico de mercado pago suponemos que es alto.
+        La expancion horizontal consistiria en el aumento de usuario utilizanod el servicio.
+        Generalemente la busqueda de los usuarios se realizaria por id.
+        El tamaño de las consultas soponemos que no superaria los 50KB.
+        Finalmente necesitamos consistencia de los datos al tratarse de dinero.
+
+    -> Se podria utilizar una base de dato relacional, ya que permite o garantiza mediante triggers el correcto impacto de los datos.
+        Por ejemplo al realizar un pago, con relacinoal se garantiza el descuento de dinero en la cuenta.
+
+
+
+PUNTO 2.
+
+
+
+-> Por una lado utilizariamos Object Storage para almacenar la foto de la orden de envio.
+        Los datos de shipping los alamacenariamos en una KVS porque usualmente serian solicitados por el shippingID
+        Los datos de persistencia los duplicariamos en una db relacinoal para poder resolver consultas complejas.

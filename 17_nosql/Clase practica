@@ -1,0 +1,47 @@
+1. ¿Cuántas colecciones tiene la base de datos?
+
+db.coleccion.count();
+
+2. ¿Cuántos documentos en cada colección? ¿Cuánto pesa cada colección?
+
+db.vecinos.count();
+
+db.restaurants.count();
+
+3. ¿Cuántos índices en cada colección? ¿Cuánto espacio ocupan los índices de cada colección?
+
+db.restaurants.totalIndexSize();
+
+db.vecinos.totalIndexSize();
+
+4. Traer un documento de ejemplo de cada colección. db.collection.find(...).pretty() nos da un formato más legible.
+
+db.restaurants.find({restaurant_id:{$eq:'40356018'}}).pretty();
+
+db.vecinos.find({name:{$eq:'Bedford'}}).pretty();
+
+5. Para cada colección, listar los campos a nivel raíz (ignorar campos dentro de documentos anidados) y sus tipos de datos.
+
+db.restaurants.find({restaurant_id:{$eq:'40356018'}},{address:1,borough:1,cuisine:1,name:1,restaurant_id:1}).pretty();
+
+db.vecinos.find({name:{$eq:'Bedford'}},{_id:1,name:1}).pretty();
+
+
+NoSQL
+1. Traer 3 restaurantes que hayan recibido al menos una calificación de grade 'A' con score mayor a 50. Una
+misma calificación debe cumplir con ambas condiciones simultáneamente; investigar el operador
+elemMatch.
+
+db.restaurants.find({grades: {$elemMatch:{grade : "A",score:{$gte:5}}}}).pretty();
+
+
+2. ¿A cuántos documentos les faltan las coordenadas geográficas? En otras palabras, revisar si el tamaño de address.coord es 0 y contar.
+db.restaurants.count({"address.coord":{$size:0}});
+
+
+3. Devolver name, borough, cuisine y grades para los primeros 3 restaurantes; de cada documento solo la
+última calificación. Ver el operador slice.
+
+db.restaurants.find({},{name:1,borough:1,cuisine:1,grades:{$slice:-1}}).limit(3);
+
+
