@@ -9,6 +9,9 @@ db.restaurants.find({name: /Bake/},{restaurant_id : 1, name: 1, borough:1, cuisi
 #3.
 db.restaurants.find({borough: 'Brooklyn', cuisine : {$in: ['Chinese', 'Thai']} },{restaurant_id : 1, name: 1, borough:1, cuisine:1})
 
+
+######################################################################################################
+
 #NOSQL
 
 #1.

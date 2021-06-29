@@ -16,15 +16,22 @@ UPDATE movies SET genre_id=13 WHERE id=22;
 # 5.  --------------------------------------------------------------------------------
 UPDATE actors SET favorite_movie_id=13 WHERE id=47;
 
-# 5.  --------------------------------------------------------------------------------
+# 6.  --------------------------------------------------------------------------------
 CREATE TEMPORARY TABLE movies_copy (SELECT * FROM movies );
 
-# 5.  --------------------------------------------------------------------------------
+# 7.  --------------------------------------------------------------------------------
 DELETE FROM movies_copy WHERE awards<5;
 
+# 8.  --------------------------------------------------------------------------------
+SELECT genres.name as genre_name, count(*) as total_movies FROM genres JOIN movies ON movies.genre_id = genres.id 
+GROUP BY genres.name HAVING total_movies>=1;
 
+# 9.  --------------------------------------------------------------------------------
+CREATE TEMPORARY TABLE movies_3awards (SELECT * FROM movies WHERE awards>3);
+SELECT first_name as actor_first_name, last_name as actor_last_name, favorite_movie_id, 
+movies_3awards.title as movie_title, movies_3awards.awards as movie_awards
+FROM actors JOIN movies_3awards ON movies_3awards.id=actors.favorite_movie_id;
 
-
-
-
+# 12.  --------------------------------------------------------------------------------
+CREATE INDEX movies_idx ON movies (title);
 
