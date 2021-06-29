@@ -5,27 +5,27 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema consultory
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema consultory
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `consultory` DEFAULT CHARACTER SET utf8 ;
+USE `consultory` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`table1`
+-- Table `consultory`.`table1`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`table1` (
+CREATE TABLE IF NOT EXISTS `consultory`.`table1` (
 )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`patient`
+-- Table `consultory`.`patient`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`patient` (
+CREATE TABLE IF NOT EXISTS `consultory`.`patient` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `surname` VARCHAR(45) NULL,
@@ -37,9 +37,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`professional`
+-- Table `consultory`.`professional`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`professional` (
+CREATE TABLE IF NOT EXISTS `consultory`.`professional` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NULL,
   `surname` VARCHAR(45) NULL,
@@ -48,9 +48,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`working_days`
+-- Table `consultory`.`working_days`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`working_days` (
+CREATE TABLE IF NOT EXISTS `consultory`.`working_days` (
   `id` INT NOT NULL,
   `desc_day` VARCHAR(45) NULL,
   `start_time` VARCHAR(45) NULL,
@@ -60,16 +60,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`working_days` (
   INDEX `fk_working_days_professional1_idx` (`professional_id` ASC) VISIBLE,
   CONSTRAINT `fk_working_days_professional1`
     FOREIGN KEY (`professional_id`)
-    REFERENCES `mydb`.`professional` (`id`)
+    REFERENCES `consultory`.`professional` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`schedule`
+-- Table `consultory`.`schedule`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`schedule` (
+CREATE TABLE IF NOT EXISTS `consultory`.`schedule` (
   `id` INT NOT NULL,
   `working_days_id` INT NOT NULL,
   `working_days_professional_id` INT NOT NULL,
@@ -77,16 +77,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`schedule` (
   INDEX `fk_schedule_working_days1_idx` (`working_days_id` ASC, `working_days_professional_id` ASC) VISIBLE,
   CONSTRAINT `fk_schedule_working_days1`
     FOREIGN KEY (`working_days_id` , `working_days_professional_id`)
-    REFERENCES `mydb`.`working_days` (`id` , `professional_id`)
+    REFERENCES `consultory`.`working_days` (`id` , `professional_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`turn`
+-- Table `consultory`.`turn`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`turn` (
+CREATE TABLE IF NOT EXISTS `consultory`.`turn` (
   `id` INT NOT NULL,
   `desc` VARCHAR(45) NULL,
   `start_time` DATETIME NULL,
@@ -99,58 +99,58 @@ CREATE TABLE IF NOT EXISTS `mydb`.`turn` (
   INDEX `fk_turn_patient1_idx` (`patient_id` ASC) VISIBLE,
   CONSTRAINT `fk_turn_schedule1`
     FOREIGN KEY (`schedule_id`)
-    REFERENCES `mydb`.`schedule` (`id`)
+    REFERENCES `consultory`.`schedule` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_turn_patient1`
     FOREIGN KEY (`patient_id`)
-    REFERENCES `mydb`.`patient` (`id`)
+    REFERENCES `consultory`.`patient` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`turno_x_agenda`
+-- Table `consultory`.`turno_x_agenda`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`turno_x_agenda` (
+CREATE TABLE IF NOT EXISTS `consultory`.`turno_x_agenda` (
   `turno_id` INT NOT NULL,
   `agenda_id` INT NOT NULL,
   INDEX `fk_turno_x_agenda_turno1_idx` (`turno_id` ASC) VISIBLE,
   INDEX `fk_turno_x_agenda_agenda1_idx` (`agenda_id` ASC) VISIBLE,
   CONSTRAINT `fk_turno_x_agenda_turno1`
     FOREIGN KEY (`turno_id`)
-    REFERENCES `mydb`.`turn` (`id`)
+    REFERENCES `consultory`.`turn` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_turno_x_agenda_agenda1`
     FOREIGN KEY (`agenda_id`)
-    REFERENCES `mydb`.`schedule` (`id`)
+    REFERENCES `consultory`.`schedule` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`table2`
+-- Table `consultory`.`table2`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`table2` (
+CREATE TABLE IF NOT EXISTS `consultory`.`table2` (
 )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`turn_x_schedule`
+-- Table `consultory`.`turn_x_schedule`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`turn_x_schedule` (
+CREATE TABLE IF NOT EXISTS `consultory`.`turn_x_schedule` (
 )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`turn_has_schedule`
+-- Table `consultory`.`turn_has_schedule`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`turn_has_schedule` (
+CREATE TABLE IF NOT EXISTS `consultory`.`turn_has_schedule` (
   `turn_id` INT NOT NULL,
   `schedule_id` INT NOT NULL,
   PRIMARY KEY (`turn_id`, `schedule_id`),
@@ -158,28 +158,28 @@ CREATE TABLE IF NOT EXISTS `mydb`.`turn_has_schedule` (
   INDEX `fk_turn_has_schedule_turn1_idx` (`turn_id` ASC) VISIBLE,
   CONSTRAINT `fk_turn_has_schedule_turn1`
     FOREIGN KEY (`turn_id`)
-    REFERENCES `mydb`.`turn` (`id`)
+    REFERENCES `consultory`.`turn` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_turn_has_schedule_schedule1`
     FOREIGN KEY (`schedule_id`)
-    REFERENCES `mydb`.`schedule` (`id`)
+    REFERENCES `consultory`.`schedule` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-USE `mydb` ;
+USE `consultory` ;
 
 -- -----------------------------------------------------
--- Placeholder table for view `mydb`.`view1`
+-- Placeholder table for view `consultory`.`view1`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`view1` (`id` INT);
+CREATE TABLE IF NOT EXISTS `consultory`.`view1` (`id` INT);
 
 -- -----------------------------------------------------
--- View `mydb`.`view1`
+-- View `consultory`.`view1`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`view1`;
-USE `mydb`;
+DROP TABLE IF EXISTS `consultory`.`view1`;
+USE `consultory`;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
