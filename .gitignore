@@ -1,2 +1,16 @@
-**/.DS_Store
-**.zip
+
+*.zip
+
+.gitignore
+# Eclipse
+.classpath
+.project
+.settings/
+ 
+# Intellij
+.idea/
+*.iml
+*.iws
+ 
+# Mac
+*.DS_Store
