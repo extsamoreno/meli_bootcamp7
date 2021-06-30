@@ -1,7 +1,9 @@
 package com.dentists.appointments.service;
 
+import com.dentists.appointments.model.DTO.AppDTOByDate;
 import com.dentists.appointments.model.Appointment;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IAppoimentService {
@@ -15,4 +17,6 @@ public interface IAppoimentService {
     String update(Appointment appointment);
 
     String delete(Long id);
+
+    List<AppDTOByDate> findAllByDate(LocalDate localDate);
 }

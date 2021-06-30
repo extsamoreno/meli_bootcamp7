@@ -1,11 +1,13 @@
 package com.dentists.appointments.controller;
 
+import com.dentists.appointments.model.DTO.AppDTOByDate;
 import com.dentists.appointments.model.Appointment;
 import com.dentists.appointments.service.IAppoimentService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -16,7 +18,16 @@ public class AppoimentController {
     @PostMapping("/create")
     public String createAppoiment(@RequestBody Appointment appointment){
         iAppoimentService.save(appointment);
-        return "Created "+ appointment.getStartTime();
+        return "Created "+ appointment.getDate();
     }
+
+    /*
+    * Listar todos los pacientes de un día de todos los dentistas.
+    * */
+    @GetMapping("/FindAllPatientsByDentId/{date}")
+    public List<AppDTOByDate> createAppoiment(@PathVariable LocalDate date){
+        return iAppoimentService.findAllByDate(date);
+    }
+
 
 }
