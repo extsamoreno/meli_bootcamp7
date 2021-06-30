@@ -1,12 +1,20 @@
 package com.meli.AppConsultorioMySQL.models;
 
+import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
-@NoArgsConstructor
+
+@Getter
+@Setter
 @Entity
-public class PatientEntity {
+@Table(name = "patients")
+@NoArgsConstructor
+public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -14,16 +22,15 @@ public class PatientEntity {
     private String dni;
     private String name;
     private String lastname;
-    @ManyToOne()
-    @JoinColumn(name="appointment_id", referencedColumnName = "id")
-    private ApoointmentEntity apoointmentEntity;
 
+    @OneToMany(mappedBy = "patient" )
+    private Set<Apoointment> apoointment;
 
-    public PatientEntity(Long id, String dni, String name, String lastname, ApoointmentEntity apoointmentEntity) {
+    public Patient(Long id, String dni, String name, String lastname, Set<Apoointment> apoointment) {
         this.id = id;
         this.dni = dni;
         this.name = name;
         this.lastname = lastname;
-        this.apoointmentEntity = apoointmentEntity;
+        this.apoointment = apoointment;
     }
 }

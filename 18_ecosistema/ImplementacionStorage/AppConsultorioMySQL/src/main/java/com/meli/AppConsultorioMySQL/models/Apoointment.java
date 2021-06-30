@@ -1,28 +1,31 @@
 package com.meli.AppConsultorioMySQL.models;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "apoointments")
 @NoArgsConstructor
-public class ApoointmentEntity {
+public class Apoointment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private Date date;
     private int durations;
 
-    @OneToMany(mappedBy = "patient")
-    private Set<PatientEntity> patientEntitySet;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Schedule schedule;
 
-    @OneToMany(mappedBy = "shedule")
-    private Set<ScheduleEntity> scheduleEntitySet;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Patient patient;
 
 
 }

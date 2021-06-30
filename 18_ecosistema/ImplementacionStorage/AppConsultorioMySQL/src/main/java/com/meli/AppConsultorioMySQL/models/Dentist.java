@@ -1,14 +1,19 @@
 package com.meli.AppConsultorioMySQL.models;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-@Data
+import java.util.Set;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "dentists")
 @NoArgsConstructor
-public class DentistEntity {
+public class Dentist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -17,15 +22,14 @@ public class DentistEntity {
     private String name;
     private String lastname;
 
-    @ManyToOne()
-    @JoinColumn(name="schedule_id", referencedColumnName = "id")
-    private ScheduleEntity scheduleEntity;
+    @OneToMany(mappedBy = "dentist", fetch = FetchType.LAZY)
+    private Set<Schedule> schedules;
 
-    public DentistEntity(Long id, String dni, String name, String lastname, ScheduleEntity scheduleEntity) {
+    public Dentist(Long id, String dni, String name, String lastname, Set<Schedule> schedules) {
         this.id = id;
         this.dni = dni;
         this.name = name;
         this.lastname = lastname;
-        this.scheduleEntity = scheduleEntity;
+        this.schedules = schedules;
     }
 }

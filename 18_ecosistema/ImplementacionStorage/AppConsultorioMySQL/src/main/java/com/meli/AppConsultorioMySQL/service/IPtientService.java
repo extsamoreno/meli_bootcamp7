@@ -1,20 +1,24 @@
 package com.meli.AppConsultorioMySQL.service;
 
-import com.meli.AppConsultorioMySQL.models.PatientEntity;
-import org.springframework.data.domain.PageRequest;
+import com.meli.AppConsultorioMySQL.models.DTO.PatientDTO;
+import com.meli.AppConsultorioMySQL.models.Patient;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 public interface IPtientService {
 
-    public void createPatient(PatientEntity student);
+    public void createPatient(Patient student);
 
-    public void deletePatient(PatientEntity student);
+    public void deletePatient(Patient student);
 
-    List<PatientEntity> findAll();
+    List<Patient> findAll();
 
-    Optional<PatientEntity> findById(Long id);
+    Optional<Patient> findById(Long id);
 
-    void updateStudent(PatientEntity student);
+    void updateStudent(Patient student);
+
+    List<PatientDTO> getAllPatientsByDate(String date) throws ParseException;
 }

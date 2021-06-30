@@ -5,17 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2106ea67-2ea1-4bc2-8224-b598e3c66a90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/ApoointmentEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/ScheduleEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IPatientRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IPtientService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/PatientServie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/PatientDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/AppConsultorioMySqlApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/AppConsultorioMySqlApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/ApoointmentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Apoointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DentistEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Dentist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/PatientEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/ScheduleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IPatientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IPatientRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/entities/DentistEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DentistEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IPtientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IPtientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/PatientServie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/PatientServie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,8 +29,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="package-info" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -41,6 +45,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -52,6 +60,8 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -81,7 +91,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624993340150</updated>
-      <workItem from="1624993341291" duration="3802000" />
+      <workItem from="1624993341291" duration="12230000" />
     </task>
     <servers />
   </component>
