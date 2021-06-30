@@ -17,4 +17,5 @@ public class Odontologo {
 
     @Column(name = "especialidad")
     private String especialidad;
+
 }

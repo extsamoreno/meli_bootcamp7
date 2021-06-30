@@ -4,10 +4,11 @@ import com.appconsultorio.appconsultorio.model.Turno;
 import com.appconsultorio.appconsultorio.service.IPacienteService;
 import com.appconsultorio.appconsultorio.service.ITurnoService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @RequestMapping("turno")
@@ -20,6 +21,12 @@ public class TurnoController {
     public String crearTurno(@RequestBody Turno turno){
         iTurnoService.crearTurno(turno);
         return "Turno creado correctamente";
+    }
+
+    @PostMapping ("/obtenerpacientespordia")
+    public List obtenerPacientesPorDia(@RequestParam String date){
+        LocalDateTime dt = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return iTurnoService.obtenerPacientesPorDia(dt);
     }
 
 }
