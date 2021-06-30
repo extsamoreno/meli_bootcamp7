@@ -18,5 +18,5 @@ public interface IAppoimentService {
 
     String delete(Long id);
 
-    List<AppDTOByDate> findAllByDate(LocalDate localDate);
+    List<AppDTOByDate> findAllByDate(String localDate);
 }

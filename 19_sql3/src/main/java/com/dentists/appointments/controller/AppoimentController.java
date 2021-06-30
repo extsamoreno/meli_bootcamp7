@@ -25,7 +25,7 @@ public class AppoimentController {
     * Listar todos los pacientes de un día de todos los dentistas.
     * */
     @GetMapping("/FindAllPatientsByDentId/{date}")
-    public List<AppDTOByDate> createAppoiment(@PathVariable LocalDate date){
+    public List<AppDTOByDate> createAppoiment(@PathVariable String date){
         return iAppoimentService.findAllByDate(date);
     }
 
