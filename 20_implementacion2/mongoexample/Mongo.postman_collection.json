@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "e4836dad-d2b5-4886-92a9-acff8117cf5e",
+		"name": "Mongo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/mongoexample/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"mongoexample",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Books buy name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/mongoexample/books?author=Jorge luis Borges",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"mongoexample",
+						"books"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "Jorge luis Borges"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

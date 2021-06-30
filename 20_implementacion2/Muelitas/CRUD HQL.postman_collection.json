@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "7672543c-2ae8-4cf0-8a93-0909bce9eae8",
+		"name": "CRUD HQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Dentist Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":1,\n    \"name\":\"dentista 3\",\n    \"phoneNumber\":\"12345\",\n    \"startTime\":\"2020-01-01\",\n    \"endTime\":\"2020-01-01\",\n    \"consultory\":{\n    \"id\":1,\n    \"adress\":\"clale test\",\n    \"phoneNumber\":\"1123123123\"\n}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/patient/createdentist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"patient",
+						"createdentist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Paciente Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":1,\n    \"name\":\"paciente 1\",\n    \"dni\":\"12345\",\n    \"adress\":\"call test\",\n    \"socialWork\":\"call test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/patient/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"patient",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Appointment Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":1,\n    \"date\":\"2020-01-01\",\n    \"patient\":\n    {\n    \"id\":2,\n    \"name\":\"paciente 3\",\n    \"dni\":\"12345\",\n    \"adress\":\"call test\",\n    \"socialWork\":\"call test\"\n    },\n    \"dentist\":\n    {\n    \"id\":1,\n    \"name\":\"dentista 3\",\n    \"phoneNumber\":\"12345\",\n    \"startTime\":\"2020-01-01\",\n    \"endTime\":\"2020-01-01\",\n    \"consultory\":{\n    \"id\":1,\n    \"adress\":\"clale test\",\n    \"phoneNumber\":\"1123123123\"\n}\n},\n    \"shedule\":{\n    \"id\":1,\n    \"name\":\"agenda 2\"\n}\n\n   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/patient/createapponitments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"patient",
+						"createapponitments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Appointment Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":1,\n    \"date\":\"2020-01-01\",\n    \"patient\":\n    {\n    \"id\":2,\n    \"name\":\"paciente 3\",\n    \"dni\":\"12345\",\n    \"adress\":\"call test\",\n    \"socialWork\":\"call test\"\n    },\n    \"dentist\":\n    {\n    \"id\":1,\n    \"name\":\"dentista 3\",\n    \"phoneNumber\":\"12345\",\n    \"startTime\":\"2020-01-01\",\n    \"endTime\":\"2020-01-01\",\n    \"consultory\":{\n    \"id\":1,\n    \"adress\":\"clale test\",\n    \"phoneNumber\":\"1123123123\"\n}\n},\n    \"shedule\":{\n    \"id\":1,\n    \"name\":\"agenda 2\"\n}\n\n   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/patient/createapponitments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"patient",
+						"createapponitments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ejercicio 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/patient/listsAppointment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"patient",
+						"listsAppointment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ejercicio 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/patient/listsAppointment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"patient",
+						"listsAppointment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ejercicio 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/patient/listsAppointment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"patient",
+						"listsAppointment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ejercicio 4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/patient/listsAppointment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"patient",
+						"listsAppointment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ejercicio 5",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Ejercicio 6",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "Ejercicio 7",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}

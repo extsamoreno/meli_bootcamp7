@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "3d81f458-b517-40ad-8bcf-96cb79f228cd",
+		"name": "Turns Querys",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Turns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dentist/lists",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentist",
+						"lists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Turns by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dentist/listsDentistAppon/Camila",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentist",
+						"listsDentistAppon",
+						"Camila"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Turns by status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dentist/listsAgendaBystatus/DISABLED",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentist",
+						"listsAgendaBystatus",
+						"DISABLED"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

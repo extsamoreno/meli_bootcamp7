@@ -1,0 +1,9 @@
+
+use mongoexaple
+db.createCollection("books")
+
+db.books.insert({author:"perez luis Borges", book:"entre completa"})
+db.books.insert({author:"perez ", book:"completa"})
+db.books.insert({author:" Borges", book:" completa"})
+
+db.books.find()

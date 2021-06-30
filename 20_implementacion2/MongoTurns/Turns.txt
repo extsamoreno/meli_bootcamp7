@@ -1,0 +1,49 @@
+use consultorio
+
+db.createCollection("turns")
+
+db.turns.insert(
+{patient:
+    {
+        firstName:"Luis",
+        lastName:"Urrea",
+        age:23.0,
+        gender:"Male"
+    },
+    doctor:{
+        firstName:"Camila",
+        lastName:"Gomez",
+        speciality:"General"
+        
+        },date:"10-05-2021",
+        status:"ACTIVE"}
+)
+
+
+db.turns.insert(
+{patient:
+    {
+        firstName:"carlitos",
+        lastName:"Perez",
+        age:25.0,
+        gender:"Female"
+    },
+    doctor:{
+        firstName:"samir",
+        lastName:"Gomez",
+        speciality:"Especial"
+        
+        },date:"8-05-2021",
+        status:"DISABLED"}
+)
+
+db.getCollection('turns').find({})
+use consultorio
+
+db.turns.find({ "doctor": { $elemMatch: { "firstName" : "Camila" }}})
+
+db.turns.find({
+    "doctor.firstName" : "Camila"
+}).pretty();
+
+
