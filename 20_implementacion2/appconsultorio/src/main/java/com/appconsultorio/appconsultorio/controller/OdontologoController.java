@@ -1,8 +1,11 @@
 package com.appconsultorio.appconsultorio.controller;
 import com.appconsultorio.appconsultorio.model.Odontologo;
+import com.appconsultorio.appconsultorio.model.Paciente;
 import com.appconsultorio.appconsultorio.service.IOdontologoService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -14,25 +17,25 @@ public class OdontologoController {
     IOdontologoService iOdontologoService;
 
     @PostMapping("/crearodontologo")
-    public String crearTurno(@RequestBody Odontologo odontologo){
+    public String crearOdontologo(@RequestBody Odontologo odontologo){
         iOdontologoService.crearOdontologo(odontologo);
         return "Odontologo creado correctamente";
     }
 
     @PostMapping("/editarodontologo")
-    public String editarTurno(@RequestBody Odontologo odontologo){
+    public String editarOdontologo(@RequestBody Odontologo odontologo){
         iOdontologoService.editarOdontologo(odontologo);
         return "Odontologo editado correctamente";
     }
 
     @PostMapping("/borrarodontologo")
-    public String borrarTurno(@RequestParam int id){
+    public String eliminarOdontologo(@RequestParam int id){
         iOdontologoService.eliminarOdontologo(id);
         return "Odontologo eliminado correctamente";
     }
 
     @GetMapping("/obtenerodontologos")
-    public List<Odontologo> obtenerTurnos(){
+    public List<Odontologo> obtenerOdontologos(){
         return iOdontologoService.obtenerOdontologos();
     }
 }

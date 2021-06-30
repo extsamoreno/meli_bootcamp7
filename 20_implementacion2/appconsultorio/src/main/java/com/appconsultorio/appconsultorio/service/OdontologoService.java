@@ -1,5 +1,6 @@
 package com.appconsultorio.appconsultorio.service;
 import com.appconsultorio.appconsultorio.model.Odontologo;
+import com.appconsultorio.appconsultorio.model.Paciente;
 import com.appconsultorio.appconsultorio.model.Turno;
 import com.appconsultorio.appconsultorio.repository.IOdontologoRepository;
 import lombok.AllArgsConstructor;

@@ -2,11 +2,9 @@ package com.appconsultorio.appconsultorio.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -17,6 +15,10 @@ public class Turno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_turno")
     private Integer id;
+
+    @Column(name = "fecha")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    LocalDateTime fecha;
 
     @Column(name = "estado")
     String estado;
