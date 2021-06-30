@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2106ea67-2ea1-4bc2-8224-b598e3c66a90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/DentistDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/DentistService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IDentistService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/AppointmentDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/ScheduleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/AppointmentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IAppointmentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IScheduleService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/ScheduleService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Apoointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Apoointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/controllers/ConsultorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/controllers/ConsultorController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Apoointment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Apoointment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +29,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -97,7 +103,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624993340150</updated>
-      <workItem from="1624993341291" duration="15353000" />
+      <workItem from="1624993341291" duration="19247000" />
     </task>
     <servers />
   </component>

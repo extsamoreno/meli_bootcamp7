@@ -20,6 +20,8 @@ public class Apoointment {
     private Long id;
     private Date date;
     private int durations;
+    // status 1 -> Pending, 2-> Finish 3-> Postponed 4->Cancel
+    private int status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Schedule schedule;
