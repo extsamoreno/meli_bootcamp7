@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 @Service
 public class Bootstrap implements InitializingBean {
@@ -77,7 +75,29 @@ public class Bootstrap implements InitializingBean {
         turnRepository.findAllByStateAndDate("Pending", new GregorianCalendar(2021, Calendar.JUNE, 5).getTime()).forEach(System.out::println);
         System.out.println("turnos findAllByStateAndDate");
 
-        //Faltan 5 en adelante
+        turnRepository.findAllByProfessional_id(1L).forEach(System.out::println);
+        System.out.println("turnos findAllByProfessional_id");
+
+        turnRepository.getTurnsByProfessionalId(1L).forEach(System.out::println);
+        System.out.println("turnos getTurnsByProfessionalId");
+
+        turnRepository.getTurnsByStateAndProfessional("Reprogramed", 1L).forEach(System.out::println);
+        System.out.println("turnos getTurnsByStateAndProfessional");
+
+        turnRepository.getAllByStateAndProfessional_Id("Reprogramed", 1L).forEach(System.out::println);
+        System.out.println("turnos getTurnsByStateAndProfessional");
+
+        turnRepository.getTurnsByStateReprogramedAndProfessional(1L).forEach(System.out::println);
+        System.out.println("turnos getTurnsByStateReprogramedAndProfessional");
+
+        turnRepository.getTurnsByStateReprogramedAndProfessional(1L).forEach(System.out::println);
+        System.out.println("turnos getTurnsByStateAndProfessional");
+
+        turnRepository.getAllByState("Reprogramed").forEach(System.out::println);
+        System.out.println("turnos getTurnsByStateAndProfessional");
+
+        turnRepository.getTurnsByStateReprogramed().forEach(System.out::println);
+        System.out.println("turnos getTurnsByStateReprogramedAndProfessional");
     }
 
     private void loadPatient() {
@@ -110,6 +130,7 @@ public class Bootstrap implements InitializingBean {
     }
 
     private void loadTurns() {
+
         for(int i = 1; i <= 5; i++) {
             Turn turn = new Turn();
             turn.setDate(new GregorianCalendar(2021, Calendar.JUNE, 5).getTime());
@@ -136,6 +157,25 @@ public class Bootstrap implements InitializingBean {
             turn2.setProfessional(professionalRepository.getById(2L));
             turn2.setService(serviceRepository.getById((long) i));
             turnRepository.save(turn2);
+
+            Turn turn3 = new Turn();
+            turn3.setDate(new GregorianCalendar(2021, Calendar.JUNE, 7).getTime());
+            turn3.setState("Reprogramed");
+            turn3.setPatient(patientRepository.getById((long) i));
+            turn3.setProfessional(professionalRepository.getById(1L));
+            turn3.setService(serviceRepository.getById((long) i));
+            turnRepository.save(turn3);
+
+
+            Turn turn4 = new Turn();
+            turn4.setDate(new GregorianCalendar(2021, Calendar.JUNE, 9).getTime());
+            turn4.setState("Pending");
+            turn4.setPatient(patientRepository.getById((long) i));
+            turn4.setProfessional(professionalRepository.getById(1L));
+            turn4.setService(serviceRepository.getById((long) i));
+            turn4.setNewTurn(turn3);
+            turnRepository.save(turn4);
         }
+
     }
 }

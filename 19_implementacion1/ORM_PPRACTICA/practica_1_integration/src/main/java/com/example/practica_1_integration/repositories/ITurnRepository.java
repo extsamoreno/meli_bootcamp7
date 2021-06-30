@@ -43,4 +43,21 @@ public interface ITurnRepository extends JpaRepository<Turn, Long> {
     @Query(value="select t from Turn t where t.state = 'Pending' and t.date = :date")
     Set<Turn> getTurnsByStatePendingOfADate(@Param("date") Date date);
 
+    @Query(value = "from Turn t where t.professional.id = :professional_id")
+    Set<Turn> getTurnsByProfessionalId(@Param("professional_id") long professional_id);
+
+    Set<Turn> findAllByProfessional_id(long professional_id);
+
+    @Query(value="select t from Turn t where t.state = :state and t.professional.id = :professional_id")
+    Set<Turn> getTurnsByStateAndProfessional(@Param("state") String state, @Param("professional_id") long professional_id);
+
+    Set<Turn> getAllByStateAndProfessional_Id(String state, long professional_id);
+
+    @Query(value="select t from Turn t where t.state = 'Reprogramed' and t.professional.id = :professional_id")
+    Set<Turn> getTurnsByStateReprogramedAndProfessional(@Param("professional_id") long professional_id);
+
+    Set<Turn> getAllByState(String state);
+
+    @Query(value="select t from Turn t where t.state = 'Reprogramed'")
+    Set<Turn> getTurnsByStateReprogramed();
 }
