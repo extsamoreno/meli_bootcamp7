@@ -14,25 +14,25 @@ public class OdontologoController {
     IOdontologoService iOdontologoService;
 
     @PostMapping("/crearodontologo")
-    public String crearOdontologo(@RequestBody Odontologo odontologo){
+    public String crearTurno(@RequestBody Odontologo odontologo){
         iOdontologoService.crearOdontologo(odontologo);
         return "Odontologo creado correctamente";
     }
 
     @PostMapping("/editarodontologo")
-    public String editarOdontologo(@RequestBody Odontologo odontologo){
+    public String editarTurno(@RequestBody Odontologo odontologo){
         iOdontologoService.editarOdontologo(odontologo);
         return "Odontologo editado correctamente";
     }
 
     @PostMapping("/borrarodontologo")
-    public String eliminarOdontologo(@RequestParam int id){
+    public String borrarTurno(@RequestParam int id){
         iOdontologoService.eliminarOdontologo(id);
         return "Odontologo eliminado correctamente";
     }
 
     @GetMapping("/obtenerodontologos")
-    public List<Odontologo> obtenerOdontologos(){
+    public List<Odontologo> obtenerTurnos(){
         return iOdontologoService.obtenerOdontologos();
     }
 }

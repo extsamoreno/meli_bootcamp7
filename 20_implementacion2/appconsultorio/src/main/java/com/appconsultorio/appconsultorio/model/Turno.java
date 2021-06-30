@@ -18,10 +18,6 @@ public class Turno {
     @Column(name = "id_turno")
     private Integer id;
 
-    @Column(name = "fecha")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    Date fecha;
-
     @Column(name = "estado")
     String estado;
 
