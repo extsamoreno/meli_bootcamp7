@@ -2,11 +2,11 @@ package com.dentists.appointments.controller;
 
 import com.dentists.appointments.model.DTO.AppDTOByDate;
 import com.dentists.appointments.model.Appointment;
+import com.dentists.appointments.model.DTO.DentistCountDates;
 import com.dentists.appointments.service.IAppoimentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -27,6 +27,14 @@ public class AppoimentController {
     @GetMapping("/FindAllPatientsByDentId/{date}")
     public List<AppDTOByDate> createAppoiment(@PathVariable String date){
         return iAppoimentService.findAllByDate(date);
+    }
+
+    /*
+     * Listar dentistas con más de dos appoiments
+     * */
+    @GetMapping("/FindDentistWithMore2Appoiments/{date}")
+    public List<DentistCountDates> findDentistWithMore2Appoiments(@PathVariable String date){
+        return iAppoimentService.findDentistsByMore2App(date);
     }
 
 

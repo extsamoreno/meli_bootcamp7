@@ -2,6 +2,7 @@ package com.dentists.appointments.service;
 
 import com.dentists.appointments.model.DTO.AppDTOByDate;
 import com.dentists.appointments.model.Appointment;
+import com.dentists.appointments.model.DTO.DentistCountDates;
 import com.dentists.appointments.model.mapper.AppMapper;
 import com.dentists.appointments.repository.IAppoimentRepository;
 import lombok.AllArgsConstructor;
@@ -51,8 +52,17 @@ public class AppoinmentService implements  IAppoimentService{
 
     @Override
     public List<AppDTOByDate> findAllByDate(String localDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        List<Appointment> appointments = iAppoimentRepository.findAppointmentBydate(LocalDate.parse(localDate,formatter));
+        List<Appointment> appointments = iAppoimentRepository.findAppointmentBydate(checkDate(localDate));
         return appointments.stream().map((appointment -> AppMapper.toAppDTOByDate(appointment))).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DentistCountDates> findDentistsByMore2App(String date) {
+        return iAppoimentRepository.findDentistWithMoreThat2App(checkDate(date));
+    }
+
+    private LocalDate checkDate(String date){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        return LocalDate.parse(date,formatter);
     }
 }
