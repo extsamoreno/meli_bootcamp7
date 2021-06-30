@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2106ea67-2ea1-4bc2-8224-b598e3c66a90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/PatientDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/DentistDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/DentistService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IDentistService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/AppConsultorioMySqlApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/AppConsultorioMySqlApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/ApoointmentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Apoointment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DentistEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Dentist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/PatientEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/ScheduleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Schedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IPatientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IPatientRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IPtientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IPtientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/PatientServie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/PatientServie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/controllers/ConsultorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/controllers/ConsultorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +22,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="package-info" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -63,7 +56,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.AppConsultorioMySqlApplication">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -75,6 +68,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in AppConsultorioMySQL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AppConsultorioMySQL" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="AppConsultorioMySqlApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="AppConsultorioMySQL" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.meli.AppConsultorioMySQL.AppConsultorioMySqlApplication" />
@@ -82,6 +83,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in AppConsultorioMySQL" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -91,11 +97,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624993340150</updated>
-      <workItem from="1624993341291" duration="12230000" />
+      <workItem from="1624993341291" duration="15353000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java</url>
+          <line>16</line>
+          <properties class="com.meli.AppConsultorioMySQL.repositories.IDentistRepository" method="getDentistTwoApoointment" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

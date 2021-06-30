@@ -1,7 +1,9 @@
 package com.meli.AppConsultorioMySQL.controllers;
 
+import com.meli.AppConsultorioMySQL.models.DTO.DentistDTO;
 import com.meli.AppConsultorioMySQL.models.DTO.PatientDTO;
 import com.meli.AppConsultorioMySQL.models.Patient;
+import com.meli.AppConsultorioMySQL.service.IDentistService;
 import com.meli.AppConsultorioMySQL.service.IPtientService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import java.util.List;
 public class ConsultorController {
 
     private IPtientService iPtientService;
+    private IDentistService iDentistService;
 
     @PostMapping("/create")
     public String createStudent(@RequestBody Patient patient){
@@ -24,8 +27,13 @@ public class ConsultorController {
     }
 
     @GetMapping("/all_patients/{date}")
-    public List<PatientDTO> createStudent(@PathVariable String date) throws ParseException {
+    public List<PatientDTO> getAllPatientsByDate(@PathVariable String date) throws ParseException {
         List<PatientDTO> response = iPtientService.getAllPatientsByDate(date);
+        return response;
+    }
+    @GetMapping("/all_dentist/{date}")
+    public List<DentistDTO> getDentistTwoApoointment(@PathVariable String date) throws ParseException {
+        List<DentistDTO> response = iDentistService.getDentistTwoApoointment(date);
         return response;
     }
 }
