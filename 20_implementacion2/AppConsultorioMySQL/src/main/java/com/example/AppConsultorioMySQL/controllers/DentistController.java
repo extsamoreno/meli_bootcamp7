@@ -1,5 +1,6 @@
 package com.example.AppConsultorioMySQL.controllers;
 
+import com.example.AppConsultorioMySQL.Exceptions.DentistNotFoundException;
 import com.example.AppConsultorioMySQL.models.entities.Dentist;
 import com.example.AppConsultorioMySQL.services.*;
 import lombok.AllArgsConstructor;
@@ -21,12 +22,12 @@ public class DentistController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<String> update(@RequestBody Dentist dentist){
+    public ResponseEntity<String> update(@RequestBody Dentist dentist) throws DentistNotFoundException {
         return new ResponseEntity<String>(dentistService.updateDentist(dentist), HttpStatus.OK);
     }
 
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable Long id) throws DentistNotFoundException {
         return new ResponseEntity<String>(dentistService.deleteDentist(id), HttpStatus.OK);
     }
 
@@ -36,7 +37,7 @@ public class DentistController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Dentist> getById(@PathVariable Long id){
+    public ResponseEntity<Dentist> getById(@PathVariable Long id) throws DentistNotFoundException {
         return new ResponseEntity<>(dentistService.findDentistById(id), HttpStatus.OK);
     }
 }

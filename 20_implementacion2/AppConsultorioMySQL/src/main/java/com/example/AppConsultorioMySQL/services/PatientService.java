@@ -16,7 +16,8 @@ public class PatientService implements  IPatientService{
 
     @Override
     public String createPatient(Patient patient) {
-        return null;
+        patientRepository.save(patient);
+        return "Se creó el paciente correctamente";
     }
 
     @Override

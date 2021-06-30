@@ -1,5 +1,6 @@
 package com.example.AppConsultorioMySQL.services;
 
+import com.example.AppConsultorioMySQL.Exceptions.DentistNotFoundException;
 import com.example.AppConsultorioMySQL.models.entities.Dentist;
 import com.example.AppConsultorioMySQL.repositories.IDentistRepository;
 import lombok.AllArgsConstructor;
@@ -20,11 +21,11 @@ public class DentistService implements IDentistService {
     }
 
     @Override
-    public String updateDentist(Dentist dentist) {
+    public String updateDentist(Dentist dentist) throws DentistNotFoundException {
         Optional<Dentist> item = dentistRepository.findById(dentist.getId());
 
         if (item == null){
-            //Exception
+            throw new DentistNotFoundException(item);
         }
 
         dentistRepository.save(dentist);
@@ -32,11 +33,11 @@ public class DentistService implements IDentistService {
     }
 
     @Override
-    public String deleteDentist(Long id) {
+    public String deleteDentist(Long id) throws DentistNotFoundException {
         Optional<Dentist> item = dentistRepository.findById(id);
 
         if (item == null){
-            //Exception
+            throw new DentistNotFoundException(item);
         }
 
         dentistRepository.deleteById(id);
@@ -50,8 +51,13 @@ public class DentistService implements IDentistService {
     }
 
     @Override
-    public Dentist findDentistById(Long id) {
+    public Dentist findDentistById(Long id) throws DentistNotFoundException {
         Optional<Dentist> item = dentistRepository.findById(id);
+
+        if (item == null){
+            throw new DentistNotFoundException(item);
+        }
+
         return item.orElse(null);
     }
 }
