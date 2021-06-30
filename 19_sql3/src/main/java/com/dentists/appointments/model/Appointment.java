@@ -2,10 +2,8 @@ package com.dentists.appointments.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,14 +16,15 @@ public class Appointment {
     @Column(name = "app_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "den_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "den_id", referencedColumnName = "den_id")
     private Dentist dentist;
 
-    @ManyToOne
-    @JoinColumn(name = "pat_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pat_id", referencedColumnName  = "pat_id")
     private Patient patient;
 
     @Column(name = "startTime")
-    private LocalTime startTime;
+    private LocalDateTime startTime;
+
 }

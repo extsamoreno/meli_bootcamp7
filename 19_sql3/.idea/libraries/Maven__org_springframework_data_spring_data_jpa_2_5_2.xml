@@ -8,6 +8,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.2/spring-data-jpa-2.5.2-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.5.2/spring-data-jpa-2.5.2.jar!/" />
     </SOURCES>
   </library>
 </component>
