@@ -58,7 +58,7 @@ public class TestTuCasitaIntegration {
     public void calculateTotalM2OK() throws Exception {
         //arrange
         HouseDTO houseDTO = new HouseDTO("Monoambiente en Flores", 209d);
-        Mockito.when(repository.getDistricts()).thenReturn(new HashMap<>() {{put(district.getName(), district.getPrice());}});
+        Mockito.when(repository.getDistricts()).thenReturn(new HashMap<,>() {{put(district.getName(), district.getPrice());}});
         ObjectWriter writer = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, false)
                 .writer().withDefaultPrettyPrinter();
         String payloadJson = writer.writeValueAsString(house);

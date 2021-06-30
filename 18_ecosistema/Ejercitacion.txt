@@ -1,0 +1,11 @@
+Ejercitación 1. 
+Para la resolución de este caso de uso, pensamos la siguiente solución, en la cual optamos por insertar los movimientos en varias tablas simultáneamente. Si bien esto representa que haya datos que están duplicados, después de analizarlo detenidamente llegamos a la conclusión de que es la mejor opción. 
+- Almacenar la información del usuario (datos privados, saldos, tarjetas, movimientos etc) a través de KVS Volt. 
+- Por otro lado, almacenar los movimientos en una base más global de movimientos (donde figuren los movimientos de múltiples usuarios), del tipo KVS DB 
+- Finalmente, almacenar también estos movimientos en Audits, donde podría figurar toda la información histórica del usuario, con campos que ayuden a identificar casos de Fraude, haciendo referencia a la criticidad de las operaciones, si estas son sospechosas, etc. 
+
+2. Para la resolución de este caso de uso, pensamos la siguiente solución 
+- Almacenar la foto a través de Object Storage (al tratarse de un binario) 
+- Poseer una tabla Envíos, donde almacenamos los valores especificados (idShipping, comprador, vendedor, etc), a través de KVS Cache. El motivo por el cual optamos por esta opción es porque consideramos que el registro no va a superar los 50 kB, y a su vez, la consistencia no es tan crítica, por lo cual el segundo de demora eventual en la actualización no traería mayores problemas. 
+- Del mismo modo que en el ejemplo anterior, por una cuestión de performance, optamos por tener valores duplicados, y almacenar la información del envío también dentro de la tabla del usuario, para poder consultar sus envíos de manera más ágil, y no tener que buscar esos envíos de un usuario específico entre los millones de envíos globales de la empresa. 
+- Finalmente, para la necesidad regulatoria de poder saber qué ruta tomó un producto hasta 10 años atrás de hecho el envío, optamos por almacenar esta información a través de Audits.
