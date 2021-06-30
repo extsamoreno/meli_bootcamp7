@@ -5,23 +5,35 @@ import com.example.AppConsultorioMySQL.repositories.IScheduleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ScheduleService implements IScheduleService{
     IScheduleRepository scheduleRepository;
 
     @Override
-    public String addSchedule(Schedule schedule) {
+    public String createSchedule(Schedule patient) {
         return null;
     }
 
     @Override
-    public String updateSchedule(Schedule schedule) {
+    public String updateSchedule(Schedule patient) {
         return null;
     }
 
     @Override
-    public String deleteSchedule(Schedule schedule) {
+    public String deleteSchedule(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<Schedule> findAllSchedules() {
+        return null;
+    }
+
+    @Override
+    public Schedule findScheduleById(Long id) {
         return null;
     }
 }

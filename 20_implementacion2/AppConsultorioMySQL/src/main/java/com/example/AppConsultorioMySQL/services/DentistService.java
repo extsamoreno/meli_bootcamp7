@@ -5,6 +5,7 @@ import com.example.AppConsultorioMySQL.repositories.IDentistRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,7 +14,7 @@ public class DentistService implements IDentistService {
     IDentistRepository dentistRepository;
 
     @Override
-    public String addDentist(Dentist dentist) {
+    public String createDentist(Dentist dentist) {
         dentistRepository.save(dentist);
         return "Se creó el dentista correctamente";
     }
@@ -27,7 +28,7 @@ public class DentistService implements IDentistService {
         }
 
         dentistRepository.save(dentist);
-        return "Se Actuaqlizo correctamente el dentista " + dentist.getName();
+        return "Se Actualizó correctamente el dentista " + dentist.getName();
     }
 
     @Override
@@ -40,6 +41,17 @@ public class DentistService implements IDentistService {
 
         dentistRepository.deleteById(id);
 
-        return "Se elimino correctamente el dentista " + id;
+        return "Se eliminó correctamente el dentista " + id;
+    }
+
+    @Override
+    public List<Dentist> findAllDentists() {
+        return dentistRepository.findAll();
+    }
+
+    @Override
+    public Dentist findDentistById(Long id) {
+        Optional<Dentist> item = dentistRepository.findById(id);
+        return item.orElse(null);
     }
 }

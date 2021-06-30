@@ -2,8 +2,12 @@ package com.example.AppConsultorioMySQL.services;
 
 import com.example.AppConsultorioMySQL.models.entities.Schedule;
 
+import java.util.List;
+
 public interface IScheduleService {
-    String addSchedule(Schedule schedule);
-    String updateSchedule(Schedule schedule);
-    String deleteSchedule(Schedule schedule);
+    String createSchedule(Schedule patient);
+    String updateSchedule(Schedule patient);
+    String deleteSchedule(Long id);
+    List<Schedule> findAllSchedules();
+    Schedule findScheduleById(Long id);
 }
