@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "patients")
+@Table(name = "patient")
 public class Patient {
 
     @Id
@@ -20,6 +20,6 @@ public class Patient {
     @Column(name = "surname")
     private String surname;
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    private Set<Appointment> appointment;
+/*    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private Set<Appointment> appointment;*/
 }

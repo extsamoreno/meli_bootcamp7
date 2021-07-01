@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ProfessionalDTO {
+    private Long id;
     private String name;
     private String surname;
+    private String enrollment;
 }
