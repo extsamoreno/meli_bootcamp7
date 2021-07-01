@@ -1,9 +1,8 @@
 package com.dentists.appointments.controller;
 
-import com.dentists.appointments.model.DTO.AppDTOByDate;
+import com.dentists.appointments.model.DTO.*;
 import com.dentists.appointments.model.Appointment;
-import com.dentists.appointments.model.DTO.DentistCountDates;
-import com.dentists.appointments.model.DTO.AppReproRequests;
+import com.dentists.appointments.model.Status;
 import com.dentists.appointments.service.IAppoimentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -48,4 +47,23 @@ public class AppoimentController {
     public List<Appointment> findAllApp(){
         return iAppoimentService.findAll();
     }
+
+    @PostMapping("/editStatusAppoiment/")
+    public void editStatusApp(@RequestBody AppEditStatusDateRequest app){
+        iAppoimentService.editApp(app);
+    }
+
+    /*
+    * Listar todos los turnos con estado finalizado
+     * */
+    @GetMapping("/all/app/statusend")
+    public List<AppointmentDTO> findyAllStatusEnd(){
+        return iAppoimentService.findAllStatus(Status.END);
+    }
+
+    /*
+    * Listar todos los turnos con estado pendiente de un día
+     * */
+
+
 }

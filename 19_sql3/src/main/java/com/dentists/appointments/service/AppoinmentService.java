@@ -1,9 +1,7 @@
 package com.dentists.appointments.service;
 
-import com.dentists.appointments.model.DTO.AppDTOByDate;
+import com.dentists.appointments.model.DTO.*;
 import com.dentists.appointments.model.Appointment;
-import com.dentists.appointments.model.DTO.AppReproRequests;
-import com.dentists.appointments.model.DTO.DentistCountDates;
 import com.dentists.appointments.model.Patient;
 import com.dentists.appointments.model.Status;
 import com.dentists.appointments.model.mapper.AppMapper;
@@ -67,8 +65,6 @@ public class AppoinmentService implements  IAppoimentService{
         return iDentistRepository.findDentistWithMoreThat2App(checkDate(date));
     }
 
-
-
     @Override
     public void reprogramar(AppReproRequests appRequest) {
 
@@ -94,8 +90,22 @@ public class AppoinmentService implements  IAppoimentService{
         iAppoimentRepository.save(app);
     }
 
+
     private LocalDate checkDate(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
         return LocalDate.parse(date,formatter);
+    }
+
+    @Override
+    public void editApp(AppEditStatusDateRequest app) {
+        Patient patient = iPantientRepository.findByDni(app.getPatDni());
+        Appointment appointment = iAppoimentRepository.findFirstByDateEqualsAndAndPatient(app.getDate(), patient);
+        editStatusApp(appointment, app.getStatus());
+    }
+
+    @Override
+    public List<AppointmentDTO> findAllStatus(Status status) {
+        return iAppoimentRepository.findByStatus(status)
+                .stream().map(app -> mapper.map(app, AppointmentDTO.class)).collect(Collectors.toList());
     }
 }
