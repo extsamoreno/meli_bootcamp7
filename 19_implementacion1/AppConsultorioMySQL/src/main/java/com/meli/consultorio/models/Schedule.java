@@ -2,7 +2,7 @@ package com.meli.consultorio.models;
 
 import lombok.*;
 import javax.persistence.*;
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -19,10 +19,10 @@ public class Schedule {
     private Integer scheduleDay;
 
     @Column(name = "schedule_from")
-    private Time scheduleFrom;
+    private LocalTime scheduleFrom;
 
     @Column(name = "schedule_to")
-    private Time scheduleTo;
+    private LocalTime scheduleTo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dentist_id")

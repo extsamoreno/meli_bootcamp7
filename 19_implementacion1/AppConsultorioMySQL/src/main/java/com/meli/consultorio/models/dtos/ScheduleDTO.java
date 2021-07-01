@@ -2,7 +2,7 @@ package com.meli.consultorio.models.dtos;
 
 import lombok.*;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -11,7 +11,7 @@ import java.sql.Time;
 public class ScheduleDTO {
     private Long id;
     private Integer scheduleDay;
-    private Time scheduleFrom;
-    private Time scheduleTo;
+    private LocalTime scheduleFrom;
+    private LocalTime scheduleTo;
     private Long dentistId;
 }

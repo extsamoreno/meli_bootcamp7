@@ -1,12 +1,13 @@
 package com.meli.consultorio.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,7 +22,8 @@ public class Appointment {
     private Long id;
 
     @Column(name = "appointment_date")
-    private Date appointmentDate;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime appointmentDate;
 
     private String state;
 

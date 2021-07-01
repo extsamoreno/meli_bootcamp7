@@ -1,6 +1,7 @@
 package com.meli.consultorio.services.appointment;
 
 import com.meli.consultorio.exceptions.AppointmentNotFoundException;
+import com.meli.consultorio.exceptions.AppointmentSlotNotAvailableException;
 import com.meli.consultorio.exceptions.DentistNotFoundException;
 import com.meli.consultorio.exceptions.PatientNotFoundException;
 import com.meli.consultorio.models.Appointment;
@@ -8,6 +9,7 @@ import com.meli.consultorio.models.Dentist;
 import com.meli.consultorio.models.Patient;
 import com.meli.consultorio.models.Schedule;
 import com.meli.consultorio.models.dtos.AppointmentDTO;
+import com.meli.consultorio.models.dtos.PatientDTO;
 import com.meli.consultorio.repositories.IAppointmentRepository;
 import com.meli.consultorio.repositories.IDentistRepository;
 import com.meli.consultorio.repositories.IPatientRepository;
@@ -16,6 +18,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,7 +47,9 @@ public class AppointmentService implements IAppointmentService {
             throw new PatientNotFoundException(appointmentDTO.getPatientId());
         }
 
-
+//        if(availableSlot(appointmentDTO.getDentistId(),appointmentDTO.getAppointmentDate())) {
+//            throw new AppointmentSlotNotAvailableException();
+//        }
 
         Appointment appointment = mapper.map(appointmentDTO, Appointment.class);
         appointment.setDentist(dentist.get());
@@ -51,11 +57,16 @@ public class AppointmentService implements IAppointmentService {
         iAppointmentRepository.saveAndFlush(appointment);
     }
 
-    private boolean availableSlot(Long id) {
+    private boolean availableSlot(Long id, LocalDateTime appointmentDate) {
         Set<Schedule> schedules = iScheduleRepository.findSchedulesByDentistId(id);
-        schedules.stream().map()
+
         for (Schedule s : schedules) {
-            if(s.getScheduleFrom() < )
+            System.out.println(s.getScheduleFrom().getHour());
+            System.out.println(appointmentDate.getHour());
+            System.out.println(s.getScheduleTo().getHour());
+            if(s.getScheduleFrom().getHour() > appointmentDate.getHour() || s.getScheduleTo().getHour() < appointmentDate.getHour())
+                System.out.println("Entra");
+                return true;
         }
         return false;
     }
@@ -83,6 +94,7 @@ public class AppointmentService implements IAppointmentService {
         return iAppointmentRepository.findAll().stream().map(a -> mapper.map(a, AppointmentDTO.class)).collect(Collectors.toSet());
     }
 
+    //Listar la agenda de un dentista
     @Override
     public Set<AppointmentDTO> findAppointmentByDentistId(Long id) {
         if(iDentistRepository.findById(id).isEmpty()) {
@@ -108,9 +120,28 @@ public class AppointmentService implements IAppointmentService {
     }
 
     //Listar todos los pacientes de un día de todos los dentistas.
+    @Override
+    public Set<PatientDTO> findPatientsByDate(LocalDateTime date) {
+        return null;
+    }
+
     //Listar todos los dentistas que tengan más de dos turnos en una fecha
+
     //Listar todos los turnos con estado finalizado
+    @Override
+    public Set<AppointmentDTO> findFinalizedAppointments() {
+        return iAppointmentRepository.findAppointmentsByState("Finalizado").stream().map(appointment -> mapper.map(appointment,AppointmentDTO.class)).collect(Collectors.toSet());
+    }
+
     //Listar todos los turnos con estado pendiente de un día
-    //Listar la agenda de un dentista
+    @Override
+    public Set<AppointmentDTO> findPendingAppointmentsByDate(LocalDateTime date) {
+        return iAppointmentRepository.findAppointmentsByStateAndAppointmentDateBetween("Pendiente", date, date.plusDays(1)).stream().map(appointment -> mapper.map(appointment,AppointmentDTO.class)).collect(Collectors.toSet());
+    }
+
     //Listar todos los turnos que fueron reprogramados de un dentista (extra)
+    @Override
+    public Set<AppointmentDTO> findRescheduleAppointmentsByDentistId(Long id) {
+        return iAppointmentRepository.findAppointmentsByDentistIdAndState(id,"Reprogramado").stream().map(appointment -> mapper.map(appointment,AppointmentDTO.class)).collect(Collectors.toSet());
+    }
 }
