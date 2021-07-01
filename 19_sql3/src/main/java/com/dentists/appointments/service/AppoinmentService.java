@@ -38,7 +38,7 @@ public class AppoinmentService implements  IAppoimentService{
 
     @Override
     public List<Appointment> findAll() {
-        return null;
+        return iAppoimentRepository.findAll();
     }
 
     @Override

@@ -44,4 +44,8 @@ public class AppoimentController {
     }
 
 
+    @PostMapping("/findAllApp/")
+    public List<Appointment> findAllApp(){
+        return iAppoimentService.findAll();
+    }
 }
