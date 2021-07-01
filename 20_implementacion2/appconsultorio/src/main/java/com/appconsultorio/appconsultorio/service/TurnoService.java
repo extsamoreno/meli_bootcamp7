@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,12 +22,12 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
-    public List obtenerPacientesPorDia(LocalDateTime dt) {
+    public List obtenerPacientesPorDia(Date dt) {
         return iTurnoRepository.findPacientesByDate(dt);
     }
 
     @Override
-    public List<Odontologo> obtenerOdontologosDosTurnosPorFecha(LocalDateTime dt) {
+    public List<Odontologo> obtenerOdontologosDosTurnosPorFecha(Date dt) {
         return iTurnoRepository.findOdontologosDosTurnosPorFecha(dt);
     }
 
@@ -36,7 +37,7 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
-    public List<Turno> obtenerTurnosPendientesPorFecha(LocalDateTime dt) {
+    public List<Turno> obtenerTurnosPendientesPorFecha(Date dt) {
         return iTurnoRepository.findTurnosLikePendienteByDate(dt);
     }
 

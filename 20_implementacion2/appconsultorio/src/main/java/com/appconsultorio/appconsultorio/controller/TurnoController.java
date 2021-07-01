@@ -7,8 +7,12 @@ import com.appconsultorio.appconsultorio.service.ITurnoService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,15 +29,15 @@ public class TurnoController {
     }
 
     @GetMapping ("/obtenerpacientespordia")
-    public List obtenerPacientesPorDia(@RequestParam String date){
-        LocalDateTime dt = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public List obtenerPacientesPorDia(@RequestParam String date) throws ParseException {
+        Date dt = new SimpleDateFormat("yyyy-MM-dd").parse(date);
         return iTurnoService.obtenerPacientesPorDia(dt);
     }
 
 
     @GetMapping ("/obtenerodontologosdosturnos")
-    public List<Odontologo> obtenerOdontologosDosTurnosPorFecha(@RequestParam String date){
-        LocalDateTime dt = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public List<Odontologo> obtenerOdontologosDosTurnosPorFecha(@RequestParam String date) throws ParseException {
+        Date dt = new SimpleDateFormat("yyyy-MM-dd").parse(date);
         return iTurnoService.obtenerOdontologosDosTurnosPorFecha(dt);
     }
 
@@ -43,8 +47,8 @@ public class TurnoController {
     }
 
     @GetMapping("/obtenerturnospendientesporfecha")
-    public List<Turno> obtenerTurnosPendientesPorFecha(@RequestParam String date){
-        LocalDateTime dt = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public List<Turno> obtenerTurnosPendientesPorFecha(@RequestParam String date) throws ParseException {
+        Date dt = new SimpleDateFormat("yyyy-MM-dd").parse(date);
         return iTurnoService.obtenerTurnosPendientesPorFecha(dt);
     }
 

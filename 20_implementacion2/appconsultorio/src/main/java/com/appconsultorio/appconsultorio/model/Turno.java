@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter @Setter
@@ -17,8 +18,8 @@ public class Turno {
     private Integer id;
 
     @Column(name = "fecha")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    LocalDateTime fecha;
+    @JsonFormat(pattern="yyyy-mm-dd")
+    Date fecha;
 
     @Column(name = "estado")
     String estado;
