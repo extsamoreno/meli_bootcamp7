@@ -1,5 +1,6 @@
 package com.meli.AppConsultorioMySQL.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,15 @@ public class Apoointment {
     private Long id;
     private Date date;
     private int durations;
-    // status 1 -> Pending, 2-> Finish 3-> Postponed 4->Cancel
+    // status 1 -> Pending, 2-> Finish 3-> Reprogrammed 4->Cancel
     private int status;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonIgnore
     private Schedule schedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonIgnore
     private Patient patient;
 
 

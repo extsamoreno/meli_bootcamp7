@@ -63,4 +63,16 @@ public class ConsultorController {
         List<ScheduleDTO> response = iScheduleService.getScheduleByDentist(idDentist);
         return response;
     }
+
+    @GetMapping("/appointment_reprogrammed/{idDentist}")
+    public List<AppointmentDTO> getAppointmentsReprogrammed(@PathVariable Long idDentist) throws ParseException {
+        List<AppointmentDTO> response = iAppointmentService.getAppointmentsReprogrammed(idDentist);
+        return response;
+    }
+
+    @GetMapping("/appointment_reprogrammed_all")
+    public List<AppointmentDTO> getAppointmentsReprogrammed() throws ParseException {
+        List<AppointmentDTO> response = iAppointmentService.getAppointmentsReprogrammedAllDentist();
+        return response;
+    }
 }

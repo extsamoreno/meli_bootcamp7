@@ -5,20 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2106ea67-2ea1-4bc2-8224-b598e3c66a90" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/AppointmentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/ScheduleDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/AppointmentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IAppointmentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IScheduleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/ScheduleService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Apoointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Apoointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Schedule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/AppointmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IAppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IAppointmentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/controllers/ConsultorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/controllers/ConsultorController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Apoointment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Apoointment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Schedule.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/service/AppointmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/service/AppointmentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/service/IAppointmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/service/IAppointmentService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +35,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1udRAwgvctDLl8sw8nKLczXnRwK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -103,7 +110,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624993340150</updated>
-      <workItem from="1624993341291" duration="19247000" />
+      <workItem from="1624993341291" duration="21994000" />
     </task>
     <servers />
   </component>

@@ -43,6 +43,26 @@ public class AppointmentService implements IAppointmentService{
 
     }
 
+    @Override
+    public List<AppointmentDTO> getAppointmentsReprogrammed(Long idDentist) throws ParseException {
+
+        List<Apoointment> apoointments = iApoointmentRepository.getAppointmentsReprogrammed(idDentist);
+        return apoointments.stream().map(apoointment -> mapper.map(apoointment, AppointmentDTO.class)).collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<AppointmentDTO> getAppointmentsReprogrammedAllDentist() throws ParseException {
+
+        List<Apoointment> apoointments = iApoointmentRepository.getAppointmentsReprogrammedAllDentist();
+        return apoointments.stream().map(apoointment -> mapper.map(apoointment, AppointmentDTO.class)).collect(Collectors.toList());
+
+    }
+
+
+
+
+
 
 
 

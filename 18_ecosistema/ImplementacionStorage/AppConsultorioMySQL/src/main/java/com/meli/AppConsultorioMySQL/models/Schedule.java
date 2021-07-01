@@ -1,5 +1,6 @@
 package com.meli.AppConsultorioMySQL.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Schedule {
     private Date date_finish;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    //@JsonIgnore
     @JoinColumn(name = "dentist_id", referencedColumnName = "id")
     private Dentist dentist;
 
