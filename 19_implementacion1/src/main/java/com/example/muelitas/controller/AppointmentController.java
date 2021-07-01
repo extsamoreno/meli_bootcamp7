@@ -2,9 +2,9 @@ package com.example.muelitas.controller;
 
 import com.example.muelitas.dto.AppointmentDTO;
 import com.example.muelitas.dto.PatientDTO;
+import com.example.muelitas.dto.ProfessionalDTO;
 import com.example.muelitas.dto.ResponseDTO;
 import com.example.muelitas.service.AppointmentService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +45,36 @@ public class AppointmentController {
     public ResponseEntity<List<PatientDTO>> findAllPatientsByDate(@RequestParam String date) {
         LocalDateTime localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         return new ResponseEntity<>(appointmentService.findAllPatientsByDate(localDateTime), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllProfessionalsWithMoreThanTwoAppointments")
+    public ResponseEntity<List<ProfessionalDTO>> findAllProfessionalsWithMoreThanTwoAppointmentsByDate(@RequestParam String date) {
+        LocalDateTime localDateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return new ResponseEntity<>(appointmentService.findAllProfessionalsWithMoreThanTwoAppointmentsByDate(localDateTime), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllAppointmentsWithStateFinalizado")
+    public ResponseEntity<List<AppointmentDTO>> findAllAppointmentsWithStateFinalizado() {
+        return new ResponseEntity<>(appointmentService.findAllAppointmentsWithStateFinalizado(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllAppointmentsWithStatePendienteOfOneDay")
+    public ResponseEntity<List<AppointmentDTO>> findAllAppointmentsWithStatePendienteOfOneDay() {
+        return new ResponseEntity<>(appointmentService.findAllAppointmentsWithStatePendienteAndADay(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllProfessionalAppointments")
+    public ResponseEntity<List<AppointmentDTO>> findAllProfessionalAppointments(@RequestParam Long idProfessional) {
+        return new ResponseEntity<>(appointmentService.findAllProfessionalAppointments(idProfessional), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllProfessionalAppointmentsWithStateReprogramado")
+    public ResponseEntity<List<AppointmentDTO>> findAllProfessionalAppointmentsWithStateReprogramado(@RequestParam Long idProfessional) {
+        return new ResponseEntity<>(appointmentService.findAllProfessionalAppointmentsWithStateReprogramado(idProfessional), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAllAppointmentsWithStateReprogramado")
+    public ResponseEntity<List<AppointmentDTO>> findAllAppointmentsWithStateReprogramado() {
+        return new ResponseEntity<>(appointmentService.findAllAppointmentsWithStateReprogramado(), HttpStatus.OK);
     }
 }

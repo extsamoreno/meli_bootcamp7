@@ -6,6 +6,7 @@ import com.example.muelitas.dto.ProfessionalDTO;
 import com.example.muelitas.dto.ResponseDTO;
 import com.example.muelitas.model.Appointment;
 import com.example.muelitas.model.Patient;
+import com.example.muelitas.model.Professional;
 import com.example.muelitas.repository.AppointmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,45 +82,97 @@ public class AppointmentServiceImple implements AppointmentService{
         LocalDateTime dateStart = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 00, 00, 00);
         LocalDateTime dateEnd = dateStart.plusDays(1);
 
-        List responsePatients = new ArrayList<>();
-        List patients = appointmentRepository.findAllPatientsByDate(dateStart, dateEnd);
+        List<PatientDTO> responsePatients = new ArrayList<>();
+        List<Patient> patients = appointmentRepository.findAllPatientsByDate(dateStart, dateEnd);
 
         for (int i = 0; i < patients.size(); i++) {
-            responsePatients.add(patients.get(i));
+            PatientDTO patientDTO = modelMapper.map(patients.get(i), PatientDTO.class);
+            responsePatients.add(patientDTO);
         }
 
         return responsePatients;
     }
 
     @Override
-    public List<ProfessionalDTO> findAllProfessionalsWithMoreThanTwoAppointments() {
-        return null;
+    public List<ProfessionalDTO> findAllProfessionalsWithMoreThanTwoAppointmentsByDate(LocalDateTime date) {
+        LocalDateTime appointmentDate = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 00, 00, 00);
+
+        List<ProfessionalDTO> responseProfessionals = new ArrayList();
+        List<Professional> professionals = appointmentRepository.findAllProfessionalsWithMoreThanTwoAppointments(appointmentDate);
+
+        for (int i = 0; i < professionals.size(); i++) {
+            ProfessionalDTO professionalDTO = modelMapper.map(professionals.get(i), ProfessionalDTO.class);
+            responseProfessionals.add(professionalDTO);
+        }
+
+        return responseProfessionals;
     }
 
     @Override
     public List<AppointmentDTO> findAllAppointmentsWithStateFinalizado() {
-        return null;
+        List<AppointmentDTO> responseAppointments = new ArrayList<>();
+        List<Appointment> appointments = appointmentRepository.findAllAppointmentsWithStateFinalizado();
+
+        for (int i = 0; i < appointments.size(); i++) {
+            AppointmentDTO appointmentDTO = modelMapper.map(appointments.get(i), AppointmentDTO.class);
+            responseAppointments.add(appointmentDTO);
+        }
+
+        return responseAppointments;
     }
 
     @Override
-    public List<AppointmentDTO> findAllAppointmentsWithStatePendienteAndADay(LocalDateTime date) {
-        return null;
+    public List<AppointmentDTO> findAllAppointmentsWithStatePendienteAndADay() {
+        LocalDateTime date = LocalDateTime.now();
+
+        List<AppointmentDTO> responseAppointments = new ArrayList<>();
+        List<Appointment> appointments = appointmentRepository.findAllAppointmentsWithStatePendienteAndADay(date);
+
+        for (int i = 0; i < appointments.size(); i++) {
+            AppointmentDTO appointmentDTO = modelMapper.map(appointments.get(i), AppointmentDTO.class);
+            responseAppointments.add(appointmentDTO);
+        }
+
+        return responseAppointments;
     }
 
     @Override
     public List<AppointmentDTO> findAllProfessionalAppointments(Long idProfessional) {
-        return null;
+        List<AppointmentDTO> responseAppointments = new ArrayList<>();
+        List<Appointment> appointments = appointmentRepository.findAllProfessionalAppointments(idProfessional);
+
+        for (int i = 0; i < appointments.size(); i++) {
+            AppointmentDTO appointmentDTO = modelMapper.map(appointments.get(i), AppointmentDTO.class);
+            responseAppointments.add(appointmentDTO);
+        }
+
+        return responseAppointments;
     }
 
     @Override
     public List<AppointmentDTO> findAllProfessionalAppointmentsWithStateReprogramado(Long idProfessional) {
-        return null;
+        List<AppointmentDTO> responseAppointments = new ArrayList<>();
+        List<Appointment> appointments = appointmentRepository.findAllProfessionalAppointmentsWithStateReprogramado(idProfessional);
+
+        for (int i = 0; i < appointments.size(); i++) {
+            AppointmentDTO appointmentDTO = modelMapper.map(appointments.get(i), AppointmentDTO.class);
+            responseAppointments.add(appointmentDTO);
+        }
+
+        return responseAppointments;
     }
 
     @Override
     public List<AppointmentDTO> findAllAppointmentsWithStateReprogramado() {
-        return null;
-    }
+        List<AppointmentDTO> responseAppointments = new ArrayList<>();
+        List<Appointment> appointments = appointmentRepository.findAllAppointmentsWithStateReprogramado();
 
+        for (int i = 0; i < appointments.size(); i++) {
+            AppointmentDTO appointmentDTO = modelMapper.map(appointments.get(i), AppointmentDTO.class);
+            responseAppointments.add(appointmentDTO);
+        }
+
+        return responseAppointments;
+    }
 
 }
