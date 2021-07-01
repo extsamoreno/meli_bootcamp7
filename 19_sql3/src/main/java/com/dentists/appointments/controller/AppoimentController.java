@@ -71,6 +71,15 @@ public class AppoimentController {
         return iAppoimentService.findDentistsByStatusApp(name, Status.REPROGRAM);
     }
 
+    /*
+    * Listar todo los turnos que fueron reprogramados
+    * */
+    @GetMapping("/find/all/reprogramsapps")
+    public List<AppointmentDTO> findReprogramApps(){
+        return iAppoimentService.findAllStatus(Status.REPROGRAM);
+    }
+
+
 
 
 }

@@ -3,6 +3,8 @@ package com.dentists.appointments.model.DTO;
 import com.dentists.appointments.model.Dentist;
 import com.dentists.appointments.model.Patient;
 import com.dentists.appointments.model.Status;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +24,8 @@ public class AppointmentDTO {
     private LocalDate date;
     private LocalTime time;
     private Status status;
+
+    @JsonProperty("New appointment")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private AppOnlyDate reProgram;
 }

@@ -35,4 +35,5 @@ public interface IAppoimentService {
     DentistAppDTO findDentistAppByName(String name);
 
     DentistAppDTO findDentistsByStatusApp(String name,  Status status);
+
 }
