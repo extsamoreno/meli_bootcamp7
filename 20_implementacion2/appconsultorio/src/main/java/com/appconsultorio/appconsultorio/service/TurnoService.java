@@ -1,4 +1,5 @@
 package com.appconsultorio.appconsultorio.service;
+import com.appconsultorio.appconsultorio.model.Odontologo;
 import com.appconsultorio.appconsultorio.model.Paciente;
 import com.appconsultorio.appconsultorio.model.Turno;
 import com.appconsultorio.appconsultorio.repository.ITurnoRepository;
@@ -23,4 +24,16 @@ public class TurnoService implements ITurnoService{
     public List obtenerPacientesPorDia(LocalDateTime dt) {
         return iTurnoRepository.findPacientesByDate(dt);
     }
+
+    @Override
+    public List<Odontologo> obtenerOdontologosDosTurnosPorFecha(LocalDateTime dt) {
+        return iTurnoRepository.findOdontologosDosTurnosPorFecha(dt);
+    }
+
+    @Override
+    public List<Turno> obtenerTurnosFinalizados() {
+        return iTurnoRepository.findTurnosLikeFinalizado();
+    }
+
+
 }
