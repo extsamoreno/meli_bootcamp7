@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -36,6 +37,7 @@ public class Appointment {
     @Column(name = "app_status")
     private Status status;
 
-    @Column(name = "app_old_app_id", columnDefinition = "integer default 0")
-    private Long oldAppId;
+    @OneToOne()
+    @JoinColumn(name = "new_rep", referencedColumnName = "app_id")
+    private Appointment reProgram;
 }

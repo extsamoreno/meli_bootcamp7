@@ -3,6 +3,7 @@ package com.dentists.appointments.controller;
 import com.dentists.appointments.model.DTO.AppDTOByDate;
 import com.dentists.appointments.model.Appointment;
 import com.dentists.appointments.model.DTO.DentistCountDates;
+import com.dentists.appointments.model.DTO.AppReproRequests;
 import com.dentists.appointments.service.IAppoimentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,11 @@ public class AppoimentController {
     @GetMapping("/FindDentistWithMore2Appoiments/{date}")
     public List<DentistCountDates> findDentistWithMore2Appoiments(@PathVariable String date){
         return iAppoimentService.findDentistsByMore2App(date);
+    }
+
+    @PostMapping("/reprogramarCita")
+    public void reprogramarCita(@RequestBody AppReproRequests app){
+        iAppoimentService.reprogramar(app);
     }
 
 

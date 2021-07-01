@@ -2,7 +2,9 @@ package com.dentists.appointments.service;
 
 import com.dentists.appointments.model.DTO.AppDTOByDate;
 import com.dentists.appointments.model.Appointment;
+import com.dentists.appointments.model.DTO.AppReproRequests;
 import com.dentists.appointments.model.DTO.DentistCountDates;
+import com.dentists.appointments.model.Status;
 
 import java.util.List;
 
@@ -21,4 +23,8 @@ public interface IAppoimentService {
     List<AppDTOByDate> findAllByDate(String localDate);
 
     List<DentistCountDates> findDentistsByMore2App(String date);
+
+    void reprogramar(AppReproRequests app);
+
+    void editStatusApp(Appointment app, Status status);
 }
