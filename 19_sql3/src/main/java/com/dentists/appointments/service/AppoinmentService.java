@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,7 +57,7 @@ public class AppoinmentService implements  IAppoimentService{
 
     @Override
     public List<AppDTOByDate> findAllByDate(String localDate) {
-        List<Appointment> appointments = iAppoimentRepository.findAppointmentBydate(checkDate(localDate));
+        List<Appointment> appointments = iAppoimentRepository.findAppointmentByDate(checkDate(localDate));
         return appointments.stream().map((appointment -> AppMapper.toAppDTOByDate(appointment))).collect(Collectors.toList());
     }
 
@@ -106,6 +107,13 @@ public class AppoinmentService implements  IAppoimentService{
     @Override
     public List<AppointmentDTO> findAllStatus(Status status) {
         return iAppoimentRepository.findByStatus(status)
+                .stream().map(app -> mapper.map(app, AppointmentDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AppointmentDTO> findAllAppByStatusAndDate(String status, String date) {
+        Status statusFormatter = Status.valueOf(status.toUpperCase(Locale.ROOT));
+        return iAppoimentRepository.findByStatusAndAndDate(statusFormatter, checkDate(date))
                 .stream().map(app -> mapper.map(app, AppointmentDTO.class)).collect(Collectors.toList());
     }
 }

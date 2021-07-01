@@ -7,6 +7,7 @@ import com.dentists.appointments.service.IAppoimentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -64,6 +65,9 @@ public class AppoimentController {
     /*
     * Listar todos los turnos con estado pendiente de un día
      * */
-
+    @GetMapping("/all/app/status/{status}/day/{date}")
+    public List<AppointmentDTO> findyAllStatusEnd(@PathVariable String status, @PathVariable String date){
+        return iAppoimentService.findAllAppByStatusAndDate(status, date );
+    }
 
 }

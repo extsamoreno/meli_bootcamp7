@@ -29,4 +29,6 @@ public interface IAppoimentService {
     void editApp(AppEditStatusDateRequest app);
 
     List<AppointmentDTO> findAllStatus(Status status);
+
+    List<AppointmentDTO> findAllAppByStatusAndDate(String status, String date);
 }

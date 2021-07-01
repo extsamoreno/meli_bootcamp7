@@ -12,10 +12,12 @@ import java.util.List;
 @Repository
 public interface IAppoimentRepository extends JpaRepository<Appointment, Long>{
 
-    List<Appointment> findAppointmentBydate(LocalDate localDate);
+    List<Appointment> findAppointmentByDate(LocalDate localDate);
 
     Appointment findFirstByDateEqualsAndAndPatient(LocalDate date, Patient patient);
 
     List<Appointment> findByStatus(Status status);
+
+    List<Appointment> findByStatusAndAndDate(Status status, LocalDate date);
 
 }
