@@ -5,9 +5,8 @@ import com.example.mongodbexample.dto.ScheduleDoctorDto;
 import com.example.mongodbexample.repository.ScheduleRepository;
 
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleService {
@@ -24,11 +23,9 @@ public class ScheduleService {
 
     public List<ScheduleDoctorDto> findSchedulesByDoctor(String lastName) {
         List<Schedule> schedule = scheduleRepository.findSchedulesByDoctor(lastName);
-        List<ScheduleDoctorDto> listScheduleDoctorDto = new ArrayList<>();
-        schedule.stream().forEach(s -> listScheduleDoctorDto.add(
-                new ScheduleDoctorDto(s.getId(), s.getPatient(), s.getDate(), s.getStatus())
-        ));
-        return listScheduleDoctorDto;
+        return schedule.stream().map(s ->
+                new ScheduleDoctorDto(s.getId(), s.getPatient(), s.getDate(), s.getStatus()))
+                .collect(Collectors.toList());
     }
 
     public Schedule saveSchedule(Schedule schedule){
