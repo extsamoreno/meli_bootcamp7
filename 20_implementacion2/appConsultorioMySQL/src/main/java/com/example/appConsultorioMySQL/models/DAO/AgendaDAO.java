@@ -11,7 +11,7 @@ import java.util.List;
 public class AgendaDAO {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy= GenerationType.AUTO)
     @OneToOne (fetch = FetchType.LAZY)
     @JoinColumn(name= "id")
     private int id;

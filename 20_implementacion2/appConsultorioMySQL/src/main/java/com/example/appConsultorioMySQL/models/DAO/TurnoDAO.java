@@ -11,9 +11,6 @@ import java.util.Date;
 @Table(name= "Turno")
 public class TurnoDAO {
 
-
     @Id
-    @JoinColumn(name = "fecha")
-    @OneToOne(fetch = FetchType.LAZY)
     private LocalDate fecha;
 }

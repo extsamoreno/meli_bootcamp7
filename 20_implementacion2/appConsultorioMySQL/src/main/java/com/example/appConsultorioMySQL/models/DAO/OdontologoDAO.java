@@ -16,5 +16,6 @@ public class OdontologoDAO {
     private Long dni;
 
     @OneToOne(mappedBy= "id", cascade= CascadeType.ALL, fetch = FetchType.LAZY)
-    private AgendaDAO agenda;
+    @Column(name = "agenda_id")
+    private AgendaDAO agendaId;
 }
