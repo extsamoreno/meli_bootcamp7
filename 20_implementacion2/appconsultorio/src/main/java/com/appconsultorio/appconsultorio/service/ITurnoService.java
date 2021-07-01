@@ -11,4 +11,5 @@ public interface ITurnoService {
     public List obtenerPacientesPorDia(LocalDateTime dt);
     public List<Odontologo> obtenerOdontologosDosTurnosPorFecha(LocalDateTime dt);
     public List<Turno> obtenerTurnosFinalizados();
+    public List<Turno> obtenerTurnosPendientesPorFecha(LocalDateTime dt);
 }

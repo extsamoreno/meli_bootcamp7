@@ -35,5 +35,10 @@ public class TurnoService implements ITurnoService{
         return iTurnoRepository.findTurnosLikeFinalizado();
     }
 
+    @Override
+    public List<Turno> obtenerTurnosPendientesPorFecha(LocalDateTime dt) {
+        return iTurnoRepository.findTurnosLikePendienteByDate(dt);
+    }
+
 
 }

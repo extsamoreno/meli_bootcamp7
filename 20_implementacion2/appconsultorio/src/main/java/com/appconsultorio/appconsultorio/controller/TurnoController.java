@@ -42,6 +42,10 @@ public class TurnoController {
         return iTurnoService.obtenerTurnosFinalizados();
     }
 
-
+    @GetMapping("/obtenerturnospendientesporfecha")
+    public List<Turno> obtenerTurnosPendientesPorFecha(@RequestParam String date){
+        LocalDateTime dt = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return iTurnoService.obtenerTurnosPendientesPorFecha(dt);
+    }
 
 }
