@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.example.demo.model.enums.StateAppoiment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,11 +20,19 @@ public class Appointment {
     @Column(name = "appointment_id")
     private Long id;
 
-    private Date appointment_date;
+    @Column(name = "appointment_date")
+    private Date date;
 
     @OneToOne
     private Patient patient;
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dentist_id")
+    @JsonIgnore
     private Dentist dentist;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state")
+    private StateAppoiment state;
 }
