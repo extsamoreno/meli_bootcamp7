@@ -3,6 +3,8 @@ package com.example.muelitas.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
@@ -20,5 +22,8 @@ public class Patient {
 
     @Column(name = "patient_medical_insurance")
     private String medicalInsurance;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private Set<Appointment> appointments = new HashSet<Appointment>();
 
 }

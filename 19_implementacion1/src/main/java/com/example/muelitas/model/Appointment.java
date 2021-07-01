@@ -24,11 +24,11 @@ public class Appointment {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
 
-    @Column(name = "appointment_cancellationDate")
+    @Column(name = "appointment_cancellation_date")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime cancellationDate;
 
-    @Column(name = "status")
+    @Column(name = "appointment_status")
     String status;
 
     @ManyToOne

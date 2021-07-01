@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter @Setter
@@ -27,4 +29,6 @@ public class Professional {
     @Column(name = "professional_license")
     private String license;
 
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
+    private Set<Appointment> appointments = new HashSet<Appointment>();
 }
