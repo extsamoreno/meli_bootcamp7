@@ -1,0 +1,22 @@
+[
+  {
+    "nameDistrict": "Alberdi",
+    "priceDistrict": 1000.0
+  },
+  {
+    "nameDistrict": "Nueva Cordoba",
+    "priceDistrict": 1200.0
+  },
+  {
+    "nameDistrict": "Observatorio",
+    "priceDistrict": 800.0
+  },
+  {
+    "nameDistrict": "Centro",
+    "priceDistrict": 500.0
+  },
+  {
+    "nameDistrict": "Cerro",
+    "priceDistrict": 1400.0
+  }
+]
