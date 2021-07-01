@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.AppoimentNotFoundException;
 import com.example.demo.model.Appointment;
 import com.example.demo.services.dtos.AppointmentDTO;
 import com.example.demo.services.IAppoimentService;
@@ -31,14 +32,28 @@ public class AppoinmentController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addApoiment(@RequestBody Appointment appointment){
+    public ResponseEntity<String> addAppointment(@RequestBody Appointment appointment){
         return new ResponseEntity<String>(appoimentService.addApoiment(appointment), HttpStatus.OK);
     }
 
     @GetMapping("/pending/date")
-    public ResponseEntity<List<AppointmentDTO>> AppoimentPendingByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
-        return new ResponseEntity<>(appoimentService.AppoimentPendingByDate(date), HttpStatus.OK);
+    public ResponseEntity<List<AppointmentDTO>> appoimentPendingByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date){
+        return new ResponseEntity<>(appoimentService.appoimentPendingByDate(date), HttpStatus.OK);
     }
 
 
+    @PostMapping("/reschedule/{id}")
+    public ResponseEntity<String> reprogrametAppointment(@RequestBody Appointment appointment,@PathVariable(name = "id") Long idPastAppointment) throws AppoimentNotFoundException {
+        return new ResponseEntity<String>(appoimentService.reprogrametAppointment(appointment,idPastAppointment), HttpStatus.OK);
+    }
+
+    @GetMapping("/reschedule/{id}")
+    public ResponseEntity<List<AppointmentDTO>> getReprogrametAppointmentByDentist(@PathVariable(name = "id") Long idDenticst)  {
+        return new ResponseEntity<>(appoimentService.getReprogrametAppointmentByDoctorId(idDenticst), HttpStatus.OK);
+    }
+
+    @GetMapping("/reschedule")
+    public ResponseEntity<List<AppointmentDTO>> getReprogrametAppointment()  {
+        return new ResponseEntity<>(appoimentService.getReprogrametAppointment(), HttpStatus.OK);
+    }
 }

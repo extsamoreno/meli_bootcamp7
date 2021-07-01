@@ -21,4 +21,15 @@ public interface IAppoimentRepository extends JpaRepository<Appointment,Long> {
     List<Appointment> findByState(StateAppoiment state);
 
     List<Appointment> findByDateBetweenAndState(Date atStartOfDay, Date atEndOfDay, StateAppoiment state);
+
+    List<Appointment> findByDentistIdAndDateAfter(Long id, Date atStartOfDay);
+
+    @Query("FROM Appointment a WHERE a.id IN (SELECT v_a.newAppointmentId FROM Appointment v_a Where v_a.state = :reschedule) " +
+            " AND a.dentistId = :idDentist")
+    List<Appointment> findNewRescheduleAppointmentById(StateAppoiment reschedule, Long idDentist);
+
+    @Query("FROM Appointment a WHERE a.id IN (SELECT v_a.newAppointmentId FROM Appointment v_a Where v_a.state = :reschedule)")
+    List<Appointment> findNewRescheduleAppointmentById(StateAppoiment reschedule);
+
+    List<Appointment> findByStateAndDentistId(StateAppoiment reschedule, Long idDentist);
 }

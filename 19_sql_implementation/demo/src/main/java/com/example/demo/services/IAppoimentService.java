@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.exceptions.AppoimentNotFoundException;
 import com.example.demo.model.Appointment;
 import com.example.demo.services.dtos.AppointmentDTO;
 
@@ -14,5 +15,11 @@ public interface IAppoimentService {
 
     List<AppointmentDTO> getFinalizedAppointment();
 
-    List<AppointmentDTO> AppoimentPendingByDate(Date date);
+    List<AppointmentDTO> appoimentPendingByDate(Date date);
+
+    String reprogrametAppointment(Appointment appointment, Long idPastAppointment) throws AppoimentNotFoundException;
+
+    List<AppointmentDTO> getReprogrametAppointmentByDoctorId(Long idDenticst);
+
+    List<AppointmentDTO> getReprogrametAppointment();
 }

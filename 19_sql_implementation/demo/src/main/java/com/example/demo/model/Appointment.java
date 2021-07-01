@@ -23,16 +23,25 @@ public class Appointment {
     @Column(name = "appointment_date")
     private Date date;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "patient_id", updatable = false, nullable = false)
     private Patient patient;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dentist_id")
+    @JoinColumn(name = "dentist_id",insertable = false, updatable = false)
     @JsonIgnore
     private Dentist dentist;
+
+    @Column(name = "dentist_id")
+    private Long dentistId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
     private StateAppoiment state;
+
+    @Column(name = "new_appointment")
+    private Long newAppointmentId;
+
+
 }

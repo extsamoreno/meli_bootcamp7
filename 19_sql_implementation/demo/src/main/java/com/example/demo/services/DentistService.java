@@ -1,8 +1,12 @@
 package com.example.demo.services;
 
+import com.example.demo.exceptions.DentistNotFoundException;
 import com.example.demo.model.Dentist;
+import com.example.demo.repositories.IAppoimentRepository;
 import com.example.demo.repositories.IDentistRepository;
+import com.example.demo.services.dtos.AppointmentDTO;
 import com.example.demo.services.dtos.DentistDTO;
+import com.example.demo.services.mappers.AppointmentMapper;
 import com.example.demo.services.mappers.DentistsMapper;
 import com.example.demo.utils.Functions;
 import lombok.AllArgsConstructor;
@@ -10,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +21,8 @@ import java.util.stream.Collectors;
 public class DentistService implements IDentistService{
 
     IDentistRepository iDentistRepository;
+
+    IAppoimentRepository iAppoimentRepository;
 
     @Override
     public void createDentist(Dentist dentist) {
@@ -40,14 +45,22 @@ public class DentistService implements IDentistService{
     }
 
     @Override
-    public Dentist findDentistById(Long id) {
-        Optional<Dentist> item = iDentistRepository.findById(id);
-        return item.orElse(null);
+    public DentistDTO findDentistById(Long id) throws DentistNotFoundException{
+        Dentist dentist = iDentistRepository.findById(id).orElseThrow(() -> new DentistNotFoundException(id));
+        return DentistsMapper.toDto(dentist);
     }
 
     @Override
     public List<DentistDTO> getDentistWithMoreTowAppoiments(Date date) {
         return iDentistRepository.getBusyDentists(Functions.atStartOfDay(date),Functions.atEndOfDay(date)).stream()
                 .map(DentistsMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AppointmentDTO> getDentistDairy(Long id) throws DentistNotFoundException{
+        findDentistById(id);
+        List<AppointmentDTO> appointmentDTOS = iAppoimentRepository.findByDentistIdAndDateAfter(id,Functions.atStartOfDay(new Date())).stream()
+                .map(AppointmentMapper::toDTO).collect(Collectors.toList());
+        return appointmentDTOS;
     }
 }

@@ -22,7 +22,7 @@ public class AppointmentDTO implements Serializable{
 
     private Date appointment_date;
 
-    private Patient patient;
+    private String patientName;
 
     private String dentistName;
 
