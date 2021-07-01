@@ -13,4 +13,5 @@ public interface ITurnoService {
     public List<Odontologo> obtenerOdontologosDosTurnosPorFecha(Date dt);
     public List<Turno> obtenerTurnosFinalizados();
     public List<Turno> obtenerTurnosPendientesPorFecha(Date dt);
+    public List<Turno> obtenerAgenda(int id);
 }

@@ -52,4 +52,9 @@ public class TurnoController {
         return iTurnoService.obtenerTurnosPendientesPorFecha(dt);
     }
 
+    @GetMapping("/obteneragenda")
+    public List<Turno> obtenerAgenda(@RequestParam int id)  {
+        return iTurnoService.obtenerAgenda(id);
+    }
+
 }

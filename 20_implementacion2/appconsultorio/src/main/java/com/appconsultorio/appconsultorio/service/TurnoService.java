@@ -41,5 +41,10 @@ public class TurnoService implements ITurnoService{
         return iTurnoRepository.findTurnosLikePendienteByDate(dt);
     }
 
+    @Override
+    public List<Turno> obtenerAgenda(int id) {
+        return iTurnoRepository.findAgendaById(id);
+    }
+
 
 }

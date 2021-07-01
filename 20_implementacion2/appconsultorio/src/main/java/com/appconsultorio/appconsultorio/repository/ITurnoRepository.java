@@ -26,5 +26,7 @@ public interface ITurnoRepository extends JpaRepository<Turno,Integer> {
     @Query("SELECT t FROM Turno t where t.estado LIKE '%Pendiente%' AND t.fecha = :dt ")
     List<Turno> findTurnosLikePendienteByDate(@Param("dt") Date dt);
 
+    @Query("SELECT t FROM Turno t where t.odontologo.id = :id")
+    List<Turno> findAgendaById(@Param("id") int id);
 
 }
