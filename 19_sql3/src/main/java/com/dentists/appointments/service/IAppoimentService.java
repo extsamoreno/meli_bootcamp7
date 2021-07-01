@@ -31,5 +31,8 @@ public interface IAppoimentService {
     List<AppointmentDTO> findAllStatus(Status status);
 
     List<AppointmentDTO> findAllAppByStatusAndDate(String status, String date);
+
     DentistAppDTO findDentistAppByName(String name);
+
+    DentistAppDTO findDentistsByStatusApp(String name,  Status status);
 }

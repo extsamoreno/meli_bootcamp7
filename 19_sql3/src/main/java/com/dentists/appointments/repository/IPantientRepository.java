@@ -10,5 +10,5 @@ public interface IPantientRepository extends JpaRepository<Patient, Long>{
 
     Patient findFirstByName(String name);
 
-    Patient findByDni(String dni);
+    Patient findFirstByDni(String dni);
 }

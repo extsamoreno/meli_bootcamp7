@@ -1,24 +1,16 @@
 package com.dentists.appointments.model.DTO;
-
-import com.dentists.appointments.model.Dentist;
-import com.dentists.appointments.model.Patient;
 import com.dentists.appointments.model.Status;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AppointmentDTO {
-    private DentistDTO dentist;
-    private PatientDTO patient;
+public class AppOnlyDate {
     private LocalDate date;
     private LocalTime time;
     private Status status;

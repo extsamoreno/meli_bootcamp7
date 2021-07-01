@@ -23,4 +23,5 @@ public interface IAppoimentRepository extends JpaRepository<Appointment, Long>{
 
     List<Appointment> findByDentist(Dentist dentist);
 
+    List<Appointment> findByDentistAndStatus(Dentist dentist, Status status);
 }

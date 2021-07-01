@@ -1,5 +1,6 @@
 package com.dentists.appointments.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -39,5 +40,6 @@ public class Appointment {
 
     @OneToOne()
     @JoinColumn(name = "new_rep", referencedColumnName = "app_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Appointment reProgram;
 }

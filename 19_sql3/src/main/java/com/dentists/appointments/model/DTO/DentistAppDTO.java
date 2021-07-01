@@ -12,5 +12,4 @@ import java.util.List;
 public class DentistAppDTO {
     DentistDTO dentist;
     List<AppointmentDTOWithOutDentist> appointments;
-
 }

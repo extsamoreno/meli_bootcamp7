@@ -72,7 +72,7 @@ public class AppoinmentService implements  IAppoimentService{
     @Override
     public void reprogramar(AppReproRequests appRequest) {
 
-        Patient patient = iPantientRepository.findByDni(appRequest.getPatDni());
+        Patient patient = iPantientRepository.findFirstByDni(appRequest.getPatDni());
         Appointment appointment = iAppoimentRepository.findFirstByDateEqualsAndAndPatient(appRequest.getDate(), patient);
 
         Appointment app = new Appointment();
@@ -102,7 +102,7 @@ public class AppoinmentService implements  IAppoimentService{
 
     @Override
     public void editApp(AppEditStatusDateRequest app) {
-        Patient patient = iPantientRepository.findByDni(app.getPatDni());
+        Patient patient = iPantientRepository.findFirstByDni(app.getPatDni());
         Appointment appointment = iAppoimentRepository.findFirstByDateEqualsAndAndPatient(app.getDate(), patient);
         editStatusApp(appointment, app.getStatus());
     }
@@ -132,4 +132,14 @@ public class AppoinmentService implements  IAppoimentService{
     private <T> List mapperByListClass(List list, T t){
         return (List) list.stream().map(obj -> mapper.map(obj, t.getClass())).collect(Collectors.toList());
     }
+
+    @Override
+    public DentistAppDTO findDentistsByStatusApp(String name, Status status) {
+        Dentist dentist = iDentistRepository.findFirstByName(name);
+        List<Appointment> apps = iAppoimentRepository.findByDentistAndStatus(dentist,status);
+        List appsDTO = mapperByListClass(apps, new AppointmentDTOWithOutDentist());
+        return new DentistAppDTO(mapper.map(dentist, DentistDTO.class), appsDTO);
+    }
+
+
 }
