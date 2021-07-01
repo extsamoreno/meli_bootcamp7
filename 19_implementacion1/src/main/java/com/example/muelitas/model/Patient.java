@@ -23,7 +23,4 @@ public class Patient {
     @Column(name = "patient_medical_insurance")
     private String medicalInsurance;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private Set<Appointment> appointments = new HashSet<Appointment>();
-
 }

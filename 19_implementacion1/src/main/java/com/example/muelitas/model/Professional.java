@@ -29,6 +29,4 @@ public class Professional {
     @Column(name = "professional_license")
     private String license;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
-    private Set<Appointment> appointments = new HashSet<Appointment>();
 }

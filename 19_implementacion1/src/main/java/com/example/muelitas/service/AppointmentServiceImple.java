@@ -91,5 +91,35 @@ public class AppointmentServiceImple implements AppointmentService{
         return responsePatients;
     }
 
+    @Override
+    public List<ProfessionalDTO> findAllProfessionalsWithMoreThanTwoAppointments() {
+        return null;
+    }
+
+    @Override
+    public List<AppointmentDTO> findAllAppointmentsWithStateFinalizado() {
+        return null;
+    }
+
+    @Override
+    public List<AppointmentDTO> findAllAppointmentsWithStatePendienteAndADay(LocalDateTime date) {
+        return null;
+    }
+
+    @Override
+    public List<AppointmentDTO> findAllProfessionalAppointments(Long idProfessional) {
+        return null;
+    }
+
+    @Override
+    public List<AppointmentDTO> findAllProfessionalAppointmentsWithStateReprogramado(Long idProfessional) {
+        return null;
+    }
+
+    @Override
+    public List<AppointmentDTO> findAllAppointmentsWithStateReprogramado() {
+        return null;
+    }
+
 
 }
