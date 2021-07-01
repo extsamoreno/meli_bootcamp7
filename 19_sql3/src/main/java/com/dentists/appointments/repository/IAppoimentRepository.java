@@ -1,6 +1,7 @@
 package com.dentists.appointments.repository;
 
 import com.dentists.appointments.model.Appointment;
+import com.dentists.appointments.model.Dentist;
 import com.dentists.appointments.model.Patient;
 import com.dentists.appointments.model.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,5 +20,7 @@ public interface IAppoimentRepository extends JpaRepository<Appointment, Long>{
     List<Appointment> findByStatus(Status status);
 
     List<Appointment> findByStatusAndAndDate(Status status, LocalDate date);
+
+    List<Appointment> findByDentist(Dentist dentist);
 
 }

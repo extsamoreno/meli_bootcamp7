@@ -2,6 +2,7 @@ package com.dentists.appointments.service;
 
 import com.dentists.appointments.model.DTO.*;
 import com.dentists.appointments.model.Appointment;
+import com.dentists.appointments.model.Dentist;
 import com.dentists.appointments.model.Patient;
 import com.dentists.appointments.model.Status;
 import com.dentists.appointments.model.mapper.AppMapper;
@@ -12,8 +13,10 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -106,14 +109,27 @@ public class AppoinmentService implements  IAppoimentService{
 
     @Override
     public List<AppointmentDTO> findAllStatus(Status status) {
-        return iAppoimentRepository.findByStatus(status)
-                .stream().map(app -> mapper.map(app, AppointmentDTO.class)).collect(Collectors.toList());
+        return mapperByListClass(iAppoimentRepository.findByStatus(status), new AppointmentDTO());
     }
 
     @Override
     public List<AppointmentDTO> findAllAppByStatusAndDate(String status, String date) {
         Status statusFormatter = Status.valueOf(status.toUpperCase(Locale.ROOT));
-        return iAppoimentRepository.findByStatusAndAndDate(statusFormatter, checkDate(date))
-                .stream().map(app -> mapper.map(app, AppointmentDTO.class)).collect(Collectors.toList());
+        List app = iAppoimentRepository.findByStatusAndAndDate(statusFormatter, checkDate(date));
+        return mapperByListClass(app, new AppointmentDTO());
+
+    }
+
+    @Override
+    public DentistAppDTO findDentistAppByName(String name) {
+        Dentist dentist = iDentistRepository.findFirstByName(name);
+        List<Appointment> appointments = iAppoimentRepository.findByDentist(dentist);
+        List apps = mapperByListClass(appointments,
+                new AppointmentDTOWithOutDentist());
+        return new DentistAppDTO(mapper.map(dentist, DentistDTO.class), apps);
+    }
+
+    private <T> List mapperByListClass(List list, T t){
+        return (List) list.stream().map(obj -> mapper.map(obj, t.getClass())).collect(Collectors.toList());
     }
 }

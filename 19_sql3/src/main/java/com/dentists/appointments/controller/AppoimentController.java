@@ -30,13 +30,6 @@ public class AppoimentController {
         return iAppoimentService.findAllByDate(date);
     }
 
-    /*
-     * Listar dentistas con más de dos appoiments
-     * */
-    @GetMapping("/FindDentistWithMore2Appoiments/{date}")
-    public List<DentistCountDates> findDentistWithMore2Appoiments(@PathVariable String date){
-        return iAppoimentService.findDentistsByMore2App(date);
-    }
 
     @PostMapping("/reprogramarCita")
     public void reprogramarCita(@RequestBody AppReproRequests app){
@@ -69,5 +62,6 @@ public class AppoimentController {
     public List<AppointmentDTO> findyAllStatusEnd(@PathVariable String status, @PathVariable String date){
         return iAppoimentService.findAllAppByStatusAndDate(status, date );
     }
+
 
 }
