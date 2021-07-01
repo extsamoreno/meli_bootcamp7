@@ -10,5 +10,5 @@ import lombok.*;
 public class Doctor {
   private String firstName;
   private String lastName;
-  private String speciality;
+  private String specialty;
 }
