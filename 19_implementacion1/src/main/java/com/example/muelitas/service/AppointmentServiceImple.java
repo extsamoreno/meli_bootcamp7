@@ -5,11 +5,15 @@ import com.example.muelitas.dto.PatientDTO;
 import com.example.muelitas.dto.ProfessionalDTO;
 import com.example.muelitas.dto.ResponseDTO;
 import com.example.muelitas.model.Appointment;
+import com.example.muelitas.model.Patient;
 import com.example.muelitas.repository.AppointmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -71,4 +75,21 @@ public class AppointmentServiceImple implements AppointmentService{
         response.setStatus(200);
         return response;
     }
+
+    @Override
+    public List<PatientDTO> findAllPatientsByDate(LocalDateTime date) {
+        LocalDateTime dateStart = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 00, 00, 00);
+        LocalDateTime dateEnd = dateStart.plusDays(1);
+
+        List responsePatients = new ArrayList<>();
+        List patients = appointmentRepository.findAllPatientsByDate(dateStart, dateEnd);
+
+        for (int i = 0; i < patients.size(); i++) {
+            responsePatients.add(patients.get(i));
+        }
+
+        return responsePatients;
+    }
+
+
 }
