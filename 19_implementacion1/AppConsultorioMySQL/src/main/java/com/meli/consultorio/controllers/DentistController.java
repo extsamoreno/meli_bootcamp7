@@ -1,12 +1,11 @@
 package com.meli.consultorio.controllers;
 
-import com.meli.consultorio.models.Dentist;
 import com.meli.consultorio.models.dtos.DentistDTO;
 import com.meli.consultorio.services.dentist.IDentistService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("dentists")
@@ -34,7 +33,7 @@ public class DentistController {
     }
 
     @GetMapping("/getAll")
-    public List<DentistDTO> getAllDentist() {
+    public Set<DentistDTO> getAllDentists() {
         return iDentistService.findAllDentists();
     }
 

@@ -5,20 +5,16 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "dentists")
 public class Dentist {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dentist_id")
     private Long id;
 
     @Column(name = "dentist_name")
     private String name;
-
-    @OneToMany(mappedBy = "dentist")
-    private Set<Schedule> scheduleSet;
-
-    @OneToMany(mappedBy = "dentist")
-    private Set<Appointment> appointments;
 }

@@ -2,12 +2,12 @@ package com.meli.consultorio.services.dentist;
 
 import com.meli.consultorio.models.dtos.DentistDTO;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IDentistService {
     void createDentist(DentistDTO dentist);
     void deleteDentistById(Long id);
     void updateDentist(DentistDTO dentist);
-    List<DentistDTO> findAllDentists();
+    Set<DentistDTO> findAllDentists();
     DentistDTO findDentistById(Long id);
 }

@@ -3,7 +3,6 @@ package com.meli.consultorio.models.dtos;
 import lombok.*;
 
 import java.sql.Time;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -11,8 +10,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class ScheduleDTO {
     private Long id;
-    private String schedule_day;
-    private Time schedule_from;
-    private Time schedule_to;
-    private Long dentist_id;
+    private Integer scheduleDay;
+    private Time scheduleFrom;
+    private Time scheduleTo;
+    private Long dentistId;
 }
