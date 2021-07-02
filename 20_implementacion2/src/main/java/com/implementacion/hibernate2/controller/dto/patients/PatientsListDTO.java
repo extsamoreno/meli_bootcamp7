@@ -1,5 +1,6 @@
-package com.implementacion.hibernate2.controller.dto;
+package com.implementacion.hibernate2.controller.dto.patients;
 
+import com.implementacion.hibernate2.controller.dto.patients.PatientDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

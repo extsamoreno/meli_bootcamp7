@@ -1,4 +1,4 @@
-SELECT * FROM ml_app_consultorio.appointment;
+SELECT * FROM ml_app_consultorio.appointments;
 
 SELECT * FROM ml_app_consultorio.dentists;
 
@@ -25,7 +25,7 @@ VALUES ('Paula'), ('Pablo'), ('Pedro'), ('Pilar'), ('Piedad'), ('Paulo');
 
 
 -- Crear Turnos
-INSERT INTO ml_app_consultorio.appointment(date, status, patient_id, schedule_id)
+INSERT INTO ml_app_consultorio.appointments(date, status, patient_id, schedule_id)
 VALUES ('2021-01-01 00:00:00', 'Finalizado', 1, 2), 
 ('2021-06-01 00:00:00', 'Finalizado', 2, 2),
 ('2021-06-01 00:00:00', 'Finalizado', 6, 6),
@@ -53,4 +53,32 @@ VALUES ('2021-01-01 00:00:00', 'Finalizado', 1, 2),
 ('2021-06-05 00:00:00', 'Pendiente', 2, 5),
 ('2021-06-05 00:00:00', 'Pendiente', 3, 5),
 ('2021-06-05 00:00:00', 'Pendiente', 1, 5);
+
+use ml_app_consultorio;
+
+-- Ejercicio 1 Listar todos los pacientes de un día de todos los dentistas.
+SELECT p.name, d.name, a.status FROM patients AS p
+INNER JOIN appointments AS a ON p.id = a.patient_id
+INNER JOIN schedules AS s ON a.schedule_id = s.id
+INNER JOIN dentists AS d ON s.id = d.schedule_id
+WHERE a.date = '2021-06-02';
+
+-- SELECT p.name FROM Patient AS p JOIN Appointment AS a ON p.id = a.patient.id WHERE DATE(a.date) = DATE(:date)
+
+-- SELECT p.name, d.name, a.status FROM patients p
+-- JOIN appointments a ON p.id = a.patient_id
+-- JOIN schedules s ON a.schedule_id = s.id
+-- JOIN dentists d ON s.id = d.schedule_id
+-- WHERE DATE(a.date) = DATE(:date)
+
+
+-- Ejercicio 2
+-- Listar todos los dentistas que tengan más de dos turnos en una fecha
+SELECT d.name, COUNT(a.id) turnos FROM dentists d
+INNER JOIN schedules s ON d.schedule_id = s.id
+INNER JOIN appointments a ON s.id = a.schedule_id
+WHERE a.date = '2021-06-02'
+GROUP BY d.name
+HAVING turnos >= 2;
+
 

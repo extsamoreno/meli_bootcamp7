@@ -1,6 +1,6 @@
 package com.implementacion.hibernate2.model.repository;
 
-import com.implementacion.hibernate2.model.dao.Appointment;
+import com.implementacion.hibernate2.model.entity.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

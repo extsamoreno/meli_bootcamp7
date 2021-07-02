@@ -1,15 +1,11 @@
-package com.implementacion.hibernate2.model.dao;
+package com.implementacion.hibernate2.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -28,11 +24,11 @@ public class Appointment {
     private Date date;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
+    @JoinColumn(name = "schedule_id", foreignKey = @ForeignKey(name = "id") /*referencedColumnName = "id"*/ )
     private Schedule schedule;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    @JoinColumn(name = "patient_id", foreignKey = @ForeignKey(name = "id") /*referencedColumnName = "id"*/ )
     private Patient patient;
 
 }

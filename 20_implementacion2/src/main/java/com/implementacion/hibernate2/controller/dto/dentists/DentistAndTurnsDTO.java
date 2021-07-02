@@ -1,4 +1,4 @@
-package com.implementacion.hibernate2.controller.dto;
+package com.implementacion.hibernate2.controller.dto.dentists;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DentistDTO {
+public class DentistAndTurnsDTO {
 
-    private Long id;
     private String name;
-    private Long schedule_id;
+    private long turns;
 }
