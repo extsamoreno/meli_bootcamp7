@@ -46,5 +46,10 @@ public class TurnoService implements ITurnoService{
         return iTurnoRepository.findAgendaById(id);
     }
 
+    @Override
+    public List<Turno> obtenerTurnosReprogramados(int id) {
+        return iTurnoRepository.findTurnosReprogramadosById(id);
+    }
+
 
 }

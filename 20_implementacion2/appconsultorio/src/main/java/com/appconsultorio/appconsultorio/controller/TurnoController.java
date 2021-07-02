@@ -57,4 +57,9 @@ public class TurnoController {
         return iTurnoService.obtenerAgenda(id);
     }
 
+    @GetMapping("/obtenerturnosreprogramados")
+    public List<Turno> obtenerTurnosReprogramadosPorDentista(@RequestParam int id){
+        return iTurnoService.obtenerTurnosReprogramados(id);
+    }
+
 }

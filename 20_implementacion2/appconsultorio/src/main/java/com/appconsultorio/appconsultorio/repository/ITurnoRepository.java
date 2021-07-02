@@ -29,4 +29,7 @@ public interface ITurnoRepository extends JpaRepository<Turno,Integer> {
     @Query("SELECT t FROM Turno t where t.odontologo.id = :id")
     List<Turno> findAgendaById(@Param("id") int id);
 
+    @Query("SELECT t FROM Turno t where t.odontologo.id = :id AND t.estado LIKE '%Reprogramado%'")
+    List<Turno> findTurnosReprogramadosById(@Param("id") int id);
+
 }

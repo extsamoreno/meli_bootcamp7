@@ -14,4 +14,5 @@ public interface ITurnoService {
     public List<Turno> obtenerTurnosFinalizados();
     public List<Turno> obtenerTurnosPendientesPorFecha(Date dt);
     public List<Turno> obtenerAgenda(int id);
+    public List<Turno> obtenerTurnosReprogramados(int id);
 }

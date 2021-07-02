@@ -24,6 +24,9 @@ public class Turno {
     @Column(name = "estado")
     String estado;
 
+    @Column(name = "fecha_reprogramada")
+    Date fechaReprogramada;
+
     @ManyToOne
     @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
     private Paciente paciente;
