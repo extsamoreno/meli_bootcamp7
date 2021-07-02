@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 public interface IPatientRepository extends JpaRepository<Patient, Long> {
-//    @Query("FROM Patient p JOIN Appointment a ON p.id = a.patient.id WHERE a.appointmentDate BETWEEN :from AND :to")
-//    Set<Patient> findPatientsByDate(@Param("from") LocalDateTime from, @Param("to") LocalDateTime to);
+    @Query("FROM Patient p JOIN Appointment a ON p.id = a.patient.id WHERE a.appointmentDate >= :date")
+    Set<Patient> findPatientsByDate(@Param("date") LocalDateTime date);
 }

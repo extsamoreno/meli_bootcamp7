@@ -9,6 +9,7 @@ import com.meli.consultorio.models.Dentist;
 import com.meli.consultorio.models.Patient;
 import com.meli.consultorio.models.Schedule;
 import com.meli.consultorio.models.dtos.AppointmentDTO;
+import com.meli.consultorio.models.dtos.DentistDTO;
 import com.meli.consultorio.models.dtos.PatientDTO;
 import com.meli.consultorio.repositories.IAppointmentRepository;
 import com.meli.consultorio.repositories.IDentistRepository;
@@ -122,10 +123,14 @@ public class AppointmentService implements IAppointmentService {
     //Listar todos los pacientes de un día de todos los dentistas.
     @Override
     public Set<PatientDTO> findPatientsByDate(LocalDateTime date) {
-        return null;
+        return iPatientRepository.findPatientsByDate(date).stream().map(patient -> mapper.map(patient,PatientDTO.class)).collect(Collectors.toSet());
     }
 
     //Listar todos los dentistas que tengan más de dos turnos en una fecha
+    @Override
+    public Set<DentistDTO> findDentistByAppointments(LocalDateTime date) {
+        return iDentistRepository.findDentistsByAppointments(date).stream().map(dentist -> mapper.map(dentist,DentistDTO.class)).collect(Collectors.toSet());
+    }
 
     //Listar todos los turnos con estado finalizado
     @Override
@@ -143,5 +148,11 @@ public class AppointmentService implements IAppointmentService {
     @Override
     public Set<AppointmentDTO> findRescheduleAppointmentsByDentistId(Long id) {
         return iAppointmentRepository.findAppointmentsByDentistIdAndState(id,"Reprogramado").stream().map(appointment -> mapper.map(appointment,AppointmentDTO.class)).collect(Collectors.toSet());
+    }
+
+    //Listar todos los turnos que fueron reprogramados. (extra)
+    @Override
+    public Set<AppointmentDTO> findRescheduleAppointments() {
+        return iAppointmentRepository.findAppointmentsByState("Reprogramado").stream().map(appointment -> mapper.map(appointment,AppointmentDTO.class)).collect(Collectors.toSet());
     }
 }
