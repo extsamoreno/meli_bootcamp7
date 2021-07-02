@@ -1,6 +1,8 @@
 package com.example.AppConsultorioMySQL.models.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "schedules")
 public class Schedule {
     @Id
@@ -23,6 +27,6 @@ public class Schedule {
     @JoinColumn(name = "dentist_id", referencedColumnName = "id")
     private Dentist dentist;
 
-    @OneToMany(mappedBy = "schedule")
-    private Set<Turn> turns;
+    /*@OneToMany(mappedBy = "schedule")
+    private Set<Turn> turns;*/
 }

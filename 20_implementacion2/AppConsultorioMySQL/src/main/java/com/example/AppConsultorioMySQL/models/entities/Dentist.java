@@ -1,14 +1,15 @@
 package com.example.AppConsultorioMySQL.models.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Getter@Setter
+@NoArgsConstructor@AllArgsConstructor
 @Table(name = "dentists")
 public class Dentist {
     @Id
@@ -18,6 +19,6 @@ public class Dentist {
     private String name;
     private Long enrollment;
 
-    @OneToMany(mappedBy = "dentist")
-    private Set<Schedule> schedules;
+    /*@OneToMany(mappedBy = "dentist")
+    private Set<Schedule> schedules;*/
 }

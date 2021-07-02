@@ -14,13 +14,14 @@ public class Turn {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private long idPatient;
-    private long idSchedule;
     private Time time;
+    private String state;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
     private Schedule schedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
 }

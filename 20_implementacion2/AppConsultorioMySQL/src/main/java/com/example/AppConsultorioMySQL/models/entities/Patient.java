@@ -16,8 +16,8 @@ public class Patient {
     private Long id;
 
     private String name;
-    private long dni;
+    private Long dni;
 
-    @OneToMany(mappedBy = "patient")
-    private Set<Turn> turns;
+    /*@OneToMany(mappedBy = "patient")
+    private Set<Turn> turns;*/
 }
