@@ -23,5 +23,6 @@ public class Patient {
     private String name;
 
     @OneToMany(mappedBy = "patient")
+    @JsonIgnore
     private Set<Appointment> appointment;
 }

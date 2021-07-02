@@ -6,10 +6,9 @@ import com.example.demo.repositories.IAppoimentRepository;
 import com.example.demo.repositories.IDentistRepository;
 import com.example.demo.services.dtos.AppointmentDTO;
 import com.example.demo.services.dtos.DentistDTO;
-import com.example.demo.services.mappers.AppointmentMapper;
-import com.example.demo.services.mappers.DentistsMapper;
 import com.example.demo.utils.Functions;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -23,6 +22,8 @@ public class DentistService implements IDentistService{
     IDentistRepository iDentistRepository;
 
     IAppoimentRepository iAppoimentRepository;
+
+    ModelMapper modelMapper;
 
     @Override
     public void createDentist(Dentist dentist) {
@@ -47,20 +48,20 @@ public class DentistService implements IDentistService{
     @Override
     public DentistDTO findDentistById(Long id) throws DentistNotFoundException{
         Dentist dentist = iDentistRepository.findById(id).orElseThrow(() -> new DentistNotFoundException(id));
-        return DentistsMapper.toDto(dentist);
+        return modelMapper.map(dentist,DentistDTO.class);
     }
 
     @Override
     public List<DentistDTO> getDentistWithMoreTowAppoiments(Date date) {
         return iDentistRepository.getBusyDentists(Functions.atStartOfDay(date),Functions.atEndOfDay(date)).stream()
-                .map(DentistsMapper::toDto).collect(Collectors.toList());
+                .map(dentist -> modelMapper.map(dentist, DentistDTO.class) ).collect(Collectors.toList());
     }
 
     @Override
     public List<AppointmentDTO> getDentistDairy(Long id) throws DentistNotFoundException{
         findDentistById(id);
         List<AppointmentDTO> appointmentDTOS = iAppoimentRepository.findByDentistIdAndDateAfter(id,Functions.atStartOfDay(new Date())).stream()
-                .map(AppointmentMapper::toDTO).collect(Collectors.toList());
+                .map(appoiment -> modelMapper.map(appoiment,AppointmentDTO.class)).collect(Collectors.toList());
         return appointmentDTOS;
     }
 }
