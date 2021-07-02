@@ -1,0 +1,22 @@
+[
+  {
+    "districtName": "Nunoa",
+    "districtPrice": 1000.0
+  },
+  {
+    "districtName": "Providencia",
+    "districtPrice": 600.0
+  },
+  {
+    "districtName": "Lascondes",
+    "districtPrice": 1200.0
+  },
+  {
+    "districtName": "Centro",
+    "districtPrice": 500.0
+  },
+  {
+    "districtName": "Vitacura",
+    "districtPrice": 1400.0
+  }
+]
