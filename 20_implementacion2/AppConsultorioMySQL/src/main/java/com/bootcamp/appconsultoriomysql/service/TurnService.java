@@ -5,6 +5,7 @@ import com.bootcamp.appconsultoriomysql.repository.ITurnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -17,6 +18,12 @@ public class TurnService implements ITurnService{
     @Override
     public Set<Turn> findAllFinalized() {
         return turnRepository.findAllFinalized();
+    }
+
+    @Override
+    @Transactional
+    public Turn findById(Long id) {
+        return turnRepository.findById(id).get();
     }
 
     @Override

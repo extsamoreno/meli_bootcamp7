@@ -10,4 +10,6 @@ public interface ITurnService {
     Set<Turn> findAllFinalized();
 
     Set<Turn> findAllEarringOnDay(LocalDate day);
+
+    Turn findById(Long id);
 }

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -20,6 +17,11 @@ public class TurnController {
 
     @Autowired
     private ITurnService turnService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Turn> getTurnById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(turnService.findById(id), HttpStatus.OK);
+    }
 
     @GetMapping("/get-all-finalized")
     public ResponseEntity<Set<Turn>> getAllFinalized() {

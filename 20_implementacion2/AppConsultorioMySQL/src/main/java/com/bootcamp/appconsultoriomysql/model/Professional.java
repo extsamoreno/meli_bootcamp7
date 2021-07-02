@@ -1,6 +1,5 @@
 package com.bootcamp.appconsultoriomysql.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,8 +26,7 @@ public class Professional {
     @Column(name = "pro_lastname")
     private String lastname;
 
-    @OneToMany(mappedBy = "professional")
-    @JsonIgnore
+    @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY)
     private Set<Turn> turns;
 
 }

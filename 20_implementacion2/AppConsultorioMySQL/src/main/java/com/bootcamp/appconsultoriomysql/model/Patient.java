@@ -1,7 +1,7 @@
 package com.bootcamp.appconsultoriomysql.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +11,7 @@ import java.util.Set;
 @Table(name = "patients")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Patient {
 
     @Id
@@ -27,8 +28,6 @@ public class Patient {
     @Column(name = "pat_lastname")
     private String lastname;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "patient")
     private Set<Turn> turns;
-
 }
