@@ -1,11 +1,17 @@
 package com.meli.AppConsultorioMySQL.repositories.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "patients")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PatientEntity {
 
     @Id
@@ -14,6 +20,9 @@ public class PatientEntity {
     private String dni;
     private String name;
     private String lastname;
+
+//    @OneToMany(mappedBy = "patient")
+//    private Set<AppointmentEntity> appointments;
 
     public PatientEntity(String dni, String name, String lastname) {
         this.dni = dni;

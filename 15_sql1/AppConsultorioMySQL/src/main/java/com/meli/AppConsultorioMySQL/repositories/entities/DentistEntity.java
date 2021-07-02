@@ -1,13 +1,18 @@
 package com.meli.AppConsultorioMySQL.repositories.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "dentists")
 @NoArgsConstructor
+@AllArgsConstructor
 public class DentistEntity {
 
     @Id
