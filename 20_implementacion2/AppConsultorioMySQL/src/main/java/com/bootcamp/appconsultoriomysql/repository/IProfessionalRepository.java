@@ -13,7 +13,6 @@ import java.util.Set;
 @Repository
 public interface IProfessionalRepository extends JpaRepository<Professional, Long> {
 
-
     @Query("SELECT p FROM Professional p INNER JOIN p.turns t WHERE DATE(t.dateStart) = DATE(:day) GROUP BY p.id HAVING COUNT(*) > 1 ")
     Set<Professional> findAllWithMoreThanTwoTurnsOnDay(@Param("day") LocalDateTime day);
 
