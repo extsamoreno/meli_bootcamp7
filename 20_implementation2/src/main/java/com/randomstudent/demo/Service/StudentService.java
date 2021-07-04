@@ -1,17 +1,17 @@
 package com.randomstudent.demo.Service;
 
 import com.randomstudent.demo.Model.StudentDTO;
+import com.randomstudent.demo.Repository.IStudentRepository;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
-@Data
-
+@Service
 public class StudentService implements IStudentService{
+
+    IStudentRepository iStudentRepository;
 
     @Override
     public List<StudentDTO> getTenExhibitors() {
