@@ -1,5 +1,6 @@
 package com.bootcamp.appconsultoriomysql.controller;
 
+import com.bootcamp.appconsultoriomysql.dto.RegisterTurnDTO;
 import com.bootcamp.appconsultoriomysql.dto.TurnDTO;
 import com.bootcamp.appconsultoriomysql.service.ITurnService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,23 @@ public class TurnController {
 
     @Autowired
     private ITurnService turnService;
+
+    @GetMapping("/get-by-id/{id}")
+    public ResponseEntity<TurnDTO> getByid(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(turnService.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping("/register-turn")
+    public ResponseEntity<Void> registerTurn(@RequestBody RegisterTurnDTO turnDTO) {
+        turnService.registerTurn(turnDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/delete-by-id/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) {
+        turnService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @GetMapping("/get-all-finalized")
     public ResponseEntity<Set<TurnDTO>> getAllFinalized() {

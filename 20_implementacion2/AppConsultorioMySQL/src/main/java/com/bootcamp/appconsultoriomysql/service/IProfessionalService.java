@@ -13,4 +13,5 @@ public interface IProfessionalService {
     Set<TurnDTO> getSchedule(Long id);
 
     Set<TurnDTO> getReprogrammedTurns(Long id);
+
 }

@@ -15,4 +15,5 @@ public interface IPatientRepository extends JpaRepository<Patient, Long> {
     @Query("SELECT p FROM Patient p INNER JOIN FETCH p.turns t  WHERE DATE(t.dateStart) = DATE(:date)")
     Set<Patient> findAllByTurnsOnDay(@Param("date") LocalDateTime date);
 
+
 }
