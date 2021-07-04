@@ -107,7 +107,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"propName\": \"Acoyte y Rivadavia\",\n    \"districtName\": \"\",\n    \"districtPrice\": 4000,\n    \"rooms\": [\n      {\n        \"roomName\": \"Habitacion\",\n        \"roomWidth\": 3,\n        \"roomLength\": 2\n      },\n      {\n        \"roomName\": \"Cocina\",\n        \"roomWidth\": 2,\n        \"roomLength\": 4\n      },\n      {\n        \"roomName\": \"Baño\",\n        \"roomWidth\": 2,\n        \"roomLength\": 2\n      }\n    ]\n  }",
+											"raw": "{\n    \"propName\": \"Hualane y Rivadavia\",\n    \"districtName\": \"\",\n    \"districtPrice\": 4000,\n    \"rooms\": [\n      {\n        \"roomName\": \"Habitacion\",\n        \"roomWidth\": 3,\n        \"roomLength\": 2\n      },\n      {\n        \"roomName\": \"Cocina\",\n        \"roomWidth\": 2,\n        \"roomLength\": 4\n      },\n      {\n        \"roomName\": \"Baño\",\n        \"roomWidth\": 2,\n        \"roomLength\": 2\n      }\n    ]\n  }",
 											"options": {
 												"raw": {
 													"language": "json"
