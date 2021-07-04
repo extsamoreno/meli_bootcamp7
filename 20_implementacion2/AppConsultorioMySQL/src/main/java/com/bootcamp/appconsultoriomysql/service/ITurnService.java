@@ -1,15 +1,14 @@
 package com.bootcamp.appconsultoriomysql.service;
 
-import com.bootcamp.appconsultoriomysql.model.Turn;
+import com.bootcamp.appconsultoriomysql.dto.TurnDTO;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 public interface ITurnService {
+    Set<TurnDTO> findAllFinalized();
 
-    Set<Turn> findAllFinalized();
+    Set<TurnDTO> findAllEarringOnDay(LocalDate day);
 
-    Set<Turn> findAllEarringOnDay(LocalDate day);
-
-    Turn findById(Long id);
+    Set<TurnDTO> findAllReprogrammed();
 }

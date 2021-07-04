@@ -6,11 +6,10 @@ import com.bootcamp.appconsultoriomysql.repository.IPatientRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,20 +22,10 @@ public class PatientService implements IPatientService {
     ModelMapper mapper;
 
     @Override
-    public Patient create(PatientDTO patientDTO) {
-        Patient patient = mapper.map(patientDTO, Patient.class);
+    public Set<PatientDTO> findAllByTurnsInDay(LocalDateTime date) {
 
-        return patientRepository.save(patient);
-    }
+        Set<Patient> patients = patientRepository.findAllByTurnsOnDay(date);
 
-    @Override
-    public Set<Patient> findAllByTurnsInDay(LocalDateTime date) {
-        return patientRepository.findAllByTurnsInDay(date);
-    }
-
-    @Override
-    @Transactional
-    public Optional<Patient> findById(Long id) {
-        return patientRepository.findById(id);
+        return patients.stream().map(p -> mapper.map(p, PatientDTO.class)).collect(Collectors.toSet());
     }
 }

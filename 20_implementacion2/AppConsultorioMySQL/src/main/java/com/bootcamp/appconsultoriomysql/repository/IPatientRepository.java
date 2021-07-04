@@ -7,15 +7,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.Set;
 
 @Repository
 public interface IPatientRepository extends JpaRepository<Patient, Long> {
 
     @Query("SELECT p FROM Patient p INNER JOIN FETCH p.turns t  WHERE DATE(t.dateStart) = DATE(:date)")
-    Set<Patient> findAllByTurnsInDay(@Param("date") LocalDateTime date);
+    Set<Patient> findAllByTurnsOnDay(@Param("date") LocalDateTime date);
 
-    @Override
-    Optional<Patient> findById(Long id);
 }

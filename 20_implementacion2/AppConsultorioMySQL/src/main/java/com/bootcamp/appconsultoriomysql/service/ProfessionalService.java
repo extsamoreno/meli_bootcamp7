@@ -1,5 +1,6 @@
 package com.bootcamp.appconsultoriomysql.service;
 
+import com.bootcamp.appconsultoriomysql.dto.ProfessionalDTO;
 import com.bootcamp.appconsultoriomysql.dto.TurnDTO;
 import com.bootcamp.appconsultoriomysql.model.Professional;
 import com.bootcamp.appconsultoriomysql.model.Turn;
@@ -23,8 +24,11 @@ public class ProfessionalService implements IProfessionalService{
     private ModelMapper mapper;
 
     @Override
-    public Set<Professional> findAllWithMoreThanTwoTurnsOnDay(LocalDateTime day) {
-        return professionalRepository.findAllWithMoreThanTwoTurnsOnDay(day);
+    public Set<ProfessionalDTO> findAllWithMoreThanTwoTurnsOnDay(LocalDateTime day) {
+
+        Set<Professional> professionals = professionalRepository.findAllWithMoreThanTwoTurnsOnDay(day);
+
+        return professionals.stream().map(p -> mapper.map(p, ProfessionalDTO.class)).collect(Collectors.toSet());
     }
 
     @Override
@@ -33,8 +37,15 @@ public class ProfessionalService implements IProfessionalService{
 
         Set<Turn> turns = professionalRepository.getSchedule(id);
 
-        Set<TurnDTO> turnsDTOS = turns.stream().map((t) -> mapper.map(t, TurnDTO.class)).collect(Collectors.toSet());
+        return turns.stream().map((t) -> mapper.map(t, TurnDTO.class)).collect(Collectors.toSet());
+    }
 
-        return turnsDTOS;
+    @Override
+    @Transactional
+    public Set<TurnDTO> getReprogrammedTurns(Long id) {
+
+        Set<Turn> turns = professionalRepository.getReprogrammedTurns(id);
+
+        return turns.stream().map((t) -> mapper.map(t, TurnDTO.class)).collect(Collectors.toSet());
     }
 }

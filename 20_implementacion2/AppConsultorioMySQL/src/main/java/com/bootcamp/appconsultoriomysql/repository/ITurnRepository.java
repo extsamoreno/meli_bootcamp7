@@ -17,4 +17,7 @@ public interface ITurnRepository extends JpaRepository<Turn, Long> {
 
     @Query("SELECT t FROM Turn t WHERE t.status = com.bootcamp.appconsultoriomysql.model.TurnStatus.EARRING AND DATE(t.dateStart) = DATE(:day)")
     Set<Turn> findAllEarringOnDay(@Param("day") LocalDate day);
+
+    @Query("SELECT t from Turn t where t.status = com.bootcamp.appconsultoriomysql.model.TurnStatus.REPROGRAMMED")
+    Set<Turn> findAllReprogrammed();
 }
