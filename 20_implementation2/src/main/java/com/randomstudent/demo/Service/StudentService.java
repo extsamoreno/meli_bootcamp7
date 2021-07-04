@@ -20,7 +20,8 @@ public class StudentService implements IStudentService{
 
     public Long getRandomNumber(){
         Random random = new Random();
-        return (long) random.nextInt(60);
+        Long id = (long) random.nextInt(60);
+        return id > 0 ? id : getRandomNumber();
     }
 
     @Override
@@ -30,9 +31,9 @@ public class StudentService implements IStudentService{
         for (int i = 0; i < count; i++) {
             Long id = getRandomNumber();
             Student student = iStudentRepository.getStudentById(id);
-            System.out.println(student);
+            students.add(modelMapper.map(student, StudentDTO.class));
         }
 
-        return null;
+        return students;
     }
 }
