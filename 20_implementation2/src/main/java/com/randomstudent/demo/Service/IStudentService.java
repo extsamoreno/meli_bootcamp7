@@ -1,10 +1,8 @@
 package com.randomstudent.demo.Service;
-
 import com.randomstudent.demo.Model.StudentDTO;
-
-import java.util.List;
+import java.util.Set;
 
 public interface IStudentService {
 
-    List<StudentDTO> getExhibitors(int count);
+    Set<StudentDTO> getExhibitors(int count);
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -18,7 +19,7 @@ public class StudentController {
     IStudentService iStudentService;
 
     @GetMapping("/get/exhibitors")
-    public ResponseEntity<List<StudentDTO>> getExhibitors(){
+    public ResponseEntity<Set<StudentDTO>> getExhibitors(){
         return new ResponseEntity(iStudentService.getExhibitors(10), HttpStatus.OK);
     }
 

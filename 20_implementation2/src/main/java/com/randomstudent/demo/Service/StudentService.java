@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
@@ -25,10 +23,10 @@ public class StudentService implements IStudentService{
     }
 
     @Override
-    public List<StudentDTO> getExhibitors(int count) {
-        List<StudentDTO> students = new ArrayList<>();
+    public Set<StudentDTO> getExhibitors(int count) {
+        Set<StudentDTO> students = new HashSet<>();
 
-        for (int i = 0; i < count; i++) {
+        while (students.size() < count){
             Long id = getRandomNumber();
             Student student = iStudentRepository.getStudentById(id);
             students.add(modelMapper.map(student, StudentDTO.class));
