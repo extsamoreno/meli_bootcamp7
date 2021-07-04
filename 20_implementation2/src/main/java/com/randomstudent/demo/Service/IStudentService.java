@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IStudentService {
 
-    List<StudentDTO> getTenExhibitors();
+    List<StudentDTO> getExhibitors(int count);
 }

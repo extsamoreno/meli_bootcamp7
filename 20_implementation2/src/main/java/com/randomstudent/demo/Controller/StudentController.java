@@ -19,7 +19,7 @@ public class StudentController {
 
     @GetMapping("/get/exhibitors")
     public ResponseEntity<List<StudentDTO>> getExhibitors(){
-        return new ResponseEntity(iStudentService.getTenExhibitors(), HttpStatus.OK);
+        return new ResponseEntity(iStudentService.getExhibitors(10), HttpStatus.OK);
     }
 
 }
