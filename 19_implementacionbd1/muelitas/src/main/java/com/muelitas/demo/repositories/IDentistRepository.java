@@ -20,7 +20,7 @@ public interface IDentistRepository extends JpaRepository<Dentist, Long> {
     void deleteDentistBy(@Param("id") Long id);
 
     @Query("from Dentist d where d.id = :id and d.lowDate is null")
-    Optional<Dentist> findPatientByDniWithoutLowDate(@Param("id") Long id);
+    Optional<Dentist> findPatientByIdWithoutLowDate(@Param("id") Long id);
 
     @Query("from Dentist d where d.lowDate is null")
     List<Dentist> findAll();

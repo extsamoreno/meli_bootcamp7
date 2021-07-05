@@ -57,7 +57,7 @@ public class DentistService implements IDentistService{
         if(id <= 0)
             throw new BadRequestException("El id del paciente debe ser mayor a 0");
 
-        Optional<Dentist> dentist = dentistRepository.findPatientByDniWithoutLowDate(id);
+        Optional<Dentist> dentist = dentistRepository.findPatientByIdWithoutLowDate(id);
 
         if(!dentist.isPresent())
             throw new BadRequestException("El dentista con el id ingresado no existe.");

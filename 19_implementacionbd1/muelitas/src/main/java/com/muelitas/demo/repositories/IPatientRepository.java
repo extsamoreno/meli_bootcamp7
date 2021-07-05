@@ -17,7 +17,7 @@ public interface IPatientRepository extends JpaRepository<Patient, Long> {
     void deletePatientBy(@Param("id") Long id);
 
     @Query("from Patient p where p.id = :id and p.lowDate is null")
-    Optional<Patient> findPatientByDniWithoutLowDate(@Param("id") Long id);
+    Optional<Patient> findPatientByIdWithoutLowDate(@Param("id") Long id);
 
     @Query("from Patient p where p.lowDate is null")
     List<Patient> findAll();

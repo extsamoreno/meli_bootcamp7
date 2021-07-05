@@ -1,8 +1,10 @@
 package com.muelitas.demo.models;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,11 +27,13 @@ public class Turn {
     @JoinColumn(name = "dentist_id")
     private Dentist dentist;
 
-    private LocalDateTime start_date;
+    @Column(name = "start_date")
+    private LocalDateTime startDate;
 
-    private LocalDateTime end_date;
+    @Column(name = "end_date")
+    private LocalDateTime endDate;
     
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private Status status;
 

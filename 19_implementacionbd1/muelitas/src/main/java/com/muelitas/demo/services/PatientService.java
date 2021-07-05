@@ -55,7 +55,7 @@ public class PatientService implements IPatientService{
         if(id <= 0)
             throw new BadRequestException("El id del paciente debe ser mayor a 0");
 
-        Optional<Patient> patient = patientRepository.findPatientByDniWithoutLowDate(id);
+        Optional<Patient> patient = patientRepository.findPatientByIdWithoutLowDate(id);
 
         if(!patient.isPresent())
             throw new BadRequestException("El paciente con el id ingresado no existe.");
