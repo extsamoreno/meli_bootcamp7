@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Set;
 
 @Getter @Setter
 @Entity
@@ -28,4 +29,7 @@ public class Dentist {
 
     @Column(name = "den_end_time")
     private Time endTime;
+
+    @OneToMany(mappedBy = "dentist", cascade = CascadeType.ALL)
+    private Set<Appointment> appointments;
 }

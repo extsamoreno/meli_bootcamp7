@@ -1,12 +1,14 @@
 package com.example.app_consultorio.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
-@Getter @Setter
+@Data
 @Entity
 @Table(name = "appointments")
 public class Appointment {
@@ -17,10 +19,13 @@ public class Appointment {
     private Long id;
 
     @Column(name = "app_date")
-    private Date date;
+    private LocalDate date;
+
+    @Column(name = "app_status")
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patiens_pat_id", referencedColumnName = "pat_id")
+    @JoinColumn(name = "patients_pat_id", referencedColumnName = "pat_id")
     private Patient patient;
 
     @ManyToOne(fetch = FetchType.LAZY)

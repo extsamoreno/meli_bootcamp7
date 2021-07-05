@@ -1,5 +1,7 @@
 package com.example.app_consultorio.controller;
 
+import com.example.app_consultorio.dto.DentistDTO;
+import com.example.app_consultorio.dto.PatientDTO;
 import com.example.app_consultorio.model.Dentist;
 import com.example.app_consultorio.service.IDentistService;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/dentist")
 public class DentistController {
 
     IDentistService iDentistService;
@@ -32,7 +35,13 @@ public class DentistController {
     }
 
     @GetMapping("/getAll")
-    public List<Dentist> getAllDentist() {
+    public List<DentistDTO> getAllDentist() {
         return iDentistService.findAllDentists();
+    }
+
+    // 2- Listar todos los dentistas que tengan mas de dos turnos en una fecha
+    @GetMapping("/findByAppGreaterThanTwo/{date}")
+    public List<DentistDTO> findByAppGreaterThanTwo(@PathVariable String date) {
+        return iDentistService.findByAppGreaterThanTwo(date);
     }
 }
