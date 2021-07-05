@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CalculadoraMetrosCuadrados/CalculadoraMetrosCuadrados.iml" filepath="$PROJECT_DIR$/CalculadoraMetrosCuadrados/CalculadoraMetrosCuadrados.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/desafioPablo.iml" filepath="$PROJECT_DIR$/.idea/desafioPablo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/desafio2.iml" filepath="$PROJECT_DIR$/desafio2.iml" />
     </modules>
   </component>
 </project>
