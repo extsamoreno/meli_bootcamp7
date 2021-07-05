@@ -35,4 +35,6 @@ public class Turno {
     @JoinColumn(name = "id_odontologo", referencedColumnName = "id_odontologo")
     private Odontologo odontologo;
 
+
+
 }
