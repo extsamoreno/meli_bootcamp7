@@ -17,6 +17,4 @@ public interface ITurnRepository extends JpaRepository<Turn, Long> {
     @Query("update Turn t set t.status.id = 3 where t.id =:id")
     void cancelTurnById(@Param("id") Long id);
 
-    @Query("from Turn t")
-    List<Turn> findAllTurns();
 }

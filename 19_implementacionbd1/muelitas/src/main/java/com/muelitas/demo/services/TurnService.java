@@ -48,7 +48,7 @@ public class TurnService implements ITurnService{
 
     @Override
     public List<TurnDTO> findAllTurns() {
-        List<Turn> turns = turnRepository.findAllTurns();
+        List<Turn> turns = turnRepository.findAll();
         return turns.stream().map(t -> mapper.map(t, TurnDTO.class)).collect(Collectors.toList());
     }
 

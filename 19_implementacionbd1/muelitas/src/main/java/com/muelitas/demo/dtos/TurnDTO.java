@@ -36,6 +36,7 @@ public class TurnDTO {
     @JsonProperty("end_date")
     private LocalDateTime endDate;
 
+    @JsonProperty("status_id")
     private Long statusId;
 
     @JsonProperty("reprogrammed_id")
