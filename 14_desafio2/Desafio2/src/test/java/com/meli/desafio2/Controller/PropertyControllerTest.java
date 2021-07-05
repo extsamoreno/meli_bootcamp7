@@ -59,7 +59,7 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO(null, environment, "Belgrano", 1000.0);
+        PropertyDTO inputProperty = new PropertyDTO(null, environment, "Alberdi", 1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
@@ -88,7 +88,7 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputHouse = new PropertyDTO("alpaca", environment, "Belgrano", 1000.0);
+        PropertyDTO inputHouse = new PropertyDTO("lacasa", environment, "Alberdi", 1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputHouse);
 
@@ -117,7 +117,7 @@ public class PropertyControllerTest {
         environment.add(enviroment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpacaaaaaaaaaaaaaaaaaaaaaaaaaaaa", environment, "Belgrano", 1000.0);
+        PropertyDTO inputProperty = new PropertyDTO("Lacasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", environment, "Alberdi", 1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
@@ -146,7 +146,7 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
                 "",
                 1000.0);
@@ -178,9 +178,9 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
-                "Belgranooooooooooooooooooooooooooooooooooooooooooooo",
+                "Alberdiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
                 1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
@@ -210,9 +210,9 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
-                "Belgrano",
+                "Alberdi",
                 null);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
@@ -242,9 +242,9 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
-                "Belgrano",
+                "Alberdi",
                 40010.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
@@ -274,10 +274,10 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
-                "Belgrano",
-                4000.0);
+                "Alberdi",
+                1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
@@ -306,10 +306,10 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
-                "Belgrano",
-                4000.0);
+                "Alberdi",
+                1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
@@ -338,10 +338,10 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
                 "Alberdi",
-                4000.0);
+                1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
@@ -370,10 +370,10 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
                 "Alberdi",
-                4000.0);
+                1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
@@ -402,10 +402,10 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
-                "Belgrano",
-                4000.0);
+                "Alberdi",
+                1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
@@ -434,10 +434,10 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
-                "Belgrano",
-                4000.0);
+                "Alberdi",
+                1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
@@ -466,10 +466,10 @@ public class PropertyControllerTest {
         environment.add(environment3);
 
         // House initialize
-        PropertyDTO inputProperty = new PropertyDTO("Alpaca",
+        PropertyDTO inputProperty = new PropertyDTO("Lacasa",
                 environment,
-                "Belgrano",
-                4000.0);
+                "Alberdi",
+                1000.0);
 
         String requestProperty = objectMapper.writeValueAsString(inputProperty);
 
