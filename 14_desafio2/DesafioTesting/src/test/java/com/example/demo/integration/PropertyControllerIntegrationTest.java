@@ -1,11 +1,10 @@
 package com.example.demo.integration;
 
-import com.example.demo.Utils;
+import com.example.demo.Utils.Utils;
 import com.example.demo.dtos.*;
-import com.example.demo.exceptions.PropertyDontFoundException;
 import com.example.demo.model.Property;
 import com.example.demo.repositories.PropertyRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.demo.services.mappers.MapperProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -52,22 +51,24 @@ public class PropertyControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payloadJson))
                 .andDo(print()).andExpect(status().isCreated())
-                .andReturn();
+                .andExpect(content().contentType("application/json"))
+                 .andExpect(MockMvcResultMatchers.jsonPath("$.prop_name").value(payloadDTO.getProp_name()));
 
     }
 
     @Test
     public void getSquareMetersHappyPath() throws Exception {
         int id = 1;
+        Property property = Utils.getProperty();
         PropertyM2ResponseDTO expected = Utils.getPropertyM2ResponseDTO();
-
+        expected.setProp_square_meters(148d);
         ObjectWriter writer = new ObjectMapper().
                 configure(SerializationFeature.WRAP_ROOT_VALUE, false).
                 writer().withDefaultPrettyPrinter();
 
-        String expectedStr = writer.writeValueAsString(expected).replace(" ","").replace("\n","");
+        Mockito.when(propertyRepository.findPropertyById(id)).thenReturn(property);
 
-        Mockito.when(propertyRepository.getSquareMeter(id)).thenReturn(expected);
+        String expectedStr = writer.writeValueAsString(expected).replace(" ","").replace("\n","");
 
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders. get("/properties/squaremetersProp/{propId}",1))
                 .andDo(print()).andExpect(status().isOk())
@@ -81,18 +82,20 @@ public class PropertyControllerIntegrationTest {
 
     }
 
-    @Test
+   @Test
     public void getPrice() throws Exception {
-        int id = 1;
-        PropertyPriceResponseDTO expected = Utils.getPropertyPriceResponseDTO();
 
+        int id = 1;
+        Property property = Utils.getProperty();
+        PropertyPriceResponseDTO expected = Utils.getPropertyPriceResponseDTO();
+        expected.setProp_price(74000d);
         ObjectWriter writer = new ObjectMapper().
                 configure(SerializationFeature.WRAP_ROOT_VALUE, false).
                 writer().withDefaultPrettyPrinter();
 
         String expectedStr = writer.writeValueAsString(expected).replace(" ","").replace("\n","");
 
-        Mockito.when(propertyRepository.getPrice(id)).thenReturn(expected);
+        Mockito.when(propertyRepository.findPropertyById(id)).thenReturn(property);
 
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/propPrice/{propId}",id))
                 .andDo(print()).andExpect(status().isOk())
@@ -108,16 +111,19 @@ public class PropertyControllerIntegrationTest {
 
     @Test
     public void getBiggestEnvPropHappyPath() throws Exception {
-        int id = 1;
-        BiggestPropResponseDTO expected = Utils.getBiggestEnvPropDTO();
 
+        int id = 1;
+        Property property = Utils.getProperty();
+        BiggestPropResponseDTO expected = Utils.getBiggestEnvPropDTO();
+        BiggestEnvironmentDTO biggestEnvironmentDTO = new BiggestEnvironmentDTO("Environment3",56d);
+        expected.setBiggestEnvironment(biggestEnvironmentDTO);
         ObjectWriter writer = new ObjectMapper().
                 configure(SerializationFeature.WRAP_ROOT_VALUE, false).
                 writer().withDefaultPrettyPrinter();
 
         String expectedStr = writer.writeValueAsString(expected).replace(" ","").replace("\n","");
 
-        Mockito.when(propertyRepository.getBiggestEnvProp(id)).thenReturn(expected);
+        Mockito.when(propertyRepository.findPropertyById(id)).thenReturn(property);
 
         MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/biggestEnv/{propId}",1))
                 .andDo(print()).andExpect(status().isOk())
@@ -134,6 +140,7 @@ public class PropertyControllerIntegrationTest {
     @Test
     public void getSquareMetersEnvHappyPath() throws Exception {
         int id = 1;
+        Property property = Utils.getProperty();
         PropertyM2EnvsResponseDTO expected = Utils.getSquareMetersEnvDTO();
 
         ObjectWriter writer = new ObjectMapper().
@@ -142,7 +149,7 @@ public class PropertyControllerIntegrationTest {
 
         String expectedStr = writer.writeValueAsString(expected).replace(" ","").replace("\n","");
 
-        Mockito.when(propertyRepository.getMeterSquareEnvs(id)).thenReturn(expected);
+        Mockito.when(propertyRepository.findPropertyById(id)).thenReturn(property);
 
          MvcResult response = this.mockMvc.perform(MockMvcRequestBuilders.get("/properties/squaremetersEnvs/{propId}",1))
                 .andDo(print()).andExpect(status().isOk())

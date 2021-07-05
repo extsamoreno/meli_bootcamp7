@@ -1,6 +1,6 @@
 package com.example.demo.unit.controllers;
 
-import com.example.demo.Utils;
+import com.example.demo.Utils.Utils;
 import com.example.demo.controllers.PropertyController;
 import com.example.demo.exceptions.DistrictDontFoundException;
 import com.example.demo.exceptions.PropertyDontFoundException;

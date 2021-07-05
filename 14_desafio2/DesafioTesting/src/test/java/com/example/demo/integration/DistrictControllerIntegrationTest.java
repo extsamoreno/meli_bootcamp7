@@ -1,6 +1,6 @@
 package com.example.demo.integration;
 
-import com.example.demo.Utils;
+import com.example.demo.Utils.Utils;
 import com.example.demo.dtos.DistrictDTO;
 import com.example.demo.dtos.DistrictRequestDTO;
 import com.example.demo.repositories.DistrictRepository;

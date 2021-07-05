@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.Utils;
 
 import com.example.demo.model.District;
 import com.example.demo.model.Environment;
@@ -10,50 +10,19 @@ import java.util.List;
 
 public class Utils {
 
-        public static Environment BiggestEnvironment(List<Environment> environmentList){
-
-        Environment biggestEnvironment = null;
-
-        for(Environment environment:environmentList){
-            if(biggestEnvironment==null){
-                biggestEnvironment = environment;
-            }else{
-                double mayor = biggestEnvironment.getEnvironment_length()*biggestEnvironment.getEnvironment_width();
-                double comparar = environment.getEnvironment_length()*environment.getEnvironment_width();
-                if(comparar > mayor){
-                    biggestEnvironment = environment;
-                }
-            }
-        }
-
-        return biggestEnvironment;
-    }
-
         public static PropertyM2ResponseDTO getPropertyM2ResponseDTO(){
         PropertyM2ResponseDTO propertyM2ResponseDTO = new PropertyM2ResponseDTO();
 
         propertyM2ResponseDTO.setProp_name("Prop1");
-        propertyM2ResponseDTO.setProp_square_meters(148d);
 
         return propertyM2ResponseDTO;
     }
 
         public static PropertyPriceResponseDTO getPropertyPriceResponseDTO(){
         PropertyPriceResponseDTO propertyPriceResponseDTO = new PropertyPriceResponseDTO();
-        ArrayList<EnvironmentDTO> environments = new ArrayList<>();
-
-        EnvironmentDTO env1 = new EnvironmentDTO("Enviroment1",50d,25000d);
-        EnvironmentDTO env2 = new EnvironmentDTO("Enviroment2",42d,21000d);
-        EnvironmentDTO env3 = new EnvironmentDTO("Enviroment3",56d,28000d);
-
-        environments.add(env1);
-        environments.add(env2);
-        environments.add(env3);
 
         propertyPriceResponseDTO.setProp_name("Prop1");
         propertyPriceResponseDTO.setProp_price(74000d);
-
-        propertyPriceResponseDTO.setEnviroments(environments);
 
         return propertyPriceResponseDTO;
     }
@@ -76,7 +45,7 @@ public class Utils {
          List<EnvironmentM2DTO> environmentM2DTOList = new ArrayList<>();
 
          propertyM2EnvsResponseDTO.setProp_name("Prop1");
-         EnvironmentM2DTO environmentM2DTO1 = new EnvironmentM2DTO("Environment1",51d);
+         EnvironmentM2DTO environmentM2DTO1 = new EnvironmentM2DTO("Environment1",50d);
          EnvironmentM2DTO environmentM2DTO2 = new EnvironmentM2DTO("Environment2",42d);
          EnvironmentM2DTO environmentM2DTO3 = new EnvironmentM2DTO("Environment3",56d);
 
@@ -87,6 +56,20 @@ public class Utils {
 
          return propertyM2EnvsResponseDTO;
      }
+
+    public static  List<EnvironmentM2DTO> getSquareMetersEnvListDTO(){
+        List<EnvironmentM2DTO> environmentM2DTOList = new ArrayList<>();
+
+        EnvironmentM2DTO environmentM2DTO1 = new EnvironmentM2DTO("Environment1",50d);
+        EnvironmentM2DTO environmentM2DTO2 = new EnvironmentM2DTO("Environment2",42d);
+        EnvironmentM2DTO environmentM2DTO3 = new EnvironmentM2DTO("Environment3",56d);
+
+        environmentM2DTOList.add(environmentM2DTO1);
+        environmentM2DTOList.add(environmentM2DTO2);
+        environmentM2DTOList.add(environmentM2DTO3);
+
+        return environmentM2DTOList;
+    }
 
         public static PropertyRequestDTO getPropertyRequestDTO(){
          PropertyRequestDTO propertyRequestDTO = new PropertyRequestDTO();
@@ -114,9 +97,9 @@ public class Utils {
          public static Property getProperty(){
           ArrayList<Environment> environments = new ArrayList<>();
           int id=1;
-             Environment env1 = new Environment("Enviroment1",5d,10d);
-             Environment env2 = new Environment("Enviroment2",6d,7d);
-             Environment env3 = new Environment("Enviroment3",7d,8d);
+             Environment env1 = new Environment("Environment1",5d,10d);
+             Environment env2 = new Environment("Environment2",6d,7d);
+             Environment env3 = new Environment("Environment3",7d,8d);
              District district = new District(1,"District1",500d);
              Property prop1 = new Property(1,"Prop1",district,null);
 

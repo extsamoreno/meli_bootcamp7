@@ -4,15 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PropertyM2EnvsResponseDTO {
+public class PropertyDTO {
 
+    private int prop_id;
     private String prop_name;
-    private List<EnvironmentM2DTO> enviroments = new ArrayList<>();
-}
+    private DistrictDTO district;
+    private List<EnvironmentDTO> environments;
 
+}

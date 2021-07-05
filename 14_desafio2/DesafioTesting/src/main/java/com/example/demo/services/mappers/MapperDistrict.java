@@ -3,7 +3,9 @@ package com.example.demo.services.mappers;
 import com.example.demo.model.District;
 import com.example.demo.dtos.DistrictDTO;
 import com.example.demo.dtos.DistrictRequestDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MapperDistrict {
 
     public static District toDistrict(DistrictDTO districtDTO){

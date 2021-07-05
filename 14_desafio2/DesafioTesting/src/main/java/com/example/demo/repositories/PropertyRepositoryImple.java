@@ -4,8 +4,6 @@ import com.example.demo.exceptions.PropertyDontFoundException;
 import com.example.demo.model.District;
 import com.example.demo.model.Environment;
 import com.example.demo.model.Property;
-import com.example.demo.dtos.*;
-import com.example.demo.services.mappers.MapperProperty;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -33,57 +31,13 @@ public class PropertyRepositoryImple implements PropertyRepository {
     }
 
     @Override
-    public PropertyM2ResponseDTO getSquareMeter(int propId) throws PropertyDontFoundException {
+    public Property addProperty(Property property) {
 
-        PropertyM2ResponseDTO propertyM2ResponseDTO;
-        Property property = findPropertyById(propId);
-
-        propertyM2ResponseDTO = MapperProperty.toPropertyM2ResponseDTO(property);
-
-        return propertyM2ResponseDTO;
-    }
-
-    @Override
-    public PropertyPriceResponseDTO getPrice(int propId) throws PropertyDontFoundException {
-        PropertyPriceResponseDTO propertyPriceResponseDTO;
-        Property property = findPropertyById(propId);
-
-        propertyPriceResponseDTO = MapperProperty.toPropertyPriceResponseDTO(property);
-
-        return propertyPriceResponseDTO;
-    }
-
-    @Override
-    public BiggestPropResponseDTO getBiggestEnvProp(int propId) throws PropertyDontFoundException {
-        BiggestPropResponseDTO biggestPropResponseDTO;
-        Property property = findPropertyById(propId);
-
-        biggestPropResponseDTO = MapperProperty.toBiggestPropResponseDTO(property);
-
-        return biggestPropResponseDTO;
-    }
-
-    @Override
-    public PropertyM2EnvsResponseDTO getMeterSquareEnvs(int propId) throws PropertyDontFoundException {
-        PropertyM2EnvsResponseDTO propertyM2EnvsResponseDTO;
-        Property property = findPropertyById(propId);
-
-        propertyM2EnvsResponseDTO = MapperProperty.toPropertyM2EnvsDTO(property);
-
-        return propertyM2EnvsResponseDTO;
-    }
-
-    @Override
-    public PropertyRequestDTO addProperty(PropertyRequestDTO propertyRequestDTO) {
-
-
-        Property property = MapperProperty.toProperty(propertyRequestDTO);
-        property.setProp_id(id++);
-
+        property.setProp_id(++id);
 
         properties.add(property);
 
-        return propertyRequestDTO;
+        return property;
     }
 
     @Override

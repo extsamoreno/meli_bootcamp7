@@ -1,6 +1,6 @@
 package com.example.demo.unit.controllers;
 
-import com.example.demo.Utils;
+import com.example.demo.Utils.Utils;
 import com.example.demo.controllers.DistrictController;
 import com.example.demo.dtos.DistrictDTO;
 import com.example.demo.dtos.DistrictRequestDTO;

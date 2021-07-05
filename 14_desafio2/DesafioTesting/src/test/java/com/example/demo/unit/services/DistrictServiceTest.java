@@ -1,6 +1,6 @@
 package com.example.demo.unit.services;
 
-import com.example.demo.Utils;
+import com.example.demo.Utils.Utils;
 import com.example.demo.dtos.DistrictDTO;
 import com.example.demo.dtos.DistrictRequestDTO;
 import com.example.demo.exceptions.DistrictDontFoundException;
@@ -24,7 +24,7 @@ public class DistrictServiceTest {
     DistrictServiceImple districtServiceImple;
 
     @Test
-    public void createDistrict() throws DistrictDontFoundException {
+    public void createDistrict(){
 
         //arrange
         DistrictRequestDTO expected = Utils.getDistrictRequestDTO();

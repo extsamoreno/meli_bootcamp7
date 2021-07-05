@@ -8,5 +8,4 @@ public interface DistrictRepository {
     DistrictRequestDTO createDistrict(DistrictRequestDTO districtRequestDTO);
     void loadData();
     DistrictDTO findDistrictById(int disId) throws DistrictDontFoundException;
-
 }
