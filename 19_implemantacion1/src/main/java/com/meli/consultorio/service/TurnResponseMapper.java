@@ -5,6 +5,6 @@ import com.meli.consultorio.model.Turn;
 
 public class TurnResponseMapper {
     public static TurnResponse toResponse(Turn turn){
-        return new TurnResponse(turn.getSch_id(), turn.getSch_date(), turn.getSch_patient().getPat_id(), turn.getSch_professional().getPro_id());
+        return new TurnResponse(turn.getTur_id(), turn.getTur_date(), turn.getTur_patient().getPat_id(), turn.getTur_professional().getPro_id());
     }
 }

@@ -19,6 +19,6 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pat_id;
     private String pat_obra_social;
-    @OneToMany(mappedBy = "sch_patient")
-    private Set<Turn> scheduleSet;
+
 }
+

@@ -19,10 +19,8 @@ public class Schedule {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer sch_id;
-        private Date sch_date;
-        @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(referencedColumnName = "pat_id")
-        private Patient sch_patient;
+        private Date sch_date_in;
+        private Date sch_date_out;
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(referencedColumnName = "pro_id")
         private Professional sch_professional;

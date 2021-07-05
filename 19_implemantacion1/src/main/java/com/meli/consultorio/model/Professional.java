@@ -20,7 +20,5 @@ public class Professional {
     private Integer pro_id;
     private String pro_name;
     private String pro_last_name;
-    @OneToMany(mappedBy = "sch_professional")
-    private Set<Turn> turnSet;
 
 }
