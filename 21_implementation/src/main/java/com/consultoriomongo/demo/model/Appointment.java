@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Document
-public class appointment {
+public class Appointment {
 
     LocalDate date;
     LocalTime time;
