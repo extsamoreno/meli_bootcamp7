@@ -1,4 +1,4 @@
-package com.consultoriomongo.demo.controller;
+package com.consultoriomongo.demo.service;
 
 import com.consultoriomongo.demo.model.Appointment;
 

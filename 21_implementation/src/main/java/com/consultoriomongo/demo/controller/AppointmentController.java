@@ -1,6 +1,7 @@
 package com.consultoriomongo.demo.controller;
 
 import com.consultoriomongo.demo.model.Appointment;
+import com.consultoriomongo.demo.service.IAppointmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
