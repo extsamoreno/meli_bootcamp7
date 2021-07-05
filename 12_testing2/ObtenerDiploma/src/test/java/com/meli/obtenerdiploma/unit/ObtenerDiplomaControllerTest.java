@@ -4,6 +4,7 @@ import com.meli.obtenerdiploma.controller.ObtenerDiplomaController;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.service.IObtenerDiplomaService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,8 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ObtenerDiplomaControllerTest {
@@ -24,24 +26,21 @@ public class ObtenerDiplomaControllerTest {
   private ObtenerDiplomaController obtenerDiplomaController;
 
   @Test
-  // Arrange
-  Long id = 18L;
-  String name = "Test";
-  String message = "";
-  Double average = 0.00;
-  SubjectDTO subjectA = new SubjectDTO("Matemática", 8.00);
-  SubjectDTO subjectB = new SubjectDTO("Lengua", 7.50);
-  SubjectDTO subjectC = new SubjectDTO("Ed. Física", 7.00);
-  List<SubjectDTO> subjects = Arrays.asList(subjectA, subjectB, subjectC);
+  public void obtenerDiplomaHappyPath(){
+    // Arrange
+    Long studentId = 1L;
+    SubjectDTO subject = new SubjectDTO( "Matematica", 9.0);
+    SubjectDTO subject2 = new SubjectDTO( "Lengua", 10.0);
+    List<SubjectDTO> subjects = new ArrayList<SubjectDTO>();
+    subjects.add(subject);
+    subjects.add(subject2);
+    StudentDTO student =  new StudentDTO(studentId,"Juan", "hola", 0.0, subjects);
+    when(obtenerDiplomaService.analyzeScores(studentId)).thenReturn(student);
+    // Act
+    StudentDTO received = obtenerDiplomaController.analyzeScores(studentId);
 
-  StudentDTO expectedStudent = new StudentDTO(id,name,message,average,subjects);
-  //when()
+    //Assert
+    Assertions.assertEquals(received, student);
 
-  // Act
-  StudentDTO currentStudent = obtenerDiplomaController.analyzeScores(id);
-
-  // Assert
-
-
+  }
 }
-

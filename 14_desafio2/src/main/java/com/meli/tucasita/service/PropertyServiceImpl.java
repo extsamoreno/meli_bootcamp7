@@ -28,7 +28,6 @@ public class PropertyServiceImpl implements PropertyService {
       }
     }
     if (!flag) throw new PropertyDistrictIdNotFoundException(propertyDto.getDistrictId());
-
     propertiesDto.put(propertyDto.getId(), propertyDto);
     return propertiesDto;
   }

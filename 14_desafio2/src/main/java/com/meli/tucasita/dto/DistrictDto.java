@@ -9,7 +9,6 @@ import javax.validation.constraints.*;
 @AllArgsConstructor
 
 public class DistrictDto {
-
   @NotNull
   private int id;
 

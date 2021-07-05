@@ -15,14 +15,6 @@ CREATE SCHEMA IF NOT EXISTS `consultory` DEFAULT CHARACTER SET utf8 ;
 USE `consultory` ;
 
 -- -----------------------------------------------------
--- Table `consultory`.`table1`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `consultory`.`table1` (
-)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `consultory`.`patient`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `consultory`.`patient` (
@@ -129,23 +121,6 @@ CREATE TABLE IF NOT EXISTS `consultory`.`turno_x_agenda` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `consultory`.`table2`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `consultory`.`table2` (
-)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `consultory`.`turn_x_schedule`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `consultory`.`turn_x_schedule` (
-)
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `consultory`.`turn_has_schedule`
