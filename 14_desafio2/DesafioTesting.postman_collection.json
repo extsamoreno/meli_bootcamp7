@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "d114deff-e29c-4058-ae18-73adc9f7ea6f",
+		"name": "DesafioTesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Validations",
+			"item": [
+				{
+					"name": "prop_name",
+					"item": [
+						{
+							"name": "wrong_propName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"luis House\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "empty_propName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "maxLenght_propName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitezzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "district_name",
+					"item": [
+						{
+							"name": "empty_districtName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "maxLenght_districtName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "district_price",
+					"item": [
+						{
+							"name": "wrong_districtPrice",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 5000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "empty_ditrictPrice",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": null,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "environment_name",
+					"item": [
+						{
+							"name": "wrong_environmentName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 5000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "empty_environmentName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "maxLenght_environmentName",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacionnnnnnnnnnnnnnnnnnnnnnnnn\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "environmet_widht",
+					"item": [
+						{
+							"name": "max_environmentWidht",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacionnnnnnnnnnnnnnnnnnnnnnnnn\",\n        \"width\": 7890,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "null_environmentwidht",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": null,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "environment_lenght",
+					"item": [
+						{
+							"name": "null_environmentLenght",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": null\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "max_environmentLenght",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameProperty\": \"Luis Benitez\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 1903\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/calculateTotalSquareMeters",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"calculateTotalSquareMeters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "CalculateTotalSquareMeters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nameProperty\": \"Luis House\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/calculateTotalSquareMeters",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculateTotalSquareMeters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CalculatePrice",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nameProperty\": \"Luis House\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/calculatePrice",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculatePrice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetBiggestEnvironment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nameProperty\": \"Luis House\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/getBiggestEnvironment",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getBiggestEnvironment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CalculateSquareMetersPerEnvironment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nameProperty\": \"Luis House\",\n    \"nameDistrict\": \"Alberdi\",\n    \"priceDistrict\": 1000.0,\n    \"environment\": [\n      {\n        \"nameEnvironment\": \"Habitacion\",\n        \"width\": 3,\n        \"length\": 2\n      },\n      {\n        \"nameEnvironment\": \"Cocina\",\n        \"width\": 2,\n        \"length\": 4\n      },\n      {\n        \"nameEnvironment\": \"Baño\",\n        \"width\": 2,\n        \"length\": 2\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/calculateSquareFeetPerRoom",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculateSquareFeetPerRoom"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

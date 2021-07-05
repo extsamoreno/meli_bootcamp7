@@ -48,7 +48,7 @@ public class DistrictRepository implements IDistrictRepository{
     }
 
     @Override
-    public DistrictDTO getDistrictByNameAndPrice(String nameDistrict, Double priceDistrict) throws DistrictNotFoundException {
+    public DistrictDTO getDistrictByNameAndPrice(String nameDistrict, Double priceDistrict) throws DistrictNotFoundException{
         return this.district.stream()
                 .filter(district -> district.getNameDistrict().equals(nameDistrict) && district.getPriceDistrict().equals(priceDistrict))
                 .findFirst().orElseThrow(() -> new DistrictNotFoundException("The district with name: " + nameDistrict + " and price: " + priceDistrict + " doesn't belong to the database."));

@@ -5,11 +5,13 @@ import com.meli.desafio2.Exception.DistrictNotFoundException;
 import com.meli.desafio2.Repository.DistrictRepository;
 import com.meli.desafio2.Repository.IDistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-@Service
+@Service("PropertyService")
+@Primary
 public class PropertyService implements IPropertyService {
     @Autowired
     IDistrictRepository iDistrictRepository;
@@ -84,11 +86,11 @@ public class PropertyService implements IPropertyService {
         return price;
     }
 
-    private DistrictDTO districtByNameAndPrice(String districtName, Double districtPrice){
+    private DistrictDTO districtByNameAndPrice(String nameDistrict, Double priceDistrict){
         DistrictDTO district = null;
         try{
-            district = iDistrictRepository.getDistrictByNameAndPrice(districtName, districtPrice);
-        } catch (DistrictNotFoundException e) {
+            district = iDistrictRepository.getDistrictByNameAndPrice(nameDistrict, priceDistrict);
+        }catch (NoSuchFieldException e){
             e.printStackTrace();
         }
         return district;

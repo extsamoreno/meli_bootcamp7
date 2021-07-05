@@ -1,9 +1,6 @@
 package com.meli.desafio2.Controller;
 
-import com.meli.desafio2.DTOS.EnvironmentDTO;
-import com.meli.desafio2.DTOS.PropertyDTO;
-import com.meli.desafio2.DTOS.PropertyResponseTotalSquareMetersDTO;
-import com.meli.desafio2.DTOS.PropertyResponseValueDTO;
+import com.meli.desafio2.DTOS.*;
 import com.meli.desafio2.Service.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +13,7 @@ import javax.validation.Valid;
 @RestController
 public class PropertyController {
     @Autowired
+    @Qualifier("PropertyService")
     private IPropertyService iPropertyService;
 
     // US-0001: Calcular el total de metros cuadrados de una propiedad
@@ -37,5 +35,11 @@ public class PropertyController {
     @PostMapping("/getBiggestEnvironment")
     public EnvironmentDTO getBiggestEnvironment(@Valid @RequestBody PropertyDTO property){
         return iPropertyService.getBiggestEnvironment(property);
+    }
+
+    // US-0004: Determinar la cantidad de metros cuadrados que tiene cada ambiente de una propiedad.
+    @PostMapping("/calculateSquareMetersPerEnvironment")
+    public PropertyResponseSquareMetersPerEnvDTO calculateSquareMetersPerEnv(@Valid @RequestBody PropertyDTO property){
+        return iPropertyService.calculateSquareMetersPerEnv(property);
     }
 }

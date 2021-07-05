@@ -6,5 +6,5 @@ import com.meli.desafio2.Exception.DistrictNotFoundException;
 import java.util.List;
 
 public interface IDistrictRepository {
-    DistrictDTO getDistrictByNameAndPrice(String nameDistrict, Double priceDistrict) throws DistrictNotFoundException;
+    DistrictDTO getDistrictByNameAndPrice(String nameDistrict, Double priceDistrict) throws NoSuchFieldException;
 }

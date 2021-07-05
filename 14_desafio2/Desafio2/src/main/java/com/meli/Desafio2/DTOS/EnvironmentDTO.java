@@ -8,18 +8,17 @@ import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class EnvironmentDTO {
     @NotBlank(message = "The environment name cannot be empty.")
     @Pattern(regexp="^([A-Z].*)$|^$", message = "The environment name must begin with a capital letter.")
     @Size(max = 30, message = "The length of the environment name cannot exceed 30 characters")
     private String nameEnvironment;
 
-    @NotNull(message = "El ancho del ambiente no puede estar vacío.")
-    @Max(value = 25, message = "El máximo ancho permitido por propiedad es de 25 mts.")
+    @NotNull(message = "The environment widht cannot be empty.")
+    @Max(value = 25, message = "The maximum width allowed per property is 25 meters.")
     private Integer width;
 
-    @NotNull(message = "El largo del ambiente no puede estar vacío.")
-    @Max(value = 33, message = "El máximo largo permitido por propiedad es de 33 mts.")
+    @NotNull(message = "The environment lenght cannot be empty.")
+    @Max(value = 33, message = "The maximum width allowed per property is 33 meters.")
     private Integer length;
 }
