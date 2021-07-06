@@ -35,7 +35,7 @@ public class TurnService implements ITurnService {
         turn.setDescription(turnDTO.getDescription());
         turn.setStatus(turnDTO.getStatus());
         if(turnDTO.getIdToReprogTurn() != null) turn.setIdToReprogTurn(turnDTO.getIdToReprogTurn());
-        //if(saveTurnTime(turnDTO.getStartTime())) throw new RuntimeException("");
+        if(saveTurnTime(turnDTO.getStartTime())) throw new RuntimeException("");
         turn.setStartTime(turnDTO.getStartTime());
         turn.setStartTime(turnDTO.getStartTime());
         turn.setPatient(patient);
@@ -46,13 +46,13 @@ public class TurnService implements ITurnService {
         turn.setDentistset(dentists);
         iTurnRepository.save(turn);
     }
-/*
+
     private boolean saveTurnTime(Date startDate){
         boolean res = true;
-        startDate.
+
         return res;
     }
-*/
+
 
     private TurnDTO createReprogramedTurn(TurnDTO turnDTO) throws Exception{
         Turn turn = iTurnRepository.findById(turnDTO.getIdToReprogTurn()).orElseThrow(() -> new RuntimeException("Turno no encontrado"));

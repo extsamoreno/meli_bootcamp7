@@ -1,4 +1,5 @@
 package com.appconsultorio.appconsultorio.controller;
+import com.appconsultorio.appconsultorio.dtos.request.DentistDTO;
 import com.appconsultorio.appconsultorio.model.Dentist;
 import com.appconsultorio.appconsultorio.service.IDentistService;
 import lombok.AllArgsConstructor;
@@ -14,14 +15,14 @@ public class DentistController {
     IDentistService iDentistService;
 
     @PostMapping("/create")
-    public String loadDentist(@RequestBody Dentist dentist){
-        iDentistService.createDentist(dentist);
+    public String loadDentist(@RequestBody DentistDTO dentistDTO){
+        iDentistService.createDentist(dentistDTO);
         return "Odontologo creado correctamente";
     }
 
     @PostMapping("/edit")
-    public String editDentist(@RequestBody Dentist dentist){
-        iDentistService.updateDentist(dentist);
+    public String editDentist(@RequestBody DentistDTO dentistDTO){
+        iDentistService.updateDentist(dentistDTO);
         return "Odontologo editado correctamente";
     }
 

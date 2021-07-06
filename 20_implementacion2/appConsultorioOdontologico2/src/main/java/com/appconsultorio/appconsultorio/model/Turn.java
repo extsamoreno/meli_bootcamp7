@@ -41,7 +41,7 @@ public class Turn {
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
-            name = "schedule",
+            name = "turns_dentists",
             joinColumns = @JoinColumn(name = "id_turn"),
             inverseJoinColumns = @JoinColumn(name = "id_dentist")
             

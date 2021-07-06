@@ -1,7 +1,10 @@
 package com.appconsultorio.appconsultorio.service;
+import com.appconsultorio.appconsultorio.dtos.request.DentistDTO;
 import com.appconsultorio.appconsultorio.model.Dentist;
+import com.appconsultorio.appconsultorio.model.Patient;
 import com.appconsultorio.appconsultorio.repository.IDentistRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,15 +13,18 @@ import java.util.List;
 @AllArgsConstructor
 public class DentistService implements IDentistService {
 
+    ModelMapper mapper;
     IDentistRepository iDentistRepository;
 
     @Override
-    public void createDentist(Dentist dentist) {
+    public void createDentist(DentistDTO dentistDTO) {
+        Dentist dentist = mapper.map(dentistDTO, Dentist.class);
         iDentistRepository.save(dentist);
     }
 
     @Override
-    public void updateDentist(Dentist dentist) {
+    public void updateDentist(DentistDTO dentistDTO) {
+        Dentist dentist = mapper.map(dentistDTO, Dentist.class);
         iDentistRepository.save(dentist);
     }
 
