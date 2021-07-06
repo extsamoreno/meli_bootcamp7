@@ -1,8 +1,8 @@
-package com.meli.desafio2.Controller;
+package com.meli.desafio2.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.desafio2.DTOS.EnvironmentDTO;
-import com.meli.desafio2.DTOS.PropertyDTO;
+import com.meli.desafio2.dtos.EnvironmentDTO;
+import com.meli.desafio2.dtos.PropertyDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

@@ -1,17 +1,15 @@
-package com.meli.desafio2.Repository;
+package com.meli.desafio2.repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meli.desafio2.DTOS.DistrictDTO;
-import com.meli.desafio2.Exception.DistrictNotFoundException;
+import com.meli.desafio2.dtos.DistrictDTO;
+import com.meli.desafio2.exceptions.DistrictNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 
 @Repository

@@ -1,9 +1,9 @@
-package com.meli.desafio2.Service;
+package com.meli.desafio2.services;
 
 import com.meli.desafio2.BaseTest;
-import com.meli.desafio2.DTOS.*;
-import com.meli.desafio2.Exception.DistrictNotFoundException;
-import com.meli.desafio2.Repository.IDistrictRepository;
+import com.meli.desafio2.dtos.*;
+import com.meli.desafio2.exceptions.DistrictNotFoundException;
+import com.meli.desafio2.repositories.IDistrictRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

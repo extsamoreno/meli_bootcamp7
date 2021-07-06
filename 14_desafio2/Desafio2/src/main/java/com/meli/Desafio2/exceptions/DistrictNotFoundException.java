@@ -1,4 +1,4 @@
-package com.meli.desafio2.Exception;
+package com.meli.desafio2.exceptions;
 
 
 public class DistrictNotFoundException extends RuntimeException {

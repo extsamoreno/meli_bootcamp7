@@ -1,9 +1,8 @@
-package com.meli.desafio2.Controller;
+package com.meli.desafio2.controllers;
 
-import com.meli.desafio2.DTOS.*;
-import com.meli.desafio2.Service.IPropertyService;
+import com.meli.desafio2.dtos.*;
+import com.meli.desafio2.services.IPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +12,6 @@ import javax.validation.Valid;
 @RestController
 public class PropertyController {
     @Autowired
-    @Qualifier("PropertyService")
     private IPropertyService iPropertyService;
 
     // US-0001: Calcular el total de metros cuadrados de una propiedad

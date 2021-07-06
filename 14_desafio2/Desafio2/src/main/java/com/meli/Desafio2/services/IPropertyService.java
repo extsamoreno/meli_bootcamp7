@@ -1,6 +1,6 @@
-package com.meli.desafio2.Service;
+package com.meli.desafio2.services;
 
-import com.meli.desafio2.DTOS.*;
+import com.meli.desafio2.dtos.*;
 
 public interface IPropertyService {
     PropertyResponseTotalSquareMetersDTO calculateTotalSquareMeters(PropertyDTO property);

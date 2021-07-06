@@ -1,7 +1,7 @@
 package com.meli.desafio2;
 
-import com.meli.desafio2.DTOS.EnvironmentDTO;
-import com.meli.desafio2.DTOS.PropertyDTO;
+import com.meli.desafio2.dtos.EnvironmentDTO;
+import com.meli.desafio2.dtos.PropertyDTO;
 import lombok.Data;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

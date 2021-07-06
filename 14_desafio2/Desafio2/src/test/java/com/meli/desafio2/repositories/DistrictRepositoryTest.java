@@ -1,7 +1,7 @@
-package com.meli.desafio2.Repository;
+package com.meli.desafio2.repositories;
 
-import com.meli.desafio2.DTOS.DistrictDTO;
-import com.meli.desafio2.Exception.DistrictNotFoundException;
+import com.meli.desafio2.dtos.DistrictDTO;
+import com.meli.desafio2.exceptions.DistrictNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

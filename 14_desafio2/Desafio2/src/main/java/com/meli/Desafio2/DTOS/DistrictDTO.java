@@ -1,4 +1,4 @@
-package com.meli.desafio2.DTOS;
+package com.meli.desafio2.dtos;
 
 import lombok.*;
 

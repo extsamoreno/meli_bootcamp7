@@ -1,9 +1,7 @@
-package com.meli.desafio2.Service;
+package com.meli.desafio2.services;
 
-import com.meli.desafio2.DTOS.*;
-import com.meli.desafio2.Exception.DistrictNotFoundException;
-import com.meli.desafio2.Repository.DistrictRepository;
-import com.meli.desafio2.Repository.IDistrictRepository;
+import com.meli.desafio2.dtos.*;
+import com.meli.desafio2.repositories.IDistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package com.meli.desafio2.Controller;
+package com.meli.desafio2.controllers;
 
-import com.meli.desafio2.DTOS.ErrorDTO;
-import com.meli.desafio2.Exception.DistrictNotFoundException;
+import com.meli.desafio2.dtos.ErrorDTO;
+import com.meli.desafio2.exceptions.DistrictNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
