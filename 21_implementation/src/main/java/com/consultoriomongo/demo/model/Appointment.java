@@ -1,18 +1,25 @@
 package com.consultoriomongo.demo.model;
 
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
-@Document
+@Data
+@Document(value = "Appoiment")
 public class Appointment {
 
-    LocalDate date;
-    LocalTime time;
+    String date;
+    String time;
+
     Doctor doctor;
+
     @Field(name = "paciente")
     Patient patient;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    String status;
 
 }
