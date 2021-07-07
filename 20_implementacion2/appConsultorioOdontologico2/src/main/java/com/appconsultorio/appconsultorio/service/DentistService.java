@@ -1,7 +1,9 @@
 package com.appconsultorio.appconsultorio.service;
 import com.appconsultorio.appconsultorio.dtos.request.DentistDTO;
+import com.appconsultorio.appconsultorio.model.Calendars;
 import com.appconsultorio.appconsultorio.model.Dentist;
 import com.appconsultorio.appconsultorio.model.Patient;
+import com.appconsultorio.appconsultorio.repository.ICalendarRepository;
 import com.appconsultorio.appconsultorio.repository.IDentistRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,10 +17,12 @@ public class DentistService implements IDentistService {
 
     ModelMapper mapper;
     IDentistRepository iDentistRepository;
+    ICalendarRepository iCalendarRepository;
 
     @Override
     public void createDentist(DentistDTO dentistDTO) {
         Dentist dentist = mapper.map(dentistDTO, Dentist.class);
+        dentist.setCalendars(new Calendars(dentist));
         iDentistRepository.save(dentist);
     }
 

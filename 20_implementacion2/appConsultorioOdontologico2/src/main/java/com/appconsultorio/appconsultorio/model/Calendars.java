@@ -1,6 +1,8 @@
 package com.appconsultorio.appconsultorio.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Calendars")
 public class Calendars {
 
@@ -59,5 +63,9 @@ public class Calendars {
     @JoinColumn(name = "id_dentist")
     @OneToOne(fetch = FetchType.LAZY)
     private Dentist dentist;
+
+    public Calendars(Dentist dentist) {
+        this.dentist = dentist;
+    }
 
 }

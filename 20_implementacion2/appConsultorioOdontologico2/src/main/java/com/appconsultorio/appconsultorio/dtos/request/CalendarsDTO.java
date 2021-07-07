@@ -15,7 +15,6 @@ import java.util.List;
 public class CalendarsDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date day;
-
     private boolean turn1;
     private boolean turn2;
     private boolean turn3;

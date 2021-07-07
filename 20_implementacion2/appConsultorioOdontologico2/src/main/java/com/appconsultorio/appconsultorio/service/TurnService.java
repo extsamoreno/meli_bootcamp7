@@ -27,7 +27,7 @@ public class TurnService implements ITurnService {
 
         if(turnDTO.getStatus().equals("Reprogramado")) turnDTO = createReprogramedTurn(turnDTO);
 
-        Patient patient = iPatientRepository.findById(turnDTO.getIdPatient()).orElse(null);
+        Patient patient = iPatientRepository.findById(turnDTO.getIdPatient()).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
         Turn turn = new Turn();
         Set<Dentist> dentists = new HashSet<>();//Collections.emptySet() -> Si pongo esto no puedo agregar optionals
         Optional<Dentist> dentist = Optional.empty();
@@ -35,7 +35,7 @@ public class TurnService implements ITurnService {
         turn.setDescription(turnDTO.getDescription());
         turn.setStatus(turnDTO.getStatus());
         if(turnDTO.getIdToReprogTurn() != null) turn.setIdToReprogTurn(turnDTO.getIdToReprogTurn());
-        if(saveTurnTime(turnDTO.getStartTime())) throw new RuntimeException("");
+        if(!saveTurnTime(turnDTO.getStartTime())) throw new RuntimeException("Turno no disponible");
         turn.setStartTime(turnDTO.getStartTime());
         turn.setStartTime(turnDTO.getStartTime());
         turn.setPatient(patient);
@@ -48,14 +48,16 @@ public class TurnService implements ITurnService {
     }
 
     private boolean saveTurnTime(Date startDate){
-        boolean res = true;
-
+        boolean res = false;
+        long minutes = startDate.getMinutes();
+        if(minutes == 30 || minutes == 0) res = true;
         return res;
     }
 
 
     private TurnDTO createReprogramedTurn(TurnDTO turnDTO) throws Exception{
         Turn turn = iTurnRepository.findById(turnDTO.getIdToReprogTurn()).orElseThrow(() -> new RuntimeException("Turno no encontrado"));
+        changeStatusOfTurn(turn, "Reprogramado");
         if(turn.getStartTime().compareTo(turnDTO.getStartTime()) == 0) throw new RuntimeException("El horario de la reprogramacion no puede ser el mismo que el original");
         return new TurnDTO(
                 turn.getDescription(),
@@ -66,6 +68,11 @@ public class TurnService implements ITurnService {
                 turnDTO.getIdDentist());
     }
 
+
+    private void changeStatusOfTurn(Turn turn, String status){
+        turn.setStatus(status);
+        iTurnRepository.save(turn);
+    }
 
     @Override
     public void updateTurn(Turn turn) {
