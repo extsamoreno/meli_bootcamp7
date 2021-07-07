@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
@@ -40,7 +42,7 @@ public class CrudServiceTest {
         Propiety propiety1 = CreateProperties.create1HouseWith2Rooms1x1(value, "Constitucion");
 
         when(propertyMapper.mapToModel(propietyDTO)).thenReturn(propiety1);
-        when(iPropietyRepository.create(propiety1)).thenReturn(true);
+        when(iPropietyRepository.create(propiety1)).thenReturn(Optional.of(propiety1));
 
         String received = crudService.createPropiety(propietyDTO);
 
@@ -57,7 +59,7 @@ public class CrudServiceTest {
         Propiety propiety1 = CreateProperties.create1HouseWith2Rooms1x1(value, "Constitucion");
 
         when(propertyMapper.mapToModel(propietyDTO)).thenReturn(propiety1);
-        when(iPropietyRepository.create(propiety1)).thenReturn(false);
+        when(iPropietyRepository.create(propiety1)).thenReturn(Optional.empty());
 
         assertThrows(PropietyAlreadyExistException.class,() ->crudService.createPropiety(propietyDTO));
         verify(iPropietyRepository, Mockito.atLeast(1)).create(propiety1);

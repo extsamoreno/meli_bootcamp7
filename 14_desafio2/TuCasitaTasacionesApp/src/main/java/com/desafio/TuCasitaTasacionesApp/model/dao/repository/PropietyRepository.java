@@ -24,36 +24,21 @@ public class PropietyRepository implements IPropietyRepository {
     /*********************************************/
 
     @Override
-    public boolean create(Propiety propiety){
-        boolean res = true;
-        if(!exist(propiety)) propietyList.add(propiety);
-        else res = false;
-        return res;
-    }
-
-    /****
-    @Override
     public Optional<Propiety> create(Propiety propiety) {
-        propietyList.add(propiety);
-        return Optional.of(propiety);
-    }
-    *****/
-
-    @Override
-    public boolean exist(Propiety propiety){
-        boolean res = false;
-        for (Propiety propietyAux : propietyList) {
-            if (propiety.equals(propietyAux)) res = true;
+        Optional<Propiety> propietyOptional = Optional.empty();
+        if(get(propiety.getName()).isEmpty()){
+            propietyList.add(propiety);
+            propietyOptional = Optional.of(propiety);
         }
-        return res;
+        return propietyOptional;
     }
 
     @Override
-    public Propiety get(String name){
-        Propiety propiety = null;
+    public Optional<Propiety> get(String name){
+        Optional<Propiety> propietyOptional = Optional.empty();
         for (Propiety propietyAux : propietyList) {
-            if (propietyAux.getName().equals(name)) propiety = propietyAux;
+            if (propietyAux.getName().equals(name)) propietyOptional = Optional.of(propietyAux);
         }
-        return propiety;
+        return propietyOptional;
     }
 }

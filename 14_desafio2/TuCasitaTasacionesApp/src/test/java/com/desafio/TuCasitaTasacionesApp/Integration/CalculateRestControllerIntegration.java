@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Optional;
+
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -42,7 +44,7 @@ public class CalculateRestControllerIntegration {
         Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
         PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
 
-        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(iPropietyRepository.get(name)).thenReturn(Optional.of(propiety));
         when(mapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/propiety/calculate/squearemeter?name=Dummy", 1))
@@ -60,7 +62,7 @@ public class CalculateRestControllerIntegration {
         Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
         PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
 
-        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(iPropietyRepository.get(name)).thenReturn(Optional.of(propiety));
         when(mapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/propiety/calculate/value?name=Dummy", 1))
@@ -78,7 +80,7 @@ public class CalculateRestControllerIntegration {
         Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
         PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
 
-        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(iPropietyRepository.get(name)).thenReturn(Optional.of(propiety));
         when(mapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/propiety/room/obtainbiggest?name=Dummy", 1))
@@ -96,7 +98,7 @@ public class CalculateRestControllerIntegration {
         Propiety propiety = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
         PropietyDTO propietyDTO = CreateProperties.create1HouseDTOWith2Rooms1x1(name, neighborhood);
 
-        when(iPropietyRepository.get(name)).thenReturn(propiety);
+        when(iPropietyRepository.get(name)).thenReturn(Optional.of(propiety));
         when(mapper.mapToDTO(propiety)).thenReturn(propietyDTO);
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/propiety/room/calculate/squearemeter?name=Dummy", 1))

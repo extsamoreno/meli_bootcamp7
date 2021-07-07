@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,10 +23,10 @@ class PropietyRepositoryTest {
         PropietyRepository propietyRepository = new PropietyRepository();
 
         //act
-        boolean receive = propietyRepository.create(propiety);
+        Optional <Propiety> receive = propietyRepository.create(propiety);
 
         //assert
-        assertTrue(receive);
+        assertTrue(receive.isPresent());
     }
 
 
@@ -38,10 +40,10 @@ class PropietyRepositoryTest {
 
         //act
         propietyRepository.create(propiety);
-        boolean receive = propietyRepository.create(propiety);
+        Optional <Propiety> receive = propietyRepository.create(propiety);
 
         //assert
-        assertFalse(receive);
+        assertFalse(receive.isPresent());
     }
 
     @Test
@@ -49,29 +51,27 @@ class PropietyRepositoryTest {
         //arrange
         String name = "name";
         String neighborhood = "Constitucion";
-        Propiety expected = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
+        Propiety property = CreateProperties.create1HouseWith2Rooms1x1(name, neighborhood);
         PropietyRepository propietyRepository = new PropietyRepository();
-        propietyRepository.create(expected);
+        Optional <Propiety> expected = propietyRepository.create(property);
 
         //act
-        Propiety receive = propietyRepository.get(name);
+        Optional<Propiety> receive = propietyRepository.get(name);
 
         //assert
         assertEquals(expected, receive);
     }
 
     @Test
-    void getPropiety_propietyNotFound_null(){
+    void getPropiety_propietyNotFound_EmptyOptional(){
         //arrange
-        String name = "name";
-        String neighborhood = "Constitucion";
         PropietyRepository propietyRepository = new PropietyRepository();
 
         //act
-        Propiety propiety = propietyRepository.get("names");
+        Optional<Propiety> propiety = propietyRepository.get("names");
 
         //assert
-        assertNull(propiety);
+        assertTrue(propiety.isEmpty());
     }
 
 }

@@ -8,6 +8,8 @@ import com.desafio.TuCasitaTasacionesApp.model.exceptions.PropietyNotFoundExcept
 import com.desafio.TuCasitaTasacionesApp.model.mapper.PropertyMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static com.desafio.TuCasitaTasacionesApp.model.dao.repository.PropietyRepository.m2PriceForNeighborhood;
 
 
@@ -24,9 +26,9 @@ public class CalculateService implements ICalculateService {
     }
 
     private PropietyDTO getPropiety(String name) throws PropietyNotFoundException {
-        Propiety propiety = iPropietyRepository.get(name);
-        if(propiety == null) throw new PropietyNotFoundException(name);
-        PropietyDTO propietyDTO = mapper.mapToDTO(propiety);
+        Optional<Propiety> propiety = iPropietyRepository.get(name);
+        if(propiety.isEmpty()) throw new PropietyNotFoundException(name);
+        PropietyDTO propietyDTO = mapper.mapToDTO(propiety.get());
         return propietyDTO;
     }
 

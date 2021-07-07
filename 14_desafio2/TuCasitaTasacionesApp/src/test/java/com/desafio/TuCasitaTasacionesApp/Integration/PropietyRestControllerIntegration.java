@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Optional;
+
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -53,7 +55,7 @@ public class PropietyRestControllerIntegration {
         String jsonRequestDTO = createWriter().writeValueAsString(propietyDTO);
 
         when(propertyMapper.mapToModel(propietyDTO)).thenReturn(propiety);
-        when(iPropietyRepository.create(propiety)).thenReturn(true);
+        when(iPropietyRepository.create(propiety)).thenReturn(Optional.of(propiety));
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/propieties/new")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -75,7 +77,7 @@ public class PropietyRestControllerIntegration {
         String jsonRequestDTO = createWriter().writeValueAsString(propietyDTO);
 
         when(propertyMapper.mapToModel(propietyDTO)).thenReturn(propiety);
-        when(iPropietyRepository.create(propiety)).thenReturn(true);
+        when(iPropietyRepository.create(propiety)).thenReturn(Optional.of(propiety));
 
         MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.post("/propieties/new")
                 .contentType(MediaType.APPLICATION_JSON)
