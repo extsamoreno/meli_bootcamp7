@@ -1,0 +1,11 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U->>C: GET /clients/list
+    C->>S: Get clients 
+    S->>R: Get allClients
+    R-->>S: Clients
+    S-->>C: Clients
+    C-->>U: Clients

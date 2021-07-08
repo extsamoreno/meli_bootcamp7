@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U->>C: POST /clients/create -> payload {User}
+    C->>S: Create client 
+    S->>R: Search client by key
+    R-->>S: Client
+    alt clientIsPresent?:
+        S-->>C: Return UserAlredyCreateException
+        C-->>U: Return 400 BadRequest
+    else
+        S->>R: Create Client User
+        R-->>S: Return true
+        S-->>C: Return true
+        C-->>U: Return 200 Ok
+    end

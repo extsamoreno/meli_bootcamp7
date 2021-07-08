@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U->>C: DELETE client/delete/{username}
+    C->>S: Delete client 
+      S->>R: Search client by username
+    R-->>S: Client
+    alt clientIsNotPresent?:
+        S-->>C: Return UserDontExistException
+        C-->>U: Return 400 BadRequest
+    else
+        S->>R: Delete Client User
+        R-->>S: Return true
+        S-->>C: Return true
+        C-->>U: Return 200 Ok
+    end

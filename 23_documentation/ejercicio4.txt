@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U->>C: GET /clients/{username}
+    C->>S: Search client by username
+    S->>R: Search client by username
+    R-->>S: Client
+        alt clientIsNotPresent?:
+        S-->>C: Return UserDontExistException
+        C-->>U: Return 404 NotFound
+        else
+        R-->>S: Return user
+        end
+    S-->>C: Return user
+    C-->>U: Return user

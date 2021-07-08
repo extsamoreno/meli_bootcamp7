@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U->>C: PUT /clients/update -> payload {User}
+    C->>S: Update client 
+    S->>R: Search client by key
+    R-->>S: Client
+    alt clientIsNotPresent?:
+        S-->>C: Return UserDontExistException
+        C-->>U: Return 400 BadRequest
+    else
+        S->>R: Update Client User
+        R-->>S: Return true
+        S-->>C: Return true
+        C-->>U: Return 200 Ok
+    end
+  
