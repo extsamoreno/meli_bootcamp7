@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U ->> C: DELETE http://localhost:8080/clientes/eliminar?username=xxxx
+    C ->> S: deleteClientByUserName(username)
+    S ->> R: findByUserName(username)
+    R -->> S: Optional client
+    alt exists:
+        S ->> R: deleteClientByUserName(username)
+        R -->> S: true
+        S -->> C: true
+        C -->> U: Client Deleted, 200
+    else
+        S -->> C: false
+        C -->> U: Client Not Found, 404
+    end

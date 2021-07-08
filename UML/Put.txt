@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U ->> C: Put http://localhost:8080/clientes/actualizar
+    C ->> C: Valid Fields
+    C ->> S: updateClient(client)
+    S ->> R: findClient(client)
+    R ->> R: findClient
+    R -->> S: Optional Client
+    alt isPresent:
+        S ->> R: updateClient(client)
+        R -->> S: true
+        S -->> C: true
+        C -->> U: 200
+    else
+        S -->> C: false
+        C -->> U: Client Not Found, 404
+    end

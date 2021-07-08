@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U ->> C: POST http://localhost:8080/clientes/crear
+    C ->> C: Valid Fields
+    C ->> S: newClient(client)
+    S ->> R: findClient(client)
+    R ->> R: findClient
+    R -->> S: Optional Client
+    alt isNotPresent:
+        S ->> R: newClient(client)
+        R -->> S: true
+        S -->> C: true
+        C -->> U: 200
+    else
+        S -->> C: Client Already Exsits
+        C -->> U: Client Already Exists, 400
+    end

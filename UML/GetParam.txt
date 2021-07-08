@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U ->> C: GET http://localhost:8080/clientes/buscar?username=xxxx
+    C ->> S: getClientByUserName(username)
+    S ->> R: findClientByuserName(username)
+    R -->> S: Optional Client
+    alt isPresent:
+        S -->> C: client
+        C -->> U: client, 200
+    else:
+        S -->> C: Client Not Found
+        C -->> U: Client Not Found, 404
+    end

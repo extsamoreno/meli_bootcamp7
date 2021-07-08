@@ -1,0 +1,11 @@
+sequenceDiagram
+    participant U as User
+    participant C as ClientController
+    participant S as ClientService
+    participant R as ClientRepository
+    U ->> C: GET http://localhost:8080/clientes/listar
+    C ->> S: getAll()
+    S ->> R: getAll()
+    R -->> S: ClientList
+    S -->> C: ClientList
+    C -->> U: ClientList, 200
