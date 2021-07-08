@@ -8,6 +8,7 @@ public interface ITurnService {
     void createTurn(TurnDTO turnDTO) throws Exception;
     void updateTurn(Turn turn);
     void removeTurn(int id);
-    List<Turn> getTurn() ;
+    List<Turn> getTurn();
+    List<Turn> findTurnosLikeFinalizado();
     //void createReprogramedTurn(TurnDTO turnDTO) throws Exception;
 }

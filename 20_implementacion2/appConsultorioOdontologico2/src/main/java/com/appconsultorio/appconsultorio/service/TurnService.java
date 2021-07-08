@@ -68,7 +68,6 @@ public class TurnService implements ITurnService {
                 turnDTO.getIdDentist());
     }
 
-
     private void changeStatusOfTurn(Turn turn, String status){
         turn.setStatus(status);
         iTurnRepository.save(turn);
@@ -87,5 +86,9 @@ public class TurnService implements ITurnService {
     @Override
     public List<Turn> getTurn() {
         return iTurnRepository.findAll();
+    }
+
+    public List<Turn> findTurnosLikeFinalizado(){
+        return iTurnRepository.findTurnosLikeFinalizado();
     }
 }

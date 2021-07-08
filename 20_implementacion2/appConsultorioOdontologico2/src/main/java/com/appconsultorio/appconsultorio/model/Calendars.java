@@ -1,5 +1,6 @@
 package com.appconsultorio.appconsultorio.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,6 +63,7 @@ public class Calendars {
     //La columna id_dentist en la tabla Calendars tiene la FK
     @JoinColumn(name = "id_dentist")
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Dentist dentist;
 
     public Calendars(Dentist dentist) {

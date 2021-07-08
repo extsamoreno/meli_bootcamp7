@@ -4,6 +4,8 @@ import com.appconsultorio.appconsultorio.dtos.request.TurnDTO;
 import com.appconsultorio.appconsultorio.model.Turn;
 import com.appconsultorio.appconsultorio.service.ITurnService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,13 +16,15 @@ import java.util.List;
 public class TurnController {
 
     ITurnService iTurnService;
-/*
-    @PostMapping("/reprogram")
-    public String createReprogramedTurn(@RequestBody TurnDTO turnDTO) throws Exception {
-        iTurnService.createReprogramedTurn(turnDTO);
-        return "Turno reprogramado correctamente";
+
+    /**
+     * @return turnos finalizados
+     */
+    @GetMapping("/findfinalizedturns")
+    public ResponseEntity<List<Turn>> findTurnosLikeFinalizado(){
+        return new ResponseEntity<>(iTurnService.findTurnosLikeFinalizado(), HttpStatus.OK);
     }
-*/
+
     @PostMapping("/create")
     public String loadTurn(@RequestBody TurnDTO turnDTO) throws Exception {
         iTurnService.createTurn(turnDTO);
