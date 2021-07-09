@@ -8,4 +8,6 @@ public interface IAppointmentService {
 
     List<AppointmentDTO> listAllAppointmentsByStatus(String status);
 
+    List<AppointmentDTO> listAllAppointmentsByStatusAndDate( String status, String date);
+
 }

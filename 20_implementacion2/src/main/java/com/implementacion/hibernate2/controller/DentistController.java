@@ -18,6 +18,7 @@ public class DentistController {
         this.dentistService = dentistService;
     }
 
+    // Get Dentist By id
     @GetMapping("/{id}")
     public ResponseEntity<DentistDTO> listDentists(@PathVariable Long id){
         return new ResponseEntity<>(dentistService.getDentist(id), HttpStatus.OK);
@@ -26,7 +27,7 @@ public class DentistController {
 
     // EJERCICIO 2
     // Listar todos los dentistas que tengan más de dos turnos en una fecha.
-    // Listar todos los dentistas que tengan más o igual que N turnos en una fecha.
+    // Listar todos los dentistas que tengan mayor o igual que N turnos en una fecha.
     @GetMapping("/turns-by-date")
     public ResponseEntity<DentistAndTurnsListDTO> listDentistsWithNTurnsByDate(@RequestParam String date, @RequestParam(defaultValue = "0") int turns){
         return new ResponseEntity<>(dentistService.listDentistByDateAndTurns(date, turns), HttpStatus.OK);

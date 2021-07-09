@@ -77,8 +77,13 @@ WHERE a.date = '2021-06-02';
 SELECT d.name, COUNT(a.id) turnos FROM dentists d
 INNER JOIN schedules s ON d.schedule_id = s.id
 INNER JOIN appointments a ON s.id = a.schedule_id
-WHERE a.date = '2021-06-02'
+WHERE a.date = '2021-06-01'
 GROUP BY d.name
-HAVING turnos >= 2;
+HAVING turnos >= 1;
 
+
+-- Ejercicio 3
+-- Listar todos los turnos con estado finalizado
+SELECT * FROM appointments
+WHERE status = 'Finalizado';
 

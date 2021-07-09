@@ -1,14 +1,14 @@
 package com.implementacion.hibernate2.controller;
 
+import com.implementacion.hibernate2.controller.dto.dentists.DentistDTO;
+import com.implementacion.hibernate2.controller.dto.patients.PatientDTO;
 import com.implementacion.hibernate2.controller.dto.patients.PatientListDetailsDTO;
 import com.implementacion.hibernate2.controller.dto.patients.PatientsListDTO;
+import com.implementacion.hibernate2.controller.dto.patients.request.NewPatientDTO;
 import com.implementacion.hibernate2.model.service.patients.IPatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/patients")
@@ -33,6 +33,25 @@ public class PatientController {
     @GetMapping("/details/{date}")
     public ResponseEntity<PatientListDetailsDTO> listPatientsByDateDetails(@PathVariable String date){
         return new ResponseEntity<>(patientService.listAllPatientsDetailsByDate(date), HttpStatus.OK);
+    }
+
+    // Create Patient
+    @PostMapping("/new-patient")
+    @ResponseStatus(HttpStatus.OK)
+    public void addNewPatient(@RequestBody NewPatientDTO newPatientDTO) {
+        patientService.insertNewPatient(newPatientDTO);
+    }
+
+    // Get Patient By name
+    @GetMapping("/get-patient-by-name/{name}")
+    public ResponseEntity<PatientDTO> getPatientByName(@PathVariable String name){
+        return new ResponseEntity<>(patientService.getPatientByName( name ), HttpStatus.OK);
+    }
+
+    // Get All Patient
+    @GetMapping("/list")
+    public ResponseEntity<PatientsListDTO> getAllPatient(){
+        return new ResponseEntity<>(patientService.getAllPatient(), HttpStatus.OK);
     }
 
 }

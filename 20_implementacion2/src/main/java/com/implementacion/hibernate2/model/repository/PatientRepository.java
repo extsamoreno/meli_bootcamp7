@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
@@ -21,4 +22,11 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
             "JOIN Dentist d ON s.id = d.schedule.id "+
             "WHERE (DATE(a.date) = DATE(:date))")
     List<Object[]> findAllDetailsByDate(@Param("date") Date date);
+
+    Patient save(Patient newPatient);
+
+    Optional<Patient> getByName(String name);
+
+    List<Patient> findAll();
+
 }
