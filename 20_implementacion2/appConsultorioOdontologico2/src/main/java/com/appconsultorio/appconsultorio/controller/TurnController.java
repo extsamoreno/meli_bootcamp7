@@ -1,6 +1,7 @@
 package com.appconsultorio.appconsultorio.controller;
 
 import com.appconsultorio.appconsultorio.dtos.request.TurnDTO;
+import com.appconsultorio.appconsultorio.model.Dentist;
 import com.appconsultorio.appconsultorio.model.Turn;
 import com.appconsultorio.appconsultorio.service.ITurnService;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,15 @@ import java.util.List;
 public class TurnController {
 
     ITurnService iTurnService;
+
+
+    /**
+     * @return turnos reprogramados
+     */
+    @GetMapping("/findreprogramedturns")
+    public ResponseEntity<List<Turn>> findTurnosLikeReprogramed(){
+        return new ResponseEntity<>(iTurnService.findTurnosLikeReprogramed(), HttpStatus.OK);
+    }
 
     /**
      * @return turnos finalizados

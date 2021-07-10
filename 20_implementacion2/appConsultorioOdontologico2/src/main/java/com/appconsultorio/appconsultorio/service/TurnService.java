@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -36,6 +37,7 @@ public class TurnService implements ITurnService {
         turn.setStatus(turnDTO.getStatus());
         if(turnDTO.getIdToReprogTurn() != null) turn.setIdToReprogTurn(turnDTO.getIdToReprogTurn());
         if(!saveTurnTime(turnDTO.getStartTime())) throw new RuntimeException("Turno no disponible");
+
         turn.setStartTime(turnDTO.getStartTime());
         turn.setStartTime(turnDTO.getStartTime());
         turn.setPatient(patient);
@@ -43,13 +45,15 @@ public class TurnService implements ITurnService {
         turnDTO.getIdDentist().forEach(a ->
                 dentists.add(iDentistRepository.findById(a).get()));
 
+        dentists.forEach(b -> b.getCalendars().createTurn(turn.getStartTime()));
+
         turn.setDentistset(dentists);
         iTurnRepository.save(turn);
     }
 
-    private boolean saveTurnTime(Date startDate){
+    private boolean saveTurnTime(LocalDateTime startDate){
         boolean res = false;
-        long minutes = startDate.getMinutes();
+        long minutes = startDate.getMinute();
         if(minutes == 30 || minutes == 0) res = true;
         return res;
     }
@@ -91,4 +95,6 @@ public class TurnService implements ITurnService {
     public List<Turn> findTurnosLikeFinalizado(){
         return iTurnRepository.findTurnosLikeFinalizado();
     }
+
+    public List<Turn> findTurnosLikeReprogramed(){return iTurnRepository.findTurnosLikeReprogramed();}
 }

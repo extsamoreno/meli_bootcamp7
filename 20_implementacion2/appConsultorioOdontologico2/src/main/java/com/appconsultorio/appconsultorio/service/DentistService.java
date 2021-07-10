@@ -2,13 +2,13 @@ package com.appconsultorio.appconsultorio.service;
 import com.appconsultorio.appconsultorio.dtos.request.DentistDTO;
 import com.appconsultorio.appconsultorio.model.Calendars;
 import com.appconsultorio.appconsultorio.model.Dentist;
-import com.appconsultorio.appconsultorio.model.Patient;
 import com.appconsultorio.appconsultorio.repository.ICalendarRepository;
 import com.appconsultorio.appconsultorio.repository.IDentistRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,6 +18,11 @@ public class DentistService implements IDentistService {
     ModelMapper mapper;
     IDentistRepository iDentistRepository;
     ICalendarRepository iCalendarRepository;
+
+    @Override
+    public List<Dentist> findDentistWithMoreOf2Turns(LocalDateTime date){
+        return iDentistRepository.findDentistWithMoreOf2Turns(date);
+    }
 
     @Override
     public void createDentist(DentistDTO dentistDTO) {

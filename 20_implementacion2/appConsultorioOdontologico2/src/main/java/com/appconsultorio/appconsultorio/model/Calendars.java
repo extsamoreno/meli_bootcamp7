@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -70,4 +71,23 @@ public class Calendars {
         this.dentist = dentist;
     }
 
+    public boolean createTurn(LocalDateTime date){
+       if(date.getHour() == 8 && date.getMinute() == 00) {this.setTurn1(true); return true;}
+       if(date.getHour() == 8 && date.getMinute() == 30) {this.setTurn2(true); return true;}
+       if(date.getHour() == 9 && date.getMinute() == 00) {this.setTurn3(true); return true;}
+       if(date.getHour() == 9 && date.getMinute() == 30) {this.setTurn4(true); return true;}
+       if(date.getHour() == 10 && date.getMinute() == 00) {this.setTurn5(true); return true;}
+       if(date.getHour() == 10 && date.getMinute() == 30) {this.setTurn6(true); return true;}
+       if(date.getHour() == 11 && date.getMinute() == 00) {this.setTurn7(true); return true;}
+       if(date.getHour() == 11 && date.getMinute() == 30) {this.setTurn8(true); return true;}
+       if(date.getHour() == 12 && date.getMinute() == 00) {this.setTurn9(true); return true;}
+       if(date.getHour() == 12 && date.getMinute() == 30) {this.setTurn10(true); return true;}
+       if(date.getHour() == 13 && date.getMinute() == 00) {this.setTurn11(true); return true;}
+       if(date.getHour() == 13 && date.getMinute() == 30) {this.setTurn12(true); return true;}
+       if(date.getHour() == 14 && date.getMinute() == 00) {this.setTurn13(true); return true;}
+       if(date.getHour() == 14 && date.getMinute() == 30) {this.setTurn14(true); return true;}
+       if(date.getHour() == 15 && date.getMinute() == 00) {this.setTurn15(true); return true;}
+       if(date.getHour() == 15 && date.getMinute() == 30) {this.setTurn16(true); return true;}
+       return false;
+    }
 }

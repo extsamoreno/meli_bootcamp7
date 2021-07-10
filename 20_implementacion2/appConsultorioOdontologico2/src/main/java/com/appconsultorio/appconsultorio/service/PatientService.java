@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,6 +16,10 @@ public class PatientService implements IPatientService {
     ModelMapper mapper;
     IPatientRepository iPatientRepository;
 
+    @Override
+    public List<Patient> getPatientByDateForDentists(LocalDateTime date){
+        return iPatientRepository.getPatientByDateForDentists(date);
+    }
 
     @Override
     public void createPatient(PatientDTO patientDTO) {

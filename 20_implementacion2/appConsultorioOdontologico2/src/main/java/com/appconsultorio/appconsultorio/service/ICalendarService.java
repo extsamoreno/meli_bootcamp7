@@ -12,4 +12,5 @@ public interface ICalendarService {
      void updateCalendar(CalendarsDTO calendarsDTO);
      void removeCalendar(int id);
      List<Calendars> getCalendar() ;
+     Calendars getCalendarFromDentist(Integer dentist_id);
 }

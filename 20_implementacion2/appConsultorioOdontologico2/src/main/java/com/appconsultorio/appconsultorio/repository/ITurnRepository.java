@@ -16,4 +16,6 @@ public interface ITurnRepository extends JpaRepository<Turn,Integer> {
     @Query("SELECT t FROM Turn t where t.status LIKE '%Finalizado%' ")
     List<Turn> findTurnosLikeFinalizado();
 
+    @Query("SELECT t FROM Turn t where t.status LIKE '%Reprogramado%' ")
+    List<Turn> findTurnosLikeReprogramed();
 }

@@ -6,8 +6,12 @@ import com.appconsultorio.appconsultorio.model.Dentist;
 import com.appconsultorio.appconsultorio.service.ICalendarService;
 import com.appconsultorio.appconsultorio.service.IDentistService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -39,5 +43,10 @@ public class CalendarController {
     @GetMapping("/getall")
     public List<Calendars> getCalendar(){
         return iCalendarService.getCalendar();
+    }
+
+    @GetMapping("/getcalendarfromdentist")
+    public ResponseEntity<Calendars> getCalendarFromDentist(@RequestParam Integer dentist_id){
+        return new ResponseEntity<>(iCalendarService.getCalendarFromDentist(dentist_id), HttpStatus.OK);
     }
 }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.util.List;
 
 @Service
@@ -36,5 +37,10 @@ public class CalendarService implements ICalendarService {
     @Override
     public List<Calendars> getCalendar() {
         return iCalendarRepository.findAll();
+    }
+
+    @Override
+    public Calendars getCalendarFromDentist(Integer dentist_id){
+        return iCalendarRepository.getCalendarFromDentist(dentist_id);
     }
 }

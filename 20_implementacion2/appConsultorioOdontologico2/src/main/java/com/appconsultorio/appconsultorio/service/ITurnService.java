@@ -10,5 +10,6 @@ public interface ITurnService {
     void removeTurn(int id);
     List<Turn> getTurn();
     List<Turn> findTurnosLikeFinalizado();
+    List<Turn> findTurnosLikeReprogramed();
     //void createReprogramedTurn(TurnDTO turnDTO) throws Exception;
 }
