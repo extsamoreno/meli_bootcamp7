@@ -1,0 +1,736 @@
+{
+	"info": {
+		"_postman_id": "0c0067fc-5f13-49b2-a92a-5c24920d8154",
+		"name": "consultorio_odontologico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Dentist",
+			"item": [
+				{
+					"name": "createDentist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id\":           1,\n    \"name\" :        \"Agustin\",\n    \"surname\":      \"De Carlo\",\n    \"id_calendar\" : 1\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentist/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentist",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllDentist",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id\": 334,\n    \"name\" : \"AgustinL\",\n    \"surname\": \"De Carlo\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentist/getall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentist",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDentistWith2Turns",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"date\": \"2020-06-06T12:00:00\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentist/finddentistwithmoreof2turns?date=2020-06-06 12:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentist",
+								"finddentistwithmoreof2turns"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2020-06-06 12:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editDentist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id\": 334,\n    \"name\" : \"AgustinL\",\n    \"surname\": \"De Carlo\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentist/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentist",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeDentist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id\": 334,\n    \"name\" : \"AgustinL\",\n    \"surname\": \"De Carlo\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/dentist/remove?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"dentist",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "createPatient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id\": 334,\n    \"address\" : \"AvSiempreviva\",\n    \"name\": \"Lola\",\n    \"phone\": 1122556677,\n    \"surname\": \"Loles\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/patient/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patient",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPatient",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/patient/getall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patient",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findpatientbydatefordentists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/patient/findpatientbydatefordentists?date=2020-06-06 12:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patient",
+								"findpatientbydatefordentists"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2020-06-06 12:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editPatient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id\": 334,\n    \"address\" : \"AvSiempreviva\",\n    \"name\": \"Lola\",\n    \"phone\": 1122556677,\n    \"surname\": \"Loles\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/patient/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patient",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removepatient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/patient/remove?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"patient",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Turn",
+			"item": [
+				{
+					"name": "createTurn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id_turn\": 1,\n    \"description\" : \"sacar muela\",\n    \"status\": \"Pendiente\",\n    \"start_time\": \"2020-06-06T12:00:00\",\n    \"id_patient\": 1,\n    \"id_dentist\" : [1]  \n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createReprogramedTurn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id_turn\": 1,\n    \"description\" : \"sacar muela\",\n    \"status\": \"Reprogramado\",\n    \"id_to_reprog_turn\" : 1,\n    \"start_time\": \"2020-06-06T12:10:00\",\n    \"id_patient\": 1,\n    \"id_dentist\" : [1]  \n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTurn",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/getall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editTurn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id\": 334,\n    \"description\" : \"sacar muela\",\n    \"is_active\": true,\n    \"start_time\": \"\",\n    \"id_patient\": \"\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeTurn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/remove?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findfinalizedturns",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/findfinalizedturns",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"findfinalizedturns"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findreprogramedturns",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/findreprogramedturns",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"findreprogramedturns"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Calendar",
+			"item": [
+				{
+					"name": "createCalendar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"day\" : \"2020-06-06\",\n    \"turn1\" : true,\n    \"turn2\" : false,\n    \"turn3\" : false,\n    \"turn4\" : false,\n    \"turn5\" : false,\n    \"turn6\" : false,\n    \"turn7\" : false,\n    \"turn8\" : false,\n    \"turn9\" : false,\n    \"turn10\" : false,\n    \"turn11\" : false,\n    \"turn12\" : false,\n    \"turn13\" : false,\n    \"turn14\" : false,\n    \"turn15\" : false,\n    \"turn16\" : false\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/calendar/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calendar",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllTurn",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/getall",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"getall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCalendarFromDentist",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/calendar/getcalendarfromdentist?dentist_id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"calendar",
+								"getcalendarfromdentist"
+							],
+							"query": [
+								{
+									"key": "dentist_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editTurn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {  \n    \"id\": 334,\n    \"description\" : \"sacar muela\",\n    \"is_active\": true,\n    \"start_time\": \"\",\n    \"id_patient\": \"\"\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeTurn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/turn/remove?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turn",
+								"remove"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
