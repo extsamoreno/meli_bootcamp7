@@ -2,14 +2,13 @@ package com.implementacion.hibernate2.controller;
 
 import com.implementacion.hibernate2.controller.dto.appointments.AppointmentDTO;
 import com.implementacion.hibernate2.controller.dto.dentists.DentistAndTurnsListDTO;
+import com.implementacion.hibernate2.controller.dto.patients.request.NewAppointmentDTO;
+import com.implementacion.hibernate2.controller.dto.patients.request.NewPatientDTO;
 import com.implementacion.hibernate2.model.service.appointments.IAppointmentService;
 import com.implementacion.hibernate2.model.service.dentists.IDentistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +34,13 @@ public class AppointmentController {
     @GetMapping("/list-By-Status-And-Date")
     public ResponseEntity<List<AppointmentDTO>> listAppointmentsByStatusAndDate(@RequestParam(defaultValue = "Finalizado") String status, @RequestParam(defaultValue = "2021-06-01") String date){
         return new ResponseEntity<>(appointmentService.listAllAppointmentsByStatusAndDate(status, date), HttpStatus.OK);
+    }
+
+    // Create Appointment
+    @PostMapping("/create-turn")
+    @ResponseStatus(HttpStatus.OK)
+    public void addNewAppointment(@RequestBody NewAppointmentDTO newAppointmentDTO) {
+        appointmentService.insertNewAppointment(newAppointmentDTO);
     }
 
 }

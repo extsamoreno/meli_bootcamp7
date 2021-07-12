@@ -87,3 +87,10 @@ HAVING turnos >= 1;
 SELECT * FROM appointments
 WHERE status = 'Finalizado';
 
+
+-- Ejercicio 4
+-- Listar todos los turnos con estado pendiente de un día.
+SELECT * FROM appointments
+WHERE status = 'Pendiente' AND date = '2021-06-04';
+
+

@@ -17,8 +17,10 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findAllByStatus(@Param("status") String status);
 
     //@Query(value = "SELECT * FROM appointments a WHERE a.status = 'Finalizado' AND a.date = '2021-06-02'", nativeQuery = true)
-    @Query(value = "SELECT * FROM appointments a WHERE a.status = :status2 AND a.date = :date2", nativeQuery = true)
-    List<Appointment> findAllByStatusAndDate(@Param("status2") String status, @Param("date2") Date date);
+    @Query(value = "SELECT * FROM appointments a WHERE a.status = :status AND a.date = '2021-06-02' AND a.date!=:date", nativeQuery = true)
+    List<Appointment> findAllByStatusAndDate(@Param("status") String status, @Param("date") Date date);
 
     //List<Appointment> findAllByStatusAndDate(String status, Date date);
+
+    Appointment save(Appointment appointment);
 }

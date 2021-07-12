@@ -35,12 +35,19 @@ public class DentistServiceImpl implements IDentistService{
     }
 
     @Override
+    /*
     public DentistAndTurnsListDTO listDentistByDateAndTurns(String date, int turns) {
         Date actualDate = Utils.convertDate(date);
         List<Object[]> outputQuery = dentistRepository.findAllByDateAndTurns(actualDate, (long) turns);
-        List<DentistAndTurnsDTO> dentistAndTurnsDTOList = outputQuery.stream()
+        List<DentistAndTurnsDTO> dentistAndTurnsDTOList = outputQuery.stream() //.filter(obj->obj.g)
                 .map((obj) -> new DentistAndTurnsDTO((String) obj[0], (long) obj[1]))
                 .collect(Collectors.toList());
         return new DentistAndTurnsListDTO(dentistAndTurnsDTOList);
+    }
+     */
+    public DentistAndTurnsListDTO listDentistByDateAndTurns(String date, int turns) {
+        Date actualDate = Utils.convertDate(date);
+        List<DentistAndTurnsDTO> outputQuery = dentistRepository.findAllByDateAndTurns(actualDate, (long) turns);
+        return new DentistAndTurnsListDTO(outputQuery);
     }
 }
