@@ -1,12 +1,10 @@
 package com.meli.AppConsultorioMySQL.controllers;
 
-import com.meli.AppConsultorioMySQL.models.Apoointment;
 import com.meli.AppConsultorioMySQL.models.DTO.AppointmentDTO;
 import com.meli.AppConsultorioMySQL.models.DTO.DentistDTO;
 import com.meli.AppConsultorioMySQL.models.DTO.PatientDTO;
-import com.meli.AppConsultorioMySQL.models.DTO.ScheduleDTO;
+import com.meli.AppConsultorioMySQL.models.DTO.Schedule.ScheduleDTO;
 import com.meli.AppConsultorioMySQL.models.Patient;
-import com.meli.AppConsultorioMySQL.models.Schedule;
 import com.meli.AppConsultorioMySQL.service.IAppointmentService;
 import com.meli.AppConsultorioMySQL.service.IDentistService;
 import com.meli.AppConsultorioMySQL.service.IPtientService;
@@ -15,7 +13,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 @RestController

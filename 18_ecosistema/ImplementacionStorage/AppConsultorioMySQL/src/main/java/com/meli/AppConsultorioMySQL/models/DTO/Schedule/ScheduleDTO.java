@@ -1,6 +1,7 @@
-package com.meli.AppConsultorioMySQL.models.DTO;
+package com.meli.AppConsultorioMySQL.models.DTO.Schedule;
 
 import com.meli.AppConsultorioMySQL.models.Apoointment;
+import com.meli.AppConsultorioMySQL.models.DTO.AppointmentDTO;
 import lombok.Getter;
 import lombok.Setter;
 

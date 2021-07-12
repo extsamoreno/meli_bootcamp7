@@ -5,19 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2106ea67-2ea1-4bc2-8224-b598e3c66a90" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/DentistController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ScheduleController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/DentistFullDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/Schedule/ScheduleRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/Schedule/ScheduleResponseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/controllers/ConsultorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Apoointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Apoointment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/ScheduleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/models/DTO/Schedule/ScheduleDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/AppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/AppointmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IAppointmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IAppointmentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/controllers/ConsultorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/controllers/ConsultorController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Apoointment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Apoointment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/models/Schedule.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/repositories/IApoointmentRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/service/AppointmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/service/AppointmentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/service/IAppointmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/meli/AppConsultorioMySQL/service/IAppointmentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IDentistRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/repositories/IScheduleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/DentistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/DentistService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IDentistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IDentistService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IScheduleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/IScheduleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/ScheduleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/ScheduleService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,17 +72,6 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunManager" selected="Spring Boot.AppConsultorioMySqlApplication">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="All in AppConsultorioMySQL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="AppConsultorioMySQL" />
       <option name="PACKAGE_NAME" value="" />
@@ -110,7 +101,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624993340150</updated>
-      <workItem from="1624993341291" duration="21994000" />
+      <workItem from="1624993341291" duration="33940000" />
+      <workItem from="1625583891911" duration="534000" />
+      <workItem from="1625593502741" duration="767000" />
     </task>
     <servers />
   </component>
@@ -125,6 +118,11 @@
           <line>16</line>
           <properties class="com.meli.AppConsultorioMySQL.repositories.IDentistRepository" method="getDentistTwoApoointment" />
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/meli/AppConsultorioMySQL/service/AppointmentService.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -28,5 +29,8 @@ public interface IApoointmentRepository extends JpaRepository<Apoointment, Long>
     @Query("FROM Apoointment a where" +
             " a.status = 3")
     List<Apoointment> getAppointmentsReprogrammedAllDentist();
+
+    @Query(value= "select a from Apoointment a where a.schedule.id=:id")
+    Collection<Apoointment> getAppointmentBySchedule(Long id);
 
 }

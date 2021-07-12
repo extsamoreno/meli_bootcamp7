@@ -16,4 +16,5 @@ public interface IDentistRepository extends JpaRepository<Dentist, Long> {
             " YEAR(a.date)=YEAR(:date) and MONTH(a.date)=MONTH(:date) and DAY(a.date)=DAY(:date) GROUP BY d HAVING COUNT(d.id)>2 ")
     List<Dentist> getDentistTwoApoointment(Date date);
 
+
 }
