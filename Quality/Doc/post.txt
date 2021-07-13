@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant U as User
+    participant C as Controller
+    participant S as Services
+    participant R as Repository
+    
+    U->>+C: POST /cliente/crear
+    C->>+S: addClient
+    S->>+R: existClient by userName
+    R -->> +S: clientInfo
+    alt isPresent
+        S->>+C: 403 AlreadyExist
+        C->>+U: 403 AlreadyExist
+    else
+        S->>+R: addClient
+        R->>+S: 201 Created
+        S->>+C: 201 Created
+        C->>+U: 201 Created
+    end

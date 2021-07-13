@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant U as User
+    participant C as Controller
+    participant S as Services
+    participant R as Repository
+    U->>C: PUT /cliente/actualizar
+    C->>S: Update client by userName
+    S->>R: Get client by userName
+    R-->>S: Client info
+    alt Client is present?
+        S->>R: Update client by userName
+        R-->>S: True
+        S-->>C: True
+        C-->>U: 200 OK
+    else
+        S-->>C: False
+        C-->>U: 404 Not Found
+    end
