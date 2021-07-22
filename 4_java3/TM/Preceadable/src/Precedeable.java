@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public interface Precedeable {
+public interface Precedeable<T> {
+    public int precedes (T t);
 }
